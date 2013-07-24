@@ -33,6 +33,13 @@
 
 #include "maincpu.h"
 
+
+/* loic: Like I know what I'm doing.. stubs */
+extern void maincpu_mainloop(void)
+{
+}
+
+
 @interface C64GameCore () <OEComputerSystemResponderClient>
 
 @end

@@ -1466,6 +1466,8 @@
 		8CBCB8E817A004D300F03775 /* vsyncarch.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CBCB3F2179FF0DC00F03775 /* vsyncarch.c */; };
 		8CBCB8EF17A00C1E00F03775 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CBCB8EE17A00C1B00F03775 /* AudioToolbox.framework */; };
 		8CBCB8F117A00C6100F03775 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CBCB8F017A00C5500F03775 /* AudioUnit.framework */; };
+		EBE428FA17A03905007818A4 /* stubs.c in Sources */ = {isa = PBXBuildFile; fileRef = EBE428F917A03905007818A4 /* stubs.c */; };
+		EBE428FD17A0561A007818A4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE428FC17A05619007818A4 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3838,6 +3840,8 @@
 		8CBCB8DC17A0046D00F03775 /* libarchmacosx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libarchmacosx.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CBCB8EE17A00C1B00F03775 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		8CBCB8F017A00C5500F03775 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
+		EBE428F917A03905007818A4 /* stubs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stubs.c; sourceTree = "<group>"; };
+		EBE428FC17A05619007818A4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -4244,6 +4248,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBE428FD17A0561A007818A4 /* libz.dylib in Frameworks */,
 				8CBCB8F117A00C6100F03775 /* AudioUnit.framework in Frameworks */,
 				8CBCB8D717A0043C00F03775 /* libplatform.a in Frameworks */,
 				8CBCB7F5179FF21C00F03775 /* libarch.a in Frameworks */,
@@ -4326,6 +4331,7 @@
 		8CB9D296179D26DE0067BB9B = {
 			isa = PBXGroup;
 			children = (
+				EBE428FC17A05619007818A4 /* libz.dylib */,
 				8CBCB8F017A00C5500F03775 /* AudioUnit.framework */,
 				8CBCB8EE17A00C1B00F03775 /* AudioToolbox.framework */,
 				8CB9D2A8179D26DE0067BB9B /* Classes */,
@@ -4426,6 +4432,7 @@
 		8CB9D2A8179D26DE0067BB9B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				EBE428F917A03905007818A4 /* stubs.c */,
 				8CB9D2C4179D29EB0067BB9B /* src */,
 				8CB9D2BF179D28FA0067BB9B /* OEComputerSystemResponderClient.h */,
 				8CB9D2B5179D27740067BB9B /* C64GameCore.h */,
@@ -9892,6 +9899,7 @@
 				8CBCB8C6179FF8F600F03775 /* zfile.c in Sources */,
 				8CBCB8C7179FF8F800F03775 /* zipcode.c in Sources */,
 				8CBCB8C8179FF90300F03775 /* midi.c in Sources */,
+				EBE428FA17A03905007818A4 /* stubs.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -11425,6 +11433,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VICE-Prefix.pch";
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "VICE-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -11442,6 +11451,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VICE-Prefix.pch";
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "VICE-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -12056,6 +12066,7 @@
 				8CBCB8CC179FF92F00F03775 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8CBCB8DD17A0046D00F03775 /* Build configuration list for PBXNativeTarget "archmacosx" */ = {
 			isa = XCConfigurationList;
@@ -12064,6 +12075,7 @@
 				8CBCB8DF17A0046D00F03775 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
