@@ -1,0 +1,5 @@
+source type(c)
+    "vicii-color.c",
+    "vicii-draw.c",
+    "vicii-snapshot.c",
+    "vicii-stubs.c"

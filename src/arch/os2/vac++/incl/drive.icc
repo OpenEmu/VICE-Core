@@ -1,0 +1,15 @@
+source type(c)
+    "drive-check.c",
+    "drive-cmdline-options.c",
+    "drive-overflow.c",
+    "drive-resources.c",
+    "drive-snapshot.c",
+    "drive-sound.c",
+    "drive-writeprotect.c",
+    "drive.c",
+    "drivecpu.c",
+    "driveimage.c",
+    "drivemem.c",
+    "driverom.c",
+    "drivesync.c",
+    "rotation.c"
