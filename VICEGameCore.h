@@ -25,107 +25,12 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "C64GameCore.h"
-#import "OEComputerSystemResponderClient.h"
+#import <Cocoa/Cocoa.h>
+#import <OpenEmuBase/OEGameCore.h>
 
-#import <OpenEmuBase/OERingBuffer.h>
-#import <OpenGL/gl.h>
+@class OERingBuffer;
 
-#include "maincpu.h"
-
-
-/* loic: Like I know what I'm doing.. stubs */
-extern void maincpu_mainloop(void)
-{
-}
-
-
-@interface C64GameCore () <OEComputerSystemResponderClient>
-
-@end
-
-@implementation C64GameCore
-
-#pragma mark Execution
-
-- (BOOL)loadFileAtPath:(NSString *)path
-{
-
-    maincpu_mainloop();
-    return NO;
-}
-
-- (void)executeFrame
-{
-    [self executeFrameSkippingFrame:NO];
-}
-
-- (void)executeFrameSkippingFrame:(BOOL)skip
-{
-
-}
-
-- (void)resetEmulation
-{
-
-}
-
-#pragma mark Video
-
-- (OEIntSize)bufferSize
-{
-    return OEIntSizeMake(320, 200);
-}
-
-- (const void *)videoBuffer
-{
-    return NULL;
-}
-
-- (GLenum)pixelFormat
-{
-    return GL_BGRA;
-}
-
-- (GLenum)pixelType
-{
-    return GL_UNSIGNED_INT_8_8_8_8_REV;
-}
-
-- (GLenum)internalPixelFormat
-{
-    return GL_RGB8;
-}
-
-- (NSTimeInterval)frameInterval
-{
-    return 60;
-}
-
-#pragma mark Audio
-
-- (NSUInteger)channelCount
-{
-    return 1;
-}
-
-- (double)audioSampleRate
-{
-    return 48000;
-}
-
-#pragma mark Input
-
-- (void)leftMouseUp
-{}
-
-- (void)leftMouseDown
-{}
-
-- (void)rightMouseUp
-{}
-
-- (void)rightMouseDown
-{}
+OE_EXPORTED_CLASS
+@interface VICEGameCore : OEGameCore
 
 @end

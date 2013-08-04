@@ -1274,7 +1274,7 @@
 		8C9D8700179F1EE600DA2614 /* plus4exp-resources.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CB9E459179D29FB0067BB9B /* plus4exp-resources.h */; };
 		8CB9D2A3179D26DE0067BB9B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB9D2A2179D26DE0067BB9B /* Cocoa.framework */; };
 		8CB9D2AD179D26DE0067BB9B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8CB9D2AB179D26DE0067BB9B /* InfoPlist.strings */; };
-		8CB9D2B7179D27740067BB9B /* C64GameCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8CB9D2B6179D27740067BB9B /* C64GameCore.mm */; };
+		8CB9D2B7179D27740067BB9B /* VICEGameCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB9D2B6179D27740067BB9B /* VICEGameCore.m */; };
 		8CB9D2C1179D29570067BB9B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB9D2C0179D29570067BB9B /* OpenGL.framework */; };
 		8CB9D2C3179D29680067BB9B /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CB9D2C2179D29680067BB9B /* OpenEmuBase.framework */; };
 		8CBCA8D5179FD3C100F03775 /* libc64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C793AF3179F288600E4E906 /* libc64.a */; };
@@ -1745,6 +1745,7 @@
 		94D06A2917ADE0F9002C0CB8 /* win_sym_US.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0690917ADC7D1002C0CB8 /* win_sym_US.vkm */; };
 		94D06A2A17ADE0F9002C0CB8 /* x11_pos.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0690A17ADC7D1002C0CB8 /* x11_pos.vkm */; };
 		94D06A2B17ADE0F9002C0CB8 /* x11_sym.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0690B17ADC7D1002C0CB8 /* x11_sym.vkm */; };
+		94D06A3017AE2AB3002C0CB8 /* stub.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94D06A2F17AE2AB1002C0CB8 /* stub.cpp */; };
 		EBE428FA17A03905007818A4 /* stubs.c in Sources */ = {isa = PBXBuildFile; fileRef = EBE428F917A03905007818A4 /* stubs.c */; };
 		EBE428FD17A0561A007818A4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE428FC17A05619007818A4 /* libz.dylib */; };
 /* End PBXBuildFile section */
@@ -2883,8 +2884,8 @@
 		8CB9D2AA179D26DE0067BB9B /* VICE-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VICE-Info.plist"; sourceTree = "<group>"; };
 		8CB9D2AC179D26DE0067BB9B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8CB9D2AE179D26DE0067BB9B /* VICE-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VICE-Prefix.pch"; sourceTree = "<group>"; };
-		8CB9D2B5179D27740067BB9B /* C64GameCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = C64GameCore.h; sourceTree = "<group>"; };
-		8CB9D2B6179D27740067BB9B /* C64GameCore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = C64GameCore.mm; sourceTree = "<group>"; };
+		8CB9D2B5179D27740067BB9B /* VICEGameCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VICEGameCore.h; sourceTree = "<group>"; };
+		8CB9D2B6179D27740067BB9B /* VICEGameCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VICEGameCore.m; sourceTree = "<group>"; };
 		8CB9D2BF179D28FA0067BB9B /* OEComputerSystemResponderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OEComputerSystemResponderClient.h; path = ../OpenEmu/Computer/OEComputerSystemResponderClient.h; sourceTree = "<group>"; };
 		8CB9D2C0179D29570067BB9B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		8CB9D2C2179D29680067BB9B /* OpenEmuBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenEmuBase.framework; path = ../Build/Products/Debug/OpenEmuBase.framework; sourceTree = "<group>"; };
@@ -4795,6 +4796,7 @@
 		94D0690917ADC7D1002C0CB8 /* win_sym_US.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_sym_US.vkm; sourceTree = "<group>"; };
 		94D0690A17ADC7D1002C0CB8 /* x11_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_pos.vkm; sourceTree = "<group>"; };
 		94D0690B17ADC7D1002C0CB8 /* x11_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_sym.vkm; sourceTree = "<group>"; };
+		94D06A2F17AE2AB1002C0CB8 /* stub.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stub.cpp; sourceTree = "<group>"; };
 		EBE428F917A03905007818A4 /* stubs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stubs.c; sourceTree = "<group>"; };
 		EBE428FC17A05619007818A4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -5387,12 +5389,13 @@
 		8CB9D2A8179D26DE0067BB9B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				94D06A2F17AE2AB1002C0CB8 /* stub.cpp */,
 				EBE428F917A03905007818A4 /* stubs.c */,
 				94D067D117ADC7CF002C0CB8 /* data */,
 				8CB9D2C4179D29EB0067BB9B /* src */,
 				8CB9D2BF179D28FA0067BB9B /* OEComputerSystemResponderClient.h */,
-				8CB9D2B5179D27740067BB9B /* C64GameCore.h */,
-				8CB9D2B6179D27740067BB9B /* C64GameCore.mm */,
+				8CB9D2B5179D27740067BB9B /* VICEGameCore.h */,
+				8CB9D2B6179D27740067BB9B /* VICEGameCore.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -11200,7 +11203,7 @@
 				8CBCB895179FF7D300F03775 /* attach.c in Sources */,
 				8CBCB7FA179FF3EF00F03775 /* autostart-prg.c in Sources */,
 				8CBCB7F9179FF3D800F03775 /* autostart.c in Sources */,
-				8CB9D2B7179D27740067BB9B /* C64GameCore.mm in Sources */,
+				8CB9D2B7179D27740067BB9B /* VICEGameCore.m in Sources */,
 				8CBCA9AC179FE0C000F03775 /* maincpu.c in Sources */,
 				8CBCA9BD179FF03000F03775 /* mouse.c in Sources */,
 				8CBCA9BE179FF04800F03775 /* alarm.c in Sources */,
@@ -11256,6 +11259,7 @@
 				8CBCB8C7179FF8F800F03775 /* zipcode.c in Sources */,
 				8CBCB8C8179FF90300F03775 /* midi.c in Sources */,
 				EBE428FA17A03905007818A4 /* stubs.c in Sources */,
+				94D06A3017AE2AB3002C0CB8 /* stub.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

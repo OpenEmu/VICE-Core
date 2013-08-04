@@ -21,10 +21,22 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2.4</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2013 OpenEmu. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
-	<string></string>
+	<string>OEGameCoreController</string>
+	<key>OEGameCoreClass</key>
+	<string>VICEGameCore</string>
+	<key>OEProjectURL</key>
+	<string>http://sourceforge.net/projects/vice-emu/</string>
+	<key>OESystemIdentifiers</key>
+	<array>
+		<string>openemu.system.computer</string>
+	</array>
+	<key>SUEnableAutomaticChecks</key>
+	<string>1</string>
+	<key>SUFeedURL</key>
+	<string>http://openemu.org/updater/vice_appcast.xml</string>
 </dict>
 </plist>

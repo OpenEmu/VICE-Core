@@ -1,0 +1,1 @@
+// this fixes the name mangling linker errors caused by sid and resid libs
