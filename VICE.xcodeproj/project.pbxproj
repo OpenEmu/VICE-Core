@@ -1466,6 +1466,285 @@
 		8CBCB8E817A004D300F03775 /* vsyncarch.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CBCB3F2179FF0DC00F03775 /* vsyncarch.c */; };
 		8CBCB8EF17A00C1E00F03775 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CBCB8EE17A00C1B00F03775 /* AudioToolbox.framework */; };
 		8CBCB8F117A00C6100F03775 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CBCB8F017A00C5500F03775 /* AudioUnit.framework */; };
+		94D0690D17ADDD62002C0CB8 /* amiga_pos.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0680017ADC7CF002C0CB8 /* amiga_pos.vkm */; };
+		94D0690E17ADDD62002C0CB8 /* amiga_sym.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0680117ADC7CF002C0CB8 /* amiga_sym.vkm */; };
+		94D0690F17ADDD62002C0CB8 /* basic in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0680217ADC7CF002C0CB8 /* basic */; };
+		94D0691017ADDD62002C0CB8 /* beos_pos.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0680317ADC7CF002C0CB8 /* beos_pos.vkm */; };
+		94D0691117ADDD62002C0CB8 /* beos_sym.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0680417ADC7CF002C0CB8 /* beos_sym.vkm */; };
+		94D0691217ADDD62002C0CB8 /* c64hq.vpl in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0680517ADC7CF002C0CB8 /* c64hq.vpl */; };
+		94D0691317ADDD62002C0CB8 /* c64mem.sym in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0680617ADC7CF002C0CB8 /* c64mem.sym */; };
+		94D0691417ADDD62002C0CB8 /* c64s.vpl in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0680717ADC7CF002C0CB8 /* c64s.vpl */; };
+		94D0691517ADDD62002C0CB8 /* ccs64.vpl in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0680817ADC7CF002C0CB8 /* ccs64.vpl */; };
+		94D0691617ADDD62002C0CB8 /* chargen in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0680917ADC7CF002C0CB8 /* chargen */; };
+		94D0691717ADDD62002C0CB8 /* default.vpl in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0680A17ADC7CF002C0CB8 /* default.vpl */; };
+		94D0691817ADDD62002C0CB8 /* default.vrs in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0680B17ADC7CF002C0CB8 /* default.vrs */; };
+		94D0691917ADDD62002C0CB8 /* dos_pos.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0680C17ADC7CF002C0CB8 /* dos_pos.vkm */; };
+		94D0691A17ADDD62002C0CB8 /* dos_sym.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0680D17ADC7CF002C0CB8 /* dos_sym.vkm */; };
+		94D0691B17ADDD62002C0CB8 /* frodo.vpl in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0680E17ADC7CF002C0CB8 /* frodo.vpl */; };
+		94D0691C17ADDD62002C0CB8 /* godot.vpl in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0680F17ADC7CF002C0CB8 /* godot.vpl */; };
+		94D0691D17ADDD62002C0CB8 /* gp2x_pos.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0681017ADC7CF002C0CB8 /* gp2x_pos.vkm */; };
+		94D0691E17ADDD62002C0CB8 /* gp2x_sym.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0681117ADC7CF002C0CB8 /* gp2x_sym.vkm */; };
+		94D0691F17ADDD62002C0CB8 /* kernal in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0681217ADC7CF002C0CB8 /* kernal */; };
+		94D0692017ADDD62002C0CB8 /* os2.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0681517ADC7CF002C0CB8 /* os2.vkm */; };
+		94D0692117ADDD62002C0CB8 /* os2_sym.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0681617ADC7CF002C0CB8 /* os2_sym.vkm */; };
+		94D0692217ADDD62002C0CB8 /* osx_pos.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0681717ADC7CF002C0CB8 /* osx_pos.vkm */; };
+		94D0692317ADDD62002C0CB8 /* osx_sym_de.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0681817ADC7CF002C0CB8 /* osx_sym_de.vkm */; };
+		94D0692417ADDD62002C0CB8 /* osx_sym_us.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0681917ADC7CF002C0CB8 /* osx_sym_us.vkm */; };
+		94D0692517ADDD62002C0CB8 /* pc64.vpl in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0681A17ADC7CF002C0CB8 /* pc64.vpl */; };
+		94D0692617ADDD62002C0CB8 /* sdl_sym.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0681B17ADC7CF002C0CB8 /* sdl_sym.vkm */; };
+		94D0692717ADDD62002C0CB8 /* sdl_sym_da.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0681C17ADC7CF002C0CB8 /* sdl_sym_da.vkm */; };
+		94D0692817ADDD62002C0CB8 /* sdl_sym_de.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0681D17ADC7CF002C0CB8 /* sdl_sym_de.vkm */; };
+		94D0692917ADDD62002C0CB8 /* sdl_sym_fi.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0681E17ADC7CF002C0CB8 /* sdl_sym_fi.vkm */; };
+		94D0692A17ADDD62002C0CB8 /* sdl_sym_no.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0681F17ADC7CF002C0CB8 /* sdl_sym_no.vkm */; };
+		94D0692B17ADDD62002C0CB8 /* vice.vpl in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0682017ADC7CF002C0CB8 /* vice.vpl */; };
+		94D0692C17ADDD62002C0CB8 /* win_hotkeys.vhk in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0682117ADC7CF002C0CB8 /* win_hotkeys.vhk */; };
+		94D0692D17ADDD62002C0CB8 /* win_pos.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0682217ADC7CF002C0CB8 /* win_pos.vkm */; };
+		94D0692E17ADDD62002C0CB8 /* win_shortcuts.vsc in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0682317ADC7CF002C0CB8 /* win_shortcuts.vsc */; };
+		94D0692F17ADDD62002C0CB8 /* win_sym_de.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0682417ADC7CF002C0CB8 /* win_sym_de.vkm */; };
+		94D0693017ADDD62002C0CB8 /* win_sym_it.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0682517ADC7CF002C0CB8 /* win_sym_it.vkm */; };
+		94D0693117ADDD62002C0CB8 /* win_sym_us.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0682617ADC7CF002C0CB8 /* win_sym_us.vkm */; };
+		94D0693217ADDD62002C0CB8 /* x11_pos.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0682717ADC7CF002C0CB8 /* x11_pos.vkm */; };
+		94D0693317ADDD62002C0CB8 /* x11_posger.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0682817ADC7CF002C0CB8 /* x11_posger.vkm */; };
+		94D0693417ADDD62002C0CB8 /* x11_sym.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0682917ADC7CF002C0CB8 /* x11_sym.vkm */; };
+		94D0693517ADDD62002C0CB8 /* x11_symger.vkm in Copy C64 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0682A17ADC7CF002C0CB8 /* x11_symger.vkm */; };
+		94D0693717ADDDAA002C0CB8 /* amiga_pos.vkm in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067D317ADC7CF002C0CB8 /* amiga_pos.vkm */; };
+		94D0693817ADDDAA002C0CB8 /* amiga_sym.vkm in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067D417ADC7CF002C0CB8 /* amiga_sym.vkm */; };
+		94D0693917ADDDAA002C0CB8 /* basic64 in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067D517ADC7CF002C0CB8 /* basic64 */; };
+		94D0693A17ADDDAA002C0CB8 /* basichi in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067D617ADC7CF002C0CB8 /* basichi */; };
+		94D0693B17ADDDAA002C0CB8 /* basiclo in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067D717ADC7CF002C0CB8 /* basiclo */; };
+		94D0693C17ADDDAA002C0CB8 /* beos_pos.vkm in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067D817ADC7CF002C0CB8 /* beos_pos.vkm */; };
+		94D0693D17ADDDAA002C0CB8 /* beos_sym.vkm in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067D917ADC7CF002C0CB8 /* beos_sym.vkm */; };
+		94D0693E17ADDDAA002C0CB8 /* c64hq.vpl in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067DA17ADC7CF002C0CB8 /* c64hq.vpl */; };
+		94D0693F17ADDDAA002C0CB8 /* c64s.vpl in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067DB17ADC7CF002C0CB8 /* c64s.vpl */; };
+		94D0694017ADDDAA002C0CB8 /* ccs64.vpl in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067DC17ADC7CF002C0CB8 /* ccs64.vpl */; };
+		94D0694117ADDDAA002C0CB8 /* chargde in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067DD17ADC7CF002C0CB8 /* chargde */; };
+		94D0694217ADDDAA002C0CB8 /* chargen in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067DE17ADC7CF002C0CB8 /* chargen */; };
+		94D0694317ADDDAA002C0CB8 /* chargfr in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067DF17ADC7CF002C0CB8 /* chargfr */; };
+		94D0694417ADDDAA002C0CB8 /* chargse in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067E017ADC7CF002C0CB8 /* chargse */; };
+		94D0694517ADDDAA002C0CB8 /* default.vpl in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067E117ADC7CF002C0CB8 /* default.vpl */; };
+		94D0694617ADDDAA002C0CB8 /* default.vrs in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067E217ADC7CF002C0CB8 /* default.vrs */; };
+		94D0694717ADDDAA002C0CB8 /* dos_pos.vkm in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067E317ADC7CF002C0CB8 /* dos_pos.vkm */; };
+		94D0694817ADDDAA002C0CB8 /* dos_sym.vkm in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067E417ADC7CF002C0CB8 /* dos_sym.vkm */; };
+		94D0694917ADDDAA002C0CB8 /* frodo.vpl in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067E517ADC7CF002C0CB8 /* frodo.vpl */; };
+		94D0694A17ADDDAA002C0CB8 /* godot.vpl in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067E617ADC7CF002C0CB8 /* godot.vpl */; };
+		94D0694B17ADDDAA002C0CB8 /* kernal in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067E717ADC7CF002C0CB8 /* kernal */; };
+		94D0694C17ADDDAA002C0CB8 /* kernal64 in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067E817ADC7CF002C0CB8 /* kernal64 */; };
+		94D0694D17ADDDAA002C0CB8 /* kernalde in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067E917ADC7CF002C0CB8 /* kernalde */; };
+		94D0694E17ADDDAA002C0CB8 /* kernalfi in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067EA17ADC7CF002C0CB8 /* kernalfi */; };
+		94D0694F17ADDDAA002C0CB8 /* kernalfr in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067EB17ADC7CF002C0CB8 /* kernalfr */; };
+		94D0695017ADDDAA002C0CB8 /* kernalit in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067EC17ADC7CF002C0CB8 /* kernalit */; };
+		94D0695117ADDDAA002C0CB8 /* kernalno in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067ED17ADC7CF002C0CB8 /* kernalno */; };
+		94D0695217ADDDAA002C0CB8 /* kernalse in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067EE17ADC7CF002C0CB8 /* kernalse */; };
+		94D0695317ADDDAA002C0CB8 /* os2.vkm in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067F117ADC7CF002C0CB8 /* os2.vkm */; };
+		94D0695417ADDDAA002C0CB8 /* osx_pos.vkm in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067F217ADC7CF002C0CB8 /* osx_pos.vkm */; };
+		94D0695517ADDDAA002C0CB8 /* osx_sym.vkm in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067F317ADC7CF002C0CB8 /* osx_sym.vkm */; };
+		94D0695617ADDDAA002C0CB8 /* pc64.vpl in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067F417ADC7CF002C0CB8 /* pc64.vpl */; };
+		94D0695717ADDDAA002C0CB8 /* sdl_sym.vkm in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067F517ADC7CF002C0CB8 /* sdl_sym.vkm */; };
+		94D0695817ADDDAA002C0CB8 /* vdc_comp.vpl in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067F617ADC7CF002C0CB8 /* vdc_comp.vpl */; };
+		94D0695917ADDDAA002C0CB8 /* vdc_deft.vpl in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067F717ADC7CF002C0CB8 /* vdc_deft.vpl */; };
+		94D0695A17ADDDAA002C0CB8 /* vice.vpl in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067F817ADC7CF002C0CB8 /* vice.vpl */; };
+		94D0695B17ADDDAA002C0CB8 /* win_hotkeys.vhk in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067F917ADC7CF002C0CB8 /* win_hotkeys.vhk */; };
+		94D0695C17ADDDAA002C0CB8 /* win_pos.vkm in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067FA17ADC7CF002C0CB8 /* win_pos.vkm */; };
+		94D0695D17ADDDAA002C0CB8 /* win_shortcuts.vsc in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067FB17ADC7CF002C0CB8 /* win_shortcuts.vsc */; };
+		94D0695E17ADDDAA002C0CB8 /* win_sym.vkm in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067FC17ADC7CF002C0CB8 /* win_sym.vkm */; };
+		94D0695F17ADDDAA002C0CB8 /* x11_pos.vkm in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067FD17ADC7CF002C0CB8 /* x11_pos.vkm */; };
+		94D0696017ADDDAA002C0CB8 /* x11_sym.vkm in Copy C128 Data Files */ = {isa = PBXBuildFile; fileRef = 94D067FE17ADC7CF002C0CB8 /* x11_sym.vkm */; };
+		94D0696217ADDEC9002C0CB8 /* amiga_pos.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0682C17ADC7CF002C0CB8 /* amiga_pos.vkm */; };
+		94D0696317ADDEC9002C0CB8 /* amiga_sym.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0682D17ADC7CF002C0CB8 /* amiga_sym.vkm */; };
+		94D0696417ADDEC9002C0CB8 /* basic in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0682E17ADC7CF002C0CB8 /* basic */; };
+		94D0696517ADDEC9002C0CB8 /* beos_pos.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0682F17ADC7CF002C0CB8 /* beos_pos.vkm */; };
+		94D0696617ADDEC9002C0CB8 /* beos_sym.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0683017ADC7CF002C0CB8 /* beos_sym.vkm */; };
+		94D0696717ADDEC9002C0CB8 /* c64mem.sym in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0683117ADC7D0002C0CB8 /* c64mem.sym */; };
+		94D0696817ADDEC9002C0CB8 /* chargen in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0683217ADC7D0002C0CB8 /* chargen */; };
+		94D0696917ADDEC9002C0CB8 /* default.vrs in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0683317ADC7D0002C0CB8 /* default.vrs */; };
+		94D0696A17ADDEC9002C0CB8 /* dos_pos.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0683417ADC7D0002C0CB8 /* dos_pos.vkm */; };
+		94D0696B17ADDEC9002C0CB8 /* dos_sym.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0683517ADC7D0002C0CB8 /* dos_sym.vkm */; };
+		94D0696C17ADDEC9002C0CB8 /* dtvrom.bin in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0683617ADC7D0002C0CB8 /* dtvrom.bin */; };
+		94D0696D17ADDEC9002C0CB8 /* kernal in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0683717ADC7D0002C0CB8 /* kernal */; };
+		94D0696E17ADDEC9002C0CB8 /* os2.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0683A17ADC7D0002C0CB8 /* os2.vkm */; };
+		94D0696F17ADDEC9002C0CB8 /* os2_sym.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0683B17ADC7D0002C0CB8 /* os2_sym.vkm */; };
+		94D0697017ADDEC9002C0CB8 /* osx_pos.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0683C17ADC7D0002C0CB8 /* osx_pos.vkm */; };
+		94D0697117ADDEC9002C0CB8 /* osx_sym_de.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0683D17ADC7D0002C0CB8 /* osx_sym_de.vkm */; };
+		94D0697217ADDEC9002C0CB8 /* osx_sym_us.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0683E17ADC7D0002C0CB8 /* osx_sym_us.vkm */; };
+		94D0697317ADDEC9002C0CB8 /* sdl_sym.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0683F17ADC7D0002C0CB8 /* sdl_sym.vkm */; };
+		94D0697417ADDEC9002C0CB8 /* sdl_sym_da.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0684017ADC7D0002C0CB8 /* sdl_sym_da.vkm */; };
+		94D0697517ADDEC9002C0CB8 /* sdl_sym_de.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0684117ADC7D0002C0CB8 /* sdl_sym_de.vkm */; };
+		94D0697617ADDEC9002C0CB8 /* sdl_sym_fi.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0684217ADC7D0002C0CB8 /* sdl_sym_fi.vkm */; };
+		94D0697717ADDEC9002C0CB8 /* sdl_sym_no.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0684317ADC7D0002C0CB8 /* sdl_sym_no.vkm */; };
+		94D0697817ADDEC9002C0CB8 /* win_hotkeys.vhk in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0684417ADC7D0002C0CB8 /* win_hotkeys.vhk */; };
+		94D0697917ADDEC9002C0CB8 /* win_pos.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0684517ADC7D0002C0CB8 /* win_pos.vkm */; };
+		94D0697A17ADDEC9002C0CB8 /* win_shortcuts.vsc in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0684617ADC7D0002C0CB8 /* win_shortcuts.vsc */; };
+		94D0697B17ADDEC9002C0CB8 /* win_sym_de.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0684717ADC7D0002C0CB8 /* win_sym_de.vkm */; };
+		94D0697C17ADDEC9002C0CB8 /* win_sym_us.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0684817ADC7D0002C0CB8 /* win_sym_us.vkm */; };
+		94D0697D17ADDEC9002C0CB8 /* x11_pos.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0684917ADC7D0002C0CB8 /* x11_pos.vkm */; };
+		94D0697E17ADDEC9002C0CB8 /* x11_sym.vkm in Copy C64DTV Data Files */ = {isa = PBXBuildFile; fileRef = 94D0684A17ADC7D0002C0CB8 /* x11_sym.vkm */; };
+		94D0698017ADDFB2002C0CB8 /* amber.vpl in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0684C17ADC7D0002C0CB8 /* amber.vpl */; };
+		94D0698117ADDFB2002C0CB8 /* amiga_bukp.vkm in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0684D17ADC7D0002C0CB8 /* amiga_bukp.vkm */; };
+		94D0698217ADDFB2002C0CB8 /* amiga_buks.vkm in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0684E17ADC7D0002C0CB8 /* amiga_buks.vkm */; };
+		94D0698317ADDFB2002C0CB8 /* basic.128 in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0684F17ADC7D0002C0CB8 /* basic.128 */; };
+		94D0698417ADDFB3002C0CB8 /* basic.256 in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0685017ADC7D0002C0CB8 /* basic.256 */; };
+		94D0698517ADDFB3002C0CB8 /* basic.500 in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0685117ADC7D0002C0CB8 /* basic.500 */; };
+		94D0698617ADDFB3002C0CB8 /* beos_bukp.vkm in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0685217ADC7D0002C0CB8 /* beos_bukp.vkm */; };
+		94D0698717ADDFB3002C0CB8 /* beos_buks.vkm in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0685317ADC7D0002C0CB8 /* beos_buks.vkm */; };
+		94D0698817ADDFB3002C0CB8 /* c64hq.vpl in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0685417ADC7D0002C0CB8 /* c64hq.vpl */; };
+		94D0698917ADDFB3002C0CB8 /* c64s.vpl in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0685517ADC7D0002C0CB8 /* c64s.vpl */; };
+		94D0698A17ADDFB3002C0CB8 /* ccs64.vpl in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0685617ADC7D0002C0CB8 /* ccs64.vpl */; };
+		94D0698B17ADDFB3002C0CB8 /* chargen.500 in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0685717ADC7D0002C0CB8 /* chargen.500 */; };
+		94D0698C17ADDFB3002C0CB8 /* chargen.600 in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0685817ADC7D0002C0CB8 /* chargen.600 */; };
+		94D0698D17ADDFB3002C0CB8 /* chargen.700 in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0685917ADC7D0002C0CB8 /* chargen.700 */; };
+		94D0698E17ADDFB3002C0CB8 /* default.vpl in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0685A17ADC7D0002C0CB8 /* default.vpl */; };
+		94D0698F17ADDFB3002C0CB8 /* dos_bukp.vkm in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0685B17ADC7D0002C0CB8 /* dos_bukp.vkm */; };
+		94D0699017ADDFB3002C0CB8 /* dos_buks.vkm in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0685C17ADC7D0002C0CB8 /* dos_buks.vkm */; };
+		94D0699117ADDFB3002C0CB8 /* frodo.vpl in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0685D17ADC7D0002C0CB8 /* frodo.vpl */; };
+		94D0699217ADDFB3002C0CB8 /* godot.vpl in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0685E17ADC7D0002C0CB8 /* godot.vpl */; };
+		94D0699317ADDFB3002C0CB8 /* green.vpl in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0685F17ADC7D0002C0CB8 /* green.vpl */; };
+		94D0699417ADDFB3002C0CB8 /* kernal in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0686017ADC7D0002C0CB8 /* kernal */; };
+		94D0699517ADDFB3002C0CB8 /* kernal.500 in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0686117ADC7D0002C0CB8 /* kernal.500 */; };
+		94D0699617ADDFB3002C0CB8 /* os2.vkm in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0686417ADC7D0002C0CB8 /* os2.vkm */; };
+		94D0699717ADDFB3002C0CB8 /* osx_pos_uk.vkm in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0686517ADC7D0002C0CB8 /* osx_pos_uk.vkm */; };
+		94D0699817ADDFB3002C0CB8 /* osx_sym_uk.vkm in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0686617ADC7D0002C0CB8 /* osx_sym_uk.vkm */; };
+		94D0699917ADDFB3002C0CB8 /* pc64.vpl in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0686717ADC7D0002C0CB8 /* pc64.vpl */; };
+		94D0699A17ADDFB3002C0CB8 /* rom128h.vrs in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0686817ADC7D0002C0CB8 /* rom128h.vrs */; };
+		94D0699B17ADDFB3002C0CB8 /* rom128l.vrs in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0686917ADC7D0002C0CB8 /* rom128l.vrs */; };
+		94D0699C17ADDFB3002C0CB8 /* rom256h.vrs in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0686A17ADC7D0002C0CB8 /* rom256h.vrs */; };
+		94D0699D17ADDFB3002C0CB8 /* rom256l.vrs in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0686B17ADC7D0002C0CB8 /* rom256l.vrs */; };
+		94D0699E17ADDFB3002C0CB8 /* rom500.vrs in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0686C17ADC7D0002C0CB8 /* rom500.vrs */; };
+		94D0699F17ADDFB3002C0CB8 /* sdl_buks.vkm in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0686D17ADC7D0002C0CB8 /* sdl_buks.vkm */; };
+		94D069A017ADDFB3002C0CB8 /* white.vpl in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0686E17ADC7D0002C0CB8 /* white.vpl */; };
+		94D069A117ADDFB3002C0CB8 /* win_hotkeys.vhk in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0686F17ADC7D0002C0CB8 /* win_hotkeys.vhk */; };
+		94D069A217ADDFB3002C0CB8 /* win_pos_uk.vkm in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0687017ADC7D0002C0CB8 /* win_pos_uk.vkm */; };
+		94D069A317ADDFB3002C0CB8 /* win_shortcuts.vsc in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0687117ADC7D0002C0CB8 /* win_shortcuts.vsc */; };
+		94D069A417ADDFB3002C0CB8 /* win_sym_uk.vkm in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0687217ADC7D0002C0CB8 /* win_sym_uk.vkm */; };
+		94D069A517ADDFB3002C0CB8 /* x11_buks.vkm in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0687317ADC7D0002C0CB8 /* x11_buks.vkm */; };
+		94D069A617ADDFB3002C0CB8 /* x11_buks_de.vkm in Copy CBM-II Data Files */ = {isa = PBXBuildFile; fileRef = 94D0687417ADC7D0002C0CB8 /* x11_buks_de.vkm */; };
+		94D069A817ADDFEB002C0CB8 /* d1541II in Copy DRIVES Data Files */ = {isa = PBXBuildFile; fileRef = 94D0687617ADC7D0002C0CB8 /* d1541II */; };
+		94D069A917ADDFEB002C0CB8 /* d1571cr in Copy DRIVES Data Files */ = {isa = PBXBuildFile; fileRef = 94D0687717ADC7D0002C0CB8 /* d1571cr */; };
+		94D069AA17ADDFEB002C0CB8 /* dos1001 in Copy DRIVES Data Files */ = {isa = PBXBuildFile; fileRef = 94D0687817ADC7D0002C0CB8 /* dos1001 */; };
+		94D069AB17ADDFEB002C0CB8 /* dos1541 in Copy DRIVES Data Files */ = {isa = PBXBuildFile; fileRef = 94D0687917ADC7D0002C0CB8 /* dos1541 */; };
+		94D069AC17ADDFEB002C0CB8 /* dos1551 in Copy DRIVES Data Files */ = {isa = PBXBuildFile; fileRef = 94D0687A17ADC7D0002C0CB8 /* dos1551 */; };
+		94D069AD17ADDFEB002C0CB8 /* dos1570 in Copy DRIVES Data Files */ = {isa = PBXBuildFile; fileRef = 94D0687B17ADC7D0002C0CB8 /* dos1570 */; };
+		94D069AE17ADDFEB002C0CB8 /* dos1571 in Copy DRIVES Data Files */ = {isa = PBXBuildFile; fileRef = 94D0687C17ADC7D0002C0CB8 /* dos1571 */; };
+		94D069AF17ADDFEB002C0CB8 /* dos1581 in Copy DRIVES Data Files */ = {isa = PBXBuildFile; fileRef = 94D0687D17ADC7D0002C0CB8 /* dos1581 */; };
+		94D069B017ADDFEB002C0CB8 /* dos2000 in Copy DRIVES Data Files */ = {isa = PBXBuildFile; fileRef = 94D0687E17ADC7D0002C0CB8 /* dos2000 */; };
+		94D069B117ADDFEB002C0CB8 /* dos2031 in Copy DRIVES Data Files */ = {isa = PBXBuildFile; fileRef = 94D0687F17ADC7D0002C0CB8 /* dos2031 */; };
+		94D069B217ADDFEB002C0CB8 /* dos2040 in Copy DRIVES Data Files */ = {isa = PBXBuildFile; fileRef = 94D0688017ADC7D0002C0CB8 /* dos2040 */; };
+		94D069B317ADDFEB002C0CB8 /* dos3040 in Copy DRIVES Data Files */ = {isa = PBXBuildFile; fileRef = 94D0688117ADC7D0002C0CB8 /* dos3040 */; };
+		94D069B417ADDFEB002C0CB8 /* dos4000 in Copy DRIVES Data Files */ = {isa = PBXBuildFile; fileRef = 94D0688217ADC7D0002C0CB8 /* dos4000 */; };
+		94D069B517ADDFEB002C0CB8 /* dos4040 in Copy DRIVES Data Files */ = {isa = PBXBuildFile; fileRef = 94D0688317ADC7D0002C0CB8 /* dos4040 */; };
+		94D069B717ADE03D002C0CB8 /* amber.vpl in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D0688F17ADC7D0002C0CB8 /* amber.vpl */; };
+		94D069B817ADE03D002C0CB8 /* amiga_bgrs.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D0689017ADC7D0002C0CB8 /* amiga_bgrs.vkm */; };
+		94D069B917ADE03D002C0CB8 /* amiga_buks.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D0689117ADC7D0002C0CB8 /* amiga_buks.vkm */; };
+		94D069BA17ADE03D002C0CB8 /* basic1 in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D0689217ADC7D0002C0CB8 /* basic1 */; };
+		94D069BB17ADE03D002C0CB8 /* basic2 in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D0689317ADC7D0002C0CB8 /* basic2 */; };
+		94D069BC17ADE03D002C0CB8 /* basic4 in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D0689417ADC7D0002C0CB8 /* basic4 */; };
+		94D069BD17ADE03D002C0CB8 /* beos_bgrs.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D0689517ADC7D0002C0CB8 /* beos_bgrs.vkm */; };
+		94D069BE17ADE03D002C0CB8 /* beos_buks.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D0689617ADC7D0002C0CB8 /* beos_buks.vkm */; };
+		94D069BF17ADE03D002C0CB8 /* characters.901640-01.bin in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D0689717ADC7D0002C0CB8 /* characters.901640-01.bin */; };
+		94D069C017ADE03D002C0CB8 /* chargen in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D0689817ADC7D0002C0CB8 /* chargen */; };
+		94D069C117ADE03D002C0CB8 /* chargen.de in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D0689917ADC7D0002C0CB8 /* chargen.de */; };
+		94D069C217ADE03D002C0CB8 /* dos_bgrs.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D0689A17ADC7D0002C0CB8 /* dos_bgrs.vkm */; };
+		94D069C317ADE03D002C0CB8 /* dos_buks.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D0689B17ADC7D0002C0CB8 /* dos_buks.vkm */; };
+		94D069C417ADE03D002C0CB8 /* edit1g in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D0689C17ADC7D0002C0CB8 /* edit1g */; };
+		94D069C517ADE03D002C0CB8 /* edit2b in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D0689D17ADC7D0002C0CB8 /* edit2b */; };
+		94D069C617ADE03D002C0CB8 /* edit2g in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D0689E17ADC7D0002C0CB8 /* edit2g */; };
+		94D069C717ADE03D002C0CB8 /* edit4b40 in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D0689F17ADC7D0002C0CB8 /* edit4b40 */; };
+		94D069C817ADE03D002C0CB8 /* edit4b80 in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068A017ADC7D0002C0CB8 /* edit4b80 */; };
+		94D069C917ADE03D002C0CB8 /* edit4g40 in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068A117ADC7D0002C0CB8 /* edit4g40 */; };
+		94D069CA17ADE03D002C0CB8 /* green.vpl in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068A217ADC7D0002C0CB8 /* green.vpl */; };
+		94D069CB17ADE03D002C0CB8 /* kernal1 in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068A317ADC7D0002C0CB8 /* kernal1 */; };
+		94D069CC17ADE03D002C0CB8 /* kernal2 in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068A417ADC7D0002C0CB8 /* kernal2 */; };
+		94D069CD17ADE03D002C0CB8 /* kernal4 in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068A517ADC7D0002C0CB8 /* kernal4 */; };
+		94D069CE17ADE03D002C0CB8 /* os2.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068A817ADC7D0002C0CB8 /* os2.vkm */; };
+		94D069CF17ADE03D002C0CB8 /* os2_40.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068A917ADC7D0002C0CB8 /* os2_40.vkm */; };
+		94D069D017ADE03D002C0CB8 /* osx_sym_gr.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068AA17ADC7D0002C0CB8 /* osx_sym_gr.vkm */; };
+		94D069D117ADE03D002C0CB8 /* osx_sym_uk.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068AB17ADC7D0002C0CB8 /* osx_sym_uk.vkm */; };
+		94D069D217ADE03D002C0CB8 /* rom1g.vrs in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068AC17ADC7D0002C0CB8 /* rom1g.vrs */; };
+		94D069D317ADE03D002C0CB8 /* rom2b.vrs in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068AD17ADC7D0002C0CB8 /* rom2b.vrs */; };
+		94D069D417ADE03D002C0CB8 /* rom2g.vrs in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068AE17ADC7D0002C0CB8 /* rom2g.vrs */; };
+		94D069D517ADE03D002C0CB8 /* rom4b40.vrs in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068AF17ADC7D0002C0CB8 /* rom4b40.vrs */; };
+		94D069D617ADE03D002C0CB8 /* rom4b80.vrs in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068B017ADC7D0002C0CB8 /* rom4b80.vrs */; };
+		94D069D717ADE03D002C0CB8 /* rom4g40.vrs in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068B117ADC7D0002C0CB8 /* rom4g40.vrs */; };
+		94D069D817ADE03D002C0CB8 /* romsuperpet.vrs in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068B217ADC7D0002C0CB8 /* romsuperpet.vrs */; };
+		94D069D917ADE03D002C0CB8 /* sdl_bgrs.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068B317ADC7D0002C0CB8 /* sdl_bgrs.vkm */; };
+		94D069DA17ADE03D002C0CB8 /* sdl_buks.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068B417ADC7D0002C0CB8 /* sdl_buks.vkm */; };
+		94D069DB17ADE03D002C0CB8 /* waterloo-a000.901898-01.bin in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068B517ADC7D0002C0CB8 /* waterloo-a000.901898-01.bin */; };
+		94D069DC17ADE03D002C0CB8 /* waterloo-b000.901898-02.bin in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068B617ADC7D0002C0CB8 /* waterloo-b000.901898-02.bin */; };
+		94D069DD17ADE03D002C0CB8 /* waterloo-c000.901898-03.bin in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068B717ADC7D0002C0CB8 /* waterloo-c000.901898-03.bin */; };
+		94D069DE17ADE03D002C0CB8 /* waterloo-d000.901898-04.bin in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068B817ADC7D0002C0CB8 /* waterloo-d000.901898-04.bin */; };
+		94D069DF17ADE03D002C0CB8 /* waterloo-e000.901897-01.bin in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068B917ADC7D0002C0CB8 /* waterloo-e000.901897-01.bin */; };
+		94D069E017ADE03D002C0CB8 /* waterloo-f000.901898-05.bin in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068BA17ADC7D0002C0CB8 /* waterloo-f000.901898-05.bin */; };
+		94D069E117ADE03D002C0CB8 /* white.vpl in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068BB17ADC7D0002C0CB8 /* white.vpl */; };
+		94D069E217ADE03D002C0CB8 /* win_hotkeys.vhk in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068BC17ADC7D0002C0CB8 /* win_hotkeys.vhk */; };
+		94D069E317ADE03D002C0CB8 /* win_shortcuts.vsc in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068BD17ADC7D0002C0CB8 /* win_shortcuts.vsc */; };
+		94D069E417ADE03D002C0CB8 /* win_sym_gr.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068BE17ADC7D0002C0CB8 /* win_sym_gr.vkm */; };
+		94D069E517ADE03D002C0CB8 /* win_sym_uk.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068BF17ADC7D0002C0CB8 /* win_sym_uk.vkm */; };
+		94D069E617ADE03D002C0CB8 /* x11_bdep.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068C017ADC7D0002C0CB8 /* x11_bdep.vkm */; };
+		94D069E717ADE03D002C0CB8 /* x11_bdep_de.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068C117ADC7D0002C0CB8 /* x11_bdep_de.vkm */; };
+		94D069E817ADE03D002C0CB8 /* x11_bdes.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068C217ADC7D0002C0CB8 /* x11_bdes.vkm */; };
+		94D069E917ADE03D002C0CB8 /* x11_bdes_de.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068C317ADC7D0002C0CB8 /* x11_bdes_de.vkm */; };
+		94D069EA17ADE03D002C0CB8 /* x11_bgrp.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068C417ADC7D0002C0CB8 /* x11_bgrp.vkm */; };
+		94D069EB17ADE03D002C0CB8 /* x11_bgrp_de.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068C517ADC7D0002C0CB8 /* x11_bgrp_de.vkm */; };
+		94D069EC17ADE03D002C0CB8 /* x11_bgrs.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068C617ADC7D0002C0CB8 /* x11_bgrs.vkm */; };
+		94D069ED17ADE03D002C0CB8 /* x11_bgrs_de.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068C717ADC7D0002C0CB8 /* x11_bgrs_de.vkm */; };
+		94D069EE17ADE03D002C0CB8 /* x11_bukp.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068C817ADC7D0002C0CB8 /* x11_bukp.vkm */; };
+		94D069EF17ADE03D002C0CB8 /* x11_bukp_de.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068C917ADC7D0002C0CB8 /* x11_bukp_de.vkm */; };
+		94D069F017ADE03D002C0CB8 /* x11_buks.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068CA17ADC7D0002C0CB8 /* x11_buks.vkm */; };
+		94D069F117ADE03D002C0CB8 /* x11_buks_de.vkm in Copy PET Data Files */ = {isa = PBXBuildFile; fileRef = 94D068CB17ADC7D0002C0CB8 /* x11_buks_de.vkm */; };
+		94D069F317ADE0A2002C0CB8 /* 3plus1hi in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068CD17ADC7D0002C0CB8 /* 3plus1hi */; };
+		94D069F417ADE0A2002C0CB8 /* 3plus1lo in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068CE17ADC7D0002C0CB8 /* 3plus1lo */; };
+		94D069F517ADE0A2002C0CB8 /* amiga_pos.vkm in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068CF17ADC7D0002C0CB8 /* amiga_pos.vkm */; };
+		94D069F617ADE0A2002C0CB8 /* amiga_sym.vkm in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068D017ADC7D0002C0CB8 /* amiga_sym.vkm */; };
+		94D069F717ADE0A2002C0CB8 /* basic in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068D117ADC7D0002C0CB8 /* basic */; };
+		94D069F817ADE0A2002C0CB8 /* beos_pos.vkm in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068D217ADC7D0002C0CB8 /* beos_pos.vkm */; };
+		94D069F917ADE0A2002C0CB8 /* beos_sym.vkm in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068D317ADC7D0002C0CB8 /* beos_sym.vkm */; };
+		94D069FA17ADE0A2002C0CB8 /* c2lo.364 in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068D417ADC7D0002C0CB8 /* c2lo.364 */; };
+		94D069FB17ADE0A2002C0CB8 /* default.vpl in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068D517ADC7D0002C0CB8 /* default.vpl */; };
+		94D069FC17ADE0A2002C0CB8 /* default.vrs in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068D617ADC7D0002C0CB8 /* default.vrs */; };
+		94D069FD17ADE0A2002C0CB8 /* dos_pos.vkm in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068D717ADC7D0002C0CB8 /* dos_pos.vkm */; };
+		94D069FE17ADE0A2002C0CB8 /* dos_sym.vkm in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068D817ADC7D0002C0CB8 /* dos_sym.vkm */; };
+		94D069FF17ADE0A2002C0CB8 /* kernal in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068D917ADC7D0002C0CB8 /* kernal */; };
+		94D06A0017ADE0A2002C0CB8 /* kernal.232 in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068DA17ADC7D0002C0CB8 /* kernal.232 */; };
+		94D06A0117ADE0A2002C0CB8 /* kernal.364 in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068DB17ADC7D0002C0CB8 /* kernal.364 */; };
+		94D06A0217ADE0A2002C0CB8 /* os2.vkm in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068DE17ADC7D1002C0CB8 /* os2.vkm */; };
+		94D06A0317ADE0A2002C0CB8 /* osx_pos.vkm in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068DF17ADC7D1002C0CB8 /* osx_pos.vkm */; };
+		94D06A0417ADE0A2002C0CB8 /* osx_sym.vkm in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068E017ADC7D1002C0CB8 /* osx_sym.vkm */; };
+		94D06A0517ADE0A2002C0CB8 /* sdl_sym.vkm in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068E117ADC7D1002C0CB8 /* sdl_sym.vkm */; };
+		94D06A0617ADE0A2002C0CB8 /* vice.vpl in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068E217ADC7D1002C0CB8 /* vice.vpl */; };
+		94D06A0717ADE0A2002C0CB8 /* win_hotkeys.vhk in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068E317ADC7D1002C0CB8 /* win_hotkeys.vhk */; };
+		94D06A0817ADE0A2002C0CB8 /* win_pos.vkm in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068E417ADC7D1002C0CB8 /* win_pos.vkm */; };
+		94D06A0917ADE0A2002C0CB8 /* win_shortcuts.vsc in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068E517ADC7D1002C0CB8 /* win_shortcuts.vsc */; };
+		94D06A0A17ADE0A2002C0CB8 /* win_sym.vkm in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068E617ADC7D1002C0CB8 /* win_sym.vkm */; };
+		94D06A0B17ADE0A2002C0CB8 /* x11_pos.vkm in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068E717ADC7D1002C0CB8 /* x11_pos.vkm */; };
+		94D06A0C17ADE0A2002C0CB8 /* x11_sym.vkm in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068E817ADC7D1002C0CB8 /* x11_sym.vkm */; };
+		94D06A0D17ADE0A2002C0CB8 /* x11_sym_de.vkm in Copy PLUS4 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068E917ADC7D1002C0CB8 /* x11_sym_de.vkm */; };
+		94D06A0F17ADE0CE002C0CB8 /* cbm1526 in Copy PRINTER Data Files */ = {isa = PBXBuildFile; fileRef = 94D068EB17ADC7D1002C0CB8 /* cbm1526 */; };
+		94D06A1017ADE0CE002C0CB8 /* mps801 in Copy PRINTER Data Files */ = {isa = PBXBuildFile; fileRef = 94D068EE17ADC7D1002C0CB8 /* mps801 */; };
+		94D06A1117ADE0CE002C0CB8 /* mps803 in Copy PRINTER Data Files */ = {isa = PBXBuildFile; fileRef = 94D068EF17ADC7D1002C0CB8 /* mps803 */; };
+		94D06A1217ADE0CE002C0CB8 /* mps803.vpl in Copy PRINTER Data Files */ = {isa = PBXBuildFile; fileRef = 94D068F017ADC7D1002C0CB8 /* mps803.vpl */; };
+		94D06A1317ADE0CE002C0CB8 /* nl10-cbm in Copy PRINTER Data Files */ = {isa = PBXBuildFile; fileRef = 94D068F117ADC7D1002C0CB8 /* nl10-cbm */; };
+		94D06A1517ADE0F9002C0CB8 /* amiga_pos.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068F317ADC7D1002C0CB8 /* amiga_pos.vkm */; };
+		94D06A1617ADE0F9002C0CB8 /* amiga_sym.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068F417ADC7D1002C0CB8 /* amiga_sym.vkm */; };
+		94D06A1717ADE0F9002C0CB8 /* basic in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068F517ADC7D1002C0CB8 /* basic */; };
+		94D06A1817ADE0F9002C0CB8 /* beos_pos.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068F617ADC7D1002C0CB8 /* beos_pos.vkm */; };
+		94D06A1917ADE0F9002C0CB8 /* beos_sym.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068F717ADC7D1002C0CB8 /* beos_sym.vkm */; };
+		94D06A1A17ADE0F9002C0CB8 /* chargen in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068F817ADC7D1002C0CB8 /* chargen */; };
+		94D06A1B17ADE0F9002C0CB8 /* default.vpl in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068F917ADC7D1002C0CB8 /* default.vpl */; };
+		94D06A1C17ADE0F9002C0CB8 /* default.vrs in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068FA17ADC7D1002C0CB8 /* default.vrs */; };
+		94D06A1D17ADE0F9002C0CB8 /* dos_pos.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068FB17ADC7D1002C0CB8 /* dos_pos.vkm */; };
+		94D06A1E17ADE0F9002C0CB8 /* dos_sym.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068FC17ADC7D1002C0CB8 /* dos_sym.vkm */; };
+		94D06A1F17ADE0F9002C0CB8 /* kernal in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D068FD17ADC7D1002C0CB8 /* kernal */; };
+		94D06A2017ADE0F9002C0CB8 /* os2.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0690017ADC7D1002C0CB8 /* os2.vkm */; };
+		94D06A2117ADE0F9002C0CB8 /* osx_pos.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0690117ADC7D1002C0CB8 /* osx_pos.vkm */; };
+		94D06A2217ADE0F9002C0CB8 /* osx_sym.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0690217ADC7D1002C0CB8 /* osx_sym.vkm */; };
+		94D06A2317ADE0F9002C0CB8 /* sdl_pos_fi.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0690317ADC7D1002C0CB8 /* sdl_pos_fi.vkm */; };
+		94D06A2417ADE0F9002C0CB8 /* sdl_sym.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0690417ADC7D1002C0CB8 /* sdl_sym.vkm */; };
+		94D06A2517ADE0F9002C0CB8 /* win_hotkeys.vhk in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0690517ADC7D1002C0CB8 /* win_hotkeys.vhk */; };
+		94D06A2617ADE0F9002C0CB8 /* win_pos.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0690617ADC7D1002C0CB8 /* win_pos.vkm */; };
+		94D06A2717ADE0F9002C0CB8 /* win_shortcuts.vsc in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0690717ADC7D1002C0CB8 /* win_shortcuts.vsc */; };
+		94D06A2817ADE0F9002C0CB8 /* win_sym.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0690817ADC7D1002C0CB8 /* win_sym.vkm */; };
+		94D06A2917ADE0F9002C0CB8 /* win_sym_US.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0690917ADC7D1002C0CB8 /* win_sym_US.vkm */; };
+		94D06A2A17ADE0F9002C0CB8 /* x11_pos.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0690A17ADC7D1002C0CB8 /* x11_pos.vkm */; };
+		94D06A2B17ADE0F9002C0CB8 /* x11_sym.vkm in Copy VIC20 Data Files */ = {isa = PBXBuildFile; fileRef = 94D0690B17ADC7D1002C0CB8 /* x11_sym.vkm */; };
 		EBE428FA17A03905007818A4 /* stubs.c in Sources */ = {isa = PBXBuildFile; fileRef = EBE428F917A03905007818A4 /* stubs.c */; };
 		EBE428FD17A0561A007818A4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE428FC17A05619007818A4 /* libz.dylib */; };
 /* End PBXBuildFile section */
@@ -2144,6 +2423,378 @@
 			remoteInfo = archmacosx;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		94D0690C17ADDC30002C0CB8 /* Copy C64 Data Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ROM/C64;
+			dstSubfolderSpec = 7;
+			files = (
+				94D0690D17ADDD62002C0CB8 /* amiga_pos.vkm in Copy C64 Data Files */,
+				94D0690E17ADDD62002C0CB8 /* amiga_sym.vkm in Copy C64 Data Files */,
+				94D0690F17ADDD62002C0CB8 /* basic in Copy C64 Data Files */,
+				94D0691017ADDD62002C0CB8 /* beos_pos.vkm in Copy C64 Data Files */,
+				94D0691117ADDD62002C0CB8 /* beos_sym.vkm in Copy C64 Data Files */,
+				94D0691217ADDD62002C0CB8 /* c64hq.vpl in Copy C64 Data Files */,
+				94D0691317ADDD62002C0CB8 /* c64mem.sym in Copy C64 Data Files */,
+				94D0691417ADDD62002C0CB8 /* c64s.vpl in Copy C64 Data Files */,
+				94D0691517ADDD62002C0CB8 /* ccs64.vpl in Copy C64 Data Files */,
+				94D0691617ADDD62002C0CB8 /* chargen in Copy C64 Data Files */,
+				94D0691717ADDD62002C0CB8 /* default.vpl in Copy C64 Data Files */,
+				94D0691817ADDD62002C0CB8 /* default.vrs in Copy C64 Data Files */,
+				94D0691917ADDD62002C0CB8 /* dos_pos.vkm in Copy C64 Data Files */,
+				94D0691A17ADDD62002C0CB8 /* dos_sym.vkm in Copy C64 Data Files */,
+				94D0691B17ADDD62002C0CB8 /* frodo.vpl in Copy C64 Data Files */,
+				94D0691C17ADDD62002C0CB8 /* godot.vpl in Copy C64 Data Files */,
+				94D0691D17ADDD62002C0CB8 /* gp2x_pos.vkm in Copy C64 Data Files */,
+				94D0691E17ADDD62002C0CB8 /* gp2x_sym.vkm in Copy C64 Data Files */,
+				94D0691F17ADDD62002C0CB8 /* kernal in Copy C64 Data Files */,
+				94D0692017ADDD62002C0CB8 /* os2.vkm in Copy C64 Data Files */,
+				94D0692117ADDD62002C0CB8 /* os2_sym.vkm in Copy C64 Data Files */,
+				94D0692217ADDD62002C0CB8 /* osx_pos.vkm in Copy C64 Data Files */,
+				94D0692317ADDD62002C0CB8 /* osx_sym_de.vkm in Copy C64 Data Files */,
+				94D0692417ADDD62002C0CB8 /* osx_sym_us.vkm in Copy C64 Data Files */,
+				94D0692517ADDD62002C0CB8 /* pc64.vpl in Copy C64 Data Files */,
+				94D0692617ADDD62002C0CB8 /* sdl_sym.vkm in Copy C64 Data Files */,
+				94D0692717ADDD62002C0CB8 /* sdl_sym_da.vkm in Copy C64 Data Files */,
+				94D0692817ADDD62002C0CB8 /* sdl_sym_de.vkm in Copy C64 Data Files */,
+				94D0692917ADDD62002C0CB8 /* sdl_sym_fi.vkm in Copy C64 Data Files */,
+				94D0692A17ADDD62002C0CB8 /* sdl_sym_no.vkm in Copy C64 Data Files */,
+				94D0692B17ADDD62002C0CB8 /* vice.vpl in Copy C64 Data Files */,
+				94D0692C17ADDD62002C0CB8 /* win_hotkeys.vhk in Copy C64 Data Files */,
+				94D0692D17ADDD62002C0CB8 /* win_pos.vkm in Copy C64 Data Files */,
+				94D0692E17ADDD62002C0CB8 /* win_shortcuts.vsc in Copy C64 Data Files */,
+				94D0692F17ADDD62002C0CB8 /* win_sym_de.vkm in Copy C64 Data Files */,
+				94D0693017ADDD62002C0CB8 /* win_sym_it.vkm in Copy C64 Data Files */,
+				94D0693117ADDD62002C0CB8 /* win_sym_us.vkm in Copy C64 Data Files */,
+				94D0693217ADDD62002C0CB8 /* x11_pos.vkm in Copy C64 Data Files */,
+				94D0693317ADDD62002C0CB8 /* x11_posger.vkm in Copy C64 Data Files */,
+				94D0693417ADDD62002C0CB8 /* x11_sym.vkm in Copy C64 Data Files */,
+				94D0693517ADDD62002C0CB8 /* x11_symger.vkm in Copy C64 Data Files */,
+			);
+			name = "Copy C64 Data Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94D0693617ADDD7C002C0CB8 /* Copy C128 Data Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ROM/C128;
+			dstSubfolderSpec = 7;
+			files = (
+				94D0693717ADDDAA002C0CB8 /* amiga_pos.vkm in Copy C128 Data Files */,
+				94D0693817ADDDAA002C0CB8 /* amiga_sym.vkm in Copy C128 Data Files */,
+				94D0693917ADDDAA002C0CB8 /* basic64 in Copy C128 Data Files */,
+				94D0693A17ADDDAA002C0CB8 /* basichi in Copy C128 Data Files */,
+				94D0693B17ADDDAA002C0CB8 /* basiclo in Copy C128 Data Files */,
+				94D0693C17ADDDAA002C0CB8 /* beos_pos.vkm in Copy C128 Data Files */,
+				94D0693D17ADDDAA002C0CB8 /* beos_sym.vkm in Copy C128 Data Files */,
+				94D0693E17ADDDAA002C0CB8 /* c64hq.vpl in Copy C128 Data Files */,
+				94D0693F17ADDDAA002C0CB8 /* c64s.vpl in Copy C128 Data Files */,
+				94D0694017ADDDAA002C0CB8 /* ccs64.vpl in Copy C128 Data Files */,
+				94D0694117ADDDAA002C0CB8 /* chargde in Copy C128 Data Files */,
+				94D0694217ADDDAA002C0CB8 /* chargen in Copy C128 Data Files */,
+				94D0694317ADDDAA002C0CB8 /* chargfr in Copy C128 Data Files */,
+				94D0694417ADDDAA002C0CB8 /* chargse in Copy C128 Data Files */,
+				94D0694517ADDDAA002C0CB8 /* default.vpl in Copy C128 Data Files */,
+				94D0694617ADDDAA002C0CB8 /* default.vrs in Copy C128 Data Files */,
+				94D0694717ADDDAA002C0CB8 /* dos_pos.vkm in Copy C128 Data Files */,
+				94D0694817ADDDAA002C0CB8 /* dos_sym.vkm in Copy C128 Data Files */,
+				94D0694917ADDDAA002C0CB8 /* frodo.vpl in Copy C128 Data Files */,
+				94D0694A17ADDDAA002C0CB8 /* godot.vpl in Copy C128 Data Files */,
+				94D0694B17ADDDAA002C0CB8 /* kernal in Copy C128 Data Files */,
+				94D0694C17ADDDAA002C0CB8 /* kernal64 in Copy C128 Data Files */,
+				94D0694D17ADDDAA002C0CB8 /* kernalde in Copy C128 Data Files */,
+				94D0694E17ADDDAA002C0CB8 /* kernalfi in Copy C128 Data Files */,
+				94D0694F17ADDDAA002C0CB8 /* kernalfr in Copy C128 Data Files */,
+				94D0695017ADDDAA002C0CB8 /* kernalit in Copy C128 Data Files */,
+				94D0695117ADDDAA002C0CB8 /* kernalno in Copy C128 Data Files */,
+				94D0695217ADDDAA002C0CB8 /* kernalse in Copy C128 Data Files */,
+				94D0695317ADDDAA002C0CB8 /* os2.vkm in Copy C128 Data Files */,
+				94D0695417ADDDAA002C0CB8 /* osx_pos.vkm in Copy C128 Data Files */,
+				94D0695517ADDDAA002C0CB8 /* osx_sym.vkm in Copy C128 Data Files */,
+				94D0695617ADDDAA002C0CB8 /* pc64.vpl in Copy C128 Data Files */,
+				94D0695717ADDDAA002C0CB8 /* sdl_sym.vkm in Copy C128 Data Files */,
+				94D0695817ADDDAA002C0CB8 /* vdc_comp.vpl in Copy C128 Data Files */,
+				94D0695917ADDDAA002C0CB8 /* vdc_deft.vpl in Copy C128 Data Files */,
+				94D0695A17ADDDAA002C0CB8 /* vice.vpl in Copy C128 Data Files */,
+				94D0695B17ADDDAA002C0CB8 /* win_hotkeys.vhk in Copy C128 Data Files */,
+				94D0695C17ADDDAA002C0CB8 /* win_pos.vkm in Copy C128 Data Files */,
+				94D0695D17ADDDAA002C0CB8 /* win_shortcuts.vsc in Copy C128 Data Files */,
+				94D0695E17ADDDAA002C0CB8 /* win_sym.vkm in Copy C128 Data Files */,
+				94D0695F17ADDDAA002C0CB8 /* x11_pos.vkm in Copy C128 Data Files */,
+				94D0696017ADDDAA002C0CB8 /* x11_sym.vkm in Copy C128 Data Files */,
+			);
+			name = "Copy C128 Data Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94D0696117ADDE95002C0CB8 /* Copy C64DTV Data Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ROM/C64DTV;
+			dstSubfolderSpec = 7;
+			files = (
+				94D0696217ADDEC9002C0CB8 /* amiga_pos.vkm in Copy C64DTV Data Files */,
+				94D0696317ADDEC9002C0CB8 /* amiga_sym.vkm in Copy C64DTV Data Files */,
+				94D0696417ADDEC9002C0CB8 /* basic in Copy C64DTV Data Files */,
+				94D0696517ADDEC9002C0CB8 /* beos_pos.vkm in Copy C64DTV Data Files */,
+				94D0696617ADDEC9002C0CB8 /* beos_sym.vkm in Copy C64DTV Data Files */,
+				94D0696717ADDEC9002C0CB8 /* c64mem.sym in Copy C64DTV Data Files */,
+				94D0696817ADDEC9002C0CB8 /* chargen in Copy C64DTV Data Files */,
+				94D0696917ADDEC9002C0CB8 /* default.vrs in Copy C64DTV Data Files */,
+				94D0696A17ADDEC9002C0CB8 /* dos_pos.vkm in Copy C64DTV Data Files */,
+				94D0696B17ADDEC9002C0CB8 /* dos_sym.vkm in Copy C64DTV Data Files */,
+				94D0696C17ADDEC9002C0CB8 /* dtvrom.bin in Copy C64DTV Data Files */,
+				94D0696D17ADDEC9002C0CB8 /* kernal in Copy C64DTV Data Files */,
+				94D0696E17ADDEC9002C0CB8 /* os2.vkm in Copy C64DTV Data Files */,
+				94D0696F17ADDEC9002C0CB8 /* os2_sym.vkm in Copy C64DTV Data Files */,
+				94D0697017ADDEC9002C0CB8 /* osx_pos.vkm in Copy C64DTV Data Files */,
+				94D0697117ADDEC9002C0CB8 /* osx_sym_de.vkm in Copy C64DTV Data Files */,
+				94D0697217ADDEC9002C0CB8 /* osx_sym_us.vkm in Copy C64DTV Data Files */,
+				94D0697317ADDEC9002C0CB8 /* sdl_sym.vkm in Copy C64DTV Data Files */,
+				94D0697417ADDEC9002C0CB8 /* sdl_sym_da.vkm in Copy C64DTV Data Files */,
+				94D0697517ADDEC9002C0CB8 /* sdl_sym_de.vkm in Copy C64DTV Data Files */,
+				94D0697617ADDEC9002C0CB8 /* sdl_sym_fi.vkm in Copy C64DTV Data Files */,
+				94D0697717ADDEC9002C0CB8 /* sdl_sym_no.vkm in Copy C64DTV Data Files */,
+				94D0697817ADDEC9002C0CB8 /* win_hotkeys.vhk in Copy C64DTV Data Files */,
+				94D0697917ADDEC9002C0CB8 /* win_pos.vkm in Copy C64DTV Data Files */,
+				94D0697A17ADDEC9002C0CB8 /* win_shortcuts.vsc in Copy C64DTV Data Files */,
+				94D0697B17ADDEC9002C0CB8 /* win_sym_de.vkm in Copy C64DTV Data Files */,
+				94D0697C17ADDEC9002C0CB8 /* win_sym_us.vkm in Copy C64DTV Data Files */,
+				94D0697D17ADDEC9002C0CB8 /* x11_pos.vkm in Copy C64DTV Data Files */,
+				94D0697E17ADDEC9002C0CB8 /* x11_sym.vkm in Copy C64DTV Data Files */,
+			);
+			name = "Copy C64DTV Data Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94D0697F17ADDF63002C0CB8 /* Copy CBM-II Data Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "ROM/CBM-II";
+			dstSubfolderSpec = 7;
+			files = (
+				94D0698017ADDFB2002C0CB8 /* amber.vpl in Copy CBM-II Data Files */,
+				94D0698117ADDFB2002C0CB8 /* amiga_bukp.vkm in Copy CBM-II Data Files */,
+				94D0698217ADDFB2002C0CB8 /* amiga_buks.vkm in Copy CBM-II Data Files */,
+				94D0698317ADDFB2002C0CB8 /* basic.128 in Copy CBM-II Data Files */,
+				94D0698417ADDFB3002C0CB8 /* basic.256 in Copy CBM-II Data Files */,
+				94D0698517ADDFB3002C0CB8 /* basic.500 in Copy CBM-II Data Files */,
+				94D0698617ADDFB3002C0CB8 /* beos_bukp.vkm in Copy CBM-II Data Files */,
+				94D0698717ADDFB3002C0CB8 /* beos_buks.vkm in Copy CBM-II Data Files */,
+				94D0698817ADDFB3002C0CB8 /* c64hq.vpl in Copy CBM-II Data Files */,
+				94D0698917ADDFB3002C0CB8 /* c64s.vpl in Copy CBM-II Data Files */,
+				94D0698A17ADDFB3002C0CB8 /* ccs64.vpl in Copy CBM-II Data Files */,
+				94D0698B17ADDFB3002C0CB8 /* chargen.500 in Copy CBM-II Data Files */,
+				94D0698C17ADDFB3002C0CB8 /* chargen.600 in Copy CBM-II Data Files */,
+				94D0698D17ADDFB3002C0CB8 /* chargen.700 in Copy CBM-II Data Files */,
+				94D0698E17ADDFB3002C0CB8 /* default.vpl in Copy CBM-II Data Files */,
+				94D0698F17ADDFB3002C0CB8 /* dos_bukp.vkm in Copy CBM-II Data Files */,
+				94D0699017ADDFB3002C0CB8 /* dos_buks.vkm in Copy CBM-II Data Files */,
+				94D0699117ADDFB3002C0CB8 /* frodo.vpl in Copy CBM-II Data Files */,
+				94D0699217ADDFB3002C0CB8 /* godot.vpl in Copy CBM-II Data Files */,
+				94D0699317ADDFB3002C0CB8 /* green.vpl in Copy CBM-II Data Files */,
+				94D0699417ADDFB3002C0CB8 /* kernal in Copy CBM-II Data Files */,
+				94D0699517ADDFB3002C0CB8 /* kernal.500 in Copy CBM-II Data Files */,
+				94D0699617ADDFB3002C0CB8 /* os2.vkm in Copy CBM-II Data Files */,
+				94D0699717ADDFB3002C0CB8 /* osx_pos_uk.vkm in Copy CBM-II Data Files */,
+				94D0699817ADDFB3002C0CB8 /* osx_sym_uk.vkm in Copy CBM-II Data Files */,
+				94D0699917ADDFB3002C0CB8 /* pc64.vpl in Copy CBM-II Data Files */,
+				94D0699A17ADDFB3002C0CB8 /* rom128h.vrs in Copy CBM-II Data Files */,
+				94D0699B17ADDFB3002C0CB8 /* rom128l.vrs in Copy CBM-II Data Files */,
+				94D0699C17ADDFB3002C0CB8 /* rom256h.vrs in Copy CBM-II Data Files */,
+				94D0699D17ADDFB3002C0CB8 /* rom256l.vrs in Copy CBM-II Data Files */,
+				94D0699E17ADDFB3002C0CB8 /* rom500.vrs in Copy CBM-II Data Files */,
+				94D0699F17ADDFB3002C0CB8 /* sdl_buks.vkm in Copy CBM-II Data Files */,
+				94D069A017ADDFB3002C0CB8 /* white.vpl in Copy CBM-II Data Files */,
+				94D069A117ADDFB3002C0CB8 /* win_hotkeys.vhk in Copy CBM-II Data Files */,
+				94D069A217ADDFB3002C0CB8 /* win_pos_uk.vkm in Copy CBM-II Data Files */,
+				94D069A317ADDFB3002C0CB8 /* win_shortcuts.vsc in Copy CBM-II Data Files */,
+				94D069A417ADDFB3002C0CB8 /* win_sym_uk.vkm in Copy CBM-II Data Files */,
+				94D069A517ADDFB3002C0CB8 /* x11_buks.vkm in Copy CBM-II Data Files */,
+				94D069A617ADDFB3002C0CB8 /* x11_buks_de.vkm in Copy CBM-II Data Files */,
+			);
+			name = "Copy CBM-II Data Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94D069A717ADDFC9002C0CB8 /* Copy DRIVES Data Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ROM/DRIVES;
+			dstSubfolderSpec = 7;
+			files = (
+				94D069A817ADDFEB002C0CB8 /* d1541II in Copy DRIVES Data Files */,
+				94D069A917ADDFEB002C0CB8 /* d1571cr in Copy DRIVES Data Files */,
+				94D069AA17ADDFEB002C0CB8 /* dos1001 in Copy DRIVES Data Files */,
+				94D069AB17ADDFEB002C0CB8 /* dos1541 in Copy DRIVES Data Files */,
+				94D069AC17ADDFEB002C0CB8 /* dos1551 in Copy DRIVES Data Files */,
+				94D069AD17ADDFEB002C0CB8 /* dos1570 in Copy DRIVES Data Files */,
+				94D069AE17ADDFEB002C0CB8 /* dos1571 in Copy DRIVES Data Files */,
+				94D069AF17ADDFEB002C0CB8 /* dos1581 in Copy DRIVES Data Files */,
+				94D069B017ADDFEB002C0CB8 /* dos2000 in Copy DRIVES Data Files */,
+				94D069B117ADDFEB002C0CB8 /* dos2031 in Copy DRIVES Data Files */,
+				94D069B217ADDFEB002C0CB8 /* dos2040 in Copy DRIVES Data Files */,
+				94D069B317ADDFEB002C0CB8 /* dos3040 in Copy DRIVES Data Files */,
+				94D069B417ADDFEB002C0CB8 /* dos4000 in Copy DRIVES Data Files */,
+				94D069B517ADDFEB002C0CB8 /* dos4040 in Copy DRIVES Data Files */,
+			);
+			name = "Copy DRIVES Data Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94D069B617ADE01C002C0CB8 /* Copy PET Data Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ROM/PET;
+			dstSubfolderSpec = 7;
+			files = (
+				94D069B717ADE03D002C0CB8 /* amber.vpl in Copy PET Data Files */,
+				94D069B817ADE03D002C0CB8 /* amiga_bgrs.vkm in Copy PET Data Files */,
+				94D069B917ADE03D002C0CB8 /* amiga_buks.vkm in Copy PET Data Files */,
+				94D069BA17ADE03D002C0CB8 /* basic1 in Copy PET Data Files */,
+				94D069BB17ADE03D002C0CB8 /* basic2 in Copy PET Data Files */,
+				94D069BC17ADE03D002C0CB8 /* basic4 in Copy PET Data Files */,
+				94D069BD17ADE03D002C0CB8 /* beos_bgrs.vkm in Copy PET Data Files */,
+				94D069BE17ADE03D002C0CB8 /* beos_buks.vkm in Copy PET Data Files */,
+				94D069BF17ADE03D002C0CB8 /* characters.901640-01.bin in Copy PET Data Files */,
+				94D069C017ADE03D002C0CB8 /* chargen in Copy PET Data Files */,
+				94D069C117ADE03D002C0CB8 /* chargen.de in Copy PET Data Files */,
+				94D069C217ADE03D002C0CB8 /* dos_bgrs.vkm in Copy PET Data Files */,
+				94D069C317ADE03D002C0CB8 /* dos_buks.vkm in Copy PET Data Files */,
+				94D069C417ADE03D002C0CB8 /* edit1g in Copy PET Data Files */,
+				94D069C517ADE03D002C0CB8 /* edit2b in Copy PET Data Files */,
+				94D069C617ADE03D002C0CB8 /* edit2g in Copy PET Data Files */,
+				94D069C717ADE03D002C0CB8 /* edit4b40 in Copy PET Data Files */,
+				94D069C817ADE03D002C0CB8 /* edit4b80 in Copy PET Data Files */,
+				94D069C917ADE03D002C0CB8 /* edit4g40 in Copy PET Data Files */,
+				94D069CA17ADE03D002C0CB8 /* green.vpl in Copy PET Data Files */,
+				94D069CB17ADE03D002C0CB8 /* kernal1 in Copy PET Data Files */,
+				94D069CC17ADE03D002C0CB8 /* kernal2 in Copy PET Data Files */,
+				94D069CD17ADE03D002C0CB8 /* kernal4 in Copy PET Data Files */,
+				94D069CE17ADE03D002C0CB8 /* os2.vkm in Copy PET Data Files */,
+				94D069CF17ADE03D002C0CB8 /* os2_40.vkm in Copy PET Data Files */,
+				94D069D017ADE03D002C0CB8 /* osx_sym_gr.vkm in Copy PET Data Files */,
+				94D069D117ADE03D002C0CB8 /* osx_sym_uk.vkm in Copy PET Data Files */,
+				94D069D217ADE03D002C0CB8 /* rom1g.vrs in Copy PET Data Files */,
+				94D069D317ADE03D002C0CB8 /* rom2b.vrs in Copy PET Data Files */,
+				94D069D417ADE03D002C0CB8 /* rom2g.vrs in Copy PET Data Files */,
+				94D069D517ADE03D002C0CB8 /* rom4b40.vrs in Copy PET Data Files */,
+				94D069D617ADE03D002C0CB8 /* rom4b80.vrs in Copy PET Data Files */,
+				94D069D717ADE03D002C0CB8 /* rom4g40.vrs in Copy PET Data Files */,
+				94D069D817ADE03D002C0CB8 /* romsuperpet.vrs in Copy PET Data Files */,
+				94D069D917ADE03D002C0CB8 /* sdl_bgrs.vkm in Copy PET Data Files */,
+				94D069DA17ADE03D002C0CB8 /* sdl_buks.vkm in Copy PET Data Files */,
+				94D069DB17ADE03D002C0CB8 /* waterloo-a000.901898-01.bin in Copy PET Data Files */,
+				94D069DC17ADE03D002C0CB8 /* waterloo-b000.901898-02.bin in Copy PET Data Files */,
+				94D069DD17ADE03D002C0CB8 /* waterloo-c000.901898-03.bin in Copy PET Data Files */,
+				94D069DE17ADE03D002C0CB8 /* waterloo-d000.901898-04.bin in Copy PET Data Files */,
+				94D069DF17ADE03D002C0CB8 /* waterloo-e000.901897-01.bin in Copy PET Data Files */,
+				94D069E017ADE03D002C0CB8 /* waterloo-f000.901898-05.bin in Copy PET Data Files */,
+				94D069E117ADE03D002C0CB8 /* white.vpl in Copy PET Data Files */,
+				94D069E217ADE03D002C0CB8 /* win_hotkeys.vhk in Copy PET Data Files */,
+				94D069E317ADE03D002C0CB8 /* win_shortcuts.vsc in Copy PET Data Files */,
+				94D069E417ADE03D002C0CB8 /* win_sym_gr.vkm in Copy PET Data Files */,
+				94D069E517ADE03D002C0CB8 /* win_sym_uk.vkm in Copy PET Data Files */,
+				94D069E617ADE03D002C0CB8 /* x11_bdep.vkm in Copy PET Data Files */,
+				94D069E717ADE03D002C0CB8 /* x11_bdep_de.vkm in Copy PET Data Files */,
+				94D069E817ADE03D002C0CB8 /* x11_bdes.vkm in Copy PET Data Files */,
+				94D069E917ADE03D002C0CB8 /* x11_bdes_de.vkm in Copy PET Data Files */,
+				94D069EA17ADE03D002C0CB8 /* x11_bgrp.vkm in Copy PET Data Files */,
+				94D069EB17ADE03D002C0CB8 /* x11_bgrp_de.vkm in Copy PET Data Files */,
+				94D069EC17ADE03D002C0CB8 /* x11_bgrs.vkm in Copy PET Data Files */,
+				94D069ED17ADE03D002C0CB8 /* x11_bgrs_de.vkm in Copy PET Data Files */,
+				94D069EE17ADE03D002C0CB8 /* x11_bukp.vkm in Copy PET Data Files */,
+				94D069EF17ADE03D002C0CB8 /* x11_bukp_de.vkm in Copy PET Data Files */,
+				94D069F017ADE03D002C0CB8 /* x11_buks.vkm in Copy PET Data Files */,
+				94D069F117ADE03D002C0CB8 /* x11_buks_de.vkm in Copy PET Data Files */,
+			);
+			name = "Copy PET Data Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94D069F217ADE057002C0CB8 /* Copy PLUS4 Data Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ROM/PLUS4;
+			dstSubfolderSpec = 7;
+			files = (
+				94D069F317ADE0A2002C0CB8 /* 3plus1hi in Copy PLUS4 Data Files */,
+				94D069F417ADE0A2002C0CB8 /* 3plus1lo in Copy PLUS4 Data Files */,
+				94D069F517ADE0A2002C0CB8 /* amiga_pos.vkm in Copy PLUS4 Data Files */,
+				94D069F617ADE0A2002C0CB8 /* amiga_sym.vkm in Copy PLUS4 Data Files */,
+				94D069F717ADE0A2002C0CB8 /* basic in Copy PLUS4 Data Files */,
+				94D069F817ADE0A2002C0CB8 /* beos_pos.vkm in Copy PLUS4 Data Files */,
+				94D069F917ADE0A2002C0CB8 /* beos_sym.vkm in Copy PLUS4 Data Files */,
+				94D069FA17ADE0A2002C0CB8 /* c2lo.364 in Copy PLUS4 Data Files */,
+				94D069FB17ADE0A2002C0CB8 /* default.vpl in Copy PLUS4 Data Files */,
+				94D069FC17ADE0A2002C0CB8 /* default.vrs in Copy PLUS4 Data Files */,
+				94D069FD17ADE0A2002C0CB8 /* dos_pos.vkm in Copy PLUS4 Data Files */,
+				94D069FE17ADE0A2002C0CB8 /* dos_sym.vkm in Copy PLUS4 Data Files */,
+				94D069FF17ADE0A2002C0CB8 /* kernal in Copy PLUS4 Data Files */,
+				94D06A0017ADE0A2002C0CB8 /* kernal.232 in Copy PLUS4 Data Files */,
+				94D06A0117ADE0A2002C0CB8 /* kernal.364 in Copy PLUS4 Data Files */,
+				94D06A0217ADE0A2002C0CB8 /* os2.vkm in Copy PLUS4 Data Files */,
+				94D06A0317ADE0A2002C0CB8 /* osx_pos.vkm in Copy PLUS4 Data Files */,
+				94D06A0417ADE0A2002C0CB8 /* osx_sym.vkm in Copy PLUS4 Data Files */,
+				94D06A0517ADE0A2002C0CB8 /* sdl_sym.vkm in Copy PLUS4 Data Files */,
+				94D06A0617ADE0A2002C0CB8 /* vice.vpl in Copy PLUS4 Data Files */,
+				94D06A0717ADE0A2002C0CB8 /* win_hotkeys.vhk in Copy PLUS4 Data Files */,
+				94D06A0817ADE0A2002C0CB8 /* win_pos.vkm in Copy PLUS4 Data Files */,
+				94D06A0917ADE0A2002C0CB8 /* win_shortcuts.vsc in Copy PLUS4 Data Files */,
+				94D06A0A17ADE0A2002C0CB8 /* win_sym.vkm in Copy PLUS4 Data Files */,
+				94D06A0B17ADE0A2002C0CB8 /* x11_pos.vkm in Copy PLUS4 Data Files */,
+				94D06A0C17ADE0A2002C0CB8 /* x11_sym.vkm in Copy PLUS4 Data Files */,
+				94D06A0D17ADE0A2002C0CB8 /* x11_sym_de.vkm in Copy PLUS4 Data Files */,
+			);
+			name = "Copy PLUS4 Data Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94D06A0E17ADE0AE002C0CB8 /* Copy PRINTER Data Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ROM/PRINTER;
+			dstSubfolderSpec = 7;
+			files = (
+				94D06A0F17ADE0CE002C0CB8 /* cbm1526 in Copy PRINTER Data Files */,
+				94D06A1017ADE0CE002C0CB8 /* mps801 in Copy PRINTER Data Files */,
+				94D06A1117ADE0CE002C0CB8 /* mps803 in Copy PRINTER Data Files */,
+				94D06A1217ADE0CE002C0CB8 /* mps803.vpl in Copy PRINTER Data Files */,
+				94D06A1317ADE0CE002C0CB8 /* nl10-cbm in Copy PRINTER Data Files */,
+			);
+			name = "Copy PRINTER Data Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94D06A1417ADE0D7002C0CB8 /* Copy VIC20 Data Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ROM/VIC20;
+			dstSubfolderSpec = 7;
+			files = (
+				94D06A1517ADE0F9002C0CB8 /* amiga_pos.vkm in Copy VIC20 Data Files */,
+				94D06A1617ADE0F9002C0CB8 /* amiga_sym.vkm in Copy VIC20 Data Files */,
+				94D06A1717ADE0F9002C0CB8 /* basic in Copy VIC20 Data Files */,
+				94D06A1817ADE0F9002C0CB8 /* beos_pos.vkm in Copy VIC20 Data Files */,
+				94D06A1917ADE0F9002C0CB8 /* beos_sym.vkm in Copy VIC20 Data Files */,
+				94D06A1A17ADE0F9002C0CB8 /* chargen in Copy VIC20 Data Files */,
+				94D06A1B17ADE0F9002C0CB8 /* default.vpl in Copy VIC20 Data Files */,
+				94D06A1C17ADE0F9002C0CB8 /* default.vrs in Copy VIC20 Data Files */,
+				94D06A1D17ADE0F9002C0CB8 /* dos_pos.vkm in Copy VIC20 Data Files */,
+				94D06A1E17ADE0F9002C0CB8 /* dos_sym.vkm in Copy VIC20 Data Files */,
+				94D06A1F17ADE0F9002C0CB8 /* kernal in Copy VIC20 Data Files */,
+				94D06A2017ADE0F9002C0CB8 /* os2.vkm in Copy VIC20 Data Files */,
+				94D06A2117ADE0F9002C0CB8 /* osx_pos.vkm in Copy VIC20 Data Files */,
+				94D06A2217ADE0F9002C0CB8 /* osx_sym.vkm in Copy VIC20 Data Files */,
+				94D06A2317ADE0F9002C0CB8 /* sdl_pos_fi.vkm in Copy VIC20 Data Files */,
+				94D06A2417ADE0F9002C0CB8 /* sdl_sym.vkm in Copy VIC20 Data Files */,
+				94D06A2517ADE0F9002C0CB8 /* win_hotkeys.vhk in Copy VIC20 Data Files */,
+				94D06A2617ADE0F9002C0CB8 /* win_pos.vkm in Copy VIC20 Data Files */,
+				94D06A2717ADE0F9002C0CB8 /* win_shortcuts.vsc in Copy VIC20 Data Files */,
+				94D06A2817ADE0F9002C0CB8 /* win_sym.vkm in Copy VIC20 Data Files */,
+				94D06A2917ADE0F9002C0CB8 /* win_sym_US.vkm in Copy VIC20 Data Files */,
+				94D06A2A17ADE0F9002C0CB8 /* x11_pos.vkm in Copy VIC20 Data Files */,
+				94D06A2B17ADE0F9002C0CB8 /* x11_sym.vkm in Copy VIC20 Data Files */,
+			);
+			name = "Copy VIC20 Data Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8C7938FA179F21AF00E4E906 /* libdriveiec.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdriveiec.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3840,6 +4491,310 @@
 		8CBCB8DC17A0046D00F03775 /* libarchmacosx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libarchmacosx.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CBCB8EE17A00C1B00F03775 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		8CBCB8F017A00C5500F03775 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
+		94D067D317ADC7CF002C0CB8 /* amiga_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = amiga_pos.vkm; sourceTree = "<group>"; };
+		94D067D417ADC7CF002C0CB8 /* amiga_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = amiga_sym.vkm; sourceTree = "<group>"; };
+		94D067D517ADC7CF002C0CB8 /* basic64 */ = {isa = PBXFileReference; lastKnownFileType = file; path = basic64; sourceTree = "<group>"; };
+		94D067D617ADC7CF002C0CB8 /* basichi */ = {isa = PBXFileReference; lastKnownFileType = file; path = basichi; sourceTree = "<group>"; };
+		94D067D717ADC7CF002C0CB8 /* basiclo */ = {isa = PBXFileReference; lastKnownFileType = file; path = basiclo; sourceTree = "<group>"; };
+		94D067D817ADC7CF002C0CB8 /* beos_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = beos_pos.vkm; sourceTree = "<group>"; };
+		94D067D917ADC7CF002C0CB8 /* beos_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = beos_sym.vkm; sourceTree = "<group>"; };
+		94D067DA17ADC7CF002C0CB8 /* c64hq.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = c64hq.vpl; sourceTree = "<group>"; };
+		94D067DB17ADC7CF002C0CB8 /* c64s.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = c64s.vpl; sourceTree = "<group>"; };
+		94D067DC17ADC7CF002C0CB8 /* ccs64.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = ccs64.vpl; sourceTree = "<group>"; };
+		94D067DD17ADC7CF002C0CB8 /* chargde */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargde; sourceTree = "<group>"; };
+		94D067DE17ADC7CF002C0CB8 /* chargen */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargen; sourceTree = "<group>"; };
+		94D067DF17ADC7CF002C0CB8 /* chargfr */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargfr; sourceTree = "<group>"; };
+		94D067E017ADC7CF002C0CB8 /* chargse */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargse; sourceTree = "<group>"; };
+		94D067E117ADC7CF002C0CB8 /* default.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.vpl; sourceTree = "<group>"; };
+		94D067E217ADC7CF002C0CB8 /* default.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.vrs; sourceTree = "<group>"; };
+		94D067E317ADC7CF002C0CB8 /* dos_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = dos_pos.vkm; sourceTree = "<group>"; };
+		94D067E417ADC7CF002C0CB8 /* dos_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = dos_sym.vkm; sourceTree = "<group>"; };
+		94D067E517ADC7CF002C0CB8 /* frodo.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = frodo.vpl; sourceTree = "<group>"; };
+		94D067E617ADC7CF002C0CB8 /* godot.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = godot.vpl; sourceTree = "<group>"; };
+		94D067E717ADC7CF002C0CB8 /* kernal */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal; sourceTree = "<group>"; };
+		94D067E817ADC7CF002C0CB8 /* kernal64 */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal64; sourceTree = "<group>"; };
+		94D067E917ADC7CF002C0CB8 /* kernalde */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernalde; sourceTree = "<group>"; };
+		94D067EA17ADC7CF002C0CB8 /* kernalfi */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernalfi; sourceTree = "<group>"; };
+		94D067EB17ADC7CF002C0CB8 /* kernalfr */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernalfr; sourceTree = "<group>"; };
+		94D067EC17ADC7CF002C0CB8 /* kernalit */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernalit; sourceTree = "<group>"; };
+		94D067ED17ADC7CF002C0CB8 /* kernalno */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernalno; sourceTree = "<group>"; };
+		94D067EE17ADC7CF002C0CB8 /* kernalse */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernalse; sourceTree = "<group>"; };
+		94D067EF17ADC7CF002C0CB8 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		94D067F017ADC7CF002C0CB8 /* Makefile.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
+		94D067F117ADC7CF002C0CB8 /* os2.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = os2.vkm; sourceTree = "<group>"; };
+		94D067F217ADC7CF002C0CB8 /* osx_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_pos.vkm; sourceTree = "<group>"; };
+		94D067F317ADC7CF002C0CB8 /* osx_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_sym.vkm; sourceTree = "<group>"; };
+		94D067F417ADC7CF002C0CB8 /* pc64.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = pc64.vpl; sourceTree = "<group>"; };
+		94D067F517ADC7CF002C0CB8 /* sdl_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = sdl_sym.vkm; sourceTree = "<group>"; };
+		94D067F617ADC7CF002C0CB8 /* vdc_comp.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = vdc_comp.vpl; sourceTree = "<group>"; };
+		94D067F717ADC7CF002C0CB8 /* vdc_deft.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = vdc_deft.vpl; sourceTree = "<group>"; };
+		94D067F817ADC7CF002C0CB8 /* vice.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = vice.vpl; sourceTree = "<group>"; };
+		94D067F917ADC7CF002C0CB8 /* win_hotkeys.vhk */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_hotkeys.vhk; sourceTree = "<group>"; };
+		94D067FA17ADC7CF002C0CB8 /* win_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_pos.vkm; sourceTree = "<group>"; };
+		94D067FB17ADC7CF002C0CB8 /* win_shortcuts.vsc */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_shortcuts.vsc; sourceTree = "<group>"; };
+		94D067FC17ADC7CF002C0CB8 /* win_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_sym.vkm; sourceTree = "<group>"; };
+		94D067FD17ADC7CF002C0CB8 /* x11_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_pos.vkm; sourceTree = "<group>"; };
+		94D067FE17ADC7CF002C0CB8 /* x11_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_sym.vkm; sourceTree = "<group>"; };
+		94D0680017ADC7CF002C0CB8 /* amiga_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = amiga_pos.vkm; sourceTree = "<group>"; };
+		94D0680117ADC7CF002C0CB8 /* amiga_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = amiga_sym.vkm; sourceTree = "<group>"; };
+		94D0680217ADC7CF002C0CB8 /* basic */ = {isa = PBXFileReference; lastKnownFileType = file; path = basic; sourceTree = "<group>"; };
+		94D0680317ADC7CF002C0CB8 /* beos_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = beos_pos.vkm; sourceTree = "<group>"; };
+		94D0680417ADC7CF002C0CB8 /* beos_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = beos_sym.vkm; sourceTree = "<group>"; };
+		94D0680517ADC7CF002C0CB8 /* c64hq.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = c64hq.vpl; sourceTree = "<group>"; };
+		94D0680617ADC7CF002C0CB8 /* c64mem.sym */ = {isa = PBXFileReference; lastKnownFileType = text; path = c64mem.sym; sourceTree = "<group>"; };
+		94D0680717ADC7CF002C0CB8 /* c64s.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = c64s.vpl; sourceTree = "<group>"; };
+		94D0680817ADC7CF002C0CB8 /* ccs64.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = ccs64.vpl; sourceTree = "<group>"; };
+		94D0680917ADC7CF002C0CB8 /* chargen */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargen; sourceTree = "<group>"; };
+		94D0680A17ADC7CF002C0CB8 /* default.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.vpl; sourceTree = "<group>"; };
+		94D0680B17ADC7CF002C0CB8 /* default.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.vrs; sourceTree = "<group>"; };
+		94D0680C17ADC7CF002C0CB8 /* dos_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = dos_pos.vkm; sourceTree = "<group>"; };
+		94D0680D17ADC7CF002C0CB8 /* dos_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = dos_sym.vkm; sourceTree = "<group>"; };
+		94D0680E17ADC7CF002C0CB8 /* frodo.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = frodo.vpl; sourceTree = "<group>"; };
+		94D0680F17ADC7CF002C0CB8 /* godot.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = godot.vpl; sourceTree = "<group>"; };
+		94D0681017ADC7CF002C0CB8 /* gp2x_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = gp2x_pos.vkm; sourceTree = "<group>"; };
+		94D0681117ADC7CF002C0CB8 /* gp2x_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = gp2x_sym.vkm; sourceTree = "<group>"; };
+		94D0681217ADC7CF002C0CB8 /* kernal */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal; sourceTree = "<group>"; };
+		94D0681317ADC7CF002C0CB8 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		94D0681417ADC7CF002C0CB8 /* Makefile.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
+		94D0681517ADC7CF002C0CB8 /* os2.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = os2.vkm; sourceTree = "<group>"; };
+		94D0681617ADC7CF002C0CB8 /* os2_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = os2_sym.vkm; sourceTree = "<group>"; };
+		94D0681717ADC7CF002C0CB8 /* osx_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_pos.vkm; sourceTree = "<group>"; };
+		94D0681817ADC7CF002C0CB8 /* osx_sym_de.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_sym_de.vkm; sourceTree = "<group>"; };
+		94D0681917ADC7CF002C0CB8 /* osx_sym_us.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_sym_us.vkm; sourceTree = "<group>"; };
+		94D0681A17ADC7CF002C0CB8 /* pc64.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = pc64.vpl; sourceTree = "<group>"; };
+		94D0681B17ADC7CF002C0CB8 /* sdl_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = sdl_sym.vkm; sourceTree = "<group>"; };
+		94D0681C17ADC7CF002C0CB8 /* sdl_sym_da.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = sdl_sym_da.vkm; sourceTree = "<group>"; };
+		94D0681D17ADC7CF002C0CB8 /* sdl_sym_de.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = sdl_sym_de.vkm; sourceTree = "<group>"; };
+		94D0681E17ADC7CF002C0CB8 /* sdl_sym_fi.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = sdl_sym_fi.vkm; sourceTree = "<group>"; };
+		94D0681F17ADC7CF002C0CB8 /* sdl_sym_no.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = sdl_sym_no.vkm; sourceTree = "<group>"; };
+		94D0682017ADC7CF002C0CB8 /* vice.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = vice.vpl; sourceTree = "<group>"; };
+		94D0682117ADC7CF002C0CB8 /* win_hotkeys.vhk */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_hotkeys.vhk; sourceTree = "<group>"; };
+		94D0682217ADC7CF002C0CB8 /* win_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_pos.vkm; sourceTree = "<group>"; };
+		94D0682317ADC7CF002C0CB8 /* win_shortcuts.vsc */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_shortcuts.vsc; sourceTree = "<group>"; };
+		94D0682417ADC7CF002C0CB8 /* win_sym_de.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_sym_de.vkm; sourceTree = "<group>"; };
+		94D0682517ADC7CF002C0CB8 /* win_sym_it.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_sym_it.vkm; sourceTree = "<group>"; };
+		94D0682617ADC7CF002C0CB8 /* win_sym_us.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_sym_us.vkm; sourceTree = "<group>"; };
+		94D0682717ADC7CF002C0CB8 /* x11_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_pos.vkm; sourceTree = "<group>"; };
+		94D0682817ADC7CF002C0CB8 /* x11_posger.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_posger.vkm; sourceTree = "<group>"; };
+		94D0682917ADC7CF002C0CB8 /* x11_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_sym.vkm; sourceTree = "<group>"; };
+		94D0682A17ADC7CF002C0CB8 /* x11_symger.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_symger.vkm; sourceTree = "<group>"; };
+		94D0682C17ADC7CF002C0CB8 /* amiga_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = amiga_pos.vkm; sourceTree = "<group>"; };
+		94D0682D17ADC7CF002C0CB8 /* amiga_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = amiga_sym.vkm; sourceTree = "<group>"; };
+		94D0682E17ADC7CF002C0CB8 /* basic */ = {isa = PBXFileReference; lastKnownFileType = file; path = basic; sourceTree = "<group>"; };
+		94D0682F17ADC7CF002C0CB8 /* beos_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = beos_pos.vkm; sourceTree = "<group>"; };
+		94D0683017ADC7CF002C0CB8 /* beos_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = beos_sym.vkm; sourceTree = "<group>"; };
+		94D0683117ADC7D0002C0CB8 /* c64mem.sym */ = {isa = PBXFileReference; lastKnownFileType = text; path = c64mem.sym; sourceTree = "<group>"; };
+		94D0683217ADC7D0002C0CB8 /* chargen */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargen; sourceTree = "<group>"; };
+		94D0683317ADC7D0002C0CB8 /* default.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.vrs; sourceTree = "<group>"; };
+		94D0683417ADC7D0002C0CB8 /* dos_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = dos_pos.vkm; sourceTree = "<group>"; };
+		94D0683517ADC7D0002C0CB8 /* dos_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = dos_sym.vkm; sourceTree = "<group>"; };
+		94D0683617ADC7D0002C0CB8 /* dtvrom.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = dtvrom.bin; sourceTree = "<group>"; };
+		94D0683717ADC7D0002C0CB8 /* kernal */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal; sourceTree = "<group>"; };
+		94D0683817ADC7D0002C0CB8 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		94D0683917ADC7D0002C0CB8 /* Makefile.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
+		94D0683A17ADC7D0002C0CB8 /* os2.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = os2.vkm; sourceTree = "<group>"; };
+		94D0683B17ADC7D0002C0CB8 /* os2_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = os2_sym.vkm; sourceTree = "<group>"; };
+		94D0683C17ADC7D0002C0CB8 /* osx_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_pos.vkm; sourceTree = "<group>"; };
+		94D0683D17ADC7D0002C0CB8 /* osx_sym_de.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_sym_de.vkm; sourceTree = "<group>"; };
+		94D0683E17ADC7D0002C0CB8 /* osx_sym_us.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_sym_us.vkm; sourceTree = "<group>"; };
+		94D0683F17ADC7D0002C0CB8 /* sdl_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = sdl_sym.vkm; sourceTree = "<group>"; };
+		94D0684017ADC7D0002C0CB8 /* sdl_sym_da.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = sdl_sym_da.vkm; sourceTree = "<group>"; };
+		94D0684117ADC7D0002C0CB8 /* sdl_sym_de.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = sdl_sym_de.vkm; sourceTree = "<group>"; };
+		94D0684217ADC7D0002C0CB8 /* sdl_sym_fi.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = sdl_sym_fi.vkm; sourceTree = "<group>"; };
+		94D0684317ADC7D0002C0CB8 /* sdl_sym_no.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = sdl_sym_no.vkm; sourceTree = "<group>"; };
+		94D0684417ADC7D0002C0CB8 /* win_hotkeys.vhk */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_hotkeys.vhk; sourceTree = "<group>"; };
+		94D0684517ADC7D0002C0CB8 /* win_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_pos.vkm; sourceTree = "<group>"; };
+		94D0684617ADC7D0002C0CB8 /* win_shortcuts.vsc */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_shortcuts.vsc; sourceTree = "<group>"; };
+		94D0684717ADC7D0002C0CB8 /* win_sym_de.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_sym_de.vkm; sourceTree = "<group>"; };
+		94D0684817ADC7D0002C0CB8 /* win_sym_us.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_sym_us.vkm; sourceTree = "<group>"; };
+		94D0684917ADC7D0002C0CB8 /* x11_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_pos.vkm; sourceTree = "<group>"; };
+		94D0684A17ADC7D0002C0CB8 /* x11_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_sym.vkm; sourceTree = "<group>"; };
+		94D0684C17ADC7D0002C0CB8 /* amber.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = amber.vpl; sourceTree = "<group>"; };
+		94D0684D17ADC7D0002C0CB8 /* amiga_bukp.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = amiga_bukp.vkm; sourceTree = "<group>"; };
+		94D0684E17ADC7D0002C0CB8 /* amiga_buks.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = amiga_buks.vkm; sourceTree = "<group>"; };
+		94D0684F17ADC7D0002C0CB8 /* basic.128 */ = {isa = PBXFileReference; lastKnownFileType = file; path = basic.128; sourceTree = "<group>"; };
+		94D0685017ADC7D0002C0CB8 /* basic.256 */ = {isa = PBXFileReference; lastKnownFileType = file; path = basic.256; sourceTree = "<group>"; };
+		94D0685117ADC7D0002C0CB8 /* basic.500 */ = {isa = PBXFileReference; lastKnownFileType = file; path = basic.500; sourceTree = "<group>"; };
+		94D0685217ADC7D0002C0CB8 /* beos_bukp.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = beos_bukp.vkm; sourceTree = "<group>"; };
+		94D0685317ADC7D0002C0CB8 /* beos_buks.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = beos_buks.vkm; sourceTree = "<group>"; };
+		94D0685417ADC7D0002C0CB8 /* c64hq.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = c64hq.vpl; sourceTree = "<group>"; };
+		94D0685517ADC7D0002C0CB8 /* c64s.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = c64s.vpl; sourceTree = "<group>"; };
+		94D0685617ADC7D0002C0CB8 /* ccs64.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = ccs64.vpl; sourceTree = "<group>"; };
+		94D0685717ADC7D0002C0CB8 /* chargen.500 */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargen.500; sourceTree = "<group>"; };
+		94D0685817ADC7D0002C0CB8 /* chargen.600 */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargen.600; sourceTree = "<group>"; };
+		94D0685917ADC7D0002C0CB8 /* chargen.700 */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargen.700; sourceTree = "<group>"; };
+		94D0685A17ADC7D0002C0CB8 /* default.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.vpl; sourceTree = "<group>"; };
+		94D0685B17ADC7D0002C0CB8 /* dos_bukp.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = dos_bukp.vkm; sourceTree = "<group>"; };
+		94D0685C17ADC7D0002C0CB8 /* dos_buks.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = dos_buks.vkm; sourceTree = "<group>"; };
+		94D0685D17ADC7D0002C0CB8 /* frodo.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = frodo.vpl; sourceTree = "<group>"; };
+		94D0685E17ADC7D0002C0CB8 /* godot.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = godot.vpl; sourceTree = "<group>"; };
+		94D0685F17ADC7D0002C0CB8 /* green.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = green.vpl; sourceTree = "<group>"; };
+		94D0686017ADC7D0002C0CB8 /* kernal */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal; sourceTree = "<group>"; };
+		94D0686117ADC7D0002C0CB8 /* kernal.500 */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal.500; sourceTree = "<group>"; };
+		94D0686217ADC7D0002C0CB8 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		94D0686317ADC7D0002C0CB8 /* Makefile.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
+		94D0686417ADC7D0002C0CB8 /* os2.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = os2.vkm; sourceTree = "<group>"; };
+		94D0686517ADC7D0002C0CB8 /* osx_pos_uk.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_pos_uk.vkm; sourceTree = "<group>"; };
+		94D0686617ADC7D0002C0CB8 /* osx_sym_uk.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_sym_uk.vkm; sourceTree = "<group>"; };
+		94D0686717ADC7D0002C0CB8 /* pc64.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = pc64.vpl; sourceTree = "<group>"; };
+		94D0686817ADC7D0002C0CB8 /* rom128h.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = rom128h.vrs; sourceTree = "<group>"; };
+		94D0686917ADC7D0002C0CB8 /* rom128l.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = rom128l.vrs; sourceTree = "<group>"; };
+		94D0686A17ADC7D0002C0CB8 /* rom256h.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = rom256h.vrs; sourceTree = "<group>"; };
+		94D0686B17ADC7D0002C0CB8 /* rom256l.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = rom256l.vrs; sourceTree = "<group>"; };
+		94D0686C17ADC7D0002C0CB8 /* rom500.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = rom500.vrs; sourceTree = "<group>"; };
+		94D0686D17ADC7D0002C0CB8 /* sdl_buks.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = sdl_buks.vkm; sourceTree = "<group>"; };
+		94D0686E17ADC7D0002C0CB8 /* white.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = white.vpl; sourceTree = "<group>"; };
+		94D0686F17ADC7D0002C0CB8 /* win_hotkeys.vhk */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_hotkeys.vhk; sourceTree = "<group>"; };
+		94D0687017ADC7D0002C0CB8 /* win_pos_uk.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_pos_uk.vkm; sourceTree = "<group>"; };
+		94D0687117ADC7D0002C0CB8 /* win_shortcuts.vsc */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_shortcuts.vsc; sourceTree = "<group>"; };
+		94D0687217ADC7D0002C0CB8 /* win_sym_uk.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_sym_uk.vkm; sourceTree = "<group>"; };
+		94D0687317ADC7D0002C0CB8 /* x11_buks.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_buks.vkm; sourceTree = "<group>"; };
+		94D0687417ADC7D0002C0CB8 /* x11_buks_de.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_buks_de.vkm; sourceTree = "<group>"; };
+		94D0687617ADC7D0002C0CB8 /* d1541II */ = {isa = PBXFileReference; lastKnownFileType = file; path = d1541II; sourceTree = "<group>"; };
+		94D0687717ADC7D0002C0CB8 /* d1571cr */ = {isa = PBXFileReference; lastKnownFileType = file; path = d1571cr; sourceTree = "<group>"; };
+		94D0687817ADC7D0002C0CB8 /* dos1001 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dos1001; sourceTree = "<group>"; };
+		94D0687917ADC7D0002C0CB8 /* dos1541 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dos1541; sourceTree = "<group>"; };
+		94D0687A17ADC7D0002C0CB8 /* dos1551 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dos1551; sourceTree = "<group>"; };
+		94D0687B17ADC7D0002C0CB8 /* dos1570 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dos1570; sourceTree = "<group>"; };
+		94D0687C17ADC7D0002C0CB8 /* dos1571 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dos1571; sourceTree = "<group>"; };
+		94D0687D17ADC7D0002C0CB8 /* dos1581 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dos1581; sourceTree = "<group>"; };
+		94D0687E17ADC7D0002C0CB8 /* dos2000 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dos2000; sourceTree = "<group>"; };
+		94D0687F17ADC7D0002C0CB8 /* dos2031 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dos2031; sourceTree = "<group>"; };
+		94D0688017ADC7D0002C0CB8 /* dos2040 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dos2040; sourceTree = "<group>"; };
+		94D0688117ADC7D0002C0CB8 /* dos3040 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dos3040; sourceTree = "<group>"; };
+		94D0688217ADC7D0002C0CB8 /* dos4000 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dos4000; sourceTree = "<group>"; };
+		94D0688317ADC7D0002C0CB8 /* dos4040 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dos4040; sourceTree = "<group>"; };
+		94D0688417ADC7D0002C0CB8 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		94D0688517ADC7D0002C0CB8 /* Makefile.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
+		94D0688717ADC7D0002C0CB8 /* cbm-directory-charset.fon */ = {isa = PBXFileReference; lastKnownFileType = file; path = "cbm-directory-charset.fon"; sourceTree = "<group>"; };
+		94D0688817ADC7D0002C0CB8 /* CBM.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CBM.ttf; sourceTree = "<group>"; };
+		94D0688917ADC7D0002C0CB8 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		94D0688A17ADC7D0002C0CB8 /* Makefile.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
+		94D0688B17ADC7D0002C0CB8 /* vice-cbm.bdf */ = {isa = PBXFileReference; lastKnownFileType = text; path = "vice-cbm.bdf"; sourceTree = "<group>"; };
+		94D0688C17ADC7D0002C0CB8 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		94D0688D17ADC7D0002C0CB8 /* Makefile.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
+		94D0688F17ADC7D0002C0CB8 /* amber.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = amber.vpl; sourceTree = "<group>"; };
+		94D0689017ADC7D0002C0CB8 /* amiga_bgrs.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = amiga_bgrs.vkm; sourceTree = "<group>"; };
+		94D0689117ADC7D0002C0CB8 /* amiga_buks.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = amiga_buks.vkm; sourceTree = "<group>"; };
+		94D0689217ADC7D0002C0CB8 /* basic1 */ = {isa = PBXFileReference; lastKnownFileType = file; path = basic1; sourceTree = "<group>"; };
+		94D0689317ADC7D0002C0CB8 /* basic2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = basic2; sourceTree = "<group>"; };
+		94D0689417ADC7D0002C0CB8 /* basic4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = basic4; sourceTree = "<group>"; };
+		94D0689517ADC7D0002C0CB8 /* beos_bgrs.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = beos_bgrs.vkm; sourceTree = "<group>"; };
+		94D0689617ADC7D0002C0CB8 /* beos_buks.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = beos_buks.vkm; sourceTree = "<group>"; };
+		94D0689717ADC7D0002C0CB8 /* characters.901640-01.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "characters.901640-01.bin"; sourceTree = "<group>"; };
+		94D0689817ADC7D0002C0CB8 /* chargen */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargen; sourceTree = "<group>"; };
+		94D0689917ADC7D0002C0CB8 /* chargen.de */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargen.de; sourceTree = "<group>"; };
+		94D0689A17ADC7D0002C0CB8 /* dos_bgrs.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = dos_bgrs.vkm; sourceTree = "<group>"; };
+		94D0689B17ADC7D0002C0CB8 /* dos_buks.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = dos_buks.vkm; sourceTree = "<group>"; };
+		94D0689C17ADC7D0002C0CB8 /* edit1g */ = {isa = PBXFileReference; lastKnownFileType = file; path = edit1g; sourceTree = "<group>"; };
+		94D0689D17ADC7D0002C0CB8 /* edit2b */ = {isa = PBXFileReference; lastKnownFileType = file; path = edit2b; sourceTree = "<group>"; };
+		94D0689E17ADC7D0002C0CB8 /* edit2g */ = {isa = PBXFileReference; lastKnownFileType = file; path = edit2g; sourceTree = "<group>"; };
+		94D0689F17ADC7D0002C0CB8 /* edit4b40 */ = {isa = PBXFileReference; lastKnownFileType = file; path = edit4b40; sourceTree = "<group>"; };
+		94D068A017ADC7D0002C0CB8 /* edit4b80 */ = {isa = PBXFileReference; lastKnownFileType = file; path = edit4b80; sourceTree = "<group>"; };
+		94D068A117ADC7D0002C0CB8 /* edit4g40 */ = {isa = PBXFileReference; lastKnownFileType = file; path = edit4g40; sourceTree = "<group>"; };
+		94D068A217ADC7D0002C0CB8 /* green.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = green.vpl; sourceTree = "<group>"; };
+		94D068A317ADC7D0002C0CB8 /* kernal1 */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal1; sourceTree = "<group>"; };
+		94D068A417ADC7D0002C0CB8 /* kernal2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal2; sourceTree = "<group>"; };
+		94D068A517ADC7D0002C0CB8 /* kernal4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal4; sourceTree = "<group>"; };
+		94D068A617ADC7D0002C0CB8 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		94D068A717ADC7D0002C0CB8 /* Makefile.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
+		94D068A817ADC7D0002C0CB8 /* os2.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = os2.vkm; sourceTree = "<group>"; };
+		94D068A917ADC7D0002C0CB8 /* os2_40.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = os2_40.vkm; sourceTree = "<group>"; };
+		94D068AA17ADC7D0002C0CB8 /* osx_sym_gr.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_sym_gr.vkm; sourceTree = "<group>"; };
+		94D068AB17ADC7D0002C0CB8 /* osx_sym_uk.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_sym_uk.vkm; sourceTree = "<group>"; };
+		94D068AC17ADC7D0002C0CB8 /* rom1g.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = rom1g.vrs; sourceTree = "<group>"; };
+		94D068AD17ADC7D0002C0CB8 /* rom2b.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = rom2b.vrs; sourceTree = "<group>"; };
+		94D068AE17ADC7D0002C0CB8 /* rom2g.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = rom2g.vrs; sourceTree = "<group>"; };
+		94D068AF17ADC7D0002C0CB8 /* rom4b40.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = rom4b40.vrs; sourceTree = "<group>"; };
+		94D068B017ADC7D0002C0CB8 /* rom4b80.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = rom4b80.vrs; sourceTree = "<group>"; };
+		94D068B117ADC7D0002C0CB8 /* rom4g40.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = rom4g40.vrs; sourceTree = "<group>"; };
+		94D068B217ADC7D0002C0CB8 /* romsuperpet.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = romsuperpet.vrs; sourceTree = "<group>"; };
+		94D068B317ADC7D0002C0CB8 /* sdl_bgrs.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = sdl_bgrs.vkm; sourceTree = "<group>"; };
+		94D068B417ADC7D0002C0CB8 /* sdl_buks.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = sdl_buks.vkm; sourceTree = "<group>"; };
+		94D068B517ADC7D0002C0CB8 /* waterloo-a000.901898-01.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "waterloo-a000.901898-01.bin"; sourceTree = "<group>"; };
+		94D068B617ADC7D0002C0CB8 /* waterloo-b000.901898-02.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "waterloo-b000.901898-02.bin"; sourceTree = "<group>"; };
+		94D068B717ADC7D0002C0CB8 /* waterloo-c000.901898-03.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "waterloo-c000.901898-03.bin"; sourceTree = "<group>"; };
+		94D068B817ADC7D0002C0CB8 /* waterloo-d000.901898-04.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "waterloo-d000.901898-04.bin"; sourceTree = "<group>"; };
+		94D068B917ADC7D0002C0CB8 /* waterloo-e000.901897-01.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "waterloo-e000.901897-01.bin"; sourceTree = "<group>"; };
+		94D068BA17ADC7D0002C0CB8 /* waterloo-f000.901898-05.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "waterloo-f000.901898-05.bin"; sourceTree = "<group>"; };
+		94D068BB17ADC7D0002C0CB8 /* white.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = white.vpl; sourceTree = "<group>"; };
+		94D068BC17ADC7D0002C0CB8 /* win_hotkeys.vhk */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_hotkeys.vhk; sourceTree = "<group>"; };
+		94D068BD17ADC7D0002C0CB8 /* win_shortcuts.vsc */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_shortcuts.vsc; sourceTree = "<group>"; };
+		94D068BE17ADC7D0002C0CB8 /* win_sym_gr.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_sym_gr.vkm; sourceTree = "<group>"; };
+		94D068BF17ADC7D0002C0CB8 /* win_sym_uk.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_sym_uk.vkm; sourceTree = "<group>"; };
+		94D068C017ADC7D0002C0CB8 /* x11_bdep.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_bdep.vkm; sourceTree = "<group>"; };
+		94D068C117ADC7D0002C0CB8 /* x11_bdep_de.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_bdep_de.vkm; sourceTree = "<group>"; };
+		94D068C217ADC7D0002C0CB8 /* x11_bdes.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_bdes.vkm; sourceTree = "<group>"; };
+		94D068C317ADC7D0002C0CB8 /* x11_bdes_de.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_bdes_de.vkm; sourceTree = "<group>"; };
+		94D068C417ADC7D0002C0CB8 /* x11_bgrp.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_bgrp.vkm; sourceTree = "<group>"; };
+		94D068C517ADC7D0002C0CB8 /* x11_bgrp_de.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_bgrp_de.vkm; sourceTree = "<group>"; };
+		94D068C617ADC7D0002C0CB8 /* x11_bgrs.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_bgrs.vkm; sourceTree = "<group>"; };
+		94D068C717ADC7D0002C0CB8 /* x11_bgrs_de.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_bgrs_de.vkm; sourceTree = "<group>"; };
+		94D068C817ADC7D0002C0CB8 /* x11_bukp.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_bukp.vkm; sourceTree = "<group>"; };
+		94D068C917ADC7D0002C0CB8 /* x11_bukp_de.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_bukp_de.vkm; sourceTree = "<group>"; };
+		94D068CA17ADC7D0002C0CB8 /* x11_buks.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_buks.vkm; sourceTree = "<group>"; };
+		94D068CB17ADC7D0002C0CB8 /* x11_buks_de.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_buks_de.vkm; sourceTree = "<group>"; };
+		94D068CD17ADC7D0002C0CB8 /* 3plus1hi */ = {isa = PBXFileReference; lastKnownFileType = file; path = 3plus1hi; sourceTree = "<group>"; };
+		94D068CE17ADC7D0002C0CB8 /* 3plus1lo */ = {isa = PBXFileReference; lastKnownFileType = file; path = 3plus1lo; sourceTree = "<group>"; };
+		94D068CF17ADC7D0002C0CB8 /* amiga_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = amiga_pos.vkm; sourceTree = "<group>"; };
+		94D068D017ADC7D0002C0CB8 /* amiga_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = amiga_sym.vkm; sourceTree = "<group>"; };
+		94D068D117ADC7D0002C0CB8 /* basic */ = {isa = PBXFileReference; lastKnownFileType = file; path = basic; sourceTree = "<group>"; };
+		94D068D217ADC7D0002C0CB8 /* beos_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = beos_pos.vkm; sourceTree = "<group>"; };
+		94D068D317ADC7D0002C0CB8 /* beos_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = beos_sym.vkm; sourceTree = "<group>"; };
+		94D068D417ADC7D0002C0CB8 /* c2lo.364 */ = {isa = PBXFileReference; lastKnownFileType = file; path = c2lo.364; sourceTree = "<group>"; };
+		94D068D517ADC7D0002C0CB8 /* default.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.vpl; sourceTree = "<group>"; };
+		94D068D617ADC7D0002C0CB8 /* default.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.vrs; sourceTree = "<group>"; };
+		94D068D717ADC7D0002C0CB8 /* dos_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = dos_pos.vkm; sourceTree = "<group>"; };
+		94D068D817ADC7D0002C0CB8 /* dos_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = dos_sym.vkm; sourceTree = "<group>"; };
+		94D068D917ADC7D0002C0CB8 /* kernal */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal; sourceTree = "<group>"; };
+		94D068DA17ADC7D0002C0CB8 /* kernal.232 */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal.232; sourceTree = "<group>"; };
+		94D068DB17ADC7D0002C0CB8 /* kernal.364 */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal.364; sourceTree = "<group>"; };
+		94D068DC17ADC7D0002C0CB8 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		94D068DD17ADC7D0002C0CB8 /* Makefile.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
+		94D068DE17ADC7D1002C0CB8 /* os2.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = os2.vkm; sourceTree = "<group>"; };
+		94D068DF17ADC7D1002C0CB8 /* osx_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_pos.vkm; sourceTree = "<group>"; };
+		94D068E017ADC7D1002C0CB8 /* osx_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_sym.vkm; sourceTree = "<group>"; };
+		94D068E117ADC7D1002C0CB8 /* sdl_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = sdl_sym.vkm; sourceTree = "<group>"; };
+		94D068E217ADC7D1002C0CB8 /* vice.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = vice.vpl; sourceTree = "<group>"; };
+		94D068E317ADC7D1002C0CB8 /* win_hotkeys.vhk */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_hotkeys.vhk; sourceTree = "<group>"; };
+		94D068E417ADC7D1002C0CB8 /* win_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_pos.vkm; sourceTree = "<group>"; };
+		94D068E517ADC7D1002C0CB8 /* win_shortcuts.vsc */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_shortcuts.vsc; sourceTree = "<group>"; };
+		94D068E617ADC7D1002C0CB8 /* win_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_sym.vkm; sourceTree = "<group>"; };
+		94D068E717ADC7D1002C0CB8 /* x11_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_pos.vkm; sourceTree = "<group>"; };
+		94D068E817ADC7D1002C0CB8 /* x11_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_sym.vkm; sourceTree = "<group>"; };
+		94D068E917ADC7D1002C0CB8 /* x11_sym_de.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_sym_de.vkm; sourceTree = "<group>"; };
+		94D068EB17ADC7D1002C0CB8 /* cbm1526 */ = {isa = PBXFileReference; lastKnownFileType = text; path = cbm1526; sourceTree = "<group>"; };
+		94D068EC17ADC7D1002C0CB8 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		94D068ED17ADC7D1002C0CB8 /* Makefile.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
+		94D068EE17ADC7D1002C0CB8 /* mps801 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mps801; sourceTree = "<group>"; };
+		94D068EF17ADC7D1002C0CB8 /* mps803 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mps803; sourceTree = "<group>"; };
+		94D068F017ADC7D1002C0CB8 /* mps803.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = mps803.vpl; sourceTree = "<group>"; };
+		94D068F117ADC7D1002C0CB8 /* nl10-cbm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "nl10-cbm"; sourceTree = "<group>"; };
+		94D068F317ADC7D1002C0CB8 /* amiga_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = amiga_pos.vkm; sourceTree = "<group>"; };
+		94D068F417ADC7D1002C0CB8 /* amiga_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = amiga_sym.vkm; sourceTree = "<group>"; };
+		94D068F517ADC7D1002C0CB8 /* basic */ = {isa = PBXFileReference; lastKnownFileType = file; path = basic; sourceTree = "<group>"; };
+		94D068F617ADC7D1002C0CB8 /* beos_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = beos_pos.vkm; sourceTree = "<group>"; };
+		94D068F717ADC7D1002C0CB8 /* beos_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = beos_sym.vkm; sourceTree = "<group>"; };
+		94D068F817ADC7D1002C0CB8 /* chargen */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargen; sourceTree = "<group>"; };
+		94D068F917ADC7D1002C0CB8 /* default.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.vpl; sourceTree = "<group>"; };
+		94D068FA17ADC7D1002C0CB8 /* default.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.vrs; sourceTree = "<group>"; };
+		94D068FB17ADC7D1002C0CB8 /* dos_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = dos_pos.vkm; sourceTree = "<group>"; };
+		94D068FC17ADC7D1002C0CB8 /* dos_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = dos_sym.vkm; sourceTree = "<group>"; };
+		94D068FD17ADC7D1002C0CB8 /* kernal */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal; sourceTree = "<group>"; };
+		94D068FE17ADC7D1002C0CB8 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		94D068FF17ADC7D1002C0CB8 /* Makefile.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
+		94D0690017ADC7D1002C0CB8 /* os2.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = os2.vkm; sourceTree = "<group>"; };
+		94D0690117ADC7D1002C0CB8 /* osx_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_pos.vkm; sourceTree = "<group>"; };
+		94D0690217ADC7D1002C0CB8 /* osx_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_sym.vkm; sourceTree = "<group>"; };
+		94D0690317ADC7D1002C0CB8 /* sdl_pos_fi.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = sdl_pos_fi.vkm; sourceTree = "<group>"; };
+		94D0690417ADC7D1002C0CB8 /* sdl_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = sdl_sym.vkm; sourceTree = "<group>"; };
+		94D0690517ADC7D1002C0CB8 /* win_hotkeys.vhk */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_hotkeys.vhk; sourceTree = "<group>"; };
+		94D0690617ADC7D1002C0CB8 /* win_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_pos.vkm; sourceTree = "<group>"; };
+		94D0690717ADC7D1002C0CB8 /* win_shortcuts.vsc */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_shortcuts.vsc; sourceTree = "<group>"; };
+		94D0690817ADC7D1002C0CB8 /* win_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_sym.vkm; sourceTree = "<group>"; };
+		94D0690917ADC7D1002C0CB8 /* win_sym_US.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = win_sym_US.vkm; sourceTree = "<group>"; };
+		94D0690A17ADC7D1002C0CB8 /* x11_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_pos.vkm; sourceTree = "<group>"; };
+		94D0690B17ADC7D1002C0CB8 /* x11_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = x11_sym.vkm; sourceTree = "<group>"; };
 		EBE428F917A03905007818A4 /* stubs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stubs.c; sourceTree = "<group>"; };
 		EBE428FC17A05619007818A4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -4433,6 +5388,7 @@
 			isa = PBXGroup;
 			children = (
 				EBE428F917A03905007818A4 /* stubs.c */,
+				94D067D117ADC7CF002C0CB8 /* data */,
 				8CB9D2C4179D29EB0067BB9B /* src */,
 				8CB9D2BF179D28FA0067BB9B /* OEComputerSystemResponderClient.h */,
 				8CB9D2B5179D27740067BB9B /* C64GameCore.h */,
@@ -6468,6 +7424,397 @@
 			path = readline;
 			sourceTree = "<group>";
 		};
+		94D067D117ADC7CF002C0CB8 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				94D067D217ADC7CF002C0CB8 /* C128 */,
+				94D067FF17ADC7CF002C0CB8 /* C64 */,
+				94D0682B17ADC7CF002C0CB8 /* C64DTV */,
+				94D0684B17ADC7D0002C0CB8 /* CBM-II */,
+				94D0687517ADC7D0002C0CB8 /* DRIVES */,
+				94D0688617ADC7D0002C0CB8 /* fonts */,
+				94D0688C17ADC7D0002C0CB8 /* Makefile.am */,
+				94D0688D17ADC7D0002C0CB8 /* Makefile.in */,
+				94D0688E17ADC7D0002C0CB8 /* PET */,
+				94D068CC17ADC7D0002C0CB8 /* PLUS4 */,
+				94D068EA17ADC7D1002C0CB8 /* PRINTER */,
+				94D068F217ADC7D1002C0CB8 /* VIC20 */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		94D067D217ADC7CF002C0CB8 /* C128 */ = {
+			isa = PBXGroup;
+			children = (
+				94D067D317ADC7CF002C0CB8 /* amiga_pos.vkm */,
+				94D067D417ADC7CF002C0CB8 /* amiga_sym.vkm */,
+				94D067D517ADC7CF002C0CB8 /* basic64 */,
+				94D067D617ADC7CF002C0CB8 /* basichi */,
+				94D067D717ADC7CF002C0CB8 /* basiclo */,
+				94D067D817ADC7CF002C0CB8 /* beos_pos.vkm */,
+				94D067D917ADC7CF002C0CB8 /* beos_sym.vkm */,
+				94D067DA17ADC7CF002C0CB8 /* c64hq.vpl */,
+				94D067DB17ADC7CF002C0CB8 /* c64s.vpl */,
+				94D067DC17ADC7CF002C0CB8 /* ccs64.vpl */,
+				94D067DD17ADC7CF002C0CB8 /* chargde */,
+				94D067DE17ADC7CF002C0CB8 /* chargen */,
+				94D067DF17ADC7CF002C0CB8 /* chargfr */,
+				94D067E017ADC7CF002C0CB8 /* chargse */,
+				94D067E117ADC7CF002C0CB8 /* default.vpl */,
+				94D067E217ADC7CF002C0CB8 /* default.vrs */,
+				94D067E317ADC7CF002C0CB8 /* dos_pos.vkm */,
+				94D067E417ADC7CF002C0CB8 /* dos_sym.vkm */,
+				94D067E517ADC7CF002C0CB8 /* frodo.vpl */,
+				94D067E617ADC7CF002C0CB8 /* godot.vpl */,
+				94D067E717ADC7CF002C0CB8 /* kernal */,
+				94D067E817ADC7CF002C0CB8 /* kernal64 */,
+				94D067E917ADC7CF002C0CB8 /* kernalde */,
+				94D067EA17ADC7CF002C0CB8 /* kernalfi */,
+				94D067EB17ADC7CF002C0CB8 /* kernalfr */,
+				94D067EC17ADC7CF002C0CB8 /* kernalit */,
+				94D067ED17ADC7CF002C0CB8 /* kernalno */,
+				94D067EE17ADC7CF002C0CB8 /* kernalse */,
+				94D067EF17ADC7CF002C0CB8 /* Makefile.am */,
+				94D067F017ADC7CF002C0CB8 /* Makefile.in */,
+				94D067F117ADC7CF002C0CB8 /* os2.vkm */,
+				94D067F217ADC7CF002C0CB8 /* osx_pos.vkm */,
+				94D067F317ADC7CF002C0CB8 /* osx_sym.vkm */,
+				94D067F417ADC7CF002C0CB8 /* pc64.vpl */,
+				94D067F517ADC7CF002C0CB8 /* sdl_sym.vkm */,
+				94D067F617ADC7CF002C0CB8 /* vdc_comp.vpl */,
+				94D067F717ADC7CF002C0CB8 /* vdc_deft.vpl */,
+				94D067F817ADC7CF002C0CB8 /* vice.vpl */,
+				94D067F917ADC7CF002C0CB8 /* win_hotkeys.vhk */,
+				94D067FA17ADC7CF002C0CB8 /* win_pos.vkm */,
+				94D067FB17ADC7CF002C0CB8 /* win_shortcuts.vsc */,
+				94D067FC17ADC7CF002C0CB8 /* win_sym.vkm */,
+				94D067FD17ADC7CF002C0CB8 /* x11_pos.vkm */,
+				94D067FE17ADC7CF002C0CB8 /* x11_sym.vkm */,
+			);
+			path = C128;
+			sourceTree = "<group>";
+		};
+		94D067FF17ADC7CF002C0CB8 /* C64 */ = {
+			isa = PBXGroup;
+			children = (
+				94D0680017ADC7CF002C0CB8 /* amiga_pos.vkm */,
+				94D0680117ADC7CF002C0CB8 /* amiga_sym.vkm */,
+				94D0680217ADC7CF002C0CB8 /* basic */,
+				94D0680317ADC7CF002C0CB8 /* beos_pos.vkm */,
+				94D0680417ADC7CF002C0CB8 /* beos_sym.vkm */,
+				94D0680517ADC7CF002C0CB8 /* c64hq.vpl */,
+				94D0680617ADC7CF002C0CB8 /* c64mem.sym */,
+				94D0680717ADC7CF002C0CB8 /* c64s.vpl */,
+				94D0680817ADC7CF002C0CB8 /* ccs64.vpl */,
+				94D0680917ADC7CF002C0CB8 /* chargen */,
+				94D0680A17ADC7CF002C0CB8 /* default.vpl */,
+				94D0680B17ADC7CF002C0CB8 /* default.vrs */,
+				94D0680C17ADC7CF002C0CB8 /* dos_pos.vkm */,
+				94D0680D17ADC7CF002C0CB8 /* dos_sym.vkm */,
+				94D0680E17ADC7CF002C0CB8 /* frodo.vpl */,
+				94D0680F17ADC7CF002C0CB8 /* godot.vpl */,
+				94D0681017ADC7CF002C0CB8 /* gp2x_pos.vkm */,
+				94D0681117ADC7CF002C0CB8 /* gp2x_sym.vkm */,
+				94D0681217ADC7CF002C0CB8 /* kernal */,
+				94D0681317ADC7CF002C0CB8 /* Makefile.am */,
+				94D0681417ADC7CF002C0CB8 /* Makefile.in */,
+				94D0681517ADC7CF002C0CB8 /* os2.vkm */,
+				94D0681617ADC7CF002C0CB8 /* os2_sym.vkm */,
+				94D0681717ADC7CF002C0CB8 /* osx_pos.vkm */,
+				94D0681817ADC7CF002C0CB8 /* osx_sym_de.vkm */,
+				94D0681917ADC7CF002C0CB8 /* osx_sym_us.vkm */,
+				94D0681A17ADC7CF002C0CB8 /* pc64.vpl */,
+				94D0681B17ADC7CF002C0CB8 /* sdl_sym.vkm */,
+				94D0681C17ADC7CF002C0CB8 /* sdl_sym_da.vkm */,
+				94D0681D17ADC7CF002C0CB8 /* sdl_sym_de.vkm */,
+				94D0681E17ADC7CF002C0CB8 /* sdl_sym_fi.vkm */,
+				94D0681F17ADC7CF002C0CB8 /* sdl_sym_no.vkm */,
+				94D0682017ADC7CF002C0CB8 /* vice.vpl */,
+				94D0682117ADC7CF002C0CB8 /* win_hotkeys.vhk */,
+				94D0682217ADC7CF002C0CB8 /* win_pos.vkm */,
+				94D0682317ADC7CF002C0CB8 /* win_shortcuts.vsc */,
+				94D0682417ADC7CF002C0CB8 /* win_sym_de.vkm */,
+				94D0682517ADC7CF002C0CB8 /* win_sym_it.vkm */,
+				94D0682617ADC7CF002C0CB8 /* win_sym_us.vkm */,
+				94D0682717ADC7CF002C0CB8 /* x11_pos.vkm */,
+				94D0682817ADC7CF002C0CB8 /* x11_posger.vkm */,
+				94D0682917ADC7CF002C0CB8 /* x11_sym.vkm */,
+				94D0682A17ADC7CF002C0CB8 /* x11_symger.vkm */,
+			);
+			path = C64;
+			sourceTree = "<group>";
+		};
+		94D0682B17ADC7CF002C0CB8 /* C64DTV */ = {
+			isa = PBXGroup;
+			children = (
+				94D0682C17ADC7CF002C0CB8 /* amiga_pos.vkm */,
+				94D0682D17ADC7CF002C0CB8 /* amiga_sym.vkm */,
+				94D0682E17ADC7CF002C0CB8 /* basic */,
+				94D0682F17ADC7CF002C0CB8 /* beos_pos.vkm */,
+				94D0683017ADC7CF002C0CB8 /* beos_sym.vkm */,
+				94D0683117ADC7D0002C0CB8 /* c64mem.sym */,
+				94D0683217ADC7D0002C0CB8 /* chargen */,
+				94D0683317ADC7D0002C0CB8 /* default.vrs */,
+				94D0683417ADC7D0002C0CB8 /* dos_pos.vkm */,
+				94D0683517ADC7D0002C0CB8 /* dos_sym.vkm */,
+				94D0683617ADC7D0002C0CB8 /* dtvrom.bin */,
+				94D0683717ADC7D0002C0CB8 /* kernal */,
+				94D0683817ADC7D0002C0CB8 /* Makefile.am */,
+				94D0683917ADC7D0002C0CB8 /* Makefile.in */,
+				94D0683A17ADC7D0002C0CB8 /* os2.vkm */,
+				94D0683B17ADC7D0002C0CB8 /* os2_sym.vkm */,
+				94D0683C17ADC7D0002C0CB8 /* osx_pos.vkm */,
+				94D0683D17ADC7D0002C0CB8 /* osx_sym_de.vkm */,
+				94D0683E17ADC7D0002C0CB8 /* osx_sym_us.vkm */,
+				94D0683F17ADC7D0002C0CB8 /* sdl_sym.vkm */,
+				94D0684017ADC7D0002C0CB8 /* sdl_sym_da.vkm */,
+				94D0684117ADC7D0002C0CB8 /* sdl_sym_de.vkm */,
+				94D0684217ADC7D0002C0CB8 /* sdl_sym_fi.vkm */,
+				94D0684317ADC7D0002C0CB8 /* sdl_sym_no.vkm */,
+				94D0684417ADC7D0002C0CB8 /* win_hotkeys.vhk */,
+				94D0684517ADC7D0002C0CB8 /* win_pos.vkm */,
+				94D0684617ADC7D0002C0CB8 /* win_shortcuts.vsc */,
+				94D0684717ADC7D0002C0CB8 /* win_sym_de.vkm */,
+				94D0684817ADC7D0002C0CB8 /* win_sym_us.vkm */,
+				94D0684917ADC7D0002C0CB8 /* x11_pos.vkm */,
+				94D0684A17ADC7D0002C0CB8 /* x11_sym.vkm */,
+			);
+			path = C64DTV;
+			sourceTree = "<group>";
+		};
+		94D0684B17ADC7D0002C0CB8 /* CBM-II */ = {
+			isa = PBXGroup;
+			children = (
+				94D0684C17ADC7D0002C0CB8 /* amber.vpl */,
+				94D0684D17ADC7D0002C0CB8 /* amiga_bukp.vkm */,
+				94D0684E17ADC7D0002C0CB8 /* amiga_buks.vkm */,
+				94D0684F17ADC7D0002C0CB8 /* basic.128 */,
+				94D0685017ADC7D0002C0CB8 /* basic.256 */,
+				94D0685117ADC7D0002C0CB8 /* basic.500 */,
+				94D0685217ADC7D0002C0CB8 /* beos_bukp.vkm */,
+				94D0685317ADC7D0002C0CB8 /* beos_buks.vkm */,
+				94D0685417ADC7D0002C0CB8 /* c64hq.vpl */,
+				94D0685517ADC7D0002C0CB8 /* c64s.vpl */,
+				94D0685617ADC7D0002C0CB8 /* ccs64.vpl */,
+				94D0685717ADC7D0002C0CB8 /* chargen.500 */,
+				94D0685817ADC7D0002C0CB8 /* chargen.600 */,
+				94D0685917ADC7D0002C0CB8 /* chargen.700 */,
+				94D0685A17ADC7D0002C0CB8 /* default.vpl */,
+				94D0685B17ADC7D0002C0CB8 /* dos_bukp.vkm */,
+				94D0685C17ADC7D0002C0CB8 /* dos_buks.vkm */,
+				94D0685D17ADC7D0002C0CB8 /* frodo.vpl */,
+				94D0685E17ADC7D0002C0CB8 /* godot.vpl */,
+				94D0685F17ADC7D0002C0CB8 /* green.vpl */,
+				94D0686017ADC7D0002C0CB8 /* kernal */,
+				94D0686117ADC7D0002C0CB8 /* kernal.500 */,
+				94D0686217ADC7D0002C0CB8 /* Makefile.am */,
+				94D0686317ADC7D0002C0CB8 /* Makefile.in */,
+				94D0686417ADC7D0002C0CB8 /* os2.vkm */,
+				94D0686517ADC7D0002C0CB8 /* osx_pos_uk.vkm */,
+				94D0686617ADC7D0002C0CB8 /* osx_sym_uk.vkm */,
+				94D0686717ADC7D0002C0CB8 /* pc64.vpl */,
+				94D0686817ADC7D0002C0CB8 /* rom128h.vrs */,
+				94D0686917ADC7D0002C0CB8 /* rom128l.vrs */,
+				94D0686A17ADC7D0002C0CB8 /* rom256h.vrs */,
+				94D0686B17ADC7D0002C0CB8 /* rom256l.vrs */,
+				94D0686C17ADC7D0002C0CB8 /* rom500.vrs */,
+				94D0686D17ADC7D0002C0CB8 /* sdl_buks.vkm */,
+				94D0686E17ADC7D0002C0CB8 /* white.vpl */,
+				94D0686F17ADC7D0002C0CB8 /* win_hotkeys.vhk */,
+				94D0687017ADC7D0002C0CB8 /* win_pos_uk.vkm */,
+				94D0687117ADC7D0002C0CB8 /* win_shortcuts.vsc */,
+				94D0687217ADC7D0002C0CB8 /* win_sym_uk.vkm */,
+				94D0687317ADC7D0002C0CB8 /* x11_buks.vkm */,
+				94D0687417ADC7D0002C0CB8 /* x11_buks_de.vkm */,
+			);
+			path = "CBM-II";
+			sourceTree = "<group>";
+		};
+		94D0687517ADC7D0002C0CB8 /* DRIVES */ = {
+			isa = PBXGroup;
+			children = (
+				94D0687617ADC7D0002C0CB8 /* d1541II */,
+				94D0687717ADC7D0002C0CB8 /* d1571cr */,
+				94D0687817ADC7D0002C0CB8 /* dos1001 */,
+				94D0687917ADC7D0002C0CB8 /* dos1541 */,
+				94D0687A17ADC7D0002C0CB8 /* dos1551 */,
+				94D0687B17ADC7D0002C0CB8 /* dos1570 */,
+				94D0687C17ADC7D0002C0CB8 /* dos1571 */,
+				94D0687D17ADC7D0002C0CB8 /* dos1581 */,
+				94D0687E17ADC7D0002C0CB8 /* dos2000 */,
+				94D0687F17ADC7D0002C0CB8 /* dos2031 */,
+				94D0688017ADC7D0002C0CB8 /* dos2040 */,
+				94D0688117ADC7D0002C0CB8 /* dos3040 */,
+				94D0688217ADC7D0002C0CB8 /* dos4000 */,
+				94D0688317ADC7D0002C0CB8 /* dos4040 */,
+				94D0688417ADC7D0002C0CB8 /* Makefile.am */,
+				94D0688517ADC7D0002C0CB8 /* Makefile.in */,
+			);
+			path = DRIVES;
+			sourceTree = "<group>";
+		};
+		94D0688617ADC7D0002C0CB8 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				94D0688717ADC7D0002C0CB8 /* cbm-directory-charset.fon */,
+				94D0688817ADC7D0002C0CB8 /* CBM.ttf */,
+				94D0688917ADC7D0002C0CB8 /* Makefile.am */,
+				94D0688A17ADC7D0002C0CB8 /* Makefile.in */,
+				94D0688B17ADC7D0002C0CB8 /* vice-cbm.bdf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
+		94D0688E17ADC7D0002C0CB8 /* PET */ = {
+			isa = PBXGroup;
+			children = (
+				94D0688F17ADC7D0002C0CB8 /* amber.vpl */,
+				94D0689017ADC7D0002C0CB8 /* amiga_bgrs.vkm */,
+				94D0689117ADC7D0002C0CB8 /* amiga_buks.vkm */,
+				94D0689217ADC7D0002C0CB8 /* basic1 */,
+				94D0689317ADC7D0002C0CB8 /* basic2 */,
+				94D0689417ADC7D0002C0CB8 /* basic4 */,
+				94D0689517ADC7D0002C0CB8 /* beos_bgrs.vkm */,
+				94D0689617ADC7D0002C0CB8 /* beos_buks.vkm */,
+				94D0689717ADC7D0002C0CB8 /* characters.901640-01.bin */,
+				94D0689817ADC7D0002C0CB8 /* chargen */,
+				94D0689917ADC7D0002C0CB8 /* chargen.de */,
+				94D0689A17ADC7D0002C0CB8 /* dos_bgrs.vkm */,
+				94D0689B17ADC7D0002C0CB8 /* dos_buks.vkm */,
+				94D0689C17ADC7D0002C0CB8 /* edit1g */,
+				94D0689D17ADC7D0002C0CB8 /* edit2b */,
+				94D0689E17ADC7D0002C0CB8 /* edit2g */,
+				94D0689F17ADC7D0002C0CB8 /* edit4b40 */,
+				94D068A017ADC7D0002C0CB8 /* edit4b80 */,
+				94D068A117ADC7D0002C0CB8 /* edit4g40 */,
+				94D068A217ADC7D0002C0CB8 /* green.vpl */,
+				94D068A317ADC7D0002C0CB8 /* kernal1 */,
+				94D068A417ADC7D0002C0CB8 /* kernal2 */,
+				94D068A517ADC7D0002C0CB8 /* kernal4 */,
+				94D068A617ADC7D0002C0CB8 /* Makefile.am */,
+				94D068A717ADC7D0002C0CB8 /* Makefile.in */,
+				94D068A817ADC7D0002C0CB8 /* os2.vkm */,
+				94D068A917ADC7D0002C0CB8 /* os2_40.vkm */,
+				94D068AA17ADC7D0002C0CB8 /* osx_sym_gr.vkm */,
+				94D068AB17ADC7D0002C0CB8 /* osx_sym_uk.vkm */,
+				94D068AC17ADC7D0002C0CB8 /* rom1g.vrs */,
+				94D068AD17ADC7D0002C0CB8 /* rom2b.vrs */,
+				94D068AE17ADC7D0002C0CB8 /* rom2g.vrs */,
+				94D068AF17ADC7D0002C0CB8 /* rom4b40.vrs */,
+				94D068B017ADC7D0002C0CB8 /* rom4b80.vrs */,
+				94D068B117ADC7D0002C0CB8 /* rom4g40.vrs */,
+				94D068B217ADC7D0002C0CB8 /* romsuperpet.vrs */,
+				94D068B317ADC7D0002C0CB8 /* sdl_bgrs.vkm */,
+				94D068B417ADC7D0002C0CB8 /* sdl_buks.vkm */,
+				94D068B517ADC7D0002C0CB8 /* waterloo-a000.901898-01.bin */,
+				94D068B617ADC7D0002C0CB8 /* waterloo-b000.901898-02.bin */,
+				94D068B717ADC7D0002C0CB8 /* waterloo-c000.901898-03.bin */,
+				94D068B817ADC7D0002C0CB8 /* waterloo-d000.901898-04.bin */,
+				94D068B917ADC7D0002C0CB8 /* waterloo-e000.901897-01.bin */,
+				94D068BA17ADC7D0002C0CB8 /* waterloo-f000.901898-05.bin */,
+				94D068BB17ADC7D0002C0CB8 /* white.vpl */,
+				94D068BC17ADC7D0002C0CB8 /* win_hotkeys.vhk */,
+				94D068BD17ADC7D0002C0CB8 /* win_shortcuts.vsc */,
+				94D068BE17ADC7D0002C0CB8 /* win_sym_gr.vkm */,
+				94D068BF17ADC7D0002C0CB8 /* win_sym_uk.vkm */,
+				94D068C017ADC7D0002C0CB8 /* x11_bdep.vkm */,
+				94D068C117ADC7D0002C0CB8 /* x11_bdep_de.vkm */,
+				94D068C217ADC7D0002C0CB8 /* x11_bdes.vkm */,
+				94D068C317ADC7D0002C0CB8 /* x11_bdes_de.vkm */,
+				94D068C417ADC7D0002C0CB8 /* x11_bgrp.vkm */,
+				94D068C517ADC7D0002C0CB8 /* x11_bgrp_de.vkm */,
+				94D068C617ADC7D0002C0CB8 /* x11_bgrs.vkm */,
+				94D068C717ADC7D0002C0CB8 /* x11_bgrs_de.vkm */,
+				94D068C817ADC7D0002C0CB8 /* x11_bukp.vkm */,
+				94D068C917ADC7D0002C0CB8 /* x11_bukp_de.vkm */,
+				94D068CA17ADC7D0002C0CB8 /* x11_buks.vkm */,
+				94D068CB17ADC7D0002C0CB8 /* x11_buks_de.vkm */,
+			);
+			path = PET;
+			sourceTree = "<group>";
+		};
+		94D068CC17ADC7D0002C0CB8 /* PLUS4 */ = {
+			isa = PBXGroup;
+			children = (
+				94D068CD17ADC7D0002C0CB8 /* 3plus1hi */,
+				94D068CE17ADC7D0002C0CB8 /* 3plus1lo */,
+				94D068CF17ADC7D0002C0CB8 /* amiga_pos.vkm */,
+				94D068D017ADC7D0002C0CB8 /* amiga_sym.vkm */,
+				94D068D117ADC7D0002C0CB8 /* basic */,
+				94D068D217ADC7D0002C0CB8 /* beos_pos.vkm */,
+				94D068D317ADC7D0002C0CB8 /* beos_sym.vkm */,
+				94D068D417ADC7D0002C0CB8 /* c2lo.364 */,
+				94D068D517ADC7D0002C0CB8 /* default.vpl */,
+				94D068D617ADC7D0002C0CB8 /* default.vrs */,
+				94D068D717ADC7D0002C0CB8 /* dos_pos.vkm */,
+				94D068D817ADC7D0002C0CB8 /* dos_sym.vkm */,
+				94D068D917ADC7D0002C0CB8 /* kernal */,
+				94D068DA17ADC7D0002C0CB8 /* kernal.232 */,
+				94D068DB17ADC7D0002C0CB8 /* kernal.364 */,
+				94D068DC17ADC7D0002C0CB8 /* Makefile.am */,
+				94D068DD17ADC7D0002C0CB8 /* Makefile.in */,
+				94D068DE17ADC7D1002C0CB8 /* os2.vkm */,
+				94D068DF17ADC7D1002C0CB8 /* osx_pos.vkm */,
+				94D068E017ADC7D1002C0CB8 /* osx_sym.vkm */,
+				94D068E117ADC7D1002C0CB8 /* sdl_sym.vkm */,
+				94D068E217ADC7D1002C0CB8 /* vice.vpl */,
+				94D068E317ADC7D1002C0CB8 /* win_hotkeys.vhk */,
+				94D068E417ADC7D1002C0CB8 /* win_pos.vkm */,
+				94D068E517ADC7D1002C0CB8 /* win_shortcuts.vsc */,
+				94D068E617ADC7D1002C0CB8 /* win_sym.vkm */,
+				94D068E717ADC7D1002C0CB8 /* x11_pos.vkm */,
+				94D068E817ADC7D1002C0CB8 /* x11_sym.vkm */,
+				94D068E917ADC7D1002C0CB8 /* x11_sym_de.vkm */,
+			);
+			path = PLUS4;
+			sourceTree = "<group>";
+		};
+		94D068EA17ADC7D1002C0CB8 /* PRINTER */ = {
+			isa = PBXGroup;
+			children = (
+				94D068EB17ADC7D1002C0CB8 /* cbm1526 */,
+				94D068EC17ADC7D1002C0CB8 /* Makefile.am */,
+				94D068ED17ADC7D1002C0CB8 /* Makefile.in */,
+				94D068EE17ADC7D1002C0CB8 /* mps801 */,
+				94D068EF17ADC7D1002C0CB8 /* mps803 */,
+				94D068F017ADC7D1002C0CB8 /* mps803.vpl */,
+				94D068F117ADC7D1002C0CB8 /* nl10-cbm */,
+			);
+			path = PRINTER;
+			sourceTree = "<group>";
+		};
+		94D068F217ADC7D1002C0CB8 /* VIC20 */ = {
+			isa = PBXGroup;
+			children = (
+				94D068F317ADC7D1002C0CB8 /* amiga_pos.vkm */,
+				94D068F417ADC7D1002C0CB8 /* amiga_sym.vkm */,
+				94D068F517ADC7D1002C0CB8 /* basic */,
+				94D068F617ADC7D1002C0CB8 /* beos_pos.vkm */,
+				94D068F717ADC7D1002C0CB8 /* beos_sym.vkm */,
+				94D068F817ADC7D1002C0CB8 /* chargen */,
+				94D068F917ADC7D1002C0CB8 /* default.vpl */,
+				94D068FA17ADC7D1002C0CB8 /* default.vrs */,
+				94D068FB17ADC7D1002C0CB8 /* dos_pos.vkm */,
+				94D068FC17ADC7D1002C0CB8 /* dos_sym.vkm */,
+				94D068FD17ADC7D1002C0CB8 /* kernal */,
+				94D068FE17ADC7D1002C0CB8 /* Makefile.am */,
+				94D068FF17ADC7D1002C0CB8 /* Makefile.in */,
+				94D0690017ADC7D1002C0CB8 /* os2.vkm */,
+				94D0690117ADC7D1002C0CB8 /* osx_pos.vkm */,
+				94D0690217ADC7D1002C0CB8 /* osx_sym.vkm */,
+				94D0690317ADC7D1002C0CB8 /* sdl_pos_fi.vkm */,
+				94D0690417ADC7D1002C0CB8 /* sdl_sym.vkm */,
+				94D0690517ADC7D1002C0CB8 /* win_hotkeys.vhk */,
+				94D0690617ADC7D1002C0CB8 /* win_pos.vkm */,
+				94D0690717ADC7D1002C0CB8 /* win_shortcuts.vsc */,
+				94D0690817ADC7D1002C0CB8 /* win_sym.vkm */,
+				94D0690917ADC7D1002C0CB8 /* win_sym_US.vkm */,
+				94D0690A17ADC7D1002C0CB8 /* x11_pos.vkm */,
+				94D0690B17ADC7D1002C0CB8 /* x11_sym.vkm */,
+			);
+			path = VIC20;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -8493,6 +9840,15 @@
 				8CB9D29B179D26DE0067BB9B /* Sources */,
 				8CB9D29C179D26DE0067BB9B /* Frameworks */,
 				8CB9D29D179D26DE0067BB9B /* Resources */,
+				94D0693617ADDD7C002C0CB8 /* Copy C128 Data Files */,
+				94D0690C17ADDC30002C0CB8 /* Copy C64 Data Files */,
+				94D0696117ADDE95002C0CB8 /* Copy C64DTV Data Files */,
+				94D0697F17ADDF63002C0CB8 /* Copy CBM-II Data Files */,
+				94D069A717ADDFC9002C0CB8 /* Copy DRIVES Data Files */,
+				94D069B617ADE01C002C0CB8 /* Copy PET Data Files */,
+				94D069F217ADE057002C0CB8 /* Copy PLUS4 Data Files */,
+				94D06A0E17ADE0AE002C0CB8 /* Copy PRINTER Data Files */,
+				94D06A1417ADE0D7002C0CB8 /* Copy VIC20 Data Files */,
 			);
 			buildRules = (
 			);
