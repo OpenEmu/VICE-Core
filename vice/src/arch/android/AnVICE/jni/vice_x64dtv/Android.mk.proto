@@ -1,0 +1,78 @@
+LOCAL_PATH := $(call my-dir)
+
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := vice_x64dtv
+
+MY_PATH2 := ../../../../../..
+
+CG_SUBDIRS := $(MY_PATH2)/src/c64dtv
+
+# Add more subdirs here, like src/subdir1 src/subdir2
+
+MY_PATH := $(LOCAL_PATH)
+
+CG_SRCDIR := $(LOCAL_PATH)
+
+LOCAL_CFLAGS := -DANDROID_COMPILE
+
+LOCAL_C_INCLUDES :=	$(LOCAL_PATH)/include \
+				$(LOCAL_PATH)/../sdl/include \
+				$(LOCAL_PATH)/../locnet/include \
+				$(LOCAL_PATH) \
+				$(LOCAL_PATH)/../../../../../../src/arch/sdl \
+				$(LOCAL_PATH)/../../../../../../src/c64 \
+				$(LOCAL_PATH)/../../../../../../src/drive \
+				$(LOCAL_PATH)/../../../../../../src/lib/p64 \
+				$(LOCAL_PATH)/../../../../../../src/sid \
+				$(LOCAL_PATH)/../../../../../../src/vicii \
+				$(LOCAL_PATH)/../../../../../../src/raster \
+				$(LOCAL_PATH)/../../../../../../src/userport \
+				$(LOCAL_PATH)/../../../../../../src/video \
+				$(LOCAL_PATH)/../../../../../../src/c64/cart \
+				$(LOCAL_PATH)/../../../../../../src/c64dtv \
+				$(LOCAL_PATH)/../../../../../../src/drive/iec/c64exp \
+				$(LOCAL_PATH)/../../../../../../src \
+				$(LOCAL_PATH)/../.. \
+				$(LOCAL_PATH)
+
+LOCAL_PATH := $(MY_PATH)
+
+LOCAL_CPPFLAGS := $(LOCAL_CFLAGS)
+LOCAL_CXXFLAGS := $(LOCAL_CFLAGS)
+
+#Change C++ file extension as appropriate
+LOCAL_CPP_EXTENSION := .cpp
+
+LOCAL_SRC_FILES := \
+	$(MY_PATH2)/src/vicii/vicii-badline.c \
+	$(MY_PATH2)/src/vicii/vicii-cmdline-options.c \
+	$(MY_PATH2)/src/vicii/vicii-fetch.c \
+	$(MY_PATH2)/src/vicii/vicii-irq.c \
+	$(MY_PATH2)/src/vicii/vicii-mem.c \
+	$(MY_PATH2)/src/vicii/vicii-phi1.c \
+	$(MY_PATH2)/src/vicii/vicii-resources.c \
+	$(MY_PATH2)/src/vicii/vicii-sprites.c \
+	$(MY_PATH2)/src/vicii/vicii-timing.c \
+	$(MY_PATH2)/src/vicii/vicii.c \
+	$(MY_PATH2)/src/vicii/viciidtv-color.c \
+	$(MY_PATH2)/src/vicii/viciidtv-draw.c \
+	$(MY_PATH2)/src/vicii/viciidtv-snapshot.c \
+	$(MY_PATH2)/src/c64/c64bus.c \
+	$(MY_PATH2)/src/c64/c64drive.c \
+	$(MY_PATH2)/src/c64/c64fastiec.c \
+	$(MY_PATH2)/src/c64/c64keyboard.c \
+	$(MY_PATH2)/src/c64/c64parallel.c \
+	$(MY_PATH2)/src/c64/c64printer.c \
+	$(MY_PATH2)/src/c64/c64rom.c \
+	$(MY_PATH2)/src/c64/c64romset.c \
+	$(MY_PATH2)/src/c64/c64rsuser.c \
+	$(MY_PATH2)/src/c64/c64video.c \
+	$(MY_PATH2)/src/c64/patchrom.c \
+	$(MY_PATH2)/src/ps2mouse.c
+
+LOCAL_SRC_FILES += $(foreach F, $(CG_SUBDIRS), $(addprefix $(F)/,$(notdir $(wildcard $(LOCAL_PATH)/$(F)/*.c))))
+
+LOCAL_ARM_MODE := arm
+
+include $(BUILD_STATIC_LIBRARY)
