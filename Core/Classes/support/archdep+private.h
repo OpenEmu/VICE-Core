@@ -25,9 +25,9 @@
  */
 
 
-#import <OpenEmuBase/OpenEmuBase.h>
+#ifndef archdep_private_h
+#define archdep_private_h
 
-OE_EXPORTED_CLASS
-@interface ViceGameCore : OEGameCore
+extern void archdep_set_boot_path(NSString *path);
 
-@end
+#endif /* archdep_private_h */

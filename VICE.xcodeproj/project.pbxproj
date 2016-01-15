@@ -22,6 +22,42 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		0558B2A91C46066200D6B7DA /* vsyncarch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558B2A81C46066200D6B7DA /* vsyncarch.m */; };
+		0558B2B11C46132800D6B7DA /* archdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558B2B01C46132800D6B7DA /* archdep.m */; };
+		0558B2B81C4623FC00D6B7DA /* basic in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612051C3C4D33005C174C /* basic */; };
+		0558B2BB1C4623FC00D6B7DA /* c64hq.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612081C3C4D33005C174C /* c64hq.vpl */; };
+		0558B2BC1C4623FC00D6B7DA /* c64mem.sym in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612091C3C4D33005C174C /* c64mem.sym */; };
+		0558B2BD1C4623FC00D6B7DA /* c64s.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596120A1C3C4D33005C174C /* c64s.vpl */; };
+		0558B2BE1C4623FC00D6B7DA /* ccs64.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596120B1C3C4D33005C174C /* ccs64.vpl */; };
+		0558B2BF1C4623FC00D6B7DA /* chargen in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596120C1C3C4D33005C174C /* chargen */; };
+		0558B2C01C4623FC00D6B7DA /* default.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596120D1C3C4D33005C174C /* default.vpl */; };
+		0558B2C11C4623FC00D6B7DA /* default.vrs in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596120E1C3C4D33005C174C /* default.vrs */; };
+		0558B2C51C4623FC00D6B7DA /* frodo.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612121C3C4D33005C174C /* frodo.vpl */; };
+		0558B2C61C4623FC00D6B7DA /* godot.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612131C3C4D33005C174C /* godot.vpl */; };
+		0558B2CA1C4623FC00D6B7DA /* kernal in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612171C3C4D33005C174C /* kernal */; };
+		0558B2CD1C4623FC00D6B7DA /* osx_pos.vkm in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596121A1C3C4D33005C174C /* osx_pos.vkm */; };
+		0558B2CE1C4623FC00D6B7DA /* osx_sym_de.vkm in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596121B1C3C4D33005C174C /* osx_sym_de.vkm */; };
+		0558B2CF1C4623FC00D6B7DA /* osx_sym.vkm in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596121C1C3C4D33005C174C /* osx_sym.vkm */; };
+		0558B2D01C4623FC00D6B7DA /* pc64.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596121D1C3C4D33005C174C /* pc64.vpl */; };
+		0558B2D31C4623FC00D6B7DA /* rgb.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612201C3C4D33005C174C /* rgb.vpl */; };
+		0558B2DD1C4623FC00D6B7DA /* vice.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596122A1C3C4D33005C174C /* vice.vpl */; };
+		0558B2DF1C46243E00D6B7DA /* d1541II in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596126E1C3C4D55005C174C /* d1541II */; };
+		0558B2E01C46243E00D6B7DA /* dos1541 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612721C3C4D55005C174C /* dos1541 */; };
+		0558B2E11C463DB700D6B7DA /* dos1540 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612711C3C4D55005C174C /* dos1540 */; };
+		0558B2E21C463DB700D6B7DA /* dos1551 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612731C3C4D55005C174C /* dos1551 */; };
+		0558B2E31C463DB700D6B7DA /* dos1570 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612741C3C4D55005C174C /* dos1570 */; };
+		0558B2E41C463DB700D6B7DA /* dos1571 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612751C3C4D55005C174C /* dos1571 */; };
+		0558B2E51C463DB700D6B7DA /* dos1581 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612761C3C4D55005C174C /* dos1581 */; };
+		0558B2E61C46411B00D6B7DA /* d1571cr in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596126F1C3C4D55005C174C /* d1571cr */; };
+		0558B2E71C46411B00D6B7DA /* dos1001 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612701C3C4D55005C174C /* dos1001 */; };
+		0558B2E81C46411B00D6B7DA /* dos2031 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612771C3C4D55005C174C /* dos2031 */; };
+		0558B2E91C46411B00D6B7DA /* dos2040 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612781C3C4D55005C174C /* dos2040 */; };
+		0558B2EA1C46411B00D6B7DA /* dos3040 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612791C3C4D55005C174C /* dos3040 */; };
+		0558B2EB1C46411B00D6B7DA /* dos4040 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596127A1C3C4D55005C174C /* dos4040 */; };
+		0558B2EE1C46BCA200D6B7DA /* vice_stubs.c in Sources */ = {isa = PBXBuildFile; fileRef = 0558B2ED1C46BCA200D6B7DA /* vice_stubs.c */; };
+		0558B2EF1C46BE1600D6B7DA /* ui.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D2601C44DF9600E456A6 /* ui.c */; };
+		0558B2F01C46C01000D6B7DA /* cmdline.c in Sources */ = {isa = PBXBuildFile; fileRef = 059603E51C3B88E1005C174C /* cmdline.c */; };
+		0558B2F11C46C01100D6B7DA /* cmdline.c in Sources */ = {isa = PBXBuildFile; fileRef = 059603E51C3B88E1005C174C /* cmdline.c */; };
 		0571594D1C3EC0F300A69ED1 /* soundaudiounit.c in Sources */ = {isa = PBXBuildFile; fileRef = 0571594C1C3EC0F300A69ED1 /* soundaudiounit.c */; };
 		0571594E1C3EC0F300A69ED1 /* soundaudiounit.c in Sources */ = {isa = PBXBuildFile; fileRef = 0571594C1C3EC0F300A69ED1 /* soundaudiounit.c */; };
 		0571594F1C3ECB9C00A69ED1 /* rs232drv.c in Sources */ = {isa = PBXBuildFile; fileRef = 059612CD1C3C60B0005C174C /* rs232drv.c */; };
@@ -82,8 +118,6 @@
 		059604DD1C3B88E1005C174C /* clkguard.c in Sources */ = {isa = PBXBuildFile; fileRef = 059603E31C3B88E1005C174C /* clkguard.c */; };
 		059604DE1C3B88E1005C174C /* clkguard.h in Headers */ = {isa = PBXBuildFile; fileRef = 059603E41C3B88E1005C174C /* clkguard.h */; };
 		059604DF1C3B88E1005C174C /* clkguard.h in Headers */ = {isa = PBXBuildFile; fileRef = 059603E41C3B88E1005C174C /* clkguard.h */; };
-		059604E01C3B88E1005C174C /* cmdline.c in Sources */ = {isa = PBXBuildFile; fileRef = 059603E51C3B88E1005C174C /* cmdline.c */; };
-		059604E11C3B88E1005C174C /* cmdline.c in Sources */ = {isa = PBXBuildFile; fileRef = 059603E51C3B88E1005C174C /* cmdline.c */; };
 		059604E21C3B88E1005C174C /* cmdline.h in Headers */ = {isa = PBXBuildFile; fileRef = 059603E61C3B88E1005C174C /* cmdline.h */; };
 		059604E31C3B88E1005C174C /* cmdline.h in Headers */ = {isa = PBXBuildFile; fileRef = 059603E61C3B88E1005C174C /* cmdline.h */; };
 		059604E41C3B88E1005C174C /* color.c in Sources */ = {isa = PBXBuildFile; fileRef = 059603E71C3B88E1005C174C /* color.c */; };
@@ -204,8 +238,6 @@
 		059605611C3B88E1005C174C /* machine.c in Sources */ = {isa = PBXBuildFile; fileRef = 059604261C3B88E1005C174C /* machine.c */; };
 		059605621C3B88E1005C174C /* machine.h in Headers */ = {isa = PBXBuildFile; fileRef = 059604271C3B88E1005C174C /* machine.h */; };
 		059605631C3B88E1005C174C /* machine.h in Headers */ = {isa = PBXBuildFile; fileRef = 059604271C3B88E1005C174C /* machine.h */; };
-		059605641C3B88E1005C174C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 059604281C3B88E1005C174C /* main.c */; };
-		059605651C3B88E1005C174C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 059604281C3B88E1005C174C /* main.c */; };
 		059605661C3B88E1005C174C /* main.h in Headers */ = {isa = PBXBuildFile; fileRef = 059604291C3B88E1005C174C /* main.h */; };
 		059605671C3B88E1005C174C /* main.h in Headers */ = {isa = PBXBuildFile; fileRef = 059604291C3B88E1005C174C /* main.h */; };
 		059605761C3B88E1005C174C /* mem.h in Headers */ = {isa = PBXBuildFile; fileRef = 059604311C3B88E1005C174C /* mem.h */; };
@@ -364,56 +396,8 @@
 		059606371C3B88E1005C174C /* zipcode.c in Sources */ = {isa = PBXBuildFile; fileRef = 059604941C3B88E1005C174C /* zipcode.c */; };
 		059606381C3B88E1005C174C /* zipcode.h in Headers */ = {isa = PBXBuildFile; fileRef = 059604951C3B88E1005C174C /* zipcode.h */; };
 		059606391C3B88E1005C174C /* zipcode.h in Headers */ = {isa = PBXBuildFile; fileRef = 059604951C3B88E1005C174C /* zipcode.h */; };
-		0596065D1C3B893C005C174C /* archdep.c in Sources */ = {isa = PBXBuildFile; fileRef = 0596063C1C3B893C005C174C /* archdep.c */; };
-		0596065E1C3B893C005C174C /* archdep.c in Sources */ = {isa = PBXBuildFile; fileRef = 0596063C1C3B893C005C174C /* archdep.c */; };
-		0596065F1C3B893C005C174C /* archdep.h in Headers */ = {isa = PBXBuildFile; fileRef = 0596063D1C3B893C005C174C /* archdep.h */; };
-		059606601C3B893C005C174C /* archdep.h in Headers */ = {isa = PBXBuildFile; fileRef = 0596063D1C3B893C005C174C /* archdep.h */; };
-		059606611C3B893C005C174C /* blockdev.c in Sources */ = {isa = PBXBuildFile; fileRef = 0596063E1C3B893C005C174C /* blockdev.c */; };
-		059606621C3B893C005C174C /* blockdev.c in Sources */ = {isa = PBXBuildFile; fileRef = 0596063E1C3B893C005C174C /* blockdev.c */; };
-		0596066B1C3B893C005C174C /* fullscreenarch.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606431C3B893C005C174C /* fullscreenarch.h */; };
-		0596066C1C3B893C005C174C /* fullscreenarch.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606431C3B893C005C174C /* fullscreenarch.h */; };
-		0596066F1C3B893C005C174C /* icon.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606451C3B893C005C174C /* icon.h */; };
-		059606701C3B893C005C174C /* icon.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606451C3B893C005C174C /* icon.h */; };
-		059606751C3B893C005C174C /* joy.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606481C3B893C005C174C /* joy.h */; };
-		059606761C3B893C005C174C /* joy.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606481C3B893C005C174C /* joy.h */; };
-		0596067D1C3B893C005C174C /* mousedrv.h in Headers */ = {isa = PBXBuildFile; fileRef = 0596064C1C3B893C005C174C /* mousedrv.h */; };
-		0596067E1C3B893C005C174C /* mousedrv.h in Headers */ = {isa = PBXBuildFile; fileRef = 0596064C1C3B893C005C174C /* mousedrv.h */; };
-		0596067F1C3B893C005C174C /* openGL_sync.h in Headers */ = {isa = PBXBuildFile; fileRef = 0596064D1C3B893C005C174C /* openGL_sync.h */; };
-		059606801C3B893C005C174C /* openGL_sync.h in Headers */ = {isa = PBXBuildFile; fileRef = 0596064D1C3B893C005C174C /* openGL_sync.h */; };
-		059606871C3B893C005C174C /* signals.c in Sources */ = {isa = PBXBuildFile; fileRef = 059606511C3B893C005C174C /* signals.c */; };
-		059606881C3B893C005C174C /* signals.c in Sources */ = {isa = PBXBuildFile; fileRef = 059606511C3B893C005C174C /* signals.c */; };
-		059606891C3B893C005C174C /* socketimpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606521C3B893C005C174C /* socketimpl.h */; };
-		0596068A1C3B893C005C174C /* socketimpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606521C3B893C005C174C /* socketimpl.h */; };
 		0596068B1C3B893C005C174C /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606531C3B893C005C174C /* types.h */; };
 		0596068C1C3B893C005C174C /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606531C3B893C005C174C /* types.h */; };
-		059606911C3B893C005C174C /* ui.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606561C3B893C005C174C /* ui.h */; };
-		059606921C3B893C005C174C /* ui.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606561C3B893C005C174C /* ui.h */; };
-		059606931C3B893C005C174C /* uimenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606571C3B893C005C174C /* uimenu.h */; };
-		059606941C3B893C005C174C /* uimenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606571C3B893C005C174C /* uimenu.h */; };
-		059606971C3B893C005C174C /* videoarch.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606591C3B893C005C174C /* videoarch.h */; };
-		059606981C3B893C005C174C /* videoarch.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606591C3B893C005C174C /* videoarch.h */; };
-		059606991C3B893C005C174C /* vmstermios.h in Headers */ = {isa = PBXBuildFile; fileRef = 0596065A1C3B893C005C174C /* vmstermios.h */; };
-		0596069A1C3B893C005C174C /* vmstermios.h in Headers */ = {isa = PBXBuildFile; fileRef = 0596065A1C3B893C005C174C /* vmstermios.h */; };
-		0596069B1C3B893C005C174C /* vsiduiunix.h in Headers */ = {isa = PBXBuildFile; fileRef = 0596065B1C3B893C005C174C /* vsiduiunix.h */; };
-		0596069C1C3B893C005C174C /* vsiduiunix.h in Headers */ = {isa = PBXBuildFile; fileRef = 0596065B1C3B893C005C174C /* vsiduiunix.h */; };
-		0596069D1C3B893C005C174C /* vsyncarch.c in Sources */ = {isa = PBXBuildFile; fileRef = 0596065C1C3B893C005C174C /* vsyncarch.c */; };
-		0596069E1C3B893C005C174C /* vsyncarch.c in Sources */ = {isa = PBXBuildFile; fileRef = 0596065C1C3B893C005C174C /* vsyncarch.c */; };
-		059606AA1C3B898B005C174C /* joy-hid.c in Sources */ = {isa = PBXBuildFile; fileRef = 059606A11C3B898B005C174C /* joy-hid.c */; };
-		059606AB1C3B898B005C174C /* joy-hid.c in Sources */ = {isa = PBXBuildFile; fileRef = 059606A11C3B898B005C174C /* joy-hid.c */; };
-		059606AC1C3B898B005C174C /* joy-hid.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606A21C3B898B005C174C /* joy-hid.h */; };
-		059606AD1C3B898B005C174C /* joy-hid.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606A21C3B898B005C174C /* joy-hid.h */; };
-		059606AE1C3B898B005C174C /* joy-hidlib.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606A31C3B898B005C174C /* joy-hidlib.h */; };
-		059606AF1C3B898B005C174C /* joy-hidlib.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606A31C3B898B005C174C /* joy-hidlib.h */; };
-		059606B01C3B898B005C174C /* joy-hidmgr.c in Sources */ = {isa = PBXBuildFile; fileRef = 059606A41C3B898B005C174C /* joy-hidmgr.c */; };
-		059606B11C3B898B005C174C /* joy-hidmgr.c in Sources */ = {isa = PBXBuildFile; fileRef = 059606A41C3B898B005C174C /* joy-hidmgr.c */; };
-		059606B21C3B898B005C174C /* joy-hidutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 059606A51C3B898B005C174C /* joy-hidutil.c */; };
-		059606B31C3B898B005C174C /* joy-hidutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 059606A51C3B898B005C174C /* joy-hidutil.c */; };
-		059606B41C3B898B005C174C /* joy.c in Sources */ = {isa = PBXBuildFile; fileRef = 059606A61C3B898B005C174C /* joy.c */; };
-		059606B51C3B898B005C174C /* joy.c in Sources */ = {isa = PBXBuildFile; fileRef = 059606A61C3B898B005C174C /* joy.c */; };
-		059606B61C3B898B005C174C /* joy.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606A71C3B898B005C174C /* joy.h */; };
-		059606B71C3B898B005C174C /* joy.h in Headers */ = {isa = PBXBuildFile; fileRef = 059606A71C3B898B005C174C /* joy.h */; };
-		059606BA1C3B898B005C174C /* vsyncarch.c in Sources */ = {isa = PBXBuildFile; fileRef = 059606A91C3B898B005C174C /* vsyncarch.c */; };
-		059606BB1C3B898B005C174C /* vsyncarch.c in Sources */ = {isa = PBXBuildFile; fileRef = 059606A91C3B898B005C174C /* vsyncarch.c */; };
 		0596070C1C3B89F2005C174C /* joyport.c in Sources */ = {isa = PBXBuildFile; fileRef = 059607021C3B89F2005C174C /* joyport.c */; };
 		0596070D1C3B89F2005C174C /* joyport.c in Sources */ = {isa = PBXBuildFile; fileRef = 059607021C3B89F2005C174C /* joyport.c */; };
 		0596070E1C3B89F2005C174C /* joyport.h in Headers */ = {isa = PBXBuildFile; fileRef = 059607031C3B89F2005C174C /* joyport.h */; };
@@ -1199,34 +1183,6 @@
 		05960C141C3BAC7B005C174C /* soundvoc.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C011C3BAC7B005C174C /* soundvoc.c */; };
 		05960C151C3BAC7B005C174C /* soundwav.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C021C3BAC7B005C174C /* soundwav.c */; };
 		05960C161C3BAC7B005C174C /* soundwav.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C021C3BAC7B005C174C /* soundwav.c */; };
-		05960C261C3BACCA005C174C /* bmpdrv.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C181C3BACCA005C174C /* bmpdrv.c */; };
-		05960C271C3BACCA005C174C /* bmpdrv.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C181C3BACCA005C174C /* bmpdrv.c */; };
-		05960C281C3BACCA005C174C /* bmpdrv.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960C191C3BACCA005C174C /* bmpdrv.h */; };
-		05960C291C3BACCA005C174C /* bmpdrv.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960C191C3BACCA005C174C /* bmpdrv.h */; };
-		05960C2A1C3BACCA005C174C /* doodledrv.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C1A1C3BACCA005C174C /* doodledrv.c */; };
-		05960C2B1C3BACCA005C174C /* doodledrv.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C1A1C3BACCA005C174C /* doodledrv.c */; };
-		05960C2C1C3BACCA005C174C /* gfxoutput.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C1B1C3BACCA005C174C /* gfxoutput.c */; };
-		05960C2D1C3BACCA005C174C /* gfxoutput.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C1B1C3BACCA005C174C /* gfxoutput.c */; };
-		05960C2E1C3BACCA005C174C /* godotdrv.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C1C1C3BACCA005C174C /* godotdrv.c */; };
-		05960C2F1C3BACCA005C174C /* godotdrv.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C1C1C3BACCA005C174C /* godotdrv.c */; };
-		05960C301C3BACCA005C174C /* godotdrv.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960C1D1C3BACCA005C174C /* godotdrv.h */; };
-		05960C311C3BACCA005C174C /* godotdrv.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960C1D1C3BACCA005C174C /* godotdrv.h */; };
-		05960C321C3BACCA005C174C /* iffdrv.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C1E1C3BACCA005C174C /* iffdrv.c */; };
-		05960C331C3BACCA005C174C /* iffdrv.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C1E1C3BACCA005C174C /* iffdrv.c */; };
-		05960C341C3BACCA005C174C /* iffdrv.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960C1F1C3BACCA005C174C /* iffdrv.h */; };
-		05960C351C3BACCA005C174C /* iffdrv.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960C1F1C3BACCA005C174C /* iffdrv.h */; };
-		05960C361C3BACCA005C174C /* koaladrv.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C201C3BACCA005C174C /* koaladrv.c */; };
-		05960C371C3BACCA005C174C /* koaladrv.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C201C3BACCA005C174C /* koaladrv.c */; };
-		05960C381C3BACCA005C174C /* nativedrv.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C211C3BACCA005C174C /* nativedrv.c */; };
-		05960C391C3BACCA005C174C /* nativedrv.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C211C3BACCA005C174C /* nativedrv.c */; };
-		05960C3A1C3BACCA005C174C /* pcxdrv.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C221C3BACCA005C174C /* pcxdrv.c */; };
-		05960C3B1C3BACCA005C174C /* pcxdrv.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C221C3BACCA005C174C /* pcxdrv.c */; };
-		05960C3C1C3BACCA005C174C /* pcxdrv.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960C231C3BACCA005C174C /* pcxdrv.h */; };
-		05960C3D1C3BACCA005C174C /* pcxdrv.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960C231C3BACCA005C174C /* pcxdrv.h */; };
-		05960C3E1C3BACCA005C174C /* ppmdrv.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C241C3BACCA005C174C /* ppmdrv.c */; };
-		05960C3F1C3BACCA005C174C /* ppmdrv.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C241C3BACCA005C174C /* ppmdrv.c */; };
-		05960C401C3BACCA005C174C /* ppmdrv.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960C251C3BACCA005C174C /* ppmdrv.h */; };
-		05960C411C3BACCA005C174C /* ppmdrv.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960C251C3BACCA005C174C /* ppmdrv.h */; };
 		05960C9F1C3BAD45005C174C /* rsuser.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C961C3BAD45005C174C /* rsuser.c */; };
 		05960CA01C3BAD45005C174C /* rsuser.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960C961C3BAD45005C174C /* rsuser.c */; };
 		05960CB61C3BAD7D005C174C /* diskimage.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960CA21C3BAD7D005C174C /* diskimage.c */; };
@@ -1739,18 +1695,10 @@
 		0598D2501C44C2BB00E456A6 /* x64.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0598D24E1C44C2BB00E456A6 /* x64.icns */; };
 		0598D2551C44C2FB00E456A6 /* ViceGameCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0598D2541C44C2FB00E456A6 /* ViceGameCore.m */; };
 		0598D2571C44C38200E456A6 /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0598D2561C44C38200E456A6 /* OpenEmuBase.framework */; };
-		0598D2661C44DF9600E456A6 /* c64ui.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D2591C44DF9600E456A6 /* c64ui.c */; };
-		0598D2671C44DF9600E456A6 /* console.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D25A1C44DF9600E456A6 /* console.c */; };
-		0598D2681C44DF9600E456A6 /* fullscreen.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D25B1C44DF9600E456A6 /* fullscreen.c */; };
 		0598D2691C44DF9600E456A6 /* kbd.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D25C1C44DF9600E456A6 /* kbd.c */; };
-		0598D26A1C44DF9600E456A6 /* main_program.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D25D1C44DF9600E456A6 /* main_program.c */; };
-		0598D26B1C44DF9600E456A6 /* ui_cmdline.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D25E1C44DF9600E456A6 /* ui_cmdline.c */; };
-		0598D26C1C44DF9600E456A6 /* ui_resources.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D25F1C44DF9600E456A6 /* ui_resources.c */; };
-		0598D26D1C44DF9600E456A6 /* ui.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D2601C44DF9600E456A6 /* ui.c */; };
-		0598D26E1C44DF9600E456A6 /* uimon.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D2611C44DF9600E456A6 /* uimon.c */; };
+		0598D26A1C44DF9600E456A6 /* main_program.m in Sources */ = {isa = PBXBuildFile; fileRef = 0598D25D1C44DF9600E456A6 /* main_program.m */; };
 		0598D2701C44DF9600E456A6 /* video.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D2641C44DF9600E456A6 /* video.c */; };
 		0598D2711C44DFA900E456A6 /* libc64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 059603B01C3B6F3C005C174C /* libc64.a */; };
-		0598D2741C44E11400E456A6 /* soundopenemu.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D2721C44E11400E456A6 /* soundopenemu.c */; };
 		0598D2751C44E1A300E456A6 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 059611FA1C3C482C005C174C /* libstdc++.tbd */; };
 		0598D2761C44E1AF00E456A6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 059611F81C3C47FD005C174C /* libz.tbd */; };
 /* End PBXBuildFile section */
@@ -1765,7 +1713,65 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0558B2B51C4623E300D6B7DA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ROM/C64;
+			dstSubfolderSpec = 7;
+			files = (
+				0558B2B81C4623FC00D6B7DA /* basic in CopyFiles */,
+				0558B2BB1C4623FC00D6B7DA /* c64hq.vpl in CopyFiles */,
+				0558B2BC1C4623FC00D6B7DA /* c64mem.sym in CopyFiles */,
+				0558B2BD1C4623FC00D6B7DA /* c64s.vpl in CopyFiles */,
+				0558B2BE1C4623FC00D6B7DA /* ccs64.vpl in CopyFiles */,
+				0558B2BF1C4623FC00D6B7DA /* chargen in CopyFiles */,
+				0558B2C01C4623FC00D6B7DA /* default.vpl in CopyFiles */,
+				0558B2C11C4623FC00D6B7DA /* default.vrs in CopyFiles */,
+				0558B2C51C4623FC00D6B7DA /* frodo.vpl in CopyFiles */,
+				0558B2C61C4623FC00D6B7DA /* godot.vpl in CopyFiles */,
+				0558B2CA1C4623FC00D6B7DA /* kernal in CopyFiles */,
+				0558B2CD1C4623FC00D6B7DA /* osx_pos.vkm in CopyFiles */,
+				0558B2CE1C4623FC00D6B7DA /* osx_sym_de.vkm in CopyFiles */,
+				0558B2CF1C4623FC00D6B7DA /* osx_sym.vkm in CopyFiles */,
+				0558B2D01C4623FC00D6B7DA /* pc64.vpl in CopyFiles */,
+				0558B2D31C4623FC00D6B7DA /* rgb.vpl in CopyFiles */,
+				0558B2DD1C4623FC00D6B7DA /* vice.vpl in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0558B2DE1C46242800D6B7DA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ROM/DRIVES;
+			dstSubfolderSpec = 7;
+			files = (
+				0558B2E61C46411B00D6B7DA /* d1571cr in CopyFiles */,
+				0558B2E71C46411B00D6B7DA /* dos1001 in CopyFiles */,
+				0558B2E81C46411B00D6B7DA /* dos2031 in CopyFiles */,
+				0558B2E91C46411B00D6B7DA /* dos2040 in CopyFiles */,
+				0558B2EA1C46411B00D6B7DA /* dos3040 in CopyFiles */,
+				0558B2EB1C46411B00D6B7DA /* dos4040 in CopyFiles */,
+				0558B2E11C463DB700D6B7DA /* dos1540 in CopyFiles */,
+				0558B2E21C463DB700D6B7DA /* dos1551 in CopyFiles */,
+				0558B2E31C463DB700D6B7DA /* dos1570 in CopyFiles */,
+				0558B2E41C463DB700D6B7DA /* dos1571 in CopyFiles */,
+				0558B2E51C463DB700D6B7DA /* dos1581 in CopyFiles */,
+				0558B2DF1C46243E00D6B7DA /* d1541II in CopyFiles */,
+				0558B2E01C46243E00D6B7DA /* dos1541 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		0558B2A81C46066200D6B7DA /* vsyncarch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vsyncarch.m; sourceTree = "<group>"; };
+		0558B2B01C46132800D6B7DA /* archdep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = archdep.m; sourceTree = "<group>"; };
+		0558B2B31C4618F400D6B7DA /* archdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = archdep.h; sourceTree = "<group>"; };
+		0558B2B41C46232F00D6B7DA /* archdep+private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "archdep+private.h"; sourceTree = "<group>"; };
+		0558B2EC1C46BA5F00D6B7DA /* main_program.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main_program.h; sourceTree = "<group>"; };
+		0558B2ED1C46BCA200D6B7DA /* vice_stubs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vice_stubs.c; sourceTree = "<group>"; };
+		0558B2F71C48BA1900D6B7DA /* joy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = joy.h; sourceTree = "<group>"; };
 		0571594C1C3EC0F300A69ED1 /* soundaudiounit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = soundaudiounit.c; sourceTree = "<group>"; };
 		059603B01C3B6F3C005C174C /* libc64.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libc64.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		059603B91C3B704F005C174C /* libc64sc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libc64sc.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1944,31 +1950,7 @@
 		059604931C3B88E1005C174C /* zfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zfile.h; sourceTree = "<group>"; };
 		059604941C3B88E1005C174C /* zipcode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zipcode.c; sourceTree = "<group>"; };
 		059604951C3B88E1005C174C /* zipcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zipcode.h; sourceTree = "<group>"; };
-		0596063C1C3B893C005C174C /* archdep.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = archdep.c; sourceTree = "<group>"; };
-		0596063D1C3B893C005C174C /* archdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = archdep.h; sourceTree = "<group>"; };
-		0596063E1C3B893C005C174C /* blockdev.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = blockdev.c; sourceTree = "<group>"; };
-		059606431C3B893C005C174C /* fullscreenarch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fullscreenarch.h; sourceTree = "<group>"; };
-		059606451C3B893C005C174C /* icon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = icon.h; sourceTree = "<group>"; };
-		059606481C3B893C005C174C /* joy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = joy.h; sourceTree = "<group>"; };
-		0596064C1C3B893C005C174C /* mousedrv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mousedrv.h; sourceTree = "<group>"; };
-		0596064D1C3B893C005C174C /* openGL_sync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = openGL_sync.h; sourceTree = "<group>"; };
-		059606511C3B893C005C174C /* signals.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = signals.c; sourceTree = "<group>"; };
-		059606521C3B893C005C174C /* socketimpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = socketimpl.h; sourceTree = "<group>"; };
 		059606531C3B893C005C174C /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
-		059606561C3B893C005C174C /* ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ui.h; sourceTree = "<group>"; };
-		059606571C3B893C005C174C /* uimenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uimenu.h; sourceTree = "<group>"; };
-		059606591C3B893C005C174C /* videoarch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = videoarch.h; sourceTree = "<group>"; };
-		0596065A1C3B893C005C174C /* vmstermios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vmstermios.h; sourceTree = "<group>"; };
-		0596065B1C3B893C005C174C /* vsiduiunix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vsiduiunix.h; sourceTree = "<group>"; };
-		0596065C1C3B893C005C174C /* vsyncarch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vsyncarch.c; sourceTree = "<group>"; };
-		059606A11C3B898B005C174C /* joy-hid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "joy-hid.c"; sourceTree = "<group>"; };
-		059606A21C3B898B005C174C /* joy-hid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "joy-hid.h"; sourceTree = "<group>"; };
-		059606A31C3B898B005C174C /* joy-hidlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "joy-hidlib.h"; sourceTree = "<group>"; };
-		059606A41C3B898B005C174C /* joy-hidmgr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "joy-hidmgr.c"; sourceTree = "<group>"; };
-		059606A51C3B898B005C174C /* joy-hidutil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "joy-hidutil.c"; sourceTree = "<group>"; };
-		059606A61C3B898B005C174C /* joy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = joy.c; sourceTree = "<group>"; };
-		059606A71C3B898B005C174C /* joy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = joy.h; sourceTree = "<group>"; };
-		059606A91C3B898B005C174C /* vsyncarch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vsyncarch.c; sourceTree = "<group>"; };
 		059607021C3B89F2005C174C /* joyport.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = joyport.c; sourceTree = "<group>"; };
 		059607031C3B89F2005C174C /* joyport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = joyport.h; sourceTree = "<group>"; };
 		059607041C3B89F2005C174C /* joystick.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = joystick.c; sourceTree = "<group>"; };
@@ -2370,20 +2352,6 @@
 		05960C001C3BAC7B005C174C /* soundmovie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soundmovie.h; sourceTree = "<group>"; };
 		05960C011C3BAC7B005C174C /* soundvoc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = soundvoc.c; sourceTree = "<group>"; };
 		05960C021C3BAC7B005C174C /* soundwav.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = soundwav.c; sourceTree = "<group>"; };
-		05960C181C3BACCA005C174C /* bmpdrv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bmpdrv.c; sourceTree = "<group>"; };
-		05960C191C3BACCA005C174C /* bmpdrv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bmpdrv.h; sourceTree = "<group>"; };
-		05960C1A1C3BACCA005C174C /* doodledrv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = doodledrv.c; sourceTree = "<group>"; };
-		05960C1B1C3BACCA005C174C /* gfxoutput.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gfxoutput.c; sourceTree = "<group>"; };
-		05960C1C1C3BACCA005C174C /* godotdrv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = godotdrv.c; sourceTree = "<group>"; };
-		05960C1D1C3BACCA005C174C /* godotdrv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = godotdrv.h; sourceTree = "<group>"; };
-		05960C1E1C3BACCA005C174C /* iffdrv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iffdrv.c; sourceTree = "<group>"; };
-		05960C1F1C3BACCA005C174C /* iffdrv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iffdrv.h; sourceTree = "<group>"; };
-		05960C201C3BACCA005C174C /* koaladrv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = koaladrv.c; sourceTree = "<group>"; };
-		05960C211C3BACCA005C174C /* nativedrv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nativedrv.c; sourceTree = "<group>"; };
-		05960C221C3BACCA005C174C /* pcxdrv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pcxdrv.c; sourceTree = "<group>"; };
-		05960C231C3BACCA005C174C /* pcxdrv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pcxdrv.h; sourceTree = "<group>"; };
-		05960C241C3BACCA005C174C /* ppmdrv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ppmdrv.c; sourceTree = "<group>"; };
-		05960C251C3BACCA005C174C /* ppmdrv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ppmdrv.h; sourceTree = "<group>"; };
 		05960C961C3BAD45005C174C /* rsuser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rsuser.c; sourceTree = "<group>"; };
 		05960CA21C3BAD7D005C174C /* diskimage.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = diskimage.c; sourceTree = "<group>"; };
 		05960CA31C3BAD7D005C174C /* fsimage-check.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "fsimage-check.c"; sourceTree = "<group>"; };
@@ -2745,18 +2713,11 @@
 		0598D2531C44C2FB00E456A6 /* ViceGameCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViceGameCore.h; sourceTree = "<group>"; };
 		0598D2541C44C2FB00E456A6 /* ViceGameCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViceGameCore.m; sourceTree = "<group>"; };
 		0598D2561C44C38200E456A6 /* OpenEmuBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenEmuBase.framework; path = "../OpenEmu-SDK/build/Debug/OpenEmuBase.framework"; sourceTree = "<group>"; };
-		0598D2591C44DF9600E456A6 /* c64ui.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c64ui.c; sourceTree = "<group>"; };
-		0598D25A1C44DF9600E456A6 /* console.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = console.c; sourceTree = "<group>"; };
-		0598D25B1C44DF9600E456A6 /* fullscreen.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fullscreen.c; sourceTree = "<group>"; };
 		0598D25C1C44DF9600E456A6 /* kbd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kbd.c; sourceTree = "<group>"; };
-		0598D25D1C44DF9600E456A6 /* main_program.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main_program.c; sourceTree = "<group>"; };
-		0598D25E1C44DF9600E456A6 /* ui_cmdline.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_cmdline.c; sourceTree = "<group>"; };
-		0598D25F1C44DF9600E456A6 /* ui_resources.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_resources.c; sourceTree = "<group>"; };
+		0598D25D1C44DF9600E456A6 /* main_program.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main_program.m; sourceTree = "<group>"; };
 		0598D2601C44DF9600E456A6 /* ui.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui.c; sourceTree = "<group>"; };
-		0598D2611C44DF9600E456A6 /* uimon.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uimon.c; sourceTree = "<group>"; };
 		0598D2641C44DF9600E456A6 /* video.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = video.c; sourceTree = "<group>"; };
 		0598D2651C44DF9600E456A6 /* videoarch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = videoarch.h; sourceTree = "<group>"; };
-		0598D2721C44E11400E456A6 /* soundopenemu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = soundopenemu.c; sourceTree = "<group>"; };
 		0598D2771C44E2FF00E456A6 /* kbd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kbd.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2829,7 +2790,6 @@
 				059609D81C3B8B82005C174C /* drive */,
 				05960D2E1C3BAE03005C174C /* fileio */,
 				05960CDE1C3BAD9E005C174C /* fsdevice */,
-				05960C171C3BAC91005C174C /* gfxoutputdrv */,
 				05960AF11C3BAA40005C174C /* iecbus */,
 				05960F071C3BB1B7005C174C /* imagecontents */,
 				059607011C3B89DC005C174C /* joyport */,
@@ -3042,41 +3002,9 @@
 		0596063B1C3B8925005C174C /* unix */ = {
 			isa = PBXGroup;
 			children = (
-				0596069F1C3B895C005C174C /* macosx */,
-				0596063C1C3B893C005C174C /* archdep.c */,
-				0596063D1C3B893C005C174C /* archdep.h */,
-				0596063E1C3B893C005C174C /* blockdev.c */,
-				059606431C3B893C005C174C /* fullscreenarch.h */,
-				059606451C3B893C005C174C /* icon.h */,
-				059606481C3B893C005C174C /* joy.h */,
-				0596064C1C3B893C005C174C /* mousedrv.h */,
-				0596064D1C3B893C005C174C /* openGL_sync.h */,
-				059606511C3B893C005C174C /* signals.c */,
-				059606521C3B893C005C174C /* socketimpl.h */,
 				059606531C3B893C005C174C /* types.h */,
-				059606561C3B893C005C174C /* ui.h */,
-				059606571C3B893C005C174C /* uimenu.h */,
-				059606591C3B893C005C174C /* videoarch.h */,
-				0596065A1C3B893C005C174C /* vmstermios.h */,
-				0596065B1C3B893C005C174C /* vsiduiunix.h */,
-				0596065C1C3B893C005C174C /* vsyncarch.c */,
 			);
 			path = unix;
-			sourceTree = "<group>";
-		};
-		0596069F1C3B895C005C174C /* macosx */ = {
-			isa = PBXGroup;
-			children = (
-				059606A11C3B898B005C174C /* joy-hid.c */,
-				059606A21C3B898B005C174C /* joy-hid.h */,
-				059606A31C3B898B005C174C /* joy-hidlib.h */,
-				059606A41C3B898B005C174C /* joy-hidmgr.c */,
-				059606A51C3B898B005C174C /* joy-hidutil.c */,
-				059606A61C3B898B005C174C /* joy.c */,
-				059606A71C3B898B005C174C /* joy.h */,
-				059606A91C3B898B005C174C /* vsyncarch.c */,
-			);
-			path = macosx;
 			sourceTree = "<group>";
 		};
 		059607011C3B89DC005C174C /* joyport */ = {
@@ -3589,27 +3517,6 @@
 				05960C021C3BAC7B005C174C /* soundwav.c */,
 			);
 			path = sounddrv;
-			sourceTree = "<group>";
-		};
-		05960C171C3BAC91005C174C /* gfxoutputdrv */ = {
-			isa = PBXGroup;
-			children = (
-				05960C181C3BACCA005C174C /* bmpdrv.c */,
-				05960C191C3BACCA005C174C /* bmpdrv.h */,
-				05960C1A1C3BACCA005C174C /* doodledrv.c */,
-				05960C1B1C3BACCA005C174C /* gfxoutput.c */,
-				05960C1C1C3BACCA005C174C /* godotdrv.c */,
-				05960C1D1C3BACCA005C174C /* godotdrv.h */,
-				05960C1E1C3BACCA005C174C /* iffdrv.c */,
-				05960C1F1C3BACCA005C174C /* iffdrv.h */,
-				05960C201C3BACCA005C174C /* koaladrv.c */,
-				05960C211C3BACCA005C174C /* nativedrv.c */,
-				05960C221C3BACCA005C174C /* pcxdrv.c */,
-				05960C231C3BACCA005C174C /* pcxdrv.h */,
-				05960C241C3BACCA005C174C /* ppmdrv.c */,
-				05960C251C3BACCA005C174C /* ppmdrv.h */,
-			);
-			path = gfxoutputdrv;
 			sourceTree = "<group>";
 		};
 		05960C911C3BAD1C005C174C /* rs232drv */ = {
@@ -4154,19 +4061,19 @@
 		0598D2581C44DF3200E456A6 /* support */ = {
 			isa = PBXGroup;
 			children = (
-				0598D2591C44DF9600E456A6 /* c64ui.c */,
-				0598D25A1C44DF9600E456A6 /* console.c */,
-				0598D25B1C44DF9600E456A6 /* fullscreen.c */,
-				0598D25C1C44DF9600E456A6 /* kbd.c */,
+				0558B2B31C4618F400D6B7DA /* archdep.h */,
+				0558B2B41C46232F00D6B7DA /* archdep+private.h */,
+				0558B2B01C46132800D6B7DA /* archdep.m */,
+				0558B2F71C48BA1900D6B7DA /* joy.h */,
 				0598D2771C44E2FF00E456A6 /* kbd.h */,
-				0598D25D1C44DF9600E456A6 /* main_program.c */,
-				0598D2721C44E11400E456A6 /* soundopenemu.c */,
-				0598D25E1C44DF9600E456A6 /* ui_cmdline.c */,
-				0598D25F1C44DF9600E456A6 /* ui_resources.c */,
+				0598D25C1C44DF9600E456A6 /* kbd.c */,
+				0558B2EC1C46BA5F00D6B7DA /* main_program.h */,
+				0598D25D1C44DF9600E456A6 /* main_program.m */,
 				0598D2601C44DF9600E456A6 /* ui.c */,
-				0598D2611C44DF9600E456A6 /* uimon.c */,
+				0558B2ED1C46BCA200D6B7DA /* vice_stubs.c */,
 				0598D2641C44DF9600E456A6 /* video.c */,
 				0598D2651C44DF9600E456A6 /* videoarch.h */,
+				0558B2A81C46066200D6B7DA /* vsyncarch.m */,
 			);
 			path = support;
 			sourceTree = "<group>";
@@ -4202,7 +4109,6 @@
 				05960AE51C3BA9A3005C174C /* memieee.h in Headers */,
 				05960FED1C3BB3B9005C174C /* maincpu.h in Headers */,
 				059605541C3B88E1005C174C /* log.h in Headers */,
-				059606AE1C3B898B005C174C /* joy-hidlib.h in Headers */,
 				05960D6B1C3BAE4E005C174C /* serial-trap.h in Headers */,
 				05960ADB1C3BA9A3005C174C /* ieee-resources.h in Headers */,
 				059605AE1C3B88E1005C174C /* ram.h in Headers */,
@@ -4240,7 +4146,6 @@
 				059608DC1C3B8B30005C174C /* westermann.h in Headers */,
 				05960BAD1C3BABB3005C174C /* mon_disassemble.h in Headers */,
 				05960BB51C3BABB3005C174C /* mon_file.h in Headers */,
-				059606B61C3B898B005C174C /* joy.h in Headers */,
 				059604FE1C3B88E1005C174C /* dma.h in Headers */,
 				05960F791C3BB339005C174C /* wave6581_PST.h in Headers */,
 				05960AB71C3BA923005C174C /* supercard.h in Headers */,
@@ -4255,7 +4160,6 @@
 				059605001C3B88E1005C174C /* dynlib.h in Headers */,
 				05960CC21C3BAD7D005C174C /* fsimage-dxx.h in Headers */,
 				05960D361C3BAE1E005C174C /* cbmfile.h in Headers */,
-				0596067D1C3B893C005C174C /* mousedrv.h in Headers */,
 				059605121C3B88E1005C174C /* flash040.h in Headers */,
 				059608841C3B8B30005C174C /* pagefox.h in Headers */,
 				059605981C3B88E1005C174C /* parsid.h in Headers */,
@@ -4267,7 +4171,6 @@
 				0596060C1C3B88E1005C174C /* version.h in Headers */,
 				059608581C3B8B30005C174C /* isepic.h in Headers */,
 				05960FC21C3BB3B1005C174C /* render1x1_dingoo.h in Headers */,
-				05960C281C3BACCA005C174C /* bmpdrv.h in Headers */,
 				059609921C3B8B49005C174C /* c64parallel.h in Headers */,
 				05960CDA1C3BAD7D005C174C /* realimage.h in Headers */,
 				05960D5B1C3BAE4E005C174C /* serial-iec-bus.h in Headers */,
@@ -4308,7 +4211,6 @@
 				059605C61C3B88E1005C174C /* rs232drv.h in Headers */,
 				05960B121C3BAB13005C174C /* vdrive-bam.h in Headers */,
 				05960FB31C3BB390005C174C /* ds1202_1302.h in Headers */,
-				059606911C3B893C005C174C /* ui.h in Headers */,
 				0596083C1C3B8B30005C174C /* freezeframe.h in Headers */,
 				059608A81C3B8B30005C174C /* sfx_soundexpander.h in Headers */,
 				059608AC1C3B8B30005C174C /* sfx_soundsampler.h in Headers */,
@@ -4316,11 +4218,9 @@
 				05960DE91C3BAEFF005C174C /* vicii-mem.h in Headers */,
 				05960D8D1C3BAE7E005C174C /* ciatimer.h in Headers */,
 				059604E81C3B88E1005C174C /* config.h in Headers */,
-				05960C401C3BACCA005C174C /* ppmdrv.h in Headers */,
 				05960AEF1C3BA9A3005C174C /* via1d2031.h in Headers */,
 				059607C61C3B8B30005C174C /* actionreplay4.h in Headers */,
 				05960DDD1C3BAEFF005C174C /* vicii-draw.h in Headers */,
-				059606751C3B893C005C174C /* joy.h in Headers */,
 				059605D41C3B88E1005C174C /* sidcart.h in Headers */,
 				059608081C3B8B30005C174C /* diashowmaker.h in Headers */,
 				059605621C3B88E1005C174C /* machine.h in Headers */,
@@ -4341,7 +4241,6 @@
 				059604F61C3B88E1005C174C /* debug.h in Headers */,
 				05960A8D1C3BA8E9005C174C /* via1d1541.h in Headers */,
 				05960BDF1C3BABB3005C174C /* monitor_network.h in Headers */,
-				0596066B1C3B893C005C174C /* fullscreenarch.h in Headers */,
 				05960DD51C3BAEFF005C174C /* vicii-cmdline-options.h in Headers */,
 				05960BF61C3BAC30005C174C /* sampler.h in Headers */,
 				059606221C3B88E1005C174C /* video.h in Headers */,
@@ -4375,9 +4274,7 @@
 				05960A261C3BA81F005C174C /* drivecpu65c02.h in Headers */,
 				059608941C3B8B30005C174C /* reu.h in Headers */,
 				059607BA1C3B8B30005C174C /* actionreplay.h in Headers */,
-				0596066F1C3B893C005C174C /* icon.h in Headers */,
 				05960FE71C3BB3B1005C174C /* video-render.h in Headers */,
-				059606931C3B893C005C174C /* uimenu.h in Headers */,
 				059605281C3B88E1005C174C /* iecdrive.h in Headers */,
 				05960F941C3BB345005C174C /* raster-sprite-cache.h in Headers */,
 				05960B2A1C3BAB13005C174C /* vdrive-snapshot.h in Headers */,
@@ -4387,7 +4284,6 @@
 				05960FE11C3BB3B1005C174C /* video-color.h in Headers */,
 				059608101C3B8B30005C174C /* dinamic.h in Headers */,
 				05960F8A1C3BB345005C174C /* raster-cmdline-options.h in Headers */,
-				059606891C3B893C005C174C /* socketimpl.h in Headers */,
 				05960CF11C3BADBB005C174C /* fsdevice-close.h in Headers */,
 				059604B01C3B88E1005C174C /* autostart-prg.h in Headers */,
 				05960B551C3BAB66005C174C /* sid.h in Headers */,
@@ -4424,11 +4320,9 @@
 				059608701C3B8B30005C174C /* magicvoice.h in Headers */,
 				0596054C1C3B88E1005C174C /* lib.h in Headers */,
 				0596096A1C3B8B49005C174C /* c64gluelogic.h in Headers */,
-				05960C341C3BACCA005C174C /* iffdrv.h in Headers */,
 				059607F41C3B8B30005C174C /* crt.h in Headers */,
 				059609841C3B8B49005C174C /* c64memrom.h in Headers */,
 				05960E031C3BAEFF005C174C /* viciitypes.h in Headers */,
-				059606971C3B893C005C174C /* videoarch.h in Headers */,
 				05960BE31C3BABB3005C174C /* montypes.h in Headers */,
 				05960A0E1C3BA81F005C174C /* drive-resources.h in Headers */,
 				059605B21C3B88E1005C174C /* rawfile.h in Headers */,
@@ -4464,7 +4358,6 @@
 				05960A0A1C3BA81F005C174C /* drive-overflow.h in Headers */,
 				05960A7B1C3BA8E9005C174C /* iec-resources.h in Headers */,
 				059609361C3B8B49005C174C /* c64_256k.h in Headers */,
-				0596065F1C3B893C005C174C /* archdep.h in Headers */,
 				05960CBA1C3BAD7D005C174C /* fsimage-check.h in Headers */,
 				05960B161C3BAB13005C174C /* vdrive-command.h in Headers */,
 				05960AB31C3BA923005C174C /* profdos.h in Headers */,
@@ -4491,7 +4384,6 @@
 				05960FE91C3BB3B1005C174C /* video-resources.h in Headers */,
 				05960D1C1C3BADDB005C174C /* t64.h in Headers */,
 				05960BA51C3BABB3005C174C /* mon_breakpoint.h in Headers */,
-				0596067F1C3B893C005C174C /* openGL_sync.h in Headers */,
 				0596085C1C3B8B30005C174C /* kcs.h in Headers */,
 				05960FA51C3BB36E005C174C /* diskcontents-iec.h in Headers */,
 				059605EC1C3B88E1005C174C /* translate_funcs.h in Headers */,
@@ -4516,7 +4408,6 @@
 				059605341C3B88E1005C174C /* init.h in Headers */,
 				05960A3E1C3BA81F005C174C /* iec.h in Headers */,
 				0596059C1C3B88E1005C174C /* petui.h in Headers */,
-				059606AC1C3B898B005C174C /* joy-hid.h in Headers */,
 				0596051E1C3B88E1005C174C /* gcr.h in Headers */,
 				05960A951C3BA8E9005C174C /* wd1770.h in Headers */,
 				05960A731C3BA8E8005C174C /* glue1571.h in Headers */,
@@ -4563,14 +4454,12 @@
 				059608001C3B8B30005C174C /* delaep64.h in Headers */,
 				059605D01C3B88E1005C174C /* screenshot.h in Headers */,
 				05960FC11C3BB3A0005C174C /* userport_rtc.h in Headers */,
-				0596069B1C3B893C005C174C /* vsiduiunix.h in Headers */,
 				059605D21C3B88E1005C174C /* serial.h in Headers */,
 				059604E21C3B88E1005C174C /* cmdline.h in Headers */,
 				05960D011C3BADBB005C174C /* fsdevice-read.h in Headers */,
 				05960FB91C3BB390005C174C /* rtc.h in Headers */,
 				05960A161C3BA81F005C174C /* drive-sound.h in Headers */,
 				0596055E1C3B88E1005C174C /* machine-video.h in Headers */,
-				059606991C3B893C005C174C /* vmstermios.h in Headers */,
 				05960A421C3BA81F005C174C /* iecieee.h in Headers */,
 				05960F671C3BB339005C174C /* extfilt.h in Headers */,
 				059607E81C3B8B30005C174C /* capture.h in Headers */,
@@ -4585,7 +4474,6 @@
 				059606301C3B88E1005C174C /* z80regs.h in Headers */,
 				0596052E1C3B88E1005C174C /* info.h in Headers */,
 				059605201C3B88E1005C174C /* gfxoutput.h in Headers */,
-				05960C3C1C3BACCA005C174C /* pcxdrv.h in Headers */,
 				05960FA71C3BB36E005C174C /* diskcontents.h in Headers */,
 				05960A2E1C3BA81F005C174C /* drivemem.h in Headers */,
 				059608041C3B8B30005C174C /* delaep256.h in Headers */,
@@ -4619,7 +4507,6 @@
 				05960FD01C3BB3B1005C174C /* render2x2crt.h in Headers */,
 				05960FEB1C3BB3B1005C174C /* video-sound.h in Headers */,
 				059606141C3B88E1005C174C /* vice-event.h in Headers */,
-				05960C301C3BACCA005C174C /* godotdrv.h in Headers */,
 				05960A771C3BA8E8005C174C /* iec-cmdline-options.h in Headers */,
 				0596062C1C3B88E1005C174C /* vsyncapi.h in Headers */,
 				05960A1A1C3BA81F005C174C /* drive-writeprotect.h in Headers */,
@@ -4658,7 +4545,6 @@
 				05960AE61C3BA9A3005C174C /* memieee.h in Headers */,
 				05960EF81C3BB182005C174C /* video-canvas.h in Headers */,
 				059605551C3B88E1005C174C /* log.h in Headers */,
-				059606AF1C3B898B005C174C /* joy-hidlib.h in Headers */,
 				05960D6C1C3BAE4E005C174C /* serial-trap.h in Headers */,
 				05960ADC1C3BA9A3005C174C /* ieee-resources.h in Headers */,
 				05960F191C3BB1D8005C174C /* tapecontents.h in Headers */,
@@ -4689,7 +4575,6 @@
 				059608DD1C3B8B30005C174C /* westermann.h in Headers */,
 				05960BAE1C3BABB3005C174C /* mon_disassemble.h in Headers */,
 				05960BB61C3BABB3005C174C /* mon_file.h in Headers */,
-				059606B71C3B898B005C174C /* joy.h in Headers */,
 				059604FF1C3B88E1005C174C /* dma.h in Headers */,
 				05960AB81C3BA923005C174C /* supercard.h in Headers */,
 				05960BB21C3BABB3005C174C /* mon_drive.h in Headers */,
@@ -4703,7 +4588,6 @@
 				059605011C3B88E1005C174C /* dynlib.h in Headers */,
 				05960CC31C3BAD7D005C174C /* fsimage-dxx.h in Headers */,
 				05960D371C3BAE1E005C174C /* cbmfile.h in Headers */,
-				0596067E1C3B893C005C174C /* mousedrv.h in Headers */,
 				059605131C3B88E1005C174C /* flash040.h in Headers */,
 				05960F451C3BB222005C174C /* spline.h in Headers */,
 				059608851C3B8B30005C174C /* pagefox.h in Headers */,
@@ -4715,7 +4599,6 @@
 				059607F11C3B8B30005C174C /* cpmcart.h in Headers */,
 				0596060D1C3B88E1005C174C /* version.h in Headers */,
 				059608591C3B8B30005C174C /* isepic.h in Headers */,
-				05960C291C3BACCA005C174C /* bmpdrv.h in Headers */,
 				05960F5C1C3BB275005C174C /* platform_cpu_type.h in Headers */,
 				059609931C3B8B49005C174C /* c64parallel.h in Headers */,
 				05960CDB1C3BAD7D005C174C /* realimage.h in Headers */,
@@ -4757,7 +4640,6 @@
 				059604C71C3B88E1005C174C /* catweaselmkiii.h in Headers */,
 				059605C71C3B88E1005C174C /* rs232drv.h in Headers */,
 				05960B131C3BAB13005C174C /* vdrive-bam.h in Headers */,
-				059606921C3B893C005C174C /* ui.h in Headers */,
 				0596083D1C3B8B30005C174C /* freezeframe.h in Headers */,
 				059608A91C3B8B30005C174C /* sfx_soundexpander.h in Headers */,
 				059608AD1C3B8B30005C174C /* sfx_soundsampler.h in Headers */,
@@ -4765,10 +4647,8 @@
 				05960D8E1C3BAE7E005C174C /* ciatimer.h in Headers */,
 				05960FF51C3BBA11005C174C /* raster-cache-const.h in Headers */,
 				059604E91C3B88E1005C174C /* config.h in Headers */,
-				05960C411C3BACCA005C174C /* ppmdrv.h in Headers */,
 				05960AF01C3BA9A3005C174C /* via1d2031.h in Headers */,
 				059607C71C3B8B30005C174C /* actionreplay4.h in Headers */,
-				059606761C3B893C005C174C /* joy.h in Headers */,
 				059605D51C3B88E1005C174C /* sidcart.h in Headers */,
 				05960E2C1C3BAF39005C174C /* vicii-draw-cycle.h in Headers */,
 				059608091C3B8B30005C174C /* diashowmaker.h in Headers */,
@@ -4798,7 +4678,6 @@
 				059604F71C3B88E1005C174C /* debug.h in Headers */,
 				05960A8E1C3BA8E9005C174C /* via1d1541.h in Headers */,
 				05960BE01C3BABB3005C174C /* monitor_network.h in Headers */,
-				0596066C1C3B893C005C174C /* fullscreenarch.h in Headers */,
 				05960E771C3BAFE0005C174C /* raster-sprite-cache.h in Headers */,
 				05960E671C3BAFE0005C174C /* raster-cache.h in Headers */,
 				05960F381C3BB222005C174C /* dac.h in Headers */,
@@ -4835,8 +4714,6 @@
 				05960A271C3BA81F005C174C /* drivecpu65c02.h in Headers */,
 				059608951C3B8B30005C174C /* reu.h in Headers */,
 				059607BB1C3B8B30005C174C /* actionreplay.h in Headers */,
-				059606701C3B893C005C174C /* icon.h in Headers */,
-				059606941C3B893C005C174C /* uimenu.h in Headers */,
 				05960FF21C3BB9AE005C174C /* c64dtvdma.h in Headers */,
 				059605291C3B88E1005C174C /* iecdrive.h in Headers */,
 				05960B2B1C3BAB13005C174C /* vdrive-snapshot.h in Headers */,
@@ -4846,7 +4723,6 @@
 				05960E731C3BAFE0005C174C /* raster-modes.h in Headers */,
 				05960E421C3BAF6B005C174C /* maincpu.h in Headers */,
 				059608111C3B8B30005C174C /* dinamic.h in Headers */,
-				0596068A1C3B893C005C174C /* socketimpl.h in Headers */,
 				05960CF21C3BADBB005C174C /* fsdevice-close.h in Headers */,
 				059604B11C3B88E1005C174C /* autostart-prg.h in Headers */,
 				05960B561C3BAB66005C174C /* sid.h in Headers */,
@@ -4881,10 +4757,8 @@
 				059608711C3B8B30005C174C /* magicvoice.h in Headers */,
 				0596054D1C3B88E1005C174C /* lib.h in Headers */,
 				0596096B1C3B8B49005C174C /* c64gluelogic.h in Headers */,
-				05960C351C3BACCA005C174C /* iffdrv.h in Headers */,
 				059607F51C3B8B30005C174C /* crt.h in Headers */,
 				059609851C3B8B49005C174C /* c64memrom.h in Headers */,
-				059606981C3B893C005C174C /* videoarch.h in Headers */,
 				05960BE41C3BABB3005C174C /* montypes.h in Headers */,
 				05960E711C3BAFE0005C174C /* raster-line.h in Headers */,
 				05960A0F1C3BA81F005C174C /* drive-resources.h in Headers */,
@@ -4926,7 +4800,6 @@
 				05960A0B1C3BA81F005C174C /* drive-overflow.h in Headers */,
 				05960A7C1C3BA8E9005C174C /* iec-resources.h in Headers */,
 				059609371C3B8B49005C174C /* c64_256k.h in Headers */,
-				059606601C3B893C005C174C /* archdep.h in Headers */,
 				05960FF11C3BB9AE005C174C /* c64dtvblitter.h in Headers */,
 				05960F4A1C3BB222005C174C /* wave.h in Headers */,
 				05960CBB1C3BAD7D005C174C /* fsimage-check.h in Headers */,
@@ -4952,7 +4825,6 @@
 				05960E631C3BAFE0005C174C /* raster-cache-nibbles.h in Headers */,
 				05960D1D1C3BADDB005C174C /* t64.h in Headers */,
 				05960BA61C3BABB3005C174C /* mon_breakpoint.h in Headers */,
-				059606801C3B893C005C174C /* openGL_sync.h in Headers */,
 				05960E8E1C3BB012005C174C /* userport_rtc.h in Headers */,
 				0596085D1C3B8B30005C174C /* kcs.h in Headers */,
 				059605ED1C3B88E1005C174C /* translate_funcs.h in Headers */,
@@ -4977,7 +4849,6 @@
 				059605351C3B88E1005C174C /* init.h in Headers */,
 				05960A3F1C3BA81F005C174C /* iec.h in Headers */,
 				0596059D1C3B88E1005C174C /* petui.h in Headers */,
-				059606AD1C3B898B005C174C /* joy-hid.h in Headers */,
 				05960F521C3BB222005C174C /* wave8580_PST.h in Headers */,
 				0596051F1C3B88E1005C174C /* gcr.h in Headers */,
 				05960E321C3BAF39005C174C /* vicii-irq.h in Headers */,
@@ -5027,7 +4898,6 @@
 				05960EA71C3BB046005C174C /* rtc.h in Headers */,
 				059605D11C3B88E1005C174C /* screenshot.h in Headers */,
 				05960E7D1C3BAFE0005C174C /* raster.h in Headers */,
-				0596069C1C3B893C005C174C /* vsiduiunix.h in Headers */,
 				05960EDC1C3BB182005C174C /* render1x1_dingoo.h in Headers */,
 				059605D31C3B88E1005C174C /* serial.h in Headers */,
 				059604E31C3B88E1005C174C /* cmdline.h in Headers */,
@@ -5037,7 +4907,6 @@
 				05960D021C3BADBB005C174C /* fsdevice-read.h in Headers */,
 				05960A171C3BA81F005C174C /* drive-sound.h in Headers */,
 				0596055F1C3B88E1005C174C /* machine-video.h in Headers */,
-				0596069A1C3B893C005C174C /* vmstermios.h in Headers */,
 				05960A431C3BA81F005C174C /* iecieee.h in Headers */,
 				059607E91C3B8B30005C174C /* capture.h in Headers */,
 				05960A131C3BA81F005C174C /* drive-snapshot.h in Headers */,
@@ -5051,7 +4920,6 @@
 				059606311C3B88E1005C174C /* z80regs.h in Headers */,
 				0596052F1C3B88E1005C174C /* info.h in Headers */,
 				059605211C3B88E1005C174C /* gfxoutput.h in Headers */,
-				05960C3D1C3BACCA005C174C /* pcxdrv.h in Headers */,
 				05960A2F1C3BA81F005C174C /* drivemem.h in Headers */,
 				059608051C3B8B30005C174C /* delaep256.h in Headers */,
 				059605931C3B88E1005C174C /* palette.h in Headers */,
@@ -5082,7 +4950,6 @@
 				059608B91C3B8B30005C174C /* snapshot64.h in Headers */,
 				059606151C3B88E1005C174C /* vice-event.h in Headers */,
 				05960F5F1C3BB275005C174C /* platform_macosx.h in Headers */,
-				05960C311C3BACCA005C174C /* godotdrv.h in Headers */,
 				05960F4F1C3BB222005C174C /* wave8580__ST.h in Headers */,
 				05960A781C3BA8E8005C174C /* iec-cmdline-options.h in Headers */,
 				0596062D1C3B88E1005C174C /* vsyncapi.h in Headers */,
@@ -5138,6 +5005,8 @@
 				0598D2421C44BE2000E456A6 /* Sources */,
 				0598D2431C44BE2000E456A6 /* Frameworks */,
 				0598D2441C44BE2000E456A6 /* Resources */,
+				0558B2B51C4623E300D6B7DA /* CopyFiles */,
+				0558B2DE1C46242800D6B7DA /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -5226,13 +5095,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				059604E01C3B88E1005C174C /* cmdline.c in Sources */,
 				05960B181C3BAB13005C174C /* vdrive-dir.c in Sources */,
 				059605DE1C3B88E1005C174C /* sound.c in Sources */,
 				05960DFD1C3BAEFF005C174C /* vicii-timing.c in Sources */,
 				059612EF1C3D8B04005C174C /* ds1202_1302.c in Sources */,
 				059605D81C3B88E1005C174C /* snapshot.c in Sources */,
-				059606871C3B893C005C174C /* signals.c in Sources */,
 				05960BA71C3BABB3005C174C /* mon_command.c in Sources */,
 				05960F831C3BB345005C174C /* raster-cache.c in Sources */,
 				05960FA41C3BB36E005C174C /* diskcontents-iec.c in Sources */,
@@ -5247,9 +5114,7 @@
 				05960C071C3BAC7B005C174C /* sounddummy.c in Sources */,
 				05960F681C3BB339005C174C /* filter.cc in Sources */,
 				059608D61C3B8B30005C174C /* warpspeed.c in Sources */,
-				059606AA1C3B898B005C174C /* joy-hid.c in Sources */,
 				059606361C3B88E1005C174C /* zipcode.c in Sources */,
-				05960C3A1C3BACCA005C174C /* pcxdrv.c in Sources */,
 				05960B101C3BAB13005C174C /* vdrive-bam.c in Sources */,
 				05960F951C3BB345005C174C /* raster-sprite-status.c in Sources */,
 				0596099E1C3B8B49005C174C /* c64romset.c in Sources */,
@@ -5269,7 +5134,6 @@
 				059608021C3B8B30005C174C /* delaep256.c in Sources */,
 				059605BA1C3B88E1005C174C /* resources.c in Sources */,
 				05960AB51C3BA923005C174C /* supercard.c in Sources */,
-				05960C3E1C3BACCA005C174C /* ppmdrv.c in Sources */,
 				05960FE31C3BB3B1005C174C /* video-render-2x2.c in Sources */,
 				05960BD51C3BABB3005C174C /* mon_ui.c in Sources */,
 				05960FCD1C3BB3B1005C174C /* render2x2.c in Sources */,
@@ -5285,7 +5149,6 @@
 				0596087A1C3B8B30005C174C /* mmcreplay.c in Sources */,
 				0596085A1C3B8B30005C174C /* kcs.c in Sources */,
 				05960AB11C3BA923005C174C /* profdos.c in Sources */,
-				05960C381C3BACCA005C174C /* nativedrv.c in Sources */,
 				059608421C3B8B30005C174C /* funplay.c in Sources */,
 				05960A8F1C3BA8E9005C174C /* via4000.c in Sources */,
 				05960AED1C3BA9A3005C174C /* via1d2031.c in Sources */,
@@ -5308,7 +5171,6 @@
 				05960AE31C3BA9A3005C174C /* memieee.c in Sources */,
 				0596053E1C3B88E1005C174C /* ioutil.c in Sources */,
 				05960AE71C3BA9A3005C174C /* riot1d.c in Sources */,
-				059606611C3B893C005C174C /* blockdev.c in Sources */,
 				059609761C3B8B49005C174C /* c64mem.c in Sources */,
 				059607DC1C3B8B30005C174C /* c64cartmem.c in Sources */,
 				05960FBC1C3BB3A0005C174C /* userport_digimax.c in Sources */,
@@ -5325,7 +5187,6 @@
 				059607101C3B89F2005C174C /* joystick.c in Sources */,
 				05960FD11C3BB3B1005C174C /* render2x2ntsc.c in Sources */,
 				059609821C3B8B49005C174C /* c64memrom.c in Sources */,
-				059606BA1C3B898B005C174C /* vsyncarch.c in Sources */,
 				059604CE1C3B88E1005C174C /* cbmimage.c in Sources */,
 				05960A691C3BA8E8005C174C /* cia1581d.c in Sources */,
 				05960BBB1C3BABB3005C174C /* mon_memory.c in Sources */,
@@ -5371,7 +5232,6 @@
 				059612E61C3D8A35005C174C /* rtc.c in Sources */,
 				059608BE1C3B8B30005C174C /* stb.c in Sources */,
 				05960F8F1C3BB345005C174C /* raster-modes.c in Sources */,
-				05960C2E1C3BACCA005C174C /* godotdrv.c in Sources */,
 				059609A01C3B8B49005C174C /* c64rsuser.c in Sources */,
 				0596096C1C3B8B49005C174C /* c64iec.c in Sources */,
 				059612F71C3D8F8E005C174C /* mon_assembleR65C02.c in Sources */,
@@ -5393,7 +5253,6 @@
 				05960AA71C3BA923005C174C /* c64exp-resources.c in Sources */,
 				0596070C1C3B89F2005C174C /* joyport.c in Sources */,
 				05960A041C3BA81F005C174C /* drive-cmdline-options.c in Sources */,
-				05960C261C3BACCA005C174C /* bmpdrv.c in Sources */,
 				059609541C3B8B49005C174C /* c64cia2.c in Sources */,
 				05960D8B1C3BAE7E005C174C /* ciatimer.c in Sources */,
 				059605561C3B88E1005C174C /* machine-bus.c in Sources */,
@@ -5407,7 +5266,6 @@
 				0571594D1C3EC0F300A69ED1 /* soundaudiounit.c in Sources */,
 				0571594F1C3ECB9C00A69ED1 /* rs232drv.c in Sources */,
 				05960D951C3BAE7E005C174C /* fmopl.c in Sources */,
-				059605641C3B88E1005C174C /* main.c in Sources */,
 				059612F41C3D8ED7005C174C /* asmz80.c in Sources */,
 				05960FD51C3BB3B1005C174C /* render2x4.c in Sources */,
 				05960CC81C3BAD7D005C174C /* fsimage-p64.c in Sources */,
@@ -5426,7 +5284,6 @@
 				05960A671C3BA8E8005C174C /* cia1571d.c in Sources */,
 				059609941C3B8B49005C174C /* c64pla.c in Sources */,
 				059607181C3B89F2005C174C /* mouse.c in Sources */,
-				0596065D1C3B893C005C174C /* archdep.c in Sources */,
 				05960DF71C3BAEFF005C174C /* vicii-sprites.c in Sources */,
 				05960FD31C3BB3B1005C174C /* render2x2pal.c in Sources */,
 				059609341C3B8B49005C174C /* c64_256k.c in Sources */,
@@ -5440,6 +5297,7 @@
 				05960BD91C3BABB3005C174C /* mon_util.c in Sources */,
 				059608961C3B8B30005C174C /* rexep256.c in Sources */,
 				059605901C3B88E1005C174C /* palette.c in Sources */,
+				0558B2F01C46C01000D6B7DA /* cmdline.c in Sources */,
 				059609441C3B8B49005C174C /* c64-snapshot.c in Sources */,
 				05960C051C3BAC7B005C174C /* soundcoreaudio.c in Sources */,
 				059609561C3B8B49005C174C /* c64cpu.c in Sources */,
@@ -5457,7 +5315,6 @@
 				05960B1C1C3BAB13005C174C /* vdrive-iec.c in Sources */,
 				05960D6D1C3BAE4E005C174C /* serial.c in Sources */,
 				05960B4B1C3BAB66005C174C /* sid-resources.c in Sources */,
-				059606B01C3B898B005C174C /* joy-hidmgr.c in Sources */,
 				059608B21C3B8B30005C174C /* simonsbasic.c in Sources */,
 				05960FEA1C3BB3B1005C174C /* video-sound.c in Sources */,
 				05960D341C3BAE1E005C174C /* cbmfile.c in Sources */,
@@ -5498,7 +5355,6 @@
 				059608861C3B8B30005C174C /* prophet64.c in Sources */,
 				059609481C3B8B49005C174C /* c64.c in Sources */,
 				0596088A1C3B8B30005C174C /* ramcart.c in Sources */,
-				059606B41C3B898B005C174C /* joy.c in Sources */,
 				059609641C3B8B49005C174C /* c64fastiec.c in Sources */,
 				05960D071C3BADBB005C174C /* fsdevice-write.c in Sources */,
 				05960A711C3BA8E8005C174C /* glue1571.c in Sources */,
@@ -5519,7 +5375,6 @@
 				059608821C3B8B30005C174C /* pagefox.c in Sources */,
 				059612F01C3D8B0B005C174C /* ds1216e.c in Sources */,
 				05960C031C3BAC7B005C174C /* soundaiff.c in Sources */,
-				059606B21C3B898B005C174C /* joy-hidutil.c in Sources */,
 				059608BA1C3B8B30005C174C /* stardos.c in Sources */,
 				05960D381C3BAE1E005C174C /* fileio.c in Sources */,
 				059608061C3B8B30005C174C /* diashowmaker.c in Sources */,
@@ -5549,12 +5404,9 @@
 				05960A081C3BA81F005C174C /* drive-overflow.c in Sources */,
 				059609881C3B8B49005C174C /* c64memsnapshot.c in Sources */,
 				05960DE71C3BAEFF005C174C /* vicii-mem.c in Sources */,
-				05960C2C1C3BACCA005C174C /* gfxoutput.c in Sources */,
 				05960A2C1C3BA81F005C174C /* drivemem.c in Sources */,
-				05960C321C3BACCA005C174C /* iffdrv.c in Sources */,
 				0596097E1C3B8B49005C174C /* c64memlimit.c in Sources */,
 				05960BB31C3BABB3005C174C /* mon_file.c in Sources */,
-				05960C2A1C3BACCA005C174C /* doodledrv.c in Sources */,
 				05960BC51C3BABB3005C174C /* mon_register.c in Sources */,
 				05960DD31C3BAEFF005C174C /* vicii-cmdline-options.c in Sources */,
 				059605CE1C3B88E1005C174C /* screenshot.c in Sources */,
@@ -5586,7 +5438,6 @@
 				05960FC71C3BB3B1005C174C /* render1x1pal.c in Sources */,
 				05960A831C3BA8E9005C174C /* memiec.c in Sources */,
 				05960A101C3BA81F005C174C /* drive-snapshot.c in Sources */,
-				05960C361C3BACCA005C174C /* koaladrv.c in Sources */,
 				05960DF31C3BAEFF005C174C /* vicii-snapshot.c in Sources */,
 				059607E21C3B8B30005C174C /* c64tpi.c in Sources */,
 				05960FBA1C3BB3A0005C174C /* userport_dac.c in Sources */,
@@ -5602,7 +5453,6 @@
 				0596087E1C3B8B30005C174C /* ocean.c in Sources */,
 				05960A7D1C3BA8E9005C174C /* iec.c in Sources */,
 				05960FA01C3BB34E005C174C /* platform.c in Sources */,
-				0596069D1C3B893C005C174C /* vsyncarch.c in Sources */,
 				059608121C3B8B30005C174C /* dqbb.c in Sources */,
 				05960D9D1C3BAE7E005C174C /* riotcore.c in Sources */,
 				05960FE41C3BB3B1005C174C /* video-render-crt.c in Sources */,
@@ -5637,11 +5487,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				059604E11C3B88E1005C174C /* cmdline.c in Sources */,
 				05960B191C3BAB13005C174C /* vdrive-dir.c in Sources */,
 				059605DF1C3B88E1005C174C /* sound.c in Sources */,
 				059605D91C3B88E1005C174C /* snapshot.c in Sources */,
-				059606881C3B893C005C174C /* signals.c in Sources */,
 				05960BA81C3BABB3005C174C /* mon_command.c in Sources */,
 				059606291C3B88E1005C174C /* vsync.c in Sources */,
 				05960AB01C3BA923005C174C /* iec-c64exp.c in Sources */,
@@ -5652,9 +5500,7 @@
 				05960D041C3BADBB005C174C /* fsdevice-resources.c in Sources */,
 				05960C081C3BAC7B005C174C /* sounddummy.c in Sources */,
 				059608D71C3B8B30005C174C /* warpspeed.c in Sources */,
-				059606AB1C3B898B005C174C /* joy-hid.c in Sources */,
 				059606371C3B88E1005C174C /* zipcode.c in Sources */,
-				05960C3B1C3BACCA005C174C /* pcxdrv.c in Sources */,
 				05960EFA1C3BB182005C174C /* video-color.c in Sources */,
 				05960B111C3BAB13005C174C /* vdrive-bam.c in Sources */,
 				0596099F1C3B8B49005C174C /* c64romset.c in Sources */,
@@ -5673,7 +5519,6 @@
 				059608031C3B8B30005C174C /* delaep256.c in Sources */,
 				059605BB1C3B88E1005C174C /* resources.c in Sources */,
 				05960AB61C3BA923005C174C /* supercard.c in Sources */,
-				05960C3F1C3BACCA005C174C /* ppmdrv.c in Sources */,
 				05960BD61C3BABB3005C174C /* mon_ui.c in Sources */,
 				05960B8C1C3BABB3005C174C /* asm6502.c in Sources */,
 				05960D861C3BAE7E005C174C /* ata.c in Sources */,
@@ -5689,7 +5534,6 @@
 				0596085B1C3B8B30005C174C /* kcs.c in Sources */,
 				05960AB21C3BA923005C174C /* profdos.c in Sources */,
 				05960EAD1C3BB128005C174C /* p64.c in Sources */,
-				05960C391C3BACCA005C174C /* nativedrv.c in Sources */,
 				059608431C3B8B30005C174C /* funplay.c in Sources */,
 				05960A901C3BA8E9005C174C /* via4000.c in Sources */,
 				05960AEE1C3BA9A3005C174C /* via1d2031.c in Sources */,
@@ -5710,7 +5554,6 @@
 				0596053F1C3B88E1005C174C /* ioutil.c in Sources */,
 				05960F3D1C3BB222005C174C /* filter.cc in Sources */,
 				05960AE81C3BA9A3005C174C /* riot1d.c in Sources */,
-				059606621C3B893C005C174C /* blockdev.c in Sources */,
 				059607DD1C3B8B30005C174C /* c64cartmem.c in Sources */,
 				0596084B1C3B8B30005C174C /* georam.c in Sources */,
 				059609A71C3B8B49005C174C /* c64sound.c in Sources */,
@@ -5719,7 +5562,6 @@
 				05960BDE1C3BABB3005C174C /* monitor_network.c in Sources */,
 				059607111C3B89F2005C174C /* joystick.c in Sources */,
 				059609831C3B8B49005C174C /* c64memrom.c in Sources */,
-				059606BB1C3B898B005C174C /* vsyncarch.c in Sources */,
 				05960BD41C3BABB3005C174C /* mon_registerz80.c in Sources */,
 				05960EA21C3BB046005C174C /* ds1216e.c in Sources */,
 				05960F131C3BB1D8005C174C /* diskcontents-iec.c in Sources */,
@@ -5768,7 +5610,6 @@
 				05960EE91C3BB182005C174C /* render2x2crt.c in Sources */,
 				05960D681C3BAE4E005C174C /* serial-realdevice.c in Sources */,
 				059607BD1C3B8B30005C174C /* actionreplay2.c in Sources */,
-				05960C2F1C3BACCA005C174C /* godotdrv.c in Sources */,
 				059608BF1C3B8B30005C174C /* stb.c in Sources */,
 				059609A11C3B8B49005C174C /* c64rsuser.c in Sources */,
 				05960E871C3BB012005C174C /* userport_dac.c in Sources */,
@@ -5797,7 +5638,6 @@
 				05960EFC1C3BB182005C174C /* video-render-1x2.c in Sources */,
 				059607EF1C3B8B30005C174C /* cpmcart.c in Sources */,
 				05960A051C3BA81F005C174C /* drive-cmdline-options.c in Sources */,
-				05960C271C3BACCA005C174C /* bmpdrv.c in Sources */,
 				0596070D1C3B89F2005C174C /* joyport.c in Sources */,
 				059609551C3B8B49005C174C /* c64cia2.c in Sources */,
 				05960D8C1C3BAE7E005C174C /* ciatimer.c in Sources */,
@@ -5814,7 +5654,6 @@
 				05960EED1C3BB182005C174C /* render2x2pal.c in Sources */,
 				05960B9A1C3BABB3005C174C /* mon_assemble6502.c in Sources */,
 				05960AEA1C3BA9A3005C174C /* riot2d.c in Sources */,
-				059605651C3B88E1005C174C /* main.c in Sources */,
 				0571594E1C3EC0F300A69ED1 /* soundaudiounit.c in Sources */,
 				057159501C3ECB9C00A69ED1 /* rs232drv.c in Sources */,
 				05960E6E1C3BAFE0005C174C /* raster-line-changes-sprite.c in Sources */,
@@ -5832,7 +5671,6 @@
 				059608CF1C3B8B30005C174C /* supersnapshot4.c in Sources */,
 				059609951C3B8B49005C174C /* c64pla.c in Sources */,
 				059607191C3B89F2005C174C /* mouse.c in Sources */,
-				0596065E1C3B893C005C174C /* archdep.c in Sources */,
 				05960B211C3BAB13005C174C /* vdrive-internal.c in Sources */,
 				059609351C3B8B49005C174C /* c64_256k.c in Sources */,
 				05960CBD1C3BAD7D005C174C /* fsimage-create.c in Sources */,
@@ -5851,6 +5689,7 @@
 				05960D581C3BAE4E005C174C /* serial-device.c in Sources */,
 				059609411C3B8B49005C174C /* c64-resources.c in Sources */,
 				05960ADA1C3BA9A3005C174C /* ieee-resources.c in Sources */,
+				0558B2F11C46C01100D6B7DA /* cmdline.c in Sources */,
 				05960CA01C3BAD45005C174C /* rsuser.c in Sources */,
 				05960E311C3BAF39005C174C /* vicii-irq.c in Sources */,
 				05960F371C3BB222005C174C /* dac.cc in Sources */,
@@ -5861,7 +5700,6 @@
 				05960E291C3BAF39005C174C /* vicii-cycle.c in Sources */,
 				05960D6E1C3BAE4E005C174C /* serial.c in Sources */,
 				05960B4C1C3BAB66005C174C /* sid-resources.c in Sources */,
-				059606B11C3B898B005C174C /* joy-hidmgr.c in Sources */,
 				059608B31C3B8B30005C174C /* simonsbasic.c in Sources */,
 				05960D351C3BAE1E005C174C /* cbmfile.c in Sources */,
 				05960ADE1C3BA9A3005C174C /* ieee.c in Sources */,
@@ -5905,7 +5743,6 @@
 				059609491C3B8B49005C174C /* c64.c in Sources */,
 				0596088B1C3B8B30005C174C /* ramcart.c in Sources */,
 				05960E251C3BAF39005C174C /* vicii-cmdline-options.c in Sources */,
-				059606B51C3B898B005C174C /* joy.c in Sources */,
 				059609651C3B8B49005C174C /* c64fastiec.c in Sources */,
 				05960D081C3BADBB005C174C /* fsdevice-write.c in Sources */,
 				05960E761C3BAFE0005C174C /* raster-sprite-cache.c in Sources */,
@@ -5924,7 +5761,6 @@
 				059608831C3B8B30005C174C /* pagefox.c in Sources */,
 				05960E7C1C3BAFE0005C174C /* raster.c in Sources */,
 				05960C041C3BAC7B005C174C /* soundaiff.c in Sources */,
-				059606B31C3B898B005C174C /* joy-hidutil.c in Sources */,
 				059608BB1C3B8B30005C174C /* stardos.c in Sources */,
 				05960EEB1C3BB182005C174C /* render2x2ntsc.c in Sources */,
 				05960E701C3BAFE0005C174C /* raster-line.c in Sources */,
@@ -5962,13 +5798,10 @@
 				059609531C3B8B49005C174C /* c64cia1.c in Sources */,
 				05960A091C3BA81F005C174C /* drive-overflow.c in Sources */,
 				059609891C3B8B49005C174C /* c64memsnapshot.c in Sources */,
-				05960C2D1C3BACCA005C174C /* gfxoutput.c in Sources */,
 				05960A2D1C3BA81F005C174C /* drivemem.c in Sources */,
 				05960BD21C3BABB3005C174C /* mon_registerR65C02.c in Sources */,
-				05960C331C3BACCA005C174C /* iffdrv.c in Sources */,
 				0596097F1C3B8B49005C174C /* c64memlimit.c in Sources */,
 				05960BB41C3BABB3005C174C /* mon_file.c in Sources */,
-				05960C2B1C3BACCA005C174C /* doodledrv.c in Sources */,
 				05960BC61C3BABB3005C174C /* mon_register.c in Sources */,
 				059605CF1C3B88E1005C174C /* screenshot.c in Sources */,
 				05960AAC1C3BA923005C174C /* dolphindos3.c in Sources */,
@@ -5995,7 +5828,6 @@
 				05960EFD1C3BB182005C174C /* video-render-2x2.c in Sources */,
 				05960A841C3BA8E9005C174C /* memiec.c in Sources */,
 				05960A111C3BA81F005C174C /* drive-snapshot.c in Sources */,
-				05960C371C3BACCA005C174C /* koaladrv.c in Sources */,
 				05960E8B1C3BB012005C174C /* userport_joystick.c in Sources */,
 				05960BE21C3BABB3005C174C /* monitor.c in Sources */,
 				059607E31C3B8B30005C174C /* c64tpi.c in Sources */,
@@ -6014,7 +5846,6 @@
 				0596080B1C3B8B30005C174C /* digimax.c in Sources */,
 				05960A7E1C3BA8E9005C174C /* iec.c in Sources */,
 				0596087F1C3B8B30005C174C /* ocean.c in Sources */,
-				0596069E1C3B893C005C174C /* vsyncarch.c in Sources */,
 				059608131C3B8B30005C174C /* dqbb.c in Sources */,
 				05960F061C3BB182005C174C /* video-viewport.c in Sources */,
 				05960D9E1C3BAE7E005C174C /* riotcore.c in Sources */,
@@ -6048,18 +5879,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0598D2681C44DF9600E456A6 /* fullscreen.c in Sources */,
+				0558B2B11C46132800D6B7DA /* archdep.m in Sources */,
+				0558B2A91C46066200D6B7DA /* vsyncarch.m in Sources */,
+				0558B2EE1C46BCA200D6B7DA /* vice_stubs.c in Sources */,
 				0598D2691C44DF9600E456A6 /* kbd.c in Sources */,
 				0598D2701C44DF9600E456A6 /* video.c in Sources */,
-				0598D2671C44DF9600E456A6 /* console.c in Sources */,
+				0558B2EF1C46BE1600D6B7DA /* ui.c in Sources */,
 				0598D2551C44C2FB00E456A6 /* ViceGameCore.m in Sources */,
-				0598D26E1C44DF9600E456A6 /* uimon.c in Sources */,
-				0598D2741C44E11400E456A6 /* soundopenemu.c in Sources */,
-				0598D2661C44DF9600E456A6 /* c64ui.c in Sources */,
-				0598D26B1C44DF9600E456A6 /* ui_cmdline.c in Sources */,
-				0598D26A1C44DF9600E456A6 /* main_program.c in Sources */,
-				0598D26D1C44DF9600E456A6 /* ui.c in Sources */,
-				0598D26C1C44DF9600E456A6 /* ui_resources.c in Sources */,
+				0598D26A1C44DF9600E456A6 /* main_program.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

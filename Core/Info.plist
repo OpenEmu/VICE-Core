@@ -30,7 +30,7 @@
 	<string>ViceGameCore</string>
 	<key>OEGameCoreOptions</key>
 	<dict>
-		<key>openemu.system.vice</key>
+		<key>openemu.system.c64</key>
 		<dict>
 			<key>OEGameCoreRewindBufferSeconds</key>
 			<integer>3600</integer>
@@ -46,7 +46,7 @@
 	<string>https://raw.github.com/OpenEmu/OpenEmu-Update/master/vice_appcast.xml</string>
 	<key>OESystemIdentifiers</key>
 	<array>
-		<string>openemu.system.vice</string>
+		<string>openemu.system.c64</string>
 	</array>
 </dict>
 </plist>

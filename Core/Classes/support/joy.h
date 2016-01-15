@@ -25,9 +25,14 @@
  */
 
 
-#import <OpenEmuBase/OpenEmuBase.h>
+#ifndef joy_h
+#define joy_h
 
-OE_EXPORTED_CLASS
-@interface ViceGameCore : OEGameCore
+#define JOYDEV_NONE    0
+#define JOYDEV_NUMPAD  1
+#define JOYDEV_KEYSET1 2
+#define JOYDEV_KEYSET2 3
+#define JOYDEV_HID_0   4
+#define JOYDEV_HID_1   5
 
-@end
+#endif /* joy_h */

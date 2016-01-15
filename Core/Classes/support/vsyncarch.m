@@ -25,9 +25,40 @@
  */
 
 
-#import <OpenEmuBase/OpenEmuBase.h>
+#import "videoarch.h"
+#import <Foundation/Foundation.h>
+#import <CoreVideo/CVHostTime.h>
 
-OE_EXPORTED_CLASS
-@interface ViceGameCore : OEGameCore
+#include <sys/time.h>
 
-@end
+static unsigned long hostToUsFactor = 1000UL;
+
+/* Number of timer units per second. */
+signed long vsyncarch_frequency(void)
+{
+    hostToUsFactor = (unsigned long)(CVGetHostClockFrequency() / 1000000UL);
+
+    /* Microseconds resolution. */
+    return 1000000L;
+}
+
+/* Get time in timer units. */
+unsigned long vsyncarch_gettime(void)
+{
+    return (unsigned long)(CVGetCurrentHostTime() / hostToUsFactor);
+}
+
+#pragma mark stubs
+
+void vsyncarch_init(void)
+{
+}
+
+void vsyncarch_display_speed(double speed, double frame_rate, int warp_enabled)
+{
+}
+
+void vsyncarch_sleep(signed long delay)
+{
+    usleep((useconds_t)delay);
+}

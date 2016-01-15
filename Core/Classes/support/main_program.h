@@ -25,9 +25,9 @@
  */
 
 
-#import <OpenEmuBase/OpenEmuBase.h>
+#ifndef main_program_h
+#define main_program_h
 
-OE_EXPORTED_CLASS
-@interface ViceGameCore : OEGameCore
+extern int main_init();
 
-@end
+#endif /* main_program_h */
