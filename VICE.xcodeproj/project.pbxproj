@@ -24,36 +24,36 @@
 /* Begin PBXBuildFile section */
 		0558B2A91C46066200D6B7DA /* vsyncarch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558B2A81C46066200D6B7DA /* vsyncarch.m */; };
 		0558B2B11C46132800D6B7DA /* archdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558B2B01C46132800D6B7DA /* archdep.m */; };
-		0558B2B81C4623FC00D6B7DA /* basic in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612051C3C4D33005C174C /* basic */; };
-		0558B2BB1C4623FC00D6B7DA /* c64hq.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612081C3C4D33005C174C /* c64hq.vpl */; };
-		0558B2BC1C4623FC00D6B7DA /* c64mem.sym in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612091C3C4D33005C174C /* c64mem.sym */; };
-		0558B2BD1C4623FC00D6B7DA /* c64s.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596120A1C3C4D33005C174C /* c64s.vpl */; };
-		0558B2BE1C4623FC00D6B7DA /* ccs64.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596120B1C3C4D33005C174C /* ccs64.vpl */; };
-		0558B2BF1C4623FC00D6B7DA /* chargen in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596120C1C3C4D33005C174C /* chargen */; };
-		0558B2C01C4623FC00D6B7DA /* default.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596120D1C3C4D33005C174C /* default.vpl */; };
-		0558B2C11C4623FC00D6B7DA /* default.vrs in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596120E1C3C4D33005C174C /* default.vrs */; };
-		0558B2C51C4623FC00D6B7DA /* frodo.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612121C3C4D33005C174C /* frodo.vpl */; };
-		0558B2C61C4623FC00D6B7DA /* godot.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612131C3C4D33005C174C /* godot.vpl */; };
-		0558B2CA1C4623FC00D6B7DA /* kernal in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612171C3C4D33005C174C /* kernal */; };
-		0558B2CD1C4623FC00D6B7DA /* osx_pos.vkm in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596121A1C3C4D33005C174C /* osx_pos.vkm */; };
-		0558B2CE1C4623FC00D6B7DA /* osx_sym_de.vkm in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596121B1C3C4D33005C174C /* osx_sym_de.vkm */; };
-		0558B2CF1C4623FC00D6B7DA /* osx_sym.vkm in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596121C1C3C4D33005C174C /* osx_sym.vkm */; };
-		0558B2D01C4623FC00D6B7DA /* pc64.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596121D1C3C4D33005C174C /* pc64.vpl */; };
-		0558B2D31C4623FC00D6B7DA /* rgb.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612201C3C4D33005C174C /* rgb.vpl */; };
-		0558B2DD1C4623FC00D6B7DA /* vice.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596122A1C3C4D33005C174C /* vice.vpl */; };
-		0558B2DF1C46243E00D6B7DA /* d1541II in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596126E1C3C4D55005C174C /* d1541II */; };
-		0558B2E01C46243E00D6B7DA /* dos1541 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612721C3C4D55005C174C /* dos1541 */; };
-		0558B2E11C463DB700D6B7DA /* dos1540 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612711C3C4D55005C174C /* dos1540 */; };
-		0558B2E21C463DB700D6B7DA /* dos1551 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612731C3C4D55005C174C /* dos1551 */; };
-		0558B2E31C463DB700D6B7DA /* dos1570 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612741C3C4D55005C174C /* dos1570 */; };
-		0558B2E41C463DB700D6B7DA /* dos1571 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612751C3C4D55005C174C /* dos1571 */; };
-		0558B2E51C463DB700D6B7DA /* dos1581 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612761C3C4D55005C174C /* dos1581 */; };
-		0558B2E61C46411B00D6B7DA /* d1571cr in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596126F1C3C4D55005C174C /* d1571cr */; };
-		0558B2E71C46411B00D6B7DA /* dos1001 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612701C3C4D55005C174C /* dos1001 */; };
-		0558B2E81C46411B00D6B7DA /* dos2031 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612771C3C4D55005C174C /* dos2031 */; };
-		0558B2E91C46411B00D6B7DA /* dos2040 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612781C3C4D55005C174C /* dos2040 */; };
-		0558B2EA1C46411B00D6B7DA /* dos3040 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 059612791C3C4D55005C174C /* dos3040 */; };
-		0558B2EB1C46411B00D6B7DA /* dos4040 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0596127A1C3C4D55005C174C /* dos4040 */; };
+		0558B2B81C4623FC00D6B7DA /* basic in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 059612051C3C4D33005C174C /* basic */; };
+		0558B2BB1C4623FC00D6B7DA /* c64hq.vpl in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 059612081C3C4D33005C174C /* c64hq.vpl */; };
+		0558B2BC1C4623FC00D6B7DA /* c64mem.sym in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 059612091C3C4D33005C174C /* c64mem.sym */; };
+		0558B2BD1C4623FC00D6B7DA /* c64s.vpl in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 0596120A1C3C4D33005C174C /* c64s.vpl */; };
+		0558B2BE1C4623FC00D6B7DA /* ccs64.vpl in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 0596120B1C3C4D33005C174C /* ccs64.vpl */; };
+		0558B2BF1C4623FC00D6B7DA /* chargen in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 0596120C1C3C4D33005C174C /* chargen */; };
+		0558B2C01C4623FC00D6B7DA /* default.vpl in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 0596120D1C3C4D33005C174C /* default.vpl */; };
+		0558B2C11C4623FC00D6B7DA /* default.vrs in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 0596120E1C3C4D33005C174C /* default.vrs */; };
+		0558B2C51C4623FC00D6B7DA /* frodo.vpl in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 059612121C3C4D33005C174C /* frodo.vpl */; };
+		0558B2C61C4623FC00D6B7DA /* godot.vpl in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 059612131C3C4D33005C174C /* godot.vpl */; };
+		0558B2CA1C4623FC00D6B7DA /* kernal in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 059612171C3C4D33005C174C /* kernal */; };
+		0558B2CD1C4623FC00D6B7DA /* osx_pos.vkm in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 0596121A1C3C4D33005C174C /* osx_pos.vkm */; };
+		0558B2CE1C4623FC00D6B7DA /* osx_sym_de.vkm in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 0596121B1C3C4D33005C174C /* osx_sym_de.vkm */; };
+		0558B2CF1C4623FC00D6B7DA /* osx_sym.vkm in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 0596121C1C3C4D33005C174C /* osx_sym.vkm */; };
+		0558B2D01C4623FC00D6B7DA /* pc64.vpl in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 0596121D1C3C4D33005C174C /* pc64.vpl */; };
+		0558B2D31C4623FC00D6B7DA /* rgb.vpl in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 059612201C3C4D33005C174C /* rgb.vpl */; };
+		0558B2DD1C4623FC00D6B7DA /* vice.vpl in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 0596122A1C3C4D33005C174C /* vice.vpl */; };
+		0558B2DF1C46243E00D6B7DA /* d1541II in Copy Drive ROM Files */ = {isa = PBXBuildFile; fileRef = 0596126E1C3C4D55005C174C /* d1541II */; };
+		0558B2E01C46243E00D6B7DA /* dos1541 in Copy Drive ROM Files */ = {isa = PBXBuildFile; fileRef = 059612721C3C4D55005C174C /* dos1541 */; };
+		0558B2E11C463DB700D6B7DA /* dos1540 in Copy Drive ROM Files */ = {isa = PBXBuildFile; fileRef = 059612711C3C4D55005C174C /* dos1540 */; };
+		0558B2E21C463DB700D6B7DA /* dos1551 in Copy Drive ROM Files */ = {isa = PBXBuildFile; fileRef = 059612731C3C4D55005C174C /* dos1551 */; };
+		0558B2E31C463DB700D6B7DA /* dos1570 in Copy Drive ROM Files */ = {isa = PBXBuildFile; fileRef = 059612741C3C4D55005C174C /* dos1570 */; };
+		0558B2E41C463DB700D6B7DA /* dos1571 in Copy Drive ROM Files */ = {isa = PBXBuildFile; fileRef = 059612751C3C4D55005C174C /* dos1571 */; };
+		0558B2E51C463DB700D6B7DA /* dos1581 in Copy Drive ROM Files */ = {isa = PBXBuildFile; fileRef = 059612761C3C4D55005C174C /* dos1581 */; };
+		0558B2E61C46411B00D6B7DA /* d1571cr in Copy Drive ROM Files */ = {isa = PBXBuildFile; fileRef = 0596126F1C3C4D55005C174C /* d1571cr */; };
+		0558B2E71C46411B00D6B7DA /* dos1001 in Copy Drive ROM Files */ = {isa = PBXBuildFile; fileRef = 059612701C3C4D55005C174C /* dos1001 */; };
+		0558B2E81C46411B00D6B7DA /* dos2031 in Copy Drive ROM Files */ = {isa = PBXBuildFile; fileRef = 059612771C3C4D55005C174C /* dos2031 */; };
+		0558B2E91C46411B00D6B7DA /* dos2040 in Copy Drive ROM Files */ = {isa = PBXBuildFile; fileRef = 059612781C3C4D55005C174C /* dos2040 */; };
+		0558B2EA1C46411B00D6B7DA /* dos3040 in Copy Drive ROM Files */ = {isa = PBXBuildFile; fileRef = 059612791C3C4D55005C174C /* dos3040 */; };
+		0558B2EB1C46411B00D6B7DA /* dos4040 in Copy Drive ROM Files */ = {isa = PBXBuildFile; fileRef = 0596127A1C3C4D55005C174C /* dos4040 */; };
 		0558B2EE1C46BCA200D6B7DA /* vice_stubs.c in Sources */ = {isa = PBXBuildFile; fileRef = 0558B2ED1C46BCA200D6B7DA /* vice_stubs.c */; };
 		0558B2EF1C46BE1600D6B7DA /* ui.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D2601C44DF9600E456A6 /* ui.c */; };
 		0558B2F01C46C01000D6B7DA /* cmdline.c in Sources */ = {isa = PBXBuildFile; fileRef = 059603E51C3B88E1005C174C /* cmdline.c */; };
@@ -1692,7 +1692,7 @@
 		059612F71C3D8F8E005C174C /* mon_assembleR65C02.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960B661C3BABB3005C174C /* mon_assembleR65C02.c */; };
 		059612F81C3D8F8E005C174C /* mon_registerR65C02.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960B7F1C3BABB3005C174C /* mon_registerR65C02.c */; };
 		059612FB1C3D94CF005C174C /* monitor.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960B871C3BABB3005C174C /* monitor.c */; };
-		0598D2501C44C2BB00E456A6 /* x64.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0598D24E1C44C2BB00E456A6 /* x64.icns */; };
+		0598D2501C44C2BB00E456A6 /* VICE.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0598D24E1C44C2BB00E456A6 /* VICE.icns */; };
 		0598D2551C44C2FB00E456A6 /* ViceGameCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0598D2541C44C2FB00E456A6 /* ViceGameCore.m */; };
 		0598D2571C44C38200E456A6 /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0598D2561C44C38200E456A6 /* OpenEmuBase.framework */; };
 		0598D2691C44DF9600E456A6 /* kbd.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D25C1C44DF9600E456A6 /* kbd.c */; };
@@ -1714,52 +1714,54 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		0558B2B51C4623E300D6B7DA /* CopyFiles */ = {
+		0558B2B51C4623E300D6B7DA /* Copy C64 ROM Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = ROM/C64;
 			dstSubfolderSpec = 7;
 			files = (
-				0558B2B81C4623FC00D6B7DA /* basic in CopyFiles */,
-				0558B2BB1C4623FC00D6B7DA /* c64hq.vpl in CopyFiles */,
-				0558B2BC1C4623FC00D6B7DA /* c64mem.sym in CopyFiles */,
-				0558B2BD1C4623FC00D6B7DA /* c64s.vpl in CopyFiles */,
-				0558B2BE1C4623FC00D6B7DA /* ccs64.vpl in CopyFiles */,
-				0558B2BF1C4623FC00D6B7DA /* chargen in CopyFiles */,
-				0558B2C01C4623FC00D6B7DA /* default.vpl in CopyFiles */,
-				0558B2C11C4623FC00D6B7DA /* default.vrs in CopyFiles */,
-				0558B2C51C4623FC00D6B7DA /* frodo.vpl in CopyFiles */,
-				0558B2C61C4623FC00D6B7DA /* godot.vpl in CopyFiles */,
-				0558B2CA1C4623FC00D6B7DA /* kernal in CopyFiles */,
-				0558B2CD1C4623FC00D6B7DA /* osx_pos.vkm in CopyFiles */,
-				0558B2CE1C4623FC00D6B7DA /* osx_sym_de.vkm in CopyFiles */,
-				0558B2CF1C4623FC00D6B7DA /* osx_sym.vkm in CopyFiles */,
-				0558B2D01C4623FC00D6B7DA /* pc64.vpl in CopyFiles */,
-				0558B2D31C4623FC00D6B7DA /* rgb.vpl in CopyFiles */,
-				0558B2DD1C4623FC00D6B7DA /* vice.vpl in CopyFiles */,
+				0558B2B81C4623FC00D6B7DA /* basic in Copy C64 ROM Files */,
+				0558B2BB1C4623FC00D6B7DA /* c64hq.vpl in Copy C64 ROM Files */,
+				0558B2BC1C4623FC00D6B7DA /* c64mem.sym in Copy C64 ROM Files */,
+				0558B2BD1C4623FC00D6B7DA /* c64s.vpl in Copy C64 ROM Files */,
+				0558B2BE1C4623FC00D6B7DA /* ccs64.vpl in Copy C64 ROM Files */,
+				0558B2BF1C4623FC00D6B7DA /* chargen in Copy C64 ROM Files */,
+				0558B2C01C4623FC00D6B7DA /* default.vpl in Copy C64 ROM Files */,
+				0558B2C11C4623FC00D6B7DA /* default.vrs in Copy C64 ROM Files */,
+				0558B2C51C4623FC00D6B7DA /* frodo.vpl in Copy C64 ROM Files */,
+				0558B2C61C4623FC00D6B7DA /* godot.vpl in Copy C64 ROM Files */,
+				0558B2CA1C4623FC00D6B7DA /* kernal in Copy C64 ROM Files */,
+				0558B2CD1C4623FC00D6B7DA /* osx_pos.vkm in Copy C64 ROM Files */,
+				0558B2CE1C4623FC00D6B7DA /* osx_sym_de.vkm in Copy C64 ROM Files */,
+				0558B2CF1C4623FC00D6B7DA /* osx_sym.vkm in Copy C64 ROM Files */,
+				0558B2D01C4623FC00D6B7DA /* pc64.vpl in Copy C64 ROM Files */,
+				0558B2D31C4623FC00D6B7DA /* rgb.vpl in Copy C64 ROM Files */,
+				0558B2DD1C4623FC00D6B7DA /* vice.vpl in Copy C64 ROM Files */,
 			);
+			name = "Copy C64 ROM Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0558B2DE1C46242800D6B7DA /* CopyFiles */ = {
+		0558B2DE1C46242800D6B7DA /* Copy Drive ROM Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = ROM/DRIVES;
 			dstSubfolderSpec = 7;
 			files = (
-				0558B2E61C46411B00D6B7DA /* d1571cr in CopyFiles */,
-				0558B2E71C46411B00D6B7DA /* dos1001 in CopyFiles */,
-				0558B2E81C46411B00D6B7DA /* dos2031 in CopyFiles */,
-				0558B2E91C46411B00D6B7DA /* dos2040 in CopyFiles */,
-				0558B2EA1C46411B00D6B7DA /* dos3040 in CopyFiles */,
-				0558B2EB1C46411B00D6B7DA /* dos4040 in CopyFiles */,
-				0558B2E11C463DB700D6B7DA /* dos1540 in CopyFiles */,
-				0558B2E21C463DB700D6B7DA /* dos1551 in CopyFiles */,
-				0558B2E31C463DB700D6B7DA /* dos1570 in CopyFiles */,
-				0558B2E41C463DB700D6B7DA /* dos1571 in CopyFiles */,
-				0558B2E51C463DB700D6B7DA /* dos1581 in CopyFiles */,
-				0558B2DF1C46243E00D6B7DA /* d1541II in CopyFiles */,
-				0558B2E01C46243E00D6B7DA /* dos1541 in CopyFiles */,
+				0558B2E61C46411B00D6B7DA /* d1571cr in Copy Drive ROM Files */,
+				0558B2E71C46411B00D6B7DA /* dos1001 in Copy Drive ROM Files */,
+				0558B2E81C46411B00D6B7DA /* dos2031 in Copy Drive ROM Files */,
+				0558B2E91C46411B00D6B7DA /* dos2040 in Copy Drive ROM Files */,
+				0558B2EA1C46411B00D6B7DA /* dos3040 in Copy Drive ROM Files */,
+				0558B2EB1C46411B00D6B7DA /* dos4040 in Copy Drive ROM Files */,
+				0558B2E11C463DB700D6B7DA /* dos1540 in Copy Drive ROM Files */,
+				0558B2E21C463DB700D6B7DA /* dos1551 in Copy Drive ROM Files */,
+				0558B2E31C463DB700D6B7DA /* dos1570 in Copy Drive ROM Files */,
+				0558B2E41C463DB700D6B7DA /* dos1571 in Copy Drive ROM Files */,
+				0558B2E51C463DB700D6B7DA /* dos1581 in Copy Drive ROM Files */,
+				0558B2DF1C46243E00D6B7DA /* d1541II in Copy Drive ROM Files */,
+				0558B2E01C46243E00D6B7DA /* dos1541 in Copy Drive ROM Files */,
 			);
+			name = "Copy Drive ROM Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -2639,11 +2641,7 @@
 		059611FA1C3C482C005C174C /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		059611FC1C3C4846005C174C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		059611FE1C3C4866005C174C /* libedit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libedit.tbd; path = usr/lib/libedit.tbd; sourceTree = SDKROOT; };
-		059612031C3C4D33005C174C /* amiga_pos.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = amiga_pos.vkm; sourceTree = "<group>"; };
-		059612041C3C4D33005C174C /* amiga_sym.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = amiga_sym.vkm; sourceTree = "<group>"; };
 		059612051C3C4D33005C174C /* basic */ = {isa = PBXFileReference; lastKnownFileType = file; path = basic; sourceTree = "<group>"; };
-		059612061C3C4D33005C174C /* beos_pos.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = beos_pos.vkm; sourceTree = "<group>"; };
-		059612071C3C4D33005C174C /* beos_sym.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = beos_sym.vkm; sourceTree = "<group>"; };
 		059612081C3C4D33005C174C /* c64hq.vpl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = c64hq.vpl; sourceTree = "<group>"; };
 		059612091C3C4D33005C174C /* c64mem.sym */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = c64mem.sym; sourceTree = "<group>"; };
 		0596120A1C3C4D33005C174C /* c64s.vpl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = c64s.vpl; sourceTree = "<group>"; };
@@ -2651,17 +2649,9 @@
 		0596120C1C3C4D33005C174C /* chargen */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargen; sourceTree = "<group>"; };
 		0596120D1C3C4D33005C174C /* default.vpl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = default.vpl; sourceTree = "<group>"; };
 		0596120E1C3C4D33005C174C /* default.vrs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = default.vrs; sourceTree = "<group>"; };
-		0596120F1C3C4D33005C174C /* dos_pos.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dos_pos.vkm; sourceTree = "<group>"; };
-		059612101C3C4D33005C174C /* dos_sym.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dos_sym.vkm; sourceTree = "<group>"; };
-		059612111C3C4D33005C174C /* edkernal */ = {isa = PBXFileReference; lastKnownFileType = file; path = edkernal; sourceTree = "<group>"; };
 		059612121C3C4D33005C174C /* frodo.vpl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = frodo.vpl; sourceTree = "<group>"; };
 		059612131C3C4D33005C174C /* godot.vpl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = godot.vpl; sourceTree = "<group>"; };
-		059612141C3C4D33005C174C /* gskernal */ = {isa = PBXFileReference; lastKnownFileType = file; path = gskernal; sourceTree = "<group>"; };
-		059612151C3C4D33005C174C /* jpchrgen */ = {isa = PBXFileReference; lastKnownFileType = file; path = jpchrgen; sourceTree = "<group>"; };
-		059612161C3C4D33005C174C /* jpkernal */ = {isa = PBXFileReference; lastKnownFileType = file; path = jpkernal; sourceTree = "<group>"; };
 		059612171C3C4D33005C174C /* kernal */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal; sourceTree = "<group>"; };
-		059612181C3C4D33005C174C /* os2_sym.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = os2_sym.vkm; sourceTree = "<group>"; };
-		059612191C3C4D33005C174C /* os2.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = os2.vkm; sourceTree = "<group>"; };
 		0596121A1C3C4D33005C174C /* osx_pos.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = osx_pos.vkm; sourceTree = "<group>"; };
 		0596121B1C3C4D33005C174C /* osx_sym_de.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = osx_sym_de.vkm; sourceTree = "<group>"; };
 		0596121C1C3C4D33005C174C /* osx_sym.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = osx_sym.vkm; sourceTree = "<group>"; };
@@ -2669,29 +2659,7 @@
 		0596121E1C3C4D33005C174C /* pepto-ntsc-sony.vpl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "pepto-ntsc-sony.vpl"; sourceTree = "<group>"; };
 		0596121F1C3C4D33005C174C /* pepto-ntsc.vpl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "pepto-ntsc.vpl"; sourceTree = "<group>"; };
 		059612201C3C4D33005C174C /* rgb.vpl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rgb.vpl; sourceTree = "<group>"; };
-		059612211C3C4D33005C174C /* sdl_keyrah_de.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sdl_keyrah_de.vkm; sourceTree = "<group>"; };
-		059612221C3C4D33005C174C /* sdl_keyrah.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sdl_keyrah.vkm; sourceTree = "<group>"; };
-		059612231C3C4D33005C174C /* sdl_pos_da.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sdl_pos_da.vkm; sourceTree = "<group>"; };
-		059612241C3C4D33005C174C /* sdl_pos_de.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sdl_pos_de.vkm; sourceTree = "<group>"; };
-		059612251C3C4D33005C174C /* sdl_pos_fi.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sdl_pos_fi.vkm; sourceTree = "<group>"; };
-		059612261C3C4D33005C174C /* sdl_pos_no.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sdl_pos_no.vkm; sourceTree = "<group>"; };
-		059612271C3C4D33005C174C /* sdl_pos.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sdl_pos.vkm; sourceTree = "<group>"; };
-		059612281C3C4D33005C174C /* sdl_sym.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sdl_sym.vkm; sourceTree = "<group>"; };
-		059612291C3C4D33005C174C /* sxkernal */ = {isa = PBXFileReference; lastKnownFileType = file; path = sxkernal; sourceTree = "<group>"; };
 		0596122A1C3C4D33005C174C /* vice.vpl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vice.vpl; sourceTree = "<group>"; };
-		0596122B1C3C4D33005C174C /* win_hotkeys.vhk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = win_hotkeys.vhk; sourceTree = "<group>"; };
-		0596122C1C3C4D33005C174C /* win_pos_de.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = win_pos_de.vkm; sourceTree = "<group>"; };
-		0596122D1C3C4D33005C174C /* win_pos.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = win_pos.vkm; sourceTree = "<group>"; };
-		0596122E1C3C4D33005C174C /* win_shortcuts.vsc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = win_shortcuts.vsc; sourceTree = "<group>"; };
-		0596122F1C3C4D33005C174C /* win_sym_de.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = win_sym_de.vkm; sourceTree = "<group>"; };
-		059612301C3C4D33005C174C /* win_sym_it.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = win_sym_it.vkm; sourceTree = "<group>"; };
-		059612311C3C4D33005C174C /* win_sym.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = win_sym.vkm; sourceTree = "<group>"; };
-		059612321C3C4D33005C174C /* x11_keyrah_de.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = x11_keyrah_de.vkm; sourceTree = "<group>"; };
-		059612331C3C4D33005C174C /* x11_keyrah.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = x11_keyrah.vkm; sourceTree = "<group>"; };
-		059612341C3C4D33005C174C /* x11_pos_de.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = x11_pos_de.vkm; sourceTree = "<group>"; };
-		059612351C3C4D33005C174C /* x11_pos.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = x11_pos.vkm; sourceTree = "<group>"; };
-		059612361C3C4D33005C174C /* x11_sym_de.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = x11_sym_de.vkm; sourceTree = "<group>"; };
-		059612371C3C4D33005C174C /* x11_sym.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = x11_sym.vkm; sourceTree = "<group>"; };
 		0596126E1C3C4D55005C174C /* d1541II */ = {isa = PBXFileReference; lastKnownFileType = file; path = d1541II; sourceTree = "<group>"; };
 		0596126F1C3C4D55005C174C /* d1571cr */ = {isa = PBXFileReference; lastKnownFileType = file; path = d1571cr; sourceTree = "<group>"; };
 		059612701C3C4D55005C174C /* dos1001 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dos1001; sourceTree = "<group>"; };
@@ -2708,7 +2676,7 @@
 		059612CC1C3C609E005C174C /* rs232.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rs232.h; sourceTree = "<group>"; };
 		059612CD1C3C60B0005C174C /* rs232drv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rs232drv.c; sourceTree = "<group>"; };
 		0598D2461C44BE2000E456A6 /* VICE.oecoreplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VICE.oecoreplugin; sourceTree = BUILT_PRODUCTS_DIR; };
-		0598D24E1C44C2BB00E456A6 /* x64.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = x64.icns; sourceTree = "<group>"; };
+		0598D24E1C44C2BB00E456A6 /* VICE.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = VICE.icns; sourceTree = "<group>"; };
 		0598D24F1C44C2BB00E456A6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0598D2531C44C2FB00E456A6 /* ViceGameCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViceGameCore.h; sourceTree = "<group>"; };
 		0598D2541C44C2FB00E456A6 /* ViceGameCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViceGameCore.m; sourceTree = "<group>"; };
@@ -3948,11 +3916,7 @@
 		059612021C3C4CFB005C174C /* C64 */ = {
 			isa = PBXGroup;
 			children = (
-				059612031C3C4D33005C174C /* amiga_pos.vkm */,
-				059612041C3C4D33005C174C /* amiga_sym.vkm */,
 				059612051C3C4D33005C174C /* basic */,
-				059612061C3C4D33005C174C /* beos_pos.vkm */,
-				059612071C3C4D33005C174C /* beos_sym.vkm */,
 				059612081C3C4D33005C174C /* c64hq.vpl */,
 				059612091C3C4D33005C174C /* c64mem.sym */,
 				0596120A1C3C4D33005C174C /* c64s.vpl */,
@@ -3960,17 +3924,9 @@
 				0596120C1C3C4D33005C174C /* chargen */,
 				0596120D1C3C4D33005C174C /* default.vpl */,
 				0596120E1C3C4D33005C174C /* default.vrs */,
-				0596120F1C3C4D33005C174C /* dos_pos.vkm */,
-				059612101C3C4D33005C174C /* dos_sym.vkm */,
-				059612111C3C4D33005C174C /* edkernal */,
 				059612121C3C4D33005C174C /* frodo.vpl */,
 				059612131C3C4D33005C174C /* godot.vpl */,
-				059612141C3C4D33005C174C /* gskernal */,
-				059612151C3C4D33005C174C /* jpchrgen */,
-				059612161C3C4D33005C174C /* jpkernal */,
 				059612171C3C4D33005C174C /* kernal */,
-				059612181C3C4D33005C174C /* os2_sym.vkm */,
-				059612191C3C4D33005C174C /* os2.vkm */,
 				0596121A1C3C4D33005C174C /* osx_pos.vkm */,
 				0596121B1C3C4D33005C174C /* osx_sym_de.vkm */,
 				0596121C1C3C4D33005C174C /* osx_sym.vkm */,
@@ -3978,29 +3934,7 @@
 				0596121E1C3C4D33005C174C /* pepto-ntsc-sony.vpl */,
 				0596121F1C3C4D33005C174C /* pepto-ntsc.vpl */,
 				059612201C3C4D33005C174C /* rgb.vpl */,
-				059612211C3C4D33005C174C /* sdl_keyrah_de.vkm */,
-				059612221C3C4D33005C174C /* sdl_keyrah.vkm */,
-				059612231C3C4D33005C174C /* sdl_pos_da.vkm */,
-				059612241C3C4D33005C174C /* sdl_pos_de.vkm */,
-				059612251C3C4D33005C174C /* sdl_pos_fi.vkm */,
-				059612261C3C4D33005C174C /* sdl_pos_no.vkm */,
-				059612271C3C4D33005C174C /* sdl_pos.vkm */,
-				059612281C3C4D33005C174C /* sdl_sym.vkm */,
-				059612291C3C4D33005C174C /* sxkernal */,
 				0596122A1C3C4D33005C174C /* vice.vpl */,
-				0596122B1C3C4D33005C174C /* win_hotkeys.vhk */,
-				0596122C1C3C4D33005C174C /* win_pos_de.vkm */,
-				0596122D1C3C4D33005C174C /* win_pos.vkm */,
-				0596122E1C3C4D33005C174C /* win_shortcuts.vsc */,
-				0596122F1C3C4D33005C174C /* win_sym_de.vkm */,
-				059612301C3C4D33005C174C /* win_sym_it.vkm */,
-				059612311C3C4D33005C174C /* win_sym.vkm */,
-				059612321C3C4D33005C174C /* x11_keyrah_de.vkm */,
-				059612331C3C4D33005C174C /* x11_keyrah.vkm */,
-				059612341C3C4D33005C174C /* x11_pos_de.vkm */,
-				059612351C3C4D33005C174C /* x11_pos.vkm */,
-				059612361C3C4D33005C174C /* x11_sym_de.vkm */,
-				059612371C3C4D33005C174C /* x11_sym.vkm */,
 			);
 			path = C64;
 			sourceTree = "<group>";
@@ -4042,7 +3976,7 @@
 			isa = PBXGroup;
 			children = (
 				0598D2521C44C2CB00E456A6 /* Classes */,
-				0598D24E1C44C2BB00E456A6 /* x64.icns */,
+				0598D24E1C44C2BB00E456A6 /* VICE.icns */,
 				0598D24F1C44C2BB00E456A6 /* Info.plist */,
 			);
 			path = Core;
@@ -5005,8 +4939,8 @@
 				0598D2421C44BE2000E456A6 /* Sources */,
 				0598D2431C44BE2000E456A6 /* Frameworks */,
 				0598D2441C44BE2000E456A6 /* Resources */,
-				0558B2B51C4623E300D6B7DA /* CopyFiles */,
-				0558B2DE1C46242800D6B7DA /* CopyFiles */,
+				0558B2B51C4623E300D6B7DA /* Copy C64 ROM Files */,
+				0558B2DE1C46242800D6B7DA /* Copy Drive ROM Files */,
 			);
 			buildRules = (
 			);
@@ -5068,7 +5002,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0598D2501C44C2BB00E456A6 /* x64.icns in Resources */,
+				0598D2501C44C2BB00E456A6 /* VICE.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

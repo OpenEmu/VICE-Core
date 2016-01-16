@@ -41,6 +41,7 @@
 #import "kbdbuf.h"
 #import "joystick.h"
 #import "keyboard.h"
+#import "vsync.h"
 
 #import <setjmp.h>
 
@@ -48,9 +49,10 @@ static __unsafe_unretained ViceGameCore* core;
 
 uint32_t* videoBuffer;
 int vid_width = 512, vid_height = 512;
-dispatch_semaphore_t sem_pause, sem_paused;
-
 jmp_buf emu_exit_jmp;
+
+static dispatch_semaphore_t sem_pause, sem_paused;
+static bool running, paused;
 
 @interface ViceGameCore() <OEC64SystemResponderClient>
 {
@@ -71,6 +73,12 @@ jmp_buf emu_exit_jmp;
         core = self;
         videoBuffer = (uint32_t*)malloc(512 * 512 * 4);
         memset(videoBuffer, 0, 512*512*4);
+        
+        running = true;
+        paused  = false;
+        
+        sem_paused = dispatch_semaphore_create(0);
+        sem_pause  = dispatch_semaphore_create(0);
     }
     
     return self;
@@ -79,6 +87,8 @@ jmp_buf emu_exit_jmp;
 #pragma emulation
 
 - (void)stopEmulation {
+    running = false;
+    emu_resume(); // ensure it is running before we wait for it
     [thread cancel];
     while (![thread isFinished]) {
         [NSThread sleepForTimeInterval:0.050];
@@ -96,6 +106,7 @@ jmp_buf emu_exit_jmp;
 
 - (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error
 {
+    running = true;
     [self initializeEmulator];
     
     autostart_autodetect([path cStringUsingEncoding:NSASCIIStringEncoding], NULL, 0, AUTOSTART_MODE_RUN);
@@ -110,26 +121,35 @@ jmp_buf emu_exit_jmp;
 
 - (void)executeFrame
 {
+    if (paused) {
+        emu_resume();
+    }
 }
 
 #pragma mark game save state
 
-void emu_pause_trap(uint16_t a, void * b) {
+static void emu_pause_trap(uint16_t a, void * b) {
+    if (!running) {
+        return;
+    }
+    vsync_suspend_speed_eval();
+    paused = true;
     dispatch_semaphore_signal(sem_paused);
     dispatch_semaphore_wait(sem_pause, DISPATCH_TIME_FOREVER);
-    sem_pause  = nil;
+    paused = false;
 }
 
-void emu_pause() {
-    sem_paused = dispatch_semaphore_create(0);
-    sem_pause  = dispatch_semaphore_create(0);
-    interrupt_maincpu_trigger_trap(emu_pause_trap, NULL);
-    dispatch_semaphore_wait(sem_paused, DISPATCH_TIME_FOREVER);
-    sem_paused = nil;
+static void emu_pause() {
+    if (!paused && running) {
+        interrupt_maincpu_trigger_trap(emu_pause_trap, NULL);
+        dispatch_semaphore_wait(sem_paused, DISPATCH_TIME_FOREVER);
+    }
 }
 
-void emu_resume() {
-    dispatch_semaphore_signal(sem_pause);
+static void emu_resume() {
+    if (paused) {
+        dispatch_semaphore_signal(sem_pause);
+    }
 }
 
 - (void)saveStateToFileAtPath:(NSString *)fileName completionHandler:(void(^)(BOOL success, NSError *error))block
@@ -315,7 +335,7 @@ int sound_init_openemu_device(void) {
     [thread start];
 }
 
-void check_cancelled()
+static void check_cancelled()
 {
     if ([[NSThread currentThread] isCancelled]) {
         longjmp(emu_exit_jmp, 1);
@@ -330,6 +350,9 @@ void vsyncarch_presync(void)
 
 void vsyncarch_postsync(void)
 {
+    if ([core rate] == 0.0f && running) {
+        interrupt_maincpu_trigger_trap(emu_pause_trap, NULL);
+    }
 }
 
 - (void)emulatorThread

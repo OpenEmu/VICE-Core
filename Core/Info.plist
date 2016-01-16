@@ -48,5 +48,7 @@
 	<array>
 		<string>openemu.system.c64</string>
 	</array>
+	<key>OEGameCorePlayerCount</key>
+	<string>2</string>
 </dict>
 </plist>

@@ -30,14 +30,6 @@
 
 #include "video.h"
 
-#ifdef __OBJC__
-//#import <SpriteKit/SpriteKit.h>
-#define ARC __unsafe_unretained
-#else
-typedef void SKMutableTexture;
-#define ARC
-#endif
-
 /* custom canvas structure for MacVICE */
 struct video_canvas_s
 {
@@ -54,7 +46,6 @@ struct video_canvas_s
 
     // custom here
     int pitch;                  /* pitch width of scanline in byte */
-    //ARC SKMutableTexture* tex;
 };
 typedef struct video_canvas_s video_canvas_t;
 

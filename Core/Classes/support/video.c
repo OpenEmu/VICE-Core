@@ -32,14 +32,6 @@
 extern uint32_t* videoBuffer;
 extern int vid_width, vid_height;
 
-int video_init(void)
-{
-    return 0;
-}
-
-void video_shutdown(void)
-{
-}
 
 /** video_arch */
 
@@ -72,14 +64,7 @@ video_canvas_create(video_canvas_t* canvas,
     return canvas;
 }
 
-void video_canvas_destroy(video_canvas_t *canvas)
-{
-}
 
-char video_canvas_can_resize(video_canvas_t *canvas)
-{
-    return 1;
-}
 
 // VICE wants to change the size of the canvas -> adapt View
 void video_canvas_resize(video_canvas_t * canvas, char resize_canvas)

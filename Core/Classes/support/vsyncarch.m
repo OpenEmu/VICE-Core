@@ -56,6 +56,7 @@ void vsyncarch_init(void)
 
 void vsyncarch_display_speed(double speed, double frame_rate, int warp_enabled)
 {
+    // NSLog(@"speed=%.3f, frames=%.3f, warp=%s", speed, frame_rate, warp_enabled ? "Y" : "N");
 }
 
 void vsyncarch_sleep(signed long delay)

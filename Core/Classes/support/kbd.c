@@ -54,6 +54,5 @@ void kbd_initialize_numpad_joykeys(int* joykeys)
 
 int kbd_arch_get_host_mapping(void)
 {
-    /* FIXME: determine layout */
     return KBD_MAPPING_US;
 }
