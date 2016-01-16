@@ -22,6 +22,10 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		052EF8631C4A2EC7009B8400 /* parallel.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960AF81C3BAAD2005C174C /* parallel.c */; };
+		052EF8641C4A2EC7009B8400 /* parallel-trap.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960AF61C3BAAD2005C174C /* parallel-trap.c */; };
+		052EF8651C4A2EC8009B8400 /* parallel.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960AF81C3BAAD2005C174C /* parallel.c */; };
+		052EF8661C4A2EC8009B8400 /* parallel-trap.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960AF61C3BAAD2005C174C /* parallel-trap.c */; };
 		0558B2A91C46066200D6B7DA /* vsyncarch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558B2A81C46066200D6B7DA /* vsyncarch.m */; };
 		0558B2B11C46132800D6B7DA /* archdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558B2B01C46132800D6B7DA /* archdep.m */; };
 		0558B2B81C4623FC00D6B7DA /* basic in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 059612051C3C4D33005C174C /* basic */; };
@@ -1024,12 +1028,8 @@
 		05960AF01C3BA9A3005C174C /* via1d2031.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960AD01C3BA9A3005C174C /* via1d2031.h */; };
 		05960AF31C3BAA57005C174C /* iecbus.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960AF21C3BAA57005C174C /* iecbus.c */; };
 		05960AF41C3BAA57005C174C /* iecbus.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960AF21C3BAA57005C174C /* iecbus.c */; };
-		05960AF91C3BAAD2005C174C /* parallel-trap.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960AF61C3BAAD2005C174C /* parallel-trap.c */; };
-		05960AFA1C3BAAD2005C174C /* parallel-trap.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960AF61C3BAAD2005C174C /* parallel-trap.c */; };
 		05960AFB1C3BAAD2005C174C /* parallel-trap.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960AF71C3BAAD2005C174C /* parallel-trap.h */; };
 		05960AFC1C3BAAD2005C174C /* parallel-trap.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960AF71C3BAAD2005C174C /* parallel-trap.h */; };
-		05960AFD1C3BAAD2005C174C /* parallel.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960AF81C3BAAD2005C174C /* parallel.c */; };
-		05960AFE1C3BAAD2005C174C /* parallel.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960AF81C3BAAD2005C174C /* parallel.c */; };
 		05960B101C3BAB13005C174C /* vdrive-bam.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960B001C3BAB13005C174C /* vdrive-bam.c */; };
 		05960B111C3BAB13005C174C /* vdrive-bam.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960B001C3BAB13005C174C /* vdrive-bam.c */; };
 		05960B121C3BAB13005C174C /* vdrive-bam.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960B011C3BAB13005C174C /* vdrive-bam.h */; };
@@ -1536,13 +1536,6 @@
 		05960F501C3BB222005C174C /* wave8580_P_T.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960F341C3BB222005C174C /* wave8580_P_T.h */; };
 		05960F511C3BB222005C174C /* wave8580_PS_.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960F351C3BB222005C174C /* wave8580_PS_.h */; };
 		05960F521C3BB222005C174C /* wave8580_PST.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960F361C3BB222005C174C /* wave8580_PST.h */; };
-		05960F5B1C3BB275005C174C /* platform_compiler.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960F541C3BB275005C174C /* platform_compiler.h */; };
-		05960F5C1C3BB275005C174C /* platform_cpu_type.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960F551C3BB275005C174C /* platform_cpu_type.h */; };
-		05960F5D1C3BB275005C174C /* platform_discovery.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960F561C3BB275005C174C /* platform_discovery.h */; };
-		05960F5E1C3BB275005C174C /* platform_macosx.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960F571C3BB275005C174C /* platform_macosx.c */; };
-		05960F5F1C3BB275005C174C /* platform_macosx.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960F581C3BB275005C174C /* platform_macosx.h */; };
-		05960F601C3BB275005C174C /* platform.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960F591C3BB275005C174C /* platform.c */; };
-		05960F611C3BB275005C174C /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960F5A1C3BB275005C174C /* platform.h */; };
 		05960F621C3BB339005C174C /* dac.cc in Sources */ = {isa = PBXBuildFile; fileRef = 05960F1B1C3BB222005C174C /* dac.cc */; };
 		05960F631C3BB339005C174C /* dac.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960F1C1C3BB222005C174C /* dac.h */; };
 		05960F641C3BB339005C174C /* envelope.cc in Sources */ = {isa = PBXBuildFile; fileRef = 05960F1D1C3BB222005C174C /* envelope.cc */; };
@@ -1599,13 +1592,6 @@
 		05960F981C3BB345005C174C /* raster-sprite.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960E5E1C3BAFE0005C174C /* raster-sprite.h */; };
 		05960F991C3BB345005C174C /* raster.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960E5F1C3BAFE0005C174C /* raster.c */; };
 		05960F9A1C3BB345005C174C /* raster.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960E601C3BAFE0005C174C /* raster.h */; };
-		05960F9B1C3BB34E005C174C /* platform_compiler.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960F541C3BB275005C174C /* platform_compiler.h */; };
-		05960F9C1C3BB34E005C174C /* platform_cpu_type.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960F551C3BB275005C174C /* platform_cpu_type.h */; };
-		05960F9D1C3BB34E005C174C /* platform_discovery.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960F561C3BB275005C174C /* platform_discovery.h */; };
-		05960F9E1C3BB34E005C174C /* platform_macosx.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960F571C3BB275005C174C /* platform_macosx.c */; };
-		05960F9F1C3BB34E005C174C /* platform_macosx.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960F581C3BB275005C174C /* platform_macosx.h */; };
-		05960FA01C3BB34E005C174C /* platform.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960F591C3BB275005C174C /* platform.c */; };
-		05960FA11C3BB34E005C174C /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960F5A1C3BB275005C174C /* platform.h */; };
 		05960FA21C3BB36E005C174C /* diskcontents-block.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960F081C3BB1D8005C174C /* diskcontents-block.c */; };
 		05960FA31C3BB36E005C174C /* diskcontents-block.h in Headers */ = {isa = PBXBuildFile; fileRef = 05960F091C3BB1D8005C174C /* diskcontents-block.h */; };
 		05960FA41C3BB36E005C174C /* diskcontents-iec.c in Sources */ = {isa = PBXBuildFile; fileRef = 05960F0A1C3BB1D8005C174C /* diskcontents-iec.c */; };
@@ -1767,6 +1753,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		052EF8621C4A2DB5009B8400 /* ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ui.h; sourceTree = "<group>"; };
+		052EF8681C4A32FD009B8400 /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
 		0558B2A81C46066200D6B7DA /* vsyncarch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vsyncarch.m; sourceTree = "<group>"; };
 		0558B2B01C46132800D6B7DA /* archdep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = archdep.m; sourceTree = "<group>"; };
 		0558B2B31C4618F400D6B7DA /* archdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = archdep.h; sourceTree = "<group>"; };
@@ -2625,13 +2613,6 @@
 		05960F341C3BB222005C174C /* wave8580_P_T.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wave8580_P_T.h; sourceTree = "<group>"; };
 		05960F351C3BB222005C174C /* wave8580_PS_.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wave8580_PS_.h; sourceTree = "<group>"; };
 		05960F361C3BB222005C174C /* wave8580_PST.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wave8580_PST.h; sourceTree = "<group>"; };
-		05960F541C3BB275005C174C /* platform_compiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_compiler.h; sourceTree = "<group>"; };
-		05960F551C3BB275005C174C /* platform_cpu_type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_cpu_type.h; sourceTree = "<group>"; };
-		05960F561C3BB275005C174C /* platform_discovery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_discovery.h; sourceTree = "<group>"; };
-		05960F571C3BB275005C174C /* platform_macosx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = platform_macosx.c; sourceTree = "<group>"; };
-		05960F581C3BB275005C174C /* platform_macosx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_macosx.h; sourceTree = "<group>"; };
-		05960F591C3BB275005C174C /* platform.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = platform.c; sourceTree = "<group>"; };
-		05960F5A1C3BB275005C174C /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
 		05960FEF1C3BB9AE005C174C /* c64dtvblitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c64dtvblitter.h; sourceTree = "<group>"; };
 		05960FF01C3BB9AE005C174C /* c64dtvdma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c64dtvdma.h; sourceTree = "<group>"; };
 		05960FF31C3BBA11005C174C /* raster-cache-const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "raster-cache-const.h"; sourceTree = "<group>"; };
@@ -2718,6 +2699,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		052EF8671C4A32E8009B8400 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				052EF8681C4A32FD009B8400 /* platform.h */,
+			);
+			path = platform;
+			sourceTree = "<group>";
+		};
 		0596038F1C3B6E81005C174C = {
 			isa = PBXGroup;
 			children = (
@@ -2764,7 +2753,7 @@
 				05960EA81C3BB0B6005C174C /* lib */,
 				059607201C3B8A06005C174C /* monitor */,
 				05960AF51C3BAABC005C174C /* parallel */,
-				05960F531C3BB22F005C174C /* platform */,
+				052EF8671C4A32E8009B8400 /* platform */,
 				05960E431C3BAFA5005C174C /* raster */,
 				05960F1A1C3BB1E9005C174C /* resid */,
 				05960C911C3BAD1C005C174C /* rs232drv */,
@@ -3881,20 +3870,6 @@
 			path = resid;
 			sourceTree = "<group>";
 		};
-		05960F531C3BB22F005C174C /* platform */ = {
-			isa = PBXGroup;
-			children = (
-				05960F541C3BB275005C174C /* platform_compiler.h */,
-				05960F551C3BB275005C174C /* platform_cpu_type.h */,
-				05960F561C3BB275005C174C /* platform_discovery.h */,
-				05960F571C3BB275005C174C /* platform_macosx.c */,
-				05960F581C3BB275005C174C /* platform_macosx.h */,
-				05960F591C3BB275005C174C /* platform.c */,
-				05960F5A1C3BB275005C174C /* platform.h */,
-			);
-			path = platform;
-			sourceTree = "<group>";
-		};
 		05960FEE1C3BB99B005C174C /* c64dtv */ = {
 			isa = PBXGroup;
 			children = (
@@ -4003,6 +3978,7 @@
 				0598D25C1C44DF9600E456A6 /* kbd.c */,
 				0558B2EC1C46BA5F00D6B7DA /* main_program.h */,
 				0598D25D1C44DF9600E456A6 /* main_program.m */,
+				052EF8621C4A2DB5009B8400 /* ui.h */,
 				0598D2601C44DF9600E456A6 /* ui.c */,
 				0558B2ED1C46BCA200D6B7DA /* vice_stubs.c */,
 				0598D2641C44DF9600E456A6 /* video.c */,
@@ -4021,7 +3997,6 @@
 			files = (
 				05960A3A1C3BA81F005C174C /* iec-c64exp.h in Headers */,
 				059609BA1C3B8B49005C174C /* psid.h in Headers */,
-				05960F9F1C3BB34E005C174C /* platform_macosx.h in Headers */,
 				0596087C1C3B8B30005C174C /* mmcreplay.h in Headers */,
 				0596068B1C3B893C005C174C /* types.h in Headers */,
 				05960FB51C3BB390005C174C /* ds1216e.h in Headers */,
@@ -4050,7 +4025,6 @@
 				0596096E1C3B8B49005C174C /* c64iec.h in Headers */,
 				0596089C1C3B8B30005C174C /* rexutility.h in Headers */,
 				05960F901C3BB345005C174C /* raster-modes.h in Headers */,
-				05960FA11C3BB34E005C174C /* platform.h in Headers */,
 				05960F771C3BB339005C174C /* wave6581_P_T.h in Headers */,
 				0596084C1C3B8B30005C174C /* georam.h in Headers */,
 				05960AD71C3BA9A3005C174C /* ieee-cmdline-options.h in Headers */,
@@ -4180,7 +4154,6 @@
 				059606221C3B88E1005C174C /* video.h in Headers */,
 				059605EA1C3B88E1005C174C /* tpi.h in Headers */,
 				059609741C3B8B49005C174C /* c64keyboard.h in Headers */,
-				05960F9C1C3BB34E005C174C /* platform_cpu_type.h in Headers */,
 				059604B41C3B88E1005C174C /* autostart.h in Headers */,
 				059608201C3B8B30005C174C /* epyxfastload.h in Headers */,
 				05960F7A1C3BB339005C174C /* wave8580__ST.h in Headers */,
@@ -4305,7 +4278,6 @@
 				059609801C3B8B49005C174C /* c64memlimit.h in Headers */,
 				059608741C3B8B30005C174C /* mikroass.h in Headers */,
 				05960F651C3BB339005C174C /* envelope.h in Headers */,
-				05960F9D1C3BB34E005C174C /* platform_discovery.h in Headers */,
 				05960DA91C3BAE7E005C174C /* t6721.h in Headers */,
 				05960F8E1C3BB345005C174C /* raster-line.h in Headers */,
 				059605BC1C3B88E1005C174C /* resources.h in Headers */,
@@ -4431,7 +4403,6 @@
 				05960B261C3BAB13005C174C /* vdrive-rel.h in Headers */,
 				059604F21C3B88E1005C174C /* datasette.h in Headers */,
 				05960FBB1C3BB3A0005C174C /* userport_dac.h in Headers */,
-				05960F9B1C3BB34E005C174C /* platform_compiler.h in Headers */,
 				05960F821C3BB345005C174C /* raster-cache-text-std.h in Headers */,
 				0596070E1C3B89F2005C174C /* joyport.h in Headers */,
 				05960FD81C3BB3B1005C174C /* render2x4crt.h in Headers */,
@@ -4533,7 +4504,6 @@
 				059607F11C3B8B30005C174C /* cpmcart.h in Headers */,
 				0596060D1C3B88E1005C174C /* version.h in Headers */,
 				059608591C3B8B30005C174C /* isepic.h in Headers */,
-				05960F5C1C3BB275005C174C /* platform_cpu_type.h in Headers */,
 				059609931C3B8B49005C174C /* c64parallel.h in Headers */,
 				05960CDB1C3BAD7D005C174C /* realimage.h in Headers */,
 				05960D5C1C3BAE4E005C174C /* serial-iec-bus.h in Headers */,
@@ -4550,7 +4520,6 @@
 				05960FF61C3BBA11005C174C /* raster-cache-fill-1fff.h in Headers */,
 				059608D11C3B8B30005C174C /* supersnapshot4.h in Headers */,
 				05960BC81C3BABB3005C174C /* mon_register.h in Headers */,
-				05960F5B1C3BB275005C174C /* platform_compiler.h in Headers */,
 				05960BEF1C3BAC30005C174C /* file_drv.h in Headers */,
 				059609BD1C3B8B49005C174C /* psiddrv.h in Headers */,
 				05960A921C3BA8E9005C174C /* via4000.h in Headers */,
@@ -4670,7 +4639,6 @@
 				059607E11C3B8B30005C174C /* c64cartsystem.h in Headers */,
 				05960D231C3BADDB005C174C /* tape-internal.h in Headers */,
 				0596051B1C3B88E1005C174C /* fullscreen.h in Headers */,
-				05960F5D1C3BB275005C174C /* platform_discovery.h in Headers */,
 				0596052B1C3B88E1005C174C /* imagecontents.h in Headers */,
 				05960B581C3BAB66005C174C /* wave6581.h in Headers */,
 				059605891C3B88E1005C174C /* network.h in Headers */,
@@ -4836,7 +4804,6 @@
 				059605D31C3B88E1005C174C /* serial.h in Headers */,
 				059604E31C3B88E1005C174C /* cmdline.h in Headers */,
 				05960E2E1C3BAF39005C174C /* vicii-draw.h in Headers */,
-				05960F611C3BB275005C174C /* platform.h in Headers */,
 				05960F121C3BB1D8005C174C /* diskcontents-block.h in Headers */,
 				05960D021C3BADBB005C174C /* fsdevice-read.h in Headers */,
 				05960A171C3BA81F005C174C /* drive-sound.h in Headers */,
@@ -4883,7 +4850,6 @@
 				05960B981C3BABB3005C174C /* mon_assemble.h in Headers */,
 				059608B91C3B8B30005C174C /* snapshot64.h in Headers */,
 				059606151C3B88E1005C174C /* vice-event.h in Headers */,
-				05960F5F1C3BB275005C174C /* platform_macosx.h in Headers */,
 				05960F4F1C3BB222005C174C /* wave8580__ST.h in Headers */,
 				05960A781C3BA8E8005C174C /* iec-cmdline-options.h in Headers */,
 				0596062D1C3B88E1005C174C /* vsyncapi.h in Headers */,
@@ -5045,6 +5011,7 @@
 				05960CD81C3BAD7D005C174C /* realimage.c in Sources */,
 				05960F911C3BB345005C174C /* raster-resources.c in Sources */,
 				05960D031C3BADBB005C174C /* fsdevice-resources.c in Sources */,
+				052EF8641C4A2EC7009B8400 /* parallel-trap.c in Sources */,
 				05960C071C3BAC7B005C174C /* sounddummy.c in Sources */,
 				05960F681C3BB339005C174C /* filter.cc in Sources */,
 				059608D61C3B8B30005C174C /* warpspeed.c in Sources */,
@@ -5157,7 +5124,6 @@
 				05960D0B1C3BADBB005C174C /* fsdevice.c in Sources */,
 				05960F8D1C3BB345005C174C /* raster-line.c in Sources */,
 				059607D61C3B8B30005C174C /* c64acia1.c in Sources */,
-				05960F9E1C3BB34E005C174C /* platform_macosx.c in Sources */,
 				059607BC1C3B8B30005C174C /* actionreplay2.c in Sources */,
 				05960B3F1C3BAB66005C174C /* fastsid.c in Sources */,
 				05960CF71C3BADBB005C174C /* fsdevice-flush.c in Sources */,
@@ -5207,7 +5173,6 @@
 				05960AE91C3BA9A3005C174C /* riot2d.c in Sources */,
 				05960D931C3BAE7E005C174C /* flash040core.c in Sources */,
 				05960BEC1C3BAC30005C174C /* file_drv.c in Sources */,
-				05960AFD1C3BAAD2005C174C /* parallel.c in Sources */,
 				05960DAD1C3BAE7E005C174C /* viacore.c in Sources */,
 				059608221C3B8B30005C174C /* exos.c in Sources */,
 				05960BBF1C3BABB3005C174C /* mon_parse.c in Sources */,
@@ -5262,6 +5227,7 @@
 				059607141C3B89F2005C174C /* lightpen.c in Sources */,
 				05960B141C3BAB13005C174C /* vdrive-command.c in Sources */,
 				0596050A1C3B88E1005C174C /* findpath.c in Sources */,
+				052EF8631C4A2EC7009B8400 /* parallel.c in Sources */,
 				05960C151C3BAC7B005C174C /* soundwav.c in Sources */,
 				059605141C3B88E1005C174C /* fliplist.c in Sources */,
 				05960F991C3BB345005C174C /* raster.c in Sources */,
@@ -5270,7 +5236,6 @@
 				059607C41C3B8B30005C174C /* actionreplay4.c in Sources */,
 				059609721C3B8B49005C174C /* c64keyboard.c in Sources */,
 				0596054A1C3B88E1005C174C /* lib.c in Sources */,
-				05960AF91C3BAAD2005C174C /* parallel-trap.c in Sources */,
 				059607C01C3B8B30005C174C /* actionreplay3.c in Sources */,
 				0596082E1C3B8B30005C174C /* final3.c in Sources */,
 				05960CF31C3BADBB005C174C /* fsdevice-cmdline-options.c in Sources */,
@@ -5386,7 +5351,6 @@
 				0596080A1C3B8B30005C174C /* digimax.c in Sources */,
 				0596087E1C3B8B30005C174C /* ocean.c in Sources */,
 				05960A7D1C3BA8E9005C174C /* iec.c in Sources */,
-				05960FA01C3BB34E005C174C /* platform.c in Sources */,
 				059608121C3B8B30005C174C /* dqbb.c in Sources */,
 				05960D9D1C3BAE7E005C174C /* riotcore.c in Sources */,
 				05960FE41C3BB3B1005C174C /* video-render-crt.c in Sources */,
@@ -5437,6 +5401,7 @@
 				059606371C3B88E1005C174C /* zipcode.c in Sources */,
 				05960EFA1C3BB182005C174C /* video-color.c in Sources */,
 				05960B111C3BAB13005C174C /* vdrive-bam.c in Sources */,
+				052EF8661C4A2EC8009B8400 /* parallel-trap.c in Sources */,
 				0596099F1C3B8B49005C174C /* c64romset.c in Sources */,
 				059604FD1C3B88E1005C174C /* dma.c in Sources */,
 				059608DF1C3B8B30005C174C /* zaxxon.c in Sources */,
@@ -5448,7 +5413,6 @@
 				059608331C3B8B30005C174C /* finalplus.c in Sources */,
 				059607C91C3B8B30005C174C /* atomicpower.c in Sources */,
 				0596095B1C3B8B49005C174C /* c64datasette.c in Sources */,
-				05960F601C3BB275005C174C /* platform.c in Sources */,
 				05960B541C3BAB66005C174C /* sid.c in Sources */,
 				059608031C3B8B30005C174C /* delaep256.c in Sources */,
 				059605BB1C3B88E1005C174C /* resources.c in Sources */,
@@ -5593,7 +5557,6 @@
 				05960E6E1C3BAFE0005C174C /* raster-line-changes-sprite.c in Sources */,
 				05960D941C3BAE7E005C174C /* flash040core.c in Sources */,
 				05960BED1C3BAC30005C174C /* file_drv.c in Sources */,
-				05960AFE1C3BAAD2005C174C /* parallel.c in Sources */,
 				05960DAE1C3BAE7E005C174C /* viacore.c in Sources */,
 				05960BC01C3BABB3005C174C /* mon_parse.c in Sources */,
 				05960C141C3BAC7B005C174C /* soundvoc.c in Sources */,
@@ -5654,12 +5617,11 @@
 				059605151C3B88E1005C174C /* fliplist.c in Sources */,
 				05960EF51C3BB182005C174C /* renderyuv.c in Sources */,
 				059608271C3B8B30005C174C /* expert.c in Sources */,
+				052EF8651C4A2EC8009B8400 /* parallel.c in Sources */,
 				059605071C3B88E1005C174C /* event.c in Sources */,
 				059607C51C3B8B30005C174C /* actionreplay4.c in Sources */,
 				059609731C3B8B49005C174C /* c64keyboard.c in Sources */,
 				0596054B1C3B88E1005C174C /* lib.c in Sources */,
-				05960AFA1C3BAAD2005C174C /* parallel-trap.c in Sources */,
-				05960F5E1C3BB275005C174C /* platform_macosx.c in Sources */,
 				059607C11C3B8B30005C174C /* actionreplay3.c in Sources */,
 				0596082F1C3B8B30005C174C /* final3.c in Sources */,
 				05960CF41C3BADBB005C174C /* fsdevice-cmdline-options.c in Sources */,

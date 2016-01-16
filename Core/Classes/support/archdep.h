@@ -28,7 +28,20 @@
 #ifndef archdep_h
 #define archdep_h
 
-#include <stdarg.h>
+#include "archapi.h"
+
+#include "sound.h"
+
+/* Filesystem dependant operators.  */
+#define FSDEVICE_DEFAULT_DIR "."
+#define FSDEV_DIR_SEP_STR    "/"
+#define FSDEV_DIR_SEP_CHR    '/'
+#define FSDEV_EXT_SEP_STR    "."
+#define FSDEV_EXT_SEP_CHR    '.'
+
+/* Path separator.  */
+#define ARCHDEP_FINDPATH_SEPARATOR_CHAR   ':'
+#define ARCHDEP_FINDPATH_SEPARATOR_STRING ":"
 
 /* Modes for fopen().  */
 #define MODE_READ              "r"
@@ -38,13 +51,6 @@
 #define MODE_WRITE_TEXT        "w"
 #define MODE_APPEND            "a"
 #define MODE_APPEND_READ_WRITE "a+"
-
-/* Path separator.  */
-#define ARCHDEP_FINDPATH_SEPARATOR_CHAR   ':'
-#define ARCHDEP_FINDPATH_SEPARATOR_STRING ":"
-
-/* Default sound fragment size */
-#define ARCHDEP_SOUND_FRAGMENT_SIZE 2
 
 /* Video chip scaling.  */
 #define ARCHDEP_VICII_DSIZE   1
@@ -81,5 +87,15 @@
 
 
 #define ARCHDEP_KEYBOARD_SYM_NONE -1
+
+/* Default sound fragment size */
+#define ARCHDEP_SOUND_FRAGMENT_SIZE 2
+
+/* Default sound output mode */
+#define ARCHDEP_SOUND_OUTPUT_MODE SOUND_OUTPUT_SYSTEM
+
+/* Keyword to use for a static prototype */
+#define STATIC_PROTOTYPE static
+
 
 #endif /* archdep_h */
