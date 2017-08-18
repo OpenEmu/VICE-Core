@@ -139,9 +139,6 @@ video_canvas_create(video_canvas_t* canvas,
 // VICE wants to change the size of the canvas -> adapt View
 void video_canvas_resize(video_canvas_t * canvas, char resize_canvas)
 {
-   // vid_width  = canvas->draw_buffer->canvas_width;
-   // vid_height = canvas->draw_buffer->canvas_height;
-
     struct draw_buffer_s *db = canvas->draw_buffer;
     int width = db->visible_width;
     int height = db->visible_height;
@@ -236,24 +233,4 @@ int video_canvas_set_palette(video_canvas_t *c, palette_t *p)
     video_render_initraw(c->videoconfig);
     
     return 0;
-//
-//    if (!p) {
-//        return 0;
-//    }
-//    
-//    c->palette = p;
-//    palette_entry_t* pp = &p->entries[0];
-//    for (int i=0; i<p->num_entries; i++, pp++) {
-//        int col = makecol_depth(c->depth, pp->red, pp->green, pp->blue);
-//        video_render_setphysicalcolor(c->videoconfig, i, col, c->depth);
-//    }
-//    
-//    for (int i=0; i<256; i++) {
-//        video_render_setrawrgb(i,
-//                               makecol_depth(c->depth, i, 0, 0),
-//                               makecol_depth(c->depth, 0, i, 0),
-//                               makecol_depth(c->depth, 0, 0, i));
-//    }
-//    
-//    return 0;
 }

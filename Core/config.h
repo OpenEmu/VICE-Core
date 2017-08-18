@@ -152,7 +152,7 @@
 /* #undef HAVE_DEBUG_GTK3UI */
 
 /* Define to 1 if you have the declaration of `sys_siglist', and to 0 if you
- don't. */
+   don't. */
 #define HAVE_DECL_SYS_SIGLIST 1
 
 /* Define to 1 if you have the <devices/ahi.h> header file. */
@@ -174,7 +174,7 @@
 /* #undef HAVE_DIRECT_H */
 
 /* Define to 1 if you have the <dirent.h> header file, and it defines `DIR'.
- */
+   */
 #define HAVE_DIRENT_H 1
 
 /* Define to 1 if you have the `dirname' function. */
@@ -709,7 +709,7 @@
 #define HAVE_SYS_DIRENT_H 1
 
 /* Define to 1 if you have the <sys/dir.h> header file, and it defines `DIR'.
- */
+   */
 /* #undef HAVE_SYS_DIR_H */
 
 /* Define to 1 if you have the <sys/ioctl.h> header file. */
@@ -725,7 +725,7 @@
 #define HAVE_SYS_MMAN_H 1
 
 /* Define to 1 if you have the <sys/ndir.h> header file, and it defines `DIR'.
- */
+   */
 /* #undef HAVE_SYS_NDIR_H */
 
 /* Define to 1 if you have the <sys/select.h> header file. */
@@ -999,7 +999,7 @@
 /* #undef USE_GNOMEUI */
 
 /* Enable lamemp3 support. */
-//#define USE_LAMEMP3 */
+//#define USE_LAMEMP3 /**/
 
 /* Use MIDAS Sound System instead of the Allegro library. */
 /* #undef USE_MIDAS_SOUND */
@@ -1017,22 +1017,22 @@
 /* #undef USE_OSS */
 
 /* Enable portaudio sampling support. */
-//#define USE_PORTAUDIO */
+//#define USE_PORTAUDIO /**/
 
 /* Enable pulseaudio support. */
 /* #undef USE_PULSE */
 
 /* Enable SDL2 prefix for header inclusion. */
-//#define USE_SDL2_PREFIX */
+//#define USE_SDL2_PREFIX /**/
 
 /* Enable SDL UI support. */
 /* #undef USE_SDLUI */
 
 /* Enable SDL2 UI support. */
-// #define USE_SDLUI2 */
+// #define USE_SDLUI2 /**/
 
 /* Enable SDL sound support. */
-//#define USE_SDL_AUDIO */
+// #define USE_SDL_AUDIO /**/
 
 /* Enable SDL prefix for header inclusion. */
 /* #undef USE_SDL_PREFIX */
@@ -1083,7 +1083,7 @@
 /* #undef WINDRES_CP_IGNORE */
 
 /* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
- significant byte first (like Motorola and SPARC, unlike Intel). */
+   significant byte first (like Motorola and SPARC, unlike Intel). */
 #if defined AC_APPLE_UNIVERSAL_BUILD
 # if defined __BIG_ENDIAN__
 #  define WORDS_BIGENDIAN 1
@@ -1104,7 +1104,7 @@
 /* #undef X_DISPLAY_MISSING */
 
 /* Define to 1 if `lex' declares `yytext' as a `char *' by default, not a
- `char[]'. */
+   `char[]'. */
 #define YYTEXT_POINTER 1
 
 /* Enable large inode numbers on Mac OS X 10.5.  */
@@ -1122,7 +1122,7 @@
 /* #undef __DECALPHA__ */
 
 /* Define to `__inline__' or `__inline' if that's what the C compiler
- calls it, or to nothing if 'inline' is not supported under any name.  */
+   calls it, or to nothing if 'inline' is not supported under any name.  */
 #ifndef __cplusplus
 /* #undef inline */
 #endif

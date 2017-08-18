@@ -69,6 +69,8 @@
 		3E1B25E11F16E2320022C2EF /* viciivsid-timing.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B252B1F16E0890022C2EF /* viciivsid-timing.c */; };
 		3E1B25E21F16E2320022C2EF /* viciivsid.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B252D1F16E0890022C2EF /* viciivsid.c */; };
 		3E1BCA181F16BE120022C2EF /* libdiag.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1BCA101F16BDD20022C2EF /* libdiag.a */; };
+		3E3DDE851F4733E400639644 /* sound.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DDE841F4733E400639644 /* sound.c */; };
+		3E3DDE871F47352600639644 /* sound.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DDE841F4733E400639644 /* sound.c */; };
 		3E6E5E981F17BD79007FEF0A /* kbd.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D25C1C44DF9600E456A6 /* kbd.c */; };
 		3E6E5EA11F17BF3C007FEF0A /* platform_darwin_runtime_os.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B1F621F16E0790022C2EF /* platform_darwin_runtime_os.c */; };
 		3E6E5EA21F17BF40007FEF0A /* platform_macosx.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B1F741F16E0790022C2EF /* platform_macosx.c */; };
@@ -230,7 +232,6 @@
 		3E6E5FF91F192494007FEF0A /* screenshot.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B22051F16E07F0022C2EF /* screenshot.c */; };
 		3E6E5FFA1F192494007FEF0A /* snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B22631F16E0800022C2EF /* snapshot.c */; };
 		3E6E5FFB1F192494007FEF0A /* socket.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B22661F16E0810022C2EF /* socket.c */; };
-		3E6E5FFC1F192494007FEF0A /* sound.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B22791F16E0810022C2EF /* sound.c */; };
 		3E6E5FFD1F192494007FEF0A /* sysfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B22CE1F16E0820022C2EF /* sysfile.c */; };
 		3E6E5FFF1F192494007FEF0A /* translate.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B230E1F16E0830022C2EF /* translate.c */; };
 		3E6E60001F192494007FEF0A /* traps.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B23161F16E0840022C2EF /* traps.c */; };
@@ -3672,6 +3673,8 @@
 		3E3DDE801F468A9500639644 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
 		3E3DDE811F468A9500639644 /* siddtvdefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = siddtvdefs.h; sourceTree = "<group>"; };
 		3E3DDE821F468DF700639644 /* siddefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = siddefs.h; sourceTree = "<group>"; };
+		3E3DDE841F4733E400639644 /* sound.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sound.c; sourceTree = "<group>"; };
+		3E3DDE861F4734BE00639644 /* OESound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OESound.h; sourceTree = "<group>"; };
 		3E6E5DD51F17198A007FEF0A /* archdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = archdep.h; sourceTree = "<group>"; };
 		3E6E5DD61F17198A007FEF0A /* archdep+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "archdep+private.h"; sourceTree = "<group>"; };
 		3E6E5DD71F17198A007FEF0A /* archdep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = archdep.m; sourceTree = "<group>"; };
@@ -4128,6 +4131,7 @@
 		0598D2581C44DF3200E456A6 /* support */ = {
 			isa = PBXGroup;
 			children = (
+				3E3DDE841F4733E400639644 /* sound.c */,
 				3E6E5DD51F17198A007FEF0A /* archdep.h */,
 				3E6E5DD61F17198A007FEF0A /* archdep+private.h */,
 				3E6E5DD71F17198A007FEF0A /* archdep.m */,
@@ -4142,6 +4146,7 @@
 				0598D2641C44DF9600E456A6 /* video.c */,
 				0598D2651C44DF9600E456A6 /* videoarch.h */,
 				0558B2A81C46066200D6B7DA /* vsyncarch.m */,
+				3E3DDE861F4734BE00639644 /* OESound.h */,
 			);
 			path = support;
 			sourceTree = "<group>";
@@ -8961,6 +8966,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E3DDE851F4733E400639644 /* sound.c in Sources */,
 				3EDA967C1F19560C0015CED2 /* main_program.m in Sources */,
 				3EDA967D1F19560C0015CED2 /* vice_stubs.c in Sources */,
 				3EDA967E1F19560C0015CED2 /* ViceGameCore.m in Sources */,
@@ -8998,6 +9004,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E3DDE871F47352600639644 /* sound.c in Sources */,
 				3E6E5FA81F192469007FEF0A /* cartconv.c in Sources */,
 				3E6E5FA91F192469007FEF0A /* cbmdos.c in Sources */,
 				3E6E5FAA1F192469007FEF0A /* cbmimage.c in Sources */,
@@ -9050,7 +9057,6 @@
 				3E6E5FF91F192494007FEF0A /* screenshot.c in Sources */,
 				3E6E5FFA1F192494007FEF0A /* snapshot.c in Sources */,
 				3E6E5FFB1F192494007FEF0A /* socket.c in Sources */,
-				3E6E5FFC1F192494007FEF0A /* sound.c in Sources */,
 				3E6E5FFD1F192494007FEF0A /* sysfile.c in Sources */,
 				3E6E5FFF1F192494007FEF0A /* translate.c in Sources */,
 				3E6E60001F192494007FEF0A /* traps.c in Sources */,
