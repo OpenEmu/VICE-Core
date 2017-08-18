@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIconFile</key>
+	<string>VICE</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>3.1</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2016 Stuart Carnie. All rights reserved.</string>
+	<key>NSPrincipalClass</key>
+	<string>OEGameCoreController</string>
+	<key>OEGameCoreClass</key>
+	<string>ViceGameCore</string>
+	<key>OEGameCoreOptions</key>
+	<dict>
+		<key>openemu.system.c64</key>
+		<dict>
+			<key>OEGameCoreRewindBufferSeconds</key>
+			<integer>3600</integer>
+			<key>OEGameCoreRewindInterval</key>
+			<integer>0</integer>
+			<key>OEGameCoreSupportsRewinding</key>
+			<true/>
+		</dict>
+	</dict>
+	<key>OEGameCorePlayerCount</key>
+	<string>2</string>
+	<key>OESystemIdentifiers</key>
+	<array>
+		<string>openemu.system.c64</string>
+	</array>
+	<key>SUEnableAutomaticChecks</key>
+	<string>0</string>
+	<key>SUFeedURL</key>
+	<string>https://raw.github.com/OpenEmu/OpenEmu-Update/master/vice_appcast.xml</string>
+</dict>
+</plist>

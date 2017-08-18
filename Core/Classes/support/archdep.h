@@ -32,6 +32,10 @@
 
 #include "sound.h"
 
+#include "arch/unix/archdep.h"
+
+#include "ui.h"
+
 /* Filesystem dependant operators.  */
 #define FSDEVICE_DEFAULT_DIR "."
 #define FSDEV_DIR_SEP_STR    "/"
