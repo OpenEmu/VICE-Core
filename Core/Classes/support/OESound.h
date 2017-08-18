@@ -9,5 +9,6 @@
 #ifndef OESound_h
 #define OESound_h
 
+extern int sound_init_openemu_device(void);
 
 #endif /* OESound_h */

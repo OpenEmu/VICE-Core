@@ -52,6 +52,7 @@
 #include "monitor.h"
 #include "platform.h"
 #include "resources.h"
+#include "OESound.h"
 #include "sound.h"
 #include "translate.h"
 #include "types.h"
