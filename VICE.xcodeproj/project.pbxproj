@@ -1824,8 +1824,6 @@
 		3E1B0BA91F16E05A0022C2EF /* supersnapshot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = supersnapshot.h; sourceTree = "<group>"; };
 		3E1B0BAB1F16E05A0022C2EF /* supersnapshot4.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = supersnapshot4.c; sourceTree = "<group>"; };
 		3E1B0BAC1F16E05A0022C2EF /* supersnapshot4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = supersnapshot4.h; sourceTree = "<group>"; };
-		3E1B0BAE1F16E05A0022C2EF /* turbomaster.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = turbomaster.c; sourceTree = "<group>"; };
-		3E1B0BAF1F16E05A0022C2EF /* turbomaster.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = turbomaster.h; sourceTree = "<group>"; };
 		3E1B0BB01F16E05A0022C2EF /* warpspeed.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = warpspeed.c; sourceTree = "<group>"; };
 		3E1B0BB11F16E05A0022C2EF /* warpspeed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = warpspeed.h; sourceTree = "<group>"; };
 		3E1B0BB31F16E05A0022C2EF /* westermann.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = westermann.c; sourceTree = "<group>"; };
@@ -2296,7 +2294,6 @@
 		3E1B0FFF1F16E0610022C2EF /* imagecontents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = imagecontents.h; sourceTree = "<group>"; };
 		3E1B10001F16E0610022C2EF /* info.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = info.c; sourceTree = "<group>"; };
 		3E1B10011F16E0620022C2EF /* info.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = info.h; sourceTree = "<group>"; };
-		3E1B10031F16E0620022C2EF /* infocontrib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = infocontrib.h; sourceTree = "<group>"; };
 		3E1B10041F16E0620022C2EF /* init.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = init.c; sourceTree = "<group>"; };
 		3E1B10051F16E0620022C2EF /* init.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = init.h; sourceTree = "<group>"; };
 		3E1B10071F16E0620022C2EF /* initcmdline.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = initcmdline.c; sourceTree = "<group>"; };
@@ -2899,7 +2896,6 @@
 		3E1B22C81F16E0820022C2EF /* soundwav.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = soundwav.c; sourceTree = "<group>"; };
 		3E1B22CA1F16E0820022C2EF /* soundwmm.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = soundwmm.c; sourceTree = "<group>"; };
 		3E1B22CB1F16E0820022C2EF /* ssi2001.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ssi2001.h; sourceTree = "<group>"; };
-		3E1B22CD1F16E0820022C2EF /* svnversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = svnversion.h; sourceTree = "<group>"; };
 		3E1B22CE1F16E0820022C2EF /* sysfile.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sysfile.c; sourceTree = "<group>"; };
 		3E1B22CF1F16E0820022C2EF /* sysfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sysfile.h; sourceTree = "<group>"; };
 		3E1B22D11F16E0830022C2EF /* tap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tap.h; sourceTree = "<group>"; };
@@ -2928,10 +2924,8 @@
 		3E1B230B1F16E0830022C2EF /* tapeport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tapeport.h; sourceTree = "<group>"; };
 		3E1B230D1F16E0830022C2EF /* tpi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tpi.h; sourceTree = "<group>"; };
 		3E1B230E1F16E0830022C2EF /* translate.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = translate.c; sourceTree = "<group>"; };
-		3E1B230F1F16E0830022C2EF /* translate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = translate.h; sourceTree = "<group>"; };
 		3E1B23121F16E0840022C2EF /* translate_funcs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = translate_funcs.h; sourceTree = "<group>"; };
 		3E1B23131F16E0840022C2EF /* translate_languages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = translate_languages.h; sourceTree = "<group>"; };
-		3E1B23141F16E0840022C2EF /* translate_table.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = translate_table.h; sourceTree = "<group>"; };
 		3E1B23151F16E0840022C2EF /* translate_text.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = translate_text.c; sourceTree = "<group>"; };
 		3E1B23161F16E0840022C2EF /* traps.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = traps.c; sourceTree = "<group>"; };
 		3E1B23171F16E0840022C2EF /* traps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = traps.h; sourceTree = "<group>"; };
@@ -4600,7 +4594,6 @@
 				3E1B0BA51F16E05A0022C2EF /* supergames.c */,
 				3E1B0BA81F16E05A0022C2EF /* supersnapshot.c */,
 				3E1B0BAB1F16E05A0022C2EF /* supersnapshot4.c */,
-				3E1B0BAE1F16E05A0022C2EF /* turbomaster.c */,
 				3E1B0BB01F16E05A0022C2EF /* warpspeed.c */,
 				3E1B0BB31F16E05A0022C2EF /* westermann.c */,
 				3E1B0BB61F16E05A0022C2EF /* zaxxon.c */,
@@ -4686,7 +4679,6 @@
 				3E1B0BA61F16E05A0022C2EF /* supergames.h */,
 				3E1B0BA91F16E05A0022C2EF /* supersnapshot.h */,
 				3E1B0BAC1F16E05A0022C2EF /* supersnapshot4.h */,
-				3E1B0BAF1F16E05A0022C2EF /* turbomaster.h */,
 				3E1B0BB11F16E05A0022C2EF /* warpspeed.h */,
 				3E1B0BB41F16E05A0022C2EF /* westermann.h */,
 				3E1B0BB71F16E05A0022C2EF /* zaxxon.h */,
@@ -6938,7 +6930,6 @@
 				3E1B0FFF1F16E0610022C2EF /* imagecontents.h */,
 				3E1B10001F16E0610022C2EF /* info.c */,
 				3E1B10011F16E0620022C2EF /* info.h */,
-				3E1B10031F16E0620022C2EF /* infocontrib.h */,
 				3E1B10041F16E0620022C2EF /* init.c */,
 				3E1B10051F16E0620022C2EF /* init.h */,
 				3E1B10071F16E0620022C2EF /* initcmdline.c */,
@@ -7047,7 +7038,6 @@
 				3E1B227A1F16E0810022C2EF /* sound.h */,
 				3E1B227C1F16E0820022C2EF /* sounddrv */,
 				3E1B22CB1F16E0820022C2EF /* ssi2001.h */,
-				3E1B22CD1F16E0820022C2EF /* svnversion.h */,
 				3E1B22CE1F16E0820022C2EF /* sysfile.c */,
 				3E1B22CF1F16E0820022C2EF /* sysfile.h */,
 				3E1B22D11F16E0830022C2EF /* tap.h */,
@@ -7057,10 +7047,8 @@
 				3E1B230D1F16E0830022C2EF /* tpi.h */,
 				3E1B23121F16E0840022C2EF /* translate_funcs.h */,
 				3E1B23131F16E0840022C2EF /* translate_languages.h */,
-				3E1B23141F16E0840022C2EF /* translate_table.h */,
 				3E1B23151F16E0840022C2EF /* translate_text.c */,
 				3E1B230E1F16E0830022C2EF /* translate.c */,
-				3E1B230F1F16E0830022C2EF /* translate.h */,
 				3E1B23161F16E0840022C2EF /* traps.c */,
 				3E1B23171F16E0840022C2EF /* traps.h */,
 				3E1B23191F16E0840022C2EF /* uiapi.h */,
@@ -8225,7 +8213,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "mkdir -p \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores\"\nrm -rf \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/$PROJECT_NAME C128.oecoreplugin\"{,.dSYM}\ncp -rf \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME C128.oecoreplugin\"{,.dSYM} \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/\"\nrm -rf \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/$PROJECT_NAME C64.oecoreplugin\"{,.dSYM}\ncp -rf \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME C64.oecoreplugin\"{,.dSYM} \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/\"\nrm -rf \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/$PROJECT_NAME VIC20.oecoreplugin\"{,.dSYM}\ncp -rf \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME VIC20.oecoreplugin\"{,.dSYM} \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/\"\n";
+			shellScript = "mkdir -p \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores\"\nrm -rf \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/$PROJECT_NAME C64.oecoreplugin\"{,.dSYM}\ncp -rf \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME C64.oecoreplugin\"{,.dSYM} \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
