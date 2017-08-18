@@ -226,3 +226,8 @@ char *archdep_tmpnam(void)
     
     return NULL;
 }
+
+char *archdep_extra_title_text(void)
+{
+    return NULL;
+}

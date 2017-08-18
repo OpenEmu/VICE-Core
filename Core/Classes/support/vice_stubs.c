@@ -83,6 +83,14 @@ void fullscreen_capability(cap_fullscreen_t *cap_fullscreen) { }
 int c64ui_init(void) { return 0; }
 void c64ui_shutdown(void) { }
 
+#pragma mark c128ui
+int c128ui_init(void) { return 0; }
+void c128ui_shutdown(void) { }
+
+#pragma mark vic20ui
+int vic20ui_init(void) { return 0; }
+void vic20ui_shutdown(void) { }
+
 
 #pragma mark ui_display stubs
 
@@ -111,6 +119,60 @@ int ui_cmdline_options_init() { return 0; }
 int ui_resources_init() { return 0; }
 void ui_resources_shutdown(void) { }
 void ui_cmdline_show_help(unsigned int num_options, cmdline_option_ram_t *options, void *userparam) { }
+
+#pragma mark vsid stubs
+int vsid_ui_init(void)
+{
+    return 0;
+}
+
+void vsid_ui_display_name(const char *name)
+{
+}
+
+void vsid_ui_display_author(const char *author)
+{
+}
+
+void vsid_ui_display_copyright(const char *copyright)
+{
+}
+
+void vsid_ui_display_sync(int sync)
+{
+}
+
+void vsid_ui_display_sid_model(int model)
+{
+}
+
+void vsid_ui_display_irqtype(const char *irq)
+{
+}
+
+void vsid_ui_set_default_tune(int nr)
+{
+}
+
+void vsid_ui_display_tune_nr(int nr)
+{
+}
+
+void vsid_ui_display_nr_of_tunes(int count)
+{
+}
+
+void vsid_ui_display_time(unsigned int sec)
+{
+}
+
+void vsid_ui_close(void)
+{
+}
+
+void vsid_ui_setdrv(char* driver_info_text)
+{
+}
 
 
 #pragma mark kbd stubs
@@ -162,7 +224,7 @@ char video_canvas_can_resize(video_canvas_t *canvas) { return 1; }
 
 #pragma mark signals stubs
 
-int signals_init(int do_core_dumps) { return 0; }
+//int signals_init(int do_core_dumps) { return 0; }
 
 
 #pragma mark console stubs

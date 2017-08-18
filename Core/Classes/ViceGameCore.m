@@ -1,6 +1,6 @@
 /*
  Copyright (c) 2016, OpenEmu Team
- 
+
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
  * Redistributions of source code must retain the above copyright
@@ -11,7 +11,7 @@
  * Neither the name of the OpenEmu Team nor the
  names of its contributors may be used to endorse or promote products
  derived from this software without specific prior written permission.
- 
+
  THIS SOFTWARE IS PROVIDED BY OpenEmu Team ''AS IS'' AND ANY
  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -31,6 +31,7 @@
 #import "main.h"
 #import "archdep+private.h"
 #import "sound.h"
+#import "attach.h"
 #import "autostart.h"
 #import "autostart-prg.h"
 #import "resources.h"
@@ -47,12 +48,13 @@
 
 static __unsafe_unretained ViceGameCore* core;
 
-uint32_t* videoBuffer;
+uint32_t* OEvideobuffer;
 int vid_width = 512, vid_height = 512;
 jmp_buf emu_exit_jmp;
 
-static dispatch_semaphore_t sem_pause, sem_paused;
-static bool running, paused;
+static dispatch_semaphore_t sem_pause, sem_paused, vsync_hold;
+static bool running, inpause, paused, vSync;
+
 
 @interface ViceGameCore() <OEC64SystemResponderClient>
 {
@@ -71,16 +73,18 @@ static bool running, paused;
     if((self = [super init]))
     {
         core = self;
-        videoBuffer = (uint32_t*)malloc(512 * 512 * 4);
-        memset(videoBuffer, 0, 512*512*4);
-        
-        running = true;
+
+        OEvideobuffer = (uint32_t*)malloc(1024 * 1024 * 4);
+        memset(OEvideobuffer, 0, 1024*1024*4);
+
+        running = false;
         paused  = false;
-        
+
+        vsync_hold = dispatch_semaphore_create(0);
         sem_paused = dispatch_semaphore_create(0);
         sem_pause  = dispatch_semaphore_create(0);
     }
-    
+
     return self;
 }
 
@@ -89,28 +93,31 @@ static bool running, paused;
 - (void)stopEmulation {
     running = false;
     emu_resume(); // ensure it is running before we wait for it
+
     [thread cancel];
     while (![thread isFinished]) {
         [NSThread sleepForTimeInterval:0.050];
     }
-    
+
     thread = nil;
     core   = nil;
-    
-    if(videoBuffer) {
-        free(videoBuffer);
+
+    if(OEvideobuffer) {
+        free(OEvideobuffer);
     }
-    
+
     [super stopEmulation];
 }
 
 - (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error
 {
-    running = true;
+
     [self initializeEmulator];
-    
+
     autostart_autodetect([path cStringUsingEncoding:NSASCIIStringEncoding], NULL, 0, AUTOSTART_MODE_RUN);
-    
+
+    running = true;
+
     return YES;
 }
 
@@ -119,72 +126,147 @@ static bool running, paused;
     machine_trigger_reset(MACHINE_RESET_MODE_HARD);
 }
 
+//- (void)setPauseEmulation:(BOOL)flag
+//{
+//
+//    if (flag){
+//        emu_pause();
+//    }else{
+//        emu_resume();
+//    }
+//
+//    [super setPauseEmulation:flag];
+//}
+
 - (void)executeFrame
 {
-    if (paused) {
-        emu_resume();
+    if (vSync){
+        dispatch_semaphore_signal(vsync_hold);
     }
 }
 
 #pragma mark game save state
 
-static void emu_pause_trap(uint16_t a, void * b) {
-    if (!running) {
+static void vsync_pause_trap(uint16_t a, void * b)
+{   // This routine is called by the emulated CPU interupt on the Emulated CPU thread
+    //    it will hold the CPU until OE executes the next frame for vSync
+    //    there is a slight chance that inpuase was called between the CPU interupt
+    //    trap set and the interput trigger so check for inpause and return if it was set
+
+    if (!running || inpause) {
+        return;
+    }
+
+    vsync_suspend_speed_eval();
+    vSync = true;
+
+    // Hold the Emulated CPU Thread for vSync
+    dispatch_semaphore_wait(vsync_hold, DISPATCH_TIME_FOREVER);
+
+    // vSync hold has been released
+    if (inpause)
+    {   // If the system is getting ready to pause, vSync hold was released
+        //   and the Core thread is waiting, release the core thread
+        //   If we got here, the vSync hold was set before inpause started
+        dispatch_semaphore_signal(sem_paused);
+        usleep(20);
+    }
+    vSync= false;
+}
+
+
+static void emu_pause_trap(uint16_t a, void * b)
+{   // This routine is called by the emulated CPU interupt on the Emulated CPU thread
+    //    it will pause the CPU until the core thread releases it
+    //    there is a slight chance that vSync was called between the CPU interupt
+    //    trap set and the interupt trigger so check for vSync and return if it was set
+
+    if (!running || vSync) {
         return;
     }
     vsync_suspend_speed_eval();
     paused = true;
+
+    // Trigger the OE Core to continue
     dispatch_semaphore_signal(sem_paused);
+
+    // Pause the Emulated CPU thread
     dispatch_semaphore_wait(sem_pause, DISPATCH_TIME_FOREVER);
     paused = false;
 }
 
-static void emu_pause() {
+static void emu_pause()
+{
+    // Set the inpause state
+    inpause = true;
+
+    if (vSync){
+        // If the CPU is in a vSyn hold, relases it now
+        dispatch_semaphore_signal(vsync_hold);
+        dispatch_semaphore_wait(sem_paused, DISPATCH_TIME_FOREVER);
+    }
+
     if (!paused && running) {
+        // Trigger the CPU to pause for the core
         interrupt_maincpu_trigger_trap(emu_pause_trap, NULL);
         dispatch_semaphore_wait(sem_paused, DISPATCH_TIME_FOREVER);
     }
 }
 
-static void emu_resume() {
+static void emu_resume()
+{
+    if (vSync){
+        // Release the vSync hold  this will only get called
+        //  when the core is shutting down
+        dispatch_semaphore_signal(vsync_hold);
+    }
+
     if (paused) {
+        // Release the CPU pause
         dispatch_semaphore_signal(sem_pause);
     }
+
+    // Exit In Pause State
+    inpause = false;
 }
 
 - (void)saveStateToFileAtPath:(NSString *)fileName completionHandler:(void(^)(BOOL success, NSError *error))block
 {
     emu_pause();
-    
+
     BOOL res = TRUE;
-    if (machine_write_snapshot([fileName cStringUsingEncoding:NSASCIIStringEncoding], 0, 0, 0) < 0) {
+    if (machine_write_snapshot([fileName cStringUsingEncoding:NSASCIIStringEncoding], 1, 1, 0) < 0) {
+        //save snap failed
         res = FALSE;
     }
-    
+
     emu_resume();
-    
+
     block(res, nil);
 }
 
 - (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void(^)(BOOL success, NSError *error))block
 {
-    emu_pause();
-    
     BOOL res = TRUE;
+
+    emu_pause();
+
     if (machine_read_snapshot([fileName cStringUsingEncoding:NSASCIIStringEncoding], 0) < 0) {
+        //load snap failed
         res = FALSE;
     }
-    
+
     emu_resume();
-    
-    block(res, nil);
+
+    block (res, nil);
 }
+
 
 #pragma mark Video
 
 - (const void *)videoBuffer
 {
-    return videoBuffer;
+    return OEvideobuffer;
 }
 
 - (OEIntSize)bufferSize
@@ -194,7 +276,7 @@ static void emu_resume() {
 
 - (OEIntRect)screenRect
 {
-    return OEIntRectMake(0, 0, vid_width, vid_height);
+    return OEIntRectMake(0, 0,  vid_width, vid_height);
 }
 
 - (GLenum)pixelFormat
@@ -323,7 +405,7 @@ int sound_init_openemu_device(void) {
 - (void)initializeEmulator
 {
     static bool initialized = false;
-    
+
     if (!initialized) {
         archdep_set_boot_path([[[self owner] bundle] resourcePath]);
         main_init();
@@ -349,9 +431,15 @@ void vsyncarch_presync(void)
 }
 
 void vsyncarch_postsync(void)
-{
-    if ([core rate] == 0.0f && running) {
-        interrupt_maincpu_trigger_trap(emu_pause_trap, NULL);
+{   //This is called after every frame
+    //  three things must be ensured before the CPU is paused for vSync
+    //  1: The core must be running
+    //  2: The core rate must be 0
+    //  3: The core must not be initating a CPU pause
+
+
+    if ([core rate] == 0.0f && running && !inpause) {
+        interrupt_maincpu_trigger_trap(vsync_pause_trap, NULL);
     }
 }
 
@@ -361,7 +449,7 @@ void vsyncarch_postsync(void)
         if (setjmp(emu_exit_jmp) == 0) {
             maincpu_mainloop();
         }
-        
+
         NSLog(@"returning from emulator thread");
     }
 }
