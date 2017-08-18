@@ -1967,7 +1967,6 @@
 		3E1B0CEA1F16E05D0022C2EF /* cmdline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cmdline.h; sourceTree = "<group>"; };
 		3E1B0CEC1F16E05D0022C2EF /* color.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = color.c; sourceTree = "<group>"; };
 		3E1B0CED1F16E05D0022C2EF /* color.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = color.h; sourceTree = "<group>"; };
-		3E1B0CEF1F16E05D0022C2EF /* config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		3E1B0CF11F16E05D0022C2EF /* console.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = console.h; sourceTree = "<group>"; };
 		3E1B0D021F16E05D0022C2EF /* ata.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ata.c; sourceTree = "<group>"; };
 		3E1B0D031F16E05D0022C2EF /* ata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ata.h; sourceTree = "<group>"; };
@@ -2011,7 +2010,6 @@
 		3E1B0D501F16E05D0022C2EF /* datasette.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = datasette.c; sourceTree = "<group>"; };
 		3E1B0D511F16E05D0022C2EF /* datasette.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = datasette.h; sourceTree = "<group>"; };
 		3E1B0D531F16E05E0022C2EF /* debug.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = debug.c; sourceTree = "<group>"; };
-		3E1B0D541F16E05E0022C2EF /* debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
 		3E1B0D5A1F16E05E0022C2EF /* c64_diag_586220_harness.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c64_diag_586220_harness.c; sourceTree = "<group>"; };
 		3E1B0D5B1F16E05E0022C2EF /* c64_diag_586220_harness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c64_diag_586220_harness.h; sourceTree = "<group>"; };
 		3E1B0D611F16E05E0022C2EF /* digimaxcore.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = digimaxcore.c; sourceTree = "<group>"; };
@@ -2714,7 +2712,6 @@
 		3E1B21171F16E07D0022C2EF /* resid-config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "resid-config.h"; sourceTree = "<group>"; };
 		3E1B21191F16E07D0022C2EF /* sid.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sid.cc; sourceTree = "<group>"; };
 		3E1B211A1F16E07D0022C2EF /* sid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sid.h; sourceTree = "<group>"; };
-		3E1B211C1F16E07D0022C2EF /* siddefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = siddefs.h; sourceTree = "<group>"; };
 		3E1B211E1F16E07D0022C2EF /* spline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spline.h; sourceTree = "<group>"; };
 		3E1B21211F16E07D0022C2EF /* version.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = version.cc; sourceTree = "<group>"; };
 		3E1B21231F16E07D0022C2EF /* voice.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = voice.cc; sourceTree = "<group>"; };
@@ -2747,7 +2744,6 @@
 		3E1B21641F16E07D0022C2EF /* residdtv-config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "residdtv-config.h"; sourceTree = "<group>"; };
 		3E1B21651F16E07D0022C2EF /* sid.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sid.cc; sourceTree = "<group>"; };
 		3E1B21661F16E07D0022C2EF /* sid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sid.h; sourceTree = "<group>"; };
-		3E1B21681F16E07D0022C2EF /* siddtvdefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = siddtvdefs.h; sourceTree = "<group>"; };
 		3E1B216A1F16E07D0022C2EF /* version.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = version.cc; sourceTree = "<group>"; };
 		3E1B216C1F16E07D0022C2EF /* voice.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = voice.cc; sourceTree = "<group>"; };
 		3E1B216D1F16E07D0022C2EF /* voice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = voice.h; sourceTree = "<group>"; };
@@ -3675,6 +3671,8 @@
 		3E3DDE821F468DF700639644 /* siddefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = siddefs.h; sourceTree = "<group>"; };
 		3E3DDE841F4733E400639644 /* sound.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sound.c; sourceTree = "<group>"; };
 		3E3DDE861F4734BE00639644 /* OESound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OESound.h; sourceTree = "<group>"; };
+		3E3DDE8A1F474A3200639644 /* infocontrib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = infocontrib.h; sourceTree = "<group>"; };
+		3E3DDE8B1F474A3200639644 /* translate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = translate.h; sourceTree = "<group>"; };
 		3E6E5DD51F17198A007FEF0A /* archdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = archdep.h; sourceTree = "<group>"; };
 		3E6E5DD61F17198A007FEF0A /* archdep+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "archdep+private.h"; sourceTree = "<group>"; };
 		3E6E5DD71F17198A007FEF0A /* archdep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = archdep.m; sourceTree = "<group>"; };
@@ -4110,8 +4108,10 @@
 				0598D2521C44C2CB00E456A6 /* Classes */,
 				3E3DDE7F1F468A9500639644 /* config.h */,
 				3E3DDE801F468A9500639644 /* debug.h */,
+				3E3DDE8A1F474A3200639644 /* infocontrib.h */,
 				3E3DDE821F468DF700639644 /* siddefs.h */,
 				3E3DDE811F468A9500639644 /* siddtvdefs.h */,
+				3E3DDE8B1F474A3200639644 /* translate.h */,
 				0598D24E1C44C2BB00E456A6 /* VICE.icns */,
 				3EDA97B61F196B970015CED2 /* InfoC64.plist */,
 			);
@@ -5765,7 +5765,6 @@
 				3E1B21131F16E07D0022C2EF /* pot.h */,
 				3E1B21171F16E07D0022C2EF /* resid-config.h */,
 				3E1B211A1F16E07D0022C2EF /* sid.h */,
-				3E1B211C1F16E07D0022C2EF /* siddefs.h */,
 				3E1B211E1F16E07D0022C2EF /* spline.h */,
 				3E1B21241F16E07D0022C2EF /* voice.h */,
 				3E1B21271F16E07D0022C2EF /* wave.h */,
@@ -5794,7 +5793,6 @@
 				3E1B21641F16E07D0022C2EF /* residdtv-config.h */,
 				3E1B21651F16E07D0022C2EF /* sid.cc */,
 				3E1B21661F16E07D0022C2EF /* sid.h */,
-				3E1B21681F16E07D0022C2EF /* siddtvdefs.h */,
 				3E1B216A1F16E07D0022C2EF /* version.cc */,
 				3E1B216C1F16E07D0022C2EF /* voice.cc */,
 				3E1B216D1F16E07D0022C2EF /* voice.h */,
@@ -6893,7 +6891,6 @@
 				3E1B0CEA1F16E05D0022C2EF /* cmdline.h */,
 				3E1B0CEC1F16E05D0022C2EF /* color.c */,
 				3E1B0CED1F16E05D0022C2EF /* color.h */,
-				3E1B0CEF1F16E05D0022C2EF /* config.h */,
 				3E1B0CF11F16E05D0022C2EF /* console.h */,
 				3E1B0CF21F16E05D0022C2EF /* core */,
 				3E1B0D2B1F16E05D0022C2EF /* crc32.c */,
@@ -6902,7 +6899,6 @@
 				3E1B0D501F16E05D0022C2EF /* datasette.c */,
 				3E1B0D511F16E05D0022C2EF /* datasette.h */,
 				3E1B0D531F16E05E0022C2EF /* debug.c */,
-				3E1B0D541F16E05E0022C2EF /* debug.h */,
 				3E1B0D571F16E05E0022C2EF /* diag */,
 				3E1B0D611F16E05E0022C2EF /* digimaxcore.c */,
 				3E1B0D621F16E05E0022C2EF /* diskconstants.h */,
@@ -10329,6 +10325,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.openemu.VICEC64;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 				WRAPPER_EXTENSION = oecoreplugin;
 			};
 			name = Debug;
@@ -10352,6 +10349,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.openemu.VICEC64;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 				WRAPPER_EXTENSION = oecoreplugin;
 			};
 			name = Release;
