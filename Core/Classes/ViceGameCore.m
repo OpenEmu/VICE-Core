@@ -51,8 +51,8 @@ uint32_t* OEvideobuffer;
 int vid_width = 512, vid_height = 512;
 jmp_buf emu_exit_jmp;
 
-static dispatch_semaphore_t sem_Core_paused, sem_CPU_paused;
-static bool running, pausestart, CPU_paused;
+static dispatch_semaphore_t sem_Core_pause, sem_CPU_pause, sem_vSync_hold;
+static bool running, pausestart, CPU_paused, vSync_held;
 
 @interface ViceGameCore() <OEC64SystemResponderClient>
 {
@@ -77,8 +77,9 @@ static bool running, pausestart, CPU_paused;
         running = false;
         CPU_paused  = false;
 
-        sem_CPU_paused   = dispatch_semaphore_create(0);
-        sem_Core_paused  = dispatch_semaphore_create(0);
+        sem_vSync_hold   = dispatch_semaphore_create(0);
+        sem_CPU_pause   = dispatch_semaphore_create(0);
+        sem_Core_pause  = dispatch_semaphore_create(0);
     }
 
     return self;
@@ -89,7 +90,7 @@ static bool running, pausestart, CPU_paused;
 - (void)stopEmulation {
     running = false;
 
-    emu_resume(); // ensure CPU pause are cleared
+    emu_resume(); // ensure vSync hold and CPU pause are cleared
 
     [thread cancel];
     while (![thread isFinished]) {
@@ -124,24 +125,34 @@ static bool running, pausestart, CPU_paused;
 
 - (void)executeFrame
 {
+    if (vSync_held){
+        dispatch_semaphore_signal(sem_vSync_hold);
+    }
 }
 
 #pragma mark game save state
 
-static void cpu_pause_trap(uint16_t a, void * b)
+static void emu_pause_trap(uint16_t a, void * b)
 {
-    if (!running ) {
+    // This routine is called by the emulated CPU interrupt on the Emulated CPU thread
+    //    it will pause the CPU until the core thread releases it
+
+    // There is a slight chance that vSync was called between the CPU interrupt
+    //    trap set and the interrupt trigger so check for vSync and return if it was set
+    if (!running || vSync_held) {
         return;
     }
 
     CPU_paused = true;
     vsync_suspend_speed_eval();
 
-    // Trigger the OE Core to continue
-    dispatch_semaphore_signal(sem_CPU_paused);
+    // Signal the core to continue
+    dispatch_semaphore_signal(sem_CPU_pause);
 
-    // Pause the Emulated CPU thread
-    dispatch_semaphore_wait(sem_Core_paused, DISPATCH_TIME_FOREVER);
+    // Pause the Emulated CPU thread and wait
+    dispatch_semaphore_wait(sem_Core_pause, DISPATCH_TIME_FOREVER);
+
+    //The CPU thread has been released
     CPU_paused = false;
 }
 
@@ -150,20 +161,33 @@ static void emu_pause()
     // Set the pausestart state
     pausestart = true;
 
+    if (vSync_held) {
+        // If the CPU is in a vSyn hold, relases it now
+        dispatch_semaphore_signal(sem_vSync_hold);
+
+        // wait until vSync is released
+        dispatch_semaphore_wait(sem_CPU_pause, DISPATCH_TIME_FOREVER);
+    }
+
     if (!CPU_paused && running) {
         // Trigger the CPU to pause for the core
-        interrupt_maincpu_trigger_trap(cpu_pause_trap, NULL);
+        interrupt_maincpu_trigger_trap(emu_pause_trap, NULL);
 
         //Wait until the CPU has been paused by the interrupt call
-        dispatch_semaphore_wait(sem_CPU_paused, DISPATCH_TIME_FOREVER);
+        dispatch_semaphore_wait(sem_CPU_pause, DISPATCH_TIME_FOREVER);
     }
 }
 
 static void emu_resume()
 {
+    if (vSync_held) {
+        // If the CPU is in a vSyn hold, relases it now
+        dispatch_semaphore_signal(sem_vSync_hold);
+    }
+
     if (CPU_paused) {
         // Release the CPU pause
-        dispatch_semaphore_signal(sem_Core_paused);
+        dispatch_semaphore_signal(sem_Core_pause);
     }
 
     // Exit pausestart state
@@ -203,6 +227,35 @@ static void emu_resume()
 }
 
 #pragma mark Video
+
+static void vSync_hold_trap(uint16_t a, void * b)
+{
+    // This routine is called by the emulated CPU interrupt on the Emulated CPU thread
+    //    it will hold the CPU until OE executes the next frame for vSync
+
+    // There is a slight chance that pause was called between the CPU interrupt
+    //    trap set and the interrput trigger so check for pausestart and return if it was set
+    if (!running || pausestart) {
+        return;
+    }
+
+    vSync_held = true;
+    vsync_suspend_speed_eval();
+
+    // Hold the Emulated CPU Thread for vSync
+    dispatch_semaphore_wait(sem_vSync_hold, DISPATCH_TIME_FOREVER);
+
+    // vSync hold has been released
+    if (pausestart)
+    {
+        // The system is getting ready to pause,
+        //   and the core thread is waiting, release the core thread
+        //   and give a little time for Core thread to resume
+        dispatch_semaphore_signal(sem_CPU_pause);
+        usleep(20);
+    }
+    vSync_held= false;
+}
 
 - (const void *)videoBuffer
 {
@@ -371,6 +424,13 @@ void vsyncarch_presync(void)
 
 void vsyncarch_postsync(void)
 {
+    //If the eumaltor is not running, is in warp mode, or starting pause, or not fully booted:
+    //   we don't want to set a vsyn trap
+    if (!pausestart && running) {
+        if ([core rate] == 0.0f ) {
+            interrupt_maincpu_trigger_trap(vSync_hold_trap, NULL);
+        }
+    }
 }
 
 - (void)emulatorThread
