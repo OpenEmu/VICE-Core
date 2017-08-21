@@ -52,7 +52,7 @@ int vid_width = 512, vid_height = 512;
 jmp_buf emu_exit_jmp;
 
 static dispatch_semaphore_t sem_Core_pause, sem_CPU_pause, sem_vSync_hold;
-static bool running, pausestart, CPU_paused, vSync_held;
+static bool running, pausestart, CPU_paused, vSync_held, BootComplete;
 
 @interface ViceGameCore() <OEC64SystemResponderClient>
 {
@@ -125,6 +125,11 @@ static bool running, pausestart, CPU_paused, vSync_held;
 
 - (void)executeFrame
 {
+    if(!BootComplete) {
+        //The emulator is finally in a fully initalized state
+        BootComplete = true;
+    }
+
     if (vSync_held){
         dispatch_semaphore_signal(sem_vSync_hold);
     }
@@ -216,9 +221,17 @@ static void emu_resume()
 
     emu_pause();
 
-    if (machine_read_snapshot([fileName cStringUsingEncoding:NSASCIIStringEncoding], 0) < 0) {
-        //load snap failed
-        res = FALSE;
+    if (!BootComplete) {
+        autostart_snapshot([fileName cStringUsingEncoding:NSASCIIStringEncoding], NULL);
+
+        //Autostart functions use warp mode.  but autoload-sanpshot does not turn it off
+        //   we need to make sure it is turned off or bad things end up happening
+        resources_set_int("WarpMode", 0);
+    } else {
+        if (machine_read_snapshot([fileName cStringUsingEncoding:NSASCIIStringEncoding], 0) < 0) {
+            //load snap failed
+            res = FALSE;
+        }
     }
 
     emu_resume();
@@ -424,9 +437,15 @@ void vsyncarch_presync(void)
 
 void vsyncarch_postsync(void)
 {
+    //This is called after every frame
+    int warp;
+
+    // Get warp state of Emulator
+    resources_get_int("WarpMode", &warp);
+
     //If the eumaltor is not running, is in warp mode, or starting pause, or not fully booted:
     //   we don't want to set a vsyn trap
-    if (!pausestart && running) {
+    if (!warp && !pausestart && BootComplete && running) {
         if ([core rate] == 0.0f ) {
             interrupt_maincpu_trigger_trap(vSync_hold_trap, NULL);
         }
