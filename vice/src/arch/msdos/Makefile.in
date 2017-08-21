@@ -49,40 +49,42 @@ LIBRARIES = $(noinst_LIBRARIES)
 ARFLAGS = cru
 libarch_a_AR = $(AR) $(ARFLAGS)
 am_libarch_a_OBJECTS = archdep.$(OBJEXT) c128ui.$(OBJEXT) \
-	c64ui.$(OBJEXT) c64dtvui.$(OBJEXT) catweaselmkiii.$(OBJEXT) \
-	cbm2ui.$(OBJEXT) cbm5x0ui.$(OBJEXT) cbmcharsets.$(OBJEXT) \
-	console.$(OBJEXT) grabkey.$(OBJEXT) hardsid.$(OBJEXT) \
-	joy.$(OBJEXT) kbd.$(OBJEXT) lightpendrv.$(OBJEXT) \
-	menudefs.$(OBJEXT) mousedrv.$(OBJEXT) msdosmain.$(OBJEXT) \
-	parsid.$(OBJEXT) petui.$(OBJEXT) plus4ui.$(OBJEXT) \
-	scpu64ui.$(OBJEXT) signals.$(OBJEXT) statusbar.$(OBJEXT) \
-	rawnetarch.$(OBJEXT) tui.$(OBJEXT) tui_backend.$(OBJEXT) \
+	c64ui.$(OBJEXT) c64dtvui.$(OBJEXT) cbm2ui.$(OBJEXT) \
+	cbm5x0ui.$(OBJEXT) cbmcharsets.$(OBJEXT) console.$(OBJEXT) \
+	grabkey.$(OBJEXT) joy.$(OBJEXT) kbd.$(OBJEXT) \
+	lightpendrv.$(OBJEXT) menudefs.$(OBJEXT) mousedrv.$(OBJEXT) \
+	msdosmain.$(OBJEXT) petui.$(OBJEXT) plus4ui.$(OBJEXT) \
+	rawnetarch.$(OBJEXT) scpu64ui.$(OBJEXT) signals.$(OBJEXT) \
+	statusbar.$(OBJEXT) tui.$(OBJEXT) tui_backend.$(OBJEXT) \
 	tuicharset.$(OBJEXT) tuiimagebrowser.$(OBJEXT) tuifs.$(OBJEXT) \
 	tuimenu.$(OBJEXT) tuiview.$(OBJEXT) ui.$(OBJEXT) \
 	uiattach.$(OBJEXT) uiburstmod.$(OBJEXT) uic64cart.$(OBJEXT) \
 	uic64dtv.$(OBJEXT) uic64dtvmodel.$(OBJEXT) \
 	uic64memoryhacks.$(OBJEXT) uic64model.$(OBJEXT) \
-	uic128model.$(OBJEXT) uicbm2model.$(OBJEXT) \
-	uicbm5x0model.$(OBJEXT) uiciamodel.$(OBJEXT) \
-	uicmdline.$(OBJEXT) uidigimax.$(OBJEXT) uidqbb.$(OBJEXT) \
-	uidrive.$(OBJEXT) uidrivec128.$(OBJEXT) uidrivec64.$(OBJEXT) \
-	uidrivec64dtv.$(OBJEXT) uidriveieee.$(OBJEXT) \
-	uidriveplus4.$(OBJEXT) uidrivevic20.$(OBJEXT) \
-	uids12c887rtc.$(OBJEXT) uieasyflash.$(OBJEXT) \
-	uiexpert.$(OBJEXT) uigeoram.$(OBJEXT) uiide64.$(OBJEXT) \
-	uiisepic.$(OBJEXT) uijoyport.$(OBJEXT) uijoystick.$(OBJEXT) \
+	uic64scmodel.$(OBJEXT) uic128model.$(OBJEXT) \
+	uicbm2model.$(OBJEXT) uicbm5x0model.$(OBJEXT) \
+	uiciamodel.$(OBJEXT) uicmdline.$(OBJEXT) uidigimax.$(OBJEXT) \
+	uidqbb.$(OBJEXT) uidrive.$(OBJEXT) uidrivec128.$(OBJEXT) \
+	uidrivec64.$(OBJEXT) uidrivec64dtv.$(OBJEXT) \
+	uidriveieee.$(OBJEXT) uidriveplus4.$(OBJEXT) \
+	uidrivevic20.$(OBJEXT) uids12c887rtc.$(OBJEXT) \
+	uieasyflash.$(OBJEXT) uiethernetcart.$(OBJEXT) \
+	uiexpert.$(OBJEXT) uigeoram.$(OBJEXT) uigmod2.$(OBJEXT) \
+	uiide64.$(OBJEXT) uiiocollisions.$(OBJEXT) uiisepic.$(OBJEXT) \
+	uijoyport.$(OBJEXT) uijoystick.$(OBJEXT) uikeymap.$(OBJEXT) \
 	uimagicvoice.$(OBJEXT) uimon.$(OBJEXT) uimmc64.$(OBJEXT) \
 	uimmcreplay.$(OBJEXT) uinetplay.$(OBJEXT) \
 	uiperipherial.$(OBJEXT) uipetmodel.$(OBJEXT) \
 	uipetdww.$(OBJEXT) uipethre.$(OBJEXT) uipetreu.$(OBJEXT) \
-	uiplus4cart.$(OBJEXT) uiplus4model.$(OBJEXT) \
-	uiprinter.$(OBJEXT) uiramcart.$(OBJEXT) \
-	uiretroreplay.$(OBJEXT) uireu.$(OBJEXT) uiscpu64.$(OBJEXT) \
-	uiscpu64model.$(OBJEXT) uiscreenshot.$(OBJEXT) \
-	uisidc64.$(OBJEXT) uisidc128.$(OBJEXT) uisidcart.$(OBJEXT) \
-	uisidcbm2.$(OBJEXT) uisiddtv.$(OBJEXT) uisnapshot.$(OBJEXT) \
-	uisound.$(OBJEXT) uisoundexpander.$(OBJEXT) \
-	uisoundsampler.$(OBJEXT) uitfe.$(OBJEXT) \
+	uiplus4cart.$(OBJEXT) uiplus4memoryhacks.$(OBJEXT) \
+	uiplus4model.$(OBJEXT) uiprinter.$(OBJEXT) uiramcart.$(OBJEXT) \
+	uiretroreplay.$(OBJEXT) uireu.$(OBJEXT) uirrnetmk3.$(OBJEXT) \
+	uisampler.$(OBJEXT) uiscpu64.$(OBJEXT) uiscpu64model.$(OBJEXT) \
+	uiscreenshot.$(OBJEXT) uisidc64.$(OBJEXT) uisidc128.$(OBJEXT) \
+	uisidcart.$(OBJEXT) uisidcbm2.$(OBJEXT) uisiddtv.$(OBJEXT) \
+	uisnapshot.$(OBJEXT) uisound.$(OBJEXT) \
+	uisoundexpander.$(OBJEXT) uisoundsampler.$(OBJEXT) \
+	uiss5.$(OBJEXT) uitapeport.$(OBJEXT) uiuserport.$(OBJEXT) \
 	uiv364speech.$(OBJEXT) uivic20model.$(OBJEXT) \
 	uivideo.$(OBJEXT) vic20ui.$(OBJEXT) video.$(OBJEXT) \
 	vsidui.$(OBJEXT) vsync.$(OBJEXT)
@@ -146,6 +148,7 @@ EGREP = @EGREP@
 ENABLE_ARCH = @ENABLE_ARCH@
 EXEEXT = @EXEEXT@
 FCCACHE = @FCCACHE@
+FFMPEGSUB = @FFMPEGSUB@
 FFMPEG_AVRESAMPLE_CFLAGS = @FFMPEG_AVRESAMPLE_CFLAGS@
 FFMPEG_AVRESAMPLE_LIBS = @FFMPEG_AVRESAMPLE_LIBS@
 FFMPEG_AV_CFLAGS = @FFMPEG_AV_CFLAGS@
@@ -162,6 +165,8 @@ FULLSCREEN_DRIVERS = @FULLSCREEN_DRIVERS@
 GENCAT = @GENCAT@
 GFXOUTPUT_DRIVERS = @GFXOUTPUT_DRIVERS@
 GFXOUTPUT_LIBS = @GFXOUTPUT_LIBS@
+GLIB_CFLAGS = @GLIB_CFLAGS@
+GLIB_LIBS = @GLIB_LIBS@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
 GREP = @GREP@
@@ -189,8 +194,10 @@ LDFLAGS = @LDFLAGS@
 LEX = @LEX@
 LEXLIB = @LEXLIB@
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
+LIBFFMPEGSUB = @LIBFFMPEGSUB@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
+LIBX264SUB = @LIBX264SUB@
 LINKCC = @LINKCC@
 LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
@@ -199,6 +206,7 @@ MAKEINFO = @MAKEINFO@
 MAKERTF = @MAKERTF@
 MAX_INLINE_INSN_SINGLE = @MAX_INLINE_INSN_SINGLE@
 MKDIR_P = @MKDIR_P@
+MKFONTDIR_BIN = @MKFONTDIR_BIN@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MSGFMT = @MSGFMT@
 NATIVE_TOOLS_COMPILER = @NATIVE_TOOLS_COMPILER@
@@ -222,6 +230,8 @@ PDFTEX = @PDFTEX@
 PERL = @PERL@
 PKG_CONFIG = @PKG_CONFIG@
 PLATFORM_DOX_FLAGS = @PLATFORM_DOX_FLAGS@
+PNG_CFLAGS = @PNG_CFLAGS@
+PNG_LIBS = @PNG_LIBS@
 POFILES = @POFILES@
 POSUB = @POSUB@
 QUICKTIME_INCLUDES = @QUICKTIME_INCLUDES@
@@ -240,6 +250,7 @@ RESID_DTV_LIBS = @RESID_DTV_LIBS@
 RESID_INCLUDES = @RESID_INCLUDES@
 RESID_LIBS = @RESID_LIBS@
 SDL_EXTRA_LIBS = @SDL_EXTRA_LIBS@
+SDL_VERSION = @SDL_VERSION@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 SOUND_AIX_OBJ = @SOUND_AIX_OBJ@
@@ -318,6 +329,7 @@ datarootdir = @datarootdir@
 docdir = @docdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
+ffmpeg_have_bash = @ffmpeg_have_bash@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
@@ -366,6 +378,7 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/vdrive \
 	-I$(top_srcdir)/src/raster \
 	-I$(top_srcdir)/src/c64 \
+	-I$(top_srcdir)/src/c64/cart \
 	-I$(top_srcdir)/src/c64dtv \
 	-I$(top_srcdir)/src/c128 \
 	-I$(top_srcdir)/src/cbm2 \
@@ -377,6 +390,7 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/lib/p64 \
 	-I$(top_srcdir)/src/platform \
 	-I$(top_srcdir)/src/joyport \
+	-I$(top_srcdir)/src/samplerdrv \
 	-I$(top_srcdir)/src/imagecontents
 
 libarch_a_DEPENDENCIES = @DOS_TFE_PCAP_LIB@
@@ -387,7 +401,6 @@ libarch_a_SOURCES = \
 	c128ui.c \
 	c64ui.c \
 	c64dtvui.c \
-	catweaselmkiii.c \
 	cbm2ui.c \
 	cbm5x0ui.c \
 	cbmcharsets.c \
@@ -395,7 +408,6 @@ libarch_a_SOURCES = \
 	console.c \
 	grabkey.c \
 	grabkey.h \
-	hardsid.c \
 	joy.c \
 	joy.h \
 	kbd.c \
@@ -407,15 +419,13 @@ libarch_a_SOURCES = \
 	mousedrv.c \
 	mousedrv.h \
 	msdosmain.c \
-	parsid.c \
 	petui.c \
 	plus4ui.c \
+	rawnetarch.c \
 	scpu64ui.c \
 	signals.c \
-	socketimpl.h \
 	statusbar.c \
 	statusbar.h \
-	rawnetarch.c \
 	tui.c \
 	tui.h \
 	tui_backend.c \
@@ -447,6 +457,8 @@ libarch_a_SOURCES = \
 	uic64memoryhacks.h \
 	uic64model.c \
 	uic64model.h \
+	uic64scmodel.c \
+	uic64scmodel.h \
 	uic128model.c \
 	uic128model.h \
 	uicbm2model.c \
@@ -472,18 +484,26 @@ libarch_a_SOURCES = \
 	uids12c887rtc.h \
 	uieasyflash.c \
 	uieasyflash.h \
+	uiethernetcart.c \
+	uiethernetcart.h \
 	uiexpert.c \
 	uiexpert.h \
 	uigeoram.c \
 	uigeoram.h \
+	uigmod2.c \
+	uigmod2.h \
 	uiide64.c \
 	uiide64.h \
+	uiiocollisions.c \
+	uiiocollisions.h \
 	uiisepic.c \
 	uiisepic.h \
 	uijoyport.c \
 	uijoyport.h \
 	uijoystick.c \
 	uijoystick.h \
+	uikeymap.c \
+	uikeymap.h \
 	uimagicvoice.c \
 	uimagicvoice.h \
 	uimon.c \
@@ -505,6 +525,8 @@ libarch_a_SOURCES = \
 	uipetreu.h \
 	uiplus4cart.c \
 	uiplus4cart.h \
+	uiplus4memoryhacks.c \
+	uiplus4memoryhacks.h \
 	uiplus4model.c \
 	uiplus4model.h \
 	uiprinter.c \
@@ -515,6 +537,10 @@ libarch_a_SOURCES = \
 	uiretroreplay.h \
 	uireu.c \
 	uireu.h \
+	uirrnetmk3.c \
+	uirrnetmk3.h \
+	uisampler.c \
+	uisampler.h \
 	uiscpu64.c \
 	uiscpu64.h \
 	uiscpu64model.c \
@@ -540,8 +566,12 @@ libarch_a_SOURCES = \
 	uisoundexpander.h \
 	uisoundsampler.c \
 	uisoundsampler.h \
-	uitfe.c \
-	uitfe.h \
+	uiss5.c \
+	uiss5.h \
+	uitapeport.c \
+	uitapeport.h \
+	uiuserport.c \
+	uiuserport.h \
 	uiv364speech.c \
 	uiv364speech.h \
 	uivic20model.c \
@@ -611,20 +641,17 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/c128ui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/c64dtvui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/c64ui.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/catweaselmkiii.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cbm2ui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cbm5x0ui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cbmcharsets.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/console.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/grabkey.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hardsid.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/joy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/kbd.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lightpendrv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/menudefs.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mousedrv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/msdosmain.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/parsid.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/petui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plus4ui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rawnetarch.Po@am__quote@
@@ -647,6 +674,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uic64dtvmodel.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uic64memoryhacks.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uic64model.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uic64scmodel.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uicbm2model.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uicbm5x0model.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiciamodel.Po@am__quote@
@@ -662,12 +690,16 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uidrivevic20.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uids12c887rtc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uieasyflash.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiethernetcart.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiexpert.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uigeoram.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uigmod2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiide64.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiiocollisions.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiisepic.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uijoyport.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uijoystick.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uikeymap.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uimagicvoice.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uimmc64.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uimmcreplay.Po@am__quote@
@@ -679,11 +711,14 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uipetmodel.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uipetreu.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiplus4cart.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiplus4memoryhacks.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiplus4model.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiprinter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiramcart.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiretroreplay.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uireu.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uirrnetmk3.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uisampler.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiscpu64.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiscpu64model.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiscreenshot.Po@am__quote@
@@ -696,7 +731,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uisound.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uisoundexpander.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uisoundsampler.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uitfe.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiss5.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uitapeport.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiuserport.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiv364speech.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uivic20model.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uivideo.Po@am__quote@

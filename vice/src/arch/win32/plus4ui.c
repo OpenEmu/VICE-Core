@@ -5,6 +5,7 @@
  *  Andreas Boose <viceteam@t-online.de>
  *  Ettore Perazzoli <ettore@comm2000.it>
  *  Tibor Biczo <crown@axelero.hu>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -38,17 +39,23 @@
 #include "translate.h"
 #include "ui.h"
 #include "uiacia.h"
+#include "uicpclockf83.h"
 #include "uidriveplus4.h"
+#include "uiiocollisions.h"
 #include "uijoyport.h"
 #include "uijoystick.h"
 #include "uikeyboard.h"
+#include "uikeymap.h"
 #include "uilib.h"
 #include "uimouse.h"
 #include "uiplus4cart.h"
 #include "uiplus4mem.h"
+#include "uiplus4memoryhacks.h"
 #include "uiplus4model.h"
 #include "uirom.h"
+#include "uisampler.h"
 #include "uisidcart.h"
+#include "uitapelog.h"
 #include "uited.h"
 #include "uiv364speech.h"
 #include "uivideo.h"
@@ -59,6 +66,10 @@ static const ui_menu_toggle_t plus4_ui_menu_toggles[] = {
     { "CartridgeReset", IDM_TOGGLE_CART_RESET },
     { "DIGIBLASTER", IDM_TOGGLE_DIGIBLASTER },
     { "Mouse", IDM_MOUSE },
+    { "UserportDAC", IDM_TOGGLE_PET_USERPORT_DAC },
+    { "Datasette", IDM_TOGGLE_DATASETTE },
+    { "TapeSenseDongle", IDM_TOGGLE_TAPE_SENSE_DONGLE },
+    { "DTLBasicDongle", IDM_TOGGLE_DTL_BASIC_DONGLE },
     { NULL, 0 }
 };
 
@@ -96,88 +107,12 @@ static const ui_res_value_list_t plus4_ui_res_values[] = {
     { NULL, NULL, 0 }
 };
 
-/* FIXME: the keyboard selection dialog can be made generic */
-#define PLUS4UI_KBD_NUM_MAP 4
-
-static const uikeyboard_mapping_entry_t mapping_entry[PLUS4UI_KBD_NUM_MAP] = {
-    { IDC_PLUS4KBD_MAPPING_SELECT_SYM, IDC_PLUS4KBD_MAPPING_SYM,
-      IDC_PLUS4KBD_MAPPING_SYM_BROWSE, "KeymapSymFile" },
-    { IDC_PLUS4KBD_MAPPING_SELECT_POS, IDC_PLUS4KBD_MAPPING_POS,
-      IDC_PLUS4KBD_MAPPING_POS_BROWSE, "KeymapPosFile" },
-    { IDC_PLUS4KBD_MAPPING_SELECT_USERSYM, IDC_PLUS4KBD_MAPPING_USERSYM,
-      IDC_PLUS4KBD_MAPPING_USERSYM_BROWSE, "KeymapUserSymFile" },
-    { IDC_PLUS4KBD_MAPPING_SELECT_USERPOS, IDC_PLUS4KBD_MAPPING_USERPOS,
-      IDC_PLUS4KBD_MAPPING_USERPOS_BROWSE, "KeymapUserPosFile" },
-};
-
-static uilib_localize_dialog_param plus4_kbd_trans[] = {
-    { IDC_PLUS4KBD_MAPPING_SELECT_SYM, IDS_SYMBOLIC, 0 },
-    { IDC_PLUS4KBD_MAPPING_SELECT_POS, IDS_POSITIONAL, 0 },
-    { IDC_PLUS4KBD_MAPPING_SELECT_USERSYM, IDS_SYMBOLIC, 0 },
-    { IDC_PLUS4KBD_MAPPING_SELECT_USERPOS, IDS_POSITIONAL, 0 },
-    { IDC_PLUS4KBD_MAPPING_SYM_BROWSE, IDS_BROWSE, 0 },
-    { IDC_PLUS4KBD_MAPPING_POS_BROWSE, IDS_BROWSE, 0 },
-    { IDC_PLUS4KBD_MAPPING_USERSYM_BROWSE, IDS_BROWSE, 0 },
-    { IDC_PLUS4KBD_MAPPING_USERPOS_BROWSE, IDS_BROWSE, 0 },
-    { IDC_PLUS4KBD_MAPPING_DUMP, IDS_DUMP_KEYSET, 0 },
-    { IDC_KBD_SHORTCUT_DUMP, IDS_DUMP_SHORTCUTS, 0 },
-    { 0, 0, 0 }
-};
-
-static uilib_dialog_group plus4_kbd_left_group[] = {
-    { IDC_PLUS4KBD_MAPPING_SELECT_SYM, 1 },
-    { IDC_PLUS4KBD_MAPPING_SELECT_POS, 1 },
-    { IDC_PLUS4KBD_MAPPING_SELECT_USERSYM, 1 },
-    { IDC_PLUS4KBD_MAPPING_SELECT_USERPOS, 1 },
-    { 0, 0 }
-};
-
-static uilib_dialog_group plus4_kbd_middle_group[] = {
-    { IDC_PLUS4KBD_MAPPING_SYM, 0 },
-    { IDC_PLUS4KBD_MAPPING_POS, 0 },
-    { IDC_PLUS4KBD_MAPPING_USERSYM, 0 },
-    { IDC_PLUS4KBD_MAPPING_USERPOS, 0 },
-    { 0, 0 }
-};
-
-static uilib_dialog_group plus4_kbd_right_group[] = {
-    { IDC_PLUS4KBD_MAPPING_SYM_BROWSE, 0 },
-    { IDC_PLUS4KBD_MAPPING_POS_BROWSE, 0 },
-    { IDC_PLUS4KBD_MAPPING_USERSYM_BROWSE, 0 },
-    { IDC_PLUS4KBD_MAPPING_USERPOS_BROWSE, 0 },
-    { 0, 0 }
-};
-
-static uilib_dialog_group plus4_kbd_buttons_group[] = {
-    { IDC_PLUS4KBD_MAPPING_DUMP, 1 },
-    { IDC_KBD_SHORTCUT_DUMP, 1 },
-    { 0, 0 }
-};
-
-static int plus4_kbd_move_buttons_group[] = {
-    IDC_PLUS4KBD_MAPPING_DUMP,
-    IDC_KBD_SHORTCUT_DUMP,
-    0
-};
-
-static uikeyboard_config_t uikeyboard_config = {
-    IDD_PLUS4KBD_MAPPING_SETTINGS_DIALOG,
-    PLUS4UI_KBD_NUM_MAP,
-    mapping_entry,
-    IDC_PLUS4KBD_MAPPING_DUMP,
-    plus4_kbd_trans,
-    plus4_kbd_left_group,
-    plus4_kbd_middle_group,
-    plus4_kbd_right_group,
-    plus4_kbd_buttons_group,
-    plus4_kbd_move_buttons_group
-};
-
 ui_menu_translation_table_t plus4ui_menu_translation_table[] = {
     { IDM_EXIT, IDS_MI_EXIT },
     { IDM_ABOUT, IDS_MI_ABOUT },
     { IDM_HELP, IDS_MP_HELP },
     { IDM_PAUSE, IDS_MI_PAUSE },
+    { IDM_SINGLE_FRAME_ADVANCE, IDS_MI_SINGLE_FRAME_ADVANCE },
     { IDM_EDIT_COPY, IDS_MI_EDIT_COPY },
     { IDM_EDIT_PASTE, IDS_MI_EDIT_PASTE },
     { IDM_AUTOSTART, IDS_MI_AUTOSTART },
@@ -276,10 +211,12 @@ ui_menu_translation_table_t plus4ui_menu_translation_table[] = {
     { IDM_DEVICEMANAGER, IDS_MI_DEVICEMANAGER },
     { IDM_JOYPORT_SETTINGS, IDS_MI_JOYPORT_SETTINGS },
     { IDM_JOY_SETTINGS, IDS_MI_JOY_SETTINGS },
-    { IDM_EXTRA_JOY_SETTINGS, IDS_MI_SIDCART_JOY_SETTINGS },
+    { IDM_EXTRA_JOY_SETTINGS, IDS_MI_USERPORT_JOY_SETTINGS },
+    { IDM_SIDCART_JOY_SETTINGS, IDS_MI_SIDCART_JOY_SETTINGS },
     { IDM_KEYBOARD_SETTINGS, IDS_MI_KEYBOARD_SETTINGS },
     { IDM_MOUSE_SETTINGS, IDS_MI_MOUSE_SETTINGS },
     { IDM_SOUND_SETTINGS, IDS_MI_SOUND_SETTINGS },
+    { IDM_SAMPLER_SETTINGS, IDS_MI_SAMPLER_SETTINGS },
     { IDM_ROM_SETTINGS, IDS_MI_ROM_SETTINGS },
     { IDM_RAM_SETTINGS, IDS_MI_RAM_SETTINGS },
     { IDM_DATASETTE_SETTINGS, IDS_MI_DATASETTE_SETTINGS },
@@ -315,10 +252,18 @@ ui_menu_translation_table_t plus4ui_menu_translation_table[] = {
 #ifdef HAVE_D3D9_H
     { IDM_TOGGLE_FULLSCREEN, IDS_MI_TOGGLE_FULLSCREEN },
 #endif
+    { IDM_PLUS4_MEMORY_HACKS_SETTINGS, IDS_MI_PLUS4_MEMORY_HACKS_SETTINGS },
     { IDM_SIDCART_SETTINGS, IDS_MI_SIDCART_SETTINGS },
     { IDM_PLUS4_SETTINGS, IDS_MI_PLUS4_SETTINGS },
     { IDM_NETWORK_SETTINGS, IDS_MI_NETWORK_SETTINGS },
     { IDM_TOGGLE_DIGIBLASTER, IDS_MI_TOGGLE_DIGIBLASTER },
+    { IDM_TOGGLE_PET_USERPORT_DAC, IDS_MI_TOGGLE_PET_USERPORT_DAC },
+    { IDM_TAPELOG_SETTINGS, IDS_MI_TAPELOG_SETTINGS },
+    { IDM_CP_CLOCK_F83_SETTINGS, IDS_MI_CP_CLOCK_F83_SETTINGS },
+    { IDM_TOGGLE_DATASETTE, IDS_MI_TOGGLE_DATASETTE },
+    { IDM_TOGGLE_TAPE_SENSE_DONGLE, IDS_MI_TOGGLE_TAPE_SENSE_DONGLE },
+    { IDM_TOGGLE_DTL_BASIC_DONGLE, IDS_MI_TOGGLE_DTL_BASIC_DONGLE },
+    { IDM_IO_COLLISION_HANDLING, IDS_MI_IO_COLLISION_HANDLING },
     { 0, 0 }
 };
 
@@ -348,6 +293,8 @@ ui_popup_translation_table_t plus4ui_popup_translation_table[] = {
     { 2, IDS_MP_MOUSE_SETTINGS, NULL },
     { 2, IDS_MP_VIDEO_STANDARD, NULL },
     { 2, IDS_MP_CARTRIDGE_IO_SETTINGS, NULL },
+    { 3, IDS_MP_USERPORT_DEVICES, NULL },
+    { 3, IDS_MP_TAPEPORT_DEVICES, NULL },
     { 2, IDS_MP_RS232_SETTINGS, NULL },
     { 1, IDS_MP_LANGUAGE, NULL },
     { 1, IDS_MP_HELP, NULL },
@@ -443,15 +390,15 @@ static uilib_dialog_group plus4_drive_right_group[] = {
 };
 
 static generic_trans_table_t plus4_generic_trans[] = {
-    { IDC_1540, "1540" },
-    { IDC_1541, "1541" },
-    { IDC_1541_II, "1541-II" },
-    { IDC_1551, "1551" },
-    { IDC_1570, "1570" },
-    { IDC_1571, "1571" },
-    { IDC_1581, "1581" },
-    { IDC_2000, "2000" },
-    { IDC_4000, "4000" },
+    { IDC_1540,    TEXT("1540") },
+    { IDC_1541,    TEXT("1541") },
+    { IDC_1541_II, TEXT("1541-II") },
+    { IDC_1551,    TEXT("1551") },
+    { IDC_1570,    TEXT("1570") },
+    { IDC_1571,    TEXT("1571") },
+    { IDC_1581,    TEXT("1581") },
+    { IDC_2000,    TEXT("2000") },
+    { IDC_4000,    TEXT("4000") },
     { 0, NULL }
 };
 
@@ -473,13 +420,16 @@ static void plus4_ui_specific(WPARAM wparam, HWND hwnd)
             ui_v364speech_settings_dialog(hwnd);
             break;
         case IDM_JOYPORT_SETTINGS:
-            ui_joyport_settings_dialog(hwnd, 1, 1, 1, 0);
+            ui_joyport_settings_dialog(hwnd, 1, 1, 1, 1, 1);
             break;
         case IDM_JOY_SETTINGS:
             ui_joystick_settings_dialog(hwnd);
             break;
         case IDM_EXTRA_JOY_SETTINGS:
             ui_extra_joystick_settings_dialog(hwnd);
+            break;
+        case IDM_SIDCART_JOY_SETTINGS:
+            ui_sidcart_joystick_settings_dialog(hwnd);
             break;
         case IDM_ROM_SETTINGS:
             uirom_settings_dialog(hwnd, IDD_PLUS4ROM_SETTINGS_DIALOG, IDD_PLUS4DRIVEROM_SETTINGS_DIALOG,
@@ -501,10 +451,25 @@ static void plus4_ui_specific(WPARAM wparam, HWND hwnd)
             ui_sidcart_settings_dialog(hwnd);
             break;
         case IDM_KEYBOARD_SETTINGS:
-            uikeyboard_settings_dialog(hwnd, &uikeyboard_config);
+            ui_keymap_settings_dialog(hwnd);
             break;
         case IDM_MOUSE_SETTINGS:
             ui_mouse_settings_dialog(hwnd, 1);
+            break;
+        case IDM_PLUS4_MEMORY_HACKS_SETTINGS:
+            ui_plus4_memory_hacks_settings_dialog(hwnd);
+            break;
+        case IDM_SAMPLER_SETTINGS:
+            ui_sampler_settings_dialog(hwnd);
+            break;
+        case IDM_TAPELOG_SETTINGS:
+            ui_tapelog_settings_dialog(hwnd);
+            break;
+        case IDM_CP_CLOCK_F83_SETTINGS:
+            ui_cp_clock_f83_settings_dialog(hwnd);
+            break;
+        case IDM_IO_COLLISION_HANDLING:
+            ui_iocollision_settings_dialog(hwnd);
             break;
     }
 }

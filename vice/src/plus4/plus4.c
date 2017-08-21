@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -31,10 +32,17 @@
 
 #include "attach.h"
 #include "autostart.h"
+#include "bbrtc.h"
+#include "cardkey.h"
+#include "cartio.h"
 #include "cartridge.h"
 #include "clkguard.h"
+#include "coplin_keypad.h"
+#include "cx21.h"
+#include "cx85.h"
 #include "datasette.h"
 #include "debug.h"
+#include "debugcart.h"
 #include "digiblaster.h"
 #include "diskimage.h"
 #include "drive-cmdline-options.h"
@@ -47,6 +55,7 @@
 #include "imagecontents.h"
 #include "init.h"
 #include "joyport.h"
+#include "joystick.h"
 #include "kbdbuf.h"
 #include "keyboard.h"
 #include "log.h"
@@ -58,6 +67,7 @@
 #include "maincpu.h"
 #include "monitor.h"
 #include "network.h"
+#include "paperclip64.h"
 #include "plus4-cmdline-options.h"
 #include "plus4-resources.h"
 #include "plus4-snapshot.h"
@@ -73,8 +83,10 @@
 #include "plus4ui.h"
 #include "printer.h"
 #include "rs232drv.h"
+#include "rushware_keypad.h"
 #include "sampler.h"
 #include "sampler2bit.h"
+#include "sampler4bit.h"
 #include "screenshot.h"
 #include "serial.h"
 #include "sid.h"
@@ -83,6 +95,7 @@
 #include "sid-resources.h"
 #include "sound.h"
 #include "tape.h"
+#include "tapeport.h"
 #include "ted-cmdline-options.h"
 #include "ted-resources.h"
 #include "ted-sound.h"
@@ -90,6 +103,9 @@
 #include "translate.h"
 #include "traps.h"
 #include "types.h"
+#include "userport.h"
+#include "userport_dac.h"
+#include "userport_joystick.h"
 #include "vice-event.h"
 #include "video.h"
 #include "video-sound.h"
@@ -290,7 +306,24 @@ static joyport_port_props_t control_port_2 =
     1					/* port is always active */
 };
 
-/* for now this part is commented, but will be used soon */
+static joyport_port_props_t userport_joy_control_port_1 = 
+{
+    "Userport joystick adapter port 1",
+    IDGS_USERPORT_JOY_ADAPTER_PORT_1,
+    0,				/* has NO potentiometer connected to this port */
+    0,				/* has NO lightpen support on this port */
+    0					/* port can be switched on/off */
+};
+
+static joyport_port_props_t userport_joy_control_port_2 = 
+{
+    "Userport joystick adapter port 2",
+    IDGS_USERPORT_JOY_ADAPTER_PORT_2,
+    0,				/* has NO potentiometer connected to this port */
+    0,				/* has NO lightpen support on this port */
+    0					/* port can be switched on/off */
+};
+
 static joyport_port_props_t sidcard_port = 
 {
     "SIDCard control port",
@@ -305,7 +338,13 @@ static int init_joyport_ports(void)
     if (joyport_port_register(JOYPORT_1, &control_port_1) < 0) {
         return -1;
     }
-    if (joyport_port_register(JOYPORT_3, &sidcard_port) < 0) {
+    if (joyport_port_register(JOYPORT_3, &userport_joy_control_port_1) < 0) {
+        return -1;
+    }
+    if (joyport_port_register(JOYPORT_4, &userport_joy_control_port_2) < 0) {
+        return -1;
+    }
+    if (joyport_port_register(JOYPORT_5, &sidcard_port) < 0) {
         return -1;
     }
     return joyport_port_register(JOYPORT_2, &control_port_2);
@@ -325,6 +364,10 @@ int machine_resources_init(void)
     }
     if (ted_resources_init() < 0) {
         init_resource_fail("ted");
+        return -1;
+    }
+    if (cartio_resources_init() < 0) {
+        init_resource_fail("cartio");
         return -1;
     }
     if (cartridge_resources_init() < 0) {
@@ -378,8 +421,52 @@ int machine_resources_init(void)
         init_resource_fail("joyport 2bit sampler");
         return -1;
     }
+    if (joyport_sampler4bit_resources_init() < 0) {
+        init_resource_fail("joyport 4bit sampler");
+        return -1;
+    }
+    if (joyport_bbrtc_resources_init() < 0) {
+        init_resource_fail("joyport bbrtc");
+        return -1;
+    }
+    if (joyport_paperclip64_resources_init() < 0) {
+        init_resource_fail("joyport paperclip64 dongle");
+        return -1;
+    }
+    if (joyport_coplin_keypad_resources_init() < 0) {
+        init_resource_fail("joyport coplin keypad");
+        return -1;
+    }
+    if (joyport_cx21_resources_init() < 0) {
+        init_resource_fail("joyport cx21 keypad");
+        return -1;
+    }
+    if (joyport_cx85_resources_init() < 0) {
+        init_resource_fail("joyport cx85 keypad");
+        return -1;
+    }
+    if (joyport_rushware_keypad_resources_init() < 0) {
+        init_resource_fail("joyport rushware keypad");
+        return -1;
+    }
+    if (joyport_cardkey_resources_init() < 0) {
+        init_resource_fail("joyport cardkey keypad");
+        return -1;
+    }
     if (joystick_resources_init() < 0) {
         init_resource_fail("joystick");
+        return -1;
+    }
+    if (userport_resources_init() < 0) {
+        init_resource_fail("userport devices");
+        return -1;
+    }
+    if (userport_joystick_resources_init() < 0) {
+        init_resource_fail("userport joystick");
+        return -1;
+    }
+    if (userport_dac_resources_init() < 0) {
+        init_resource_fail("userport dac");
         return -1;
     }
     if (gfxoutput_resources_init() < 0) {
@@ -447,8 +534,16 @@ int machine_resources_init(void)
         init_resource_fail("drive");
         return -1;
     }
+    if (tapeport_resources_init() < 0) {
+        init_resource_fail("tapeport");
+        return -1;
+    }
     if (datasette_resources_init() < 0) {
         init_resource_fail("datasette");
+        return -1;
+    }
+    if (debugcart_resources_init() < 0) {
+        init_resource_fail("debug cart");
         return -1;
     }
     return 0;
@@ -466,6 +561,11 @@ void machine_resources_shutdown(void)
     fsdevice_resources_shutdown();
     disk_image_resources_shutdown();
     sampler_resources_shutdown();
+    cartio_shutdown();
+    userport_resources_shutdown();
+    joyport_bbrtc_resources_shutdown();
+    tapeport_resources_shutdown();
+    debugcart_resources_shutdown();
 }
 
 /* Plus4-specific command-line option initialization.  */
@@ -481,6 +581,10 @@ int machine_cmdline_options_init(void)
     }
     if (ted_cmdline_options_init() < 0) {
         init_cmdline_options_fail("ted");
+        return -1;
+    }
+    if (cartio_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("cartio");
         return -1;
     }
     if (cartridge_cmdline_options_init() < 0) {
@@ -526,8 +630,24 @@ int machine_cmdline_options_init(void)
         init_cmdline_options_fail("joyport");
         return -1;
     }
+    if (joyport_bbrtc_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("bbrtc");
+        return -1;
+    }
     if (joystick_cmdline_options_init() < 0) {
         init_cmdline_options_fail("joystick");
+        return -1;
+    }
+    if (userport_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("userport");
+        return -1;
+    }
+    if (userport_joystick_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("userport joystick");
+        return -1;
+    }
+    if (userport_dac_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("userport dac");
         return -1;
     }
     if (gfxoutput_cmdline_options_init() < 0) {
@@ -594,8 +714,16 @@ int machine_cmdline_options_init(void)
         init_cmdline_options_fail("drive");
         return -1;
     }
+    if (tapeport_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("tapeport");
+        return -1;
+    }
     if (datasette_cmdline_options_init() < 0) {
         init_cmdline_options_fail("datasette");
+        return -1;
+    }
+    if (debugcart_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("debug cart");
         return -1;
     }
     return 0;
@@ -646,10 +774,6 @@ int machine_specific_init(void)
     /* Setup trap handling.  */
     traps_init();
 
-    if (!video_disabled_mode) {
-        joystick_init();
-    }
-
     gfxoutput_init();
 
 #ifdef HAVE_MOUSE
@@ -686,7 +810,7 @@ int machine_specific_init(void)
     if (delay == 0) {
         delay = 2; /* default */
     }
-    autostart_init((CLOCK)(delay * PLUS4_PAL_RFSH_PER_SEC * PLUS4_PAL_CYCLES_PER_RFSH), 0, 0, 0xc8, 0xca, -40);
+    autostart_init((CLOCK)(delay * PLUS4_PAL_RFSH_PER_SEC * PLUS4_PAL_CYCLES_PER_RFSH), 1, 0, 0xc8, 0xca, -40);
 
     /* Initialize the sidcart first */
     sidcart_sound_chip_init();
@@ -697,6 +821,9 @@ int machine_specific_init(void)
     /* Initialize cartridge based sound chips */
     digiblaster_sound_chip_init();
     speech_sound_chip_init();
+
+    /* Initialize userport based sound chips */
+    userport_dac_sound_chip_init();
 
     drive_sound_init();
     video_sound_init();
@@ -734,7 +861,13 @@ int machine_specific_init(void)
     /* Initialize keyboard buffer.  */
     kbdbuf_init(1319, 239, 8, (CLOCK)(machine_timing.rfsh_per_sec * machine_timing.cycles_per_rfsh));
 
-    plus4ui_init();
+    if (!console_mode) {
+        plus4ui_init();
+    }
+
+    if (!video_disabled_mode) {
+        joystick_init();
+    }
 
     cs256k_init();
 
@@ -743,6 +876,9 @@ int machine_specific_init(void)
     plus4iec_init();
 
     machine_drive_stub();
+
+    /* Initialize the machine specific I/O */
+    plus4io_init();
 
 #if defined (USE_XF86_EXTENSIONS) && (defined(USE_XF86_VIDMODE_EXT) || defined (HAVE_XRANDR))
     {
@@ -779,6 +915,8 @@ void machine_specific_reset(void)
 
     drive_reset();
     datasette_reset();
+
+    sampler_reset();
 }
 
 void machine_specific_powerup(void)
@@ -800,7 +938,9 @@ void machine_specific_shutdown(void)
     mouse_shutdown();
 #endif
 
-    plus4ui_shutdown();
+    if (!console_mode) {
+        plus4ui_shutdown();
+    }
 }
 
 void machine_handle_pending_alarms(int num_write_cycles)
@@ -858,34 +998,8 @@ void machine_get_line_cycle(unsigned int *line, unsigned int *cycle, int *half_c
     *half_cycle = (int)-1;
 }
 
-void machine_change_timing(int timeval)
+void machine_change_timing(int timeval, int border_mode)
 {
-    int border_mode;
-
-    switch (timeval) {
-        default:
-        case MACHINE_SYNC_PAL ^ TED_BORDER_MODE(TED_NORMAL_BORDERS):
-        case MACHINE_SYNC_NTSC ^ TED_BORDER_MODE(TED_NORMAL_BORDERS):
-            timeval ^= TED_BORDER_MODE(TED_NORMAL_BORDERS);
-            border_mode = TED_NORMAL_BORDERS;
-            break;
-        case MACHINE_SYNC_PAL ^ TED_BORDER_MODE(TED_FULL_BORDERS):
-        case MACHINE_SYNC_NTSC ^ TED_BORDER_MODE(TED_FULL_BORDERS):
-            timeval ^= TED_BORDER_MODE(TED_FULL_BORDERS);
-            border_mode = TED_FULL_BORDERS;
-            break;
-        case MACHINE_SYNC_PAL ^ TED_BORDER_MODE(TED_DEBUG_BORDERS):
-        case MACHINE_SYNC_NTSC ^ TED_BORDER_MODE(TED_DEBUG_BORDERS):
-            timeval ^= TED_BORDER_MODE(TED_DEBUG_BORDERS);
-            border_mode = TED_DEBUG_BORDERS;
-            break;
-        case MACHINE_SYNC_PAL ^ TED_BORDER_MODE(TED_NO_BORDERS):
-        case MACHINE_SYNC_NTSC ^ TED_BORDER_MODE(TED_NO_BORDERS):
-            timeval ^= TED_BORDER_MODE(TED_NO_BORDERS);
-            border_mode = TED_NO_BORDERS;
-            break;
-    }
-
     switch (timeval) {
         case MACHINE_SYNC_PAL:
             machine_timing.cycles_per_sec = PLUS4_PAL_CYCLES_PER_SEC;
@@ -986,10 +1100,31 @@ BYTE machine_tape_behaviour(void)
 int machine_addr_in_ram(unsigned int addr)
 {
     /* FIXME are these correct? */
-    return (addr < 0xe000 && !(addr >= 0xa000 && addr < 0xc000)) ? 1 : 0;
+    /* ROM is 8000-bfff
+     *        d000-fcff
+     *        fd00-     I/O
+     */
+    return ((addr < 0x8000) || (addr >= 0xc000 && addr <= 0xcfff)) ? 1 : 0;
 }
 
 const char *machine_get_name(void)
 {
     return machine_name;
+}
+
+/* ------------------------------------------------------------------------- */
+
+static userport_port_props_t userport_props = {
+    0, /* NO pa2 pin */
+    0, /* NO pa3 pin */
+    NULL, /* NO flag pin */
+    0, /* NO pc pin */
+    0  /* NO cnt1, cnt2 or sp pins */
+};
+
+int machine_register_userport(void)
+{
+    userport_port_register(&userport_props);
+
+    return 0;
 }

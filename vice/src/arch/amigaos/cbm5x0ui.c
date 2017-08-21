@@ -2,7 +2,7 @@
  * cbm5x0ui.c
  *
  * Written by
- *  Mathias Roslund <vice.emu@amidog.se>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -41,14 +41,20 @@
 #include "mui/uiacia.h"
 #include "mui/uicbm5x0settings.h"
 #include "mui/uiciamodel.h"
+#include "mui/uicpclockf83.h"
+#include "mui/uidatasette.h"
 #include "mui/uidrivepetcbm2.h"
+#include "mui/uiiocollisions.h"
 #include "mui/uijoyport.h"
 #include "mui/uijoystick.h"
 #include "mui/uijoystickll.h"
+#include "mui/uikeymap.h"
 #include "mui/uimouse.h"
 #include "mui/uiprinter.h"
 #include "mui/uiromcbm2settings.h"
+#include "mui/uisampler.h"
 #include "mui/uisid.h"
+#include "mui/uitapelog.h"
 #include "mui/uivideo.h"
 
 static const ui_menu_toggle_t cbm5x0_ui_menu_toggles[] = {
@@ -58,6 +64,8 @@ static const ui_menu_toggle_t cbm5x0_ui_menu_toggles[] = {
     { "VICIIAudioLeak", IDM_TOGGLE_AUDIO_LEAK },
     { "CartridgeReset", IDM_TOGGLE_CART_RESET },
     { "Mouse", IDM_MOUSE },
+    { "TapeSenseDongle", IDM_TOGGLE_TAPE_SENSE_DONGLE },
+    { "DTLBasicDongle", IDM_TOGGLE_DTL_BASIC_DONGLE },
     { NULL, 0 }
 };
 
@@ -144,7 +152,7 @@ static int cbm5x0_ui_specific(video_canvas_t *canvas, int idm)
             ui_acia_settings_dialog();
             break;
         case IDM_JOYPORT_SETTINGS:
-            ui_joyport_settings_dialog(1, 1, 0, 0);
+            ui_joyport_settings_dialog(1, 1, 0, 0, 0);
             break;
 #ifdef AMIGA_OS4
         case IDM_JOY_SETTINGS:
@@ -161,8 +169,23 @@ static int cbm5x0_ui_specific(video_canvas_t *canvas, int idm)
         case IDM_MOUSE_SETTINGS:
             ui_mouse_settings_dialog();
             break;
+        case IDM_SAMPLER_SETTINGS:
+            ui_sampler_settings_dialog(canvas);
+            break;
+        case IDM_IO_COLLISION_SETTINGS:
+            ui_iocollisions_settings_dialog();
+            break;
         case IDM_KEYBOARD_SETTINGS:
-//          uikeyboard_settings_dialog(hwnd, &uikeyboard_config);
+            ui_keymap_settings_dialog(canvas);
+            break;
+        case IDM_DATASETTE_SETTINGS:
+            ui_datasette_settings_dialog();
+            break;
+        case IDM_TAPELOG_SETTINGS:
+            ui_tapelog_settings_dialog(canvas);
+            break;
+        case IDM_CPCLOCKF83_SETTINGS:
+            ui_cpclockf83_settings_dialog();
             break;
     }
 

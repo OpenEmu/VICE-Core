@@ -54,17 +54,18 @@ am_libarch_a_OBJECTS = archdep.$(OBJEXT) blockdev.$(OBJEXT) \
 	cbm2ui.$(OBJEXT) cbm5x0ui.$(OBJEXT) console.$(OBJEXT) \
 	joy.$(OBJEXT) kbd.$(OBJEXT) mousedrv.$(OBJEXT) petui.$(OBJEXT) \
 	plus4ui.$(OBJEXT) scpu64ui.$(OBJEXT) signals.$(OBJEXT) \
-	statusbar.$(OBJEXT) ui.$(OBJEXT) ui_cbm2.$(OBJEXT) \
-	ui_cbm5x0.$(OBJEXT) ui_datasette.$(OBJEXT) ui_drive.$(OBJEXT) \
-	ui_device.$(OBJEXT) ui_file.$(OBJEXT) ui_ide64.$(OBJEXT) \
-	ui_joystick.$(OBJEXT) ui_netplay.$(OBJEXT) ui_pet.$(OBJEXT) \
-	ui_printer.$(OBJEXT) ui_ram.$(OBJEXT) ui_sid.$(OBJEXT) \
-	ui_sidcart.$(OBJEXT) ui_sound.$(OBJEXT) ui_ted.$(OBJEXT) \
-	ui_vic20.$(OBJEXT) ui_vic.$(OBJEXT) ui_vicii.$(OBJEXT) \
-	ui_video.$(OBJEXT) uicmdline.$(OBJEXT) uimon.$(OBJEXT) \
-	vic20ui.$(OBJEXT) viceapp.$(OBJEXT) vicemenu.$(OBJEXT) \
-	vicewindow.$(OBJEXT) video.$(OBJEXT) vsidui.$(OBJEXT) \
-	vsyncarch.$(OBJEXT)
+	statusbar.$(OBJEXT) ui.$(OBJEXT) ui_autostart.$(OBJEXT) \
+	ui_cbm2.$(OBJEXT) ui_cbm5x0.$(OBJEXT) ui_cia.$(OBJEXT) \
+	ui_datasette.$(OBJEXT) ui_drive.$(OBJEXT) ui_device.$(OBJEXT) \
+	ui_file.$(OBJEXT) ui_ide64.$(OBJEXT) ui_ide64usb.$(OBJEXT) \
+	ui_joystick.$(OBJEXT) ui_keymap.$(OBJEXT) ui_netplay.$(OBJEXT) \
+	ui_pet.$(OBJEXT) ui_printer.$(OBJEXT) ui_ram.$(OBJEXT) \
+	ui_sid.$(OBJEXT) ui_sidcart.$(OBJEXT) ui_sound.$(OBJEXT) \
+	ui_ted.$(OBJEXT) ui_vic20.$(OBJEXT) ui_vic.$(OBJEXT) \
+	ui_vicii.$(OBJEXT) ui_video.$(OBJEXT) uicmdline.$(OBJEXT) \
+	uimon.$(OBJEXT) vic20ui.$(OBJEXT) viceapp.$(OBJEXT) \
+	vicemenu.$(OBJEXT) vicewindow.$(OBJEXT) video.$(OBJEXT) \
+	vsidui.$(OBJEXT) vsyncarch.$(OBJEXT)
 libarch_a_OBJECTS = $(am_libarch_a_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/src
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -130,6 +131,7 @@ EGREP = @EGREP@
 ENABLE_ARCH = @ENABLE_ARCH@
 EXEEXT = @EXEEXT@
 FCCACHE = @FCCACHE@
+FFMPEGSUB = @FFMPEGSUB@
 FFMPEG_AVRESAMPLE_CFLAGS = @FFMPEG_AVRESAMPLE_CFLAGS@
 FFMPEG_AVRESAMPLE_LIBS = @FFMPEG_AVRESAMPLE_LIBS@
 FFMPEG_AV_CFLAGS = @FFMPEG_AV_CFLAGS@
@@ -146,6 +148,8 @@ FULLSCREEN_DRIVERS = @FULLSCREEN_DRIVERS@
 GENCAT = @GENCAT@
 GFXOUTPUT_DRIVERS = @GFXOUTPUT_DRIVERS@
 GFXOUTPUT_LIBS = @GFXOUTPUT_LIBS@
+GLIB_CFLAGS = @GLIB_CFLAGS@
+GLIB_LIBS = @GLIB_LIBS@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
 GREP = @GREP@
@@ -173,8 +177,10 @@ LDFLAGS = @LDFLAGS@
 LEX = @LEX@
 LEXLIB = @LEXLIB@
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
+LIBFFMPEGSUB = @LIBFFMPEGSUB@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
+LIBX264SUB = @LIBX264SUB@
 LINKCC = @LINKCC@
 LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
@@ -183,6 +189,7 @@ MAKEINFO = @MAKEINFO@
 MAKERTF = @MAKERTF@
 MAX_INLINE_INSN_SINGLE = @MAX_INLINE_INSN_SINGLE@
 MKDIR_P = @MKDIR_P@
+MKFONTDIR_BIN = @MKFONTDIR_BIN@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MSGFMT = @MSGFMT@
 NATIVE_TOOLS_COMPILER = @NATIVE_TOOLS_COMPILER@
@@ -206,6 +213,8 @@ PDFTEX = @PDFTEX@
 PERL = @PERL@
 PKG_CONFIG = @PKG_CONFIG@
 PLATFORM_DOX_FLAGS = @PLATFORM_DOX_FLAGS@
+PNG_CFLAGS = @PNG_CFLAGS@
+PNG_LIBS = @PNG_LIBS@
 POFILES = @POFILES@
 POSUB = @POSUB@
 QUICKTIME_INCLUDES = @QUICKTIME_INCLUDES@
@@ -224,6 +233,7 @@ RESID_DTV_LIBS = @RESID_DTV_LIBS@
 RESID_INCLUDES = @RESID_INCLUDES@
 RESID_LIBS = @RESID_LIBS@
 SDL_EXTRA_LIBS = @SDL_EXTRA_LIBS@
+SDL_VERSION = @SDL_VERSION@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 SOUND_AIX_OBJ = @SOUND_AIX_OBJ@
@@ -302,6 +312,7 @@ datarootdir = @datarootdir@
 docdir = @docdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
+ffmpeg_have_bash = @ffmpeg_have_bash@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
@@ -350,6 +361,7 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/vdrive \
 	-I$(top_srcdir)/src/monitor \
 	-I$(top_srcdir)/src/c64 \
+	-I$(top_srcdir)/src/c64/cart \
 	-I$(top_srcdir)/src/c64dtv \
 	-I$(top_srcdir)/src/c128 \
 	-I$(top_srcdir)/src/vic20 \
@@ -362,7 +374,8 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/lib/p64 \
 	-I$(top_srcdir)/src/platform \
 	-I$(top_srcdir)/src/sid \
-	-I$(top_srcdir)/src/joyport
+	-I$(top_srcdir)/src/joyport \
+	-I$(top_srcdir)/src/samplerdrv
 
 noinst_LIBRARIES = libarch.a
 libarch_a_SOURCES = \
@@ -385,16 +398,19 @@ libarch_a_SOURCES = \
 	plus4ui.cc \
 	scpu64ui.cc \
 	signals.c \
-	socketimpl.h \
 	statusbar.cc \
 	statusbar.h \
 	types.h \
 	ui.cc \
 	ui.h \
+	ui_autostart.cc \
+	ui_autostart.h \
 	ui_cbm2.cc \
 	ui_cbm2.h \
 	ui_cbm5x0.cc \
 	ui_cbm5x0.h \
+	ui_cia.cc \
+	ui_cia.h \
 	ui_datasette.cc \
 	ui_datasette.h \
 	ui_drive.cc \
@@ -405,8 +421,12 @@ libarch_a_SOURCES = \
 	ui_file.h \
 	ui_ide64.cc \
 	ui_ide64.h \
+	ui_ide64usb.cc \
+	ui_ide64usb.h \
 	ui_joystick.cc \
 	ui_joystick.h \
+	ui_keymap.cc \
+	ui_keymap.h \
 	ui_netplay.cc \
 	ui_netplay.h \
 	ui_pet.cc \
@@ -519,14 +539,18 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/signals.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/statusbar.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ui.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ui_autostart.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ui_cbm2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ui_cbm5x0.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ui_cia.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ui_datasette.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ui_device.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ui_drive.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ui_file.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ui_ide64.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ui_ide64usb.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ui_joystick.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ui_keymap.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ui_netplay.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ui_pet.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ui_printer.Po@am__quote@

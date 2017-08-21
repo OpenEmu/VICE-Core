@@ -23,11 +23,14 @@ PROJECTDEPS =
 	fileio
 	fsdevice
 	gfxoutputdrv
+	hwsiddrv
+	iec
 	iecieee
 	ieee
 	imagecontents
 	joyport
 	lame
+	mididrv
 	monitor
 	p64
 	parallel
@@ -41,12 +44,15 @@ PROJECTDEPS =
 	samplerdrv
 	serial
 	sid
+	socketdrv
 	sounddrv
 	swresample
 	swresample-x86
 	swscale
 	swscale-x86
 	tape
+	tapeport
+	tcbm
 	userport
 	vdrive
 	vicii
@@ -95,7 +101,7 @@ SOURCES =
 RESSOURCE = rescbm5x0.rc
 
 # resource dependencies, separated by spaces
-RESDEPS = rescbm5x0.rc rescbm2common.rc res.rc resacia.rc rescia.rc resdrivepetcbm2.rc ressiddtv.rc resautostart.rc resjoyport.rc resvicii.rc resmouse.rc
+RESDEPS = rescbm5x0.rc rescbm2common.rc res.rc resacia.rc rescia.rc resdrivepetcbm2.rc ressiddtv.rc resautostart.rc resjoyport.rc resvicii.rc resmouse.rc ressampler.rc rescpclockf83.rc restapelog.rc resiocollisions.rc reskeymap.rc
 
 # resource output name
 RESOUTPUT = rescbm5x0cat.rc

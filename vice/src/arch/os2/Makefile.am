@@ -1,6 +1,6 @@
 # Makefile.am for the OS2 version of `libarch.a'.
 
-SUBDIRS = dialogs doc fonts icons kbd snippets unused vac++ watcom
+SUBDIRS = dialogs doc fonts icons kbd snippets unused watcom
 
 AM_CPPFLAGS = \
 	@ARCH_INCLUDES@ \
@@ -24,7 +24,6 @@ libarch_a_SOURCES = \
 	joy.h \
 	kbd.c \
 	kbd.h \
-	makedist.cmd \
 	mousedrv.c \
 	mousedrv.h \
 	os2main.c \
@@ -38,6 +37,7 @@ libarch_a_SOURCES = \
 	ui.h \
 	ui_status.h \
 	uicmdline.c \
+	uifeatures.c \
 	uimon.c \
 	video.c \
 	videoarch.h \
@@ -48,7 +48,4 @@ EXTRA_DIST = \
 	vice.def \
 	ide-siddefs.h \
 	ide-siddtvdefs.h \
-	install.cmd \
-	makedist.cmd \
-	makeclean.cmd
-
+	install.cmd

@@ -84,7 +84,7 @@ typedef enum pc8477_cmd_e {
 
 enum pc8477_st0_e {
     PC8477_ST0_EC  = 0x10, /* Equipment check */
-    PC8477_ST0_SE  = 0x20, /* Seek end */
+    PC8477_ST0_SE  = 0x20  /* Seek end */
 };
 
 enum pc8477_st1_e {
@@ -93,7 +93,7 @@ enum pc8477_st1_e {
     PC8477_ST1_ND  = 0x04, /* No data */
     PC8477_ST1_OR  = 0x10, /* Overrun */
     PC8477_ST1_CE  = 0x20, /* CRC error */
-    PC8477_ST1_EOT = 0x80, /* End of track */
+    PC8477_ST1_EOT = 0x80  /* End of track */
 };
 
 enum pc8477_st2_e {
@@ -102,18 +102,18 @@ enum pc8477_st2_e {
     PC8477_ST2_SNS = 0x04, /* Scan not statisfied */
     PC8477_ST2_SEH = 0x08, /* Scan equal hit */
     PC8477_ST2_WT  = 0x10, /* Wrong track */
-    PC8477_ST2_CM  = 0x20, /* CRC error in data field */
+    PC8477_ST2_CM  = 0x20  /* CRC error in data field */
 };
 
 enum pc8477_st3_e {
     PC8477_ST3_TK0 = 0x10, /* Track 0 */
-    PC8477_ST3_WP  = 0x40, /* Write protect */
+    PC8477_ST3_WP  = 0x40  /* Write protect */
 };
 
 enum pc8477_flags_e {
     PC8477_FLAGS_DS  = 0x01,
     PC8477_FLAGS_HDS = 0x02,
-    PC8477_FLAGS_MOT = 0x04,
+    PC8477_FLAGS_MOT = 0x04
 };
 
 static const struct {
@@ -1000,7 +1000,7 @@ static void pc8477_store(pc8477_t *drv, WORD addr, BYTE byte)
                 case PC8477_WAIT:
                     drv->cmdp = 0;
                     drv->resp = 0;
-                    for (i = 0; i < sizeof(pc8477_commands) / sizeof(pc8477_commands[0]); i++) {
+                    for (i = 0; i < (int)(sizeof(pc8477_commands) / sizeof(pc8477_commands[0])); i++) {
                         if (pc8477_commands[i].command == (pc8477_cmd_t)(pc8477_commands[i].mask & byte)) {
                             break;
                         }
@@ -1154,6 +1154,71 @@ static BYTE pc8477_read(pc8477_t *drv, WORD addr)
     return addr >> 8; /* tri-state */
 }
 
+/* read from I/O without side effects */
+static BYTE pc8477_peek(pc8477_t *drv, WORD addr)
+{
+    BYTE result = 0;
+
+    switch (addr) {
+        case 2:
+            if (drv->is8477) {
+                result = drv->dor;
+            }
+            break;
+        case 3: /* TDR */
+            if (drv->is8477) {
+                result = (addr >> 8) & 0xfc;
+                result |= drv->tdr & 0x03;
+            }
+            break;
+        case 4: /* MSR */
+            result |= drv->fdds[0].seeking ? 0x01 : 0x00;
+            result |= drv->fdds[1].seeking ? 0x02 : 0x00;
+            result |= drv->fdds[2].seeking ? 0x04 : 0x00;
+            result |= drv->fdds[3].seeking ? 0x08 : 0x00;
+
+            if (drv->state != PC8477_WAIT) {
+                result |= 0x10;
+            }
+            if (drv->nodma && (drv->state == PC8477_READ || drv->state == PC8477_WRITE)) {
+                result |= 0x20;
+            }
+            if (drv->state == PC8477_READ || drv->state == PC8477_RESULT) {
+                result |= 0x40;
+            }
+            if (drv->state != PC8477_EXEC) {
+                result |= 0x80;
+                if (drv->state == PC8477_READ && !drv->fifo_fill) {
+                    result &= ~0x80;
+                }
+                if (drv->state == PC8477_WRITE && drv->fifo_fill >= drv->fifo_size) {
+                    result &= ~0x80;
+                }
+            }
+            break;
+        case 5: /* DATA */
+            switch (drv->state) {
+                case PC8477_WAIT:
+                case PC8477_COMMAND:
+                case PC8477_WRITE:
+                case PC8477_EXEC:
+                    break;
+                case PC8477_READ:
+                    result = drv->fifo[drv->fifop];
+                    break;
+                case PC8477_RESULT:
+                    result = drv->res[drv->resp];
+                    break;
+            }
+            break;
+        case 7: /* DKR */
+            result = (addr >> 8) & 0x7f;
+            result |= fdd_disk_change(drv->fdd) ? 0x80 : 0;
+            break;
+    }
+    return result;
+}
+
 void pc8477_reset(pc8477_t *drv, int is8477)
 {
     int i;
@@ -1178,7 +1243,7 @@ void pc8477_reset(pc8477_t *drv, int is8477)
     pc8477_software_reset(drv);
 }
 
-inline int pc8477_irq(pc8477_t *drv)
+int pc8477_irq(pc8477_t *drv)
 {
     return drv->irq;
 }
@@ -1191,6 +1256,11 @@ void pc8477d_store(drive_context_t *drv, WORD addr, BYTE byte)
 BYTE pc8477d_read(drive_context_t *drv, WORD addr)
 {
     return pc8477_read(drv->pc8477, (WORD)(addr & 7));
+}
+
+BYTE pc8477d_peek(drive_context_t *drv, WORD addr)
+{
+    return pc8477_peek(drv->pc8477, (WORD)(addr & 7));
 }
 
 /*-----------------------------------------------------------------------*/

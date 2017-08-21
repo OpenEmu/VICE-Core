@@ -55,6 +55,9 @@
 
 #include "vice.h"
 
+
+#include <string.h>
+
 #include <X11/Xlib.h>
 #include <X11/Xlibint.h>
 #include <X11/Xutil.h>
@@ -63,9 +66,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <sys/utsname.h>
 
+#include "util.h"
 #include "color.h"
 #include "cmdline.h"
 #include "fullscreenarch.h"
@@ -77,7 +80,6 @@
 #include "types.h"
 #include "ui.h"
 #include "uicolor.h"
-#include "util.h"
 #include "video.h"
 #include "videoarch.h"
 #include "viewport.h"
@@ -152,7 +154,6 @@ static int set_fourcc(const char *val, void *param)
     } else {
         fourcc = 0;
     }
-    
     return 0;
 }
 
@@ -210,7 +211,7 @@ static const resource_string_t resources_string[] = {
     { "AspectRatio", "1.0", RES_EVENT_NO, NULL,
       &aspect_ratio_s, set_aspect_ratio, NULL },
 #endif
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_int_t resources_int[] = {
@@ -225,7 +226,7 @@ static const resource_int_t resources_int[] = {
     { "TrueAspectRatio", 1, RES_EVENT_NO, NULL,
       &trueaspect, set_trueaspect, NULL },
 #endif
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int video_arch_resources_init(void)
@@ -233,11 +234,13 @@ int video_arch_resources_init(void)
 #ifdef HAVE_OPENGL_SYNC
     openGL_register_resources();
 #endif
-    if (resources_register_string(resources_string) < 0) {
-        return -1;
+    if (machine_class != VICE_MACHINE_VSID) {
+        if (resources_register_string(resources_string) < 0) {
+            return -1;
+        }
+        return resources_register_int(resources_int);
     }
-
-    return resources_register_int(resources_int);
+    return 0;
 }
 
 void video_arch_resources_shutdown(void)
@@ -304,12 +307,15 @@ static const cmdline_option_t cmdline_options[] = {
       IDCLS_UNUSED, IDCLS_UNUSED,
       NULL, N_("Do not keep aspect ratio when scaling (freescale)") },
 #endif
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int video_arch_cmdline_options_init(void)
 {
-    return cmdline_register_options(cmdline_options);
+    if (machine_class != VICE_MACHINE_VSID) {
+        return cmdline_register_options(cmdline_options);
+    }
+    return 0;
 }
 
 /* ------------------------------------------------------------------------- */

@@ -4,6 +4,7 @@
  * Written by
  *  Andreas Boose <viceteam@t-online.de>
  *  Ettore Perazzoli <ettore@comm2000.it>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -90,53 +91,54 @@ static char *get_compiletime_features(void)
 static BOOL CALLBACK AboutDialogProc(HWND hDlg, UINT iMsg, WPARAM wParam, LPARAM lParam)
 {
     HWND element;
-    char *version;
-    char *tmp;
-    TCHAR *st_version;
+    char *text;
+    TCHAR *st_text;
     int i;
 
     switch (iMsg) {
         case WM_INITDIALOG:
-            SetWindowText(hDlg, "About VICE");
+            SetWindowText(hDlg, intl_translate_tcs(IDS_ABOUT));
             element = GetDlgItem(hDlg, IDOK);
-            SetWindowText(element, "OK");
+            SetWindowText(element, intl_translate_tcs(IDS_OK));
             element = GetDlgItem(hDlg, ID_TEXT);
-            SetWindowText(element, "VICE");
+            SetWindowText(element, TEXT("VICE"));
             element = GetDlgItem(hDlg, ID_TEXT + 1);
-            SetWindowText(element, "Versatile Commodore Emulator");
+            SetWindowText(element, TEXT("Versatile Commodore Emulator"));
             element = GetDlgItem(hDlg, ID_TEXT + 2);
-            SetWindowText(element, "Version 0.0");
 #ifdef UNSTABLE
 #  ifdef USE_SVN_REVISION
-            version = lib_msprintf(translate_text(IDS_VERSION_S_REV_S_UNSTABLE), VERSION, VICE_SVN_REV_STRING, PLATFORM);
+            text = lib_msprintf(translate_text(IDS_VERSION_S_REV_S_UNSTABLE), VERSION, VICE_SVN_REV_STRING, PLATFORM);
 #  else
-            version = lib_msprintf(translate_text(IDS_VERSION_S_UNSTABLE), VERSION, PLATFORM);
+            text = lib_msprintf(translate_text(IDS_VERSION_S_UNSTABLE), VERSION, PLATFORM);
 #  endif
 #else /* #ifdef UNSTABLE */
 #  ifdef USE_SVN_REVISION
-            version = lib_msprintf(translate_text(IDS_VERSION_S_REV_S), VERSION, VICE_SVN_REV_STRING, PLATFORM);
+            text = lib_msprintf(translate_text(IDS_VERSION_S_REV_S), VERSION, VICE_SVN_REV_STRING, PLATFORM);
 #  else
-            version = lib_msprintf(translate_text(IDS_VERSION_S), VERSION, PLATFORM);
+            text = lib_msprintf(translate_text(IDS_VERSION_S), VERSION, PLATFORM);
 #  endif
 #endif /* #ifdef UNSTABLE */
-            st_version = system_mbstowcs_alloc(version);
-            SetDlgItemText(hDlg, ID_TEXT + 2, st_version);
-            system_mbstowcs_free(st_version);
-            lib_free(version);
+            st_text = system_mbstowcs_alloc(text);
+            SetDlgItemText(hDlg, ID_TEXT + 2, st_text);
+            system_mbstowcs_free(st_text);
+            lib_free(text);
             for (i = 0; core_team[i].name; i++) {
-                    tmp = util_concat("Copyright (c) ", core_team[i].years, " ", core_team[i].name, NULL);
-                    element = GetDlgItem(hDlg, ID_MEMBERS_TEXT + i);
-                    SetWindowText(element, tmp);
-                    lib_free(tmp);
+                text = util_concat("Copyright (c) ", core_team[i].years, " ", core_team[i].name, NULL);
+                st_text = system_mbstowcs_alloc(text);
+                element = GetDlgItem(hDlg, ID_MEMBERS_TEXT + i);
+                SetWindowText(element, st_text);
+                system_mbstowcs_free(st_text);
+                lib_free(text);
             }
             return TRUE ;
         case WM_COMMAND:
-            switch (LOWORD(wParam)) {
-                case IDOK:
-                    EndDialog(hDlg, 0) ;
-                    return TRUE ;
+            if (LOWORD(wParam) != IDOK) {
+                break ;
             }
-            break ;
+            /* fall through */
+        case WM_CLOSE:
+            EndDialog(hDlg, 0) ;
+            return TRUE ;
     }
     return FALSE ;
 }
@@ -256,7 +258,7 @@ static LRESULT DisplayAboutBox(HINSTANCE hinst, HWND hwndOwner)
         lpdit->cx = 180;
         lpdit->cy = 8;
         lpdit->id = ID_MEMBERS_TEXT + i;
-        lpdit->style = WS_CHILD | WS_VISIBLE | SS_CENTER;
+        lpdit->style = WS_CHILD | WS_VISIBLE; // | SS_CENTER;
         lpw = (LPWORD)(lpdit + 1);
         *lpw++ = 0xFFFF;
         *lpw++ = 0x0082;
@@ -275,8 +277,8 @@ static LRESULT DisplayAboutBox(HINSTANCE hinst, HWND hwndOwner)
 
 void uihelp_dialog(HWND hwnd, WPARAM wparam)
 {
-    char *fname;
-    char *dname;
+    char *fname, *dname;
+    TCHAR *st_fname, *st_dname;
     char *features = NULL;
 
     STARTUPINFOW si;
@@ -292,23 +294,27 @@ void uihelp_dialog(HWND hwnd, WPARAM wparam)
         case IDM_HELP:
             fname = util_concat(archdep_boot_path(), "\\DOC\\vice.chm", NULL);
             dname = util_concat(archdep_boot_path(), "\\DOC", NULL);
-            ShellExecute(NULL, "open", fname, NULL, dname, SW_SHOWNORMAL);
+            st_fname = system_mbstowcs_alloc(fname);
+            st_dname = system_mbstowcs_alloc(dname);
+            ShellExecute(NULL, TEXT("open"), st_fname, NULL, st_dname, SW_SHOWNORMAL);
+            system_mbstowcs_free(st_fname);
+            system_mbstowcs_free(st_dname);
             lib_free(fname);
             lib_free(dname);
             break;
         case IDM_FEATURES:
             features = get_compiletime_features();
-            ui_show_text(hwnd, translate_text(IDS_VICE_FEATURES), translate_text(IDS_WHAT_FEATURES_ARE_AVAILABLE), features);
+            ui_show_text(hwnd, IDS_VICE_FEATURES, intl_translate_tcs(IDS_WHAT_FEATURES_ARE_AVAILABLE), features);
             lib_free(features);
             break;
         case IDM_CONTRIBUTORS:
-            ui_show_text(hwnd, translate_text(IDS_VICE_CONTRIBUTORS), translate_text(IDS_WHO_MADE_WHAT), info_contrib_text);
+            ui_show_text(hwnd, IDS_VICE_CONTRIBUTORS, intl_translate_tcs(IDS_WHO_MADE_WHAT), info_contrib_text);
             break;
         case IDM_LICENSE:
-            ui_show_text(hwnd, translate_text(IDS_LICENSE), "VICE license (GNU General Public License)", info_license_text);
+            ui_show_text(hwnd, IDS_LICENSE, TEXT("VICE license (GNU General Public License)"), info_license_text);
             break;
         case IDM_WARRANTY:
-            ui_show_text(hwnd, translate_text(IDS_NO_WARRANTY), translate_text(IDS_VICE_WITHOUT_WARRANTY), info_warranty_text);
+            ui_show_text(hwnd, IDS_NO_WARRANTY, intl_translate_tcs(IDS_VICE_WITHOUT_WARRANTY), info_warranty_text);
             break;
         case IDM_CMDLINE:
             uilib_show_options(hwnd);

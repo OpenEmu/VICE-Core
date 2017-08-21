@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -109,7 +110,7 @@ static char *kernal64_rom_name = NULL;
 /* Flag: Do we enable the emulation of banks 2 and 3 of ram? */
 int c128_full_banks;
 
-/* Flag: Emulate new CIA (6526A)? */
+/* Flag: Emulate new CIA */
 int cia1_model = CIA_MODEL_6526A;
 int cia2_model = CIA_MODEL_6526A;
 
@@ -453,7 +454,6 @@ static int set_cia2_model(int val, void *param)
 static int set_sync_factor(int val, void *param)
 {
     int change_timing = 0;
-    int border_mode = VICII_BORDER_MODE(vicii_resources.border_mode);
 
     if (sync_factor != val) {
         change_timing = 1;
@@ -463,13 +463,13 @@ static int set_sync_factor(int val, void *param)
         case MACHINE_SYNC_PAL:
             sync_factor = val;
             if (change_timing) {
-                machine_change_timing(MACHINE_SYNC_PAL ^ border_mode);
+                machine_change_timing(MACHINE_SYNC_PAL, vicii_resources.border_mode);
             }
             break;
         case MACHINE_SYNC_NTSC:
             sync_factor = val;
             if (change_timing) {
-                machine_change_timing(MACHINE_SYNC_NTSC ^ border_mode);
+                machine_change_timing(MACHINE_SYNC_NTSC, vicii_resources.border_mode);
             }
             break;
         default:
@@ -514,7 +514,7 @@ static const resource_string_t resources_string[] = {
       &kernal64_rom_name, set_kernal64_rom_name, NULL },
     { "Basic64Name", "basic64", RES_EVENT_NO, NULL,
       &basic64_rom_name, set_basic64_rom_name, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_int_t resources_int[] = {
@@ -532,7 +532,7 @@ static const resource_int_t resources_int[] = {
       (int *)&sid_triple_address_start, sid_set_sid_triple_address, NULL },
     { "C128FullBanks", 0, RES_EVENT_NO, NULL,
       (int *)&c128_full_banks, set_c128_full_banks, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 void c128_resources_update_cia_models(int model)

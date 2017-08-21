@@ -36,21 +36,6 @@
 /* NLS datadirname. */
 #undef DATADIRNAME
 
-/* Use debugging of the zfile */
-#undef DEBUG_ZFILE
-
-/* Enable DINGOO compilation */
-#undef DINGOO
-
-/* Enable native DINGOO compilation */
-#undef DINGOO_NATIVE
-
-/* Enable DINGUX compilation */
-#undef DINGUX
-
-/* Enable SDL DINGUX compilation */
-#undef DINGUX_SDL
-
 /* Can we use the dos WATTCP library? */
 #undef DOS_TCP
 
@@ -66,8 +51,11 @@
 /* Enable support for the TextField widget. */
 #undef ENABLE_TEXTFIELD
 
-/* Use the memmap feature. */
+/* Use the 65xx cpu history feature. */
 #undef FEATURE_CPUMEMHISTORY
+
+/* Define to 1 if `TIOCGWINSZ' requires <sys/ioctl.h>. */
+#undef GWINSZ_IN_SYS_IOCTL
 
 /* Enable emulation for digital joysticks. */
 #undef HAS_DIGITAL_JOYSTICK
@@ -114,7 +102,7 @@
 /* Define to 1 if you have the <artsc.h> header file. */
 #undef HAVE_ARTSC_H
 
-/* Dingoo has atexit */
+/* Define to 1 if you have the `atexit' function. */
 #undef HAVE_ATEXIT
 
 /* Enable AudioUnit support. */
@@ -122,6 +110,9 @@
 
 /* Define to 1 if you have the `bind' function. */
 #undef HAVE_BIND
+
+/* Use backtrace facility of libC or libexecinfo */
+#undef HAVE_BT_SYMBOLS
 
 /* Define to 1 if you have the <ByteOrder.h> header file. */
 #undef HAVE_BYTEORDER_H
@@ -131,6 +122,9 @@
 
 /* Support for Catweasel MKIII. */
 #undef HAVE_CATWEASELMKIII
+
+/* Support for direct PCI I/O access Catweasel MKIII. */
+#undef HAVE_CATWEASELMKIII_IO
 
 /* Define to 1 if you have the <commctrl.h> header file. */
 #undef HAVE_COMMCTRL_H
@@ -153,12 +147,21 @@
 /* Define to 1 if you have the `dcgettext' function. */
 #undef HAVE_DCGETTEXT
 
+/* Add native GTK3 UI debugging code. */
+#undef HAVE_DEBUG_GTK3UI
+
 /* Define to 1 if you have the declaration of `sys_siglist', and to 0 if you
    don't. */
 #undef HAVE_DECL_SYS_SIGLIST
 
 /* Define to 1 if you have the <devices/ahi.h> header file. */
 #undef HAVE_DEVICES_AHI_H
+
+/* Define to 1 if you have the <dev/ppbus/ppbconf.h> header file. */
+#undef HAVE_DEV_PPBUS_PPBCONF_H
+
+/* Define to 1 if you have the <dev/ppbus/ppi.h> header file. */
+#undef HAVE_DEV_PPBUS_PPI_H
 
 /* Use DirectInput joystick driver */
 #undef HAVE_DINPUT
@@ -221,6 +224,9 @@
 /* Define to 1 if you have the `fork' function. */
 #undef HAVE_FORK
 
+/* Support for FreeBSD par port device file. */
+#undef HAVE_FREEBSD_PARPORT_HEADERS
+
 /* Define to 1 if you have the `fseeko' function. */
 #undef HAVE_FSEEKO
 
@@ -263,6 +269,9 @@
 /* Support for HardSID. */
 #undef HAVE_HARDSID
 
+/* Support for PCI/ISA HardSID. */
+#undef HAVE_HARDSID_IO
+
 /* Define to 1 if you have the `htonl' function. */
 #undef HAVE_HTONL
 
@@ -283,6 +292,9 @@
 
 /* Define to 1 if you have the `in8' function. */
 #undef HAVE_IN8
+
+/* Define to 1 if you have the `inb' function. */
+#undef HAVE_INB
 
 /* Define to 1 if you have the `inb_p' function. */
 #undef HAVE_INB_P
@@ -317,6 +329,9 @@
 /* Define to 1 if you have the <libc.h> header file. */
 #undef HAVE_LIBC_H
 
+/* Define to 1 if you have the `FLAC' library (-lFLAC). */
+#undef HAVE_LIBFLAC
+
 /* Define to 1 if you have the <libgen.h> header file. */
 #undef HAVE_LIBGEN_H
 
@@ -329,26 +344,20 @@
 /* use libintl for NLS. */
 #undef HAVE_LIBINTL_H
 
-/* Define to 1 if you have the `libogg' library (-llibogg). */
-#undef HAVE_LIBLIBOGG
-
-/* Define to 1 if you have the `libvorbis' library (-llibvorbis). */
-#undef HAVE_LIBLIBVORBIS
-
-/* Define to 1 if you have the `libvorbisenc' library (-llibvorbisenc). */
-#undef HAVE_LIBLIBVORBISENC
-
-/* Define to 1 if you have the `libvorbisfile' library (-llibvorbisfile). */
-#undef HAVE_LIBLIBVORBISFILE
-
 /* Define to 1 if you have the `lzma' library (-llzma). */
 #undef HAVE_LIBLZMA
 
 /* Define to 1 if you have the `m' library (-lm). */
 #undef HAVE_LIBM
 
+/* Define to 1 if you have the `ogg' library (-logg). */
+#undef HAVE_LIBOGG
+
 /* Define to 1 if you have the `ossaudio' library (-lossaudio). */
 #undef HAVE_LIBOSSAUDIO
+
+/* Define to 1 if you have the 'pciutils' library. */
+#undef HAVE_LIBPCI
 
 /* Define to 1 if you have the `posix' library (-lposix). */
 #undef HAVE_LIBPOSIX
@@ -368,6 +377,15 @@
 /* Define to 1 if you have the `va' library (-lva). */
 #undef HAVE_LIBVA
 
+/* Define to 1 if you have the `vorbis' library (-lvorbis). */
+#undef HAVE_LIBVORBIS
+
+/* Define to 1 if you have the `vorbisenc' library (-lvorbisenc). */
+#undef HAVE_LIBVORBISENC
+
+/* Define to 1 if you have the `vorbisfile' library (-lvorbisfile). */
+#undef HAVE_LIBVORBISFILE
+
 /* Is libXpm available? */
 #undef HAVE_LIBXPM
 
@@ -376,6 +394,18 @@
 
 /* Define to 1 if you have the <limits.h> header file. */
 #undef HAVE_LIMITS_H
+
+/* Define to 1 if you have the <linux/hardsid.h> header file. */
+#undef HAVE_LINUX_HARDSID_H
+
+/* Define to 1 if you have the <linux/parport.h> header file. */
+#undef HAVE_LINUX_PARPORT_H
+
+/* Support for Linux par port device file. */
+#undef HAVE_LINUX_PARPORT_HEADERS
+
+/* Define to 1 if you have the <linux/ppdev.h> header file. */
+#undef HAVE_LINUX_PPDEV_H
 
 /* Define to 1 if you have the <linux/soundcard.h> header file. */
 #undef HAVE_LINUX_SOUNDCARD_H
@@ -455,6 +485,9 @@
 /* Define to 1 if you have the `out8' function. */
 #undef HAVE_OUT8
 
+/* Define to 1 if you have the `outb' function. */
+#undef HAVE_OUTB
+
 /* Define to 1 if you have the `outb_p' function. */
 #undef HAVE_OUTB_P
 
@@ -464,17 +497,26 @@
 /* Support for ParSID. */
 #undef HAVE_PARSID
 
+/* Support for The Final Ethernet */
+#undef HAVE_PCAP
+
 /* A libpcap version with pcap_inject is available */
 #undef HAVE_PCAP_INJECT
 
 /* A libpcap version with pcap_sendpacket is available */
 #undef HAVE_PCAP_SENDPACKET
 
+/* Define to 1 if you have the <pci/pci.h> header file. */
+#undef HAVE_PCI_PCI_H
+
 /* Can we use the PNG library? */
 #undef HAVE_PNG
 
 /* Define to 1 if you have the <portaudio.h> header file. */
 #undef HAVE_PORTAUDIO_H
+
+/* Support for file device based access to ParSID. */
+#undef HAVE_PORTSID
 
 /* Define to 1 if you have the <process.h> header file. */
 #undef HAVE_PROCESS_H
@@ -590,8 +632,14 @@
 /* Define to 1 if you have the <soundcard.h> header file. */
 #undef HAVE_SOUNDCARD_H
 
+/* Support for SSI2001 (ISA SID card). */
+#undef HAVE_SSI2001
+
 /* Static linking for lame libs */
 #undef HAVE_STATIC_LAME
+
+/* Do we have an ISO C99 compliant vswprintf function? */
+#undef HAVE_STDC_VSWPRINTF
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #undef HAVE_STDINT_H
@@ -601,6 +649,9 @@
 
 /* Define to 1 if you have the <stdlib.h> header file. */
 #undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the `stpcpy' function. */
+#undef HAVE_STPCPY
 
 /* Define to 1 if you have the `strcasecmp' function. */
 #undef HAVE_STRCASECMP
@@ -634,6 +685,9 @@
 
 /* Define to 1 if you have the `strtok_r' function. */
 #undef HAVE_STRTOK_R
+
+/* Define to 1 if you have the `strtoul' function. */
+#undef HAVE_STRTOUL
 
 /* Define to 1 if you have the `swab' function. */
 #undef HAVE_SWAB
@@ -685,8 +739,11 @@
 /* Define to 1 if you have the <sys/types.h> header file. */
 #undef HAVE_SYS_TYPES_H
 
-/* Support for The Final Ethernet */
-#undef HAVE_TFE
+/* Is the type time_t defined in <time.h>? */
+#undef HAVE_TIME_T_IN_TIME_H
+
+/* Is the type time_t defined in <sys/types.h>? */
+#undef HAVE_TIME_T_IN_TYPES_H
 
 /* Define to 1 if you have the `ultoa' function. */
 #undef HAVE_ULTOA
@@ -747,6 +804,9 @@
 
 /* Define to 1 if you have the <X11/Sunkeysym.h> header file. */
 #undef HAVE_X11_SUNKEYSYM_H
+
+/* Define to 1 if you have the <X11/XKlib.h> header file. */
+#undef HAVE_X11_XKLIB_H
 
 /* Define to 1 if you have the <X11/xpm.h> header file. */
 #undef HAVE_X11_XPM_H
@@ -862,6 +922,9 @@
 /* FFMPEG libraries are shared */
 #undef SHARED_FFMPEG
 
+/* The size of `time_t', as computed by sizeof. */
+#undef SIZEOF_TIME_T
+
 /* The size of `unsigned int', as computed by sizeof. */
 #undef SIZEOF_UNSIGNED_INT
 
@@ -876,6 +939,12 @@
 
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
+
+/* time_t is 32 bit */
+#undef TIME_T_IS_32BIT
+
+/* time_t is 64 bit */
+#undef TIME_T_IS_64BIT
 
 /* Enable SCO Unixware 7.x support */
 #undef UNIXWARE_COMPILE
@@ -933,6 +1002,9 @@
 
 /* Enable mpg123 mp3 decoding support. */
 #undef USE_MPG123
+
+/* Use native GTK3 UI. */
+#undef USE_NATIVE_GTK3
 
 /* Enable oss support. */
 #undef USE_OSS
@@ -996,6 +1068,9 @@
 
 /* Are we compiling for win32? */
 #undef WIN32_COMPILE
+
+/* Use WinNT Unicode API calls. */
+#undef WIN32_UNICODE_SUPPORT
 
 /* Have windres ignore code page pragmas */
 #undef WINDRES_CP_IGNORE

@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * Based on old code by
  *  Ettore Perazzoli <ettore@comm2000.it>
@@ -56,6 +57,17 @@
 #include "userport_joystick.h"
 #include "vice-event.h"
 
+/* Control port <--> Joystick connections:
+
+   cport | joystick | I/O
+   ----------------------
+     1   | up       |  I
+     2   | down     |  I
+     3   | left     |  I
+     4   | right    |  I
+     6   | button   |  I
+ */
+
 /* #define DEBUGJOY */
 
 #ifdef DEBUGJOY
@@ -74,7 +86,7 @@
 #define JOYPAD_NW   (JOYPAD_N | JOYPAD_W)
 #define JOYPAD_NE   (JOYPAD_N | JOYPAD_E)
 
-static int joyport_joystick[4] = { 0, 0, 0, 0 };
+static int joyport_joystick[5] = { 0, 0, 0, 0, 0 };
 
 /* Global joystick value.  */
 /*! \todo SRT: document: what are these values joystick_value[0, 1, 2, ..., 5] used for? */
@@ -147,6 +159,15 @@ static void joystick_latch_matrix(CLOCK offset)
     if (joyport_joystick[1]) {
         joyport_display_joyport(JOYPORT_ID_JOY2, joystick_value[2]);
     }
+    if (joyport_joystick[2]) {
+        joyport_display_joyport(JOYPORT_ID_JOY3, joystick_value[3]);
+    }
+    if (joyport_joystick[3]) {
+        joyport_display_joyport(JOYPORT_ID_JOY4, joystick_value[4]);
+    }
+    if (joyport_joystick[4]) {
+        joyport_display_joyport(JOYPORT_ID_JOY4, joystick_value[5]);
+    }
 }
 
 /*-----------------------------------------------------------------------*/
@@ -195,7 +216,7 @@ void joystick_register_delay(unsigned int delay)
 /*-----------------------------------------------------------------------*/
 static void joystick_process_latch(void)
 {
-    CLOCK delay = lib_unsigned_rand(1, machine_get_cycles_per_frame());
+    CLOCK delay = lib_unsigned_rand(1, (unsigned int)machine_get_cycles_per_frame());
 
     if (network_connected()) {
         network_event_record(EVENT_JOYSTICK_DELAY, (void *)&delay, sizeof(delay));
@@ -228,7 +249,7 @@ void joystick_set_value_or(unsigned int joyport, BYTE value)
     latch_joystick_value[joyport] |= value;
 
     if (!joystick_opposite_enable) {
-        latch_joystick_value[joyport] &= ~joystick_opposite_direction[value & 0xf];
+        latch_joystick_value[joyport] &= (BYTE)(~joystick_opposite_direction[value & 0xf]);
     }
 
     latch_joystick_value[0] = (BYTE)joyport;
@@ -363,7 +384,7 @@ static const resource_int_t joykeys_resources_int[] = {
       &joykeys[JOYSTICK_KEYSET_IDX_B][JOYSTICK_KEYSET_FIRE], set_keyset2, (void *)JOYSTICK_KEYSET_FIRE },
     { "KeySetEnable", 1, RES_EVENT_NO, NULL,
       &joykeys_enable, set_joykeys_enable, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 #ifdef DEBUGJOY
@@ -498,19 +519,26 @@ static int joyport_enable_joystick(int port, int val)
 
 static BYTE read_joystick(int port)
 {
-    return ~joystick_value[port + 1];
+    return (BYTE)(~joystick_value[port + 1]);
 }
+
+/* Some prototypes are needed */
+static int joystick_snapshot_write_module(snapshot_t *s, int port);
+static int joystick_snapshot_read_module(snapshot_t *s, int port);
 
 static joyport_t joystick_device = {
     "Joystick",
     IDGS_JOYSTICK,
     JOYPORT_RES_ID_NONE,
     JOYPORT_IS_NOT_LIGHTPEN,
+    JOYPORT_POT_OPTIONAL,
     joyport_enable_joystick,
     read_joystick,
-    NULL,				/* no store digital */
-    NULL,				/* no read potx */
-    NULL				/* no read poty */
+    NULL,               /* no store digital */
+    NULL,               /* no read potx */
+    NULL,               /* no read poty */
+    joystick_snapshot_write_module,
+    joystick_snapshot_read_module
 };
 
 static int joystick_joyport_register(void)
@@ -543,31 +571,37 @@ static int set_joystick_device(int val, void *param)
 static const resource_int_t joyopposite_resources_int[] = {
     { "JoyOpposite", 0, RES_EVENT_NO, NULL,
       &joystick_opposite_enable, set_joystick_opposite_enable, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 static resource_int_t joy1_resources_int[] = {
     { "JoyDevice1", JOYDEV_NONE, RES_EVENT_NO, NULL,
       &joystick_port_map[JOYPORT_1], set_joystick_device, (void *)JOYPORT_1 },
-    { NULL },
+    RESOURCE_INT_LIST_END
 };
 
 static resource_int_t joy2_resources_int[] = {
     { "JoyDevice2", JOYDEV_NONE, RES_EVENT_NO, NULL,
       &joystick_port_map[JOYPORT_2], set_joystick_device, (void *)JOYPORT_2 },
-    { NULL },
+    RESOURCE_INT_LIST_END
 };
 
 static resource_int_t joy3_resources_int[] = {
     { "JoyDevice3", JOYDEV_NONE, RES_EVENT_NO, NULL,
       &joystick_port_map[JOYPORT_3], set_joystick_device, (void *)JOYPORT_3 },
-    { NULL },
+    RESOURCE_INT_LIST_END
 };
 
 static resource_int_t joy4_resources_int[] = {
     { "JoyDevice4", JOYDEV_NONE, RES_EVENT_NO, NULL,
       &joystick_port_map[JOYPORT_4], set_joystick_device, (void *)JOYPORT_4 },
-    { NULL },
+    RESOURCE_INT_LIST_END
+};
+
+static resource_int_t joy5_resources_int[] = {
+    { "JoyDevice5", JOYDEV_NONE, RES_EVENT_NO, NULL,
+      &joystick_port_map[JOYPORT_5], set_joystick_device, (void *)JOYPORT_5 },
+    RESOURCE_INT_LIST_END
 };
 
 int joystick_resources_init(void)
@@ -603,6 +637,8 @@ int joystick_resources_init(void)
         case VICE_MACHINE_PET:
         case VICE_MACHINE_CBM6x0:
             break;
+        default:
+            break;
     }
 #endif
 
@@ -623,6 +659,12 @@ int joystick_resources_init(void)
     }
     if (joyport_get_port_name(JOYPORT_4)) {
         if (resources_register_int(joy4_resources_int) < 0) {
+            return -1;
+        }
+    }
+
+    if (joyport_get_port_name(JOYPORT_5)) {
+        if (resources_register_int(joy5_resources_int) < 0) {
             return -1;
         }
     }
@@ -656,7 +698,7 @@ static const cmdline_option_t cmdline_options[] =
       IDCLS_UNUSED, IDCLS_DISABLE_KEYSET,
       NULL, NULL },
 #endif
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int joystick_cmdline_options_init(void)
@@ -684,43 +726,51 @@ int joystick_init(void)
 
 /*--------------------------------------------------------------------------*/
 
-int joystick_snapshot_write_module(snapshot_t *s)
+#define DUMP_VER_MAJOR   1
+#define DUMP_VER_MINOR   1
+
+static int joystick_snapshot_write_module(snapshot_t *s, int port)
 {
     snapshot_module_t *m;
+    char snapshot_name[16];
 
-    m = snapshot_module_create(s, "JOYSTICK", 1, 0);
+    sprintf(snapshot_name, "JOYSTICK%d", port);
+
+    m = snapshot_module_create(s, snapshot_name, DUMP_VER_MAJOR, DUMP_VER_MINOR);
     if (m == NULL) {
         return -1;
     }
 
-    if (SMW_BA(m, joystick_value, (JOYSTICK_NUM + 1)) < 0) {
+    if (SMW_B(m, joystick_value[port + 1]) < 0) {
         snapshot_module_close(m);
         return -1;
     }
 
-    if (snapshot_module_close(m) < 0) {
-        return -1;
-    }
-
-    return 0;
+    return snapshot_module_close(m);
 }
 
-int joystick_snapshot_read_module(snapshot_t *s)
+static int joystick_snapshot_read_module(snapshot_t *s, int port)
 {
     BYTE major_version, minor_version;
     snapshot_module_t *m;
+    char snapshot_name[16];
 
-    m = snapshot_module_open(s, "JOYSTICK",
-                             &major_version, &minor_version);
+    sprintf(snapshot_name, "JOYSTICK%d", port);
+
+    m = snapshot_module_open(s, snapshot_name, &major_version, &minor_version);
     if (m == NULL) {
-        return 0;
+        return -1;
     }
 
-    if (SMR_BA(m, joystick_value, (JOYSTICK_NUM + 1)) < 0) {
+    if (major_version != DUMP_VER_MAJOR || minor_version != DUMP_VER_MINOR) {
         snapshot_module_close(m);
         return -1;
     }
 
-    snapshot_module_close(m);
-    return 0;
+    if (SMR_B(m, &joystick_value[port + 1]) < 0) {
+        snapshot_module_close(m);
+        return -1;
+    }
+
+    return snapshot_module_close(m);
 }

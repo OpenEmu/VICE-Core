@@ -22,11 +22,14 @@ PROJECTDEPS =
 	fileio
 	fsdevice
 	gfxoutputdrv
+	hwsiddrv
+	iec
 	iecieee
 	ieee
 	imagecontents
 	joyport
 	lame
+	mididrv
 	monitor
 	p64
 	parallel
@@ -41,12 +44,15 @@ PROJECTDEPS =
 	samplerdrv
 	serial
 	sid
+	socketdrv
 	sounddrv
 	swresample
 	swresample-x86
 	swscale
 	swscale-x86
 	tape
+	tapeport
+	tcbm
 	userport
 	vdrive
 	video
@@ -95,7 +101,7 @@ SOURCES =
 RESSOURCE = respet.rc
 
 # resource dependencies, separated by spaces
-RESDEPS = respet.rc res.rc resacia.rc resdrivepetcbm2.rc respetreu.rc respetdww.rc respetcolour.rc resautostart.rc ressidcart.rc resjoyport.rc resmouse.rc
+RESDEPS = respet.rc res.rc resacia.rc resdrivepetcbm2.rc respetreu.rc respetdww.rc respetcolour.rc resautostart.rc ressidcart.rc resjoyport.rc resmouse.rc ressampler.rc resuserportrtc58321a.rc resuserportrtcds1307.rc rescpclockf83.rc restapelog.rc resiocollisions.rc reskeymap.rc
 
 # resource output name
 RESOUTPUT = respetcat.rc

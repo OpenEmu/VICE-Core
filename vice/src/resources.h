@@ -54,7 +54,7 @@ struct event_list_state_s;
 
 struct resource_int_s {
     /* Resource name.  */
-    const char *name;
+    char *name;
 
     /* Factory default value.  */
     int factory_value;
@@ -77,11 +77,11 @@ struct resource_int_s {
 };
 typedef struct resource_int_s resource_int_t;
 
-#define RESOURCE_INT_LIST_END { NULL, 0, 0, NULL, NULL, NULL, NULL }
+#define RESOURCE_INT_LIST_END { NULL, 0, (resource_event_relevant_t)0, NULL, NULL, NULL, NULL }
 
 struct resource_string_s {
     /* Resource name.  */
-    const char *name;
+    char *name;
 
     /* Factory default value.  */
     const char *factory_value;
@@ -104,15 +104,18 @@ struct resource_string_s {
 };
 typedef struct resource_string_s resource_string_t;
 
-#define RESOURCE_STRING_LIST_END { NULL, NULL, 0, NULL, NULL, NULL, NULL }
+#define RESOURCE_STRING_LIST_END { NULL, NULL, (resource_event_relevant_t)0, NULL, NULL, NULL, NULL }
 
-#define RESERR_FILE_NOT_FOUND       -1
-#define RESERR_FILE_INVALID         -2
-#define RESERR_READ_ERROR           -3
-#define RESERR_CANNOT_CREATE_FILE   -4
-#define RESERR_CANNOT_REMOVE_BACKUP -5
-#define RESERR_WRITE_PROTECTED      -6
-#define RESERR_CANNOT_RENAME_FILE   -7
+/* do not use -1 here since that is reserved for generic/other errors */
+#define RESERR_FILE_NOT_FOUND       -2
+#define RESERR_FILE_INVALID         -3
+#define RESERR_TYPE_INVALID         -4
+#define RESERR_UNKNOWN_RESOURCE     -5
+#define RESERR_READ_ERROR           -6
+#define RESERR_CANNOT_CREATE_FILE   -7
+#define RESERR_CANNOT_REMOVE_BACKUP -8
+#define RESERR_WRITE_PROTECTED      -9
+#define RESERR_CANNOT_RENAME_FILE   -10
 
 /* ------------------------------------------------------------------------- */
 

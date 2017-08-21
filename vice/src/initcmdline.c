@@ -59,8 +59,12 @@
 static char *autostart_string = NULL;
 static char *startup_disk_images[4];
 static char *startup_tape_image;
-static unsigned int autostart_mode;
+static unsigned int autostart_mode = AUTOSTART_MODE_NONE;
 
+int cmdline_get_autostart_mode(void)
+{
+    return autostart_mode;
+}
 
 static void cmdline_free_autostart_string(void)
 {
@@ -258,7 +262,7 @@ static const cmdline_option_t common_cmdline_options[] = {
       IDCLS_UNUSED, IDCLS_CALL_EXCEPTION_HANDLER,
       NULL, NULL },
 #endif
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 /* These are the command-line options for the initialization sequence.  */
@@ -299,7 +303,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_NAME, IDCLS_ATTACH_AS_DISK_11,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int initcmdline_init(void)
@@ -348,6 +352,7 @@ int initcmdline_check_args(int argc, char **argv)
     /* The last orphan option is the same as `-autostart'.  */
     if ((argc > 1) && (autostart_string == NULL)) {
         autostart_string = lib_stralloc(argv[1]);
+        autostart_mode = AUTOSTART_MODE_RUN;
         argc--, argv++;
     }
     DBG(("initcmdline_check_args 2 (argc:%d)\n", argc));

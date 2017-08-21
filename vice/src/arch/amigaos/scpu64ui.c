@@ -39,17 +39,20 @@
 
 #include "mui/uiacia.h"
 #include "mui/uiburstmod.h"
-#include "mui/uic64model.h"
+#include "mui/uic64cart.h"
 #include "mui/uidigimax.h"
 #include "mui/uidrivec64.h"
 #include "mui/uids12c887rtc.h"
 #include "mui/uieasyflash.h"
 #include "mui/uiexpert.h"
 #include "mui/uigeoram.h"
+#include "mui/uigmod2.h"
 #include "mui/uiide64.h"
+#include "mui/uiiocollisions.h"
 #include "mui/uijoyport.h"
 #include "mui/uijoystick.h"
 #include "mui/uijoystickll.h"
+#include "mui/uikeymap.h"
 #include "mui/uimagicvoice.h"
 #include "mui/uimmc64.h"
 #include "mui/uimmcreplay.h"
@@ -60,9 +63,13 @@
 #include "mui/uireu.h"
 #include "mui/uiromscpu64settings.h"
 #include "mui/uirs232user.h"
+#include "mui/uisampler.h"
 #include "mui/uiscpu64.h"
+#include "mui/uiscpu64model.h"
 #include "mui/uisid.h"
 #include "mui/uisoundexpander.h"
+#include "mui/uiuserportds1307rtc.h"
+#include "mui/uiuserportrtc58321a.h"
 #include "mui/uivicii.h"
 #include "mui/uivideo.h"
 
@@ -74,8 +81,11 @@ static const ui_menu_toggle_t scpu64_ui_menu_toggles[] = {
     { "Mouse", IDM_MOUSE },
     { "CartridgeReset", IDM_TOGGLE_CART_RESET },
     { "SFXSoundSampler", IDM_TOGGLE_SFX_SS },
-    { "UserportRTC", IDM_TOGGLE_USERPORT_RTC },
-    { "UserportRTCSave", IDM_TOGGLE_USERPORT_RTC_SAVE },
+    { "SSRamExpansion", IDM_TOGGLE_SS5_32K_ADDON },
+    { "UserportDAC", IDM_TOGGLE_USERPORT_DAC },
+    { "UserportDIGIMAX", IDM_TOGGLE_USERPORT_DIGIMAX },
+    { "Userport4bitSampler", IDM_TOGGLE_USERPORT_4BIT_SAMPLER },
+    { "Userport8BSS", IDM_TOGGLE_USERPORT_8BSS },
     { NULL, 0 }
 };
 
@@ -84,6 +94,18 @@ static int scpu64_ui_specific(video_canvas_t *canvas, int idm)
     uic64cart_proc(canvas, idm);
 
     switch (idm) {
+        case IDM_CART_ATTACH_GENERIC:
+            ui_c64cart_generic_settings_dialog(canvas);
+            break;
+        case IDM_CART_ATTACH_UTIL:
+            ui_c64cart_util_settings_dialog(canvas);
+            break;
+        case IDM_CART_ATTACH_GAME:
+            ui_c64cart_game_settings_dialog(canvas);
+            break;
+        case IDM_CART_ATTACH_RAMEX:
+            ui_c64cart_ramex_settings_dialog(canvas);
+            break;
         case IDM_PALETTE_SETTINGS:
             ui_video_palette_settings_dialog(canvas, "VICIIExternalPalette", "VICIIPaletteFile", translate_text(IDS_VICII_PALETTE_FILENAME));
             break;
@@ -130,10 +152,10 @@ static int scpu64_ui_specific(video_canvas_t *canvas, int idm)
             c64model_set(C64MODEL_C64_GS);
             break;
         case IDM_C64_MODEL_CUSTOM:
-            ui_c64_model_custom_dialog();
+            ui_scpu64_model_custom_dialog();
             break;
         case IDM_VICII_SETTINGS:
-            ui_vicii_settings_dialog();
+            ui_viciisc_settings_dialog();
             break;
         case IDM_SCPU64_SETTINGS:
             ui_scpu64_settings_dialog();
@@ -171,6 +193,9 @@ static int scpu64_ui_specific(video_canvas_t *canvas, int idm)
         case IDM_RETROREPLAY_SETTINGS:
             ui_retroreplay_settings_dialog();
             break;
+        case IDM_GMOD2_SETTINGS:
+            ui_gmod2_settings_dialog(canvas);
+            break;
         case IDM_DIGIMAX_SETTINGS:
             ui_digimax_c64_settings_dialog();
             break;
@@ -195,7 +220,7 @@ static int scpu64_ui_specific(video_canvas_t *canvas, int idm)
         case IDM_DRIVE_ROM_SETTINGS:
             ui_scpu64_drive_rom_settings_dialog(canvas);
             break;
-#ifdef HAVE_TFE
+#ifdef HAVE_PCAP
         case IDM_TFE_SETTINGS:
 //          ui_tfe_settings_dialog(hwnd);
             break;
@@ -206,6 +231,12 @@ static int scpu64_ui_specific(video_canvas_t *canvas, int idm)
         case IDM_PRINTER_SETTINGS:
             ui_printer_settings_dialog(canvas, 0, 1);
             break;
+        case IDM_USERPORT_RTC58321A_SETTINGS:
+            ui_userport_rtc58321a_settings_dialog();
+            break;
+        case IDM_USERPORT_DS1307_RTC_SETTINGS:
+            ui_userport_ds1307_rtc_settings_dialog();
+            break;
         case IDM_ACIA_SETTINGS:
             ui_acia64_settings_dialog();
             break;
@@ -213,10 +244,10 @@ static int scpu64_ui_specific(video_canvas_t *canvas, int idm)
             ui_rs232user_settings_dialog();
             break;
         case IDM_KEYBOARD_SETTINGS:
-//          uikeyboard_settings_dialog(hwnd, &uikeyboard_config);
+            ui_keymap_settings_dialog(canvas);
             break;
         case IDM_JOYPORT_SETTINGS:
-            ui_joyport_settings_dialog(1, 1, 1, 1);
+            ui_joyport_settings_dialog(1, 1, 1, 1, 0);
             break;
 #ifdef AMIGA_OS4
         case IDM_JOY_SETTINGS:
@@ -230,8 +261,14 @@ static int scpu64_ui_specific(video_canvas_t *canvas, int idm)
             ui_joystick_fire_c64_dialog();
             break;
 #endif
+        case IDM_SAMPLER_SETTINGS:
+            ui_sampler_settings_dialog(canvas);
+            break;
         case IDM_MOUSE_SETTINGS:
             ui_mouse_settings_dialog();
+            break;
+        case IDM_IO_COLLISION_SETTINGS:
+            ui_iocollisions_settings_dialog();
             break;
     }
 

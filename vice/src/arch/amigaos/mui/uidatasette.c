@@ -94,19 +94,28 @@ static const int ui_datasette_delay_at_zero_values[] = {
     -1
 };
 
+static ui_wobble_range[] = {
+    0,
+    0xfffffff
+};
+
 static ui_to_from_t ui_to_from[] = {
+    { NULL, MUI_TYPE_CYCLE, "Datasette", ui_datasette_reset_with_cpu, ui_datasette_reset_with_cpu_values, NULL },
     { NULL, MUI_TYPE_CYCLE, "DatasetteResetWithCPU", ui_datasette_reset_with_cpu, ui_datasette_reset_with_cpu_values, NULL },
     { NULL, MUI_TYPE_CYCLE, "DatasetteSpeedTuning", ui_datasette_additional_delay, ui_datasette_additional_delay_values, NULL },
     { NULL, MUI_TYPE_CYCLE, "DatasetteZeroGapDelay", ui_datasette_delay_at_zero, ui_datasette_delay_at_zero_values, NULL },
+    { NULL, MUI_TYPE_INTEGER, "DatasetteTapeWobble", NULL, ui_wobble_range, NULL },
     UI_END /* mandatory */
 };
 
 static APTR build_gui(void)
 {
     return GroupObject,
-             CYCLE(ui_to_from[0].object, translate_text(IDS_RESET_DATASETTE_WITH_CPU), ui_datasette_reset_with_cpu)
-             CYCLE(ui_to_from[1].object, translate_text(IDS_ADDITIONAL_DELAY), ui_datasette_additional_delay)
-             CYCLE(ui_to_from[2].object, translate_text(IDS_DELAY_AT_ZERO_VALUES), ui_datasette_delay_at_zero)
+             CYCLE(ui_to_from[0].object, translate_text(IDS_DATASETTE), ui_datasette_reset_with_cpu)
+             CYCLE(ui_to_from[1].object, translate_text(IDS_RESET_DATASETTE_WITH_CPU), ui_datasette_reset_with_cpu)
+             CYCLE(ui_to_from[2].object, translate_text(IDS_ADDITIONAL_DELAY), ui_datasette_additional_delay)
+             CYCLE(ui_to_from[3].object, translate_text(IDS_DELAY_AT_ZERO_VALUES), ui_datasette_delay_at_zero)
+             NSTRING(ui_to_from[4].object, translate_text(IDS_RANDOM_TAPE_WOBBLE), "0123456789", 5+1)
            End;
 }
 

@@ -229,7 +229,7 @@ void joy_hidlib_free_devices(joy_hid_device_array_t *devices)
     }
 
     if(devices != NULL) {
-        lib_free(devices);
+        free(devices);
         devices = NULL;
     }    
 }

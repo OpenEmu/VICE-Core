@@ -39,9 +39,6 @@ UI_MENU_DEFINE_TOGGLE(WarpMode)
 UI_MENU_DEFINE_RADIO(RefreshRate)
 UI_MENU_DEFINE_RADIO(Speed)
 
-#ifdef DINGOO_NATIVE
-UI_MENU_DEFINE_TOGGLE(OverClock)
-#endif
 
 static UI_MENU_CALLBACK(custom_RefreshRate_callback)
 {
@@ -103,12 +100,6 @@ const ui_menu_entry_t speed_menu[] = {
       MENU_ENTRY_RESOURCE_TOGGLE,
       toggle_WarpMode_callback,
       NULL },
-#ifdef DINGOO_NATIVE
-    { "Overclock to 433 MHZ",
-      MENU_ENTRY_RESOURCE_TOGGLE,
-      toggle_OverClock_callback,
-      NULL },
-#endif
     SDL_MENU_ITEM_SEPARATOR,
     SDL_MENU_ITEM_TITLE("Refresh rate"),
     { "Automatic",
@@ -138,6 +129,46 @@ const ui_menu_entry_t speed_menu[] = {
     { "Custom rate",
       MENU_ENTRY_DIALOG,
       custom_RefreshRate_callback,
+      NULL },
+    SDL_MENU_ITEM_SEPARATOR,
+    SDL_MENU_ITEM_TITLE("Maximum speed"),
+    { "10%",
+      MENU_ENTRY_RESOURCE_RADIO,
+      radio_Speed_callback,
+      (ui_callback_data_t)10 },
+    { "25%",
+      MENU_ENTRY_RESOURCE_RADIO,
+      radio_Speed_callback,
+      (ui_callback_data_t)25 },
+    { "50%",
+      MENU_ENTRY_RESOURCE_RADIO,
+      radio_Speed_callback,
+      (ui_callback_data_t)50 },
+    { "100%",
+      MENU_ENTRY_RESOURCE_RADIO,
+      radio_Speed_callback,
+      (ui_callback_data_t)100 },
+    { "200%",
+      MENU_ENTRY_RESOURCE_RADIO,
+      radio_Speed_callback,
+      (ui_callback_data_t)200 },
+    { "No limit",
+      MENU_ENTRY_RESOURCE_RADIO,
+      radio_Speed_callback,
+      (ui_callback_data_t)0 },
+    { "Custom speed",
+      MENU_ENTRY_DIALOG,
+      custom_Speed_callback,
+      NULL },
+    SDL_MENU_LIST_END
+};
+
+
+/* VSID specific speed menu: VSID has no concept of 'RefreshRate' */
+const ui_menu_entry_t speed_menu_vsid[] = {
+    { "Warp mode",
+      MENU_ENTRY_RESOURCE_TOGGLE,
+      toggle_WarpMode_callback,
       NULL },
     SDL_MENU_ITEM_SEPARATOR,
     SDL_MENU_ITEM_TITLE("Maximum speed"),

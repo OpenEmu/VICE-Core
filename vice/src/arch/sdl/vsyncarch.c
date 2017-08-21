@@ -3,6 +3,7 @@
  *
  * Written by
  *  Hannu Nuotio <hannu.nuotio@tut.fi>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * Based on code by
  *  Dag Lem <resid@nimrod.no>
@@ -102,6 +103,12 @@ void vsyncarch_presync(void)
 
     sdl_lightpen_update();
     kbdbuf_flush();
+
+#ifdef USE_SDLUI2
+    if (!console_mode) {
+        raster_force_repaint(sdl_active_canvas->parent_raster);
+    }
+#endif
 }
 
 void vsyncarch_postsync(void)

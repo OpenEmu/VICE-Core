@@ -1,3 +1,4 @@
+
 /*
  * uivideo.c - video settings UI interface for MS-DOS.
  *
@@ -29,6 +30,7 @@
 #include <stdio.h>
 
 #include "machine.h"
+#include "palette.h"
 #include "resources.h"
 #include "ted.h"
 #include "tui.h"
@@ -39,6 +41,7 @@
 
 typedef struct ui_video_item_s {
     int video_id;
+    char *id;
     char *cache_res;
     char *double_size_res;
     char *double_scan_res;
@@ -97,7 +100,7 @@ static tui_menu_item_def_t ted_border_submenu[] = {
       (void *)TED_DEBUG_BORDERS, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "_None", NULL, radio_TEDBorderMode_callback,
       (void *)TED_NO_BORDERS, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t ted_menu_items[] = {
@@ -105,7 +108,7 @@ static tui_menu_item_def_t ted_menu_items[] = {
       ted_border_submenu_callback, NULL, 7,
       TUI_MENU_BEH_CONTINUE, ted_border_submenu,
       "Border mode" },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 TUI_MENU_DEFINE_RADIO(VICBorderMode)
@@ -143,7 +146,7 @@ static tui_menu_item_def_t vic_border_submenu[] = {
       (void *)VIC_DEBUG_BORDERS, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "_None", NULL, radio_VICBorderMode_callback,
       (void *)VIC_NO_BORDERS, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t vic_menu_items[] = {
@@ -151,7 +154,7 @@ static tui_menu_item_def_t vic_menu_items[] = {
       vic_border_submenu_callback, NULL, 7,
       TUI_MENU_BEH_CONTINUE, vic_border_submenu,
       "Border mode" },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 TUI_MENU_DEFINE_TOGGLE(VICIICheckSsColl)
@@ -191,7 +194,7 @@ static tui_menu_item_def_t vicii_border_submenu[] = {
       (void *)VICII_DEBUG_BORDERS, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "_None", NULL, radio_VICIIBorderMode_callback,
       (void *)VICII_NO_BORDERS, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t vicii_menu_items[] = {
@@ -207,7 +210,29 @@ static tui_menu_item_def_t vicii_menu_items[] = {
       "Emulate sprite-sprite collision register",
       toggle_VICIICheckSsColl_callback, NULL, 3,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
+};
+
+TUI_MENU_DEFINE_TOGGLE(VICIIVSPBug)
+
+static tui_menu_item_def_t viciisc_menu_items[] = {
+    { "Border mode:", "Select the border mode",
+      vicii_border_submenu_callback, NULL, 7,
+      TUI_MENU_BEH_CONTINUE, vicii_border_submenu,
+      "Border mode" },
+    { "Sprite-_Background Collisions:",
+      "Emulate sprite-background collision register",
+      toggle_VICIICheckSbColl_callback, NULL, 3,
+      TUI_MENU_BEH_CONTINUE, NULL, NULL },
+    { "Sprite-_Sprite Collisions:",
+      "Emulate sprite-sprite collision register",
+      toggle_VICIICheckSsColl_callback, NULL, 3,
+      TUI_MENU_BEH_CONTINUE, NULL, NULL },
+    { "VSP bug:",
+      "Emulate the VSP bug",
+      toggle_VICIIVSPBug_callback, NULL, 3,
+      TUI_MENU_BEH_CONTINUE, NULL, NULL },
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 TUI_MENU_DEFINE_TOGGLE(VDC64KB)
@@ -230,7 +255,7 @@ static tui_menu_item_def_t vdc_revision_submenu[] = {
       (void *)1, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "Rev _2", NULL, radio_VDCRevision_callback,
       (void *)2, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t vdc_menu_items[] = {
@@ -242,11 +267,11 @@ static tui_menu_item_def_t vdc_menu_items[] = {
       vdc_revision_submenu_callback, NULL, 7,
       TUI_MENU_BEH_CONTINUE, vdc_revision_submenu,
       "VDC revision" },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static ui_video_item_t video_item[] = {
-    { VID_NONE, NULL,
+    { VID_NONE, NULL, NULL,
       NULL, NULL,
       NULL, NULL,
       NULL, NULL,
@@ -257,7 +282,7 @@ static ui_video_item_t video_item[] = {
       NULL, NULL,
       NULL, NULL,
       NULL, NULL },
-    { VID_VIC, "VICVideoCache",
+    { VID_VIC, "VIC", "VICVideoCache",
       "VICDoubleSize", "VICDoubleScan",
       "VICFilter", "VICAudioLeak",
       "VICExternalPalette", "VICPaletteFile",
@@ -268,7 +293,7 @@ static ui_video_item_t video_item[] = {
       "VICColorGamma", "VICColorTint",
       "VICColorSaturation", "VICColorContrast",
       "VICColorBrightness", NULL },
-    { VID_VICII, "VICIIVideoCache",
+    { VID_VICII, "VICII", "VICIIVideoCache",
       "VICIIDoubleSize", "VICIIDoubleScan",
       "VICIIFilter", "VICIIAudioLeak",
       "VICIIExternalPalette", "VICIIPaletteFile",
@@ -279,7 +304,18 @@ static ui_video_item_t video_item[] = {
       "VICIIColorGamma", "VICIIColorTint",
       "VICIIColorSaturation", "VICIIColorContrast",
       "VICIIColorBrightness", NULL },
-    { VID_TED, "TEDVideoCache",
+    { VID_VICIISC, "VICII", "VICIIVideoCache",
+      "VICIIDoubleSize", "VICIIDoubleScan",
+      "VICIIFilter", "VICIIAudioLeak",
+      "VICIIExternalPalette", "VICIIPaletteFile",
+      "VICII settings...", "VICII settings",
+      viciisc_menu_items, 1,
+      "VICIIPALScanLineShade", "VICIIPALBlur",
+      "VICIIPALOddLinePhase", "VICIIPALOddLineOffset",
+      "VICIIColorGamma", "VICIIColorTint",
+      "VICIIColorSaturation", "VICIIColorContrast",
+      "VICIIColorBrightness", NULL },
+    { VID_TED, "TED", "TEDVideoCache",
       "TEDDoubleSize", "TEDDoubleScan",
       "TEDFilter", "TEDAudioLeak",
       "TEDExternalPalette", "TEDPaletteFile",
@@ -290,7 +326,7 @@ static ui_video_item_t video_item[] = {
       "TEDColorGamma", "TEDColorTint",
       "TEDColorSaturation", "TEDColorContrast",
       "TEDColorBrightness", NULL },
-    { VID_VDC, NULL,
+    { VID_VDC, "VDC", NULL,
       "VDCDoubleSize", "VDCDoubleScan",
       "VDCFilter", "VDCAudioLeak",
       "VDCExternalPalette", "VDCPaletteFile",
@@ -301,7 +337,7 @@ static ui_video_item_t video_item[] = {
       "VDCColorGamma", "VDCColorTint",
       "VDCColorSaturation", "VDCColorContrast",
       "VDCColorBrightness", "VDCStretchVertical" },
-    { VID_CRTC, "CrtcVideoCache",
+    { VID_CRTC, "Crtc", "CrtcVideoCache",
       "CrtcDoubleSize", "CrtcDoubleScan",
       "CrtcFilter", "CrtcAudioLeak",
       "CrtcExternalPalette", "CrtcPaletteFile",
@@ -339,7 +375,7 @@ static tui_menu_item_def_t video_standard_submenu[] = {
       (void *)MACHINE_SYNC_PAL, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "_NTSC", NULL, radio_MachineVideoStandard_callback,
       (void *)MACHINE_SYNC_NTSC, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t video_standard_menu_items[] = {
@@ -347,7 +383,7 @@ static tui_menu_item_def_t video_standard_menu_items[] = {
       video_standard_submenu_callback, NULL, 7,
       TUI_MENU_BEH_CONTINUE, video_standard_submenu,
       "Video standard" },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static TUI_MENU_CALLBACK(toggle_cache_callback)
@@ -487,6 +523,45 @@ float_inputs(saturation_callback, "Saturation", "(0..2)", 0, 2000)
 float_inputs(contrast_callback, "Contrast", "(0..2)", 0, 2000)
 float_inputs(brightness_callback, "Brightness", "(0..2)", 0, 2000)
 
+int video_chip_index1 = 0;
+int video_chip_index2 = 0;
+
+static TUI_MENU_CALLBACK(available_palette1_callback)
+{
+    char *name = (char *)param;
+    char *res_name = video_item[video_chip_index1].ext_pal_file_res;
+    const char *name_set = NULL;
+
+    if (been_activated) {
+        resources_set_string(res_name, name);
+        *become_default = 1;
+    } else {
+        resources_get_string(res_name, &name_set);
+        if (!strcmp(name_set, name)) {
+            *become_default = 1;
+        }
+    }
+    return NULL;
+}
+
+static TUI_MENU_CALLBACK(available_palette2_callback)
+{
+    char *name = (char *)param;
+    char *res_name = video_item[video_chip_index2].ext_pal_file_res;
+    const char *name_set = NULL;
+
+    if (been_activated) {
+        resources_set_string(res_name, name);
+        *become_default = 1;
+    } else {
+        resources_get_string(res_name, &name_set);
+        if (!strcmp(name_set, name)) {
+            *become_default = 1;
+        }
+    }
+    return NULL;
+}
+
 void uivideo_init(struct tui_menu *parent_submenu, int vid1, int vid2)
 {
     tui_menu_t video_submenu1;
@@ -497,6 +572,12 @@ void uivideo_init(struct tui_menu *parent_submenu, int vid1, int vid2)
     tui_menu_t crt_emulation_submenu2;
     tui_menu_t colors_submenu1;
     tui_menu_t colors_submenu2;
+    tui_menu_t palette_smenu1;
+    tui_menu_t palette_smenu2;
+    palette_info_t *palettelist = palette_get_info_list();
+
+    video_chip_index1 = vid1;
+    video_chip_index2 = vid2;
 
     if (vid2 != VID_NONE) {
         video_submenu1 = tui_menu_create(video_item[vid1].settings_name, 1);
@@ -596,6 +677,26 @@ void uivideo_init(struct tui_menu *parent_submenu, int vid1, int vid2)
                       (void *)video_item[vid1].ext_pal_res, 3,
                       TUI_MENU_BEH_CONTINUE);
 
+    palette_smenu1 = tui_menu_create("Available palettes", 1);
+
+    while (palettelist->name) {
+        if (palettelist->chip && !strcmp(palettelist->chip, video_item[vid1].id)) {
+            tui_menu_add_item(palette_smenu1, palettelist->name,
+                              NULL,
+                              available_palette1_callback,
+                              (void *)palettelist->file, 20,
+                              TUI_MENU_BEH_CONTINUE);
+
+        }
+        ++palettelist;
+    }
+
+    tui_menu_add_submenu(video_submenu1, "Available palettes",
+                         "Available palettes",
+                         palette_smenu1,
+                         NULL, 0,
+                         TUI_MENU_BEH_CONTINUE);
+
     tui_menu_add_item(video_submenu1, "Choose external palette",
                       "Load a custom palette",
                       custom_palette_callback,
@@ -608,6 +709,29 @@ void uivideo_init(struct tui_menu *parent_submenu, int vid1, int vid2)
                           toggle_external_palette_callback,
                           (void *)video_item[vid2].ext_pal_res, 3,
                           TUI_MENU_BEH_CONTINUE);
+
+        palette_smenu2 = tui_menu_create("Available palettes", 1);
+
+        palettelist = palette_get_info_list();
+
+        while (palettelist->name) {
+            if (palettelist->chip && !strcmp(palettelist->chip, video_item[vid1].id)) {
+                tui_menu_add_item(palette_smenu2, palettelist->name,
+                                  NULL,
+                                  available_palette2_callback,
+                                  (void *)palettelist->file, 20,
+                                  TUI_MENU_BEH_CONTINUE);
+
+            }
+            ++palettelist;
+        }
+
+
+        tui_menu_add_submenu(video_submenu2, "Available palettes",
+                             "Available palettes",
+                             palette_smenu2,
+                             NULL, 0,
+                             TUI_MENU_BEH_CONTINUE);
 
         tui_menu_add_item(video_submenu2, "Choose external palette",
                           "Load a custom palette",

@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Matthies <andreas.matthies@gmx.net>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -33,7 +34,6 @@ const uint32 JOYMESSAGE_KEYSET2 = 'J002';
 const uint32 JOYMESSAGE_KEYTEXT = 'J003';
 const uint32 JOYMESSAGE_DISPLAY = 'J004';
 
-extern void ui_joystick(void);
-extern void ui_extra_joystick(void);
+extern void ui_joystick(int first_port, int second_port);
 
 #endif

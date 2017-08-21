@@ -4,6 +4,7 @@
  * Written by
  *  Ettore Perazzoli <ettore@comm2000.it>
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -78,10 +79,6 @@ static char *boot_path = NULL;
 /* alternate storage of preferences */
 const char *archdep_pref_path = NULL; /* NULL -> use home_path + ".vice" */
 
-#if defined(DINGUX) || defined(DINGUX_SDL)
-#define USE_PROC_SELF_EXE
-#define USE_EXE_RELATIVE_TMP
-#endif
 
 #if defined(__QNX__) && !defined(__QNXNTO__)
 int archdep_rtc_get_centisecond(void)
@@ -95,15 +92,6 @@ int archdep_rtc_get_centisecond(void)
     return 0;
 }
 #endif
-
-int archdep_network_init(void)
-{
-    return 0;
-}
-
-void archdep_network_shutdown(void)
-{
-}
 
 int archdep_init_extra(int *argc, char **argv)
 {
@@ -227,11 +215,8 @@ char *archdep_default_sysfile_pathlist(const char *emu_id)
 #else
 #if defined(MACOSX_BUNDLE)
         /* Mac OS X Bundles keep their ROMS in Resources/bin/../ROM */
-#if defined(MACOSX_COCOA) || defined(USE_SDLUI) || defined(USE_SDLUI2)
         #define MACOSX_ROMDIR "/../Resources/ROM/"
-#else
-        #define MACOSX_ROMDIR "/../ROM/"
-#endif
+
         default_path = util_concat(boot_path, MACOSX_ROMDIR, emu_id, ARCHDEP_FINDPATH_SEPARATOR_STRING,
                                    boot_path, "/", emu_id, ARCHDEP_FINDPATH_SEPARATOR_STRING,
                                    home_path, "/", VICEUSERDIR, "/", emu_id, ARCHDEP_FINDPATH_SEPARATOR_STRING,
@@ -364,19 +349,10 @@ char *archdep_default_save_resource_file_name(void)
     return fname;
 }
 
-#if defined(MACOSX_COCOA)
-FILE *default_log_file = NULL;
-
-FILE *archdep_open_default_log_file(void)
-{
-    return default_log_file;
-}
-#else
 FILE *archdep_open_default_log_file(void)
 {
     return stdout;
 }
-#endif
 
 int archdep_default_logger(const char *level_string, const char *txt)
 {
@@ -579,7 +555,7 @@ int archdep_file_is_gzip(const char *name)
 {
     size_t l = strlen(name);
 
-    if ((l < 4 || strcasecmp(name + l - 3, ".gz")) && (l < 3 || strcasecmp(name + l - 2, ".z")) && (l < 4 || toupper(name[l - 1]) != 'Z' || name[l - 4] != '.')) {
+    if ((l < 4 || strcasecmp(name + l - 3, ".gz")) && (l < 3 || strcasecmp(name + l - 2, ".z")) && (l < 4 || toupper((int)(name[l - 1])) != 'Z' || name[l - 4] != '.')) {
         return 0;
     }
     return 1;
@@ -655,9 +631,6 @@ int archdep_file_is_chardev(const char *name)
 
 int archdep_require_vkbd(void)
 {
-#if defined(DINGUX) || defined(DINGUX_SDL)
-    return 1;
-#endif
     return 0;
 }
 
@@ -761,3 +734,12 @@ int kbd_arch_get_host_mapping(void)
     }
     return KBD_MAPPING_US;
 }
+
+#ifdef USE_SDLUI2
+char *archdep_sdl2_default_renderers[] = {
+    "opengles2",
+    "opengles",
+    "opengl",
+    NULL
+};
+#endif

@@ -161,6 +161,13 @@ static int set_container_format(const char *val, void *param)
 {
     int i;
 
+/* kludges to prevent crash at startup when using --help on the commandline */
+#ifndef STATIC_FFMPEG
+    if (ffmpegdrv_formatlist == NULL) {
+        return 0;
+    }
+#endif
+
     format_index = -1;
 
     for (i = 0; ffmpegdrv_formatlist[i].name != NULL; i++) {
@@ -231,7 +238,7 @@ static int set_video_halve_framerate(int value, void *param)
 static const resource_string_t resources_string[] = {
     { "FFMPEGFormat", "avi", RES_EVENT_NO, NULL,
       &ffmpeg_format, set_container_format, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_int_t resources_int[] = {
@@ -247,7 +254,7 @@ static const resource_int_t resources_int[] = {
       &video_codec, set_video_codec, NULL },
     { "FFMPEGVideoHalveFramerate", 0, RES_EVENT_NO, NULL,
       &video_halve_framerate, set_video_halve_framerate, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 static int ffmpegdrv_resources_init(void)
@@ -274,7 +281,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_VALUE, IDCLS_SET_VIDEO_STREAM_BITRATE,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static int ffmpegdrv_cmdline_options_init(void)
@@ -664,8 +671,8 @@ static int ffmpegdrv_open_video(AVFormatContext *oc, AVStream *st)
        picture is needed too. It is then converted to the required
        output format */
     video_st.tmp_frame = NULL;
-    if (c->pix_fmt != PIX_FMT_RGB24) {
-        video_st.tmp_frame = ffmpegdrv_alloc_picture(PIX_FMT_RGB24, c->width, c->height);
+    if (c->pix_fmt != VICE_AV_PIX_FMT_RGB24) {
+        video_st.tmp_frame = ffmpegdrv_alloc_picture(VICE_AV_PIX_FMT_RGB24, c->width, c->height);
         if (!video_st.tmp_frame) {
             log_debug("ffmpegdrv: could not allocate temporary picture");
             return -1;
@@ -762,9 +769,9 @@ static void ffmpegdrv_init_video(screenshot_t *screenshot)
 
 #ifdef HAVE_FFMPEG_SWSCALE
     /* setup scaler */
-    if (c->pix_fmt != PIX_FMT_RGB24) {
+    if (c->pix_fmt != VICE_AV_PIX_FMT_RGB24) {
         sws_ctx = VICE_P_SWS_GETCONTEXT
-                      (video_width, video_height, PIX_FMT_RGB24,
+                      (video_width, video_height, VICE_AV_PIX_FMT_RGB24,
                       video_width, video_height, c->pix_fmt,
                       SWS_BICUBIC,
                       NULL, NULL, NULL);
@@ -941,7 +948,7 @@ static int ffmpegdrv_record(screenshot_t *screenshot)
 
     c = video_st.st->codec;
 
-    if (c->pix_fmt != PIX_FMT_RGB24) {
+    if (c->pix_fmt != VICE_AV_PIX_FMT_RGB24) {
         ffmpegdrv_fill_rgb_image(screenshot, video_st.tmp_frame);
 
         if (sws_ctx != NULL) {
@@ -1005,11 +1012,9 @@ static int ffmpegdrv_write(screenshot_t *screenshot)
     return 0;
 }
 
-static void ffmpegdrv_shutdown(void)
-{
-    ffmpeglib_close(&ffmpeglib);
-    lib_free(ffmpeg_format);
-}
+
+static void ffmpegdrv_shutdown(void);
+
 
 static gfxoutputdrv_t ffmpeg_drv = {
     "FFMPEG",
@@ -1029,6 +1034,28 @@ static gfxoutputdrv_t ffmpeg_drv = {
     , NULL
 #endif
 };
+
+
+static void ffmpegdrv_shutdown(void)
+{
+    int i = 0;
+
+    ffmpeglib_close(&ffmpeglib);
+
+    while (ffmpeg_drv.formatlist[i].name != NULL) {
+        lib_free(ffmpeg_drv.formatlist[i].name);
+        if (ffmpeg_drv.formatlist[i].audio_codecs != NULL) {
+            lib_free(ffmpeg_drv.formatlist[i].audio_codecs);
+        }
+        if (ffmpeg_drv.formatlist[i].video_codecs != NULL) {
+            lib_free(ffmpeg_drv.formatlist[i].video_codecs);
+        }
+        i++;
+    }
+    lib_free(ffmpeg_drv.formatlist);
+
+    lib_free(ffmpeg_format);
+}
 
 static void ffmpeg_get_formats_and_codecs(void)
 {
@@ -1088,6 +1115,7 @@ void gfxoutput_init_ffmpeg(int help)
         return;
     }
 #endif
+
     if (ffmpeglib_open(&ffmpeglib) < 0) {
         return;
     }

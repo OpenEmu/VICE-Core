@@ -3,6 +3,7 @@
  *
  * Written by
  *  Teemu Rantanen <tvr@cs.hut.fi>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -131,7 +132,7 @@ static inline SWORD sound_audio_mix(int ch1, int ch2)
     }
 
     if ((ch1 > 0 && ch2 < 0) || (ch1 < 0 && ch2 > 0)) {
-        return (SWORD)ch1 + ch2;
+        return (SWORD)(ch1 + ch2);
     }
 
     if (ch1 > 0) {
@@ -217,8 +218,6 @@ extern int sound_init_mp3_device(void);
 extern int sound_init_flac_device(void);
 extern int sound_init_vorbis_device(void);
 extern int sound_init_pulse_device(void);
-extern int sound_init_audiounit_device(void);
-extern int sound_init_openemu_device(void);
 
 /* internal function for sound device registration */
 extern int sound_register_device(sound_device_t *pdevice);
@@ -227,6 +226,7 @@ extern int sound_register_device(sound_device_t *pdevice);
 extern int sound_read(WORD addr, int chipno);
 extern void sound_store(WORD addr, BYTE val, int chipno);
 extern long sound_sample_position(void);
+extern int sound_dump(int chipno);
 
 /* functions and structs implemented by each machine */
 typedef struct sound_s sound_t;

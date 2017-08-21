@@ -34,6 +34,15 @@
 #include "sampler.h"
 #include "translate.h"
 
+/* Control port <--> 2bit sampler connections:
+
+   cport | 2bit sampler | I/O
+   --------------------------
+     1   | D0           |  I
+     2   | D1           |  I
+
+ */
+
 static int sampler_enabled = 0;
 
 static int joyport_sampler_enable(int port, int value)
@@ -45,7 +54,7 @@ static int joyport_sampler_enable(int port, int value)
     }
 
     if (val) {
-        sampler_start(SAMPLER_OPEN_MONO);
+        sampler_start(SAMPLER_OPEN_MONO, "2bit control port sampler");
     } else {
         sampler_stop();
     }
@@ -72,11 +81,14 @@ static joyport_t joyport_sampler_device = {
     IDGS_SAMPLER_2BIT,
     JOYPORT_RES_ID_SAMPLER,
     JOYPORT_IS_NOT_LIGHTPEN,
+    JOYPORT_POT_OPTIONAL,
     joyport_sampler_enable,
     joyport_sampler_read,
-    NULL,				/* no store digital */
-    NULL,				/* no pot-x read */
-    NULL				/* no pot-y read */
+    NULL,               /* no store digital */
+    NULL,               /* no pot-x read */
+    NULL,               /* no pot-y read */
+    NULL,               /* no data for a snapshot */
+    NULL                /* no data for a snapshot */
 };
 
 /* currently only used to register the joyport device */

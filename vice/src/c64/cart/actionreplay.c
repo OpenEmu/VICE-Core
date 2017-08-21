@@ -33,9 +33,9 @@
 #define CARTRIDGE_INCLUDE_SLOTMAIN_API
 #include "c64cartsystem.h"
 #undef CARTRIDGE_INCLUDE_SLOTMAIN_API
-#include "c64export.h"
 #include "cartio.h"
 #include "cartridge.h"
+#include "export.h"
 #include "monitor.h"
 #include "snapshot.h"
 #include "types.h"
@@ -109,7 +109,7 @@ static io_source_t action_replay_io2_device = {
 static io_source_list_t *action_replay_io1_list_item = NULL;
 static io_source_list_t *action_replay_io2_list_item = NULL;
 
-static const c64export_resource_t export_res = {
+static const export_resource_t export_res = {
     CARTRIDGE_NAME_ACTION_REPLAY, 1, 1, &action_replay_io1_device, &action_replay_io2_device, CARTRIDGE_ACTION_REPLAY
 };
 
@@ -211,15 +211,20 @@ static void actionreplay_io2_store(WORD addr, BYTE value)
 
 static int actionreplay_dump(void)
 {
-    mon_out("$8000-$9FFF/$DF00-$DFFF: %s, ROM bank: %d, EXROM line: %s, GAME line: %s, cart state: %s\n",
-            (regvalue & 0x20) ? "RAM" : "ROM",
-            (regvalue & 0x18) >> 3,
+    mon_out("EXROM line: %s, GAME line: %s, Mode: %s\n",
             (regvalue & 2) ? "high" : "low",
             (regvalue & 1) ? "low" : "high",
-            (regvalue & 4) ? "disabled" : "enabled");
-    return 0;
+            cart_config_string((BYTE)(regvalue & 3)));
+    mon_out("ROM bank: %d, cart state: %s, reset freeze: %s\n",
+            (regvalue & 0x18) >> 3,
+            (regvalue & 4) ? "disabled" : "enabled",
+            (regvalue & 0x40) ? "yes" : "no");
+    /* FIXME: take system RAM and cart mode(s) into account here */
+    mon_out("$8000-$9FFF: %s\n", (export_ram) ? "RAM" : "ROM");
+    mon_out("$A000-$BFFF: %s\n", "ROM");
+    mon_out("$DF00-$DFFF: %s\n", (export_ram) ? "RAM" : "ROM");
+   return 0;
 }
-
 
 /* ---------------------------------------------------------------------*/
 
@@ -269,7 +274,7 @@ void actionreplay_config_setup(BYTE *rawcart)
 
 static int actionreplay_common_attach(void)
 {
-    if (c64export_add(&export_res) < 0) {
+    if (export_add(&export_res) < 0) {
         return -1;
     }
 
@@ -316,21 +321,31 @@ void actionreplay_detach(void)
     io_source_unregister(action_replay_io2_list_item);
     action_replay_io1_list_item = NULL;
     action_replay_io2_list_item = NULL;
-    c64export_remove(&export_res);
+    export_remove(&export_res);
 }
 
 /* ---------------------------------------------------------------------*/
 
-#define CART_DUMP_VER_MAJOR   0
-#define CART_DUMP_VER_MINOR   0
-#define SNAP_MODULE_NAME  "CARTAR"
+/* CARTAR snapshot module format:
+
+   type  | name   | description
+   ----------------------------
+   BYTE  | active | cartridge is active
+   ARRAY | ROML   | 32768 BYTES of ROML data
+   ARRAY | ROMH   | 32768 BYTES of ROMH data
+   ARRAY | RAM    | 8192 BYES of RAM data
+ */
+
+static char snap_module_name[] = "CARTAR";
+#define SNAP_MAJOR   0
+#define SNAP_MINOR   0
 
 int actionreplay_snapshot_write_module(snapshot_t *s)
 {
     snapshot_module_t *m;
 
-    m = snapshot_module_create(s, SNAP_MODULE_NAME,
-                               CART_DUMP_VER_MAJOR, CART_DUMP_VER_MINOR);
+    m = snapshot_module_create(s, snap_module_name, SNAP_MAJOR, SNAP_MINOR);
+
     if (m == NULL) {
         return -1;
     }
@@ -353,14 +368,16 @@ int actionreplay_snapshot_read_module(snapshot_t *s)
     BYTE vmajor, vminor;
     snapshot_module_t *m;
 
-    m = snapshot_module_open(s, SNAP_MODULE_NAME, &vmajor, &vminor);
+    m = snapshot_module_open(s, snap_module_name, &vmajor, &vminor);
+
     if (m == NULL) {
         return -1;
     }
 
-    if ((vmajor != CART_DUMP_VER_MAJOR) || (vminor != CART_DUMP_VER_MINOR)) {
-        snapshot_module_close(m);
-        return -1;
+    /* Do not accept higher versions than current */
+    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+        snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
+        goto fail;
     }
 
     if (0
@@ -368,11 +385,14 @@ int actionreplay_snapshot_read_module(snapshot_t *s)
         || (SMR_BA(m, roml_banks, 0x8000) < 0)
         || (SMR_BA(m, romh_banks, 0x8000) < 0)
         || (SMR_BA(m, export_ram0, 0x2000) < 0)) {
-        snapshot_module_close(m);
-        return -1;
+        goto fail;
     }
 
     snapshot_module_close(m);
 
     return actionreplay_common_attach();
+
+fail:
+    snapshot_module_close(m);
+    return -1;
 }

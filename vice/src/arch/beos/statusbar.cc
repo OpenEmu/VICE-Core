@@ -25,8 +25,9 @@
  *
  */
 
-#include <stdio.h>
 #include <Bitmap.h>
+#include <Font.h>
+#include <stdio.h>
 #include <String.h>
 
 #include "statusbar.h"
@@ -35,7 +36,6 @@ extern "C" {
 #include "datasette.h"
 #include "drive.h"
 #include "log.h"
-#include "machine.h"
 #include "ui.h"
 }
 
@@ -66,7 +66,15 @@ const rgb_color statusbar_joystick_off = { 100, 100, 100, 0 };
 ViceStatusbar::ViceStatusbar(BRect r) 
     : BView(r,"statusbar", B_FOLLOW_LEFT | B_FOLLOW_TOP, B_WILL_DRAW)
 {
+    BFont font;
     float strwidth;
+
+    /* set the maximum font size */
+    GetFont(&font);
+    if (font.Size() > 11.0) {
+        font.SetSize(11.0);
+        SetFont(&font, B_FONT_SIZE);
+    }
 
     /* setup some coordinates and rectangles */
     strwidth = StringWidth("Speed: 100% at 100fps (warp)");
@@ -91,6 +99,7 @@ ViceStatusbar::ViceStatusbar(BRect r)
     drawview = new BView(r, "drawview", B_FOLLOW_LEFT | B_FOLLOW_TOP, B_WILL_DRAW);
     statusbitmap->AddChild(drawview);
     statusbitmap->Lock();
+    drawview->SetFont(&font, B_FONT_SIZE);
     drawview->SetLowColor(statusbar_background);
     drawview->FillRect(r, B_SOLID_LOW);
     drawview->Sync();
@@ -191,7 +200,7 @@ void ViceStatusbar::DisplayTapeStatus(int enabled, int counter, int motor, int c
     const BPoint rewind_button2[] = { BPoint(5, 3), BPoint(2, 6), BPoint(5, 9) };
 
     frame = status_rect.OffsetByCopy(0, 52);
-    sprintf(str, "T:  %03d", counter % 1000);
+    sprintf(str, " T: %03d", counter % 1000);
     statusbitmap->Lock();
     drawview->SetLowColor(statusbar_background);
     drawview->FillRect(frame, B_SOLID_LOW);

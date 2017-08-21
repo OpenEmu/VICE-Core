@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Matthies <andreas.matthies@gmx.net>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -28,6 +29,8 @@
 #include <CheckBox.h>
 #include <RadioButton.h>
 #include <string.h>
+#include <stdlib.h>
+#include <TextControl.h>
 #include <Window.h>
 
 extern "C" { 
@@ -54,12 +57,14 @@ class DatasetteWindow : public BWindow {
         DatasetteWindow();
         ~DatasetteWindow();
         virtual void MessageReceived(BMessage *msg);
+    private:
+        BTextControl *wobbletextcontrol;
 };
 
 static DatasetteWindow *datasettewindow = NULL;
 
 DatasetteWindow::DatasetteWindow() 
-    : BWindow(BRect(50, 50, 350, 250), "Datasette settings", B_TITLED_WINDOW_LOOK, B_MODAL_APP_WINDOW_FEEL, B_NOT_ZOOMABLE | B_NOT_RESIZABLE) 
+    : BWindow(BRect(50, 50, 350, 270), "Datasette settings", B_TITLED_WINDOW_LOOK, B_MODAL_APP_WINDOW_FEEL, B_NOT_ZOOMABLE | B_NOT_RESIZABLE) 
 {
     BView *background;
     BRect r;
@@ -70,6 +75,7 @@ DatasetteWindow::DatasetteWindow()
     char str[128];
     int i;
     int res_value;
+    int wobble;
 
     r = Bounds();
     background = new BView(r, "backview", B_FOLLOW_NONE, B_WILL_DRAW);
@@ -82,6 +88,13 @@ DatasetteWindow::DatasetteWindow()
     checkbox = new BCheckBox(BRect(145, 10, 295, 20), "RESET", "Reset Datasette with CPU", new BMessage(MESSAGE_DATASETTE_RESET));
     checkbox->SetValue(res_value);
     background->AddChild(checkbox);
+
+    /* Tape Wobble */
+    resources_get_int("DatasetteTapeWobble", &wobble);
+    sprintf(str, "%d", wobble);
+    wobbletextcontrol = new BTextControl(BRect(145, 30, 295, 20), "Tape wobble", "Tape wobble", str, new BMessage(MESSAGE_DATASETTE_WOBBLE));
+    wobbletextcontrol->SetDivider(60);
+    background->AddChild(wobbletextcontrol);
 
     /* Speed Tuning */
     r = Bounds();
@@ -107,7 +120,7 @@ DatasetteWindow::DatasetteWindow()
     r = Bounds();
     r.left = r.right - r.Width() / 2;
     r.InsetBy(10, 5);
-    r.top += 25;
+    r.top += 45;
     box = new BBox(r, "Delay for Zero");
     box->SetViewColor(220, 220, 220, 0);
     box->SetLabel("Delay for Zero");
@@ -135,6 +148,7 @@ DatasetteWindow::~DatasetteWindow()
 void DatasetteWindow::MessageReceived(BMessage *msg)
 {
     int32 res_value;
+    int temp;
 
     switch (msg->what) {
         case MESSAGE_DATASETTE_RESET:
@@ -147,6 +161,10 @@ void DatasetteWindow::MessageReceived(BMessage *msg)
         case MESSAGE_DATASETTE_ZEROGAP:
             msg->FindInt32("zerodelay", &res_value);
             resources_set_int("DatasetteZeroGapDelay", res_value);
+            break;
+        case MESSAGE_DATASETTE_WOBBLE:
+            temp = atoi(wobbletextcontrol->Text());
+            resources_set_int("DatasetteTapeWobble", temp);
             break;
         default:
             BWindow::MessageReceived(msg);

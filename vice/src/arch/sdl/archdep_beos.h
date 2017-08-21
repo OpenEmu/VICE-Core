@@ -2,7 +2,7 @@
  * archdep_beos.h - Miscellaneous system-specific stuff.
  *
  * Written by
- *  Andreas Matthies <andreas.matthies@gmx.net>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *  Marcus Sutton <loggedoubt@gmail.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
@@ -30,6 +30,23 @@
 
 #include "archapi.h"
 
+/* Video chip scaling.  */
+#define ARCHDEP_VICII_DSIZE   1
+#define ARCHDEP_VICII_DSCAN   1
+#define ARCHDEP_VICII_HWSCALE 0
+#define ARCHDEP_VDC_DSIZE     1
+#define ARCHDEP_VDC_DSCAN     1
+#define ARCHDEP_VDC_HWSCALE   0
+#define ARCHDEP_VIC_DSIZE     1
+#define ARCHDEP_VIC_DSCAN     1
+#define ARCHDEP_VIC_HWSCALE   0
+#define ARCHDEP_CRTC_DSIZE    1
+#define ARCHDEP_CRTC_DSCAN    1
+#define ARCHDEP_CRTC_HWSCALE  0
+#define ARCHDEP_TED_DSIZE     1
+#define ARCHDEP_TED_DSCAN     1
+#define ARCHDEP_TED_HWSCALE   0
+
 /* Filesystem dependant operators.  */
 #define FSDEVICE_DEFAULT_DIR "."
 #define FSDEV_DIR_SEP_STR    "/"
@@ -38,8 +55,8 @@
 #define FSDEV_EXT_SEP_CHR    '.'
 
 /* Path separator.  */
-#define ARCHDEP_FINDPATH_SEPARATOR_CHAR   ';'
-#define ARCHDEP_FINDPATH_SEPARATOR_STRING ";"
+#define ARCHDEP_FINDPATH_SEPARATOR_CHAR   ':'
+#define ARCHDEP_FINDPATH_SEPARATOR_STRING ":"
 
 /* Modes for fopen().  */
 #define MODE_READ              "r"
@@ -54,6 +71,12 @@
 #define ARCHDEP_PRINTER_DEFAULT_DEV1 "PrinterFile"
 #define ARCHDEP_PRINTER_DEFAULT_DEV2 "/dev/parallel/parallel1"
 #define ARCHDEP_PRINTER_DEFAULT_DEV3 "/dev/printer/usb/"
+
+/* Default RS232 devices.  */
+#define ARCHDEP_RS232_DEV1 "10.0.0.1:25232"
+#define ARCHDEP_RS232_DEV2 "10.0.0.1:25232"
+#define ARCHDEP_RS232_DEV3 "10.0.0.1:25232"
+#define ARCHDEP_RS232_DEV4 "10.0.0.1:25232"
 
 /* Default location of raw disk images.  */
 #define ARCHDEP_RAWDRIVE_DEFAULT "/dev/disk/floppy/raw"

@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -30,12 +31,22 @@
 #include "petpia.h"
 
 
-void datasette_trigger_flux_change(unsigned int on)
+void machine_trigger_flux_change(unsigned int on)
 {
     pia1_signal(PIA_SIG_CA1, PIA_SIG_FALL);
 }
 
-void datasette_set_tape_sense(int sense)
+void machine_set_tape_sense(int sense)
 {
     pia1_set_tape_sense(sense);
+}
+
+void machine_set_tape_write_in(int val)
+{
+    pia1_set_tape_write_in(val);
+}
+
+void machine_set_tape_motor_in(int val)
+{
+    pia1_set_tape_motor_in(val);
 }

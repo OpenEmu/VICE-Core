@@ -1,5 +1,5 @@
 /*
- * dialogs.rc - Resource script file
+ * dlg-ide64.rc - IDE64 Resource script file
  *
  * Written by
  *  Marco van den Heuvel <blackystardust68@yahoo.com>
@@ -27,10 +27,8 @@
 #include "dialogs.h"
 #include "dlg-ide64.h" 
 
-#ifdef WATCOM_COMPILE
 #include <pmwin.h>
 #include <pmstddlg.h>
-#endif
 
 DLGTEMPLATE DLG_IDE64 850 MOVEABLE DISCARDABLE
 BEGIN

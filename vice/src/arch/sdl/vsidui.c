@@ -45,6 +45,7 @@
 #include "menu_debug.h"
 #include "menu_help.h"
 #include "menu_jam.h"
+#include "menu_monitor.h"
 #include "menu_reset.h"
 #include "menu_settings.h"
 #include "menu_sid.h"
@@ -287,15 +288,15 @@ static const ui_menu_entry_t vsid_main_menu[] = {
     { "Speed settings",
       MENU_ENTRY_SUBMENU,
       submenu_callback,
-      (ui_callback_data_t)speed_menu },
+      (ui_callback_data_t)speed_menu_vsid },
     { "Pause",
       MENU_ENTRY_OTHER,
       pause_callback,
       NULL },
     { "Monitor",
-      MENU_ENTRY_OTHER,
-      monitor_callback,
-      NULL },
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)monitor_menu },
 #ifdef DEBUG
     { "Debug",
       MENU_ENTRY_SUBMENU,
@@ -309,7 +310,7 @@ static const ui_menu_entry_t vsid_main_menu[] = {
     { "Settings management",
       MENU_ENTRY_SUBMENU,
       submenu_callback,
-      (ui_callback_data_t)settings_manager_menu },
+      (ui_callback_data_t)settings_manager_menu_vsid },
     { "Quit emulator",
       MENU_ENTRY_OTHER,
       quit_callback,
@@ -343,6 +344,7 @@ int vsid_ui_init(void)
     
     sdl_ui_set_menu_params = NULL;
     uikeyboard_menu_create();
+    uisid_menu_create();
 
     sdl_ui_set_main_menu(vsid_main_menu);
     sdl_ui_set_menu_font(mem_chargen_rom + 0x800, 8, 8);
@@ -407,7 +409,7 @@ void vsid_ui_set_default_tune(int nr)
 
 void vsid_ui_display_tune_nr(int nr)
 {
-    sprintf(vsidstrings[VSID_S_PLAYING], "Playing tune: %d", nr);
+    sprintf(vsidstrings[VSID_S_PLAYING], "Playing tune: %-3d", nr);
     log_message(LOG_DEFAULT, "%s", vsidstrings[VSID_S_PLAYING]);
     sdl_vsid_current_tune = nr;
 
@@ -454,4 +456,6 @@ void vsid_ui_setdrv(char* driver_info_text)
 
 void vsid_ui_close(void)
 {
+    uikeyboard_menu_shutdown();
+    uisid_menu_shutdown();
 }

@@ -44,8 +44,8 @@ EXTRA_PROGRAMS =
 subdir = src
 DIST_COMMON = $(noinst_HEADERS) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(srcdir)/debug.h.in $(srcdir)/gentranslate_h.sh.in \
-	$(srcdir)/version.h.in ChangeLog memcmp.c usleep.c
+	$(srcdir)/debug.h.in $(srcdir)/version.h.in \
+	$(srcdir)/vice-version.sh.in ChangeLog usleep.c
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
 	$(top_srcdir)/configure.ac
@@ -53,7 +53,7 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = debug.h gentranslate_h.sh version.h
+CONFIG_CLEAN_FILES = debug.h version.h vice-version.sh
 CONFIG_CLEAN_VPATH_FILES =
 @SUPPORT_X64SC_TRUE@am__EXEEXT_1 = x64sc$(EXEEXT)
 @SUPPORT_X64DTV_TRUE@am__EXEEXT_2 = x64dtv$(EXEEXT)
@@ -82,7 +82,7 @@ c1541_OBJECTS = $(am_c1541_OBJECTS)
 c1541_DEPENDENCIES = $(ARCH_EXTRA_OBJECTS) $(p64_lib) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_2) $(vdrive_lib) \
 	$(imagecontents_lib) $(fileio_lib) $(diskimage_lib) \
-	$(tape_lib) $(serial_lib) $(platform_lib)
+	$(tape_lib) $(serial_lib) $(platform_lib) $(socketdrv_lib)
 am_cartconv_OBJECTS = cartconv.$(OBJEXT)
 cartconv_OBJECTS = $(am_cartconv_OBJECTS)
 cartconv_DEPENDENCIES =
@@ -92,7 +92,7 @@ am_petcat_OBJECTS = charset.$(OBJEXT) findpath.$(OBJEXT) \
 	zfile.$(OBJEXT) zipcode.$(OBJEXT)
 petcat_OBJECTS = $(am_petcat_OBJECTS)
 petcat_DEPENDENCIES = $(ARCH_EXTRA_OBJECTS) $(fileio_lib) \
-	$(platform_lib)
+	$(platform_lib) $(socketdrv_lib)
 am__objects_1 = alarm.$(OBJEXT) attach.$(OBJEXT) autostart.$(OBJEXT) \
 	autostart-prg.$(OBJEXT) cbmdos.$(OBJEXT) cbmimage.$(OBJEXT) \
 	charset.$(OBJEXT) clipboard.$(OBJEXT) clkguard.$(OBJEXT) \
@@ -117,10 +117,11 @@ vsid_OBJECTS = $(am_vsid_OBJECTS)
 am__DEPENDENCIES_3 = @LIBOBJS@
 am__DEPENDENCIES_4 =
 am__DEPENDENCIES_5 = $(vsid_lib) $(sid_lib) $(monitor_lib) \
-	$(sounddrv_lib) $(serial_lib) $(core_lib) $(viciivsid_lib) \
-	$(raster_lib) $(video_lib) $(am__DEPENDENCIES_3) \
-	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4) $(joyport_lib) \
-	$(platform_lib)
+	$(sounddrv_lib) $(mididrv_lib) $(socketdrv_lib) \
+	$(hwsiddrv_lib) $(iodrv_lib) $(serial_lib) $(core_lib) \
+	$(viciivsid_lib) $(raster_lib) $(video_lib) \
+	$(am__DEPENDENCIES_3) $(am__DEPENDENCIES_4) \
+	$(am__DEPENDENCIES_4) $(joyport_lib) $(platform_lib)
 vsid_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(vsid_LDFLAGS) $(LDFLAGS) \
 	-o $@
 am_vsidow_OBJECTS = maincpu.$(OBJEXT)
@@ -128,13 +129,14 @@ vsidow_OBJECTS = $(am_vsidow_OBJECTS)
 vsidow_LDADD = $(LDADD)
 am_x128_OBJECTS = $(am__objects_1) $(am__objects_2)
 x128_OBJECTS = $(am_x128_OBJECTS)
-am__DEPENDENCIES_6 = $(c128_lib) $(c64cartsystem_lib) $(c64cart_lib) \
-	$(c64commoncart_lib) $(c64c128_lib) $(driveiec_lib) \
-	$(driveiec128dcr_lib) $(driveiecieee_lib) \
-	$(driveiecc64exp_lib) $(driveieee_lib) $(drive_lib) $(p64_lib) \
-	$(iecbus_lib) $(parallel_lib) $(vdrive_lib) $(sid_lib) \
-	$(monitor_lib) $(driver_libs) $(vicii_lib) $(vdc_lib) \
-	$(raster_lib) $(userport_lib) $(rtc_lib) $(video_lib) \
+am__DEPENDENCIES_6 = $(tapeport_lib) $(c128_lib) $(tapeport_lib) \
+	$(c64cartsystem_lib) $(c64cart_lib) $(c64commoncart_lib) \
+	$(c64c128_lib) $(driveiec_lib) $(driveiec128dcr_lib) \
+	$(driveiecieee_lib) $(driveiecc64exp_lib) $(driveieee_lib) \
+	$(drive_lib) $(drivetcbm_lib) $(p64_lib) $(iecbus_lib) \
+	$(parallel_lib) $(vdrive_lib) $(sid_lib) $(monitor_lib) \
+	$(driver_libs) $(vicii_lib) $(vdc_lib) $(raster_lib) \
+	$(userport_lib) $(diag_lib) $(rtc_lib) $(video_lib) \
 	$(am__DEPENDENCIES_3) $(imagecontents_lib) \
 	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4) $(platform_lib)
 x128_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(x128_LDFLAGS) $(LDFLAGS) \
@@ -144,12 +146,13 @@ x128ow_OBJECTS = $(am_x128ow_OBJECTS)
 x128ow_LDADD = $(LDADD)
 am_x64_OBJECTS = $(am__objects_1) $(am__objects_2)
 x64_OBJECTS = $(am_x64_OBJECTS)
-am__DEPENDENCIES_7 = $(c64_lib) $(c64cartsystem_lib) $(c64cart_lib) \
-	$(c64commoncart_lib) $(driveiec_lib) $(driveiecieee_lib) \
-	$(driveiecc64exp_lib) $(driveieee_lib) $(drive_lib) \
-	$(iecbus_lib) $(p64_lib) $(parallel_lib) $(vdrive_lib) \
-	$(sid_lib) $(monitor_lib) $(driver_libs) $(vicii_lib) \
-	$(raster_lib) $(userport_lib) $(rtc_lib) $(video_lib) \
+am__DEPENDENCIES_7 = $(tapeport_lib) $(c64_lib) $(tapeport_lib) \
+	$(c64cartsystem_lib) $(c64cart_lib) $(c64commoncart_lib) \
+	$(driveiec_lib) $(driveiecieee_lib) $(driveiecc64exp_lib) \
+	$(driveieee_lib) $(drive_lib) $(drivetcbm_lib) $(iecbus_lib) \
+	$(p64_lib) $(parallel_lib) $(vdrive_lib) $(sid_lib) \
+	$(monitor_lib) $(driver_libs) $(vicii_lib) $(raster_lib) \
+	$(userport_lib) $(diag_lib) $(rtc_lib) $(video_lib) \
 	$(am__DEPENDENCIES_3) $(imagecontents_lib) \
 	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4) $(platform_lib)
 x64_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(x64_LDFLAGS) $(LDFLAGS) -o \
@@ -159,12 +162,13 @@ am_x64dtv_OBJECTS = $(am__objects_1) $(am__objects_3)
 x64dtv_OBJECTS = $(am_x64dtv_OBJECTS)
 am__DEPENDENCIES_8 = $(c64dtv_lib) $(c64c64dtv_lib) $(driveiec_lib) \
 	$(driveiecieee_lib) $(driveiecc64exp_lib) $(driveieee_lib) \
-	$(drive_lib) $(p64_lib) $(iecbus_lib) $(parallel_lib) \
-	$(userport_lib) $(vdrive_lib) $(sid_lib) $(monitor_lib) \
-	$(driver_libs) $(viciidtv_lib) $(raster_lib) $(rtc_lib) \
-	$(video_lib) $(am__DEPENDENCIES_3) $(imagecontents_lib) \
-	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4) $(c64dtvstubs_lib) \
-	$(joyport_lib) $(platform_lib)
+	$(drive_lib) $(drivetcbm_lib) $(p64_lib) $(iecbus_lib) \
+	$(parallel_lib) $(userport_lib) $(diag_lib) $(vdrive_lib) \
+	$(sid_lib) $(monitor_lib) $(driver_libs) $(viciidtv_lib) \
+	$(raster_lib) $(rtc_lib) $(video_lib) $(am__DEPENDENCIES_3) \
+	$(imagecontents_lib) $(am__DEPENDENCIES_4) \
+	$(am__DEPENDENCIES_4) $(c64dtvstubs_lib) $(joyport_lib) \
+	$(platform_lib)
 x64dtv_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(x64dtv_LDFLAGS) \
 	$(LDFLAGS) -o $@
 am_x64dtvow_OBJECTS = maincpu.$(OBJEXT)
@@ -175,14 +179,15 @@ x64ow_OBJECTS = $(am_x64ow_OBJECTS)
 x64ow_LDADD = $(LDADD)
 am_x64sc_OBJECTS = $(am__objects_1) $(am__objects_2)
 x64sc_OBJECTS = $(am_x64sc_OBJECTS)
-am__DEPENDENCIES_9 = $(c64sc_lib) $(c64cartsystem_lib) $(c64cart_lib) \
-	$(c64commoncart_lib) $(driveiec_lib) $(driveiecieee_lib) \
-	$(driveiecc64exp_lib) $(driveieee_lib) $(drive_lib) $(p64_lib) \
+am__DEPENDENCIES_9 = $(tapeport_lib) $(c64sc_lib) $(tapeport_lib) \
+	$(c64cartsystem_lib) $(c64cart_lib) $(c64commoncart_lib) \
+	$(driveiec_lib) $(driveiecieee_lib) $(driveiecc64exp_lib) \
+	$(driveieee_lib) $(drive_lib) $(drivetcbm_lib) $(p64_lib) \
 	$(iecbus_lib) $(parallel_lib) $(vdrive_lib) $(sid_lib) \
 	$(monitor_lib) $(driver_libs) $(viciisc_lib) $(raster_lib) \
-	$(userport_lib) $(rtc_lib) $(video_lib) $(am__DEPENDENCIES_3) \
-	$(imagecontents_lib) $(am__DEPENDENCIES_4) \
-	$(am__DEPENDENCIES_4) $(platform_lib)
+	$(userport_lib) $(diag_lib) $(rtc_lib) $(video_lib) \
+	$(am__DEPENDENCIES_3) $(imagecontents_lib) \
+	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4) $(platform_lib)
 x64sc_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(x64sc_LDFLAGS) \
 	$(LDFLAGS) -o $@
 am_x64scow_OBJECTS = maincpu.$(OBJEXT)
@@ -190,9 +195,10 @@ x64scow_OBJECTS = $(am_x64scow_OBJECTS)
 x64scow_LDADD = $(LDADD)
 am_xcbm2_OBJECTS = $(am__objects_1)
 xcbm2_OBJECTS = $(am_xcbm2_OBJECTS)
-am__DEPENDENCIES_10 = $(xcbm2_lib) $(driveiecieee_lib) \
-	$(driveieee_lib) $(drive_lib) $(p64_lib) $(parallel_lib) \
-	$(vdrive_lib) $(monitor_lib) $(driver_libs) $(sid_lib) \
+am__DEPENDENCIES_10 = $(tapeport_lib) $(xcbm2_lib) $(diag_lib) \
+	$(driveiecieee_lib) $(driveieee_lib) $(drive_lib) \
+	$(driveiec_lib) $(drivetcbm_lib) $(p64_lib) $(parallel_lib) \
+	$(vdrive_lib) $(monitor_lib) $(sid_lib) $(driver_libs) \
 	$(crtc_lib) $(raster_lib) $(video_lib) $(userport_lib) \
 	$(am__DEPENDENCIES_3) $(imagecontents_lib) $(joyport_lib) \
 	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4) $(platform_lib) \
@@ -204,9 +210,10 @@ xcbm2ow_OBJECTS = $(am_xcbm2ow_OBJECTS)
 xcbm2ow_LDADD = $(LDADD)
 am_xcbm5x0_OBJECTS = $(am__objects_1)
 xcbm5x0_OBJECTS = $(am_xcbm5x0_OBJECTS)
-am__DEPENDENCIES_11 = $(xcbm5x0_lib) $(driveiecieee_lib) \
-	$(driveieee_lib) $(drive_lib) $(p64_lib) $(parallel_lib) \
-	$(vdrive_lib) $(monitor_lib) $(driver_libs) $(sid_lib) \
+am__DEPENDENCIES_11 = $(tapeport_lib) $(xcbm5x0_lib) $(diag_lib) \
+	$(driveiecieee_lib) $(driveieee_lib) $(drive_lib) \
+	$(drivetcbm_lib) $(driveiec_lib) $(p64_lib) $(parallel_lib) \
+	$(vdrive_lib) $(monitor_lib) $(sid_lib) $(driver_libs) \
 	$(vicii_lib) $(raster_lib) $(rtc_lib) $(video_lib) \
 	$(userport_lib) $(am__DEPENDENCIES_3) $(imagecontents_lib) \
 	$(joyport_lib) $(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4) \
@@ -218,12 +225,14 @@ xcbm5x0ow_OBJECTS = $(am_xcbm5x0ow_OBJECTS)
 xcbm5x0ow_LDADD = $(LDADD)
 am_xpet_OBJECTS = $(am__objects_1)
 xpet_OBJECTS = $(am_xpet_OBJECTS)
-am__DEPENDENCIES_12 = $(pet_lib) $(driveiecieee_lib) $(driveieee_lib) \
-	$(drive_lib) $(p64_lib) $(parallel_lib) $(vdrive_lib) \
-	$(monitor_lib) $(driver_libs) $(crtc_lib) $(raster_lib) \
-	$(userport_lib) $(video_lib) $(sid_lib) $(am__DEPENDENCIES_3) \
-	$(imagecontents_lib) $(joyport_lib) $(am__DEPENDENCIES_4) \
-	$(am__DEPENDENCIES_4) $(platform_lib) $(rtc_lib)
+am__DEPENDENCIES_12 = $(tapeport_lib) $(pet_lib) $(diag_lib) \
+	$(driveiecieee_lib) $(driveieee_lib) $(drive_lib) \
+	$(driveiec_lib) $(drivetcbm_lib) $(p64_lib) $(parallel_lib) \
+	$(vdrive_lib) $(monitor_lib) $(sid_lib) $(driver_libs) \
+	$(crtc_lib) $(raster_lib) $(userport_lib) $(video_lib) \
+	$(am__DEPENDENCIES_3) $(imagecontents_lib) $(joyport_lib) \
+	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4) $(platform_lib) \
+	$(rtc_lib)
 xpet_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(xpet_LDFLAGS) $(LDFLAGS) \
 	-o $@
 am_xpetow_OBJECTS = maincpu.$(OBJEXT)
@@ -231,11 +240,12 @@ xpetow_OBJECTS = $(am_xpetow_OBJECTS)
 xpetow_LDADD = $(LDADD)
 am_xplus4_OBJECTS = $(am__objects_1)
 xplus4_OBJECTS = $(am_xplus4_OBJECTS)
-am__DEPENDENCIES_13 = $(plus4_lib) $(driveiec_lib) $(driveiecieee_lib) \
-	$(driveiecplus4exp_lib) $(drivetcbm_lib) $(drive_lib) \
-	$(p64_lib) $(iecbus_lib) $(vdrive_lib) $(monitor_lib) \
-	$(driver_libs) $(sid_lib) $(raster_lib) $(rtc_lib) \
-	$(userport_lib) $(video_lib) $(am__DEPENDENCIES_3) \
+am__DEPENDENCIES_13 = $(tapeport_lib) $(plus4_lib) $(diag_lib) \
+	$(driveiec_lib) $(driveiecieee_lib) $(driveiecplus4exp_lib) \
+	$(drivetcbm_lib) $(drive_lib) $(driveieee_lib) $(parallel_lib) \
+	$(driveieee_lib) $(p64_lib) $(iecbus_lib) $(vdrive_lib) \
+	$(monitor_lib) $(sid_lib) $(driver_libs) $(raster_lib) \
+	$(rtc_lib) $(userport_lib) $(video_lib) $(am__DEPENDENCIES_3) \
 	$(imagecontents_lib) $(joyport_lib) $(am__DEPENDENCIES_4) \
 	$(am__DEPENDENCIES_4) $(platform_lib)
 xplus4_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(xplus4_LDFLAGS) \
@@ -248,12 +258,12 @@ xscpu64_OBJECTS = $(am_xscpu64_OBJECTS)
 am__DEPENDENCIES_14 = $(scpu64_lib) $(c64cartsystem_lib) \
 	$(c64cart_lib) $(c64commoncart_lib) $(c64scpu64_lib) \
 	$(driveiec_lib) $(driveiecieee_lib) $(driveiecc64exp_lib) \
-	$(driveieee_lib) $(drive_lib) $(p64_lib) $(iecbus_lib) \
-	$(parallel_lib) $(vdrive_lib) $(sid_lib) $(monitor_lib) \
-	$(driver_libs) $(viciisc_lib) $(raster_lib) $(userport_lib) \
-	$(rtc_lib) $(video_lib) $(am__DEPENDENCIES_3) \
-	$(imagecontents_lib) $(am__DEPENDENCIES_4) \
-	$(am__DEPENDENCIES_4) $(platform_lib)
+	$(driveieee_lib) $(drive_lib) $(drivetcbm_lib) $(p64_lib) \
+	$(iecbus_lib) $(parallel_lib) $(vdrive_lib) $(sid_lib) \
+	$(monitor_lib) $(driver_libs) $(viciisc_lib) $(raster_lib) \
+	$(userport_lib) $(diag_lib) $(rtc_lib) $(video_lib) \
+	$(am__DEPENDENCIES_3) $(imagecontents_lib) \
+	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4) $(platform_lib)
 xscpu64_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(xscpu64_LDFLAGS) \
 	$(LDFLAGS) -o $@
 am_xscpu64ow_OBJECTS = maincpu.$(OBJEXT)
@@ -261,14 +271,14 @@ xscpu64ow_OBJECTS = $(am_xscpu64ow_OBJECTS)
 xscpu64ow_LDADD = $(LDADD)
 am_xvic_OBJECTS = $(am__objects_1) $(am__objects_2)
 xvic_OBJECTS = $(am_xvic_OBJECTS)
-am__DEPENDENCIES_15 = $(vic20_lib) $(vic20cart_lib) \
+am__DEPENDENCIES_15 = $(tapeport_lib) $(vic20cart_lib) $(vic20_lib) \
 	$(c64commoncart_lib) $(mascuerade_lib) $(driveiec_lib) \
-	$(driveiecieee_lib) $(driveieee_lib) $(drive_lib) $(p64_lib) \
-	$(iecbus_lib) $(parallel_lib) $(vdrive_lib) $(monitor_lib) \
-	$(driver_libs) $(raster_lib) $(rtc_lib) $(userport_lib) \
-	$(sid_lib) $(video_lib) $(am__DEPENDENCIES_3) \
-	$(imagecontents_lib) $(am__DEPENDENCIES_4) \
-	$(am__DEPENDENCIES_4) $(platform_lib)
+	$(driveiecieee_lib) $(driveieee_lib) $(drive_lib) \
+	$(drivetcbm_lib) $(p64_lib) $(iecbus_lib) $(parallel_lib) \
+	$(vdrive_lib) $(monitor_lib) $(sid_lib) $(driver_libs) \
+	$(raster_lib) $(userport_lib) $(diag_lib) $(rtc_lib) \
+	$(video_lib) $(am__DEPENDENCIES_3) $(imagecontents_lib) \
+	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4) $(platform_lib)
 xvic_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(xvic_LDFLAGS) $(LDFLAGS) \
 	-o $@
 am_xvicow_OBJECTS = maincpu.$(OBJEXT)
@@ -385,6 +395,7 @@ EGREP = @EGREP@
 ENABLE_ARCH = @ENABLE_ARCH@
 EXEEXT = @EXEEXT@
 FCCACHE = @FCCACHE@
+FFMPEGSUB = @FFMPEGSUB@
 FFMPEG_AVRESAMPLE_CFLAGS = @FFMPEG_AVRESAMPLE_CFLAGS@
 FFMPEG_AVRESAMPLE_LIBS = @FFMPEG_AVRESAMPLE_LIBS@
 FFMPEG_AV_CFLAGS = @FFMPEG_AV_CFLAGS@
@@ -401,6 +412,8 @@ FULLSCREEN_DRIVERS = @FULLSCREEN_DRIVERS@
 GENCAT = @GENCAT@
 GFXOUTPUT_DRIVERS = @GFXOUTPUT_DRIVERS@
 GFXOUTPUT_LIBS = @GFXOUTPUT_LIBS@
+GLIB_CFLAGS = @GLIB_CFLAGS@
+GLIB_LIBS = @GLIB_LIBS@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
 GREP = @GREP@
@@ -428,8 +441,10 @@ LDFLAGS = @LDFLAGS@
 LEX = @LEX@
 LEXLIB = @LEXLIB@
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
+LIBFFMPEGSUB = @LIBFFMPEGSUB@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
+LIBX264SUB = @LIBX264SUB@
 LINKCC = @LINKCC@
 LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
@@ -438,6 +453,7 @@ MAKEINFO = @MAKEINFO@
 MAKERTF = @MAKERTF@
 MAX_INLINE_INSN_SINGLE = @MAX_INLINE_INSN_SINGLE@
 MKDIR_P = @MKDIR_P@
+MKFONTDIR_BIN = @MKFONTDIR_BIN@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MSGFMT = @MSGFMT@
 NATIVE_TOOLS_COMPILER = @NATIVE_TOOLS_COMPILER@
@@ -461,6 +477,8 @@ PDFTEX = @PDFTEX@
 PERL = @PERL@
 PKG_CONFIG = @PKG_CONFIG@
 PLATFORM_DOX_FLAGS = @PLATFORM_DOX_FLAGS@
+PNG_CFLAGS = @PNG_CFLAGS@
+PNG_LIBS = @PNG_LIBS@
 POFILES = @POFILES@
 POSUB = @POSUB@
 QUICKTIME_INCLUDES = @QUICKTIME_INCLUDES@
@@ -479,6 +497,7 @@ RESID_DTV_LIBS = @RESID_DTV_LIBS@
 RESID_INCLUDES = @RESID_INCLUDES@
 RESID_LIBS = @RESID_LIBS@
 SDL_EXTRA_LIBS = @SDL_EXTRA_LIBS@
+SDL_VERSION = @SDL_VERSION@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 SOUND_AIX_OBJ = @SOUND_AIX_OBJ@
@@ -557,6 +576,7 @@ datarootdir = @datarootdir@
 docdir = @docdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
+ffmpeg_have_bash = @ffmpeg_have_bash@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
@@ -601,51 +621,62 @@ xvic_LDFLAGS = @xvic_LDFLAGS@
 # $(CXX) instead of $(CC) when compiling with reSID.
 LINK = @LINKCC@ $(CFLAGS) $(LDFLAGS) -o $@
 CCLD = @LINKCC@
-SUBDIRS = \
-	@RESID_DIR@ \
-	@RESID_DTV_DIR@ \
-	samplerdrv \
-	joyport \
-	sounddrv \
-	drive \
-	vdrive \
-	fsdevice \
-	diskimage \
-	iecbus \
-	serial \
-	parallel \
-	tape \
-	imagecontents \
-	fileio \
-	video \
-	raster \
-	vicii \
-	viciisc \
-	viciivsid \
-	vdc \
-	crtc \
-	gfxoutputdrv \
-	printerdrv \
-	rs232drv \
-	sid \
-	monitor \
-	core \
-	rtc \
-	userport \
-	c64 \
-	scpu64 \
-	c64dtv \
-	c128 \
-	vic20 \
-	pet \
-	plus4 \
-	cbm2 \
-	arch \
-	lib/p64 \
-	platform
+@DUMMY_COMPILE_FALSE@SUBDIRS = \
+@DUMMY_COMPILE_FALSE@	@RESID_DIR@ \
+@DUMMY_COMPILE_FALSE@	@RESID_DTV_DIR@ \
+@DUMMY_COMPILE_FALSE@	samplerdrv \
+@DUMMY_COMPILE_FALSE@	joyport \
+@DUMMY_COMPILE_FALSE@	sounddrv \
+@DUMMY_COMPILE_FALSE@	mididrv \
+@DUMMY_COMPILE_FALSE@	socketdrv \
+@DUMMY_COMPILE_FALSE@	hwsiddrv \
+@DUMMY_COMPILE_FALSE@	iodrv \
+@DUMMY_COMPILE_FALSE@	drive \
+@DUMMY_COMPILE_FALSE@	vdrive \
+@DUMMY_COMPILE_FALSE@	fsdevice \
+@DUMMY_COMPILE_FALSE@	diskimage \
+@DUMMY_COMPILE_FALSE@	iecbus \
+@DUMMY_COMPILE_FALSE@	serial \
+@DUMMY_COMPILE_FALSE@	parallel \
+@DUMMY_COMPILE_FALSE@	tape \
+@DUMMY_COMPILE_FALSE@	imagecontents \
+@DUMMY_COMPILE_FALSE@	fileio \
+@DUMMY_COMPILE_FALSE@	video \
+@DUMMY_COMPILE_FALSE@	raster \
+@DUMMY_COMPILE_FALSE@	vicii \
+@DUMMY_COMPILE_FALSE@	viciisc \
+@DUMMY_COMPILE_FALSE@	viciivsid \
+@DUMMY_COMPILE_FALSE@	vdc \
+@DUMMY_COMPILE_FALSE@	crtc \
+@DUMMY_COMPILE_FALSE@	gfxoutputdrv \
+@DUMMY_COMPILE_FALSE@	printerdrv \
+@DUMMY_COMPILE_FALSE@	rs232drv \
+@DUMMY_COMPILE_FALSE@	sid \
+@DUMMY_COMPILE_FALSE@	monitor \
+@DUMMY_COMPILE_FALSE@	core \
+@DUMMY_COMPILE_FALSE@	rtc \
+@DUMMY_COMPILE_FALSE@	userport \
+@DUMMY_COMPILE_FALSE@	tapeport \
+@DUMMY_COMPILE_FALSE@	diag \
+@DUMMY_COMPILE_FALSE@	c64 \
+@DUMMY_COMPILE_FALSE@	scpu64 \
+@DUMMY_COMPILE_FALSE@	c64dtv \
+@DUMMY_COMPILE_FALSE@	c128 \
+@DUMMY_COMPILE_FALSE@	vic20 \
+@DUMMY_COMPILE_FALSE@	pet \
+@DUMMY_COMPILE_FALSE@	plus4 \
+@DUMMY_COMPILE_FALSE@	cbm2 \
+@DUMMY_COMPILE_FALSE@	arch \
+@DUMMY_COMPILE_FALSE@	lib \
+@DUMMY_COMPILE_FALSE@	platform
 
+@DUMMY_COMPILE_TRUE@SUBDIRS = buildtools
 DIST_SUBDIRS = \
 	sounddrv \
+	mididrv \
+	socketdrv \
+	hwsiddrv \
+	iodrv \
 	samplerdrv \
 	joyport \
 	drive \
@@ -672,7 +703,9 @@ DIST_SUBDIRS = \
 	monitor \
 	core \
 	rtc \
+	diag \
 	userport \
+	tapeport \
 	c64 \
 	scpu64 \
 	c64dtv \
@@ -685,7 +718,8 @@ DIST_SUBDIRS = \
 	@RESIDSUB@ \
 	@RESIDDTVSUB@ \
 	lib \
-	platform
+	platform \
+	buildtools
 
 AM_CPPFLAGS = \
 	@ARCH_INCLUDES@ \
@@ -698,12 +732,17 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/plus4 \
 	-I$(top_srcdir)/src/vic20 \
 	-I$(top_srcdir)/src/vdrive \
+	-I$(top_srcdir)/src/diskimage \
 	-I$(top_srcdir)/src/imagecontents \
+	-I$(top_srcdir)/src/diag \
 	-I$(top_srcdir)/src/userport \
 	-I$(top_srcdir)/src/lib/p64 \
 	-I$(top_srcdir)/src/platform \
 	-I$(top_srcdir)/src/joyport \
-	-I$(top_srcdir)/src/rtc
+	-I$(top_srcdir)/src/rtc \
+	-I$(top_srcdir)/src/tapeport \
+	-I$(top_srcdir)/src/tape \
+	-I$(top_srcdir)/src/socketdrv
 
 noinst_HEADERS = \
 	6510core.h \
@@ -733,11 +772,13 @@ noinst_HEADERS = \
 	crc32.h \
 	datasette.h \
 	debug.h \
+	digimaxcore.c \
 	diskconstants.h \
 	diskimage.h \
 	dma.h \
 	dynlib.h \
 	embedded.h \
+	export.h \
 	fileio.h \
 	findpath.h \
 	fixpoint.h \
@@ -810,6 +851,7 @@ noinst_HEADERS = \
 	signals.h \
 	snapshot.h \
 	sound.h \
+	ssi2001.h \
 	sysfile.h \
 	tap.h \
 	tape.h \
@@ -927,23 +969,14 @@ COMMON_EXTRA_DIST = \
 	ChangeLog.5 \
 	ChangeLog.6 \
 	aciacore.c \
-	bin2c.c \
-	bin2c.sh \
-	convert_owcc_libs.sh \
 	debug.h.in \
 	fixpoint.c \
-	geninfocontrib_h.sh \
-	gensvnversion.sh \
-	gentranslate_h.sh \
-	gentranslate_h.sh.in \
-	gentranslatetable.sh \
-	infocontrib.sed \
-	od2c.sh \
-	palette2c.c \
-	palette2c.sh \
 	piacore.c \
 	sedinfocontrib_h.sh \
-	translate.txt
+	translate.txt \
+	vice-version.sh \
+	vice-version.sh.in \
+	wrap-u-ar.sh
 
 
 # RESID_EXTRA_DIST is a list of files in the resid directory that need to be
@@ -1039,6 +1072,7 @@ RESIDDTV_EXTRA_DIST = \
 
 @RESID_DIR_USED_FALSE@EXTRA_DIST = $(COMMON_EXTRA_DIST) $(RESID_EXTRA_DIST) $(RESIDDTV_EXTRA_DIST)
 @RESID_DIR_USED_TRUE@EXTRA_DIST = $(COMMON_EXTRA_DIST)
+@NATIVE_TOOLS_TRUE@GENFILES = $(builddir)/geninfocontrib $(builddir)/gentranslate bin2c palette2c
 @EMBEDDED_FALSE@EMBEDDED_H_FILES = 
 @EMBEDDED_TRUE@EMBEDDED_H_FILES = \
 @EMBEDDED_TRUE@	c128basic64.h \
@@ -1111,24 +1145,36 @@ RESIDDTV_EXTRA_DIST = \
 @EMBEDDED_TRUE@	vic20basic.h \
 @EMBEDDED_TRUE@	vic20chargen.h \
 @EMBEDDED_TRUE@	vic20kernal.h \
-@EMBEDDED_TRUE@	c128_vdc_comp_vpl.h \
-@EMBEDDED_TRUE@	c128_vdc_deft_vpl.h \
-@EMBEDDED_TRUE@	c64_c64hq_vpl.h \
-@EMBEDDED_TRUE@	c64_c64s_vpl.h \
-@EMBEDDED_TRUE@	c64_ccs64_vpl.h \
-@EMBEDDED_TRUE@	c64_default_vpl.h \
-@EMBEDDED_TRUE@	c64_frodo_vpl.h \
-@EMBEDDED_TRUE@	c64_godot_vpl.h \
-@EMBEDDED_TRUE@	c64_pc64_vpl.h \
-@EMBEDDED_TRUE@	c64_vice_vpl.h \
-@EMBEDDED_TRUE@	pet_amber_vpl.h \
-@EMBEDDED_TRUE@	pet_green_vpl.h \
-@EMBEDDED_TRUE@	pet_white_vpl.h \
-@EMBEDDED_TRUE@	plus4_default_vpl.h \
-@EMBEDDED_TRUE@	vic20_default_vpl.h
+@EMBEDDED_TRUE@	vdc_comp_vpl.h \
+@EMBEDDED_TRUE@	vdc_deft_vpl.h \
+@EMBEDDED_TRUE@	vicii_c64hq_vpl.h \
+@EMBEDDED_TRUE@	vicii_c64s_vpl.h \
+@EMBEDDED_TRUE@	vicii_ccs64_vpl.h \
+@EMBEDDED_TRUE@	vicii_community_colors_vpl.h \
+@EMBEDDED_TRUE@	vicii_deekay_vpl.h \
+@EMBEDDED_TRUE@	vicii_frodo_vpl.h \
+@EMBEDDED_TRUE@	vicii_godot_vpl.h \
+@EMBEDDED_TRUE@	vicii_pc64_vpl.h \
+@EMBEDDED_TRUE@	vicii_pepto_ntsc_vpl.h \
+@EMBEDDED_TRUE@	vicii_pepto_ntsc_sony_vpl.h \
+@EMBEDDED_TRUE@	vicii_pepto_pal_vpl.h \
+@EMBEDDED_TRUE@	vicii_pepto_palold_vpl.h \
+@EMBEDDED_TRUE@	vicii_ptoing_vpl.h \
+@EMBEDDED_TRUE@	vicii_rgb_vpl.h \
+@EMBEDDED_TRUE@	vicii_vice_vpl.h \
+@EMBEDDED_TRUE@	viciidtv_spiff_vpl.h \
+@EMBEDDED_TRUE@	crtc_amber_vpl.h \
+@EMBEDDED_TRUE@	crtc_green_vpl.h \
+@EMBEDDED_TRUE@	crtc_white_vpl.h \
+@EMBEDDED_TRUE@	ted_yape_pal_vpl.h \
+@EMBEDDED_TRUE@	ted_yape_ntsc_vpl.h \
+@EMBEDDED_TRUE@	ted_colodore_ted_vpl.h \
+@EMBEDDED_TRUE@	vic_mike_ntsc_vpl.h \
+@EMBEDDED_TRUE@	vic_mike_pal_vpl.h \
+@EMBEDDED_TRUE@	vic_vice_vpl.h
 
-@EMBEDDED_TRUE@@NATIVE_TOOLS_FALSE@EMBEDDED_DEPENDS = bin2c.sh palette2c.sh
-@EMBEDDED_TRUE@@NATIVE_TOOLS_TRUE@EMBEDDED_DEPENDS = bin2c bin2c.sh palette2c palette2c.sh
+@EMBEDDED_TRUE@@NATIVE_TOOLS_FALSE@EMBEDDED_DEPENDS = $(srcdir)/buildtools/bin2c.sh $(srcdir)/buildtools/palette2c.sh
+@EMBEDDED_TRUE@@NATIVE_TOOLS_TRUE@EMBEDDED_DEPENDS = bin2c $(srcdir)/buildtools/bin2c.sh palette2c $(srcdir)/buildtools/palette2c.sh
 @OWCC_FALSE@OWCC_LIBS = 
 @OWCC_TRUE@OWCC_LIBS = owcc_libs_converted.h
 @USE_SVN_REVISION_FALSE@SVN_VERSION_HEADER = 
@@ -1149,6 +1195,7 @@ c64cartsystem_lib = $(top_builddir)/src/c64/cart/libc64cartsystem.a
 c64commoncart_lib = $(top_builddir)/src/c64/cart/libc64commoncart.a
 core_lib = $(top_builddir)/src/core/libcore.a
 crtc_lib = $(top_builddir)/src/crtc/libcrtc.a
+diag_lib = $(top_builddir)/src/diag/libdiag.a
 diskimage_lib = $(top_builddir)/src/diskimage/libdiskimage.a
 drive_lib = $(top_builddir)/src/drive/libdrive.a
 driveiec_lib = $(top_builddir)/src/drive/iec/libdriveiec.a
@@ -1161,10 +1208,13 @@ drivetcbm_lib = $(top_builddir)/src/drive/tcbm/libdrivetcbm.a
 fsdevice_lib = $(top_builddir)/src/fsdevice/libfsdevice.a
 fileio_lib = $(top_builddir)/src/fileio/libfileio.a
 gfxoutputdrv_lib = $(top_builddir)/src/gfxoutputdrv/libgfxoutputdrv.a
+hwsiddrv_lib = $(top_builddir)/src/hwsiddrv/libhwsiddrv.a
 iecbus_lib = $(top_builddir)/src/iecbus/libiecbus.a
 imagecontents_lib = $(top_builddir)/src/imagecontents/libimagecontents.a
+iodrv_lib = $(top_builddir)/src/iodrv/libiodrv.a
 joyport_lib = $(top_builddir)/src/joyport/libjoyport.a
 mascuerade_lib = $(top_builddir)/src/vic20/cart/libmascuerade.a
+mididrv_lib = $(top_builddir)/src/mididrv/libmididrv.a
 monitor_lib = $(top_builddir)/src/monitor/libmonitor.a
 p64_lib = $(top_builddir)/src/lib/p64/libp64.a
 parallel_lib = $(top_builddir)/src/parallel/libparallel.a
@@ -1178,8 +1228,10 @@ rtc_lib = $(top_builddir)/src/rtc/librtc.a
 samplerdrv_lib = $(top_builddir)/src/samplerdrv/libsamplerdrv.a
 serial_lib = $(top_builddir)/src/serial/libserial.a
 sid_lib = $(top_builddir)/src/sid/libsid.a
+socketdrv_lib = $(top_builddir)/src/socketdrv/libsocketdrv.a
 sounddrv_lib = $(top_builddir)/src/sounddrv/libsounddrv.a
 tape_lib = $(top_builddir)/src/tape/libtape.a
+tapeport_lib = $(top_builddir)/src/tapeport/libtapeport.a
 userport_lib = $(top_builddir)/src/userport/libuserport.a
 vdc_lib = $(top_builddir)/src/vdc/libvdc.a
 vdrive_lib = $(top_builddir)/src/vdrive/libvdrive.a
@@ -1200,7 +1252,7 @@ ffmpeg_libs = @FFMPEG_LIBS@
 
 # external libraries required for all emulators
 emu_extlibs = @X_LIBS@ @UI_LIBS@ @SDL_EXTRA_LIBS@ @INTLLIBS@ @SOUND_LIBS@ @QUICKTIME_LIBS@ @JOY_LIBS@ @GFXOUTPUT_LIBS@ @ZLIB_LIBS@ @DYNLIB_LIBS@ @EDITLINE_LIBS@ @ARCH_LIBS@
-driver_libs = $(joyport_lib) $(samplerdrv_lib) $(sounddrv_lib) $(gfxoutputdrv_lib) $(printerdrv_lib) $(rs232drv_lib) $(diskimage_lib) $(fsdevice_lib) $(tape_lib) $(fileio_lib) $(serial_lib) $(core_lib)
+driver_libs = $(joyport_lib) $(samplerdrv_lib) $(sounddrv_lib) $(mididrv_lib) $(socketdrv_lib) $(hwsiddrv_lib) $(iodrv_lib) $(gfxoutputdrv_lib) $(printerdrv_lib) $(rs232drv_lib) $(diskimage_lib) $(fsdevice_lib) $(tape_lib) $(fileio_lib) $(serial_lib) $(core_lib)
 @HAVE_RAWDRIVE_FALSE@blockdev_lib = 
 @HAVE_RAWDRIVE_TRUE@blockdev_lib = @ARCH_DIR@/blockdev.o
 @HAVE_REALDEVICE_FALSE@realdevice_lib = 
@@ -1246,6 +1298,10 @@ vsid_libs = \
 	$(sid_lib) \
 	$(monitor_lib) \
 	$(sounddrv_lib) \
+	$(mididrv_lib) \
+	$(socketdrv_lib) \
+	$(hwsiddrv_lib) \
+	$(iodrv_lib) \
 	$(serial_lib) \
 	$(core_lib) \
 	$(viciivsid_lib) \
@@ -1264,7 +1320,9 @@ vsid_DEPENDENCIES = $(vsid_libs)
 # x64
 x64_libs = \
 	@X64_WINRES@ \
+	$(tapeport_lib) \
 	$(c64_lib) \
+	$(tapeport_lib) \
 	$(c64cartsystem_lib) \
 	$(c64cart_lib) \
 	$(c64commoncart_lib) \
@@ -1273,6 +1331,7 @@ x64_libs = \
 	$(driveiecc64exp_lib) \
 	$(driveieee_lib) \
 	$(drive_lib) \
+	$(drivetcbm_lib) \
 	$(iecbus_lib) \
 	$(p64_lib) \
 	$(parallel_lib) \
@@ -1283,6 +1342,7 @@ x64_libs = \
 	$(vicii_lib) \
 	$(raster_lib) \
 	$(userport_lib) \
+	$(diag_lib) \
 	$(rtc_lib) \
 	$(video_lib) \
 	$(common_libs) \
@@ -1298,7 +1358,9 @@ x64_DEPENDENCIES = $(x64_libs)
 # x64sc
 x64sc_libs = \
 	@X64_WINRES@ \
+	$(tapeport_lib) \
 	$(c64sc_lib) \
+	$(tapeport_lib) \
 	$(c64cartsystem_lib) \
 	$(c64cart_lib) \
 	$(c64commoncart_lib) \
@@ -1307,6 +1369,7 @@ x64sc_libs = \
 	$(driveiecc64exp_lib) \
 	$(driveieee_lib) \
 	$(drive_lib) \
+	$(drivetcbm_lib) \
 	$(p64_lib) \
 	$(iecbus_lib) \
 	$(parallel_lib) \
@@ -1317,6 +1380,7 @@ x64sc_libs = \
 	$(viciisc_lib) \
 	$(raster_lib) \
 	$(userport_lib) \
+	$(diag_lib) \
 	$(rtc_lib) \
 	$(video_lib) \
 	$(common_libs) \
@@ -1340,10 +1404,12 @@ x64dtv_libs = \
 	$(driveiecc64exp_lib) \
 	$(driveieee_lib) \
 	$(drive_lib) \
+	$(drivetcbm_lib) \
 	$(p64_lib) \
 	$(iecbus_lib) \
 	$(parallel_lib) \
 	$(userport_lib) \
+	$(diag_lib) \
 	$(vdrive_lib) \
 	$(sid_lib) \
 	$(monitor_lib) \
@@ -1378,6 +1444,7 @@ xscpu64_libs = \
 	$(driveiecc64exp_lib) \
 	$(driveieee_lib) \
 	$(drive_lib) \
+	$(drivetcbm_lib) \
 	$(p64_lib) \
 	$(iecbus_lib) \
 	$(parallel_lib) \
@@ -1388,6 +1455,7 @@ xscpu64_libs = \
 	$(viciisc_lib) \
 	$(raster_lib) \
 	$(userport_lib) \
+	$(diag_lib) \
 	$(rtc_lib) \
 	$(video_lib) \
 	$(common_libs) \
@@ -1403,7 +1471,9 @@ xscpu64_DEPENDENCIES = $(xscpu64_libs)
 # x128
 x128_libs = \
 	@X128_WINRES@ \
+	$(tapeport_lib) \
 	$(c128_lib) \
+	$(tapeport_lib) \
 	$(c64cartsystem_lib) \
 	$(c64cart_lib) \
 	$(c64commoncart_lib) \
@@ -1414,6 +1484,7 @@ x128_libs = \
 	$(driveiecc64exp_lib) \
 	$(driveieee_lib) \
 	$(drive_lib) \
+	$(drivetcbm_lib) \
 	$(p64_lib) \
 	$(iecbus_lib) \
 	$(parallel_lib) \
@@ -1425,6 +1496,7 @@ x128_libs = \
 	$(vdc_lib) \
 	$(raster_lib) \
 	$(userport_lib) \
+	$(diag_lib) \
 	$(rtc_lib) \
 	$(video_lib) \
 	$(common_libs) \
@@ -1440,24 +1512,27 @@ x128_DEPENDENCIES = $(x128_libs)
 # xvic
 xvic_libs = \
 	@XVIC_WINRES@ \
-	$(vic20_lib) \
+	$(tapeport_lib) \
 	$(vic20cart_lib) \
+	$(vic20_lib) \
 	$(c64commoncart_lib) \
 	$(mascuerade_lib) \
 	$(driveiec_lib) \
 	$(driveiecieee_lib) \
 	$(driveieee_lib) \
 	$(drive_lib) \
+	$(drivetcbm_lib) \
 	$(p64_lib) \
 	$(iecbus_lib) \
 	$(parallel_lib) \
 	$(vdrive_lib) \
 	$(monitor_lib) \
+	$(sid_lib) \
 	$(driver_libs) \
 	$(raster_lib) \
-	$(rtc_lib) \
 	$(userport_lib) \
-	$(sid_lib) \
+	$(diag_lib) \
+        $(rtc_lib) \
 	$(video_lib) \
 	$(common_libs) \
 	$(imagecontents_lib) \
@@ -1466,26 +1541,30 @@ xvic_libs = \
 	$(platform_lib)
 
 xvic_SOURCES = $(base_sources) $(midi_sources)
-xvic_LDADD = $(xvic_libs) $(emu_extlibs) @TFE_LIBS@ @NETPLAY_LIBS@ @READLINE_LIBS@
+xvic_LDADD = $(xvic_libs) $(emu_extlibs) $(mascuerade_lib) @TFE_LIBS@ @NETPLAY_LIBS@ @READLINE_LIBS@
 xvic_DEPENDENCIES = $(xvic_libs)
 
 # xpet
 xpet_libs = \
 	@XPET_WINRES@ \
+	$(tapeport_lib) \
 	$(pet_lib) \
+	$(diag_lib) \
 	$(driveiecieee_lib) \
 	$(driveieee_lib) \
 	$(drive_lib) \
+	$(driveiec_lib) \
+	$(drivetcbm_lib) \
 	$(p64_lib) \
 	$(parallel_lib) \
 	$(vdrive_lib) \
 	$(monitor_lib) \
+	$(sid_lib) \
 	$(driver_libs) \
 	$(crtc_lib) \
 	$(raster_lib) \
 	$(userport_lib) \
 	$(video_lib) \
-	$(sid_lib) \
 	$(common_libs) \
 	$(imagecontents_lib) \
 	$(joyport_lib) \
@@ -1501,18 +1580,23 @@ xpet_DEPENDENCIES = $(xpet_libs)
 # xplus4
 xplus4_libs = \
 	@XPLUS4_WINRES@ \
+	$(tapeport_lib) \
 	$(plus4_lib) \
+	$(diag_lib) \
 	$(driveiec_lib) \
 	$(driveiecieee_lib) \
 	$(driveiecplus4exp_lib) \
 	$(drivetcbm_lib) \
 	$(drive_lib) \
+	$(driveieee_lib) \
+	$(parallel_lib) \
+	$(driveieee_lib) \
 	$(p64_lib) \
 	$(iecbus_lib) \
 	$(vdrive_lib) \
 	$(monitor_lib) \
-	$(driver_libs) \
 	$(sid_lib) \
+	$(driver_libs) \
 	$(raster_lib) \
 	$(rtc_lib) \
 	$(userport_lib) \
@@ -1531,16 +1615,20 @@ xplus4_DEPENDENCIES = $(xplus4_libs)
 # xcbm2
 xcbm2_libs = \
 	@XCBM2_WINRES@ \
+	$(tapeport_lib) \
 	$(xcbm2_lib) \
+	$(diag_lib) \
 	$(driveiecieee_lib) \
 	$(driveieee_lib) \
 	$(drive_lib) \
+	$(driveiec_lib) \
+	$(drivetcbm_lib) \
 	$(p64_lib) \
 	$(parallel_lib) \
 	$(vdrive_lib) \
 	$(monitor_lib) \
-	$(driver_libs) \
 	$(sid_lib) \
+	$(driver_libs) \
 	$(crtc_lib) \
 	$(raster_lib) \
 	$(video_lib) \
@@ -1560,16 +1648,20 @@ xcbm2_DEPENDENCIES = $(xcbm2_libs)
 # xcbm5x0
 xcbm5x0_libs = \
 	@XCBM5X0_WINRES@ \
+	$(tapeport_lib) \
 	$(xcbm5x0_lib) \
+	$(diag_lib) \
 	$(driveiecieee_lib) \
 	$(driveieee_lib) \
 	$(drive_lib) \
+	$(drivetcbm_lib) \
+	$(driveiec_lib) \
 	$(p64_lib) \
 	$(parallel_lib) \
 	$(vdrive_lib) \
 	$(monitor_lib) \
-	$(driver_libs) \
 	$(sid_lib) \
+	$(driver_libs) \
 	$(vicii_lib) \
 	$(raster_lib) \
 	$(rtc_lib) \
@@ -1603,7 +1695,7 @@ c1541_SOURCES = \
 	resources.c \
 	util.c \
 	zfile.c \
-	zipcode.c 
+	zipcode.c
 
 @OWCC_FALSE@ARCH_EXTRA_OBJECTS = @ARCH_DIR@/archdep.o
 @OWCC_TRUE@ARCH_EXTRA_OBJECTS = @ARCH_DIR@/libarch.a
@@ -1623,6 +1715,7 @@ c1541_LDADD = \
 	$(tape_lib) \
 	$(serial_lib) \
 	$(platform_lib) \
+	$(socketdrv_lib) \
 	@INTLLIBS@ @SDL_EXTRA_LIBS@ \
 	@READLINE@ @READLINE_LIBS@ \
 	@ZLIB_LIBS@ @DYNLIB_LIBS@
@@ -1646,6 +1739,7 @@ petcat_LDADD = \
 	$(ARCH_EXTRA_OBJECTS) \
 	$(fileio_lib) \
 	$(platform_lib) \
+	$(socketdrv_lib) \
 	@INTLLIBS@ @SDL_EXTRA_LIBS@ \
 	@ZLIB_LIBS@
 
@@ -1655,7 +1749,7 @@ cartconv_SOURCES = cartconv.c
 cartconv_LDADD = @INTLLIBS@
 
 # distclean
-DISTCLEANFILES = $(BUILT_SOURCES)
+DISTCLEANFILES = $(BUILT_SOURCES) $(GENFILES)
 @HAVE_SHARED_FFMPEG_FALSE@@HAVE_STATIC_FFMPEG_FALSE@EXTRA_CLEAN = 
 @HAVE_SHARED_FFMPEG_FALSE@@HAVE_STATIC_FFMPEG_TRUE@EXTRA_CLEAN = clean-ffmpeg
 @HAVE_SHARED_FFMPEG_TRUE@EXTRA_CLEAN = clean-ffmpeg
@@ -1711,9 +1805,9 @@ distclean-hdr:
 	-rm -f config.h stamp-h1
 debug.h: $(top_builddir)/config.status $(srcdir)/debug.h.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
-gentranslate_h.sh: $(top_builddir)/config.status $(srcdir)/gentranslate_h.sh.in
-	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 version.h: $(top_builddir)/config.status $(srcdir)/version.h.in
+	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
+vice-version.sh: $(top_builddir)/config.status $(srcdir)/vice-version.sh.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
@@ -1801,7 +1895,6 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/memcmp.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/usleep.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/alarm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/attach.Po@am__quote@
@@ -2199,58 +2292,62 @@ uninstall-am: uninstall-binPROGRAMS
 	uninstall uninstall-am uninstall-binPROGRAMS
 
 
-@HAVE_TRANSLATION_TRUE@@NATIVE_TOOLS_FALSE@translate_table.h:	$(srcdir)/translate.txt $(srcdir)/gentranslatetable.sh
-@HAVE_TRANSLATION_TRUE@@NATIVE_TOOLS_FALSE@	echo "generating translate_table.h..."
-@HAVE_TRANSLATION_TRUE@@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/gentranslatetable.sh <$(srcdir)/translate.txt >translate_table.h
+@HAVE_TRANSLATION_TRUE@@NATIVE_TOOLS_FALSE@translate_table.h:	$(srcdir)/translate.txt $(srcdir)/buildtools/gentranslatetable.sh
+@HAVE_TRANSLATION_TRUE@@NATIVE_TOOLS_FALSE@	@echo "generating translate_table.h..."
+@HAVE_TRANSLATION_TRUE@@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/gentranslatetable.sh <$(srcdir)/translate.txt >translate_table.h
 
 .PHONY: svnversion.h.indirect
 
 svnversion.h.indirect:
-	$(SHELL) $(srcdir)/gensvnversion.sh $(SVNVERSION) $(top_srcdir) $(srcdir)/svnversion.h
+	$(SHELL) $(srcdir)/buildtools/gensvnversion.sh $(SVNVERSION) $(top_srcdir) $(srcdir)/svnversion.h
 
 svnversion.h: svnversion.h.indirect
 
-@NATIVE_TOOLS_TRUE@$(builddir)/geninfocontrib:	$(top_srcdir)/doc/vice.texi $(srcdir)/infocontrib.sed $(srcdir)/arch/win32/utils/geninfocontrib.c
-@NATIVE_TOOLS_TRUE@	$(NATIVE_TOOLS_COMPILER) -o $(builddir)/geninfocontrib $(srcdir)/arch/win32/utils/geninfocontrib.c
+@NATIVE_TOOLS_TRUE@$(builddir)/geninfocontrib:	$(top_srcdir)/doc/vice.texi $(srcdir)/buildtools/infocontrib.sed $(srcdir)/buildtools/geninfocontrib.c
+@NATIVE_TOOLS_TRUE@	$(NATIVE_TOOLS_COMPILER) -o $(builddir)/geninfocontrib $(srcdir)/buildtools/geninfocontrib.c
 
-@NATIVE_TOOLS_TRUE@infocontrib.h:	$(top_srcdir)/doc/vice.texi $(srcdir)/infocontrib.sed $(builddir)/geninfocontrib
-@NATIVE_TOOLS_TRUE@	echo "generating infocontrib.h..."
-@NATIVE_TOOLS_TRUE@	$(builddir)/geninfocontrib $(top_srcdir)/ ../ doc/vice.texi src/infocontrib.h src/infocontrib.sed AUTHORS src/arch/unix/macosx/Resources/Credits.html README doc/html/index.html src/arch/os2/dialogs/dialogs.rc man/vice.1
-@NATIVE_TOOLS_FALSE@infocontrib.h:	$(top_srcdir)/doc/vice.texi $(srcdir)/infocontrib.sed
-@NATIVE_TOOLS_FALSE@	echo "generating infocontrib.h..."
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/geninfocontrib_h.sh infocontrib.h <$(top_srcdir)/doc/vice.texi | $(srcdir)/sedinfocontrib_h.sh $(srcdir)/infocontrib.sed >infocontrib.h
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/geninfocontrib_h.sh AUTHORS | $(srcdir)/sedinfocontrib_h.sh $(srcdir)/infocontrib.sed >../AUTHORS
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/geninfocontrib_h.sh OSXcreditshtml >arch/unix/macosx/Resources/Credits.html
-@NATIVE_TOOLS_FALSE@	cp $(top_srcdir)/README ./README.tmp
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/geninfocontrib_h.sh README <README.tmp >../README
-@NATIVE_TOOLS_FALSE@	rm -f README.tmp
+@NATIVE_TOOLS_TRUE@infocontrib.h:	$(top_srcdir)/doc/vice.texi $(srcdir)/buildtools/infocontrib.sed $(builddir)/geninfocontrib
+@NATIVE_TOOLS_TRUE@	@echo "generating infocontrib.h..."
+@NATIVE_TOOLS_TRUE@	$(builddir)/geninfocontrib $(top_srcdir)/ ../ doc/vice.texi src/infocontrib.h src/buildtools/infocontrib.sed AUTHORS src/arch/unix/macosx/Resources/Credits.html README doc/html/index.html src/arch/os2/dialogs/dialogs.rc man/vice.1
+@NATIVE_TOOLS_FALSE@infocontrib.h:	$(top_srcdir)/doc/vice.texi $(srcdir)/buildtools/infocontrib.sed
+@NATIVE_TOOLS_FALSE@	@echo "generating infocontrib.h..."
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/geninfocontrib_h.sh infocontrib.h <$(top_srcdir)/doc/vice.texi | $(srcdir)/sedinfocontrib_h.sh $(srcdir)/buildtools/infocontrib.sed >infocontrib.h
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/geninfocontrib_h.sh AUTHORS | $(srcdir)/sedinfocontrib_h.sh $(srcdir)/buildtools/infocontrib.sed >../AUTHORS
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/geninfocontrib_h.sh OSXcreditshtml >arch/unix/macosx/Resources/Credits.html
+@NATIVE_TOOLS_FALSE@	sed -e 's/\\/@/g' -e 's/ /%/g' <$(top_srcdir)/README >./README.tmp
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/geninfocontrib_h.sh README <README.tmp >README2.tmp
+@NATIVE_TOOLS_FALSE@	sed -e 's/@/\\/g' -e 's/%/ /g' <README2.tmp >../README
+@NATIVE_TOOLS_FALSE@	rm -f README*.tmp
 @NATIVE_TOOLS_FALSE@	cp $(top_srcdir)/doc/html/index.html ./index.tmp
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/geninfocontrib_h.sh indexhtml <index.tmp >../doc/html/index.html
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/geninfocontrib_h.sh indexhtml <index.tmp >../doc/html/index.html
 @NATIVE_TOOLS_FALSE@	rm -f index.tmp
 @NATIVE_TOOLS_FALSE@	cp $(top_srcdir)/src/arch/os2/dialogs/dialogs.rc ./dialogs.tmp
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/geninfocontrib_h.sh os2dialogs <dialogs.tmp >arch/os2/dialogs/dialogs.rc
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/geninfocontrib_h.sh os2dialogs <dialogs.tmp >arch/os2/dialogs/dialogs.rc
 @NATIVE_TOOLS_FALSE@	rm -f dialogs.tmp
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/geninfocontrib_h.sh vice1 | $(srcdir)/sedinfocontrib_h.sh $(srcdir)/infocontrib.sed >../man/vice.1
+@NATIVE_TOOLS_FALSE@	cp $(top_srcdir)/man/vice.1 man.tmp
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/geninfocontrib_h.sh vice1 <man.tmp >man2.tmp
+@NATIVE_TOOLS_FALSE@	cat man2.tmp | $(srcdir)/sedinfocontrib_h.sh $(srcdir)/buildtools/infocontrib.sed >../man/vice.1
+@NATIVE_TOOLS_FALSE@	rm -f man*.tmp
 @NATIVE_TOOLS_FALSE@	rm -f team.tmp
 
-@NATIVE_TOOLS_TRUE@$(builddir)/gentranslate:	$(srcdir)/translate.txt $(srcdir)/arch/win32/utils/gentranslate.c
-@NATIVE_TOOLS_TRUE@	$(NATIVE_TOOLS_COMPILER) -o $(builddir)/gentranslate $(srcdir)/arch/win32/utils/gentranslate.c
+@NATIVE_TOOLS_TRUE@$(builddir)/gentranslate:	$(srcdir)/translate.txt $(srcdir)/buildtools/gentranslate.c
+@NATIVE_TOOLS_TRUE@	$(NATIVE_TOOLS_COMPILER) -o $(builddir)/gentranslate $(srcdir)/buildtools/gentranslate.c
 
 @NATIVE_TOOLS_TRUE@translate.h translate_table.h:	$(srcdir)/translate.txt $(builddir)/gentranslate
-@NATIVE_TOOLS_TRUE@	echo "generating translate.h..."
+@NATIVE_TOOLS_TRUE@	@echo "generating translate.h..."
 @NATIVE_TOOLS_TRUE@	$(builddir)/gentranslate $(srcdir)/translate.txt ./translate.h ./translate_table.h
-@NATIVE_TOOLS_FALSE@translate.h:	$(srcdir)/translate.txt ./gentranslate_h.sh
-@NATIVE_TOOLS_FALSE@	echo "generating translate.h..."
-@NATIVE_TOOLS_FALSE@	$(SHELL) ./gentranslate_h.sh <$(srcdir)/translate.txt >translate.h
+@NATIVE_TOOLS_FALSE@translate.h:	$(srcdir)/translate.txt $(srcdir)/buildtools/gentranslate_h.sh
+@NATIVE_TOOLS_FALSE@	@echo "generating translate.h..."
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/gentranslate_h.sh $(DEBUGBUILD) <$(srcdir)/translate.txt >translate.h
 
 @OWCC_TRUE@owcc_libs_converted.h:
-@OWCC_TRUE@	$(SHELL) $(srcdir)/convert_owcc_libs.sh $(LIBS)
+@OWCC_TRUE@	$(SHELL) $(srcdir)/buildtools/convert_owcc_libs.sh $(LIBS)
 
-@NATIVE_TOOLS_TRUE@bin2c: $(srcdir)/bin2c.c
-@NATIVE_TOOLS_TRUE@	$(NATIVE_TOOLS_COMPILER) -o bin2c $(srcdir)/bin2c.c
+@NATIVE_TOOLS_TRUE@bin2c: $(srcdir)/buildtools/bin2c.c
+@NATIVE_TOOLS_TRUE@	$(NATIVE_TOOLS_COMPILER) -o bin2c $(srcdir)/buildtools/bin2c.c
 
-@NATIVE_TOOLS_TRUE@palette2c: $(srcdir)/palette2c.c
-@NATIVE_TOOLS_TRUE@	$(NATIVE_TOOLS_COMPILER) -o palette2c $(srcdir)/palette2c.c
+@NATIVE_TOOLS_TRUE@palette2c: $(srcdir)/buildtools/palette2c.c
+@NATIVE_TOOLS_TRUE@	$(NATIVE_TOOLS_COMPILER) -o palette2c $(srcdir)/buildtools/palette2c.c
 
 @NATIVE_TOOLS_TRUE@c128basic64.h: $(EMBEDDED_DEPENDS) bin2c
 @NATIVE_TOOLS_TRUE@	./bin2c $(top_srcdir)/data/C128/basic64 c128basic64.h "static BYTE c128basic64_embedded[C128_BASIC64_ROM_SIZE]"
@@ -2468,311 +2565,383 @@ svnversion.h: svnversion.h.indirect
 @NATIVE_TOOLS_TRUE@vic20kernal.h: $(EMBEDDED_DEPENDS) bin2c
 @NATIVE_TOOLS_TRUE@	./bin2c $(top_srcdir)/data/VIC20/kernal vic20kernal.h "BYTE vic20memrom_kernal_rom[VIC20_KERNAL_ROM_SIZE]"
 
-@NATIVE_TOOLS_TRUE@c128_vdc_comp_vpl.h: $(EMBEDDED_DEPENDS) palette2c
-@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C128/vdc_comp.vpl c128_vdc_comp_vpl.h "unsigned char c128_vdc_comp_vpl[]"
+@NATIVE_TOOLS_TRUE@vdc_comp_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C128/vdc_comp.vpl vdc_comp_vpl.h "unsigned char vdc_comp_vpl[]"
 
-@NATIVE_TOOLS_TRUE@c128_vdc_deft_vpl.h: $(EMBEDDED_DEPENDS) palette2c
-@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C128/vdc_deft.vpl c128_vdc_deft_vpl.h "unsigned char c128_vdc_deft_vpl[]"
+@NATIVE_TOOLS_TRUE@vdc_deft_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C128/vdc_deft.vpl vdc_deft_vpl.h "unsigned char vdc_deft_vpl[]"
 
-@NATIVE_TOOLS_TRUE@c64_c64hq_vpl.h: $(EMBEDDED_DEPENDS) palette2c
-@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/c64hq.vpl c64_c64hq_vpl.h "unsigned char c64_c64hq_vpl[]"
+@NATIVE_TOOLS_TRUE@vicii_c64hq_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/c64hq.vpl vicii_c64hq_vpl.h "unsigned char vicii_c64hq_vpl[]"
 
-@NATIVE_TOOLS_TRUE@c64_c64s_vpl.h: $(EMBEDDED_DEPENDS) palette2c
-@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/c64s.vpl c64_c64s_vpl.h "unsigned char c64_c64s_vpl[]"
+@NATIVE_TOOLS_TRUE@vicii_c64s_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/c64s.vpl vicii_c64s_vpl.h "unsigned char vicii_c64s_vpl[]"
 
-@NATIVE_TOOLS_TRUE@c64_ccs64_vpl.h: $(EMBEDDED_DEPENDS) palette2c
-@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/ccs64.vpl c64_ccs64_vpl.h "unsigned char c64_ccs64_vpl[]"
+@NATIVE_TOOLS_TRUE@vicii_ccs64_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/ccs64.vpl vicii_ccs64_vpl.h "unsigned char vicii_ccs64_vpl[]"
 
-@NATIVE_TOOLS_TRUE@c64_default_vpl.h: $(EMBEDDED_DEPENDS) palette2c
-@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/default.vpl c64_default_vpl.h "unsigned char c64_default_vpl[]"
+@NATIVE_TOOLS_TRUE@vicii_community_colors_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/community-colors.vpl vicii_community_colors_vpl.h "unsigned char vicii_community_colors_vpl[]"
 
-@NATIVE_TOOLS_TRUE@c64_frodo_vpl.h: $(EMBEDDED_DEPENDS) palette2c
-@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/frodo.vpl c64_frodo_vpl.h "unsigned char c64_frodo_vpl[]"
+@NATIVE_TOOLS_TRUE@vicii_deekay_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/deekay.vpl vicii_deekay_vpl.h "unsigned char vicii_deekay_vpl[]"
 
-@NATIVE_TOOLS_TRUE@c64_godot_vpl.h: $(EMBEDDED_DEPENDS) palette2c
-@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/godot.vpl c64_godot_vpl.h "unsigned char c64_godot_vpl[]"
+@NATIVE_TOOLS_TRUE@vicii_frodo_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/frodo.vpl vicii_frodo_vpl.h "unsigned char vicii_frodo_vpl[]"
 
-@NATIVE_TOOLS_TRUE@c64_pc64_vpl.h: $(EMBEDDED_DEPENDS) palette2c
-@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/pc64.vpl c64_pc64_vpl.h "unsigned char c64_pc64_vpl[]"
+@NATIVE_TOOLS_TRUE@vicii_godot_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/godot.vpl vicii_godot_vpl.h "unsigned char vicii_godot_vpl[]"
 
-@NATIVE_TOOLS_TRUE@c64_vice_vpl.h: $(EMBEDDED_DEPENDS) palette2c
-@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/vice.vpl c64_vice_vpl.h "unsigned char c64_vice_vpl[]"
+@NATIVE_TOOLS_TRUE@vicii_pc64_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/pc64.vpl vicii_pc64_vpl.h "unsigned char vicii_pc64_vpl[]"
 
-@NATIVE_TOOLS_TRUE@pet_amber_vpl.h: $(EMBEDDED_DEPENDS) palette2c
-@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/PET/amber.vpl pet_amber_vpl.h "unsigned char pet_amber_vpl[]"
+@NATIVE_TOOLS_TRUE@vicii_pepto_ntsc_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/pepto-ntsc.vpl vicii_pepto_ntsc_vpl.h "unsigned char vicii_pepto_ntsc_vpl[]"
 
-@NATIVE_TOOLS_TRUE@pet_green_vpl.h: $(EMBEDDED_DEPENDS) palette2c
-@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/PET/green.vpl pet_green_vpl.h "unsigned char pet_green_vpl[]"
+@NATIVE_TOOLS_TRUE@vicii_pepto_ntsc_sony_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/pepto-ntsc-sony.vpl vicii_pepto_ntsc_sony_vpl.h "unsigned char vicii_pepto_ntsc_sony_vpl[]"
 
-@NATIVE_TOOLS_TRUE@pet_white_vpl.h: $(EMBEDDED_DEPENDS) palette2c
-@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/PET/white.vpl pet_white_vpl.h "unsigned char pet_white_vpl[]"
+@NATIVE_TOOLS_TRUE@vicii_pepto_pal_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/pepto-pal.vpl vicii_pepto_pal_vpl.h "unsigned char vicii_pepto_pal_vpl[]"
 
-@NATIVE_TOOLS_TRUE@plus4_default_vpl.h: $(EMBEDDED_DEPENDS) palette2c
-@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/PLUS4/default.vpl plus4_default_vpl.h "unsigned char plus4_default_vpl[]"
+@NATIVE_TOOLS_TRUE@vicii_pepto_palold_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/pepto-palold.vpl vicii_pepto_palold_vpl.h "unsigned char vicii_pepto_palold_vpl[]"
 
-@NATIVE_TOOLS_TRUE@vic20_default_vpl.h: $(EMBEDDED_DEPENDS) palette2c
-@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/VIC20/default.vpl vic20_default_vpl.h "unsigned char vic20_default_vpl[]"
+@NATIVE_TOOLS_TRUE@vicii_ptoing_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/ptoing.vpl vicii_ptoing_vpl.h "unsigned char vicii_ptoing_vpl[]"
+
+@NATIVE_TOOLS_TRUE@vicii_rgb_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/rgb.vpl vicii_rgb_vpl.h "unsigned char vicii_rgb_vpl[]"
+
+@NATIVE_TOOLS_TRUE@vicii_vice_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64/vice.vpl vicii_vice_vpl.h "unsigned char vicii_vice_vpl[]"
+
+@NATIVE_TOOLS_TRUE@viciidtv_spiff_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/C64DTV/spiff.vpl viciidtv_spiff_vpl.h "unsigned char viciidtv_spiff_vpl[]"
+
+@NATIVE_TOOLS_TRUE@crtc_amber_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/PET/amber.vpl crtc_amber_vpl.h "unsigned char crtc_amber_vpl[]"
+
+@NATIVE_TOOLS_TRUE@crtc_green_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/PET/green.vpl crtc_green_vpl.h "unsigned char crtc_green_vpl[]"
+
+@NATIVE_TOOLS_TRUE@crtc_white_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/PET/white.vpl crtc_white_vpl.h "unsigned char crtc_white_vpl[]"
+
+@NATIVE_TOOLS_TRUE@ted_yape_pal_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/PLUS4/yape-pal.vpl ted_yape_pal_vpl.h "unsigned char ted_yape_pal_vpl[]"
+
+@NATIVE_TOOLS_TRUE@ted_yape_ntsc_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/PLUS4/yape-ntsc.vpl ted_yape_ntsc_vpl.h "unsigned char ted_yape_ntsc_vpl[]"
+
+@NATIVE_TOOLS_TRUE@ted_colodore_ted_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/PLUS4/colodore_ted.vpl ted_colodore_ted_vpl.h "unsigned char ted_colodore_ted_vpl[]"
+
+@NATIVE_TOOLS_TRUE@vic_mike_ntsc_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/VIC20/mike-ntsc.vpl vic_mike_ntsc_vpl.h "unsigned char vic_mike_ntsc_vpl[]"
+
+@NATIVE_TOOLS_TRUE@vic_mike_pal_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/VIC20/mike-pal.vpl vic_mike_pal_vpl.h "unsigned char vic_mike_pal_vpl[]"
+
+@NATIVE_TOOLS_TRUE@vic_vice_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_TRUE@	./palette2c $(top_srcdir)/data/VIC20/vice.vpl vic_vice_vpl.h "unsigned char vic_vice_vpl[]"
 
 @NATIVE_TOOLS_FALSE@c128basic64.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C128/basic64 c128basic64.h "static BYTE c128basic64_embedded[C128_BASIC64_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C128/basic64 c128basic64.h "static BYTE c128basic64_embedded[C128_BASIC64_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c128basichi.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C128/basichi c128basichi.h "static BYTE c128basichi_embedded[C128_BASIC_ROM_IMAGEHI_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C128/basichi c128basichi.h "static BYTE c128basichi_embedded[C128_BASIC_ROM_IMAGEHI_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c128basiclo.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C128/basiclo c128basiclo.h "static BYTE c128basiclo_embedded[C128_BASIC_ROM_IMAGELO_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C128/basiclo c128basiclo.h "static BYTE c128basiclo_embedded[C128_BASIC_ROM_IMAGELO_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c128chargde.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C128/chargde c128chargde.h "static BYTE chargen_de[C128_CHARGEN_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C128/chargde c128chargde.h "static BYTE chargen_de[C128_CHARGEN_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c128chargen.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C128/chargen c128chargen.h "static BYTE chargen_int[C128_CHARGEN_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C128/chargen c128chargen.h "static BYTE chargen_int[C128_CHARGEN_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c128chargfr.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C128/chargfr c128chargfr.h "static BYTE chargen_fr[C128_CHARGEN_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C128/chargfr c128chargfr.h "static BYTE chargen_fr[C128_CHARGEN_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c128chargse.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C128/chargse c128chargse.h "static BYTE chargen_se[C128_CHARGEN_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C128/chargse c128chargse.h "static BYTE chargen_se[C128_CHARGEN_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c128chargch.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C128/chargch c128chargch.h "static BYTE chargen_ch[C128_CHARGEN_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C128/chargch c128chargch.h "static BYTE chargen_ch[C128_CHARGEN_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c128kernal.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C128/kernal c128kernal.h "static BYTE kernal_int[C128_KERNAL_ROM_IMAGE_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C128/kernal c128kernal.h "static BYTE kernal_int[C128_KERNAL_ROM_IMAGE_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c128kernal64.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C128/kernal64 c128kernal64.h "static BYTE c128kernal64_embedded[C128_KERNAL64_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C128/kernal64 c128kernal64.h "static BYTE c128kernal64_embedded[C128_KERNAL64_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c128kernalde.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C128/kernalde c128kernalde.h "static BYTE kernal_de[C128_KERNAL_ROM_IMAGE_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C128/kernalde c128kernalde.h "static BYTE kernal_de[C128_KERNAL_ROM_IMAGE_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c128kernalfi.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C128/kernalfi c128kernalfi.h "static BYTE kernal_fi[C128_KERNAL_ROM_IMAGE_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C128/kernalfi c128kernalfi.h "static BYTE kernal_fi[C128_KERNAL_ROM_IMAGE_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c128kernalfr.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C128/kernalfr c128kernalfr.h "static BYTE kernal_fr[C128_KERNAL_ROM_IMAGE_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C128/kernalfr c128kernalfr.h "static BYTE kernal_fr[C128_KERNAL_ROM_IMAGE_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c128kernalit.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C128/kernalit c128kernalit.h "static BYTE kernal_it[C128_KERNAL_ROM_IMAGE_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C128/kernalit c128kernalit.h "static BYTE kernal_it[C128_KERNAL_ROM_IMAGE_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c128kernalno.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C128/kernalno c128kernalno.h "static BYTE kernal_no[C128_KERNAL_ROM_IMAGE_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C128/kernalno c128kernalno.h "static BYTE kernal_no[C128_KERNAL_ROM_IMAGE_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c128kernalse.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C128/kernalse c128kernalse.h "static BYTE kernal_se[C128_KERNAL_ROM_IMAGE_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C128/kernalse c128kernalse.h "static BYTE kernal_se[C128_KERNAL_ROM_IMAGE_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c128kernalch.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C128/kernalch c128kernalch.h "static BYTE kernal_ch[C128_KERNAL_ROM_IMAGE_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C128/kernalch c128kernalch.h "static BYTE kernal_ch[C128_KERNAL_ROM_IMAGE_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c64basic.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C64/basic c64basic.h "BYTE c64memrom_basic64_rom[C64_BASIC_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C64/basic c64basic.h "BYTE c64memrom_basic64_rom[C64_BASIC_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c64kernal.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C64/kernal c64kernal.h "BYTE c64memrom_kernal64_rom[C64_KERNAL_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C64/kernal c64kernal.h "BYTE c64memrom_kernal64_rom[C64_KERNAL_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@c64chargen.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/C64/chargen c64chargen.h "BYTE mem_chargen_rom[C64_CHARGEN_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/C64/chargen c64chargen.h "BYTE mem_chargen_rom[C64_CHARGEN_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@cbm2basic128.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/CBM-II/basic.128 cbm2basic128.h "static BYTE cbm2basic128_embedded[0x4000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/CBM-II/basic.128 cbm2basic128.h "static BYTE cbm2basic128_embedded[0x4000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@cbm2basic256.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/CBM-II/basic.256 cbm2basic256.h "static BYTE cbm2basic256_embedded[0x4000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/CBM-II/basic.256 cbm2basic256.h "static BYTE cbm2basic256_embedded[0x4000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@cbm2basic500.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/CBM-II/basic.500 cbm2basic500.h "static BYTE cbm2basic500_embedded[0x4000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/CBM-II/basic.500 cbm2basic500.h "static BYTE cbm2basic500_embedded[0x4000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@cbm2chargen500.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/CBM-II/chargen.500 cbm2chargen500.h "static BYTE cbm2chargen500_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/CBM-II/chargen.500 cbm2chargen500.h "static BYTE cbm2chargen500_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@cbm2chargen600.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/CBM-II/chargen.600 cbm2chargen600.h "static BYTE cbm2chargen600_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/CBM-II/chargen.600 cbm2chargen600.h "static BYTE cbm2chargen600_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@cbm2chargen700.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/CBM-II/chargen.700 cbm2chargen700.h "static BYTE cbm2chargen700_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/CBM-II/chargen.700 cbm2chargen700.h "static BYTE cbm2chargen700_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@cbm2kernal.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/CBM-II/kernal cbm2kernal.h "static BYTE cbm2kernal_embedded[0x2000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/CBM-II/kernal cbm2kernal.h "static BYTE cbm2kernal_embedded[0x2000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@cbm2kernal500.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/CBM-II/kernal.500 cbm2kernal500.h "static BYTE cbm2kernal500_embedded[0x2000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/CBM-II/kernal.500 cbm2kernal500.h "static BYTE cbm2kernal500_embedded[0x2000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@drived1541II.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/DRIVES/d1541II drived1541II.h "static BYTE drive_rom1541ii_embedded[DRIVE_ROM1541II_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/DRIVES/d1541II drived1541II.h "static BYTE drive_rom1541ii_embedded[DRIVE_ROM1541II_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@drived1571cr.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/DRIVES/d1571cr drived1571cr.h "static BYTE drive_rom1571cr[DRIVE_ROM1571CR_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/DRIVES/d1571cr drived1571cr.h "static BYTE drive_rom1571cr[DRIVE_ROM1571CR_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@drivedos1001.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/DRIVES/dos1001 drivedos1001.h "static BYTE drive_rom1001[DRIVE_ROM1001_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/DRIVES/dos1001 drivedos1001.h "static BYTE drive_rom1001[DRIVE_ROM1001_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@drivedos1540.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/DRIVES/dos1540 drivedos1540.h "static BYTE drive_rom1540_embedded[DRIVE_ROM1540_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/DRIVES/dos1540 drivedos1540.h "static BYTE drive_rom1540_embedded[DRIVE_ROM1540_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@drivedos1541.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/DRIVES/dos1541 drivedos1541.h "static BYTE drive_rom1541_embedded[DRIVE_ROM1541_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/DRIVES/dos1541 drivedos1541.h "static BYTE drive_rom1541_embedded[DRIVE_ROM1541_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@drivedos1551.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/DRIVES/dos1551 drivedos1551.h "static BYTE drive_rom1551[DRIVE_ROM1551_SIZE]" $(CROSS) $(SHELL)  $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/DRIVES/dos1551 drivedos1551.h "static BYTE drive_rom1551[DRIVE_ROM1551_SIZE]" $(CROSS) $(SHELL)  $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@drivedos1570.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/DRIVES/dos1570 drivedos1570.h "static BYTE drive_rom1570[DRIVE_ROM1570_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/DRIVES/dos1570 drivedos1570.h "static BYTE drive_rom1570[DRIVE_ROM1570_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@drivedos1571.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/DRIVES/dos1571 drivedos1571.h "static BYTE drive_rom1571[DRIVE_ROM1571_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/DRIVES/dos1571 drivedos1571.h "static BYTE drive_rom1571[DRIVE_ROM1571_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@drivedos1581.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/DRIVES/dos1581 drivedos1581.h "static BYTE drive_rom1581[DRIVE_ROM1581_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/DRIVES/dos1581 drivedos1581.h "static BYTE drive_rom1581[DRIVE_ROM1581_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 #drivedos2000.h: $(EMBEDDED_DEPENDS)
-#	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/DRIVES/dos2000 drivedos2000.h "static BYTE drive_rom2000[DRIVE_ROM2000_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+#	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/DRIVES/dos2000 drivedos2000.h "static BYTE drive_rom2000[DRIVE_ROM2000_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 #
 #drivedos4000.h: $(EMBEDDED_DEPENDS)
-#	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/DRIVES/dos4000 drivedos4000.h "static BYTE drive_rom4000[DRIVE_ROM4000_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+#	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/DRIVES/dos4000 drivedos4000.h "static BYTE drive_rom4000[DRIVE_ROM4000_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@drivedos2031.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/DRIVES/dos2031 drivedos2031.h "static BYTE drive_rom2031[DRIVE_ROM2031_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/DRIVES/dos2031 drivedos2031.h "static BYTE drive_rom2031[DRIVE_ROM2031_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@drivedos2040.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/DRIVES/dos2040 drivedos2040.h "static BYTE drive_rom2040[DRIVE_ROM2040_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/DRIVES/dos2040 drivedos2040.h "static BYTE drive_rom2040[DRIVE_ROM2040_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@drivedos3040.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/DRIVES/dos3040 drivedos3040.h "static BYTE drive_rom3040[DRIVE_ROM3040_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/DRIVES/dos3040 drivedos3040.h "static BYTE drive_rom3040[DRIVE_ROM3040_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@drivedos4040.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/DRIVES/dos4040 drivedos4040.h "static BYTE drive_rom4040[DRIVE_ROM4040_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/DRIVES/dos4040 drivedos4040.h "static BYTE drive_rom4040[DRIVE_ROM4040_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@petbasic1.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/basic1 petbasic1.h "BYTE petbasic1_embedded[0x2000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/basic1 petbasic1.h "BYTE petbasic1_embedded[0x2000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@petbasic2.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/basic2 petbasic2.h "BYTE petbasic2_embedded[0x2000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/basic2 petbasic2.h "BYTE petbasic2_embedded[0x2000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@petbasic4.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/basic4 petbasic4.h "BYTE petbasic4_embedded[0x3000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/basic4 petbasic4.h "BYTE petbasic4_embedded[0x3000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@petchargen.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/chargen petchargen.h "BYTE petchargen_embedded[0x800]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/chargen petchargen.h "BYTE petchargen_embedded[0x800]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@petedit1g.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/edit1g petedit1g.h "BYTE petedit1g_embedded[0x800]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/edit1g petedit1g.h "BYTE petedit1g_embedded[0x800]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@petedit2b.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/edit2b petedit2b.h "BYTE petedit2b_embedded[0x800]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/edit2b petedit2b.h "BYTE petedit2b_embedded[0x800]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@petedit2g.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/edit2g petedit2g.h "BYTE petedit2g_embedded[0x800]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/edit2g petedit2g.h "BYTE petedit2g_embedded[0x800]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@petedit4b40.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/edit4b40 petedit4b40.h "BYTE petedit4b40_embedded[0x800]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/edit4b40 petedit4b40.h "BYTE petedit4b40_embedded[0x800]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@petedit4b80.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/edit4b80 petedit4b80.h "BYTE petedit4b80_embedded[0x800]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/edit4b80 petedit4b80.h "BYTE petedit4b80_embedded[0x800]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@petedit4g40.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/edit4g40 petedit4g40.h "BYTE petedit4g40_embedded[0x800]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/edit4g40 petedit4g40.h "BYTE petedit4g40_embedded[0x800]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@petkernal1.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/kernal1 petkernal1.h "BYTE petkernal1_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/kernal1 petkernal1.h "BYTE petkernal1_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@petkernal2.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/kernal2 petkernal2.h "BYTE petkernal2_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/kernal2 petkernal2.h "BYTE petkernal2_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@petkernal4.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/kernal4 petkernal4.h "BYTE petkernal4_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/kernal4 petkernal4.h "BYTE petkernal4_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@superpet_char.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/characters.901640-01.bin superpet_char.h "BYTE superpet_char_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/characters.901640-01.bin superpet_char.h "BYTE superpet_char_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@superpet_waterloo_a000.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/waterloo-a000.901898-01.bin superpet_waterloo_a000.h "BYTE superpet_waterloo_a000_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/waterloo-a000.901898-01.bin superpet_waterloo_a000.h "BYTE superpet_waterloo_a000_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@superpet_waterloo_b000.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/waterloo-b000.901898-02.bin superpet_waterloo_b000.h "BYTE superpet_waterloo_b000_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/waterloo-b000.901898-02.bin superpet_waterloo_b000.h "BYTE superpet_waterloo_b000_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@superpet_waterloo_c000.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/waterloo-c000.901898-03.bin superpet_waterloo_c000.h "BYTE superpet_waterloo_c000_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/waterloo-c000.901898-03.bin superpet_waterloo_c000.h "BYTE superpet_waterloo_c000_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@superpet_waterloo_d000.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/waterloo-d000.901898-04.bin superpet_waterloo_d000.h "BYTE superpet_waterloo_d000_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/waterloo-d000.901898-04.bin superpet_waterloo_d000.h "BYTE superpet_waterloo_d000_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@superpet_waterloo_e000.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/waterloo-e000.901897-01.bin superpet_waterloo_e000.h "BYTE superpet_waterloo_e000_embedded[0x800]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/waterloo-e000.901897-01.bin superpet_waterloo_e000.h "BYTE superpet_waterloo_e000_embedded[0x800]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@superpet_waterloo_f000.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PET/waterloo-f000.901898-05.bin superpet_waterloo_f000.h "BYTE superpet_waterloo_f000_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PET/waterloo-f000.901898-05.bin superpet_waterloo_f000.h "BYTE superpet_waterloo_f000_embedded[0x1000]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@plus43plus1hi.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PLUS4/3plus1hi plus43plus1hi.h "BYTE extromhi1[PLUS4_KERNAL_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PLUS4/3plus1hi plus43plus1hi.h "BYTE extromhi1[PLUS4_KERNAL_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@plus43plus1lo.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PLUS4/3plus1lo plus43plus1lo.h "BYTE extromlo1[PLUS4_BASIC_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PLUS4/3plus1lo plus43plus1lo.h "BYTE extromlo1[PLUS4_BASIC_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@plus4basic.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PLUS4/basic plus4basic.h "BYTE plus4memrom_basic_rom[PLUS4_BASIC_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PLUS4/basic plus4basic.h "BYTE plus4memrom_basic_rom[PLUS4_BASIC_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@plus4kernal.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PLUS4/kernal plus4kernal.h "BYTE plus4memrom_kernal_rom[PLUS4_KERNAL_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PLUS4/kernal plus4kernal.h "BYTE plus4memrom_kernal_rom[PLUS4_KERNAL_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@printermps803.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PRINTER/mps803 printermps803.h "static BYTE charset[512][7]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PRINTER/mps803 printermps803.h "static BYTE charset[512][7]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@printernl10cbm.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/PRINTER/nl10-cbm printernl10cbm.h "static BYTE  drv_nl10_rom[NL10_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/PRINTER/nl10-cbm printernl10cbm.h "static BYTE  drv_nl10_rom[NL10_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@vic20basic.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/VIC20/basic vic20basic.h "BYTE vic20memrom_basic_rom[VIC20_BASIC_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/VIC20/basic vic20basic.h "BYTE vic20memrom_basic_rom[VIC20_BASIC_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@vic20chargen.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/VIC20/chargen vic20chargen.h "BYTE vic20chargen_embedded[VIC20_CHARGEN_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/VIC20/chargen vic20chargen.h "BYTE vic20chargen_embedded[VIC20_CHARGEN_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
 @NATIVE_TOOLS_FALSE@vic20kernal.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/bin2c.sh $(top_srcdir)/data/VIC20/kernal vic20kernal.h "BYTE vic20memrom_kernal_rom[VIC20_KERNAL_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/bin2c.sh $(top_srcdir)/data/VIC20/kernal vic20kernal.h "BYTE vic20memrom_kernal_rom[VIC20_KERNAL_ROM_SIZE]" $(CROSS) $(SHELL) $(top_srcdir)
 
-@NATIVE_TOOLS_FALSE@c128_vdc_comp_vpl.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/palette2c.sh <$(top_srcdir)/data/C128/vdc_comp.vpl c128_vdc_comp_vpl.h "unsigned char c128_vdc_comp_vpl[]"
+@NATIVE_TOOLS_FALSE@vdc_comp_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/C128/vdc-comp.vpl vdc_comp_vpl.h "unsigned char vdc_comp_vpl[]"
 
-@NATIVE_TOOLS_FALSE@c128_vdc_deft_vpl.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/palette2c.sh <$(top_srcdir)/data/C128/vdc_deft.vpl c128_vdc_deft_vpl.h "unsigned char c128_vdc_deft_vpl[]"
+@NATIVE_TOOLS_FALSE@vdc_deft_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/C128/vdc-deft.vpl vdc_deft_vpl.h "unsigned char vdc_deft_vpl[]"
 
-@NATIVE_TOOLS_FALSE@c64_c64hq_vpl.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/palette2c.sh <$(top_srcdir)/data/C64/c64hq.vpl c64_c64hq_vpl.h "unsigned char c64_c64hq_vpl[]"
+@NATIVE_TOOLS_FALSE@vicii_c64hq_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/C64/c64hq.vpl vicii_c64hq_vpl.h "unsigned char vicii_c64hq_vpl[]"
 
-@NATIVE_TOOLS_FALSE@c64_c64s_vpl.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/palette2c.sh <$(top_srcdir)/data/C64/c64s.vpl c64_c64s_vpl.h "unsigned char c64_c64s_vpl[]"
+@NATIVE_TOOLS_FALSE@vicii_c64s_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/C64/c64s.vpl vicii_c64s_vpl.h "unsigned char vicii_c64s_vpl[]"
 
-@NATIVE_TOOLS_FALSE@c64_ccs64_vpl.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/palette2c.sh <$(top_srcdir)/data/C64/ccs64.vpl c64_ccs64_vpl.h "unsigned char c64_ccs64_vpl[]"
+@NATIVE_TOOLS_FALSE@vicii_ccs64_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/C64/ccs64.vpl vicii_ccs64_vpl.h "unsigned char vicii_ccs64_vpl[]"
 
-@NATIVE_TOOLS_FALSE@c64_default_vpl.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/palette2c.sh <$(top_srcdir)/data/C64/default.vpl c64_default_vpl.h "unsigned char c64_default_vpl[]"
+@NATIVE_TOOLS_FALSE@vicii_community_colors_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/C64/community-colors.vpl vicii_community_colors_vpl.h "unsigned char vicii_community_colors_vpl[]"
 
-@NATIVE_TOOLS_FALSE@c64_frodo_vpl.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/palette2c.sh <$(top_srcdir)/data/C64/frodo.vpl c64_frodo_vpl.h "unsigned char c64_frodo_vpl[]"
+@NATIVE_TOOLS_FALSE@vicii_deekay_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/C64/deekay.vpl vicii_deekay_vpl.h "unsigned char vicii_deekay_vpl[]"
 
-@NATIVE_TOOLS_FALSE@c64_godot_vpl.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/palette2c.sh <$(top_srcdir)/data/C64/godot.vpl c64_godot_vpl.h "unsigned char c64_godot_vpl[]"
+@NATIVE_TOOLS_FALSE@vicii_frodo_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/C64/frodo.vpl vicii_frodo_vpl.h "unsigned char vicii_frodo_vpl[]"
 
-@NATIVE_TOOLS_FALSE@c64_pc64_vpl.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/palette2c.sh <$(top_srcdir)/data/C64/pc64.vpl c64_pc64_vpl.h "unsigned char c64_pc64_vpl[]"
+@NATIVE_TOOLS_FALSE@vicii_godot_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/C64/godot.vpl vicii_godot_vpl.h "unsigned char vicii_godot_vpl[]"
 
-@NATIVE_TOOLS_FALSE@c64_vice_vpl.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/palette2c.sh <$(top_srcdir)/data/C64/vice.vpl c64_vice_vpl.h "unsigned char c64_vice_vpl[]"
+@NATIVE_TOOLS_FALSE@vicii_pc64_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/C64/pc64.vpl vicii_pc64_vpl.h "unsigned char vicii_pc64_vpl[]"
 
-@NATIVE_TOOLS_FALSE@pet_amber_vpl.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/palette2c.sh <$(top_srcdir)/data/PET/amber.vpl pet_amber_vpl.h "unsigned char pet_amber_vpl[]"
+@NATIVE_TOOLS_FALSE@vicii_pepto_ntsc_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/C64/pepto-ntsc.vpl vicii_pepto_ntsc_vpl.h "unsigned char vicii_pepto_ntsc_vpl[]"
 
-@NATIVE_TOOLS_FALSE@pet_green_vpl.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/palette2c.sh <$(top_srcdir)/data/PET/green.vpl pet_green_vpl.h "unsigned char pet_green_vpl[]"
+@NATIVE_TOOLS_FALSE@vicii_pepto_ntsc_sony_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/C64/pepto-ntsc-sony.vpl vicii_pepto_ntsc_sony_vpl.h "unsigned char vicii_pepto_ntsc_sony_vpl[]"
 
-@NATIVE_TOOLS_FALSE@pet_white_vpl.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/palette2c.sh <$(top_srcdir)/data/PET/white.vpl pet_white_vpl.h "unsigned char pet_white_vpl[]"
+@NATIVE_TOOLS_FALSE@vicii_pepto_pal_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/C64/pepto-pal.vpl vicii_pepto_pal_vpl.h "unsigned char vicii_pepto_pal_vpl[]"
 
-@NATIVE_TOOLS_FALSE@plus4_default_vpl.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/palette2c.sh <$(top_srcdir)/data/PLUS4/default.vpl plus4_default_vpl.h "unsigned char plus4_default_vpl[]"
+@NATIVE_TOOLS_FALSE@vicii_pepto_palold_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/C64/pepto-palold.vpl vicii_pepto_palold_vpl.h "unsigned char vicii_pepto_palold_vpl[]"
 
-@NATIVE_TOOLS_FALSE@vic20_default_vpl.h: $(EMBEDDED_DEPENDS)
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/palette2c.sh <$(top_srcdir)/data/VIC20/default.vpl vic20_default_vpl.h "unsigned char vic20_default_vpl[]"
+@NATIVE_TOOLS_FALSE@vicii_ptoing_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/C64/ptoing.vpl vicii_ptoing_vpl.h "unsigned char vicii_ptoing_vpl[]"
+
+@NATIVE_TOOLS_FALSE@vicii_rgb_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/C64/rgb.vpl vicii_rgb_vpl.h "unsigned char vicii_ptoing_vpl[]"
+
+@NATIVE_TOOLS_FALSE@vicii_vice_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/C64/vice.vpl vicii_vice_vpl.h "unsigned char vicii_vice_vpl[]"
+
+@NATIVE_TOOLS_FALSE@viciidtv_spiff_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/C64DTV/spiff.vpl viciidtv_spiff_vpl.h "unsigned char viciidtv_spiff_vpl[]"
+
+@NATIVE_TOOLS_FALSE@crtc_amber_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/PET/amber.vpl crtc_amber_vpl.h "unsigned char crtc_amber_vpl[]"
+
+@NATIVE_TOOLS_FALSE@crtc_green_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/PET/green.vpl crtc_green_vpl.h "unsigned char crtc_green_vpl[]"
+
+@NATIVE_TOOLS_FALSE@crtc_white_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/PET/white.vpl crtc_white_vpl.h "unsigned char crtc_white_vpl[]"
+
+@NATIVE_TOOLS_FALSE@ted_yape_pal_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/PLUS4/yape-pal.vpl ted_yape_pal_vpl.h "unsigned char ted_yape_pal_vpl[]"
+
+@NATIVE_TOOLS_FALSE@ted_yape_ntsc_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/PLUS4/yape-ntsc.vpl ted_yape_ntsc_vpl.h "unsigned char ted_yape_ntsc_vpl[]"
+
+@NATIVE_TOOLS_FALSE@ted_colodore_ted_vpl.h: $(EMBEDDED_DEPENDS) palette2c
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/PLUS4/colodore_ted.vpl ted_colodore_ted_vpl.h "unsigned char ted_colodore_ted_vpl[]"
+
+@NATIVE_TOOLS_FALSE@vic_mike_ntsc_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/VIC20/mike-ntsc.vpl vic_mike_ntsc_vpl.h "unsigned char vic_mike_ntsc_vpl[]"
+
+@NATIVE_TOOLS_FALSE@vic_mike_pal_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/VIC20/mike-pal.vpl vic_mike_pal_vpl.h "unsigned char vic_mike_pal_vpl[]"
+
+@NATIVE_TOOLS_FALSE@vic_vice_vpl.h: $(EMBEDDED_DEPENDS)
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/palette2c.sh <$(top_srcdir)/data/VIC20/vice.vpl vic_vice_vpl.h "unsigned char vic_vice_vpl[]"
 
 .PHONY: vsid-all
 vsid-all: \
@@ -2783,6 +2952,10 @@ vsid-all: \
 	libraster \
 	libsid \
 	libsounddrv \
+	libmididrv \
+	libsocketdrv \
+	libhwsiddrv \
+	libiodrv \
 	libviciivsid \
 	libvideo \
 	libarch \
@@ -2802,11 +2975,13 @@ x64-all: \
 	libc64cartsystem \
 	libc64cart \
 	libc64commoncart \
+	libdiag \
 	libdriveiec \
 	libdriveiecieee \
 	libdriveiecc64exp \
 	libdriveieee \
 	libdrive \
+	libdrivetcbm \
 	libp64 \
 	libparallel \
 	libvdrive \
@@ -2815,6 +2990,10 @@ x64-all: \
 	libsamplerdrv \
 	libjoyport \
 	libsounddrv \
+	libmididrv \
+	libsocketdrv \
+	libhwsiddrv \
+	libiodrv \
 	libgfxoutputdrv \
 	libprinterdrv \
 	librs232drv \
@@ -2832,6 +3011,7 @@ x64-all: \
 	libcore \
 	librtc \
 	libuserport \
+	libtapeport \
 	libplatform \
 	x64$(EXEEXT)
 
@@ -2844,11 +3024,13 @@ x64sc-all: \
 	libc64cartsystem \
 	libc64cart \
 	libc64commoncart \
+	libdiag \
 	libdriveiec \
 	libdriveiecieee \
 	libdriveiecc64exp \
 	libdriveieee \
 	libdrive \
+	libdrivetcbm \
 	libp64 \
 	libparallel \
 	libvdrive \
@@ -2857,6 +3039,10 @@ x64sc-all: \
 	libsamplerdrv \
 	libjoyport \
 	libsounddrv \
+	libmididrv \
+	libsocketdrv \
+	libhwsiddrv \
+	libiodrv \
 	libgfxoutputdrv \
 	libprinterdrv \
 	librs232drv \
@@ -2874,6 +3060,7 @@ x64sc-all: \
 	libcore \
 	librtc \
 	libuserport \
+	libtapeport \
 	libplatform \
 	x64sc$(EXEEXT)
 
@@ -2885,11 +3072,13 @@ x64dtv-all: \
 	libc64dtv \
 	libc64dtvstubs \
 	libc64c64dtv \
+	libdiag \
 	libdriveiec \
 	libdriveiecieee \
 	libdriveiecc64exp \
 	libdriveieee \
 	libdrive \
+	libdrivetcbm \
 	libp64 \
 	libparallel \
 	libvdrive \
@@ -2898,6 +3087,10 @@ x64dtv-all: \
 	libsamplerdrv \
 	libjoyport \
 	libsounddrv \
+	libmididrv \
+	libsocketdrv \
+	libhwsiddrv \
+	libiodrv \
 	libgfxoutputdrv \
 	libprinterdrv \
 	librs232drv \
@@ -2929,14 +3122,20 @@ xscpu64-all: \
 	libsamplerdrv \
 	libjoyport \
 	libsounddrv \
+	libmididrv \
+	libsocketdrv \
+	libhwsiddrv \
+	libiodrv \
 	libgfxoutputdrv \
 	libprinterdrv \
 	librs232drv \
+	libdiag \
 	libdriveiec \
 	libdriveiecieee \
 	libdriveiecc64exp \
 	libdriveieee \
 	libdrive \
+	libdrivetcbm \
 	libp64 \
 	libparallel \
 	libvdrive \
@@ -2972,15 +3171,21 @@ x128-all: \
 	libsamplerdrv \
 	libjoyport \
 	libsounddrv \
+	libmididrv \
+	libsocketdrv \
+	libhwsiddrv \
+	libiodrv \
 	libgfxoutputdrv \
 	libprinterdrv \
 	librs232drv \
+	libdiag \
 	libdriveiec \
 	libdriveiec128dcr \
 	libdriveiecieee \
 	libdriveiecc64exp \
 	libdriveieee \
 	libdrive \
+	libdrivetcbm \
 	libp64 \
 	libparallel \
 	libvdrive \
@@ -3001,6 +3206,7 @@ x128-all: \
 	libcore \
 	librtc \
 	libuserport \
+	libtapeport \
 	libplatform \
 	@RESID_DEP@ \
 	@FFMPEG_DEP@ \
@@ -3009,10 +3215,12 @@ x128-all: \
 .PHONY: xvic-all
 xvic-all: \
 	$(BUILT_SOURCES) \
+	libdiag \
 	libdriveiec \
 	libdriveiecieee \
 	libdriveieee \
 	libdrive \
+	libdrivetcbm \
 	libp64 \
 	libparallel \
 	libvdrive \
@@ -3020,6 +3228,10 @@ xvic-all: \
 	libsamplerdrv \
 	libjoyport \
 	libsounddrv \
+	libmididrv \
+	libsocketdrv \
+	libhwsiddrv \
+	libiodrv \
 	libgfxoutputdrv \
 	libprinterdrv \
 	librs232drv \
@@ -3041,6 +3253,7 @@ xvic-all: \
 	libcore \
 	librtc \
 	libuserport \
+	libtapeport \
 	libplatform \
 	@RESID_DEP@ \
 	@FFMPEG_DEP@ \
@@ -3049,15 +3262,22 @@ xvic-all: \
 .PHONY: xpet-all
 xpet-all: \
 	$(BUILT_SOURCES) \
+	libdiag \
+	libdriveiec \
 	libdriveiecieee \
 	libdriveieee \
 	libdrive \
+	libdrivetcbm \
 	libp64 \
 	libparallel \
 	libvdrive \
 	libraster \
 	libcrtc \
 	libsounddrv \
+	libmididrv \
+	libsocketdrv \
+	libhwsiddrv \
+	libiodrv \
 	libgfxoutputdrv \
 	libprinterdrv \
 	librs232drv \
@@ -3075,6 +3295,7 @@ xpet-all: \
 	libcore \
 	librtc \
 	libuserport \
+	libtapeport \
 	libjoyport \
 	libplatform \
 	@RESID_DEP@ \
@@ -3084,17 +3305,24 @@ xpet-all: \
 .PHONY: xplus4-all
 xplus4-all: \
 	$(BUILT_SOURCES) \
+	libdiag \
 	libdriveiec \
 	libdriveiecieee \
 	libdriveiecplus4exp \
 	libdrivetcbm \
 	libdrive \
+	libdriveieee \
+	libparallel \
 	libp64 \
 	libvdrive \
 	libraster \
 	libsamplerdrv \
 	libjoyport \
 	libsounddrv \
+	libmididrv \
+	libsocketdrv \
+	libhwsiddrv \
+	libiodrv \
 	libgfxoutputdrv \
 	libprinterdrv \
 	librs232drv \
@@ -3113,6 +3341,7 @@ xplus4-all: \
 	libcore \
 	librtc \
 	libuserport \
+	libtapeport \
 	libplatform \
 	@RESID_DEP@ \
 	@FFMPEG_DEP@ \
@@ -3123,6 +3352,10 @@ xcbm2-all: \
 	$(BUILT_SOURCES) \
 	libcbm2 \
 	libsounddrv \
+	libmididrv \
+	libsocketdrv \
+	libhwsiddrv \
+	libiodrv \
 	libgfxoutputdrv \
 	libprinterdrv \
 	librs232drv \
@@ -3130,9 +3363,12 @@ xcbm2-all: \
 	libsid \
 	@RESID_DEP@ \
 	@FFMPEG_DEP@ \
+	libdiag \
+	libdriveiec \
 	libdriveiecieee \
 	libdriveieee \
 	libdrive \
+	libdrivetcbm \
 	libp64 \
 	libparallel \
 	libvdrive \
@@ -3149,6 +3385,7 @@ xcbm2-all: \
 	libcore \
 	librtc \
 	libuserport \
+	libtapeport \
 	libjoyport \
 	libplatform \
 	xcbm2$(EXEEXT)
@@ -3160,6 +3397,10 @@ xcbm5x0-all: \
 	libsamplerdrv \
 	libjoyport \
 	libsounddrv \
+	libmididrv \
+	libsocketdrv \
+	libhwsiddrv \
+	libiodrv \
 	libgfxoutputdrv \
 	libprinterdrv \
 	librs232drv \
@@ -3167,9 +3408,12 @@ xcbm5x0-all: \
 	libsid \
 	@RESID_DEP@ \
 	@FFMPEG_DEP@ \
+	libdiag \
+	libdriveiec \
 	libdriveiecieee \
 	libdriveieee \
 	libdrive \
+	libdrivetcbm \
 	libp64 \
 	libparallel \
 	libvdrive \
@@ -3185,7 +3429,7 @@ xcbm5x0-all: \
 	libfileio \
 	libcore \
 	librtc \
-	libuserport \
+	libtapeport \
 	libplatform \
 	xcbm5x0$(EXEEXT)
 
@@ -3201,6 +3445,7 @@ c1541-all: \
 	libimagecontents \
 	libfileio \
 	libplatform \
+	libsocketdrv \
 	c1541$(EXEEXT)
 
 .PHONY: petcat-all
@@ -3209,142 +3454,215 @@ petcat-all: \
 	libarch \
 	libfileio \
 	libplatform \
+	libsocketdrv \
 	petcat$(EXEEXT)
 
 # Special targets to build libraries in subdirectories.
 
-.PHONY: libvsid libc64 libc64sc libc128 libc64dtv libc64dtvstubs libvic20
-	libpet libplus4 libcbm2 libcbm5x0 libdrive libvdrive libprinterdrv
-	librs232drv libgfxoutputdrv libsamplerdrv libjoyport libsounddrv
-	libdiskimage libfsdevice libtape libarch libvicii libviciisc
-	libviciidtv libviciivsid libvdc libsid libcrtc libvideo libserial
-	libparallel libcore libiecbus libfileio librtc libuserport libp64
-	libscpu64 @RESID_DEP@ @RESID_DTV_DEP@ @FFMPEG_DEP@
+.PHONY: libvsid libc64 libc64sc libc128 libc64dtv libc64dtvstubs libvic20 \
+	libpet libplus4 libcbm2 libcbm5x0 libdrive libvdrive libprinterdrv \
+	librs232drv libgfxoutputdrv libsamplerdrv libjoyport libsounddrv \
+	libmididrv libsocketdrv libhwsiddrv libiodrv libdiskimage libfsdevice \
+	libtape libarch libvicii libviciisc libviciidtv libviciivsid libvdc \
+	libsid libcrtc libvideo libserial libparallel libcore libiecbus \
+	libfileio librtc libuserport libtapeport libp64 libscpu64 libdiag \
+	@RESID_DEP@ @RESID_DTV_DEP@ @FFMPEG_DEP@
 
 libarch:
-	(cd arch && $(MAKE))
+	@(cd arch && $(MAKE))
 libc128:
-	(cd c128 && $(MAKE))
+	@echo "making all in c128"
+	@(cd c128 && $(MAKE))
 libc64:
-	(cd c64 && $(MAKE) libc64.a)
+	@echo "making libc64.a in c64"
+	@(cd c64 && $(MAKE) libc64.a)
 libscpu64:
-	(cd scpu64 && $(MAKE) libscpu64.a)
+	@echo "making libscpu64.a in scpu64"
+	@(cd scpu64 && $(MAKE) libscpu64.a)
 libc64sc:
-	(cd c64 && $(MAKE) libc64sc.a)
+	@echo "making libc64sc.a in c64"
+	@(cd c64 && $(MAKE) libc64sc.a)
 libc64c128:
-	(cd c64 && $(MAKE) libc64c128.a)
+	@echo "making libc64c128.a in c64"
+	@(cd c64 && $(MAKE) libc64c128.a)
 libc64scpu64:
-	(cd c64 && $(MAKE) libc64scpu64.a)
+	@echo "making libc64scpu64.a in c64"
+	@(cd c64 && $(MAKE) libc64scpu64.a)
 libc64c64dtv:
-	(cd c64 && $(MAKE) libc64c64dtv.a)
+	@echo "making libc64c64dtv.a in c64"
+	@(cd c64 && $(MAKE) libc64c64dtv.a)
 libc64cart:
-	(cd c64 && $(MAKE) libc64cart)
+	@echo "making libc64cart in c64"
+	@(cd c64 && $(MAKE) libc64cart)
 libc64cartsystem:
-	(cd c64 && $(MAKE) libc64cartsystem)
+	@echo "making libc64cartsystem in c64"
+	@(cd c64 && $(MAKE) libc64cartsystem)
 libc64commoncart:
-	(cd c64 && $(MAKE) libc64commoncart)
+	@echo "making libc64commoncart in c64"
+	@(cd c64 && $(MAKE) libc64commoncart)
 libc64dtv:
-	(cd c64dtv && $(MAKE) libc64dtv.a)
+	@echo "making libc64dtv.a in c64dtv"
+	@(cd c64dtv && $(MAKE) libc64dtv.a)
 libc64dtvstubs:
-	(cd c64dtv && $(MAKE) libc64dtvstubs.a)
+	@echo "making libc64dtvstubs.a in c64dtv"
+	@(cd c64dtv && $(MAKE) libc64dtvstubs.a)
 libcbm2:
-	(cd cbm2 && $(MAKE) libcbm2.a)
+	@echo "making libcbm2.a in cbm2"
+	@(cd cbm2 && $(MAKE) libcbm2.a)
 libcbm5x0:
-	(cd cbm2 && $(MAKE) libcbm5x0.a)
+	@echo "making libcbm5x0.a in cbm2"
+	@(cd cbm2 && $(MAKE) libcbm5x0.a)
 libcore:
-	(cd core && $(MAKE))
+	@echo "making all in core"
+	@(cd core && $(MAKE))
 libcrtc:
-	(cd crtc && $(MAKE))
+	@echo "making all in crtc"
+	@(cd crtc && $(MAKE))
+libdiag:
+	@echo "making all in diag"
+	@(cd diag && $(MAKE))
 libdiskimage:
-	(cd diskimage && $(MAKE))
+	@echo "making all in diskimage"
+	@(cd diskimage && $(MAKE))
 libdrive:
-	(cd drive && $(MAKE))
+	@echo "making all in drive"
+	@(cd drive && $(MAKE))
 libp64:
-	(cd lib && $(MAKE) libp64)
+	@echo "making libp64 in lib"
+	@(cd lib && $(MAKE) libp64)
 libdriveiec:
-	(cd drive && $(MAKE) libdriveiec)
+	@(cd drive && $(MAKE) libdriveiec)
 libdriveiec128dcr:
-	(cd drive && $(MAKE) libdriveiec128dcr)
+	@(cd drive && $(MAKE) libdriveiec128dcr)
 libdriveiecc64exp:
-	(cd drive/iec && $(MAKE) libdriveiecc64exp)
+	@(cd drive/iec && $(MAKE) libdriveiecc64exp)
 libdriveiecieee:
-	(cd drive && $(MAKE) libdriveiecieee)
+	@(cd drive && $(MAKE) libdriveiecieee)
 libdriveiecplus4exp:
-	(cd drive/iec && $(MAKE) libdriveiecplus4exp)
+	@(cd drive/iec && $(MAKE) libdriveiecplus4exp)
 libdriveieee:
-	(cd drive && $(MAKE) libdriveieee)
+	@(cd drive && $(MAKE) libdriveieee)
 libdrivetcbm:
-	(cd drive && $(MAKE) libdrivetcbm)
+	@(cd drive && $(MAKE) libdrivetcbm)
 libffmpeg:
-	(cd lib/libffmpeg && $(MAKE) VICEBUILD=1)
+	@(cd lib/libffmpeg && $(MAKE) VICEBUILD=1)
 libfileio:
-	(cd fileio && $(MAKE))
+	@echo "making all in fileio"
+	@(cd fileio && $(MAKE))
 libfsdevice:
-	(cd fsdevice && $(MAKE))
+	@echo "making all in fsdevice"
+	@(cd fsdevice && $(MAKE))
 libgfxoutputdrv:
-	(cd gfxoutputdrv && $(MAKE))
+	@echo "making all in gfxoutputdrv"
+	@(cd gfxoutputdrv && $(MAKE))
+libhwsiddrv:
+	@echo "making all in hwsiddrv"
+	@(cd hwsiddrv && $(MAKE))
 libiecbus:
-	(cd iecbus && $(MAKE))
+	@echo "making all in iecbus"
+	@(cd iecbus && $(MAKE))
 libimagecontents:
-	(cd imagecontents && $(MAKE))
+	@echo "making all in imagecontents"
+	@(cd imagecontents && $(MAKE))
+libiodrv:
+	@echo "making all in iodrv"
+	@(cd iodrv && $(MAKE))
 libmascuerade:
-	(cd vic20/cart && $(MAKE) libmascuerade.a)
+	@echo "making libmascuerade.a in vic20/cart"
+	@(cd vic20/cart && $(MAKE) libmascuerade.a)
+libmididrv:
+	@echo "making libmididrv.a in mididrv"
+	@(cd mididrv && $(MAKE) libmididrv.a)
 libmonitor:
-	(cd monitor && $(MAKE) libmonitor.a)
+	@echo "making libmonitor.a in monitor"
+	@(cd monitor && $(MAKE) libmonitor.a)
 libparallel:
-	(cd parallel && $(MAKE))
+	@echo "making all in parallel"
+	@(cd parallel && $(MAKE))
 libpet:
-	(cd pet && $(MAKE))
+	@echo "making all in pet"
+	@(cd pet && $(MAKE))
 libplatform:
-	(cd platform && $(MAKE))
+	@echo "making all in platform"
+	@(cd platform && $(MAKE))
 libplus4:
-	(cd plus4 && $(MAKE))
+	@echo "making all in plus4"
+	@(cd plus4 && $(MAKE))
 libprinterdrv:
-	(cd printerdrv && $(MAKE))
+	@echo "making all in printerdrv"
+	@(cd printerdrv && $(MAKE))
 librs232drv:
-	(cd rs232drv && $(MAKE))
+	@echo "making all in rs232drv"
+	@(cd rs232drv && $(MAKE))
 libraster:
-	(cd raster && $(MAKE) libraster.a)
+	@echo "making libraster.a in raster"
+	@(cd raster && $(MAKE) libraster.a)
 librtc:
-	(cd rtc && $(MAKE) librtc.a)
+	@echo "making librtc.a in rtc"
+	@(cd rtc && $(MAKE) librtc.a)
 libresid:
-	(cd resid && $(MAKE) libresid.a)
+	@echo "making libresid.a in resid"
+	@(cd resid && $(MAKE) libresid.a)
 libresiddtv:
-	(cd resid-dtv && $(MAKE) libresiddtv.a)
+	@echo "making libresiddtv.a in resid-dtv"
+	@(cd resid-dtv && $(MAKE) libresiddtv.a)
 libsamplerdrv:
-	(cd samplerdrv && $(MAKE))
+	@echo "making all in samplerdrv"
+	@(cd samplerdrv && $(MAKE))
 libjoyport:
-	(cd joyport && $(MAKE))
+	@echo "making all in joyport"
+	@(cd joyport && $(MAKE))
 libserial:
-	(cd serial && $(MAKE))
+	@echo "making all in serial"
+	@(cd serial && $(MAKE))
 libsid:
-	(cd sid && $(MAKE) libsid.a)
+	@echo "making libsid.a in sid"
+	@(cd sid && $(MAKE) libsid.a)
+libsocketdrv:
+	@echo "making libsocketdrv.a in socketdrv"
+	@(cd socketdrv && $(MAKE) libsocketdrv.a)
 libsounddrv:
-	(cd sounddrv && $(MAKE))
+	@echo "making all in sounddrv"
+	@(cd sounddrv && $(MAKE))
 libtape:
-	(cd tape && $(MAKE))
+	@echo "making all in tape"
+	@(cd tape && $(MAKE))
 libuserport:
-	(cd userport && $(MAKE))
+	@echo "making all in userport"
+	@(cd userport && $(MAKE))
+libtapeport:
+	@echo "making all in tapeport"
+	@(cd tapeport && $(MAKE))
 libvdc:
-	(cd vdc && $(MAKE))
+	@echo "making all in vdc"
+	@(cd vdc && $(MAKE))
 libvdrive:
-	(cd vdrive && $(MAKE))
+	@echo "making all in vdrive"
+	@(cd vdrive && $(MAKE))
 libvic20:
-	(cd vic20 && $(MAKE))
+	@echo "making all in vic20"
+	@(cd vic20 && $(MAKE))
 libvic20cart:
-	(cd vic20/cart && $(MAKE) libvic20cart.a)
+	@echo "making libvic20cart.a in vic20/cart"
+	@(cd vic20/cart && $(MAKE) libvic20cart.a)
 libvicii:
-	(cd vicii && $(MAKE) libvicii.a)
+	@echo "making libvicii.a in vicii"
+	@(cd vicii && $(MAKE) libvicii.a)
 libviciidtv:
-	(cd vicii && $(MAKE) libviciidtv.a)
+	@echo "making libviciidtv.a in vicii"
+	@(cd vicii && $(MAKE) libviciidtv.a)
 libviciisc:
-	(cd viciisc && $(MAKE) libviciisc.a)
+	@echo "making libviciisc.a in viciisc"
+	@(cd viciisc && $(MAKE) libviciisc.a)
 libviciivsid:
-	(cd viciivsid && $(MAKE) libviciivsid.a)
+	@echo "making libviciivsid.a in viciivsid"
+	@(cd viciivsid && $(MAKE) libviciivsid.a)
 libvideo:
-	(cd video && $(MAKE))
+	@echo "making all in video"
+	@(cd video && $(MAKE))
 libvsid:
-	(cd c64 && $(MAKE) libvsid.a)
+	@echo "making libvsid.a in c64"
+	@(cd c64 && $(MAKE) libvsid.a)
 
 x64ow$(EXEEXT): x64$(EXEEXT)
 	wrc -fe=x64ow$(EXEEXT) arch/win32/resc64.res x64$(EXEEXT)

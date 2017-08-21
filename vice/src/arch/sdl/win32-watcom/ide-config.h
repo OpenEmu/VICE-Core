@@ -24,13 +24,16 @@
 #define WIN32_COMPILE         1
 #define HAVE_SDLMAIN          1
 #define HAVE_HWSCALE          1
-#define HAVE_CATWEASELMKIII   1
+#define HAVE_SSI2001          1
 #define HAVE_HARDSID          1
+#define HAVE_CATWEASELMKIII   1
+#define HAVE_PARSID           1
 #define HAVE_OPENCBM          1
 #define HAVE_DYNLIB_SUPPORT   1
 #define HAVE_SDL_NUMJOYSTICKS 1
 #define USE_SDL_PREFIX        1
-#define HAVE_TFE              1
+#define HAVE_PCAP             1
+#define HAVE_MIDI             1
 
 #define HAS_LONGLONG_INTEGER  1
 #define HAS_UNLOCKRESOURCE    1
@@ -52,7 +55,9 @@
 #define HAVE_SYS_STAT_H       1
 #define HAVE_SIGNAL_H         1
 #define HAVE_WINIOCTL_H       1
+#define HAVE_TIME_T_IN_TIME_H 1
 
+#define HAVE_STRTOUL            1
 #define HAVE_STRTOK_R			1
 #define HAVE_STRREV			1
 #define HAVE_STRLWR			1

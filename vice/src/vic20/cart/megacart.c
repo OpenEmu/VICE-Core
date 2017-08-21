@@ -34,6 +34,7 @@
 #include "cartio.h"
 #include "cartridge.h"
 #include "cmdline.h"
+#include "export.h"
 #include "lib.h"
 #include "log.h"
 #include "machine.h"
@@ -151,6 +152,10 @@ static io_source_t megacart_io3_device = {
 
 static io_source_list_t *megacart_io2_list_item = NULL;
 static io_source_list_t *megacart_io3_list_item = NULL;
+
+static const export_resource_t export_res = {
+    CARTRIDGE_VIC20_NAME_MEGACART, 0, 0, &megacart_io2_device, &megacart_io3_device, CARTRIDGE_VIC20_MEGACART
+};
 
 /* ------------------------------------------------------------------------- */
 
@@ -452,6 +457,10 @@ int megacart_bin_attach(const char *filename)
         return -1;
     }
 
+    if (export_add(&export_res) < 0) {
+        return -1;
+    }
+
     try_nvram_load(nvram_filename);
 
     cart_rom_low = cart_rom;
@@ -484,6 +493,8 @@ void megacart_detach(void)
     cart_ram = NULL;
     cart_nvram = NULL;
     cart_rom = NULL;
+
+    export_remove(&export_res);
 
     if (megacart_io2_list_item != NULL) {
         io_source_unregister(megacart_io2_list_item);
@@ -519,7 +530,7 @@ static int set_nvram_filename(const char *name, void *param)
 static const resource_string_t resources_string[] = {
     { "MegaCartNvRAMfilename", "", RES_EVENT_NO, NULL,
       &nvram_filename, set_nvram_filename, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static int set_nvram_writeback(int val, void *param)
@@ -532,7 +543,7 @@ static int set_nvram_writeback(int val, void *param)
 static const resource_int_t resources_int[] = {
     { "MegaCartNvRAMWriteBack", 0, RES_EVENT_STRICT, (resource_value_t)0,
       &nvram_writeback, set_nvram_writeback, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int megacart_resources_init(void)
@@ -567,7 +578,7 @@ static const cmdline_option_t cmdline_options[] =
       USE_PARAM_STRING, USE_DESCRIPTION_ID,
       IDCLS_UNUSED, IDCLS_DISABLE_MEGACART_NVRAM_WRITE,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int megacart_cmdline_options_init(void)

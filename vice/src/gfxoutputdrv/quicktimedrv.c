@@ -29,6 +29,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#ifdef HAVE_QUICKTIME
+
 #include <QuickTime/QuickTime.h>
 #include <CoreVideo/CVPixelBuffer.h>
 
@@ -160,7 +162,7 @@ static int set_video_codec(int val, void *param)
 static const resource_string_t resources_string[] = {
     { "QuickTimeFormat", "mov", RES_EVENT_NO, NULL,
       &quicktime_format, set_format, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_int_t resources_int[] = {
@@ -172,7 +174,7 @@ static const resource_int_t resources_int[] = {
       &audio_codec, set_audio_codec, NULL },
     { "QuickTimeVideoCodec", kPNGCodecType, RES_EVENT_NO, NULL,
       &video_codec, set_video_codec, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 static int quicktimedrv_resources_init(void)
@@ -195,7 +197,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_VALUE, IDCLS_SET_VIDEO_STREAM_BITRATE,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static int quicktimedrv_cmdline_options_init(void)
@@ -660,3 +662,4 @@ void gfxoutput_init_quicktime(int help)
 
     gfxoutput_register(&quicktime_drv);
 }
+#endif

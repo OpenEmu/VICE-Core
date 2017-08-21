@@ -85,10 +85,6 @@ static int refresh_rate;
 /* "Warp mode".  If nonzero, attempt to run as fast as possible. */
 static int warp_mode_enabled;
 
-/* Dingoo overclocking mode */
-#ifdef DINGOO_NATIVE
-static int overclock_mode_enabled;
-#endif
 
 static int set_relative_speed(int val, void *param)
 {
@@ -120,17 +116,6 @@ static int set_warp_mode(int val, void *param)
     return 0;
 }
 
-/* FIXME: Why the hell is this here and not in archdep ? */
-#ifdef DINGOO_NATIVE
-static int set_overclock_mode(int val, void *param)
-{
-    overclock_mode_enabled = val ? 1 : 0;
-
-    set_overclock(val);
-
-    return 0;
-}
-#endif
 
 /* Vsync-related resources. */
 static const resource_int_t resources_int[] = {
@@ -141,16 +126,26 @@ static const resource_int_t resources_int[] = {
     { "WarpMode", 0, RES_EVENT_STRICT, (resource_value_t)0,
       /* FIXME: maybe RES_EVENT_NO */
       &warp_mode_enabled, set_warp_mode, NULL },
-#ifdef DINGOO_NATIVE
-    { "OverClock", 0, RES_EVENT_STRICT, (resource_value_t)1,
-      /* FIXME: maybe RES_EVENT_NO */
-      &overclock_mode_enabled, set_overclock_mode, NULL },
-#endif
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
+
+
+static const resource_int_t resources_int_vsid[] = {
+    { "Speed", 100, RES_EVENT_SAME, NULL,
+      &relative_speed, set_relative_speed, NULL },
+    { "WarpMode", 0, RES_EVENT_STRICT, (resource_value_t)0,
+      /* FIXME: maybe RES_EVENT_NO */
+      &warp_mode_enabled, set_warp_mode, NULL },
+    RESOURCE_INT_LIST_END
+};
+
+
 
 int vsync_resources_init(void)
 {
+    if (machine_class == VICE_MACHINE_VSID) {
+        return resources_register_int(resources_int_vsid);
+    }
     return resources_register_int(resources_int);
 }
 
@@ -178,11 +173,35 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_ID,
       IDCLS_UNUSED, IDCLS_DISABLE_WARP_MODE,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
+
+
+static const cmdline_option_t cmdline_options_vsid[] = {
+    { "-speed", SET_RESOURCE, 1,
+      NULL, NULL, "Speed", NULL,
+      USE_PARAM_ID, USE_DESCRIPTION_ID,
+      IDCLS_P_PERCENT, IDCLS_LIMIT_SPEED_TO_VALUE,
+      NULL, NULL },
+    { "-warp", SET_RESOURCE, 0,
+      NULL, NULL, "WarpMode", (resource_value_t)1,
+      USE_PARAM_STRING, USE_DESCRIPTION_ID,
+      IDCLS_UNUSED, IDCLS_ENABLE_WARP_MODE,
+      NULL, NULL },
+    { "+warp", SET_RESOURCE, 0,
+      NULL, NULL, "WarpMode", (resource_value_t)0,
+      USE_PARAM_STRING, USE_DESCRIPTION_ID,
+      IDCLS_UNUSED, IDCLS_DISABLE_WARP_MODE,
+      NULL, NULL },
+    CMDLINE_LIST_END
+};
+
 
 int vsync_cmdline_options_init(void)
 {
+    if (machine_class == VICE_MACHINE_VSID) {
+        return cmdline_register_options(cmdline_options_vsid);
+    }
     return cmdline_register_options(cmdline_options);
 }
 
@@ -222,7 +241,7 @@ static int set_timer_speed(int speed)
 
     if (speed > 0 && refresh_frequency > 0) {
         timer_speed = speed;
-        frame_ticks = (long)(vsyncarch_freq / refresh_frequency * 100 / speed);
+        frame_ticks = (long)(((vsyncarch_freq / refresh_frequency) * 100) / speed);
         frame_ticks_orig = frame_ticks;
     } else {
         timer_speed = 0;
@@ -285,7 +304,8 @@ void vsync_init(void (*hook)(void))
 
     vsyncarch_init();
 
-    vsyncarch_freq = vsyncarch_frequency();
+    vsyncarch_freq = vsyncarch_frequency();  /* number of units per second */
+    /* log_message(LOG_DEFAULT, "VSYNC Init freq: %u", (unsigned int)vsyncarch_freq); */
 }
 
 /* FIXME: This function is not needed here anymore, however it is
@@ -341,7 +361,9 @@ int vsync_do_vsync(struct video_canvas_s *c, int been_skipped)
     int skip_next_frame;
 
     signed long delay;
-    long frame_ticks_remainder, frame_ticks_integer, compval;
+
+    long frame_ticks_remainder, frame_ticks_integer;
+    long compval;
 
 #if (defined(HAVE_OPENGL_SYNC)) && !defined(USE_SDLUI) && !defined(USE_SDLUI2)
     float refresh_cmp;
@@ -396,7 +418,7 @@ int vsync_do_vsync(struct video_canvas_s *c, int been_skipped)
     frame_counter++;
 
     if (!speed_eval_suspended &&
-        (signed long)(now - display_start) >= 2 * vsyncarch_freq) {
+        (signed long)(now - display_start) >= (2 * vsyncarch_freq)) {
         display_speed(frame_counter - skipped_frames);
         display_start = now;
         frame_counter = 0;
@@ -465,7 +487,12 @@ int vsync_do_vsync(struct video_canvas_s *c, int been_skipped)
      * We could optimize by sleeping only if a frame is to be output.
      */
     /*log_debug("vsync_do_vsync: sound_delay=%f  frame_ticks=%d  delay=%d", sound_delay, frame_ticks, delay);*/
-    if (!warp_mode_enabled && timer_speed && delay < 0) {
+    if (!warp_mode_enabled && timer_speed && (skipped_redraw == 0) && (delay < 0)) {
+        /* FIXME: this is likely implemented as a regular sleep(), which means
+           it will wait *at least* the given time (but may just as well wait
+           much longer. its doomed to break on those archs - we should instead
+           "lean against" the sound output, and let the sound hardware be the
+           timing reference */
         vsyncarch_sleep(-delay);
     }
 #if (defined(HAVE_OPENGL_SYNC)) && !defined(USE_SDLUI) && !defined(USE_SDLUI2)
@@ -486,18 +513,20 @@ int vsync_do_vsync(struct video_canvas_s *c, int been_skipped)
      *         If we are becoming faster a small deviation because of
      *         threading results in a frame rate correction suddenly.
      */
+
+    /* this doesnt really work correctly, and it shouldnt be neceassary either */
     frame_ticks_remainder = frame_ticks % 100;
     frame_ticks_integer = frame_ticks / 100;
-    compval = frame_ticks_integer * 3 * timer_speed
-              + frame_ticks_remainder * 3 * timer_speed / 100;
-    if (skipped_redraw < MAX_SKIPPED_FRAMES
+    compval = (frame_ticks_integer * 3 * timer_speed)
+              + ((frame_ticks_remainder * 3 * timer_speed) / 100);
+
+    if ((skipped_redraw < MAX_SKIPPED_FRAMES)
         && (warp_mode_enabled
-            || (skipped_redraw < refresh_rate - 1)
-            || ((!timer_speed || delay > compval)
-                && !refresh_rate
-                )
-            )
+            || (skipped_redraw < (refresh_rate - 1))
+            || ((!timer_speed || delay > compval) && !refresh_rate))
         ) {
+        /* printf("skipped redraw:%d timer_speed:%3d refresh_rate:%2d delay:%6lx compval:%6lx frame_ticks:%lx\n",
+               skipped_redraw,timer_speed,refresh_rate,delay,compval,frame_ticks); */
         skip_next_frame = 1;
         skipped_redraw++;
     } else {
@@ -531,7 +560,7 @@ int vsync_do_vsync(struct video_canvas_s *c, int been_skipped)
         /* Account for both relative and absolute delay. */
         adjust = (avg_sdelay - prev_sdelay + avg_sdelay / 8) / frames_adjust;
         /* Maximum adjustment step 1%. */
-        if (labs(adjust) > frame_ticks / 100) {
+        if (labs(adjust) > (frame_ticks / 100)) {
             adjust = adjust / labs(adjust) * frame_ticks / 100;
         }
         frame_ticks -= adjust;
@@ -547,7 +576,19 @@ int vsync_do_vsync(struct video_canvas_s *c, int been_skipped)
         avg_sdelay += sdelay;
     }
 
+    /* FIXME: This ifdef is a hack, chosen because it matches the others in
+    this file, and because the if inside it causes problems on some platforms.
+    At least win32, sdl-win32, and beos seem to be better without it.
+    More testing is needed. */
+#if (defined(HAVE_OPENGL_SYNC)) && !defined(USE_SDLUI) && !defined(USE_SDLUI2)
+    /* if the frame was skipped, dont advance the time for the next frame, this
+       helps with catching up when rendering falls behind */
+    if ((frame_ticks > 0) && (skipped_redraw < 1)) {
+        next_frame_start += frame_ticks;
+    }
+#else
     next_frame_start += frame_ticks;
+#endif
 
     vsyncarch_postsync();
 
@@ -560,6 +601,7 @@ int vsync_do_vsync(struct video_canvas_s *c, int been_skipped)
 
 #if defined (HAVE_OPENGL_SYNC) && !defined(USE_SDLUI) && !defined(USE_SDLUI2)
 
+/* sync code for OPENGL_SYNC */
 static unsigned long last = 0;
 static unsigned long nosynccount = 0;
 
@@ -571,7 +613,7 @@ void vsyncarch_verticalblank(video_canvas_t *c, float rate, int frames)
         return;
     }
 
-    nowi = vsyncarch_frequency();
+    nowi = vsyncarch_frequency(); /* number of units per second */
 
     /* calculate counter cycles per frame */
     frm = (unsigned long)((float)(nowi * frames) / rate);

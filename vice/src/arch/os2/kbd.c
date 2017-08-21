@@ -68,7 +68,7 @@ static int set_keymap_file(const char *val, void *param)
 static const resource_string_t resources_string[] = {
     { "KeymapFile", "os2.vkm", RES_EVENT_NO, NULL,
       &keymapfile, set_keymap_file, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 int kbd_resources_init(void)
@@ -82,7 +82,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<name>", "Specify the name of the keymap file" },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int kbd_cmdline_options_init(void)

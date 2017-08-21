@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -28,8 +29,6 @@
 #define VICE_JOYSTICK_H
 
 #include "types.h"
-
-struct snapshot_s;
 
 extern int joystick_init(void);
 extern int joystick_resources_init(void);
@@ -60,16 +59,19 @@ extern BYTE get_joystick_value(int index);
 typedef void (*joystick_machine_func_t)(void);
 extern void joystick_register_machine(joystick_machine_func_t func);
 
-extern int joystick_snapshot_write_module(struct snapshot_s *s);
-extern int joystick_snapshot_read_module(struct snapshot_s *s);
-
 /*! the number of joysticks that can be attached to the emu */
-#define JOYSTICK_NUM 4
+#define JOYSTICK_NUM 5
 
-/* virtual joystick mapping */
+/* the values used internally to represent joystick state
+FIXME: this is only an extern because of 
+src/c64dtv/c64dtvcia1.c and
+src/c64dtv/hummeradc.c */
+extern BYTE joystick_value[JOYSTICK_NUM + 1];
+
+/* the mapping of real devices to emulated joystick ports */
 extern int joystick_port_map[JOYSTICK_NUM];
 
-#if (!defined(__OS2__) && !defined(AMIGA_OS4)) || defined(USE_SDLUI) || defined(USE_SDLUI2)
+#if !defined(__OS2__) || defined(USE_SDLUI) || defined(USE_SDLUI2)
 #define COMMON_JOYKEYS
 
 #define JOYSTICK_KEYSET_NUM 3

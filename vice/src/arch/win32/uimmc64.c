@@ -31,6 +31,8 @@
 #include <windows.h>
 #include <tchar.h>
 
+#include "clockport.h"
+#include "intl.h"
 #include "res.h"
 #include "resources.h"
 #include "system.h"
@@ -40,13 +42,15 @@
 #include "uimmc64.h"
 #include "winmain.h"
 
-static char *ui_mmc64_sdtype[] = {
-    "Auto",
-    "MMC",
-    "SD",
-    "SDHC",
+static TCHAR *ui_mmc64_sdtype[] = {
+    TEXT("Auto"),
+    TEXT("MMC"),
+    TEXT("SD"),
+    TEXT("SDHC"),
     NULL
 };
+
+static int clockport_ids[CLOCKPORT_MAX_ENTRIES + 1];
 
 static void enable_mmc64_controls(HWND hwnd)
 {
@@ -65,6 +69,7 @@ static void enable_mmc64_controls(HWND hwnd)
     EnableWindow(GetDlgItem(hwnd, IDC_MMC64_IMAGE_BROWSE), is_enabled);
     EnableWindow(GetDlgItem(hwnd, IDC_MMC64_IMAGE_FILE), is_enabled);
     EnableWindow(GetDlgItem(hwnd, IDC_MMC64_SDTYPE), is_enabled);
+    EnableWindow(GetDlgItem(hwnd, IDC_MMC64_CLOCKPORT_DEVICE), is_enabled);
 }
 
 static uilib_localize_dialog_param mmc64_dialog_trans[] = {
@@ -78,6 +83,7 @@ static uilib_localize_dialog_param mmc64_dialog_trans[] = {
     { IDC_MMC64_IMAGE_FILE_LABEL, IDS_MMC64_IMAGE_FILE_LABEL, 0 },
     { IDC_MMC64_IMAGE_BROWSE, IDS_BROWSE, 0 },
     { IDC_MMC64_SDTYPE_LABEL, IDS_MMC64_SDTYPE_LABEL, 0 },
+    { IDC_MMC64_CLOCKPORT_DEVICE_LABEL, IDS_MMC64_CLOCKPORT_DEVICE_LABEL, 0 },
     { IDOK, IDS_OK, 0 },
     { IDCANCEL, IDS_CANCEL, 0 },
     { 0, 0, 0 }
@@ -132,10 +138,12 @@ static void init_mmc64_dialog(HWND hwnd)
     HWND temp_hwnd;
     int res_value;
     int res_value_loop;
+    int current_val = 0;
     const char *mmc64_image_file;
     TCHAR *st_mmc64_image_file;
     const char *mmc64_bios_file;
     TCHAR *st_mmc64_bios_file;
+    TCHAR *st_clockport_device_name;
     int xpos;
     RECT rect;
 
@@ -165,8 +173,8 @@ static void init_mmc64_dialog(HWND hwnd)
     CheckDlgButton(hwnd, IDC_MMC64_ENABLE, res_value ? BST_CHECKED : BST_UNCHECKED);
     
     temp_hwnd = GetDlgItem(hwnd, IDC_MMC64_REVISION);
-    SendMessage(temp_hwnd, CB_ADDSTRING, 0, (LPARAM)"Rev A");
-    SendMessage(temp_hwnd, CB_ADDSTRING, 0, (LPARAM)"Rev B");
+    SendMessage(temp_hwnd, CB_ADDSTRING, 0, (LPARAM)TEXT("Rev A"));
+    SendMessage(temp_hwnd, CB_ADDSTRING, 0, (LPARAM)TEXT("Rev B"));
     resources_get_int("MMC64_revision", &res_value);
     SendMessage(temp_hwnd, CB_SETCURSEL, (WPARAM)res_value, 0);
 
@@ -196,37 +204,51 @@ static void init_mmc64_dialog(HWND hwnd)
     }
     SendMessage(temp_hwnd, CB_SETCURSEL, (WPARAM)res_value, 0);
 
+    resources_get_int("MMC64ClockPort", &res_value);
+    temp_hwnd = GetDlgItem(hwnd, IDC_MMC64_CLOCKPORT_DEVICE);
+    for (res_value_loop = 0; clockport_supported_devices[res_value_loop].name; res_value_loop++) {
+        st_clockport_device_name = system_mbstowcs_alloc(clockport_supported_devices[res_value_loop].name);
+        SendMessage(temp_hwnd, CB_ADDSTRING, 0, (LPARAM)st_clockport_device_name);
+        system_mbstowcs_free(st_clockport_device_name);
+        clockport_ids[res_value_loop] = clockport_supported_devices[res_value_loop].id;
+        if (clockport_ids[res_value_loop] == res_value) {
+            current_val = res_value_loop;
+        }
+    }
+    SendMessage(temp_hwnd, CB_SETCURSEL, (WPARAM)current_val, 0);
+
     enable_mmc64_controls(hwnd);
 }
 
 static void end_mmc64_dialog(HWND hwnd)
 {
-    TCHAR st[MAX_PATH];
-    char s[MAX_PATH];
+    TCHAR st_name[MAX_PATH];
+    char name[MAX_PATH];
 
-    GetDlgItemText(hwnd, IDC_MMC64_BIOS_FILE, st, MAX_PATH);
-    system_wcstombs(s, st, MAX_PATH);
-    resources_set_string("MMC64BIOSfilename", s);
+    GetDlgItemText(hwnd, IDC_MMC64_BIOS_FILE, st_name, MAX_PATH);
+    system_wcstombs(name, st_name, MAX_PATH);
+    resources_set_string("MMC64BIOSfilename", name);
 
-    GetDlgItemText(hwnd, IDC_MMC64_IMAGE_FILE, st, MAX_PATH);
-    system_wcstombs(s, st, MAX_PATH);
-    resources_set_string("MMC64imagefilename", s);
+    GetDlgItemText(hwnd, IDC_MMC64_IMAGE_FILE, st_name, MAX_PATH);
+    system_wcstombs(name, st_name, MAX_PATH);
+    resources_set_string("MMC64imagefilename", name);
     resources_set_int("MMC64", (IsDlgButtonChecked(hwnd, IDC_MMC64_ENABLE) == BST_CHECKED ? 1 : 0 ));
     resources_set_int("MMC64_flashjumper", (IsDlgButtonChecked(hwnd, IDC_MMC64_FLASHJUMPER) == BST_CHECKED ? 1 : 0 ));
     resources_set_int("MMC64_bios_write", (IsDlgButtonChecked(hwnd, IDC_MMC64_BIOS_SAVE) == BST_CHECKED ? 1 : 0 ));
     resources_set_int("MMC64_RO", (IsDlgButtonChecked(hwnd, IDC_MMC64_IMAGE_RO) == BST_CHECKED ? 1 : 0 ));
     resources_set_int("MMC64_revision",(int)SendMessage(GetDlgItem(hwnd, IDC_MMC64_REVISION), CB_GETCURSEL, 0, 0));
     resources_set_int("MMC64_sd_type", (int)SendMessage(GetDlgItem(hwnd, IDC_MMC64_SDTYPE), CB_GETCURSEL, 0, 0));
+    resources_set_int("MMC64ClockPort", clockport_ids[(int)SendMessage(GetDlgItem(hwnd, IDC_MMC64_CLOCKPORT_DEVICE), CB_GETCURSEL, 0, 0)]);
 }
 
 static void browse_mmc64_bios_file(HWND hwnd)
 {
-    uilib_select_browse(hwnd, TEXT("Select file for MMC64 BIOS"), UILIB_FILTER_ALL, UILIB_SELECTOR_TYPE_FILE_SAVE, IDC_MMC64_BIOS_FILE);
+    uilib_select_browse(hwnd, intl_translate_tcs(IDS_MMC64_BIOS_SELECT_FILE), UILIB_FILTER_ALL, UILIB_SELECTOR_TYPE_FILE_SAVE, IDC_MMC64_BIOS_FILE);
 }
 
 static void browse_mmc64_image_file(HWND hwnd)
 {
-    uilib_select_browse(hwnd, TEXT("Select file for MMC64 image"), UILIB_FILTER_ALL, UILIB_SELECTOR_TYPE_FILE_SAVE, IDC_MMC64_IMAGE_FILE);
+    uilib_select_browse(hwnd, intl_translate_tcs(IDS_MMC64_CARD_SELECT_FILE), UILIB_FILTER_ALL, UILIB_SELECTOR_TYPE_FILE_SAVE, IDC_MMC64_IMAGE_FILE);
 }
 
 static INT_PTR CALLBACK dialog_proc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)

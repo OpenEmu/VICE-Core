@@ -4,6 +4,7 @@
  *
  * Written by
  *  Spiro Trikaliotis <Spiro.Trikaliotis@gmx.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  * 
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -27,7 +28,7 @@
 
 #include "vice.h"
 
-#ifdef HAVE_TFE 
+#ifdef HAVE_PCAP 
 
 #if 0
 #include "pcap.h"
@@ -505,4 +506,4 @@ int rawnet_arch_receive(BYTE *pbuffer  ,    /* where to store a frame */
     return 0;
 }
 
-#endif /* #ifdef HAVE_TFE */
+#endif /* #ifdef HAVE_PCAP */

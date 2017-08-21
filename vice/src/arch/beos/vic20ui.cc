@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Matthies <andreas.matthies@gmx.net>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -42,13 +43,16 @@
 
 extern "C" {
 #include "archdep.h"
+#include "cartio.h"
 #include "cartridge.h"
 #include "constants.h"
+#include "gfxoutput.h"
 #include "joyport.h"
 #include "resources.h"
 #include "types.h"
 #include "ui.h"
 #include "ui_drive.h"
+#include "ui_joystick.h"
 #include "ui_printer.h"
 #include "ui_sidcart.h"
 #include "ui_vic20.h"
@@ -102,9 +106,16 @@ ui_menu_toggle  vic20_ui_menu_toggles[] = {
     { "VicFlashPluginWriteBack", MENU_TOGGLE_VFP_WRITE_BACK },
     { "UltiMemWriteBack", MENU_TOGGLE_UM_WRITE_BACK },
     { "DS12C887RTC", MENU_TOGGLE_DS12C887_RTC },
+    { "DS12C887RTCRunMode", MENU_TOGGLE_DS12C887_RTC_RUNNING_MODE },
     { "DS12C887RTCSave", MENU_TOGGLE_DS12C887_RTC_SAVE },
     { "IO2RAM", MENU_TOGGLE_IO2_RAM },
     { "IO3RAM", MENU_TOGGLE_IO3_RAM },
+    { "VFLImod", MENU_TOGGLE_VFLI },
+    { "UserportDAC", MENU_TOGGLE_USERPORT_DAC },
+    { "UserportRTC58321a", MENU_TOGGLE_USERPORT_58321A },
+    { "UserportRTC58321aSave", MENU_TOGGLE_USERPORT_58321A_SAVE },
+    { "UserportRTCDS1307", MENU_TOGGLE_USERPORT_DS1307 },
+    { "UserportRTCDS1307Save", MENU_TOGGLE_USERPORT_DS1307_SAVE },
     { NULL, 0 }
 };
 
@@ -192,6 +203,22 @@ ui_res_possible_values vic20_DS12C887RTC_base[] = {
     { -1, 0 }
 };
 
+static ui_res_possible_values DoodleMultiColor[] = {
+    { NATIVE_SS_MC2HR_BLACK_WHITE, MENU_SCREENSHOT_DOODLE_MULTICOLOR_BLACK_WHITE },
+    { NATIVE_SS_MC2HR_2_COLORS, MENU_SCREENSHOT_DOODLE_MULTICOLOR_2_COLORS },
+    { NATIVE_SS_MC2HR_4_COLORS, MENU_SCREENSHOT_DOODLE_MULTICOLOR_4_COLORS },
+    { NATIVE_SS_MC2HR_GRAY, MENU_SCREENSHOT_DOODLE_MULTICOLOR_GRAY_SCALE },
+    { NATIVE_SS_MC2HR_DITHER, MENU_SCREENSHOT_DOODLE_MULTICOLOR_DITHER },
+    { -1, 0 }
+};
+
+static ui_res_possible_values IOCollisions[] = {
+    { IO_COLLISION_METHOD_DETACH_ALL, MENU_IO_COLLISION_DETACH_ALL },
+    { IO_COLLISION_METHOD_DETACH_LAST, MENU_IO_COLLISION_DETACH_LAST },
+    { IO_COLLISION_METHOD_AND_WIRES, MENU_IO_COLLISION_AND_WIRES },
+    { -1, 0 }
+};
+
 ui_res_value_list vic20_ui_res_values[] = {
 #if defined(HAVE_RS232DEV) || defined(HAVE_RS232NET)
     { "Acia1Dev", vic20AciaDevice },
@@ -207,6 +234,8 @@ ui_res_value_list vic20_ui_res_values[] = {
     { "JoyPort1Device", vic20_JoyPort1Device },
     { "JoyPort3Device", vic20_JoyPort3Device },
     { "JoyPort4Device", vic20_JoyPort4Device },
+    { "DoodleMultiColorHandling", DoodleMultiColor },
+    { "IOCollisionHandling", IOCollisions },
     { NULL, NULL }
 };
 
@@ -268,6 +297,9 @@ void vic20_ui_specific(void *msg, void *window)
         case MENU_CART_VIC20_FP:
             ui_select_file(B_SAVE_PANEL, VIC20_FP_FILE, (void*)0);
             break;
+        case MENU_CART_VIC20_BEHR_BONZ:
+            ui_select_file(B_SAVE_PANEL, VIC20_BEHR_BONZ_FILE, (void*)0);
+            break;
         case MENU_CART_VIC20_MEGACART:
             ui_select_file(B_SAVE_PANEL, VIC20_MEGACART_FILE, (void*)0);
             break;
@@ -306,6 +338,12 @@ void vic20_ui_specific(void *msg, void *window)
             break;
         case MENU_VIC_SETTINGS:
             ui_vic();
+            break;
+        case MENU_JOYSTICK_SETTINGS:
+            ui_joystick(1, 0);
+            break;
+        case MENU_USERPORT_JOY_SETTINGS:
+            ui_joystick(3, 4);
             break;
         case MENU_DRIVE_SETTINGS:
             ui_drive(vic20_drive_types, HAS_NO_CAPS);
@@ -371,7 +409,7 @@ void vic20_ui_specific(void *msg, void *window)
 
 int vic20ui_init_early(void)
 {
-    vicemenu_set_joyport_func(joyport_get_valid_devices, joyport_get_port_name, 1, 0, 1, 1);
+    vicemenu_set_joyport_func(joyport_get_valid_devices, joyport_get_port_name, 1, 0, 1, 1, 0);
     return 0;
 }
 
@@ -381,11 +419,11 @@ static void build_joyport_values(void)
 
     for (i = 0; i < JOYPORT_MAX_DEVICES; ++i) {
         vic20_JoyPort1Device[i].value = i;
-        vic20_JoyPort1Device[i].item_id = MENU_JOYPORT1_00 + i;
+        vic20_JoyPort1Device[i].item_id = MENU_JOYPORT1 + i;
         vic20_JoyPort3Device[i].value = i;
-        vic20_JoyPort3Device[i].item_id = MENU_JOYPORT3_00 + i;
+        vic20_JoyPort3Device[i].item_id = MENU_JOYPORT3 + i;
         vic20_JoyPort4Device[i].value = i;
-        vic20_JoyPort4Device[i].item_id = MENU_JOYPORT4_00 + i;
+        vic20_JoyPort4Device[i].item_id = MENU_JOYPORT4 + i;
     }
     vic20_JoyPort1Device[i].value = -1;
     vic20_JoyPort1Device[i].item_id = 0;

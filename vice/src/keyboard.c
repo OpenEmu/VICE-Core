@@ -35,6 +35,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #ifndef RAND_MAX
 #include <limits.h>
@@ -275,6 +276,10 @@ static key_ctrl_column4080_func_t key_ctrl_column4080_func = NULL;
 static signed long key_ctrl_caps = -1;
 static key_ctrl_caps_func_t key_ctrl_caps_func = NULL;
 
+/* joyport attached keypad. */
+static signed long key_joy_keypad[KBD_JOY_KEYPAD_ROWS][KDB_JOY_KEYPAD_COLS];
+static key_joy_keypad_func_t key_joy_keypad_func = NULL;
+
 /* Is an alternative mapping active? */
 static int key_alternative = 0;
 
@@ -410,7 +415,7 @@ static void keyboard_restore_released(void)
 
 void keyboard_key_pressed(signed long key)
 {
-    int i, latch;
+    int i, j, latch;
 
     if (event_playback_active()) {
         return;
@@ -435,6 +440,17 @@ void keyboard_key_pressed(signed long key)
             key_ctrl_caps_func();
         }
         return;
+    }
+
+    if (key_joy_keypad_func != NULL) {
+        for (i = 0; i < KBD_JOY_KEYPAD_ROWS; ++i) {
+            for (j = 0; j < KDB_JOY_KEYPAD_COLS; ++j) {
+                if (key == key_joy_keypad[i][j]) {
+                    key_joy_keypad_func(i, j, 1);
+                    return;
+                }
+            }
+        }
     }
 
 #ifdef COMMON_JOYKEYS
@@ -541,7 +557,7 @@ static int keyboard_key_released_matrix(int row, int column, int shift)
 
 void keyboard_key_released(signed long key)
 {
-    int i, latch;
+    int i, j, latch;
 
     if (event_playback_active()) {
         return;
@@ -552,6 +568,17 @@ void keyboard_key_released(signed long key)
         && machine_has_restore_key()) {
         keyboard_restore_released();
         return;
+    }
+
+    if (key_joy_keypad_func != NULL) {
+        for (i = 0; i < KBD_JOY_KEYPAD_ROWS; ++i) {
+            for (j = 0; j < KDB_JOY_KEYPAD_COLS; ++j) {
+                if (key == key_joy_keypad[i][j]) {
+                    key_joy_keypad_func(i, j, 0);
+                    return;
+                }
+            }
+        }
     }
 
 #ifdef COMMON_JOYKEYS
@@ -608,7 +635,9 @@ static void keyboard_key_clear_internal(void)
     keyboard_clear_keymatrix();
     joystick_clear_all();
     virtual_shift_down = left_shift_down = right_shift_down = keyboard_shiftlock = 0;
+#ifdef COMMON_JOYKEYS
     joystick_joypad_clear();
+#endif
 }
 
 void keyboard_key_clear(void)
@@ -639,6 +668,8 @@ void keyboard_set_keyarr_any(int row, int col, int value)
             sym = key_ctrl_column4080;
         } else if (row == -4 && col == 1) {
             sym = key_ctrl_caps;
+        } else if (row == -5 && col >= 0 && col < 20) {
+            sym = key_joy_keypad[col / 5][col % 5];
         } else {
             return;
         }
@@ -743,6 +774,8 @@ static void keyboard_keyword_shiftl(void)
 
 static void keyboard_keyword_clear(void)
 {
+    int i, j;
+
     keyc_num = 0;
     keyconvmap[0].sym = ARCHDEP_KEYBOARD_SYM_NONE;
     key_ctrl_restore1 = -1;
@@ -751,6 +784,11 @@ static void keyboard_keyword_clear(void)
     key_ctrl_column4080 = -1;
     vshift = KEY_NONE;
     shiftl = KEY_NONE;
+    for (i = 0; i < KBD_JOY_KEYPAD_ROWS; ++i) {
+        for (j = 0; j < KDB_JOY_KEYPAD_COLS; ++j) {
+            key_joy_keypad[i][j] = -1;
+        }
+    }
 }
 
 static void keyboard_keyword_include(void)
@@ -862,6 +900,8 @@ static int keyboard_parse_set_neg_row(signed long sym, int row, int col)
         key_ctrl_column4080 = sym;
     } else if (row == -4 && col == 1) {
         key_ctrl_caps = sym;
+    } else if (row == -5 && col >= 0 && col < 20) {
+        key_joy_keypad[col / 5][col % 5] = sym;
     } else {
         return -1;
     }
@@ -915,12 +955,16 @@ static int keyboard_parse_keymap(const char *filename, int child)
 {
     FILE *fp;
     char *complete_path = NULL;
-    char buffer[1000];
+    char buffer[1024];
 
-    fp = sysfile_open(filename, &complete_path, MODE_READ_TEXT);
+    DBG((">keyboard_parse_keymap(%s)\n", filename));
+
+    /* open in binary mode so the newline system doesn't matter */
+    fp = sysfile_open(filename, &complete_path, "rb");
 
     if (fp == NULL) {
         log_message(keyboard_log, "Error loading keymap `%s'->`%s'.", filename, complete_path ? complete_path : "<empty/null>");
+        DBG(("<keyboard_parse_keymap(%s) ERROR\n", filename));
         return -1;
     }
 
@@ -930,12 +974,18 @@ static int keyboard_parse_keymap(const char *filename, int child)
         buffer[0] = 0;
         if (fgets(buffer, 999, fp)) {
             char *p;
+            long blen = (long)strlen(buffer);
 
-            if (strlen(buffer) == 0) {
+            if (blen == 0) {
                 break;
             }
 
-            buffer[strlen(buffer) - 1] = 0; /* remove newline */
+            /* remove trailing CR or/and LF */
+            blen--;
+            while (blen >= 0 && (buffer[blen] == '\n' || buffer[blen] == '\r')) {
+                buffer[blen--] = '\0';
+            }
+
             /* remove comments */
             if ((p = strchr(buffer, '#'))) {
                 *p = 0;
@@ -959,6 +1009,7 @@ static int keyboard_parse_keymap(const char *filename, int child)
 
     lib_free(complete_path);
 
+    DBG(("<keyboard_parse_keymap OK\n"));
     return 0;
 }
 
@@ -999,7 +1050,7 @@ void keyboard_set_unmap_any(signed long sym)
 int keyboard_keymap_dump(const char *filename)
 {
     FILE *fp;
-    int i;
+    int i, j;
 
     if (filename == NULL) {
         return -1;
@@ -1047,6 +1098,7 @@ int keyboard_keymap_dump(const char *filename)
             "# 'keysym -3 1' second RESTORE key\n"
             "# 'keysym -4 0' 40/80 column key\n"
             "# 'keysym -4 1' CAPS (ASCII/DIN) key\n"
+            "# 'keysym -5 n' joyport keypad, key n\n"
             "#\n"
             "# Joystick direction values:\n"
             "# 0      Fire\n"
@@ -1058,8 +1110,21 @@ int keyboard_keymap_dump(const char *filename)
             "# 6      North/West\n"
             "# 7      North\n"
             "# 8      North/East\n"
-            "#\n\n"
-            );
+            "#\n"
+            "# Joyport keypad key layout:\n"
+            "# --------------------------\n"
+            "# |  0 |  1 |  2 |  3 |  4 |\n"
+            "# --------------------------\n"
+            "# |  5 |  6 |  7 |  8 |  9 |\n"
+            "# --------------------------\n"
+            "# | 10 | 11 | 12 | 13 | 14 |\n"
+            "# --------------------------\n"
+            "# | 15 | 16 | 17 | 18 | 19 |\n"
+            "# --------------------------\n"
+            "#\n"
+            "# When a bigger spaced key is used,\n"
+            "# it uses the upper left most key value.\n"
+           );
     fprintf(fp, "!CLEAR\n");
     fprintf(fp, "!LSHIFT %d %d\n", kbd_lshiftrow, kbd_lshiftcol);
     fprintf(fp, "!RSHIFT %d %d\n", kbd_rshiftrow, kbd_rshiftcol);
@@ -1114,6 +1179,17 @@ int keyboard_keymap_dump(const char *filename)
         fprintf(fp, "\n");
     }
 
+    fprintf(fp, "#\n"
+                "# joyport attached keypad key mapping\n"
+                "#\n");
+    for (i = 0; i < KBD_JOY_KEYPAD_ROWS; ++i) {
+        for (j = 0; j < KDB_JOY_KEYPAD_COLS; ++j) {
+            if (key_joy_keypad[i][j] != -1) {
+                fprintf(fp, "%s -5 %d\n", kbd_arch_keynum_to_keyname(key_joy_keypad[i][j]), (i * 5) + j);
+            }
+        }
+    }
+
     for (i = 0; i < JOYSTICK_KEYSET_NUM_KEYS; i++) {
         if (joykeys[JOYSTICK_KEYSET_IDX_A][i] != ARCHDEP_KEYBOARD_SYM_NONE) {
             fprintf(fp, "#\n"
@@ -1159,6 +1235,11 @@ void keyboard_register_column4080_key(key_ctrl_column4080_func_t func)
 void keyboard_register_caps_key(key_ctrl_caps_func_t func)
 {
     key_ctrl_caps_func = func;
+}
+
+void keyboard_register_joy_keypad(key_joy_keypad_func_t func)
+{
+    key_joy_keypad_func = func;
 }
 #endif
 
@@ -1419,14 +1500,15 @@ static int try_set_keymap_file(int atidx, int idx, int mapping, int type)
                 idx ? "KeymapPosFile" : "KeymapSymFile", name));
 
     util_string_set(&machine_keymap_file_list[atidx], name);
-
     DBG(("try_set_keymap_file calls sysfile_locate(%s)\n", name));
     if (sysfile_locate(name, &complete_path) != 0) {
-        lib_free(name);
         DBG(("<try_set_keymap_file ERROR locating keymap `%s'.\n", name ? name : "(null)"));
+        lib_free(name);
+        lib_free(complete_path);
         return -1;
     }
     lib_free(name);
+    lib_free(complete_path);
     DBG(("<try_set_keymap_file OK\n"));
     return 0;
 }
@@ -1516,7 +1598,7 @@ static const resource_string_t resources_string[] = {
       &machine_keymap_file_list[KBD_INDEX_USERSYM], keyboard_set_keymap_file, (void *)KBD_INDEX_USERSYM },
     { "KeymapUserPosFile", "", RES_EVENT_NO, NULL,
       &machine_keymap_file_list[KBD_INDEX_USERPOS], keyboard_set_keymap_file, (void *)KBD_INDEX_USERPOS },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_int_t resources_int[] = {
@@ -1526,7 +1608,7 @@ static const resource_int_t resources_int[] = {
       &machine_keyboard_type, keyboard_set_keyboard_type, NULL },
     { "KeyboardMapping", 0, RES_EVENT_NO, NULL,
       &machine_keyboard_mapping, keyboard_set_keyboard_mapping, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 /*--------------------------------------------------------------------------*/
@@ -1535,6 +1617,11 @@ int keyboard_resources_init(void)
 {
     int nsym, npos, mapping, idx, type;
     const char *name;
+
+    /* VSID doesn't have a keyboard */
+    if (machine_class == VICE_MACHINE_VSID) {
+        return 0;
+    }
 
     if (resources_register_string(resources_string) < 0) {
         return -1;
@@ -1546,7 +1633,7 @@ int keyboard_resources_init(void)
     npos = (machine_keymap_file_list[KBD_INDEX_POS] == NULL) || (machine_keymap_file_list[KBD_INDEX_POS][0] == 0);
     nsym = (machine_keymap_file_list[KBD_INDEX_SYM] == NULL) || (machine_keymap_file_list[KBD_INDEX_SYM][0] == 0);
 
-    DBG(("keyboard_resources_init(first start:%s)\n", (npos && nsym) ? "yes" : "no"));
+    DBG((">>keyboard_resources_init(first start:%s)\n", (npos && nsym) ? "yes" : "no"));
 
     if (npos && nsym) {
         mapping = kbd_arch_get_host_mapping();
@@ -1560,6 +1647,7 @@ int keyboard_resources_init(void)
         }
         keyboard_set_default_keymap_file(KBD_INDEX_POS);
         if (resources_get_string("KeymapPosFile", &name) < 0) {
+            DBG(("<<keyboard_resources_init(error)\n"));
             return -1;
         }
         util_string_set(&resources_string_d1, name);
@@ -1568,6 +1656,7 @@ int keyboard_resources_init(void)
         log_verbose("Default positional map is: %s", name);
         keyboard_set_default_keymap_file(KBD_INDEX_SYM);
         if (resources_get_string("KeymapSymFile", &name) < 0) {
+            DBG(("<<keyboard_resources_init(error)\n"));
             return -1;
         }
         log_verbose("Default symbolic map is: %s", name);
@@ -1582,27 +1671,39 @@ int keyboard_resources_init(void)
 
         idx = type = mapping = 0;
         if (resources_get_int("KeymapIndex", &idx) < 0) {
+            DBG(("<<keyboard_resources_init(error)\n"));
             return -1;
         }
         if (resources_get_int("KeyboardType", &type) < 0) {
+            DBG(("<<keyboard_resources_init(error)\n"));
             return -1;
         }
         if (resources_get_int("KeyboardMapping", &mapping) < 0) {
+            DBG(("<<keyboard_resources_init(error)\n"));
             return -1;
         }
         resources_set_default_int("KeymapIndex", idx);
         resources_set_default_int("KeyboardType", type);
         resources_set_default_int("KeyboardMapping", mapping);
     }
+    DBG(("<<keyboard_resources_init(ok)\n"));
     return 0;
 }
 
 void keyboard_resources_shutdown(void)
 {
+    /* VSID doesn't have a keyboard */
+    if (machine_class == VICE_MACHINE_VSID) {
+        return;
+    }
     lib_free(machine_keymap_file_list[KBD_INDEX_SYM]);
     lib_free(machine_keymap_file_list[KBD_INDEX_POS]);
     lib_free(machine_keymap_file_list[KBD_INDEX_USERSYM]);
     lib_free(machine_keymap_file_list[KBD_INDEX_USERPOS]);
+    lib_free(resources_string_d0);
+    lib_free(resources_string_d1);
+    lib_free(resources_string_d2);
+    lib_free(resources_string_d3);
 }
 
 #endif /* COMMON_KBD */
@@ -1639,12 +1740,15 @@ static cmdline_option_t const cmdline_options[] =
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_NAME, IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME,
       NULL, NULL },
-    { NULL}
+    CMDLINE_LIST_END
 };
 
 int keyboard_cmdline_options_init(void)
 {
-    return cmdline_register_options(cmdline_options);
+    if (machine_class != VICE_MACHINE_VSID) {
+        return cmdline_register_options(cmdline_options);
+    }
+    return 0;
 }
 #endif  /* COMMON_KBD */
 
@@ -1678,11 +1782,17 @@ void keyboard_shutdown(void)
 }
 
 /*--------------------------------------------------------------------------*/
+
+#define SNAP_MAJOR 1
+#define SNAP_MINOR 0
+#define SNAP_NAME  "KEYBOARD"
+
 int keyboard_snapshot_write_module(snapshot_t *s)
 {
     snapshot_module_t *m;
 
-    m = snapshot_module_create(s, "KEYBOARD", 1, 0);
+    m = snapshot_module_create(s, SNAP_NAME, SNAP_MAJOR, SNAP_MINOR);
+
     if (m == NULL) {
         return -1;
     }
@@ -1694,11 +1804,7 @@ int keyboard_snapshot_write_module(snapshot_t *s)
         return -1;
     }
 
-    if (snapshot_module_close(m) < 0) {
-        return -1;
-    }
-
-    return 0;
+    return snapshot_module_close(m);
 }
 
 int keyboard_snapshot_read_module(snapshot_t *s)
@@ -1706,10 +1812,17 @@ int keyboard_snapshot_read_module(snapshot_t *s)
     BYTE major_version, minor_version;
     snapshot_module_t *m;
 
-    m = snapshot_module_open(s, "KEYBOARD",
-                             &major_version, &minor_version);
+    m = snapshot_module_open(s, SNAP_NAME, &major_version, &minor_version);
+
     if (m == NULL) {
         return 0;
+    }
+
+    /* Do not accept versions higher than current */
+    if (major_version > SNAP_MAJOR || minor_version > SNAP_MINOR) {
+        snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
+        snapshot_module_close(m);
+        return -1;
     }
 
     if (0
@@ -1719,6 +1832,5 @@ int keyboard_snapshot_read_module(snapshot_t *s)
         return -1;
     }
 
-    snapshot_module_close(m);
-    return 0;
+    return snapshot_module_close(m);
 }

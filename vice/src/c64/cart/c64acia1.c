@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andre Fachat <fachat@physik.tu-chemnitz.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -57,9 +58,9 @@ extern int acia1_set_mode(int mode);
 #define myacia_set_mode(x) 0
 #endif
 
-#include "c64export.h"
 #include "cartio.h"
 #include "cartridge.h"
+#include "export.h"
 #include "lib.h"
 #include "machine.h"
 #include "maincpu.h"
@@ -110,7 +111,7 @@ static io_source_t acia_device = {
 
 static io_source_list_t *acia_list_item = NULL;
 
-static const c64export_resource_t export_res = {
+static const export_resource_t export_res = {
     CARTRIDGE_NAME_TURBO232, 0, 0, &acia_device, NULL, CARTRIDGE_TURBO232
 };
 #endif
@@ -129,7 +130,7 @@ int aciacart_cart_enabled(void)
 #if defined(HAVE_RS232DEV) || defined(HAVE_RS232NET)
 static int acia1_enable(void)
 {
-    if (c64export_add(&export_res) < 0) {
+    if (export_add(&export_res) < 0) {
         return -1;
     }
     acia_list_item = io_source_register(&acia_device);
@@ -138,7 +139,7 @@ static int acia1_enable(void)
 
 static void acia1_disable(void)
 {
-    c64export_remove(&export_res);
+    export_remove(&export_res);
     io_source_unregister(acia_list_item);
     acia_list_item = NULL;
 }
@@ -281,7 +282,7 @@ static const resource_int_t resources_i[] = {
       &acia.mode, acia_set_mode, NULL },
     { "Acia1Base", 0xffff, RES_EVENT_STRICT, int_to_void_ptr(0xffff),
       &acia_base, set_acia_base, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 #endif
 
@@ -353,7 +354,7 @@ static const cmdline_option_t cart_cmdline_options[] =
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_MODE, IDCLS_SET_ACIA_MODE,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static cmdline_option_t base_cmdline_options[] =
@@ -363,7 +364,7 @@ static cmdline_option_t base_cmdline_options[] =
       USE_PARAM_ID, USE_DESCRIPTION_COMBO,
       IDCLS_P_BASE_ADDRESS, IDCLS_SET_ACIA_BASE,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 #endif
 
@@ -421,6 +422,7 @@ int aciacart_snapshot_write_module(struct snapshot_s *p)
 #endif
     return 0;
 }
+
 int aciacart_snapshot_read_module(struct snapshot_s *p)
 {
 #if defined(HAVE_RS232DEV) || defined(HAVE_RS232NET)

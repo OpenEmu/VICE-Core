@@ -85,7 +85,7 @@ static int set_direct_window(int val, void *param)
 static const resource_int_t resources_int[] = {
     { "DirectWindow", 1, RES_EVENT_NO, NULL,
       &use_direct_window, set_direct_window, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int video_arch_resources_init(void)
@@ -109,7 +109,7 @@ static const cmdline_option_t cmdline_options[] =
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       NULL, "Disable BeOS DirectWindow API" },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int video_arch_cmdline_options_init(void)

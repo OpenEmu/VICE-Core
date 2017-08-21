@@ -77,7 +77,7 @@ static int get_drive_res(char *format, int drive)
     return val;
 }
 
-#define nDRIVES 15
+#define nDRIVES 16
 
 const char driveName[nDRIVES][28] = {
     "None",
@@ -139,6 +139,8 @@ static MRESULT EXPENTRY pm_drive(HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2)
                 for (i = 0; i < 3; i++) {
                     WinSendMsg(hwnd, WM_TRACK, (void*)i, (void*)(int)(ui_status.lastTrack[i] * 2));
                 }
+                resources_get_int("DriveSoundEmulationVolume", &val);
+                WinSetDlgSpinVal(hwnd, SL_DRIVE_VOL, val);
         }
         break;
     case WM_COMMAND:
@@ -176,6 +178,12 @@ static MRESULT EXPENTRY pm_drive(HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2)
                     toggle("DriveTrueEmulation");
                     WinSendMsg(hwnd, WM_SWITCH, (void*)drive, 0);
                     break;
+                case SL_DRIVE_VOL:
+                    if (SHORT2FROMMP(mp1) == SPBN_ENDSPIN) {
+                        const ULONG val = WinGetSpinVal((HWND)mp2);
+                        resources_set_int("DriveSoundEmulationVolume", val);
+                    }
+                    break;
                 case CB_CONVERTP00:
                     toggle_drive_res("FSDevice%dConvertP00", drive);//);
                     WinSendMsg(hwnd, WM_SWITCH, (void*)drive, 0);
@@ -189,6 +197,18 @@ static MRESULT EXPENTRY pm_drive(HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2)
                     break;
                 case CB_HIDENONP00:
                     toggle_drive_res("FSDevice%dHideCBMFiles", drive);
+                    break;
+                case SL_RPM:
+                    if (SHORT2FROMMP(mp1) == SPBN_ENDSPIN) {
+                        const ULONG val = WinGetSpinVal((HWND)mp2);
+                        resources_set_int_sprintf("Drive%dRPM", val, drive);
+                    }
+                    break;
+                case SL_WOBBLE:
+                    if (SHORT2FROMMP(mp1) == SPBN_ENDSPIN) {
+                        const ULONG val = WinGetSpinVal((HWND)mp2);
+                        resources_set_int_sprintf("Drive%dWobble", val, drive);
+                    }
                     break;
                 case CB_MEM2000:
                     toggle_drive_res("Drive%dRAM2000", drive);
@@ -205,13 +225,17 @@ static MRESULT EXPENTRY pm_drive(HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2)
                 case CB_MEMA000:
                     toggle_drive_res("Drive%dRAMA000", drive);
                     break;
+                case CB_ROMPDOS:
+                    toggle_drive_res("Drive%dProfDOS", drive);
+                    break;
+                case CB_ROMSCP:
+                    toggle_drive_res("Drive%dSuperCard", drive);
+                    break;
+                case CB_RTCSAVE:
+                    toggle_drive_res("Drive%dRTCSave", drive);
+                    break;
                 case CB_READONLY:
                     toggle_drive_res("AttachDevice%dReadonly", drive);
-                    break;
-                case CB_PARALLEL:
-                    if (drive == 0 || drive == 1) {
-                        toggle_drive_res("Drive%dParallelCable", drive);
-                    }
                     break;
                 case RB_NEVER:
                 case RB_ASK:
@@ -274,6 +298,14 @@ static MRESULT EXPENTRY pm_drive(HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2)
                         resources_set_int_sprintf("Drive%dType", val, drive + 8);
                     }
                     return FALSE;
+                case CBS_PARALLEL:
+                    if (SHORT2FROMMP(mp1) == CBN_ENTER && (drive == 0 || drive == 1)) {
+                        const int nr  = WinQueryLboxSelectedItem((HWND)mp2);
+                        const int val = WinLboxItemHandle((HWND)mp2, nr);
+
+                        resources_set_int_sprintf("Drive%dParallelCable", val, drive + 8);
+                    }
+                    return FALSE;
             }
         }
         break;
@@ -322,6 +354,7 @@ static MRESULT EXPENTRY pm_drive(HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2)
         drive = (int)mp1;
             {
                 const HWND lbox = WinWindowFromID(hwnd, CBS_TYPE);
+                HWND pbox;
                 int type = 0;
                 int val;
                 int res;
@@ -363,13 +396,31 @@ static MRESULT EXPENTRY pm_drive(HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2)
                 }
                 WinLboxSelectItem(lbox, type);
 
-                WinCheckButton(hwnd, CB_PARALLEL, drive89 && get_drive_res("Drive%dParallelCable", drive) != 0);
+                pbox = WinWindowFromID(hwnd, CBS_PARALLEL);
+                res = get_drive_res("Drive%dParallelCable", drive);
+                WinLboxEmpty(pbox);
+                WinLboxInsertItem(pbox, "None");
+                WinLboxSetItemHandle(pbox, 0, DRIVE_PC_NONE);
+                WinLboxInsertItem(pbox, "Standard");
+                WinLboxSetItemHandle(pbox, 1, DRIVE_PC_STANDARD);
+                WinLboxInsertItem(pbox, "Dolphin DOS 3");
+                WinLboxSetItemHandle(pbox, 2, DRIVE_PC_DD3);
+                WinLboxInsertItem(pbox, "Formel64");
+                WinLboxSetItemHandle(pbox, 3, DRIVE_PC_FORMEL64);
+                WinLboxSelectItem(pbox, res);
+                WinSetDlgSpinVal(hwnd, SL_RPM, get_drive_res("Drive%dRPM", drive));
+                WinSetDlgSpinVal(hwnd, SL_WOBBLE, get_drive_res("Drive%dWobble", drive));
                 WinCheckButton(hwnd, CB_MEM2000, drive89 && get_drive_res("Drive%dRAM2000", drive) != 0);
                 WinCheckButton(hwnd, CB_MEM4000, drive89 && get_drive_res("Drive%dRAM4000", drive) != 0);
                 WinCheckButton(hwnd, CB_MEM6000, drive89 && get_drive_res("Drive%dRAM6000", drive) != 0);
                 WinCheckButton(hwnd, CB_MEM8000, drive89 && get_drive_res("Drive%dRAM8000", drive) != 0);
                 WinCheckButton(hwnd, CB_MEMA000, drive89 && get_drive_res("Drive%dRAMA000", drive) != 0);
-                WinEnableControl(hwnd, CB_PARALLEL, drive89 && val);
+                WinCheckButton(hwnd, CB_ROMPDOS, drive89 && get_drive_res("Drive%dProfDOS", drive) != 0);
+                WinCheckButton(hwnd, CB_ROMSCP, drive89 && get_drive_res("Drive%dSuperCard", drive) != 0);
+                WinCheckButton(hwnd, CB_RTCSAVE, drive89 && get_drive_res("Drive%dRTCSave", drive) != 0);
+                WinEnableControl(hwnd, SL_RPM, drive89 && val);
+                WinEnableControl(hwnd, SL_WOBBLE, drive89 && val);
+                WinEnableControl(hwnd, CBS_PARALLEL, drive89 && val);
                 WinEnableControl(hwnd, RB_NEVER, drive89 && val);
                 WinEnableControl(hwnd, RB_ASK, drive89 && val);
                 WinEnableControl(hwnd, RB_ALWAYS, drive89 && val);
@@ -382,6 +433,9 @@ static MRESULT EXPENTRY pm_drive(HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2)
                 WinEnableControl(hwnd, CB_MEM6000, drive89 && val);
                 WinEnableControl(hwnd, CB_MEM8000, drive89 && val);
                 WinEnableControl(hwnd, CB_MEMA000, drive89 && val);
+                WinEnableControl(hwnd, CB_ROMPDOS, drive89 && val);
+                WinEnableControl(hwnd, CB_ROMSCP, drive89 && val);
+                WinEnableControl(hwnd, CB_RTCSAVE, drive89 && val);
                 {
                     int acc  = get_drive_res("FileSystemDevice%d", drive) != 0;
                     int conv = get_drive_res("FSDevice%dConvertP00", drive) != 0;

@@ -3,6 +3,8 @@
  *
  * Written by
  *  Andreas Matthies <andreas.matthies@gmx.net>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
+ *  Marcus Sutton <loggedoubt@gmail.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -30,9 +32,7 @@
 #include <Application.h>
 #include <Clipboard.h>
 #include <FilePanel.h>
-#include <Menu.h>
-#include <MenuBar.h>
-#include <MenuItem.h>
+#include <Path.h>
 #include <ScrollView.h>
 #include <TextView.h>
 #include <View.h>
@@ -58,10 +58,10 @@ extern "C" {
 #include "datasette.h"
 #include "drive.h"
 #include "fliplist.h"
+#include "gfxoutput.h"
 #include "imagecontents.h"
 #include "info.h"
 #include "interrupt.h" 
-#include "joy.h"
 #include "kbd.h"
 #include "kbdbuf.h"
 #include "keyboard.h"
@@ -79,14 +79,16 @@ extern "C" {
 #include "platform_discovery.h"
 #include "printer.h"
 #include "resources.h"
+#include "sampler.h"
 #include "sound.h"
 #include "tape.h"
 #include "translate.h"
 #include "types.h"
 #include "ui.h"
+#include "ui_autostart.h"
 #include "ui_datasette.h"
 #include "ui_device.h"
-#include "ui_joystick.h"
+#include "ui_keymap.h"
 #include "ui_netplay.h"
 #include "ui_ram.h"
 #include "ui_sound.h"
@@ -99,6 +101,7 @@ extern "C" {
 #include "vicefeatures.h"
 #include "videoarch.h"
 #include "vsync.h"
+#include "vsyncapi.h"
 
 #ifdef USE_SVN_REVISION
 #include "svnversion.h"
@@ -106,7 +109,7 @@ extern "C" {
 }
 
 /* sometimes we may need pointers to the ViceWindows */
-#define MAX_WINDOWS 10
+#define MAX_WINDOWS 2
 ViceWindow *windowlist[MAX_WINDOWS];
 int window_count = 0;
 
@@ -132,6 +135,12 @@ ui_menu_toggle  non_vsid_toggles[] = {
     { "AutostartHandleTrueDriveEmulation", MENU_TOGGLE_HANDLE_TDE_AUTOSTART },
     { "UserportJoy", MENU_TOGGLE_USERPORT_JOY },
     { "JoyOpposite", MENU_ALLOW_OPPOSITE_JOY },
+    { "TapeSenseDongle", MENU_TOGGLE_TAPEPORT_TAPE_SENSE_DONGLE },
+    { "DTLBasicDongle", MENU_TOGGLE_TAPEPORT_DTL_BASIC_DONGLE },
+    { "CPClockF83", MENU_TOGGLE_TAPEPORT_CP_CLOCK_F83 },
+    { "CPClockF83Save", MENU_TOGGLE_TAPEPORT_CP_CLOCK_F83_SAVE },
+    { "TapeLog", MENU_TOGGLE_TAPEPORT_TAPELOG },
+    { "BBRTCSave", MENU_TOGGLE_BBRTC_DATA_SAVE },
     { NULL, 0 }
 };
 
@@ -201,6 +210,26 @@ ui_res_possible_values Printer4Emulation[] = {
     { -1, 0 }
 };
 
+ui_res_possible_values SamplerEmulation[] = {
+    { SAMPLER_DEVICE_FILE, MENU_SAMPLER_DEVICE_MEDIA_FILE },
+    { SAMPLER_DEVICE_PORTAUDIO, MENU_SAMPLER_DEVICE_PORTAUDIO },
+    { -1, 0 }
+};
+
+ui_res_possible_values SamplerGain[] = {
+    { 10, MENU_SAMPLER_GAIN_10 },
+    { 25, MENU_SAMPLER_GAIN_25 },
+    { 50, MENU_SAMPLER_GAIN_50 },
+    { 75, MENU_SAMPLER_GAIN_75 },
+    { 100, MENU_SAMPLER_GAIN_100 },
+    { 110, MENU_SAMPLER_GAIN_110 },
+    { 125, MENU_SAMPLER_GAIN_125 },
+    { 150, MENU_SAMPLER_GAIN_150 },
+    { 175, MENU_SAMPLER_GAIN_175 },
+    { 200, MENU_SAMPLER_GAIN_200 },
+    { -1, 0 }
+};
+
 ui_res_possible_strings Printer4Driver[] = {
     { "ascii", MENU_PRINTER_4_DRIVER_ASCII },
     { "mps803", MENU_PRINTER_4_DRIVER_MPS803 },
@@ -232,6 +261,52 @@ ui_res_possible_values CpuJamActions[] = {
     { -1, 0 }
 };
 
+ui_res_possible_values TapeLogDestinations[] = {
+    { 0, MENU_TAPEPORT_TAPELOG_DEFAULT_LOGFILE },
+    { 1, MENU_TAPEPORT_TAPELOG_USER_LOGFILE },
+    { -1, 0 }
+};
+
+ui_res_possible_values DoodleOversize[] = {
+    { NATIVE_SS_OVERSIZE_SCALE, MENU_SCREENSHOT_DOODLE_OVERSIZE_SCALE },
+    { NATIVE_SS_OVERSIZE_CROP_LEFT_TOP, MENU_SCREENSHOT_DOODLE_OVERSIZE_CROP_LEFT_TOP },
+    { NATIVE_SS_OVERSIZE_CROP_CENTER_TOP, MENU_SCREENSHOT_DOODLE_OVERSIZE_CROP_MIDDLE_TOP },
+    { NATIVE_SS_OVERSIZE_CROP_RIGHT_TOP, MENU_SCREENSHOT_DOODLE_OVERSIZE_CROP_RIGHT_TOP },
+    { NATIVE_SS_OVERSIZE_CROP_LEFT_CENTER, MENU_SCREENSHOT_DOODLE_OVERSIZE_CROP_LEFT_CENTER },
+    { NATIVE_SS_OVERSIZE_CROP_CENTER, MENU_SCREENSHOT_DOODLE_OVERSIZE_CROP_MIDDLE_CENTER },
+    { NATIVE_SS_OVERSIZE_CROP_RIGHT_CENTER, MENU_SCREENSHOT_DOODLE_OVERSIZE_CROP_RIGHT_CENTER },
+    { NATIVE_SS_OVERSIZE_CROP_LEFT_BOTTOM, MENU_SCREENSHOT_DOODLE_OVERSIZE_CROP_LEFT_BOTTOM },
+    { NATIVE_SS_OVERSIZE_CROP_CENTER_BOTTOM, MENU_SCREENSHOT_DOODLE_OVERSIZE_CROP_MIDDLE_BOTTOM },
+    { NATIVE_SS_OVERSIZE_CROP_RIGHT_BOTTOM, MENU_SCREENSHOT_DOODLE_OVERSIZE_CROP_RIGHT_BOTTOM },
+    { -1, 0 }
+};
+
+ui_res_possible_values DoodleUndersize[] = {
+    { NATIVE_SS_UNDERSIZE_SCALE, MENU_SCREENSHOT_DOODLE_UNDERSIZE_SCALE },
+    { NATIVE_SS_UNDERSIZE_BORDERIZE, MENU_SCREENSHOT_DOODLE_UNDERSIZE_BORDERIZE },
+    { -1, 0 }
+};
+
+ui_res_possible_values KoalaOversize[] = {
+    { NATIVE_SS_OVERSIZE_SCALE, MENU_SCREENSHOT_KOALA_OVERSIZE_SCALE },
+    { NATIVE_SS_OVERSIZE_CROP_LEFT_TOP, MENU_SCREENSHOT_KOALA_OVERSIZE_CROP_LEFT_TOP },
+    { NATIVE_SS_OVERSIZE_CROP_CENTER_TOP, MENU_SCREENSHOT_KOALA_OVERSIZE_CROP_MIDDLE_TOP },
+    { NATIVE_SS_OVERSIZE_CROP_RIGHT_TOP, MENU_SCREENSHOT_KOALA_OVERSIZE_CROP_RIGHT_TOP },
+    { NATIVE_SS_OVERSIZE_CROP_LEFT_CENTER, MENU_SCREENSHOT_KOALA_OVERSIZE_CROP_LEFT_CENTER },
+    { NATIVE_SS_OVERSIZE_CROP_CENTER, MENU_SCREENSHOT_KOALA_OVERSIZE_CROP_MIDDLE_CENTER },
+    { NATIVE_SS_OVERSIZE_CROP_RIGHT_CENTER, MENU_SCREENSHOT_KOALA_OVERSIZE_CROP_RIGHT_CENTER },
+    { NATIVE_SS_OVERSIZE_CROP_LEFT_BOTTOM, MENU_SCREENSHOT_KOALA_OVERSIZE_CROP_LEFT_BOTTOM },
+    { NATIVE_SS_OVERSIZE_CROP_CENTER_BOTTOM, MENU_SCREENSHOT_KOALA_OVERSIZE_CROP_MIDDLE_BOTTOM },
+    { NATIVE_SS_OVERSIZE_CROP_RIGHT_BOTTOM, MENU_SCREENSHOT_KOALA_OVERSIZE_CROP_RIGHT_BOTTOM },
+    { -1, 0 }
+};
+
+ui_res_possible_values KoalaUndersize[] = {
+    { NATIVE_SS_UNDERSIZE_SCALE, MENU_SCREENSHOT_KOALA_UNDERSIZE_SCALE },
+    { NATIVE_SS_UNDERSIZE_BORDERIZE, MENU_SCREENSHOT_KOALA_UNDERSIZE_BORDERIZE },
+    { -1, 0 }
+};
+
 ui_res_value_list value_list[] = {
     { "RefreshRate", RefreshRateValues },
     { "Speed", SpeedValues },
@@ -246,6 +321,13 @@ ui_res_value_list non_vsid_values[] = {
     { "AutostartPrgMode", AutostartPrgMode },
     { "Printer4", Printer4Emulation },
     { "Printer4TextDevice", Printer4OutputDevice },
+    { "TapeLogDestination", TapeLogDestinations },
+    { "SamplerDevice", SamplerEmulation },
+    { "SamplerGain", SamplerGain },
+    { "DoodleOversizeHandling", DoodleOversize },
+    { "DoodleUndersizeHandling", DoodleUndersize },
+    { "KoalaOversizeHandling", KoalaOversize },
+    { "KoalaUndersizeHandling", KoalaUndersize },
     { NULL, NULL }
 };
 
@@ -305,7 +387,6 @@ static int set_confirm_on_exit(int val, void *param)
     return 0;
 }
 
-
 static const resource_int_t resources_int[] = {
     { "JoystickDisplay", 0, RES_EVENT_NO, NULL,
       &joystickdisplay, set_joystickdisplay, NULL },
@@ -313,7 +394,7 @@ static const resource_int_t resources_int[] = {
       &save_resources_on_exit, set_save_resources_on_exit, NULL },
     { "ConfirmOnExit", 1, RES_EVENT_NO, NULL,
       &confirm_on_exit, set_confirm_on_exit, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int ui_resources_init(void)
@@ -359,7 +440,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       NULL, "Do not confirm exiting the emulator" },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int ui_cmdline_options_init(void)
@@ -448,7 +529,7 @@ static void save_quicksnapshot_trap(WORD unused_addr, void *unused_data)
 
     fullname = util_concat(archdep_boot_path(), "/", machine_name, "/", files[lastindex].name, NULL);
     if (machine_write_snapshot(fullname, 0, 0, 0) < 0) {
-        ui_error("Can't write snapshot file %s.", fullname);
+        snapshot_display_error();
     }
     free(fullname);
 }
@@ -459,7 +540,7 @@ static void load_quicksnapshot_trap(WORD unused_addr, void *unused_data)
 
     fullname = util_concat(archdep_boot_path(), "/", machine_name, "/", files[lastindex].name, NULL);
     if (machine_read_snapshot(fullname, 0) < 0) {
-        ui_error("Cannot read snapshot image");
+        snapshot_display_error();
     }
     free(fullname);
 }
@@ -517,13 +598,18 @@ static void pause_trap(WORD addr, void *data)
     }
 }
 
-void ui_pause_emulation(void)
+void ui_pause_emulation(int flag)
 {
-    is_paused = is_paused ? 0 : 1;
-    if (is_paused) {
+    if (network_connected()) {
+        return;
+    }
+
+    if (flag && !is_paused) {
+        is_paused = 1;
         interrupt_maincpu_trigger_trap(pause_trap, 0);
     } else {
         ui_display_paused(0);
+        is_paused = 0;
     }
 }
 
@@ -551,30 +637,57 @@ static void ui_copy_clipboard(void)
         lib_free(text);
     }
 }
-
-static void ui_paste_clipboard_text(void)
+static void ui_handle_paste_text(BMessage *msg)
 {
     const char *text;
     char *text_in_petscii = NULL;
     ssize_t textlen = 0;
+
+    if ((msg->FindData("text/plain", B_MIME_TYPE, (const void **)&text, &textlen)) != B_OK) {
+        // ui_error("No text pasted ?!");
+        return;
+    }
+
+    if (textlen != 0) {
+        text_in_petscii = (char *)lib_malloc(textlen + 1);
+        memcpy(text_in_petscii, text, textlen);
+        text_in_petscii[textlen] = 0;
+        charset_petconvstring((unsigned char *)text_in_petscii, 0);
+        kbdbuf_feed(text_in_petscii);
+        lib_free(text_in_petscii);
+    }
+} 
+
+static void ui_paste_clipboard_text(void)
+{
     BMessage *clippy = (BMessage *)NULL;
 
     if (be_clipboard->Lock()) {
         if (clippy = be_clipboard->Data()) {
-            clippy->FindData("text/plain", B_MIME_TYPE, (const void **)&text, &textlen);
-
-            if (textlen != 0) {
-                text_in_petscii = (char *)lib_malloc(textlen + 1);
-                memcpy(text_in_petscii, text, textlen);
-                text_in_petscii[textlen] = 0;
-                charset_petconvstring((unsigned char *)text_in_petscii, 0);
-                kbdbuf_feed(text_in_petscii);
-                lib_free(text_in_petscii);
-            }
+            ui_handle_paste_text(clippy);
         }
         be_clipboard->Unlock();
     }
 } 
+
+static void ui_handle_dropped_file(BMessage *msg)
+{
+    entry_ref ref;
+    status_t err;
+    BPath *path;
+    // int32 buttons;
+
+    if ((err = msg->FindRef("refs", 0, &ref)) != B_OK) {
+        // ui_error("No File selected ?!");
+        return;
+    }
+    // err = msg->FindInt32("buttons", &buttons);
+    path = new BPath(&ref);
+
+    if (autostart_autodetect(path->Path(), NULL, 0, AUTOSTART_MODE_RUN) < 0) {
+        ui_error("Cannot autostart specified file.");
+    }
+}
 
 static char *get_compiletime_features(void)
 {
@@ -664,6 +777,9 @@ int ui_handle_string_items(ui_res_string_list *string_list, int msg_item_id)
     return 0;
 }
 
+/* This is called when turning datasette on/off from the menu. */
+static void ui_draw_tape_status();
+
 void ui_dispatch_events(void)
 {
     int i;
@@ -698,6 +814,15 @@ void ui_dispatch_events(void)
                 /* now we can use the selected file */
                 ui_select_file_action(&message_queue[i]);
                 break;
+            case B_SIMPLE_DATA:
+                /* handle a file being dropped on the */
+                /* window from tracker */
+                ui_handle_dropped_file(&message_queue[i]);
+                break;
+            case B_MIME_DATA:
+                /* handle text being dropped on the window */
+                ui_handle_paste_text(&message_queue[i]);
+                break;
            case MENU_EXIT_REQUESTED:
                 {
                     int32 button = 0;
@@ -730,6 +855,9 @@ void ui_dispatch_events(void)
                 break;
             case MENU_RESET_HARD:
                 machine_trigger_reset(MACHINE_RESET_MODE_HARD);
+                break;
+            case MENU_AUTOSTART_DELAY:
+                ui_autostart();
                 break;
             case MENU_AUTOSTART_PRG_DISK_IMAGE_SELECT:
                 ui_select_file(B_OPEN_PANEL, AUTOSTART_DISK_IMAGE_FILE, (void*)0);
@@ -805,6 +933,11 @@ void ui_dispatch_events(void)
             case MENU_DATASETTE_COUNTER:
                 datasette_control(DATASETTE_CONTROL_RESET_COUNTER);
                 break;
+            case MENU_TOGGLE_TAPEPORT_DATASETTE:
+                resources_toggle("Datasette", NULL);
+                ui_update_menus();
+                ui_draw_tape_status();
+                break;
             case MENU_SNAPSHOT_LOAD:
                 ui_select_file(B_OPEN_PANEL, SNAPSHOTLOAD_FILE, (void*)0);
                 break;
@@ -863,7 +996,12 @@ void ui_dispatch_events(void)
                 monitor_startup_trap();
                 break;
             case MENU_PAUSE:
-                ui_pause_emulation();
+                ui_pause_emulation(!ui_emulation_is_paused());
+                break;
+            case MENU_SINGLE_FRAME_ADVANCE:
+                if (ui_emulation_is_paused()) {
+                    vsyncarch_advance_frame();
+                }
                 break;
             case MENU_COPY:
                 ui_copy_clipboard();
@@ -915,12 +1053,6 @@ void ui_dispatch_events(void)
             case MENU_DATASETTE_SETTINGS:
                 ui_datasette();
                 break;
-            case MENU_JOYSTICK_SETTINGS:
-                ui_joystick();
-                break;
-            case MENU_EXTRA_JOYSTICK_SETTINGS:
-                ui_extra_joystick();
-                break;
             case MENU_SOUND_SETTINGS:
                 ui_sound();
                 break;
@@ -961,7 +1093,7 @@ void ui_dispatch_events(void)
 
                 tmp = util_concat("BeVICE Version ", VERSION,
 #ifdef USE_SVN_REVISION
-                                  "rev " VICE_SVN_REV_STRING,
+                                  " rev" VICE_SVN_REV_STRING,
 #endif
                                   "\n (", PLATFORM_CPU, " ", PLATFORM_OS, " ", PLATFORM_COMPILER, ")\n\n",
                                   NULL);
@@ -1015,6 +1147,94 @@ void ui_dispatch_events(void)
                     resources_set_int_sprintf("AttachDevice%dReadonly", !res_val, attachdrive);
                     break;
                 }
+            case MENU_SCREENSHOT_BMP_SCREEN0:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_BMP_FILE_SCREEN0, (void*)0);
+                break;
+            case MENU_SCREENSHOT_BMP_SCREEN1:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_BMP_FILE_SCREEN1, (void*)0);
+                break;
+            case MENU_SCREENSHOT_DOODLE_SCREEN0:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_DOODLE_FILE_SCREEN0, (void*)0);
+                break;
+            case MENU_SCREENSHOT_DOODLE_SCREEN1:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_DOODLE_FILE_SCREEN1, (void*)0);
+                break;
+            case MENU_SCREENSHOT_DOODLE_COMPRESSED_SCREEN0:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_DOODLE_COMPRESSED_FILE_SCREEN0, (void*)0);
+                break;
+            case MENU_SCREENSHOT_DOODLE_COMPRESSED_SCREEN1:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_DOODLE_COMPRESSED_FILE_SCREEN1, (void*)0);
+                break;
+#ifdef HAVE_GIF
+            case MENU_SCREENSHOT_GIF_SCREEN0:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_GIF_FILE_SCREEN0, (void*)0);
+                break;
+            case MENU_SCREENSHOT_GIF_SCREEN1:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_GIF_FILE_SCREEN1, (void*)0);
+                break;
+#endif
+            case MENU_SCREENSHOT_GODOT_SCREEN0:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_GODOT_FILE_SCREEN0, (void*)0);
+                break;
+            case MENU_SCREENSHOT_GODOT_SCREEN1:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_GODOT_FILE_SCREEN1, (void*)0);
+                break;
+            case MENU_SCREENSHOT_IFF_SCREEN0:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_IFF_FILE_SCREEN0, (void*)0);
+                break;
+            case MENU_SCREENSHOT_IFF_SCREEN1:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_IFF_FILE_SCREEN1, (void*)0);
+                break;
+#ifdef HAVE_JPEG
+            case MENU_SCREENSHOT_JPEG_SCREEN0:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_JPEG_FILE_SCREEN0, (void*)0);
+                break;
+            case MENU_SCREENSHOT_JPEG_SCREEN1:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_JPEG_FILE_SCREEN1, (void*)0);
+                break;
+#endif
+            case MENU_SCREENSHOT_KOALA_SCREEN0:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_KOALA_FILE_SCREEN0, (void*)0);
+                break;
+            case MENU_SCREENSHOT_KOALA_SCREEN1:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_KOALA_FILE_SCREEN1, (void*)0);
+                break;
+            case MENU_SCREENSHOT_KOALA_COMPRESSED_SCREEN0:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_KOALA_COMPRESSED_FILE_SCREEN0, (void*)0);
+                break;
+            case MENU_SCREENSHOT_KOALA_COMPRESSED_SCREEN1:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_KOALA_COMPRESSED_FILE_SCREEN1, (void*)0);
+                break;
+            case MENU_SCREENSHOT_PCX_SCREEN0:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_PCX_FILE_SCREEN0, (void*)0);
+                break;
+            case MENU_SCREENSHOT_PCX_SCREEN1:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_PCX_FILE_SCREEN1, (void*)0);
+                break;
+#ifdef HAVE_PNG
+            case MENU_SCREENSHOT_PNG_SCREEN0:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_PNG_FILE_SCREEN0, (void*)0);
+                break;
+            case MENU_SCREENSHOT_PNG_SCREEN1:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_PNG_FILE_SCREEN1, (void*)0);
+                break;
+#endif
+            case MENU_SCREENSHOT_PPM_SCREEN0:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_PPM_FILE_SCREEN0, (void*)0);
+                break;
+            case MENU_SCREENSHOT_PPM_SCREEN1:
+                ui_select_file(B_SAVE_PANEL, SCREENSHOT_PPM_FILE_SCREEN1, (void*)0);
+                break;
+            case MENU_TAPEPORT_TAPLOG_FILENAME:
+                ui_select_file(B_SAVE_PANEL, TAPELOG_FILE, (void*)0);
+                break;
+            case MENU_SAMPLER_FILENAME:
+                ui_select_file(B_SAVE_PANEL, SAMPLER_MEDIA_FILE, (void*)0);
+                break;
+            case MENU_KEYMAP_SETTINGS:
+                ui_keymap();
+                break;
+
             case MESSAGE_SET_RESOURCE:
                 {
                     const char *res_name;
@@ -1397,12 +1617,19 @@ static int ui_tape_control = -1;
 
 static void ui_draw_tape_status()
 {
+    int enabled = 0;
     int i;
+
+    if (machine_class != VICE_MACHINE_VSID && machine_class != VICE_MACHINE_C64DTV && machine_class != VICE_MACHINE_SCPU64) {
+        resources_get_int("Datasette", &enabled);
+    }
+
+    enabled |= ui_tape_enabled;
 
     for (i = 0; i < window_count; i++) {
         while (!windowlist[i]->Lock());
         if (windowlist[i]->statusbar) {
-            windowlist[i]->statusbar->DisplayTapeStatus(ui_tape_enabled, ui_tape_counter, ui_tape_motor, ui_tape_control);
+            windowlist[i]->statusbar->DisplayTapeStatus(enabled, ui_tape_counter, ui_tape_motor, ui_tape_control);
         }
         windowlist[i]->Unlock();
     }
@@ -1525,12 +1752,14 @@ void ui_display_joyport(BYTE *joyport)
 
 void ui_statusbar_update()
 {
-    ui_display_drive_status(0);
-    ui_display_image(0);
-    ui_display_drive_status(1);
-    ui_display_image(1);
-    ui_display_image(-1);
+    int i;
+
+    for (i = 0; i < 4; i++) {
+        ui_display_drive_status(i);
+        ui_display_image(i);
+    }
     ui_draw_tape_status();
+    ui_display_image(-1);
     ui_enable_joyport();
 }
 

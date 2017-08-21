@@ -48,6 +48,9 @@ static UI_MENU_CALLBACK(attach_cart_callback)
 
     if (activated) {
         switch (vice_ptr_to_int(param)) {
+            case CARTRIDGE_VIC20_BEHRBONZ:
+                title = "Select " CARTRIDGE_VIC20_NAME_BEHRBONZ " image";
+                break;
             case CARTRIDGE_VIC20_UM:
                 title = "Select " CARTRIDGE_VIC20_NAME_UM " image";
                 break;
@@ -171,7 +174,6 @@ static const ui_menu_entry_t georam_menu[] = {
       MENU_ENTRY_RESOURCE_RADIO,
       radio_GEORAMsize_callback,
       (ui_callback_data_t)1024 },
-#ifndef DINGOO_NATIVE
     { "2048kB",
       MENU_ENTRY_RESOURCE_RADIO,
       radio_GEORAMsize_callback,
@@ -180,7 +182,6 @@ static const ui_menu_entry_t georam_menu[] = {
       MENU_ENTRY_RESOURCE_RADIO,
       radio_GEORAMsize_callback,
       (ui_callback_data_t)4096 },
-#endif
     SDL_MENU_ITEM_SEPARATOR,
     SDL_MENU_ITEM_TITLE("RAM image"),
     { "Image file",
@@ -407,6 +408,10 @@ const ui_menu_entry_t vic20cart_menu[] = {
       MENU_ENTRY_DIALOG,
       attach_cart_callback,
       (ui_callback_data_t)CARTRIDGE_VIC20_GENERIC },
+    { "Attach " CARTRIDGE_VIC20_NAME_BEHRBONZ " image",
+      MENU_ENTRY_DIALOG,
+      attach_cart_callback,
+      (ui_callback_data_t)CARTRIDGE_VIC20_BEHRBONZ },
     { "Attach " CARTRIDGE_VIC20_NAME_MEGACART " image",
       MENU_ENTRY_DIALOG,
       attach_cart_callback,
@@ -437,7 +442,7 @@ const ui_menu_entry_t vic20cart_menu[] = {
       MENU_ENTRY_OTHER,
       set_cart_default_callback,
       NULL },
-    { "I/O collision handling",
+    { "I/O collision handling ($9000-$93FF / $9800-$9FFF)",
       MENU_ENTRY_SUBMENU,
       iocollision_show_type_callback,
       (ui_callback_data_t)iocollision_menu },

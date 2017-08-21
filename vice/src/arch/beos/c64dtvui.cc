@@ -47,12 +47,14 @@ extern "C" {
 #include "c64dtvmodel.h"
 #include "cartridge.h"
 #include "constants.h"
+#include "gfxoutput.h"
 #include "joyport.h"
 #include "keyboard.h"
 #include "resources.h"
 #include "types.h"
 #include "ui.h"
 #include "ui_drive.h"
+#include "ui_joystick.h"
 #include "ui_printer.h"
 #include "ui_sid.h"
 #include "ui_vicii.h"
@@ -102,12 +104,22 @@ ui_res_possible_values C64DTVRevision[] = {
     { -1, 0 }
 };
 
+static ui_res_possible_values DoodleMultiColor[] = {
+    { NATIVE_SS_MC2HR_BLACK_WHITE, MENU_SCREENSHOT_DOODLE_MULTICOLOR_BLACK_WHITE },
+    { NATIVE_SS_MC2HR_2_COLORS, MENU_SCREENSHOT_DOODLE_MULTICOLOR_2_COLORS },
+    { NATIVE_SS_MC2HR_4_COLORS, MENU_SCREENSHOT_DOODLE_MULTICOLOR_4_COLORS },
+    { NATIVE_SS_MC2HR_GRAY, MENU_SCREENSHOT_DOODLE_MULTICOLOR_GRAY_SCALE },
+    { NATIVE_SS_MC2HR_DITHER, MENU_SCREENSHOT_DOODLE_MULTICOLOR_DITHER },
+    { -1, 0 }
+};
+
 ui_res_value_list c64dtv_ui_res_values[] = {
     { "VICIIFilter", C64DTVRenderFilters },
     { "DtvRevision", C64DTVRevision },
     { "JoyPort1Device", c64dtv_JoyPort1Device },
     { "JoyPort2Device", c64dtv_JoyPort2Device },
     { "JoyPort3Device", c64dtv_JoyPort3Device },
+    { "DoodleMultiColorHandling", DoodleMultiColor },
     { NULL, NULL }
 };
 
@@ -137,6 +149,12 @@ void c64dtv_ui_specific(void *msg, void *window)
             break;
         case MENU_SID_SETTINGS:
             ui_sid(NULL);
+            break;
+        case MENU_JOYSTICK_SETTINGS:
+            ui_joystick(1, 2);
+            break;
+        case MENU_USERPORT_JOY_SETTINGS:
+            ui_joystick(3, 0);
             break;
         case MENU_DRIVE_SETTINGS:
             ui_drive(c64dtv_drive_types, HAS_NO_CAPS);
@@ -186,7 +204,7 @@ void c64dtv_ui_specific(void *msg, void *window)
 }
 
 int c64dtvui_init_early(void) {
-    vicemenu_set_joyport_func(joyport_get_valid_devices, joyport_get_port_name, 1, 1, 1, 0);
+    vicemenu_set_joyport_func(joyport_get_valid_devices, joyport_get_port_name, 1, 1, 1, 0, 0);
     return 0;
 }
 
@@ -196,11 +214,11 @@ static void build_joyport_values(void)
 
     for (i = 0; i < JOYPORT_MAX_DEVICES; ++i) {
         c64dtv_JoyPort1Device[i].value = i;
-        c64dtv_JoyPort1Device[i].item_id = MENU_JOYPORT1_00 + i;
+        c64dtv_JoyPort1Device[i].item_id = MENU_JOYPORT1 + i;
         c64dtv_JoyPort2Device[i].value = i;
-        c64dtv_JoyPort2Device[i].item_id = MENU_JOYPORT2_00 + i;
+        c64dtv_JoyPort2Device[i].item_id = MENU_JOYPORT2 + i;
         c64dtv_JoyPort3Device[i].value = i;
-        c64dtv_JoyPort3Device[i].item_id = MENU_JOYPORT3_00 + i;
+        c64dtv_JoyPort3Device[i].item_id = MENU_JOYPORT3 + i;
     }
     c64dtv_JoyPort1Device[i].value = -1;
     c64dtv_JoyPort1Device[i].item_id = 0;

@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Matthies <andreas.matthies@gmx.net>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -42,7 +43,9 @@
 
 extern "C" {
 #include "archdep.h"
+#include "cartio.h"
 #include "constants.h"
+#include "gfxoutput.h"
 #include "joyport.h"
 #include "petmodel.h"
 #include "petui.h"
@@ -50,6 +53,7 @@ extern "C" {
 #include "types.h"
 #include "ui.h"
 #include "ui_drive.h"
+#include "ui_joystick.h"
 #include "ui_pet.h"
 #include "ui_printer.h"
 #include "ui_sidcart.h"
@@ -78,8 +82,12 @@ ui_menu_toggle  pet_ui_menu_toggles[] = {
     { "PETREU", MENU_TOGGLE_PETREU },
     { "PETDWW", MENU_TOGGLE_PETDWW },
     { "PETHRE", MENU_TOGGLE_PETHRE },
-    { "UserportDAC", MENU_TOGGLE_PET_USERPORT_DAC },
     { "Mouse", MENU_TOGGLE_MOUSE },
+    { "UserportDAC", MENU_TOGGLE_USERPORT_DAC },
+    { "UserportRTC58321a", MENU_TOGGLE_USERPORT_58321A },
+    { "UserportRTC58321aSave", MENU_TOGGLE_USERPORT_58321A_SAVE },
+    { "UserportRTCDS1307", MENU_TOGGLE_USERPORT_DS1307 },
+    { "UserportRTCDS1307Save", MENU_TOGGLE_USERPORT_DS1307_SAVE },
     { NULL, 0 }
 };
 
@@ -108,12 +116,36 @@ ui_res_possible_values pet_RenderFilters[] = {
     { -1, 0 }
 };
 
+static ui_res_possible_values DoodleCRTCTextColor[] = {
+    { NATIVE_SS_CRTC_WHITE, MENU_SCREENSHOT_DOODLE_CRTC_TEXT_COLOR_WHITE },
+    { NATIVE_SS_CRTC_AMBER, MENU_SCREENSHOT_DOODLE_CRTC_TEXT_COLOR_AMBER },
+    { NATIVE_SS_CRTC_GREEN, MENU_SCREENSHOT_DOODLE_CRTC_TEXT_COLOR_GREEN },
+    { -1, 0 }
+};
+
+static ui_res_possible_values KoalaCRTCTextColor[] = {
+    { NATIVE_SS_CRTC_WHITE, MENU_SCREENSHOT_KOALA_CRTC_TEXT_COLOR_WHITE },
+    { NATIVE_SS_CRTC_AMBER, MENU_SCREENSHOT_KOALA_CRTC_TEXT_COLOR_AMBER },
+    { NATIVE_SS_CRTC_GREEN, MENU_SCREENSHOT_KOALA_CRTC_TEXT_COLOR_GREEN },
+    { -1, 0 }
+};
+
+static ui_res_possible_values IOCollisions[] = {
+    { IO_COLLISION_METHOD_DETACH_ALL, MENU_IO_COLLISION_DETACH_ALL },
+    { IO_COLLISION_METHOD_DETACH_LAST, MENU_IO_COLLISION_DETACH_LAST },
+    { IO_COLLISION_METHOD_AND_WIRES, MENU_IO_COLLISION_AND_WIRES },
+    { -1, 0 }
+};
+
 ui_res_value_list pet_ui_res_values[] = {
     { "Acia1Dev", petAciaDevice },
     { "PETREUsize", PETREUSize},
     { "CrtcFilter", pet_RenderFilters },
     { "JoyPort3Device", pet_JoyPort3Device },
     { "JoyPort4Device", pet_JoyPort4Device },
+    { "DoodleCRTCTextColor", DoodleCRTCTextColor },
+    { "KoalaCRTCTextColor", KoalaCRTCTextColor },
+    { "IOCollisionHandling", IOCollisions },
     { NULL, NULL }
 };
 
@@ -165,6 +197,9 @@ void pet_ui_specific(void *msg, void *window)
             break;
         case MENU_VIDEO_SETTINGS:
             ui_video(UI_VIDEO_CHIP_CRTC);
+            break;
+        case MENU_USERPORT_JOY_SETTINGS:
+            ui_joystick(3, 4);
             break;
         case MENU_DRIVE_SETTINGS:
             ui_drive(pet_drive_types, HAS_NO_CAPS);
@@ -224,7 +259,7 @@ void pet_ui_specific(void *msg, void *window)
 
 int petui_init_early(void)
 {
-    vicemenu_set_joyport_func(joyport_get_valid_devices, joyport_get_port_name, 0, 0, 1, 1);
+    vicemenu_set_joyport_func(joyport_get_valid_devices, joyport_get_port_name, 0, 0, 1, 1, 0);
     return 0;
 }
 
@@ -234,9 +269,9 @@ static void build_joyport_values(void)
 
     for (i = 0; i < JOYPORT_MAX_DEVICES; ++i) {
         pet_JoyPort3Device[i].value = i;
-        pet_JoyPort3Device[i].item_id = MENU_JOYPORT3_00 + i;
+        pet_JoyPort3Device[i].item_id = MENU_JOYPORT3 + i;
         pet_JoyPort4Device[i].value = i;
-        pet_JoyPort4Device[i].item_id = MENU_JOYPORT4_00 + i;
+        pet_JoyPort4Device[i].item_id = MENU_JOYPORT4 + i;
     }
     pet_JoyPort3Device[i].value = -1;
     pet_JoyPort3Device[i].item_id = 0;

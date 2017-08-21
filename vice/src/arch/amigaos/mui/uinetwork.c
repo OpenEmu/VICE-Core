@@ -3,6 +3,7 @@
  *
  * Written by
  *  Mathias Roslund <vice.emu@amidog.se>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -43,7 +44,7 @@
 #endif
 #include "mui.h"
 
-static ui_port_range[] = {
+static int ui_port_range[] = {
     0,
     0xffff
 };

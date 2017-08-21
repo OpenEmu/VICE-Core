@@ -21,14 +21,18 @@ PROJECTDEPS =
 	fileio
 	fsdevice
 	gfxoutputdrv
+	hwsiddrv
 	iec
 	iecbus
 	iecieee
+	ieee
 	imagecontents
 	joyport
 	lame
+	mididrv
 	monitor
 	p64
+	parallel
 	platform
 	plus4
 	plus4exp
@@ -41,12 +45,14 @@ PROJECTDEPS =
 	samplerdrv
 	serial
 	sid
+	socketdrv
 	sounddrv
 	swresample
 	swresample-x86
 	swscale
 	swscale-x86
 	tape
+	tapeport
 	tcbm
 	userport
 	vdrive
@@ -96,7 +102,7 @@ SOURCES =
 RESSOURCE = resplus4.rc
 
 # resource dependencies, separated by spaces
-RESDEPS = resplus4.rc res.rc rested.rc resacia.rc resdriveplus4.rc resautostart.rc resv364speech.rc resjoyport.rc ressidcart.rc resmouse.rc
+RESDEPS = resplus4.rc res.rc rested.rc resacia.rc resdriveplus4.rc resautostart.rc resv364speech.rc resjoyport.rc ressidcart.rc resmouse.rc resplus4memoryhacks.rc ressampler.rc rescpclockf83.rc restapelog.rc resiocollisions.rc reskeymap.rc
 
 # resource output name
 RESOUTPUT = resplus4cat.rc

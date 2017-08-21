@@ -38,6 +38,7 @@ TUI_MENU_DEFINE_RADIO(DtvRevision)
 TUI_MENU_DEFINE_TOGGLE(c64dtvromrw)
 TUI_MENU_DEFINE_TOGGLE(HummerADC)
 TUI_MENU_DEFINE_FILENAME(c64dtvromfilename, "C64DTV ROM")
+TUI_MENU_DEFINE_TOGGLE(VICIINewLuminances)
 
 static TUI_MENU_CALLBACK(DtvRevision_submenu_callback)
 {
@@ -54,7 +55,7 @@ static tui_menu_item_def_t DtvRevision_submenu[] = {
       (void *)2, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "DTV_3", NULL, radio_DtvRevision_callback,
       (void *)3, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t c64dtv_menu_items[] = {
@@ -71,7 +72,11 @@ static tui_menu_item_def_t c64dtv_menu_items[] = {
     { "Hummer ADC:", "Hummer ADC enable",
       toggle_HummerADC_callback, NULL, 3,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    { "_Color fix:",
+      "Enable color fix",
+      toggle_VICIINewLuminances_callback, NULL, 3,
+      TUI_MENU_BEH_CONTINUE, NULL, NULL },
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 void uic64dtv_init(struct tui_menu *parent_submenu)

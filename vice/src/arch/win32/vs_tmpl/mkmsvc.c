@@ -492,7 +492,11 @@ static char *msvc_libs_gui[2] = {
 
 static char *msvc_libs_console_sdl = "version.lib wsock32.lib SDLmain.lib SDL.lib opengl32.lib";
 
+static char *msvc_libs_console_sdl2 = "version.lib wsock32.lib SDL2main.lib SDL2.lib";
+
 static char *msvc_libs_gui_sdl = "comctl32.lib version.lib winmm.lib wsock32.lib SDLmain.lib SDL.lib opengl32.lib";
+
+static char *msvc_libs_gui_sdl2 = "comctl32.lib version.lib winmm.lib wsock32.lib SDL2main.lib SDL2.lib";
 
 static char *msvc_preprodefs[2] = {
     "_DEBUG",
@@ -691,6 +695,8 @@ static char *msvc10_libs_console = "version.lib;wsock32.lib;advapi32.lib";
 
 static char *msvc10_libs_console_sdl = "version.lib;wsock32.lib;SDLmain.lib;SDL.lib;opengl32.lib";
 
+static char *msvc10_libs_console_sdl2 = "version.lib;wsock32.lib;SDL2main.lib;SDL2.lib";
+
 static char *msvc10_libs_gui[2] = {
     "comctl32.lib;dsound.lib;dxguid.lib;winmm.lib;version.lib;wsock32.lib;shell32.lib;gdi32.lib;comdlg32.lib;advapi32.lib;ole32.lib",
     "comctl32.lib;version.lib;winmm.lib;wsock32.lib;shell32.lib;gdi32.lib;comdlg32.lib;advapi32.lib"
@@ -698,7 +704,11 @@ static char *msvc10_libs_gui[2] = {
 
 static char *msvc10_libs_gui_sdl = "comctl32.lib;version.lib;winmm.lib;wsock32.lib;SDLmain.lib;SDL.lib;opengl32.lib";
 
+static char *msvc10_libs_gui_sdl2 = "comctl32.lib;version.lib;winmm.lib;wsock32.lib;SDL2main.lib;SDL2.lib";
+
 static char *msvc10_libs_gui_sdl_arm = "comctl32.lib;version.lib;winmm.lib;wsock32.lib;SDLmain.lib;SDL.lib;advapi32.lib";
+
+static char *msvc10_libs_gui_sdl2_arm = "comctl32.lib;version.lib;winmm.lib;wsock32.lib;SDL2main.lib;SDL2.lib;advapi32.lib";
 
 static char *msvc10_project_start = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"
                                     "<Project DefaultTargets=\"Build\" ToolsVersion=\"4.0\" xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">\r\n"
@@ -799,9 +809,9 @@ static char *msvc10_aid_cc = "      <AdditionalIncludeDirectories>..\\msvc;%%(Ad
 
 static char *msvc10_aid_cc_sdl = "      <AdditionalIncludeDirectories>.\\;..\\;%%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\r\n";
 
-static char *msvc10_aid_sid = "      <AdditionalIncludeDirectories>..\\msvc;..\\;..\\..\\..\\;..\\..\\..\\resid;%%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\r\n";
+static char *msvc10_aid_sid = "      <AdditionalIncludeDirectories>..\\msvc;..\\;..\\..\\..\\;..\\..\\..\\joyport;..\\..\\..\\resid;%%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\r\n";
 
-static char *msvc10_aid_sid_sdl = "      <AdditionalIncludeDirectories>.\\;..\\;..\\..\\..\\;..\\..\\..\\resid;%%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\r\n";
+static char *msvc10_aid_sid_sdl = "      <AdditionalIncludeDirectories>.\\;..\\;..\\..\\..\\;..\\..\\..\\joyport;..\\..\\..\\resid;%%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\r\n";
 
 static char *msvc10_aid_end = "%%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\r\n";
 
@@ -995,7 +1005,7 @@ static char *msvc10_main_end = "\tEndGlobalSection\r\n"
                                "\tEndGlobalSection\r\n"
                                "EndGlobal\r\n";
 
-static void generate_msvc10_11_12_sln(int msvc11, int msvc12, int sdl)
+static void generate_msvc10_11_12_14_sln(int msvc11, int msvc12, int sdl)
 {
     int i, j, k;
     int exc = 0;
@@ -1025,16 +1035,46 @@ static void generate_msvc10_11_12_sln(int msvc11, int msvc12, int sdl)
     fprintf(mainfile, msvc10_main_end);
 }
 
-static int open_msvc10_11_12_main_project(int msvc11, int msvc12, int sdl)
+static int open_msvc10_11_12_14_main_project(int msvc11, int msvc12, int msvc14, int sdl)
 {
     pi_init();
 
-    if (msvc12) {
+    if (msvc14) {
         if (sdl) {
             if (ffmpeg) {
-                mainfile = fopen("../../sdl/win32-msvc12-ffmpeg/vice.sln", "wb");
+                if (sdl == 2) {
+                    mainfile = fopen("../../sdl/win32-sdl2x-msvc14-ffmpeg/vice.sln", "wb");
+                } else {
+                    mainfile = fopen("../../sdl/win32-sdl1x-msvc14-ffmpeg/vice.sln", "wb");
+                }
             } else {
-                mainfile = fopen("../../sdl/win32-msvc12/vice.sln", "wb");
+                if (sdl == 2) {
+                    mainfile = fopen("../../sdl/win32-sdl2x-msvc14/vice.sln", "wb");
+                } else {
+                    mainfile = fopen("../../sdl/win32-sdl1x-msvc14/vice.sln", "wb");
+                }
+            }
+        } else {
+            if (ffmpeg) {
+                mainfile = fopen("../vs14-ffmpeg/vice.sln", "wb");
+            } else {
+                mainfile = fopen("../vs14/vice.sln", "wb");
+            }
+        }
+    } else if (msvc12) {
+        if (sdl) {
+            if (ffmpeg) {
+                if (sdl == 2) {
+                    mainfile = fopen("../../sdl/win32-sdl2x-msvc12-ffmpeg/vice.sln", "wb");
+                } else {
+                    mainfile = fopen("../../sdl/win32-sdl1x-msvc12-ffmpeg/vice.sln", "wb");
+                }
+            } else {
+                if (sdl == 2) {
+                    mainfile = fopen("../../sdl/win32-sdl2x-msvc12/vice.sln", "wb");
+                } else {
+                    mainfile = fopen("../../sdl/win32-sdl1x-msvc12/vice.sln", "wb");
+                }
             }
         } else {
             if (ffmpeg) {
@@ -1047,9 +1087,17 @@ static int open_msvc10_11_12_main_project(int msvc11, int msvc12, int sdl)
 	} else if (msvc11) {
         if (sdl) {
             if (ffmpeg) {
-                mainfile = fopen("../../sdl/win32-msvc11-ffmpeg/vice.sln", "wb");
+                if (sdl == 2) {
+                    mainfile = fopen("../../sdl/win32-sdl2x-msvc11-ffmpeg/vice.sln", "wb");
+                } else {
+                    mainfile = fopen("../../sdl/win32-sdl1x-msvc11-ffmpeg/vice.sln", "wb");
+                }
             } else {
-                mainfile = fopen("../../sdl/win32-msvc11/vice.sln", "wb");
+                if (sdl == 2) {
+                    mainfile = fopen("../../sdl/win32-sdl2x-msvc11/vice.sln", "wb");
+                } else {
+                    mainfile = fopen("../../sdl/win32-sdl1x-msvc11/vice.sln", "wb");
+                }
             }
         } else {
             if (ffmpeg) {
@@ -1061,9 +1109,17 @@ static int open_msvc10_11_12_main_project(int msvc11, int msvc12, int sdl)
     } else {
         if (sdl) {
             if (ffmpeg) {
-                mainfile = fopen("../../sdl/win32-msvc10-ffmpeg/vice.sln", "wb");
+                if (sdl == 2) {
+                    mainfile = fopen("../../sdl/win32-sdl2x-msvc10-ffmpeg/vice.sln", "wb");
+                } else {
+                    mainfile = fopen("../../sdl/win32-sdl1x-msvc10-ffmpeg/vice.sln", "wb");
+                }
             } else {
-                mainfile = fopen("../../sdl/win32-msvc10/vice.sln", "wb");
+                if (sdl == 2) {
+                    mainfile = fopen("../../sdl/win32-sdl2x-msvc10/vice.sln", "wb");
+                } else {
+                    mainfile = fopen("../../sdl/win32-sdl1x-msvc10/vice.sln", "wb");
+                }
             }
         } else {
             if (ffmpeg) {
@@ -1079,25 +1135,26 @@ static int open_msvc10_11_12_main_project(int msvc11, int msvc12, int sdl)
         return 1;
     }
 
-    if (msvc12) {
+    if (msvc14) {
+        fprintf(mainfile, "Microsoft Visual Studio Solution File, Format Version 14.00\r\n");
+        fprintf(mainfile, "# Visual Studio 2015\r\n");
+    } else if (msvc12) {
         fprintf(mainfile, "Microsoft Visual Studio Solution File, Format Version 12.00\r\n");
         fprintf(mainfile, "# Visual Studio 2013\r\n");
+    } else if (msvc11) {
+        fprintf(mainfile, "Microsoft Visual Studio Solution File, Format Version 12.00\r\n");
+        fprintf(mainfile, "# Visual Studio 2012\r\n");
     } else {
-        if (msvc11) {
-            fprintf(mainfile, "Microsoft Visual Studio Solution File, Format Version 12.00\r\n");
-            fprintf(mainfile, "# Visual Studio 2012\r\n");
-        } else {
-            fprintf(mainfile, "Microsoft Visual Studio Solution File, Format Version 11.00\r\n");
-            fprintf(mainfile, "# Visual Studio 2010\r\n");
-        }
+        fprintf(mainfile, "Microsoft Visual Studio Solution File, Format Version 11.00\r\n");
+        fprintf(mainfile, "# Visual Studio 2010\r\n");
     }
 
     return 0;
 }
 
-static void close_msvc10_11_12_main_project(int msvc11, int msvc12, int sdl)
+static void close_msvc10_11_12_14_main_project(int msvc11, int msvc12, int sdl)
 {
-    generate_msvc10_11_12_sln(msvc11, msvc12, sdl);
+    generate_msvc10_11_12_14_sln(msvc11, msvc12, sdl);
     pi_exit();
     fclose(mainfile);
 }
@@ -1136,9 +1193,9 @@ static int output_msvc10_11_12_14_file(char *fname, int filelist, int msvc11, in
         }
         if (sdl) {
             if (ffmpeg) {
-                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-msvc10-ffmpeg/.vcxproj"));
+                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-sdlxx-msvc10-ffmpeg/.vcxproj"));
             } else {
-                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-msvc10/.vcxproj"));
+                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-sdlxx-msvc10/.vcxproj"));
             }
         } else {
             if (ffmpeg) {
@@ -1147,12 +1204,42 @@ static int output_msvc10_11_12_14_file(char *fname, int filelist, int msvc11, in
                 filename = malloc(strlen(rfname) + sizeof("../vs10/.vcxproj"));
             }
         }
-        if (msvc12) {
+        if (msvc14) {
             if (sdl) {
                 if (ffmpeg) {
-                    sprintf(filename, "../../sdl/win32-msvc12-ffmpeg/%s.vcxproj", rfname);
+                    if (sdl == 2) {
+                        sprintf(filename, "../../sdl/win32-sdl2x-msvc14-ffmpeg/%s.vcxproj", rfname);
+                    } else {
+                        sprintf(filename, "../../sdl/win32-sdl1x-msvc14-ffmpeg/%s.vcxproj", rfname);
+                    }
                 } else {
-                    sprintf(filename, "../../sdl/win32-msvc12/%s.vcxproj", rfname);
+                    if (sdl == 2) {
+                        sprintf(filename, "../../sdl/win32-sdl2x-msvc14/%s.vcxproj", rfname);
+                    } else {
+                        sprintf(filename, "../../sdl/win32-sdl1x-msvc14/%s.vcxproj", rfname);
+                    }
+                }
+            } else {
+                if (ffmpeg) {
+                    sprintf(filename, "../vs14-ffmpeg/%s.vcxproj", rfname);
+                } else {
+                    sprintf(filename, "../vs14/%s.vcxproj", rfname);
+                }
+            }
+        } else if (msvc12) {
+            if (sdl) {
+                if (ffmpeg) {
+                    if (sdl == 2) {
+                        sprintf(filename, "../../sdl/win32-sdl2x-msvc12-ffmpeg/%s.vcxproj", rfname);
+                    } else {
+                        sprintf(filename, "../../sdl/win32-sdl1x-msvc12-ffmpeg/%s.vcxproj", rfname);
+                    }
+                } else {
+                    if (sdl == 2) {
+                        sprintf(filename, "../../sdl/win32-sdl2x-msvc12/%s.vcxproj", rfname);
+                    } else {
+                        sprintf(filename, "../../sdl/win32-sdl1x-msvc12/%s.vcxproj", rfname);
+                    }
                 }
             } else {
                 if (ffmpeg) {
@@ -1164,9 +1251,17 @@ static int output_msvc10_11_12_14_file(char *fname, int filelist, int msvc11, in
         } else if (msvc11) {
             if (sdl) {
                 if (ffmpeg) {
-                    sprintf(filename, "../../sdl/win32-msvc11-ffmpeg/%s.vcxproj", rfname);
+                    if (sdl == 2) {
+                        sprintf(filename, "../../sdl/win32-sdl2x-msvc11-ffmpeg/%s.vcxproj", rfname);
+                    } else {
+                        sprintf(filename, "../../sdl/win32-sdl1x-msvc11-ffmpeg/%s.vcxproj", rfname);
+                    }
                 } else {
-                    sprintf(filename, "../../sdl/win32-msvc11/%s.vcxproj", rfname);
+                    if (sdl == 2) {
+                        sprintf(filename, "../../sdl/win32-sdl2x-msvc11/%s.vcxproj", rfname);
+                    } else {
+                        sprintf(filename, "../../sdl/win32-sdl1x-msvc11/%s.vcxproj", rfname);
+                    }
                 }
             } else {
                 if (ffmpeg) {
@@ -1178,9 +1273,17 @@ static int output_msvc10_11_12_14_file(char *fname, int filelist, int msvc11, in
         } else {
             if (sdl) {
                 if (ffmpeg) {
-                    sprintf(filename, "../../sdl/win32-msvc10-ffmpeg/%s.vcxproj", rfname);
+                    if (sdl == 2) {
+                        sprintf(filename, "../../sdl/win32-sdl2x-msvc10-ffmpeg/%s.vcxproj", rfname);
+                    } else {
+                        sprintf(filename, "../../sdl/win32-sdl1x-msvc10-ffmpeg/%s.vcxproj", rfname);
+                    }
                 } else {
-                    sprintf(filename, "../../sdl/win32-msvc10/%s.vcxproj", rfname);
+                    if (sdl == 2) {
+                        sprintf(filename, "../../sdl/win32-sdl2x-msvc10/%s.vcxproj", rfname);
+                    } else {
+                        sprintf(filename, "../../sdl/win32-sdl1x-msvc10/%s.vcxproj", rfname);
+                    }
                 }
             } else {
                 if (ffmpeg) {
@@ -1204,7 +1307,7 @@ static int output_msvc10_11_12_14_file(char *fname, int filelist, int msvc11, in
     if (!retval) {
         if (msvc14) {
             fprintf(outfile, msvc14_project_start);
-        } if (msvc12) {
+        } else if (msvc12) {
             fprintf(outfile, msvc12_project_start);
         } else {
             fprintf(outfile, msvc10_project_start);
@@ -1400,12 +1503,24 @@ static int output_msvc10_11_12_14_file(char *fname, int filelist, int msvc11, in
                 } else {
                     if (sdl) {
                         if (cp_type == CP_TYPE_CONSOLE) {
-                            libs = msvc10_libs_console_sdl;
+                            if (sdl == 2) {
+                                libs = msvc10_libs_console_sdl2;
+                            } else {
+                                libs = msvc10_libs_console_sdl;
+                            }
                         } else {
                             if (k == 1 && msvc11) {
-                                libs = msvc10_libs_gui_sdl_arm;
+                                if (sdl == 2) {
+                                    libs = msvc10_libs_gui_sdl2_arm;
+                                } else {
+                                    libs = msvc10_libs_gui_sdl_arm;
+                                }
                             } else {
-                                libs = msvc10_libs_gui_sdl;
+                                if (sdl == 2) {
+                                    libs = msvc10_libs_gui_sdl2;
+                                } else {
+                                    libs = msvc10_libs_gui_sdl;
+                                }
                             }
                         }
                     } else {
@@ -1641,9 +1756,9 @@ static char *msvc9_aid_cc = "\t\t\t\tAdditionalIncludeDirectories=\"..\\msvc\"\r
 
 static char *msvc9_aid_cc_sdl = "\t\t\t\tAdditionalIncludeDirectories=\".\\,..\\\"\r\n";
 
-static char *msvc9_aid_sid = "\t\t\t\tAdditionalIncludeDirectories=\"..\\msvc,..\\,..\\..\\..\\,..\\..\\..\\resid\"\r\n";
+static char *msvc9_aid_sid = "\t\t\t\tAdditionalIncludeDirectories=\"..\\msvc,..\\,..\\..\\..\\,..\\..\\..\\joyport,..\\..\\..\\resid\"\r\n";
 
-static char *msvc9_aid_sid_sdl = "\t\t\t\tAdditionalIncludeDirectories=\".\\,..\\,..\\..\\..\\,..\\..\\..\\resid\"\r\n";
+static char *msvc9_aid_sid_sdl = "\t\t\t\tAdditionalIncludeDirectories=\".\\,..\\,..\\..\\..\\,..\\..\\..\\joyport,..\\..\\..\\resid\"\r\n";
 
 static char *msvc9_predef = "\t\t\t\tPreprocessorDefinitions=\"WIN32,_WINDOWS,IDE_COMPILE,DONT_USE_UNISTD_H,";
 
@@ -1911,9 +2026,17 @@ static int open_msvc9_main_project(int sdl)
 
     if (sdl) {
         if (ffmpeg) {
-            mainfile = fopen("../../sdl/win32-msvc9-ffmpeg/vice.sln", "wb");
+            if (sdl == 2) {
+                mainfile = fopen("../../sdl/win32-sdl2x-msvc9-ffmpeg/vice.sln", "wb");
+            } else {
+                mainfile = fopen("../../sdl/win32-sdl1x-msvc9-ffmpeg/vice.sln", "wb");
+            }
         } else {
-            mainfile = fopen("../../sdl/win32-msvc9/vice.sln", "wb");
+            if (sdl == 2) {
+                mainfile = fopen("../../sdl/win32-sdl2x-msvc9/vice.sln", "wb");
+            } else {
+                mainfile = fopen("../../sdl/win32-sdl1x-msvc9/vice.sln", "wb");
+            }
         }
     } else {
         if (ffmpeg) {
@@ -1970,11 +2093,19 @@ static int output_msvc9_file(char *fname, int filelist, int sdl)
         }
         if (sdl) {
             if (ffmpeg) {
-                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-msvc9-ffmpeg/.vcproj"));
-                sprintf(filename, "../../sdl/win32-msvc9-ffmpeg/%s.vcproj", rfname);
+                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-sdlxx-msvc9-ffmpeg/.vcproj"));
+                if (sdl == 2) {
+                    sprintf(filename, "../../sdl/win32-sdl2x-msvc9-ffmpeg/%s.vcproj", rfname);
+                } else {
+                    sprintf(filename, "../../sdl/win32-sdl1x-msvc9-ffmpeg/%s.vcproj", rfname);
+                }
             } else {
-                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-msvc9/.vcproj"));
-                sprintf(filename, "../../sdl/win32-msvc9/%s.vcproj", rfname);
+                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-sdlxx-msvc9/.vcproj"));
+                if (sdl == 2) {
+                    sprintf(filename, "../../sdl/win32-sdl2x-msvc9/%s.vcproj", rfname);
+                } else {
+                    sprintf(filename, "../../sdl/win32-sdl1x-msvc9/%s.vcproj", rfname);
+                }
             }
         } else {
             if (ffmpeg) {
@@ -2083,7 +2214,7 @@ static int output_msvc9_file(char *fname, int filelist, int sdl)
                 if (i & 1) {
                     fprintf(outfile, msvc9_string_pooling);
                 }
-                fprintf(outfile, msvc9_rtl, (!(i & 1)) + (sdl * 2));
+                fprintf(outfile, msvc9_rtl, (!(i & 1)) + ((sdl ? 1 : 0) * 2));
                 if (i & 1) {
                     fprintf(outfile, msvc9_efll);
                 }
@@ -2108,9 +2239,17 @@ static int output_msvc9_file(char *fname, int filelist, int sdl)
                 if (cp_type != CP_TYPE_LIBRARY) {
                     if (sdl) {
                         if (cp_type == CP_TYPE_CONSOLE) {
-                            libs = msvc_libs_console_sdl;
+                            if (sdl == 2) {
+                                libs = msvc_libs_console_sdl2;
+                            } else {
+                                libs = msvc_libs_console_sdl;
+                            }
                         } else {
-                            libs = msvc_libs_gui_sdl;
+                            if (sdl == 2) {
+                                libs = msvc_libs_gui_sdl2;
+                            } else {
+                                libs = msvc_libs_gui_sdl;
+                            }
                         }
                     } else {
                         if (cp_type == CP_TYPE_CONSOLE) {
@@ -2361,9 +2500,9 @@ static char *msvc8_includes_cc = "\t\t\t\tAdditionalIncludeDirectories=\"..\\msv
 
 static char *msvc8_includes_cc_sdl = "\t\t\t\tAdditionalIncludeDirectories=\".\\,..\\\"\r\n";
 
-static char *msvc8_includes_cc_mixed = "\t\t\t\tAdditionalIncludeDirectories=\"..\\msvc,..\\,..\\..\\..\\,..\\..\\..\\resid\"\r\n";
+static char *msvc8_includes_cc_mixed = "\t\t\t\tAdditionalIncludeDirectories=\"..\\msvc,..\\,..\\..\\..\\,..\\..\\..\\joyport,..\\..\\..\\resid\"\r\n";
 
-static char *msvc8_includes_cc_mixed_sdl = "\t\t\t\tAdditionalIncludeDirectories=\".\\,..\\,..\\..\\..\\,..\\..\\..\\resid\"\r\n";
+static char *msvc8_includes_cc_mixed_sdl = "\t\t\t\tAdditionalIncludeDirectories=\".\\,..\\,..\\..\\..\\,..\\..\\..\\joyport,..\\..\\..\\resid\"\r\n";
 
 static char *msvc8_defs = "\t\t\t\tPreprocessorDefinitions=\"WIN32,_WINDOWS,IDE_COMPILE,DONT_USE_UNISTD_H,%s\"\r\n";
 
@@ -2650,9 +2789,17 @@ static int open_msvc8_main_project(int sdl)
 
     if (sdl) {
         if (ffmpeg) {
-            mainfile = fopen("../../sdl/win32-msvc8-ffmpeg/vice.sln", "wb");
+            if (sdl == 2) {
+                mainfile = fopen("../../sdl/win32-sdl2x-msvc8-ffmpeg/vice.sln", "wb");
+            } else {
+                mainfile = fopen("../../sdl/win32-sdl1x-msvc8-ffmpeg/vice.sln", "wb");
+            }
         } else {
-            mainfile = fopen("../../sdl/win32-msvc8/vice.sln", "wb");
+            if (sdl == 2) {
+                mainfile = fopen("../../sdl/win32-sdl2x-msvc8/vice.sln", "wb");
+            } else {
+                mainfile = fopen("../../sdl/win32-sdl1x-msvc8/vice.sln", "wb");
+            }
         }
     } else {
         if (ffmpeg) {
@@ -2708,11 +2855,19 @@ static int output_msvc8_file(char *fname, int filelist, int sdl)
         }
         if (sdl) {
             if (ffmpeg) {
-                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-msvc8-ffmpeg/.vcproj"));
-                sprintf(filename, "../../sdl/win32-msvc8-ffmpeg/%s.vcproj", rfname);
+                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-sdlxx-msvc8-ffmpeg/.vcproj"));
+                if (sdl == 2) {
+                    sprintf(filename, "../../sdl/win32-sdl2x-msvc8-ffmpeg/%s.vcproj", rfname);
+                } else {
+                    sprintf(filename, "../../sdl/win32-sdl1x-msvc8-ffmpeg/%s.vcproj", rfname);
+                }
             } else {
-                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-msvc8/.vcproj"));
-                sprintf(filename, "../../sdl/win32-msvc8/%s.vcproj", rfname);
+                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-sdlxx-msvc8/.vcproj"));
+                if (sdl == 2) {
+                    sprintf(filename, "../../sdl/win32-sdl2x-msvc8/%s.vcproj", rfname);
+                } else {
+                    sprintf(filename, "../../sdl/win32-sdl1x-msvc8/%s.vcproj", rfname);
+                }
             }
         } else {
             if (ffmpeg) {
@@ -2816,7 +2971,7 @@ static int output_msvc8_file(char *fname, int filelist, int sdl)
                 if (i & 1) {
                     fprintf(outfile, msvc8_string_pooling);
                 }
-                fprintf(outfile, msvc8_ct_part2, (!(i & 1)) + (sdl * 2));
+                fprintf(outfile, msvc8_ct_part2, (!(i & 1)) + ((sdl ? 1 : 0) * 2));
                 if (i & 1) {
                     fprintf(outfile, msvc8_efll);
                 }
@@ -2843,9 +2998,17 @@ static int output_msvc8_file(char *fname, int filelist, int sdl)
                 } else {
                     if (sdl) {
                         if (cp_type == CP_TYPE_CONSOLE) {
-                            libs = msvc_libs_console_sdl;
+                            if (sdl == 2) {
+                                libs = msvc_libs_console_sdl2;
+                            } else {
+                                libs = msvc_libs_console_sdl;
+                            }
                         } else {
-                            libs = msvc_libs_gui_sdl;
+                            if (sdl == 2) {
+                                libs = msvc_libs_gui_sdl2;
+                            } else {
+                                libs = msvc_libs_gui_sdl;
+                            }
                         }
                     } else {
                         if (cp_type == CP_TYPE_CONSOLE) {
@@ -3098,9 +3261,17 @@ static int open_msvc71_main_project(int sdl)
 
     if (sdl) {
         if (ffmpeg) {
-            mainfile = fopen("../../sdl/win32-msvc71-ffmpeg/vice.sln", "wb");
+            if (sdl == 2) {
+                mainfile = fopen("../../sdl/win32-sdl2x-msvc71-ffmpeg/vice.sln", "wb");
+            } else {
+                mainfile = fopen("../../sdl/win32-sdl1x-msvc71-ffmpeg/vice.sln", "wb");
+            }
         } else {
-            mainfile = fopen("../../sdl/win32-msvc71/vice.sln", "wb");
+            if (sdl == 2) {
+                mainfile = fopen("../../sdl/win32-sdl2x-msvc71/vice.sln", "wb");
+            } else {
+                mainfile = fopen("../../sdl/win32-sdl1x-msvc71/vice.sln", "wb");
+            }
         }
     } else {
         if (ffmpeg) {
@@ -3144,7 +3315,11 @@ static char *msvc70_gui_libs[2] = {
 
 static char *msvc70_console_libs_sdl = "version.lib wsock32.lib SDLmain.lib SDL.lib opengl32.lib";
 
+static char *msvc70_console_libs_sdl2 = "version.lib wsock32.lib SDL2main.lib SDL2.lib";
+
 static char *msvc70_gui_libs_sdl = "comctl32.lib version.lib winmm.lib wsock32.lib SDLmain.lib SDL.lib opengl32.lib";
+
+static char *msvc70_gui_libs_sdl2 = "comctl32.lib version.lib winmm.lib wsock32.lib SDL2main.lib SDL2.lib";
 
 static char *msvc70_xml_header = "<?xml version=\"1.0\" encoding = \"Windows-1252\"?>\r\n";
 
@@ -3456,9 +3631,17 @@ static int open_msvc70_main_project(int sdl)
 
     if (sdl) {
         if (ffmpeg) {
-            mainfile = fopen("../../sdl/win32-msvc70-ffmpeg/vice.sln", "wb");
+            if (sdl == 2) {
+                mainfile = fopen("../../sdl/win32-sdl2x-msvc70-ffmpeg/vice.sln", "wb");
+            } else {
+                mainfile = fopen("../../sdl/win32-sdl1x-msvc70-ffmpeg/vice.sln", "wb");
+            }
         } else {
-            mainfile = fopen("../../sdl/win32-msvc70/vice.sln", "wb");
+            if (sdl == 2) {
+                mainfile = fopen("../../sdl/win32-sdl2x-msvc70/vice.sln", "wb");
+            } else {
+                mainfile = fopen("../../sdl/win32-sdl1x-msvc70/vice.sln", "wb");
+            }
         }
     } else {
         if (ffmpeg) {
@@ -3510,18 +3693,34 @@ static int output_msvc7_file(char *fname, int filelist, int version, int sdl)
         }
         if (sdl) {
             if (ffmpeg) {
-                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-msvc70-ffmpeg/.vcproj"));
+                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-sdlxx-msvc70-ffmpeg/.vcproj"));
                 if (version == 70) {
-                    sprintf(filename, "../../sdl/win32-msvc70-ffmpeg/%s.vcproj", rfname);
+                    if (sdl == 2) {
+                        sprintf(filename, "../../sdl/win32-sdl2x-msvc70-ffmpeg/%s.vcproj", rfname);
+                    } else {
+                        sprintf(filename, "../../sdl/win32-sdl1x-msvc70-ffmpeg/%s.vcproj", rfname);
+                    }
                 } else {
-                    sprintf(filename, "../../sdl/win32-msvc71-ffmpeg/%s.vcproj", rfname);
+                    if (sdl == 2) {
+                        sprintf(filename, "../../sdl/win32-sdl2x-msvc71-ffmpeg/%s.vcproj", rfname);
+                    } else {
+                        sprintf(filename, "../../sdl/win32-sdl1x-msvc71-ffmpeg/%s.vcproj", rfname);
+                    }
                 }
             } else {
-                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-msvc70/.vcproj"));
+                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-sdlxx-msvc70/.vcproj"));
                 if (version == 70) {
-                    sprintf(filename, "../../sdl/win32-msvc70/%s.vcproj", rfname);
+                    if (sdl == 2) {
+                        sprintf(filename, "../../sdl/win32-sdl2x-msvc70/%s.vcproj", rfname);
+                    } else {
+                        sprintf(filename, "../../sdl/win32-sdl1x-msvc70/%s.vcproj", rfname);
+                    }
                 } else {
-                    sprintf(filename, "../../sdl/win32-msvc71/%s.vcproj", rfname);
+                    if (sdl == 2) {
+                        sprintf(filename, "../../sdl/win32-sdl2x-msvc71/%s.vcproj", rfname);
+                    } else {
+                        sprintf(filename, "../../sdl/win32-sdl1x-msvc71/%s.vcproj", rfname);
+                    }
                 }
             }
         } else {
@@ -3600,7 +3799,7 @@ static int output_msvc7_file(char *fname, int filelist, int version, int sdl)
             if (i & 1) {
                 fprintf(outfile, msvc70_string_pooling);
             }
-            fprintf(outfile, msvc70_compiler_tool_part3, !(i & 1) + (sdl * 2));
+            fprintf(outfile, msvc70_compiler_tool_part3, !(i & 1) + ((sdl ? 1 : 0) * 2));
             if (i & 1) {
                 fprintf(outfile, msvc70_fll);
             }
@@ -3619,9 +3818,17 @@ static int output_msvc7_file(char *fname, int filelist, int version, int sdl)
             } else {
                 if (sdl) {
                     if (cp_type == CP_TYPE_CONSOLE) {
-                        libs = msvc70_console_libs_sdl;
+                        if (sdl == 2) {
+                            libs = msvc70_console_libs_sdl2;
+                        } else {
+                            libs = msvc70_console_libs_sdl;
+                        }
                     } else {
-                        libs = msvc70_gui_libs_sdl;
+                        if (sdl == 2) {
+                            libs = msvc70_gui_libs_sdl2;
+                        } else {
+                            libs = msvc70_gui_libs_sdl;
+                        }
                     }
                 } else {
                     if (cp_type == CP_TYPE_CONSOLE) {
@@ -3886,22 +4093,22 @@ static char *msvc6_base_cpp_lib_gui_part1_sdl[2] = {
 };
 
 static char *msvc6_base_cpp_lib_gui_part2_native_noffmpeg[4] = {
-    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\" /D \"NODIRECTX\" /D \"NDEBUG\" /YX /FD /c",
-    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\" /D \"NODIRECTX\" /D \"_DEBUG\" /YX /FD /c",
-    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\"  /D \"NDEBUG\" /YX /FD /c",
-    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\" /D \"_DEBUG\" /YX /FD /c"
+    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\" /D \"NODIRECTX\" /D \"NDEBUG\" /YX /Zm200 /FD /c",
+    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\" /D \"NODIRECTX\" /D \"_DEBUG\" /YX /Zm200 /FD /c",
+    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\"  /D \"NDEBUG\" /YX /Zm200 /FD /c",
+    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\" /D \"_DEBUG\" /YX /Zm200 /FD /c"
 };
 
 static char *msvc6_base_cpp_lib_gui_part2_native_ffmpeg[4] = {
-    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"STATIC_FFMPEG\" /D \"DONT_USE_UNISTD_H\" /D \"NODIRECTX\" /D \"NDEBUG\" /YX /FD /c",
-    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"STATIC_FFMPEG\" /D \"DONT_USE_UNISTD_H\" /D \"NODIRECTX\" /D \"_DEBUG\" /YX /FD /c",
-    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"STATIC_FFMPEG\" /D \"DONT_USE_UNISTD_H\"  /D \"NDEBUG\" /YX /FD /c",
-    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"STATIC_FFMPEG\" /D \"DONT_USE_UNISTD_H\" /D \"_DEBUG\" /YX /FD /c"
+    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"STATIC_FFMPEG\" /D \"DONT_USE_UNISTD_H\" /D \"NODIRECTX\" /D \"NDEBUG\" /YX /Zm200 /FD /c",
+    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"STATIC_FFMPEG\" /D \"DONT_USE_UNISTD_H\" /D \"NODIRECTX\" /D \"_DEBUG\" /YX /Zm200 /FD /c",
+    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"STATIC_FFMPEG\" /D \"DONT_USE_UNISTD_H\"  /D \"NDEBUG\" /YX /Zm200 /FD /c",
+    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"STATIC_FFMPEG\" /D \"DONT_USE_UNISTD_H\" /D \"_DEBUG\" /YX /Zm200 /FD /c"
 };
 
 static char *msvc6_base_cpp_lib_gui_part2_sdl[2] = {
-    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\"  /D \"NDEBUG\" /YX /FD /c",
-    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\" /D \"_DEBUG\" /YX /FD /c"
+    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\"  /D \"NDEBUG\" /YX /Zm200 /FD /c",
+    " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\" /D \"_DEBUG\" /YX /Zm200 /FD /c"
 };
 
 static char *msvc6_base_cpp_cc_native_noffmpeg[4] = {
@@ -3923,7 +4130,7 @@ static char *msvc6_base_cpp_cc_sdl[2] = {
     " /D \"WIN32\" /D \"_WINDOWS\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\" /D \"_DEBUG\" /D PACKAGE=\\\"%s\\\" /D VERSION=\\\"0.7\\\" /D SIZEOF_INT=4"
 };
 
-static char *msvc6_base_cpp_cc_end = " /YX /FD /c\r\n";
+static char *msvc6_base_cpp_cc_end = " /YX /FD /Zm200 /c\r\n";
 
 static char *msvc6_base_cpp_console_part1_native[4] = {
     "/MT /W3 /GX /O2",
@@ -3938,10 +4145,10 @@ static char *msvc6_base_cpp_console_part1_sdl[2] = {
 };
 
 static char *msvc6_base_cpp_console_part2[4] = {
-    " /D \"WIN32\" /D \"_CONSOLE\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\" /D \"_MBCS\" /D \"NDEBUG\" /YX /FD /c",
-    " /D \"WIN32\" /D \"_CONSOLE\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H \"/D \"_MBCS\" /D \"_DEBUG\" /YX /FD /c",
-    " /D \"WIN32\" /D \"_CONSOLE\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\" /D \"_MBCS\" /D \"NDEBUG\" /YX /FD /c",
-    " /D \"WIN32\" /D \"_CONSOLE\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\" /D \"_MBCS\" /D \"_DEBUG\" /YX /FD /c"
+    " /D \"WIN32\" /D \"_CONSOLE\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\" /D \"_MBCS\" /D \"NDEBUG\" /YX /FD /Zm200 /c",
+    " /D \"WIN32\" /D \"_CONSOLE\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H \"/D \"_MBCS\" /D \"_DEBUG\" /YX /FD /Zm200 /c",
+    " /D \"WIN32\" /D \"_CONSOLE\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\" /D \"_MBCS\" /D \"NDEBUG\" /YX /FD /Zm200 /c",
+    " /D \"WIN32\" /D \"_CONSOLE\" /D \"IDE_COMPILE\" /D \"DONT_USE_UNISTD_H\" /D \"_MBCS\" /D \"_DEBUG\" /YX /FD /Zm200 /c"
 };
 
 static char *msvc6_base_mtl[2] = {
@@ -4014,6 +4221,8 @@ static char *msvc6_dx_libs[2] = {
 };
 
 static char *msvc6_sdl_libs = " SDLmain.lib SDL.lib opengl32.lib";
+
+static char *msvc6_sdl2_libs = " SDL2main.lib SDL2.lib";
 
 static char *msvc6_endif = "!ENDIF\r\n"
                            "\r\n";
@@ -4145,9 +4354,17 @@ static int open_msvc6_main_project(int sdl)
 {
     if (sdl) {
         if (ffmpeg) {
-            mainfile = fopen("../../sdl/win32-msvc6-ffmpeg/vice.dsw", "wb");
+            if (sdl == 2) {
+                mainfile = fopen("../../sdl/win32-sdl2x-msvc6-ffmpeg/vice.dsw", "wb");
+            } else {
+                mainfile = fopen("../../sdl/win32-sdl1x-msvc6-ffmpeg/vice.dsw", "wb");
+            }
         } else {
-            mainfile = fopen("../../sdl/win32-msvc6/vice.dsw", "wb");
+            if (sdl == 2) {
+                mainfile = fopen("../../sdl/win32-sdl2x-msvc6/vice.dsw", "wb");
+            } else {
+                mainfile = fopen("../../sdl/win32-sdl1x-msvc6/vice.dsw", "wb");
+            }
         }
     } else {
         if (ffmpeg) {
@@ -4200,11 +4417,19 @@ static int output_msvc6_file(char *fname, int filelist, int sdl)
     if (filelist) {
         if (sdl) {
             if (ffmpeg) {
-                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-msvc6-ffmpeg/.dsp"));
-                sprintf(filename, "../../sdl/win32-msvc6-ffmpeg/%s.dsp", rfname);
+                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-sdlxx-msvc6-ffmpeg/.dsp"));
+                if (sdl == 2) {
+                    sprintf(filename, "../../sdl/win32-sdl2x-msvc6-ffmpeg/%s.dsp", rfname);
+                } else {
+                    sprintf(filename, "../../sdl/win32-sdl1x-msvc6-ffmpeg/%s.dsp", rfname);
+                }
             } else {
-                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-msvc6/.dsp"));
-                sprintf(filename, "../../sdl/win32-msvc6/%s.dsp", rfname);
+                filename = malloc(strlen(rfname) + sizeof("../../sdl/win32-sdlxx-msvc6/.dsp"));
+                if (sdl == 2) {
+                    sprintf(filename, "../../sdl/win32-sdl2x-msvc6/%s.dsp", rfname);
+                } else {
+                    sprintf(filename, "../../sdl/win32-sdl1x-msvc6/%s.dsp", rfname);
+                }
             }
         } else {
             if (ffmpeg) {
@@ -4362,9 +4587,17 @@ static int output_msvc6_file(char *fname, int filelist, int sdl)
                 case CP_TYPE_CONSOLE:
                     if (sdl) {
                         if (i & 1) {
-                            fprintf(outfile, msvc6_link32_console_sdl_debug, cp_libs, msvc6_sdl_libs, cp_libs, msvc6_sdl_libs);
+                            if (sdl == 2) {
+                                fprintf(outfile, msvc6_link32_console_sdl_debug, cp_libs, msvc6_sdl2_libs, cp_libs, msvc6_sdl2_libs);
+                            } else {
+                                fprintf(outfile, msvc6_link32_console_sdl_debug, cp_libs, msvc6_sdl_libs, cp_libs, msvc6_sdl_libs);
+                            }
                         } else {
-                            fprintf(outfile, msvc6_link32_console_sdl_release, cp_libs, msvc6_sdl_libs, cp_libs, msvc6_sdl_libs);
+                            if (sdl == 2) {
+                                fprintf(outfile, msvc6_link32_console_sdl_release, cp_libs, msvc6_sdl2_libs, cp_libs, msvc6_sdl2_libs);
+                            } else {
+                                fprintf(outfile, msvc6_link32_console_sdl_release, cp_libs, msvc6_sdl_libs, cp_libs, msvc6_sdl_libs);
+                            }
                         }
                     } else {
                         fprintf(outfile, msvc6_link32_console, cp_libs, cp_libs);
@@ -4373,9 +4606,17 @@ static int output_msvc6_file(char *fname, int filelist, int sdl)
                 case CP_TYPE_GUI:
                     if (sdl) {
                         if (i & 1) {
-                            fprintf(outfile, msvc6_link32_gui_sdl_debug, cp_libs, msvc6_sdl_libs, cp_libs, msvc6_sdl_libs);
+                            if (sdl == 2) {
+                                fprintf(outfile, msvc6_link32_gui_sdl_debug, cp_libs, msvc6_sdl2_libs, cp_libs, msvc6_sdl2_libs);
+                            } else {
+                                fprintf(outfile, msvc6_link32_gui_sdl_debug, cp_libs, msvc6_sdl_libs, cp_libs, msvc6_sdl_libs);
+                            }
                         } else {
-                            fprintf(outfile, msvc6_link32_gui, cp_libs, msvc6_sdl_libs, cp_libs, msvc6_sdl_libs);
+                            if (sdl == 2) {
+                                fprintf(outfile, msvc6_link32_gui, cp_libs, msvc6_sdl2_libs, cp_libs, msvc6_sdl2_libs);
+                            } else {
+                                fprintf(outfile, msvc6_link32_gui, cp_libs, msvc6_sdl_libs, cp_libs, msvc6_sdl_libs);
+                            }
                         }
                     } else {
                         fprintf(outfile, msvc6_link32_gui, cp_libs, msvc6_dx_libs[i >> 1], cp_libs, msvc6_dx_libs[i >> 1]);
@@ -5717,6 +5958,7 @@ static void usage(void)
     printf("types are:\n");
     printf("-native = generate native project files.\n");
     printf("-sdl = generate SDL project files.\n");
+    printf("-sdl2 = generate SDL2 project files.\n");
     printf("-ffmpeg = include static ffmpeg support.\n");
 }
 
@@ -5787,6 +6029,9 @@ int main(int argc, char *argv[])
                 if (!strcmp(argv[i], "-sdl")) {
                     sdl = 1;
                 }
+                if (!strcmp(argv[i], "-sdl2")) {
+                    sdl = 2;
+                }
                 if (!strcmp(argv[i], "-ffmpeg")) {
                     ffmpeg = 1;
                 }
@@ -5799,13 +6044,13 @@ int main(int argc, char *argv[])
         }
 
         /* at least ONE version has to be given */
-        if (!msvc4 && !msvc6 && !msvc70 && !msvc71 && !msvc8 && !msvc9 && !msvc10 && !msvc11 && !msvc12) {
+        if (!msvc4 && !msvc6 && !msvc70 && !msvc71 && !msvc8 && !msvc9 && !msvc10 && !msvc11 && !msvc12 && !msvc14) {
             printf("Error: No generation option(s) given\n");
             error = 1;
         }
 
         /* ONE type has to be given */
-        if (native + sdl != 1) {
+        if (native + (sdl ? 1 : 0) != 1) {
             printf("Error: One type needs to be given\n");
             error = 1;
         }
@@ -6079,7 +6324,7 @@ int main(int argc, char *argv[])
                 if (!error && msvc10) {
                     current_level = 100;
                     if (project_names[0]) {
-                        error = open_msvc10_11_12_main_project(0, 0, sdl);
+                        error = open_msvc10_11_12_14_main_project(0, 0, 0, sdl);
                         for (i = 0; project_names[i] && !error; i++) {
                             error = read_template_file(project_names[i], sdl);
 #if MKMSVC_DEBUG
@@ -6111,7 +6356,7 @@ int main(int argc, char *argv[])
                                 }
                             }
                         }
-                        close_msvc10_11_12_main_project(0, 0, sdl);
+                        close_msvc10_11_12_14_main_project(0, 0, sdl);
                     } else {
                         error = output_msvc10_11_12_14_file(filename, 0, 0, 0, 0, sdl);
                     }
@@ -6122,7 +6367,7 @@ int main(int argc, char *argv[])
                 if (!error && msvc11) {
                     current_level = 110;
                     if (project_names[0]) {
-                        error = open_msvc10_11_12_main_project(1, 0, sdl);
+                        error = open_msvc10_11_12_14_main_project(1, 0, 0, sdl);
                         for (i = 0; project_names[i] && !error; i++) {
                             error = read_template_file(project_names[i], sdl);
 #if MKMSVC_DEBUG
@@ -6154,7 +6399,7 @@ int main(int argc, char *argv[])
                                 }
                             }
                         }
-                        close_msvc10_11_12_main_project(1, 0, sdl);
+                        close_msvc10_11_12_14_main_project(1, 0, sdl);
                     } else {
                         error = output_msvc10_11_12_14_file(filename, 0, 1, 0, 0, sdl);
                     }
@@ -6168,7 +6413,7 @@ int main(int argc, char *argv[])
                 if (!error && msvc12) {
                     current_level = 120;
                     if (project_names[0]) {
-                        error = open_msvc10_11_12_main_project(1, 1, sdl);
+                        error = open_msvc10_11_12_14_main_project(1, 1, 0, sdl);
                         for (i = 0; project_names[i] && !error; i++) {
                             error = read_template_file(project_names[i], sdl);
 #if MKMSVC_DEBUG
@@ -6200,7 +6445,7 @@ int main(int argc, char *argv[])
                                 }
                             }
                         }
-                        close_msvc10_11_12_main_project(1, 1, sdl);
+                        close_msvc10_11_12_14_main_project(1, 1, sdl);
                     } else {
                         error = output_msvc10_11_12_14_file(filename, 0, 1, 1, 0, sdl);
                     }
@@ -6211,7 +6456,7 @@ int main(int argc, char *argv[])
                 if (!error && msvc14) {
                     current_level = 140;
                     if (project_names[0]) {
-                        error = open_msvc10_11_12_main_project(1, 1, sdl);
+                        error = open_msvc10_11_12_14_main_project(1, 1, 1, sdl);
                         for (i = 0; project_names[i] && !error; i++) {
                             error = read_template_file(project_names[i], sdl);
 #if MKMSVC_DEBUG
@@ -6243,7 +6488,7 @@ int main(int argc, char *argv[])
                                 }
                             }
                         }
-                        close_msvc10_11_12_main_project(1, 1, sdl);
+                        close_msvc10_11_12_14_main_project(1, 1, sdl);
                     } else {
                         error = output_msvc10_11_12_14_file(filename, 0, 1, 1, 1, sdl);
                     }

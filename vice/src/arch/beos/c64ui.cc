@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Matthies <andreas.matthies@gmx.net>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -44,18 +45,26 @@
 extern "C" {
 #include "archdep.h"
 #include "c64-memory-hacks.h"
+#include "c64-resources.h"
 #include "c64ui.h"
 #include "c64model.h"
+#include "cartio.h"
 #include "cartridge.h"
+#include "clockport.h"
 #include "constants.h"
+#include "gfxoutput.h"
 #include "joyport.h"
 #include "keyboard.h"
+#include "machine.h"
 #include "mouse.h"
 #include "resources.h"
 #include "types.h"
 #include "ui.h"
+#include "ui_cia.h"
 #include "ui_drive.h"
 #include "ui_ide64.h"
+#include "ui_ide64usb.h"
+#include "ui_joystick.h"
 #include "ui_printer.h"
 #include "ui_sid.h"
 #include "ui_vicii.h"
@@ -63,6 +72,59 @@ extern "C" {
 #include "util.h"
 #include "vicii.h"
 #include "video.h"
+}
+
+#define VICMODEL_UNKNOWN -1
+#define VICMODEL_NUM 5
+
+struct vicmodel_s {
+    int video;
+    int luma;
+};
+
+static struct vicmodel_s vicmodels[] = {
+    { MACHINE_SYNC_PAL,     1 }, /* VICII_MODEL_PALG */
+    { MACHINE_SYNC_PAL,     0 }, /* VICII_MODEL_PALG_OLD */
+    { MACHINE_SYNC_NTSC,    1 }, /* VICII_MODEL_NTSCM */
+    { MACHINE_SYNC_NTSCOLD, 0 }, /* VICII_MODEL_NTSCM_OLD */
+    { MACHINE_SYNC_PALN,    1 }  /* VICII_MODEL_PALN */
+};
+
+static int vicmodel_get_temp(int video)
+{
+    int i;
+
+    for (i = 0; i < VICMODEL_NUM; ++i) {
+        if (vicmodels[i].video == video) {
+            return i;
+        }
+    }
+
+    return VICMODEL_UNKNOWN;
+}
+
+static int vicmodel_get(void)
+{
+    int video;
+
+    if (resources_get_int("MachineVideoStandard", &video) < 0) {
+        return -1;
+    }
+
+    return vicmodel_get_temp(video);
+}
+
+static void vicmodel_set(int model)
+{
+    int old_model;
+
+    old_model = vicmodel_get();
+
+    if ((model == old_model) || (model == VICMODEL_UNKNOWN)) {
+        return;
+    }
+
+    resources_set_int("MachineVideoStandard", vicmodels[model].video);
 }
 
 static ui_drive_type_t c64_drive_types[] = {
@@ -113,30 +175,48 @@ ui_menu_toggle  c64_ui_menu_toggles[] = {
     { "MMCRImageWrite", MENU_TOGGLE_MMCR_EEPROM_SWC },
     { "MMCRRescueMode", MENU_TOGGLE_MMCR_RESCUE_MODE },
     { "MMCRCardRW", MENU_TOGGLE_MMCR_READ_WRITE },
+    { "GMod2FlashWrite", MENU_TOGGLE_GMOD2_FLASH_READ_WRITE },
+    { "GMOD2EEPROMRW", MENU_TOGGLE_GMOD2_EEPROM_SWC },
     { "Mouse", MENU_TOGGLE_MOUSE },
     { "SmartMouseRTCSave", MENU_TOGGLE_SMART_MOUSE_RTC_SAVE },
     { "SFXSoundExpander", MENU_TOGGLE_SFX_SE },
     { "SFXSoundSampler", MENU_TOGGLE_SFX_SS },
     { "CPMCart", MENU_TOGGLE_CPM_CART },
     { "EasyFlashJumper", MENU_TOGGLE_EASYFLASH_JUMPER },
+    { "EasyFlashOptimizeCRT", MENU_TOGGLE_EASYFLASH_OPTIMIZE },
     { "EasyFlashWriteCRT", MENU_TOGGLE_EASYFLASH_AUTOSAVE },
-    { "VICIINewLuminances", MENU_VICII_NEW_LUMINANCES },
     { "IECReset", MENU_IEC_RESET },
     { "IDE64RTCSave", MENU_TOGGLE_IDE64_RTC_SAVE },
+    { "SBDIGIMAX", MENU_TOGGLE_IDE64_SB_DIGIMAX },
+#ifdef HAVE_PCAP
+    { "SBETFE", MENU_TOGGLE_IDE64_SB_ETFE },
+#endif
     { "ExpertCartridgeEnabled", MENU_TOGGLE_EXPERT },
     { "ExpertImageWrite", MENU_TOGGLE_EXPERT_SWC },
     { "RRFlashJumper", MENU_TOGGLE_RR_FLASH_JUMPER },
     { "RRBankJumper", MENU_TOGGLE_RR_BANK_JUMPER },
     { "RRBiosWrite", MENU_TOGGLE_SAVE_RR_FLASH },
+#ifdef HAVE_PCAP
+    { "RRNETMK3_flashjumper", MENU_TOGGLE_RRNET_MK3_FLASH_JUMPER },
+    { "RRNETMK3_bios_write", MENU_TOGGLE_SAVE_RRNET_MK3_FLASH },
+#endif
+    { "SSRamExpansion", MENU_TOGGLE_SS5_32K },
     { "DS12C887RTC", MENU_TOGGLE_DS12C887_RTC },
+    { "DS12C887RTCRunMode", MENU_TOGGLE_DS12C887_RTC_RUNNING_MODE },
     { "DS12C887RTCSave", MENU_TOGGLE_DS12C887_RTC_SAVE },
-    { "UserportRTC", MENU_TOGGLE_USERPORT_RTC },
-    { "UserportRTCSave", MENU_TOGGLE_USERPORT_RTC_SAVE },
+    { "UserportDAC", MENU_TOGGLE_USERPORT_DAC },
+    { "UserportRTC58321a", MENU_TOGGLE_USERPORT_58321A },
+    { "UserportRTC58321aSave", MENU_TOGGLE_USERPORT_58321A_SAVE },
+    { "UserportRTCDS1307", MENU_TOGGLE_USERPORT_DS1307 },
+    { "UserportRTCDS1307Save", MENU_TOGGLE_USERPORT_DS1307_SAVE },
+    { "UserportDIGIMAX", MENU_TOGGLE_USERPORT_DIGIMAX },
+    { "Userport4bitSampler", MENU_TOGGLE_USERPORT_4BIT_SAMPLER },
+    { "Userport8BSS", MENU_TOGGLE_USERPORT_8BSS },
     { NULL, 0 }
 };
 
 #if defined(HAVE_RS232DEV) || defined(HAVE_RS232NET)
-ui_res_possible_values AciaDevice[] = {
+static ui_res_possible_values AciaDevice[] = {
     { 1, MENU_ACIA_RS323_DEVICE_1 },
     { 2, MENU_ACIA_RS323_DEVICE_2 },
     { 3, MENU_ACIA_RS323_DEVICE_3 },
@@ -144,20 +224,20 @@ ui_res_possible_values AciaDevice[] = {
     { -1, 0 }
 };
 
-ui_res_possible_values AciaBase[] = {
+static ui_res_possible_values AciaBase[] = {
     { 0xde00, MENU_ACIA_BASE_DE00 },
     { 0xdf00, MENU_ACIA_BASE_DF00 },
     { -1, 0 }
 };
 
-ui_res_possible_values AciaInt[] = {
+static ui_res_possible_values AciaInt[] = {
     { 0, MENU_ACIA_INT_NONE },
     { 1, MENU_ACIA_INT_IRQ },
     { 2, MENU_ACIA_INT_NMI },
     { -1, 0 }
 };
 
-ui_res_possible_values AciaMode[] = {
+static ui_res_possible_values AciaMode[] = {
     { 0, MENU_ACIA_MODE_NORMAL },
     { 1, MENU_ACIA_MODE_SWIFTLINK },
     { 2, MENU_ACIA_MODE_TURBO232 },
@@ -170,7 +250,7 @@ ui_res_possible_values c64_JoyPort2Device[JOYPORT_MAX_DEVICES + 1];
 ui_res_possible_values c64_JoyPort3Device[JOYPORT_MAX_DEVICES + 1];
 ui_res_possible_values c64_JoyPort4Device[JOYPORT_MAX_DEVICES + 1];
 
-ui_res_possible_values ReuSize[] = {
+static ui_res_possible_values ReuSize[] = {
     { 128, MENU_REU_SIZE_128 },
     { 256, MENU_REU_SIZE_256 },
     { 512, MENU_REU_SIZE_512 },
@@ -182,7 +262,7 @@ ui_res_possible_values ReuSize[] = {
     { -1, 0 }
 };
 
-ui_res_possible_values GeoRAMSize[] = {
+static ui_res_possible_values GeoRAMSize[] = {
     { 64, MENU_GEORAM_SIZE_64 },
     { 128, MENU_GEORAM_SIZE_128 },
     { 256, MENU_GEORAM_SIZE_256 },
@@ -193,13 +273,13 @@ ui_res_possible_values GeoRAMSize[] = {
     { -1, 0 }
 };
 
-ui_res_possible_values RamCartSize[] = {
+static ui_res_possible_values RamCartSize[] = {
     { 64, MENU_RAMCART_SIZE_64 },
     { 128, MENU_RAMCART_SIZE_128 },
     { -1, 0 }
 };
 
-ui_res_possible_values C64MemoryHacks[] = {
+static ui_res_possible_values C64MemoryHacks[] = {
     { MEMORY_HACK_NONE, MENU_C64_MEMORY_HACKS_NONE },
     { MEMORY_HACK_C64_256K, MENU_C64_MEMORY_HACKS_256K },
     { MEMORY_HACK_PLUS60K, MENU_C64_MEMORY_HACKS_PLUS60K },
@@ -207,13 +287,13 @@ ui_res_possible_values C64MemoryHacks[] = {
     { -1, 0 }
 };
 
-ui_res_possible_values Plus60kBase[] = {
+static ui_res_possible_values Plus60kBase[] = {
     { 0xd040, MENU_PLUS60K_BASE_D040 },
     { 0xd100, MENU_PLUS60K_BASE_D100 },
     { -1, 0 }
 };
 
-ui_res_possible_values C64_256KBase[] = {
+static ui_res_possible_values C64_256KBase[] = {
     { 0xde00, MENU_C64_256K_BASE_DE00 },
     { 0xde80, MENU_C64_256K_BASE_DE80 },
     { 0xdf00, MENU_C64_256K_BASE_DF00 },
@@ -221,8 +301,7 @@ ui_res_possible_values C64_256KBase[] = {
     { -1, 0 }
 };
 
-ui_res_possible_values DigimaxBase[] = {
-    { 0xdd00, MENU_DIGIMAX_BASE_DD00 },
+static ui_res_possible_values DigimaxBase[] = {
     { 0xde00, MENU_DIGIMAX_BASE_DE00 },
     { 0xde20, MENU_DIGIMAX_BASE_DE20 },
     { 0xde40, MENU_DIGIMAX_BASE_DE40 },
@@ -242,26 +321,52 @@ ui_res_possible_values DigimaxBase[] = {
     { -1, 0 }
 };
 
-ui_res_possible_values SFXSoundExpanderChip[] = {
+static ui_res_possible_values SFXSoundExpanderChip[] = {
     { 3526, MENU_SFX_SE_3526 },
     { 3812, MENU_SFX_SE_3812 },
     { -1, 0 }
 };
 
-ui_res_possible_values BurstMod[] = {
+static ui_res_possible_values BurstMod[] = {
     { 0, MENU_BURSTMOD_NONE },
     { 1, MENU_BURSTMOD_CIA1 },
     { 2, MENU_BURSTMOD_CIA2 },
     { -1, 0 }
 };
 
-ui_res_possible_values MMC64Revision[] = {
+static ui_res_possible_values IDE64DigimaxBase[] = {
+    { 0xde40, MENU_IDE64_SB_DIGIMAX_BASE_DE40 },
+    { 0xde48, MENU_IDE64_SB_DIGIMAX_BASE_DE48 },
+    { -1, 0 }
+};
+
+#ifdef HAVE_PCAP
+static ui_res_possible_values IDE64ETFEBase[] = {
+    { 0xde00, MENU_IDE64_SB_ETFE_BASE_DE00 },
+    { 0xde10, MENU_IDE64_SB_ETFE_BASE_DE10 },
+    { 0xdf00, MENU_IDE64_SB_ETFE_BASE_DF00 },
+    { -1, 0 }
+};
+#endif
+
+static ui_res_possible_values IDE64ClockPortDevice[] = {
+    { CLOCKPORT_DEVICE_NONE, MENU_IDE64_CLOCKPORT_NONE },
+#ifdef HAVE_PCAP
+    { CLOCKPORT_DEVICE_RRNET, MENU_IDE64_CLOCKPORT_RRNET },
+#endif
+#ifdef USE_MPG123
+    { CLOCKPORT_DEVICE_MP3_64, MENU_IDE64_CLOCKPORT_MP3AT64 },
+#endif
+    { -1, 0 }
+};
+
+static ui_res_possible_values MMC64Revision[] = {
     { 0, MENU_MMC64_REVISION_A },
     { 1, MENU_MMC64_REVISION_B },
     { -1, 0 }
 };
 
-ui_res_possible_values MMC64CardType[] = {
+static ui_res_possible_values MMC64CardType[] = {
     { 0, MENU_MMC64_CARD_TYPE_AUTO },
     { 1, MENU_MMC64_CARD_TYPE_MMC },
     { 2, MENU_MMC64_CARD_TYPE_SD },
@@ -269,7 +374,18 @@ ui_res_possible_values MMC64CardType[] = {
     { -1, 0 }
 };
 
-ui_res_possible_values MMCRCardType[] = {
+static ui_res_possible_values MMC64ClockPortDevice[] = {
+    { CLOCKPORT_DEVICE_NONE, MENU_MMC64_CLOCKPORT_NONE },
+#ifdef HAVE_PCAP
+    { CLOCKPORT_DEVICE_RRNET, MENU_MMC64_CLOCKPORT_RRNET },
+#endif
+#ifdef USE_MPG123
+    { CLOCKPORT_DEVICE_MP3_64, MENU_MMC64_CLOCKPORT_MP3AT64 },
+#endif
+    { -1, 0 }
+};
+
+static ui_res_possible_values MMCRCardType[] = {
     { 0, MENU_MMCR_CARD_TYPE_AUTO },
     { 1, MENU_MMCR_CARD_TYPE_MMC },
     { 2, MENU_MMCR_CARD_TYPE_SD },
@@ -277,7 +393,18 @@ ui_res_possible_values MMCRCardType[] = {
     { -1, 0 }
 };
 
-ui_res_possible_values viciimodels[] = {
+static ui_res_possible_values MMCRClockPortDevice[] = {
+    { CLOCKPORT_DEVICE_NONE, MENU_MMCR_CLOCKPORT_NONE },
+#ifdef HAVE_PCAP
+    { CLOCKPORT_DEVICE_RRNET, MENU_MMCR_CLOCKPORT_RRNET },
+#endif
+#ifdef USE_MPG123
+    { CLOCKPORT_DEVICE_MP3_64, MENU_MMCR_CLOCKPORT_MP3AT64 },
+#endif
+    { -1, 0 }
+};
+
+static ui_res_possible_values viciimodels[] = {
     { VICII_MODEL_6569, MENU_VICII_MODEL_6569_PAL },
     { VICII_MODEL_8565, MENU_VICII_MODEL_8565_PAL },
     { VICII_MODEL_6569R1, MENU_VICII_MODEL_6569R1_OLD_PAL },
@@ -288,45 +415,44 @@ ui_res_possible_values viciimodels[] = {
     { -1, 0 }
 };
 
-ui_res_possible_values cia1models[] = {
-    { 0, MENU_CIA1_MODEL_6526_OLD },
-    { 1, MENU_CIA1_MODEL_6526A_NEW },
-    { -1, 0 }
-};
-
-ui_res_possible_values cia2models[] = {
-    { 0, MENU_CIA2_MODEL_6526_OLD },
-    { 1, MENU_CIA2_MODEL_6526A_NEW },
-    { -1, 0 }
-};
-
-ui_res_possible_values gluelogic[] = {
+static ui_res_possible_values gluelogic[] = {
     { 0, MENU_GLUE_LOGIC_DISCRETE },
     { 1, MENU_GLUE_LOGIC_CUSTOM_IC },
     { -1, 0 }
 };
 
-ui_res_possible_values RenderFilters[] = {
+static ui_res_possible_values RenderFilters[] = {
     { VIDEO_FILTER_NONE, MENU_RENDER_FILTER_NONE },
     { VIDEO_FILTER_CRT, MENU_RENDER_FILTER_CRT_EMULATION },
     { VIDEO_FILTER_SCALE2X, MENU_RENDER_FILTER_SCALE2X },
     { -1, 0 }
 };
 
-ui_res_possible_values ExpertModes[] = {
+static ui_res_possible_values ExpertModes[] = {
     { 0, MENU_EXPERT_MODE_OFF },
     { 1, MENU_EXPERT_MODE_PRG },
     { 2, MENU_EXPERT_MODE_ON },
     { -1, 0 }
 };
 
-ui_res_possible_values RRrevs[] = {
+static ui_res_possible_values RRrevs[] = {
     { 0, MENU_RR_REV_RETRO },
     { 1, MENU_RR_REV_NORDIC },
     { -1, 0 }
 };
 
-ui_res_possible_values c64_DS12C887RTC_base[] = {
+static ui_res_possible_values RRClockPortDevice[] = {
+    { CLOCKPORT_DEVICE_NONE, MENU_RR_CLOCKPORT_NONE },
+#ifdef HAVE_PCAP
+    { CLOCKPORT_DEVICE_RRNET, MENU_RR_CLOCKPORT_RRNET },
+#endif
+#ifdef USE_MPG123
+    { CLOCKPORT_DEVICE_MP3_64, MENU_RR_CLOCKPORT_MP3AT64 },
+#endif
+    { -1, 0 }
+};
+
+static ui_res_possible_values c64_DS12C887RTC_base[] = {
     { 0xd500, MENU_DS12C887_RTC_BASE_D500 },
     { 0xd600, MENU_DS12C887_RTC_BASE_D600 },
     { 0xd700, MENU_DS12C887_RTC_BASE_D700 },
@@ -335,10 +461,35 @@ ui_res_possible_values c64_DS12C887RTC_base[] = {
     { -1, 0 }
 };
 
-ui_res_possible_values c64_IDE64version[] = {
+static ui_res_possible_values c64_IDE64version[] = {
     { 0, MENU_IDE64_VERSION_V3 },
     { 1, MENU_IDE64_VERSION_V4_1 },
     { 2, MENU_IDE64_VERSION_V4_2 },
+    { -1, 0 }
+};
+
+static ui_res_possible_values DoodleMultiColor[] = {
+    { NATIVE_SS_MC2HR_BLACK_WHITE, MENU_SCREENSHOT_DOODLE_MULTICOLOR_BLACK_WHITE },
+    { NATIVE_SS_MC2HR_2_COLORS, MENU_SCREENSHOT_DOODLE_MULTICOLOR_2_COLORS },
+    { NATIVE_SS_MC2HR_4_COLORS, MENU_SCREENSHOT_DOODLE_MULTICOLOR_4_COLORS },
+    { NATIVE_SS_MC2HR_GRAY, MENU_SCREENSHOT_DOODLE_MULTICOLOR_GRAY_SCALE },
+    { NATIVE_SS_MC2HR_DITHER, MENU_SCREENSHOT_DOODLE_MULTICOLOR_DITHER },
+    { -1, 0 }
+};
+
+static ui_res_possible_values IOCollisions[] = {
+    { IO_COLLISION_METHOD_DETACH_ALL, MENU_IO_COLLISION_DETACH_ALL },
+    { IO_COLLISION_METHOD_DETACH_LAST, MENU_IO_COLLISION_DETACH_LAST },
+    { IO_COLLISION_METHOD_AND_WIRES, MENU_IO_COLLISION_AND_WIRES },
+    { -1, 0 }
+};
+
+static ui_res_possible_values KernalRev[] = {
+    { C64_KERNAL_REV1, MENU_KERNAL_REV_1 },
+    { C64_KERNAL_REV2, MENU_KERNAL_REV_2 },
+    { C64_KERNAL_REV3, MENU_KERNAL_REV_3 },
+    { C64_KERNAL_SX64, MENU_KERNAL_REV_SX64 },
+    { C64_KERNAL_4064, MENU_KERNAL_REV_4064 },
     { -1, 0 }
 };
 
@@ -362,8 +513,6 @@ ui_res_value_list c64_ui_res_values[] = {
     { "MMC64_revision", MMC64Revision },
     { "MMC64_sd_type", MMC64CardType },
     { "MMCRSDType", MMCRCardType },
-    { "CIA1Model", cia1models },
-    { "CIA2Model", cia2models },
     { "GlueLogic", gluelogic },
     { "VICIIFilter", RenderFilters },
     { "ExpertCartridgeMode", ExpertModes },
@@ -375,25 +524,21 @@ ui_res_value_list c64_ui_res_values[] = {
     { "JoyPort2Device", c64_JoyPort2Device },
     { "JoyPort3Device", c64_JoyPort3Device },
     { "JoyPort4Device", c64_JoyPort4Device },
+    { "DoodleMultiColorHandling", DoodleMultiColor },
+    { "IOCollisionHandling", IOCollisions },
+    { "KernalRev", KernalRev },
+    { "RRClockPort", RRClockPortDevice },
+    { "MMCRClockPort", MMCRClockPortDevice },
+    { "MMC64ClockPort", MMC64ClockPortDevice },
+    { "SBDIGIMAXbase", IDE64DigimaxBase },
+#ifdef HAVE_PCAP
+    { "SBETFEbase", IDE64ETFEBase },
+#endif
+    { "IDE64ClockPort", IDE64ClockPortDevice },
     { NULL, NULL }
 };
 
-static ui_cartridge_t c64_ui_cartridges[]={
-    { MENU_CART_ATTACH_CRT, CARTRIDGE_CRT, "CRT" },
-    { MENU_CART_ATTACH_8KB, CARTRIDGE_GENERIC_8KB, "Raw 8KB" },
-    { MENU_CART_ATTACH_16KB, CARTRIDGE_GENERIC_16KB, "Raw 16KB" },
-    { MENU_CART_ATTACH_AR, CARTRIDGE_ACTION_REPLAY, "Action Replay" },
-    { MENU_CART_ATTACH_AR3, CARTRIDGE_ACTION_REPLAY3, "Action Replay MK3" },
-    { MENU_CART_ATTACH_AR4, CARTRIDGE_ACTION_REPLAY4, "Action Replay MK4" },
-    { MENU_CART_ATTACH_STARDOS, CARTRIDGE_STARDOS, "Stardos" },
-    { MENU_CART_ATTACH_AT, CARTRIDGE_ATOMIC_POWER, "Atomic Power" },
-    { MENU_CART_ATTACH_EPYX, CARTRIDGE_EPYX_FASTLOAD, "Epyx FastLoad" },
-    { MENU_CART_ATTACH_IEEE488, CARTRIDGE_IEEE488, "IEEE488 Interface" },
-    { MENU_CART_ATTACH_IDE64, CARTRIDGE_IDE64, "IDE64 interface" },
-    { MENU_CART_ATTACH_SS4, CARTRIDGE_SUPER_SNAPSHOT, "Super Snapshot V4" },
-    { MENU_CART_ATTACH_SS5, CARTRIDGE_SUPER_SNAPSHOT_V5, "Super Snapshot V5" },
-    { 0, 0, NULL }
-};
+static ui_cartridge_t *c64_ui_cartridges = NULL;
 
 static void c64_ui_attach_cartridge(int menu)
 {
@@ -415,230 +560,257 @@ static int c64_sid_address_base[] = { 0xd4, 0xd5, 0xd6, 0xd7, 0xde, 0xdf, -1 };
 
 static void c64_ui_specific(void *msg, void *window)
 {
-    switch (((BMessage*)msg)->what) {
-        case MENU_CART_ATTACH_CRT:      
-        case MENU_CART_ATTACH_8KB:
-        case MENU_CART_ATTACH_16KB:
-        case MENU_CART_ATTACH_AR:
-        case MENU_CART_ATTACH_AT:
-        case MENU_CART_ATTACH_EPYX:
-        case MENU_CART_ATTACH_IEEE488:
-        case MENU_CART_ATTACH_IDE64:
-        case MENU_CART_ATTACH_SS4:
-        case MENU_CART_ATTACH_SS5:
-            c64_ui_attach_cartridge(((BMessage*)msg)->what);
-            break;
-        case MENU_CART_SET_DEFAULT:
-            cartridge_set_default();
-            break;
-        case MENU_CART_DETACH:
-            cartridge_detach_image(-1);
-            break;
-        case MENU_CART_FREEZE:
-            keyboard_clear_keymatrix();
-            cartridge_trigger_freeze();
-            break;
-        case ATTACH_C64_CART:
-            {
-                const char *filename;
-                int32 type;
+    if (((BMessage*)msg)->what >= MENU_GENERIC_CARTS && ((BMessage*)msg)->what < MENU_END_CARTS) {
+        c64_ui_attach_cartridge(((BMessage*)msg)->what);
+    } else {
+        switch (((BMessage*)msg)->what) {
+            case MENU_CART_ATTACH_CRT:
+                c64_ui_attach_cartridge(((BMessage*)msg)->what);
+                break;
+            case MENU_CART_SET_DEFAULT:
+                cartridge_set_default();
+                break;
+            case MENU_CART_DETACH:
+                cartridge_detach_image(-1);
+                break;
+            case MENU_CART_FREEZE:
+                keyboard_clear_keymatrix();
+                cartridge_trigger_freeze();
+                break;
+            case ATTACH_C64_CART:
+                {
+                    const char *filename;
+                    int32 type;
 
-                ((BMessage*)msg)->FindInt32("type", &type);
-                ((BMessage*)msg)->FindString("filename", &filename);
-                if (cartridge_attach_image(type, filename) < 0) {
-                    ui_error("Invalid cartridge image");
+                    ((BMessage*)msg)->FindInt32("type", &type);
+                    ((BMessage*)msg)->FindString("filename", &filename);
+                    if (cartridge_attach_image(type, filename) < 0) {
+                        ui_error("Invalid cartridge image");
+                    }
+                    break;
+                }
+            case MENU_VIDEO_SETTINGS:
+                ui_video(UI_VIDEO_CHIP_VICII);
+                break;
+            case MENU_VICII_SETTINGS:
+                ui_vicii();
+                break;
+            case MENU_SID_SETTINGS:
+                ui_sid(c64_sid_address_base);
+                break;
+            case MENU_CIA_SETTINGS:
+                ui_cia(2);
+                break;
+            case MENU_JOYSTICK_SETTINGS:
+                ui_joystick(1, 2);
+                break;
+            case MENU_USERPORT_JOY_SETTINGS:
+                ui_joystick(3, 4);
+                break;
+            case MENU_DRIVE_SETTINGS:
+                ui_drive(c64_drive_types, HAS_PARA_CABLE | HAS_PROFDOS);
+                break;
+            case MENU_PRINTER_SETTINGS:
+                ui_printer(HAS_USERPORT_PRINTER | HAS_IEC_BUS);
+                break;
+            case MENU_IDE64_FILE1:
+                ui_select_file(B_SAVE_PANEL, IDE64_FILE1, (void*)0);
+                break;
+            case MENU_IDE64_SIZE1:
+                ui_ide64(1);
+                break;
+            case MENU_IDE64_FILE2:
+                ui_select_file(B_SAVE_PANEL, IDE64_FILE2, (void*)0);
+                break;
+            case MENU_IDE64_SIZE2:
+                ui_ide64(2);
+                break;
+            case MENU_IDE64_FILE3:
+                ui_select_file(B_SAVE_PANEL, IDE64_FILE3, (void*)0);
+                break;
+            case MENU_IDE64_SIZE3:
+                ui_ide64(3);
+                break;
+            case MENU_IDE64_FILE4:
+                ui_select_file(B_SAVE_PANEL, IDE64_FILE4, (void*)0);
+                break;
+            case MENU_IDE64_SIZE4:
+                ui_ide64(4);
+                break;
+            case MENU_IDE64_USB_SERVER:
+                ui_ide64usb();
+                break;
+            case MENU_MAGICVOICE_FILE:
+                ui_select_file(B_SAVE_PANEL, MAGICVOICE_FILE, (void*)0);
+                break;
+            case MENU_REU_FILE:
+                ui_select_file(B_SAVE_PANEL, REU_FILE, (void*)0);
+                break;
+            case MENU_GEORAM_FILE:
+                ui_select_file(B_SAVE_PANEL, GEORAM_FILE, (void*)0);
+                break;
+            case MENU_RAMCART_FILE:
+                ui_select_file(B_SAVE_PANEL, RAMCART_FILE, (void*)0);
+                break;
+            case MENU_DQBB_FILE:
+                ui_select_file(B_SAVE_PANEL, DQBB_FILE, (void*)0);
+                break;
+            case MENU_ISEPIC_FILE:
+                ui_select_file(B_SAVE_PANEL, ISEPIC_FILE, (void*)0);
+                break;
+            case MENU_PLUS60K_FILE:
+                ui_select_file(B_SAVE_PANEL, PLUS60K_FILE, (void*)0);
+                break;
+            case MENU_PLUS256K_FILE:
+                ui_select_file(B_SAVE_PANEL, PLUS256K_FILE, (void*)0);
+                break;
+            case MENU_C64_256K_FILE:
+                ui_select_file(B_SAVE_PANEL, C64_256K_FILE, (void*)0);
+                break;
+            case MENU_MMC64_BIOS_FILE:
+                ui_select_file(B_OPEN_PANEL, MMC64_BIOS_FILE, (void*)0);
+                break;
+            case MENU_MMC64_IMAGE_FILE:
+                ui_select_file(B_OPEN_PANEL, MMC64_IMAGE_FILE, (void*)0);
+                break;
+            case MENU_MMCR_EEPROM_FILE:
+                ui_select_file(B_OPEN_PANEL, MMCR_EEPROM_FILE, (void*)0);
+                break;
+            case MENU_MMCR_IMAGE_FILE:
+                ui_select_file(B_OPEN_PANEL, MMCR_IMAGE_FILE, (void*)0);
+                break;
+            case MENU_GMOD2_EEPROM_FILE:
+                ui_select_file(B_OPEN_PANEL, GMOD2_EEPROM_FILE, (void*)0);
+                break;
+            case MENU_EXPERT_FILE:
+                ui_select_file(B_OPEN_PANEL, EXPERT_FILE, (void*)0);
+                break;
+            case MENU_EASYFLASH_SAVE_NOW:
+                if (cartridge_flush_image(CARTRIDGE_EASYFLASH) < 0) {
+                    ui_error("Error saving EasyFlash .crt file");
                 }
                 break;
-            }
-        case MENU_VIDEO_SETTINGS:
-            ui_video(UI_VIDEO_CHIP_VICII);
-            break;
-        case MENU_VICII_SETTINGS:
-            ui_vicii();
-            break;
-        case MENU_SID_SETTINGS:
-            ui_sid(c64_sid_address_base);
-            break;
-        case MENU_DRIVE_SETTINGS:
-            ui_drive(c64_drive_types, HAS_PARA_CABLE | HAS_PROFDOS);
-            break;
-        case MENU_PRINTER_SETTINGS:
-            ui_printer(HAS_USERPORT_PRINTER | HAS_IEC_BUS);
-            break;
-        case MENU_IDE64_FILE1:
-            ui_select_file(B_SAVE_PANEL, IDE64_FILE1, (void*)0);
-            break;
-        case MENU_IDE64_SIZE1:
-            ui_ide64(1);
-            break;
-        case MENU_IDE64_FILE2:
-            ui_select_file(B_SAVE_PANEL, IDE64_FILE2, (void*)0);
-            break;
-        case MENU_IDE64_SIZE2:
-            ui_ide64(2);
-            break;
-        case MENU_IDE64_FILE3:
-            ui_select_file(B_SAVE_PANEL, IDE64_FILE3, (void*)0);
-            break;
-        case MENU_IDE64_SIZE3:
-            ui_ide64(3);
-            break;
-        case MENU_IDE64_FILE4:
-            ui_select_file(B_SAVE_PANEL, IDE64_FILE4, (void*)0);
-            break;
-        case MENU_IDE64_SIZE4:
-            ui_ide64(4);
-            break;
-        case MENU_MAGICVOICE_FILE:
-            ui_select_file(B_SAVE_PANEL, MAGICVOICE_FILE, (void*)0);
-            break;
-        case MENU_REU_FILE:
-            ui_select_file(B_SAVE_PANEL, REU_FILE, (void*)0);
-            break;
-        case MENU_GEORAM_FILE:
-            ui_select_file(B_SAVE_PANEL, GEORAM_FILE, (void*)0);
-            break;
-        case MENU_RAMCART_FILE:
-            ui_select_file(B_SAVE_PANEL, RAMCART_FILE, (void*)0);
-            break;
-        case MENU_DQBB_FILE:
-            ui_select_file(B_SAVE_PANEL, DQBB_FILE, (void*)0);
-            break;
-        case MENU_ISEPIC_FILE:
-            ui_select_file(B_SAVE_PANEL, ISEPIC_FILE, (void*)0);
-            break;
-        case MENU_PLUS60K_FILE:
-            ui_select_file(B_SAVE_PANEL, PLUS60K_FILE, (void*)0);
-            break;
-        case MENU_PLUS256K_FILE:
-            ui_select_file(B_SAVE_PANEL, PLUS256K_FILE, (void*)0);
-            break;
-        case MENU_C64_256K_FILE:
-            ui_select_file(B_SAVE_PANEL, C64_256K_FILE, (void*)0);
-            break;
-        case MENU_MMC64_BIOS_FILE:
-            ui_select_file(B_OPEN_PANEL, MMC64_BIOS_FILE, (void*)0);
-            break;
-        case MENU_MMC64_IMAGE_FILE:
-            ui_select_file(B_OPEN_PANEL, MMC64_IMAGE_FILE, (void*)0);
-            break;
-        case MENU_MMCR_EEPROM_FILE:
-            ui_select_file(B_OPEN_PANEL, MMCR_EEPROM_FILE, (void*)0);
-            break;
-        case MENU_MMCR_IMAGE_FILE:
-            ui_select_file(B_OPEN_PANEL, MMCR_IMAGE_FILE, (void*)0);
-            break;
-        case MENU_EXPERT_FILE:
-            ui_select_file(B_OPEN_PANEL, EXPERT_FILE, (void*)0);
-            break;
-        case MENU_EASYFLASH_SAVE_NOW:
-            if (cartridge_flush_image(CARTRIDGE_EASYFLASH) < 0) {
-                ui_error("Error saving EasyFlash .crt file");
-            }
-            break;
-        case MENU_C64_MODEL_C64_PAL:
-            c64model_set(C64MODEL_C64_PAL);
-            break;
-        case MENU_C64_MODEL_C64C_PAL:
-            c64model_set(C64MODEL_C64C_PAL);
-            break;
-        case MENU_C64_MODEL_C64_OLD_PAL:
-            c64model_set(C64MODEL_C64_OLD_PAL);
-            break;
-        case MENU_C64_MODEL_C64_NTSC:
-            c64model_set(C64MODEL_C64_NTSC);
-            break;
-        case MENU_C64_MODEL_C64C_NTSC:
-            c64model_set(C64MODEL_C64C_NTSC);
-            break;
-        case MENU_C64_MODEL_C64_OLD_NTSC:
-            c64model_set(C64MODEL_C64_OLD_NTSC);
-            break;
-        case MENU_C64_MODEL_DREAN:
-            c64model_set(C64MODEL_C64_PAL_N);
-            break;
-        case MENU_C64_MODEL_C64SX_PAL:
-            c64model_set(C64MODEL_C64SX_PAL);
-            break;
-        case MENU_C64_MODEL_C64SX_NTSC:
-            c64model_set(C64MODEL_C64SX_NTSC);
-            break;
-        case MENU_C64_MODEL_C64_JAP:
-            c64model_set(C64MODEL_C64_JAP);
-            break;
-        case MENU_C64_MODEL_C64_GS:
-            c64model_set(C64MODEL_C64_GS);
-            break;
-        case MENU_C64_MODEL_PET64_PAL:
-            c64model_set(C64MODEL_PET64_PAL);
-            break;
-        case MENU_C64_MODEL_PET64_NTSC:
-            c64model_set(C64MODEL_PET64_NTSC);
-            break;
-        case MENU_C64_MODEL_ULTIMAX:
-            c64model_set(C64MODEL_ULTIMAX);
-            break;
-        case MENU_COMPUTER_KERNAL_ROM_FILE:
-            ui_select_file(B_SAVE_PANEL, COMPUTER_KERNAL_ROM_FILE, (void*)0);
-            break;
-        case MENU_COMPUTER_BASIC_ROM_FILE:
-            ui_select_file(B_SAVE_PANEL, COMPUTER_BASIC_ROM_FILE, (void*)0);
-            break;
-        case MENU_COMPUTER_CHARGEN_ROM_FILE:
-            ui_select_file(B_SAVE_PANEL, COMPUTER_CHARGEN_ROM_FILE, (void*)0);
-            break;
-        case MENU_DRIVE_1540_ROM_FILE:
-            ui_select_file(B_SAVE_PANEL, DRIVE_1540_ROM_FILE, (void*)0);
-            break;
-        case MENU_DRIVE_1541_ROM_FILE:
-            ui_select_file(B_SAVE_PANEL, DRIVE_1541_ROM_FILE, (void*)0);
-            break;
-        case MENU_DRIVE_1541II_ROM_FILE:
-            ui_select_file(B_SAVE_PANEL, DRIVE_1541II_ROM_FILE, (void*)0);
-            break;
-        case MENU_DRIVE_1570_ROM_FILE:
-            ui_select_file(B_SAVE_PANEL, DRIVE_1570_ROM_FILE, (void*)0);
-            break;
-        case MENU_DRIVE_1571_ROM_FILE:
-            ui_select_file(B_SAVE_PANEL, DRIVE_1571_ROM_FILE, (void*)0);
-            break;
-        case MENU_DRIVE_1581_ROM_FILE:
-            ui_select_file(B_SAVE_PANEL, DRIVE_1581_ROM_FILE, (void*)0);
-            break;
-        case MENU_DRIVE_2000_ROM_FILE:
-            ui_select_file(B_SAVE_PANEL, DRIVE_2000_ROM_FILE, (void*)0);
-            break;
-        case MENU_DRIVE_4000_ROM_FILE:
-            ui_select_file(B_SAVE_PANEL, DRIVE_4000_ROM_FILE, (void*)0);
-            break;
-        case MENU_DRIVE_2031_ROM_FILE:
-            ui_select_file(B_SAVE_PANEL, DRIVE_2031_ROM_FILE, (void*)0);
-            break;
-        case MENU_DRIVE_2040_ROM_FILE:
-            ui_select_file(B_SAVE_PANEL, DRIVE_2040_ROM_FILE, (void*)0);
-            break;
-        case MENU_DRIVE_3040_ROM_FILE:
-            ui_select_file(B_SAVE_PANEL, DRIVE_3040_ROM_FILE, (void*)0);
-            break;
-        case MENU_DRIVE_4040_ROM_FILE:
-            ui_select_file(B_SAVE_PANEL, DRIVE_4040_ROM_FILE, (void*)0);
-            break;
-        case MENU_DRIVE_1001_ROM_FILE:
-            ui_select_file(B_SAVE_PANEL, DRIVE_1001_ROM_FILE, (void*)0);
-            break;
-        case MENU_DRIVE_PROFDOS_ROM_FILE:
-            ui_select_file(B_SAVE_PANEL, DRIVE_PROFDOS_ROM_FILE, (void*)0);
-            break;
-        case MENU_DRIVE_SUPERCARD_ROM_FILE:
-            ui_select_file(B_SAVE_PANEL, DRIVE_SUPERCARD_ROM_FILE, (void*)0);
-            break;
-        default:
-            break;
+            case MENU_C64_MODEL_C64_PAL:
+                c64model_set(C64MODEL_C64_PAL);
+                break;
+            case MENU_C64_MODEL_C64C_PAL:
+                c64model_set(C64MODEL_C64C_PAL);
+                break;
+            case MENU_C64_MODEL_C64_OLD_PAL:
+                c64model_set(C64MODEL_C64_OLD_PAL);
+                break;
+            case MENU_C64_MODEL_C64_NTSC:
+                c64model_set(C64MODEL_C64_NTSC);
+                break;
+            case MENU_C64_MODEL_C64C_NTSC:
+                c64model_set(C64MODEL_C64C_NTSC);
+                break;
+            case MENU_C64_MODEL_C64_OLD_NTSC:
+                c64model_set(C64MODEL_C64_OLD_NTSC);
+                break;
+            case MENU_C64_MODEL_DREAN:
+                c64model_set(C64MODEL_C64_PAL_N);
+                break;
+            case MENU_C64_MODEL_C64SX_PAL:
+                c64model_set(C64MODEL_C64SX_PAL);
+                break;
+            case MENU_C64_MODEL_C64SX_NTSC:
+                c64model_set(C64MODEL_C64SX_NTSC);
+                break;
+            case MENU_C64_MODEL_C64_JAP:
+                c64model_set(C64MODEL_C64_JAP);
+                break;
+            case MENU_C64_MODEL_C64_GS:
+                c64model_set(C64MODEL_C64_GS);
+                break;
+            case MENU_C64_MODEL_PET64_PAL:
+                c64model_set(C64MODEL_PET64_PAL);
+                break;
+            case MENU_C64_MODEL_PET64_NTSC:
+                c64model_set(C64MODEL_PET64_NTSC);
+                break;
+            case MENU_C64_MODEL_ULTIMAX:
+                c64model_set(C64MODEL_ULTIMAX);
+                break;
+            case MENU_COMPUTER_KERNAL_ROM_FILE:
+                ui_select_file(B_SAVE_PANEL, COMPUTER_KERNAL_ROM_FILE, (void*)0);
+                break;
+            case MENU_COMPUTER_BASIC_ROM_FILE:
+                ui_select_file(B_SAVE_PANEL, COMPUTER_BASIC_ROM_FILE, (void*)0);
+                break;
+            case MENU_COMPUTER_CHARGEN_ROM_FILE:
+                ui_select_file(B_SAVE_PANEL, COMPUTER_CHARGEN_ROM_FILE, (void*)0);
+                break;
+            case MENU_DRIVE_1540_ROM_FILE:
+                ui_select_file(B_SAVE_PANEL, DRIVE_1540_ROM_FILE, (void*)0);
+                break;
+            case MENU_DRIVE_1541_ROM_FILE:
+                ui_select_file(B_SAVE_PANEL, DRIVE_1541_ROM_FILE, (void*)0);
+                break;
+            case MENU_DRIVE_1541II_ROM_FILE:
+                ui_select_file(B_SAVE_PANEL, DRIVE_1541II_ROM_FILE, (void*)0);
+                break;
+            case MENU_DRIVE_1570_ROM_FILE:
+                ui_select_file(B_SAVE_PANEL, DRIVE_1570_ROM_FILE, (void*)0);
+                break;
+            case MENU_DRIVE_1571_ROM_FILE:
+                ui_select_file(B_SAVE_PANEL, DRIVE_1571_ROM_FILE, (void*)0);
+                break;
+            case MENU_DRIVE_1581_ROM_FILE:
+                ui_select_file(B_SAVE_PANEL, DRIVE_1581_ROM_FILE, (void*)0);
+                break;
+            case MENU_DRIVE_2000_ROM_FILE:
+                ui_select_file(B_SAVE_PANEL, DRIVE_2000_ROM_FILE, (void*)0);
+                break;
+            case MENU_DRIVE_4000_ROM_FILE:
+                ui_select_file(B_SAVE_PANEL, DRIVE_4000_ROM_FILE, (void*)0);
+                break;
+            case MENU_DRIVE_2031_ROM_FILE:
+                ui_select_file(B_SAVE_PANEL, DRIVE_2031_ROM_FILE, (void*)0);
+                break;
+            case MENU_DRIVE_2040_ROM_FILE:
+                ui_select_file(B_SAVE_PANEL, DRIVE_2040_ROM_FILE, (void*)0);
+                break;
+            case MENU_DRIVE_3040_ROM_FILE:
+                ui_select_file(B_SAVE_PANEL, DRIVE_3040_ROM_FILE, (void*)0);
+                break;
+            case MENU_DRIVE_4040_ROM_FILE:
+                ui_select_file(B_SAVE_PANEL, DRIVE_4040_ROM_FILE, (void*)0);
+                break;
+            case MENU_DRIVE_1001_ROM_FILE:
+                ui_select_file(B_SAVE_PANEL, DRIVE_1001_ROM_FILE, (void*)0);
+                break;
+            case MENU_DRIVE_PROFDOS_ROM_FILE:
+                ui_select_file(B_SAVE_PANEL, DRIVE_PROFDOS_ROM_FILE, (void*)0);
+                break;
+            case MENU_DRIVE_SUPERCARD_ROM_FILE:
+                ui_select_file(B_SAVE_PANEL, DRIVE_SUPERCARD_ROM_FILE, (void*)0);
+                break;
+            case MENU_VICII_MODEL_PALG:
+                vicmodel_set(VICII_MODEL_PALG);
+                break;
+            case MENU_VICII_MODEL_OLD_PALG:
+                vicmodel_set(VICII_MODEL_PALG_OLD);
+                break;
+            case MENU_VICII_MODEL_NTSCM:
+                vicmodel_set(VICII_MODEL_NTSCM);
+                break;
+            case MENU_VICII_MODEL_OLD_NTSCM:
+                vicmodel_set(VICII_MODEL_NTSCM_OLD);
+                break;
+            case MENU_VICII_MODEL_PALN:
+                vicmodel_set(VICII_MODEL_PALN);
+                break;
+            default:
+                break;
+        }
     }
 }
 
-int c64ui_init_early(void) { 
-    vicemenu_set_joyport_func(joyport_get_valid_devices, joyport_get_port_name, 1, 1, 1, 1);
+int c64ui_init_early(void)
+{ 
+    vicemenu_set_joyport_func(joyport_get_valid_devices, joyport_get_port_name, 1, 1, 1, 1, 0);
+    vicemenu_set_cart_func(cartridge_get_info_list);
     return 0;
 }
 
@@ -647,19 +819,87 @@ int c64scui_init_early(void)
     return c64ui_init_early();
 }
 
+static void build_cart_list(void)
+{
+    int i = 0;
+    int j;
+
+    cartridge_info_t *cartlist = cartridge_get_info_list();
+
+    for (j = 0; cartlist[j].name; ++j) {}
+    j += 2;
+
+    c64_ui_cartridges = (ui_cartridge_t *)lib_malloc(sizeof(ui_cartridge_t) * j);
+
+    c64_ui_cartridges[0].menu_item = MENU_CART_ATTACH_CRT;
+    c64_ui_cartridges[0].cart_type = CARTRIDGE_CRT;
+    c64_ui_cartridges[0].cart_name = "CRT";
+
+    j = 1;
+
+    for (i = 0; cartlist[i].name; ++i) {
+        if (cartlist[i].flags &= CARTRIDGE_GROUP_GENERIC) {
+            c64_ui_cartridges[j].menu_item = MENU_GENERIC_CARTS + cartlist[i].crtid + 256;
+            c64_ui_cartridges[j].cart_type = cartlist[i].crtid;
+            c64_ui_cartridges[j].cart_name = cartlist[i].name;
+            ++j;
+        }
+    }
+
+    for (i = 0; cartlist[i].name; ++i) {
+        if (cartlist[i].flags &= CARTRIDGE_GROUP_RAMEX) {
+            c64_ui_cartridges[j].menu_item = MENU_RAMEX_CARTS + cartlist[i].crtid + 256;
+            c64_ui_cartridges[j].cart_type = cartlist[i].crtid;
+            c64_ui_cartridges[j].cart_name = cartlist[i].name;
+            ++j;
+        }
+    }
+
+    for (i = 0; cartlist[i].name; ++i) {
+        if (cartlist[i].flags &= CARTRIDGE_GROUP_FREEZER) {
+            c64_ui_cartridges[j].menu_item = MENU_FREEZER_CARTS + cartlist[i].crtid + 256;
+            c64_ui_cartridges[j].cart_type = cartlist[i].crtid;
+            c64_ui_cartridges[j].cart_name = cartlist[i].name;
+            ++j;
+        }
+    }
+
+    for (i = 0; cartlist[i].name; ++i) {
+        if (cartlist[i].flags &= CARTRIDGE_GROUP_GAME) {
+            c64_ui_cartridges[j].menu_item = MENU_GAME_CARTS + cartlist[i].crtid + 256;
+            c64_ui_cartridges[j].cart_type = cartlist[i].crtid;
+            c64_ui_cartridges[j].cart_name = cartlist[i].name;
+            ++j;
+        }
+    }
+
+    for (i = 0; cartlist[i].name; ++i) {
+        if (cartlist[i].flags &= CARTRIDGE_GROUP_UTIL) {
+            c64_ui_cartridges[j].menu_item = MENU_GAME_CARTS + cartlist[i].crtid + 256;
+            c64_ui_cartridges[j].cart_type = cartlist[i].crtid;
+            c64_ui_cartridges[j].cart_name = cartlist[i].name;
+            ++j;
+        }
+    }
+
+    c64_ui_cartridges[j].menu_item = 0;
+    c64_ui_cartridges[j].cart_type = 0;
+    c64_ui_cartridges[j].cart_name = NULL;
+}
+
 static void build_joyport_values(void)
 {
     int i;
 
     for (i = 0; i < JOYPORT_MAX_DEVICES; ++i) {
         c64_JoyPort1Device[i].value = i;
-        c64_JoyPort1Device[i].item_id = MENU_JOYPORT1_00 + i;
+        c64_JoyPort1Device[i].item_id = MENU_JOYPORT1 + i;
         c64_JoyPort2Device[i].value = i;
-        c64_JoyPort2Device[i].item_id = MENU_JOYPORT2_00 + i;
+        c64_JoyPort2Device[i].item_id = MENU_JOYPORT2 + i;
         c64_JoyPort3Device[i].value = i;
-        c64_JoyPort3Device[i].item_id = MENU_JOYPORT3_00 + i;
+        c64_JoyPort3Device[i].item_id = MENU_JOYPORT3 + i;
         c64_JoyPort4Device[i].value = i;
-        c64_JoyPort4Device[i].item_id = MENU_JOYPORT4_00 + i;
+        c64_JoyPort4Device[i].item_id = MENU_JOYPORT4 + i;
     }
     c64_JoyPort1Device[i].value = -1;
     c64_JoyPort1Device[i].item_id = 0;
@@ -674,6 +914,7 @@ static void build_joyport_values(void)
 static int c64ui_common_init(void)
 {
     build_joyport_values();
+    build_cart_list();
     ui_register_machine_specific(c64_ui_specific);
     ui_register_menu_toggles(c64_ui_menu_toggles);
     ui_update_menus();
@@ -695,6 +936,9 @@ int c64scui_init(void)
 
 void c64ui_shutdown(void)
 {
+    if (c64_ui_cartridges) {
+        lib_free(c64_ui_cartridges);
+    }
 }
 
 void c64scui_shutdown(void)

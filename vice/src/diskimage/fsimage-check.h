@@ -1,5 +1,6 @@
-/*
- * fsimage-check.h
+/** \file   src/diskimage/fsimage-check.h
+ *
+ * \brief   Validation functions for disk images - header
  *
  * Written by
  *  Andreas Boose <viceteam@t-online.de>
@@ -26,6 +27,16 @@
 
 #ifndef VICE_FSIMAGE_CHECK_H
 #define VICE_FSIMAGE_CHECK_H
+
+
+/** \brief  Error code for illegal track numbers
+ */
+#define FSIMAGE_BAD_TRKNUM  -2
+
+/** \brief  Error code for illegal sector numbers
+ */
+#define FSIMAGE_BAD_SECNUM  -3
+
 
 struct disk_image_s;
 

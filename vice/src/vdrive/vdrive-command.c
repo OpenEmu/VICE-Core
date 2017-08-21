@@ -603,9 +603,16 @@ static int vdrive_command_rename(vdrive_t *vdrive, BYTE *dest, int length)
            cmd_parse_dst.parselength);
 
     /* FIXME: is this right? */
+
+    /* Doesn't look like it, does the rename command even allow specifying
+     * file types? And even if so, the closed bit should be set with '| 0x80'
+     * (BW 2017-02-04) */
+#if 0
+
     if (cmd_parse_dst.filetype) {
         slot[SLOT_TYPE_OFFSET] = cmd_parse_dst.filetype;
     }
+#endif
 
     /* Update the directory.  */
     if (vdrive_write_sector(vdrive, dir.buffer, dir.track, dir.sector) < 0) {
@@ -626,7 +633,7 @@ static int vdrive_command_scratch(vdrive_t *vdrive, BYTE *name, int length)
     BYTE *slot;
     cbmdos_cmd_parse_t cmd_parse;
     vdrive_dir_context_t dir;
-    int deleted_files;
+    int deleted_files, filetype;
 
     /* XXX
      * Wrong name parser -- s0:file1,0:file2 means scratch
@@ -651,8 +658,10 @@ static int vdrive_command_scratch(vdrive_t *vdrive, BYTE *name, int length)
 /*#endif*/
         deleted_files = 0;
 
+	filetype = vdrive_dir_filetype(cmd_parse.parsecmd,
+				       cmd_parse.parselength);
         vdrive_dir_find_first_slot(vdrive, cmd_parse.parsecmd,
-                                   cmd_parse.parselength, 0, &dir);
+                                   cmd_parse.parselength, filetype, &dir);
 
         while ((slot = vdrive_dir_find_next_slot(&dir))) {
             vdrive_dir_remove_slot(&dir);

@@ -6,6 +6,7 @@
  *
  * Written by
  *  Dag Lem <resid@nimrod.no>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -33,7 +34,7 @@
 #include "types.h"
 #include "sound.h"
 
-#if (defined(WIN32) || defined(MACOSX_COCOA) || defined(WATCOM_COMPILE) || defined(USE_BEOS_UI)) && !defined(USE_SDLUI) && !defined(USE_SDLUI2)
+#ifndef __OS2__
 #define SID_SETTINGS_DIALOG
 #endif
 
@@ -44,9 +45,8 @@ struct sid_snapshot_state_s;
 #define SID_ENGINE_RESID          1
 #define SID_ENGINE_CATWEASELMKIII 2
 #define SID_ENGINE_HARDSID        3
-#define SID_ENGINE_PARSID_PORT1   4
-#define SID_ENGINE_PARSID_PORT2   5
-#define SID_ENGINE_PARSID_PORT3   6
+#define SID_ENGINE_PARSID         4
+#define SID_ENGINE_SSI2001        5
 #define SID_ENGINE_DEFAULT       99
 
 #define SID_MODEL_6581           0
@@ -67,9 +67,8 @@ struct sid_snapshot_state_s;
 #define SID_RESID_DTVSID          ((SID_ENGINE_RESID << 8) | SID_MODEL_DTVSID)
 #define SID_CATWEASELMKIII        (SID_ENGINE_CATWEASELMKIII << 8)
 #define SID_HARDSID               (SID_ENGINE_HARDSID << 8)
-#define SID_PARSID_PORT1          (SID_ENGINE_PARSID_PORT1 << 8)
-#define SID_PARSID_PORT2          (SID_ENGINE_PARSID_PORT2 << 8)
-#define SID_PARSID_PORT3          (SID_ENGINE_PARSID_PORT3 << 8)
+#define SID_PARSID                (SID_ENGINE_PARSID << 8)
+#define SID_SSI2001               (SID_ENGINE_SSI2001 << 8)
 
 extern void machine_sid2_enable(int val);
 
@@ -80,6 +79,9 @@ extern BYTE sid3_read(WORD address);
 extern void sid_store(WORD address, BYTE byte);
 extern void sid2_store(WORD address, BYTE byte);
 extern void sid3_store(WORD address, BYTE byte);
+extern int sid_dump(void);
+extern int sid2_dump(void);
+extern int sid3_dump(void);
 extern void sid_reset(void);
 
 extern void sid_set_machine_parameter(long clock_rate);
@@ -130,5 +132,7 @@ extern void sid_sound_machine_enable(int enable);
 extern sid_engine_model_t **sid_get_engine_model_list(void);
 extern int sid_set_engine_model(int engine, int model);
 extern void sid_sound_chip_init(void);
+
+extern void sid_set_enable(int value);
 
 #endif

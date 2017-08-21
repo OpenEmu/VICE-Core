@@ -41,6 +41,7 @@
 #include "log.h"
 #include "maincpu.h"
 #include "parallel.h"
+#include "tapeport.h"
 #include "tpi.h"
 #include "types.h"
 
@@ -74,10 +75,22 @@ static void restore_int(unsigned int int_num, int value)
 /* TPI resources. */
 
 static int tape1_sense = 0;
+static int tape1_write_in = 0;
+static int tape1_motor_in = 0;
 
 void tpi1_set_tape_sense(int v)
 {
     tape1_sense = v;
+}
+
+void tpi1_set_tape_write_in(int v)
+{
+    tape1_write_in = v;
+}
+
+void tpi1_set_tape_motor_in(int v)
+{
+    tape1_motor_in = v;
 }
 
 /*----------------------------------------------------------------------*/
@@ -149,11 +162,14 @@ static void undump_pa(tpi_context_t *tpi_context, BYTE byte)
 
 static void store_pb(tpi_context_t *tpi_context, BYTE byte)
 {
+    if ((byte ^ tpi_context->oldpb) & 0x80) {
+        tapeport_set_sense_out(!(byte & 0x80));
+    }
     if ((byte ^ tpi_context->oldpb) & 0x40) {
-        datasette_set_motor(!(byte & 0x40));
+        tapeport_set_motor(!(byte & 0x40));
     }
     if ((byte ^ tpi_context->oldpb) & 0x20) {
-        datasette_toggle_write_bit(byte & 0x20);
+        tapeport_toggle_write_bit(byte & 0x20);
     }
 }
 
@@ -192,8 +208,10 @@ static BYTE read_pb(tpi_context_t *tpi_context)
 {
     BYTE byte;
 
-    byte = 0x7f;
-    byte += tape1_sense ? 0x80 : 0;
+    byte = 0x1f;
+    byte |= tape1_sense ? 0x80 : 0;
+    byte |= tape1_motor_in ? 0x40 : 0;
+    byte |= tape1_write_in ? 0x20 : 0;
 
     byte = (byte & ~(tpi_context->c_tpi)[TPI_DDPB])
            | (tpi_context->c_tpi[TPI_PB] & tpi_context->c_tpi[TPI_DDPB]);

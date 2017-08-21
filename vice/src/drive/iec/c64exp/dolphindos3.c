@@ -53,14 +53,14 @@ static mc6821_state my6821[DRIVE_NUM];
 
 static void dd3_set_pa(mc6821_state *ctx)
 {
-    unsigned int dnr = ((drive_context_t *)(ctx->p))->mynumber;
+    unsigned int dnr = (unsigned int)(((drive_context_t *)(ctx->p))->mynumber);
     parallel_cable_drive_write(DRIVE_PC_DD3, ctx->dataA, PARALLEL_WRITE, dnr);
     /* DBG(("DD3 (%d) 6821 PA WR %02x\n", dnr, ctx->dataA)); */
 }
 
 static BYTE dd3_get_pa(mc6821_state *ctx)
 {
-    unsigned int dnr = ((drive_context_t *)(ctx->p))->mynumber;
+    unsigned int dnr = (unsigned int)(((drive_context_t *)(ctx->p))->mynumber);
     BYTE data;
     int hs = 0;
 
@@ -124,6 +124,15 @@ static BYTE mc6821_read(drive_context_t *drv, WORD addr)
     return mc6821core_read(&my6821[drv->mynumber], port /* rs1 */, reg /* rs0 */);
 }
 
+static BYTE mc6821_peek(drive_context_t *drv, WORD addr)
+{
+    int port, reg;
+
+    port = (addr >> 1) & 1; /* rs1 */
+    reg = (addr >> 0) & 1;  /* rs0 */
+    return mc6821core_peek(&my6821[drv->mynumber], port /* rs1 */, reg /* rs0 */);
+}
+
 /*-----------------------------------------------------------------------*/
 
 void dd3_set_signal(drive_context_t *drv)
@@ -164,7 +173,7 @@ void dd3_mem_init(struct drive_context_s *drv, unsigned int type)
     case DRIVE_TYPE_1570:
     case DRIVE_TYPE_1571:
     case DRIVE_TYPE_1571CR:
-        drivemem_set_func(cpud, 0x50, 0x60, mc6821_read, mc6821_store, NULL, 0);
+        drivemem_set_func(cpud, 0x50, 0x60, mc6821_read, mc6821_store, mc6821_peek, NULL, 0);
         break;
     default:
         break;

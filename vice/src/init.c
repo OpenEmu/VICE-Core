@@ -31,6 +31,7 @@
 #include "attach.h"
 #include "cmdline.h"
 #include "console.h"
+#include "debug.h"
 #include "drive.h"
 #include "initcmdline.h"
 #include "keyboard.h"
@@ -104,10 +105,12 @@ int init_resources(void)
         init_resource_fail("sound");
         return -1;
     }
+#ifdef COMMON_KBD
     if (keyboard_resources_init() < 0) {
         init_resource_fail("keyboard");
         return -1;
     }
+#endif
     if (machine_video_resources_init() < 0) {
         init_resource_fail("machine video");
         return -1;
@@ -215,7 +218,11 @@ int init_cmdline_options(void)
 
 int init_main(void)
 {
-    signals_init(debug.do_core_dumps);
+#ifdef __IBMC__
+       signals_init(0);
+#else
+       signals_init(debug.do_core_dumps);
+#endif
 
     romset_init();
 

@@ -3,6 +3,7 @@
  *
  * Written by
  *  Mathias Roslund <vice.emu@amidog.se>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -58,6 +59,9 @@ int main(int argc, char **argv)
     vice_timer = timer_init();
     if (vice_timer == NULL) {
         return RETURN_FAIL;
+    }
+    if (load_libs() < 0) {
+        return -1;
     }
     return main_program(argc, argv);
 }

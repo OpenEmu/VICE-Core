@@ -31,6 +31,7 @@
 #include "types.h"
 
 #include "cartridge.h"
+#include "clockport.h"
 #include "menu_c64_common_expansions.h"
 #include "menu_common.h"
 #include "uimenu.h"
@@ -48,10 +49,6 @@ const ui_menu_entry_t digimax_menu[] = {
       NULL },
     SDL_MENU_ITEM_SEPARATOR,
     SDL_MENU_ITEM_TITLE("Base address"),
-    { "Userport",
-      MENU_ENTRY_RESOURCE_RADIO,
-      radio_DIGIMAXbase_callback,
-      (ui_callback_data_t)0xdd00 },
     { "$DE00",
       MENU_ENTRY_RESOURCE_RADIO,
       radio_DIGIMAXbase_callback,
@@ -199,6 +196,10 @@ const ui_menu_entry_t ds12c887rtc_c128_menu[] = {
 
 /* IDE64 CART MENU */
 
+UI_MENU_DEFINE_RADIO(IDE64ClockPort)
+
+static ui_menu_entry_t ide64_clockport_device_menu[CLOCKPORT_MAX_ENTRIES + 1];
+
 UI_MENU_DEFINE_TOGGLE(IDE64RTCSave)
 UI_MENU_DEFINE_RADIO(IDE64version)
 UI_MENU_DEFINE_TOGGLE(IDE64USBServer)
@@ -332,6 +333,56 @@ static const ui_menu_entry_t ide64_menu_HD_4[] = {
     SDL_MENU_LIST_END
 };
 
+UI_MENU_DEFINE_TOGGLE(SBDIGIMAX)
+UI_MENU_DEFINE_RADIO(SBDIGIMAXbase)
+
+static const ui_menu_entry_t ide64_digimax_menu[] = {
+    SDL_MENU_ITEM_TITLE("DigiMAX settings"),
+    { "Enable DigiMAX device",
+      MENU_ENTRY_RESOURCE_TOGGLE,
+      toggle_SBDIGIMAX_callback,
+      NULL },
+    SDL_MENU_ITEM_SEPARATOR,
+    SDL_MENU_ITEM_TITLE("DigiMAX device address"),
+    { "$de40",
+      MENU_ENTRY_RESOURCE_RADIO,
+      radio_SBDIGIMAXbase_callback,
+      (ui_callback_data_t)0xde40 },
+    { "$de48",
+      MENU_ENTRY_RESOURCE_RADIO,
+      radio_SBDIGIMAXbase_callback,
+      (ui_callback_data_t)0xde48 },
+    SDL_MENU_LIST_END
+};
+
+#ifdef HAVE_PCAP
+UI_MENU_DEFINE_TOGGLE(SBETFE)
+UI_MENU_DEFINE_RADIO(SBETFEbase)
+
+static const ui_menu_entry_t ide64_etfe_menu[] = {
+    SDL_MENU_ITEM_TITLE("ETFE settings"),
+    { "Enable ETFE device",
+      MENU_ENTRY_RESOURCE_TOGGLE,
+      toggle_SBETFE_callback,
+      NULL },
+    SDL_MENU_ITEM_SEPARATOR,
+    SDL_MENU_ITEM_TITLE("ETFE device address"),
+    { "$de00",
+      MENU_ENTRY_RESOURCE_RADIO,
+      radio_SBETFEbase_callback,
+      (ui_callback_data_t)0xde00 },
+    { "$de10",
+      MENU_ENTRY_RESOURCE_RADIO,
+      radio_SBETFEbase_callback,
+      (ui_callback_data_t)0xde10 },
+    { "$df00",
+      MENU_ENTRY_RESOURCE_RADIO,
+      radio_SBETFEbase_callback,
+      (ui_callback_data_t)0xdf00 },
+    SDL_MENU_LIST_END
+};
+#endif
+
 const ui_menu_entry_t ide64_menu[] = {
     SDL_MENU_ITEM_TITLE("Cartridge version"),
     { "V3",
@@ -362,22 +413,56 @@ const ui_menu_entry_t ide64_menu[] = {
       (ui_callback_data_t)"Set USB server address" },
 #endif
     SDL_MENU_ITEM_SEPARATOR,
-    SDL_MENU_ITEM_TITLE("Device settings"),
-    { "Device 1 settings",
+    SDL_MENU_ITEM_TITLE("ATA Device settings"),
+    { "ATA Device 1 settings",
       MENU_ENTRY_SUBMENU,
       submenu_callback,
       (ui_callback_data_t)ide64_menu_HD_1 },
-    { "Device 2 settings",
+    { "ATA Device 2 settings",
       MENU_ENTRY_SUBMENU,
       submenu_callback,
       (ui_callback_data_t)ide64_menu_HD_2 },
-    { "Device 3 settings",
+    { "ATA Device 3 settings",
       MENU_ENTRY_SUBMENU,
       submenu_callback,
       (ui_callback_data_t)ide64_menu_HD_3 },
-    { "Device 4 settings",
+    { "ATA Device 4 settings",
       MENU_ENTRY_SUBMENU,
       submenu_callback,
       (ui_callback_data_t)ide64_menu_HD_4 },
+    SDL_MENU_ITEM_SEPARATOR,
+    { "Clockport device",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)ide64_clockport_device_menu },
+    SDL_MENU_ITEM_SEPARATOR,
+    SDL_MENU_ITEM_TITLE("Shortbus Device settings"),
+    { "DigiMAX settings",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)ide64_digimax_menu },
+#ifdef HAVE_PCAP
+    { "ETFE settings",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)ide64_etfe_menu },
+#endif
     SDL_MENU_LIST_END
 };
+
+void uiclockport_ide64_menu_create(void)
+{
+    int i;
+
+    for (i = 0; clockport_supported_devices[i].name; ++i) {
+        ide64_clockport_device_menu[i].string = clockport_supported_devices[i].name;
+        ide64_clockport_device_menu[i].type = MENU_ENTRY_RESOURCE_RADIO;
+        ide64_clockport_device_menu[i].callback = radio_IDE64ClockPort_callback;
+        ide64_clockport_device_menu[i].data = (ui_callback_data_t)int_to_void_ptr(clockport_supported_devices[i].id);
+    }
+
+    ide64_clockport_device_menu[i].string = NULL;
+    ide64_clockport_device_menu[i].type = MENU_ENTRY_TEXT;
+    ide64_clockport_device_menu[i].callback = NULL;
+    ide64_clockport_device_menu[i].data = NULL;
+}

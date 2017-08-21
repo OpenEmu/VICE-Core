@@ -2,7 +2,8 @@
  * ui.h
  *
  * Written by
- *  Martin Pottendorfer (Martin.Pottendorfer@alcatel.at)
+ *  Hannu Nuotio <hannu.nuotio@tut.fi>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -34,6 +35,11 @@
 #include "types.h"
 #include "uiapi.h"
 #include "uimenu.h"
+
+/* Allow native monitor code for various platforms. */
+#if defined(UNIX_COMPILE)
+#define ALLOW_NATIVE_MONITOR
+#endif
 
 /* Number of drives we support in the UI.  */
 #define NUM_DRIVES 4
@@ -84,5 +90,7 @@ extern void ui_update_pal_ctrls(int v);
 extern void ui_common_init(void);
 extern void ui_common_shutdown(void);
 extern void ui_sdl_quit(void);
+
+extern int native_monitor;
 
 #endif

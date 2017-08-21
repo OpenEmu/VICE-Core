@@ -4,6 +4,7 @@
  * Written by
  *  Ettore Perazzoli <ettore@comm2000.it>
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -83,15 +84,6 @@ static char *boot_path = NULL;
 
 /* alternate storage of preferences */
 const char *archdep_pref_path = NULL; /* NULL -> use home_path + ".vice" */
-
-int archdep_network_init(void)
-{
-    return 0;
-}
-
-void archdep_network_shutdown(void)
-{
-}
 
 int archdep_init(int *argc, char **argv)
 {
@@ -318,10 +310,9 @@ int default_log_fd = 0;
 
 FILE *archdep_open_default_log_file(void)
 {
-    return stdout;
     int newFd = dup(default_log_fd);
-    FILE *file = fdopen(newFd, "a+");
-    //setlinebuf(file);
+    FILE *file = fdopen(newFd, "w");
+    setlinebuf(file);
     return file;
 }
 
@@ -400,12 +391,23 @@ int archdep_spawn(const char *name, char **argv, char **pstdout_redir, const cha
 #endif
 }
 
-/* return malloc'd version of full pathname of orig_name */
+/** \brief  Return malloc'd version of full pathname of orig_name
+ *
+ * Returns the absolute path of \a orig_name. Expands '~' to the user's home
+ * path.
+ *
+ * \param[out]  return_path pointer to expand path destination
+ * \param[in]   orig_name   original path
+ *
+ * \return  0
+ */
 int archdep_expand_path(char **return_path, const char *orig_name)
 {
     /* Unix version.  */
     if (*orig_name == '/') {
         *return_path = lib_stralloc(orig_name);
+    } else if (*orig_name == '~' && *(orig_name +1) == '/') {
+        *return_path = util_concat(archdep_home_path(), orig_name + 1, NULL);
     } else {
         static char *cwd;
 
@@ -585,6 +587,10 @@ int archdep_stat(const char *file_name, unsigned int *len, unsigned int *isdir)
     return 0;
 }
 
+#ifndef DEFFILEMODE
+#define DEFFILEMODE (S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH)
+#endif
+
 /* set permissions of given file to rw, respecting current umask */
 int archdep_fix_permissions(const char *file_name)
 {
@@ -632,6 +638,7 @@ void archdep_shutdown(void)
 {
     lib_free(argv0);
     lib_free(boot_path);
+    archdep_network_shutdown();
 }
 
 char *archdep_get_runtime_os(void)

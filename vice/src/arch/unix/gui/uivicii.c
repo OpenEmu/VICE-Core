@@ -34,6 +34,7 @@
 #include "fullscreenarch.h"
 #include "lib.h"
 #include "machine.h"
+#include "palette.h"
 #include "resources.h"
 #include "uiapi.h"
 #include "uipalette.h"
@@ -56,56 +57,107 @@ static UI_CALLBACK(radio_VICIIPaletteFile)
     ui_select_palette(w, CHECK_MENUS, UI_MENU_CB_PARAM, "VICII");
 }
 
+static ui_menu_entry_t *attach_palette_submenu;
+
 static ui_menu_entry_t palette_submenu[] = {
-    { N_("Internal"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_VICIIPaletteFile,
-      NULL, NULL },
-    { "--", UI_MENU_TYPE_SEPARATOR },
-    { N_("Default"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_VICIIPaletteFile,
-      (ui_callback_data_t)"default", NULL },
-    { "VICE", UI_MENU_TYPE_TICK, (ui_callback_t)radio_VICIIPaletteFile,
-      (ui_callback_data_t)"vice", NULL },
-    { "C64S", UI_MENU_TYPE_TICK, (ui_callback_t)radio_VICIIPaletteFile,
-      (ui_callback_data_t)"c64s", NULL },
-    { "CCS64", UI_MENU_TYPE_TICK, (ui_callback_t)radio_VICIIPaletteFile,
-      (ui_callback_data_t)"ccs64", NULL },
-    { "Frodo", UI_MENU_TYPE_TICK, (ui_callback_t)radio_VICIIPaletteFile,
-      (ui_callback_data_t)"frodo", NULL },
-    { "GoDot", UI_MENU_TYPE_TICK, (ui_callback_t)radio_VICIIPaletteFile,
-      (ui_callback_data_t)"godot", NULL },
-    { "PC64", UI_MENU_TYPE_TICK, (ui_callback_t)radio_VICIIPaletteFile,
-      (ui_callback_data_t)"pc64", NULL },
-    { "C64HQ", UI_MENU_TYPE_TICK, (ui_callback_t)radio_VICIIPaletteFile,
-      (ui_callback_data_t)"c64hq", NULL },
-    { "--", UI_MENU_TYPE_SEPARATOR },
-    { N_("Load custom"), UI_MENU_TYPE_DOTS, (ui_callback_t)ui_load_palette,
-      (ui_callback_data_t)"VICII", NULL },
-    { NULL }
+    { N_("Internal"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_VICIIPaletteFile, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
+    { "", UI_MENU_TYPE_NONE,
+      NULL, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
+    { N_("Load custom"), UI_MENU_TYPE_DOTS,
+      (ui_callback_t)ui_load_palette, (ui_callback_data_t)"VICII", NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
 };
+
+static ui_menu_entry_t ui_palette_entry = {
+    NULL, UI_MENU_TYPE_TICK,
+    (ui_callback_t)radio_VICIIPaletteFile, (ui_callback_data_t)0, NULL,
+    (ui_keysym_t)0, (ui_hotkey_modifier_t)0
+};
+
+static int countgroup(palette_info_t *palettelist, char *chip)
+{
+    int num = 0;
+    while(palettelist->name) {
+        /* printf("name:%s file:%s chip:%s\n",palettelist->name,palettelist->file,palettelist->chip); */
+        if (palettelist->chip && !strcmp(palettelist->chip, chip)) {
+            num++;
+        }
+        palettelist++;
+    }
+    return num;
+}
+
+static void makegroup(palette_info_t *palettelist, ui_menu_entry_t *entry, char *chip)
+{
+    while(palettelist->name) {
+        if (palettelist->chip && !strcmp(palettelist->chip, chip)) {
+            ui_palette_entry.string = palettelist->name;
+            ui_palette_entry.callback_data = (ui_callback_data_t)palettelist->file;
+            memcpy(entry, &ui_palette_entry, sizeof(ui_menu_entry_t));
+            entry++;
+        }
+        palettelist++;
+    }
+    memset(entry, 0, sizeof(ui_menu_entry_t));
+}
+
+static void uipalette_menu_create(void)
+{
+    int num;
+    palette_info_t *palettelist = palette_get_info_list();
+
+    num = countgroup(palettelist, "VICII");
+    /* printf("num:%d\n",num); */
+    attach_palette_submenu = lib_malloc(sizeof(ui_menu_entry_t) * (num + 1));
+    makegroup(palettelist, attach_palette_submenu, "VICII");
+    palette_submenu[2].sub_menu = attach_palette_submenu;
+}
+
+static void uipalette_menu_shutdown(void)
+{
+    if (attach_palette_submenu) {
+        lib_free(attach_palette_submenu);
+        attach_palette_submenu = NULL;
+    }
+}
 
 UI_MENU_DEFINE_RADIO(VICIIBorderMode)
 
 static ui_menu_entry_t bordermode_submenu[] = {
-    { N_("Normal"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_VICIIBorderMode,
-      (ui_callback_data_t)VICII_NORMAL_BORDERS, NULL },
-    { N_("Full"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_VICIIBorderMode,
-      (ui_callback_data_t)VICII_FULL_BORDERS, NULL },
-    { N_("Debug"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_VICIIBorderMode,
-      (ui_callback_data_t)VICII_DEBUG_BORDERS, NULL },
-    { N_("None"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_VICIIBorderMode,
-      (ui_callback_data_t)VICII_NO_BORDERS, NULL },
-    { NULL }
+    { N_("Normal"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_VICIIBorderMode, (ui_callback_data_t)VICII_NORMAL_BORDERS, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("Full"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_VICIIBorderMode, (ui_callback_data_t)VICII_FULL_BORDERS, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("Debug"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_VICIIBorderMode, (ui_callback_data_t)VICII_DEBUG_BORDERS, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("None"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_VICIIBorderMode, (ui_callback_data_t)VICII_NO_BORDERS, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
 };
 
 UI_MENU_DEFINE_RADIO(VICIIFilter)
 
 static ui_menu_entry_t renderer_submenu[] = {
-    { N_("Unfiltered"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_VICIIFilter,
-      (ui_callback_data_t)VIDEO_FILTER_NONE, NULL },
-    { N_("CRT emulation"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_VICIIFilter,
-      (ui_callback_data_t)VIDEO_FILTER_CRT, NULL },
-    { N_("Scale2x"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_VICIIFilter,
-      (ui_callback_data_t)VIDEO_FILTER_SCALE2X, NULL },
-    { NULL }
+    { N_("Unfiltered"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_VICIIFilter, (ui_callback_data_t)VIDEO_FILTER_NONE, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("CRT emulation"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_VICIIFilter, (ui_callback_data_t)VIDEO_FILTER_CRT, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("Scale2x"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_VICIIFilter, (ui_callback_data_t)VIDEO_FILTER_SCALE2X, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
 };
 
 #define NOTHING(x) x
@@ -113,7 +165,6 @@ static ui_menu_entry_t renderer_submenu[] = {
 UI_MENU_DEFINE_TOGGLE(VICIIDoubleSize)
 UI_MENU_DEFINE_TOGGLE(VICIIDoubleScan)
 UI_MENU_DEFINE_TOGGLE(VICIIVideoCache)
-UI_MENU_DEFINE_TOGGLE(VICIINewLuminances)
 UI_MENU_DEFINE_TOGGLE(VICIIAudioLeak)
 
 #ifdef HAVE_HWSCALE
@@ -170,9 +221,11 @@ static UI_CALLBACK(toggle_VICIIVSPBug)
         return;
     }
 
+    resources_get_int("VICIIVSPBug", &n);
     if (!CHECK_MENUS) {
-        resources_get_int("VICIIVSPBug", &n);
         resources_set_int("VICIIVSPBug", (n ^ 1) & 1);
+    } else {
+        ui_menu_set_tick(w, n & 1);
     }
 }
 
@@ -198,44 +251,55 @@ extern UI_CALLBACK(set_custom_aspect_ratio);
 
 ui_menu_entry_t vicii_submenu[] = {
     { N_("Double size"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_VICIIDoubleSize, NULL, NULL },
+      (ui_callback_t)toggle_VICIIDoubleSize, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Double scan"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_VICIIDoubleScan, NULL, NULL },
+      (ui_callback_t)toggle_VICIIDoubleScan, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Video cache"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_VICIIVideoCache, NULL, NULL },
-    { "--", UI_MENU_TYPE_SEPARATOR },
-    { N_("New luminances"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_VICIINewLuminances, NULL, NULL },
+      (ui_callback_t)toggle_VICIIVideoCache, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
     { N_("Colors"), UI_MENU_TYPE_NORMAL,
-      NULL, NULL, palette_submenu },
-    { "--", UI_MENU_TYPE_SEPARATOR },
+      NULL, NULL, palette_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
     { N_("Render filter"), UI_MENU_TYPE_NORMAL,
-      NULL, NULL, renderer_submenu },
-    { "--", UI_MENU_TYPE_SEPARATOR },
+      NULL, NULL, renderer_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
     { N_("Border mode"), UI_MENU_TYPE_NORMAL,
-      NULL, NULL, bordermode_submenu },
+      NULL, NULL, bordermode_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Audio leak emulation"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_VICIIAudioLeak, NULL, NULL },
-    { "--", UI_MENU_TYPE_SEPARATOR },
+      (ui_callback_t)toggle_VICIIAudioLeak, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
     { N_("Sprite-sprite collisions"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_VICIICheckSsColl, NULL, NULL },
+      (ui_callback_t)toggle_VICIICheckSsColl, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Sprite-background collisions"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_VICIICheckSbColl, NULL, NULL },
+      (ui_callback_t)toggle_VICIICheckSbColl, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("VSP bug emulation"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_VICIIVSPBug, NULL, NULL },
+      (ui_callback_t)toggle_VICIIVSPBug, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
 #ifdef HAVE_HWSCALE
-    { "--", UI_MENU_TYPE_SEPARATOR },
+    UI_MENU_ENTRY_SEPERATOR,
     { N_("Hardware scaling"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_VICIIHwScale, NULL, NULL },
+      (ui_callback_t)toggle_VICIIHwScale, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Keep aspect ratio"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_KeepAspectRatio, NULL, NULL },
+      (ui_callback_t)toggle_KeepAspectRatio, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("True aspect ratio"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_TrueAspectRatio, NULL, NULL },
+      (ui_callback_t)toggle_TrueAspectRatio, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
 #ifndef USE_GNOMEUI
 #ifdef HAVE_XVIDEO
     { N_("Set custom aspect ratio"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)set_custom_aspect_ratio,
-      (ui_callback_data_t)"AspectRatio", NULL },
+      (ui_callback_t)set_custom_aspect_ratio, (ui_callback_data_t)"AspectRatio", NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
 #endif
 #endif /* USE_GNOMEUI */
 #endif
@@ -245,30 +309,36 @@ ui_menu_entry_t vicii_submenu[] = {
       KEYSYM_v, UI_HOTMOD_META },
 #endif
 #ifdef HAVE_OPENGL_SYNC
-    { "--", UI_MENU_TYPE_SEPARATOR },
+    UI_MENU_ENTRY_SEPERATOR,
     { N_("OpenGL Rastersynchronization"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_openGL_sync, NULL, NULL },
+      (ui_callback_t)toggle_openGL_sync, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Desktop Refreshrate"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)openGL_set_desktoprefresh, NULL, NULL },
+      (ui_callback_t)openGL_set_desktoprefresh, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
 #endif
 #ifdef HAVE_FULLSCREEN
-    { "--", UI_MENU_TYPE_SEPARATOR },
-    { N_("Fullscreen settings"), UI_MENU_TYPE_NORMAL, NULL, NULL, fullscreen_menuVICII },
+    UI_MENU_ENTRY_SEPERATOR,
+    { N_("Fullscreen settings"), UI_MENU_TYPE_NORMAL, NULL, NULL, fullscreen_menuVICII,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
 #endif
 #ifndef USE_GNOMEUI
-    { "--", UI_MENU_TYPE_SEPARATOR },
+    UI_MENU_ENTRY_SEPERATOR,
     { N_("Use XSync()"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_UseXSync, NULL, NULL },
+      (ui_callback_t)toggle_UseXSync, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
 #endif
-    { NULL }
+    UI_MENU_ENTRY_LIST_END
 };
 
 void uivicii_menu_create(void)
 {
+    uipalette_menu_create();
     UI_FULLSCREEN_MENU_CREATE(VICII)
 }
 
 void uivicii_menu_shutdown(void)
 {
+    uipalette_menu_shutdown();
     UI_FULLSCREEN_MENU_SHUTDOWN(VICII)
 }

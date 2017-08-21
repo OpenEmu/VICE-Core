@@ -187,8 +187,19 @@ void uikeyboard_menu_create(void)
 }
 
 
+void uikeyboard_menu_shutdown(void)
+{
+    lib_free(settings_manager_menu[10].data);
+}
+
+
+
 static UI_MENU_CALLBACK(load_sym_keymap_callback)
 {
+    /* temporary fix until I find out what 'keymap' is supposed to be */
+#ifdef SDL_DEBUG
+    int keymap = -1;
+#endif
     if (activated) {
         char *name = NULL;
 
@@ -210,6 +221,11 @@ static UI_MENU_CALLBACK(load_sym_keymap_callback)
 
 static UI_MENU_CALLBACK(load_pos_keymap_callback)
 {
+    /* temporary fix until I find out what 'keymap' is supposed to be */
+#ifdef SDL_DEBUG
+    int keymap = -1;
+#endif
+
     if (activated) {
         char *name = NULL;
 
@@ -395,7 +411,7 @@ static UI_MENU_CALLBACK(custom_ui_keyset_callback)
         e = sdl_ui_poll_event("key", (const char *)param, SDL_POLL_KEYBOARD | SDL_POLL_MODIFIER, 5);
 
         if (e.type == SDL_KEYDOWN) {
-            resources_set_int((const char *)param, (int)e.key.keysym.sym);
+            resources_set_int((const char *)param, (int)SDL2x_to_SDL1x_Keys(e.key.keysym.sym));
         }
     } else {
         return SDL_GetKeyName(previous);
@@ -531,6 +547,63 @@ ui_menu_entry_t settings_manager_menu[] = {
       load_joymap_callback,
       NULL },
 #endif
+    SDL_MENU_ITEM_SEPARATOR,
+    { "Define UI keys",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)define_ui_keyset_menu },
+    SDL_MENU_LIST_END
+};
+
+
+/* vsid setting menu */
+ui_menu_entry_t settings_manager_menu_vsid[] = {
+    { "Save current settings",
+      MENU_ENTRY_OTHER,
+      save_settings_callback,
+      NULL },
+    { "Load settings",
+      MENU_ENTRY_OTHER,
+      load_settings_callback,
+      NULL },
+    { "Save current settings to",
+      MENU_ENTRY_OTHER,
+      save_settings_to_callback,
+      NULL },
+    { "Load settings from",
+      MENU_ENTRY_OTHER,
+      load_settings_from_callback,
+      NULL },
+    { "Restore default settings",
+      MENU_ENTRY_OTHER,
+      default_settings_callback,
+      NULL },
+    { "Save settings on exit",
+      MENU_ENTRY_RESOURCE_TOGGLE,
+      toggle_SaveResourcesOnExit_callback,
+      NULL },
+    SDL_MENU_ITEM_SEPARATOR,
+    { "Confirm on exit",
+      MENU_ENTRY_RESOURCE_TOGGLE,
+      toggle_ConfirmOnExit_callback,
+      NULL },
+    SDL_MENU_ITEM_SEPARATOR,
+    { "Save hotkeys",
+      MENU_ENTRY_OTHER,
+      save_hotkeys_callback,
+      NULL },
+    { "Save hotkeys to",
+      MENU_ENTRY_OTHER,
+      save_hotkeys_to_callback,
+      NULL },
+    { "Load hotkeys from",
+      MENU_ENTRY_OTHER,
+      load_hotkeys_from_callback,
+      NULL },
+    { "Load hotkeys",
+      MENU_ENTRY_OTHER,
+      load_hotkeys_callback,
+      NULL },
     SDL_MENU_ITEM_SEPARATOR,
     { "Define UI keys",
       MENU_ENTRY_SUBMENU,

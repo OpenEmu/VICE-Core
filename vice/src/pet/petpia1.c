@@ -4,6 +4,7 @@
  * Written by
  *  Jouko Valta <jopi@stekt.oulu.fi>
  *  Andre Fachat <fachat@physik.tu-chemnitz.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -42,6 +43,7 @@
 #include "petpia.h"
 #include "piacore.h"
 #include "resources.h"
+#include "tapeport.h"
 #include "translate.h"
 #include "types.h"
 
@@ -96,7 +98,7 @@ static int set_diagnostic_pin_enabled(int val, void *param)
 static const resource_int_t resources_int[] = {
     { "DiagPin", 0, RES_EVENT_SAME, NULL,
       &diagnostic_pin_enabled, set_diagnostic_pin_enabled, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int pia1_resources_init(void)
@@ -116,7 +118,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_ID,
       IDCLS_UNUSED, IDCLS_DISABLE_USERPORT_DIAG_PIN,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int pia1_cmdline_options_init(void)
@@ -125,12 +127,26 @@ int pia1_cmdline_options_init(void)
 }
 
 static int tape1_sense = 0;
+static int tape1_write_in = 0;
+static int tape1_motor_in = 0;
 
 static int old_cb2_status = 0xff;
 
 void pia1_set_tape_sense(int v)
 {
     tape1_sense = v;
+}
+
+/* FIXME: find out how the pet can read the write and motor lines */
+
+void pia1_set_tape_write_in(int v)
+{
+    tape1_write_in = v;
+}
+
+void pia1_set_tape_motor_in(int v)
+{
+    tape1_motor_in = v;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -147,7 +163,7 @@ static void pia_set_ca2(int a)
 static void pia_set_cb2(int a)
 {
     if (old_cb2_status != a) {
-        datasette_set_motor(!a);
+        tapeport_set_motor(!a);
         old_cb2_status = a;
     }
 }
@@ -189,6 +205,7 @@ E813    CB2         output to cassette #1 motor: 0=on, 1=off
 
 static void store_pa(BYTE byte)
 {
+    tapeport_set_sense_out(byte & 16 ? 1 : 0);
 }
 
 static void store_pb(BYTE byte)

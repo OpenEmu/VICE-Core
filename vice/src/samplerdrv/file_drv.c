@@ -325,7 +325,7 @@ static int convert_float_buffer(int size, int channels)
         memcpy(&f, c, sizeof(float));
         f *= 0x7fffffff;
         sample = (SDWORD)f;
-        sample_buffer1[i] = (sample >> 24) + 0x80;
+        sample_buffer1[i] = (BYTE)((sample >> 24) + 0x80);
         if (sound_audio_channels == 2 && channels == SAMPLER_OPEN_STEREO) {
             if (sound_audio_type == AUDIO_TYPE_FLOAT_BE) {
                 c[3] = file_buffer[file_pointer + (i * frame_size) + 4];
@@ -341,7 +341,7 @@ static int convert_float_buffer(int size, int channels)
             memcpy(&f, c, sizeof(float));
             f *= 0x7fffffff;
             sample = (SDWORD)f;
-            sample_buffer2[i] = (sample >> 24) + 0x80;
+            sample_buffer2[i] = (BYTE)((sample >> 24) + 0x80);
         }
     }
     lib_free(file_buffer);
@@ -392,7 +392,7 @@ static int convert_double_buffer(int size, int channels)
         memcpy(&f, c, sizeof(double));
         f *= 0x7fffffff;
         sample = (SDWORD)f;
-        sample_buffer1[i] = (sample >> 24) + 0x80;
+        sample_buffer1[i] = (BYTE)((sample >> 24) + 0x80);
         if (sound_audio_channels == 2 && channels == SAMPLER_OPEN_STEREO) {
             if (sound_audio_type == AUDIO_TYPE_FLOAT_BE) {
                 c[7] = file_buffer[file_pointer + (i * frame_size) + 8];
@@ -416,7 +416,7 @@ static int convert_double_buffer(int size, int channels)
             memcpy(&f, c, sizeof(double));
             f *= 0x7fffffff;
             sample = (SDWORD)f;
-            sample_buffer2[i] = (sample >> 24) + 0x80;
+            sample_buffer2[i] = (BYTE)((sample >> 24) + 0x80);
         }
     }
     lib_free(file_buffer);
@@ -1088,7 +1088,7 @@ static int handle_voc_file(int channels)
 static int is_voc_file(void)
 {
     char header[] = { 0x43, 0x72, 0x65, 0x61, 0x74, 0x69, 0x76, 0x65, 0x20, 0x56, 0x6F, 0x69, 0x63, 0x65, 0x20, 0x46, 0x69, 0x6C, 0x65 };
-    int i;
+    size_t i;
 
     if (file_size < 26) {
         return 0;
@@ -1946,7 +1946,7 @@ static int handle_vorbis_file(int channels)
     vorbis_buffer = lib_malloc(pcmlength * sound_audio_channels * 2);
     i = 0;
     while (i < pcmlength * sound_audio_channels * 2){
-        int ret = ov_read(&ov, vorbis_buffer + i, (pcmlength * 2 * sound_audio_channels) - i, 0, 2, 1, &dummy);
+        int ret = ov_read(&ov, (char*)vorbis_buffer + i, (pcmlength * 2 * sound_audio_channels) - i, 0, 2, 1, &dummy);
         if (ret < 0) {
             ov_clear(&ov);
             lib_free(vorbis_buffer);
@@ -2142,13 +2142,22 @@ static int set_sample_name(const char *name, void *param)
 static const resource_string_t resources_string[] = {
     { "SampleName", "", RES_EVENT_NO, NULL,
       &sample_name, set_sample_name, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static int sampler_file_resources_init(void)
 {
     return resources_register_string(resources_string);
 }
+
+
+static void sampler_file_resources_shutdown(void)
+{
+    if (sample_name != NULL) {
+        lib_free(sample_name);
+    }
+}
+
 
 /* ---------------------------------------------------------------------- */
 
@@ -2159,7 +2168,7 @@ static const cmdline_option_t cmdline_options[] =
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_NAME, IDCLS_SPECIFY_SAMPLE_NAME,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int sampler_file_cmdline_options_init(void)
@@ -2211,15 +2220,23 @@ static void file_shutdown(void)
     }
 }
 
+static void file_reset(void)
+{
+    if (sample_buffer1) {
+        sound_sampling_started = 0;
+    }
+}
+
 static sampler_device_t file_device =
 {
-    "file",
+    "media file input",
     file_load_sample,
     file_free_sample,
     file_get_sample,
     file_shutdown,
     sampler_file_resources_init,
-    sampler_file_cmdline_options_init
+    sampler_file_cmdline_options_init,
+    file_reset
 };
 
 void fileaudio_init(void)
@@ -2228,3 +2245,11 @@ void fileaudio_init(void)
 
     sampler_device_register(&file_device, SAMPLER_DEVICE_FILE);
 }
+
+
+void fileaudio_shutdown(void)
+{
+    sampler_file_resources_shutdown();
+}
+
+

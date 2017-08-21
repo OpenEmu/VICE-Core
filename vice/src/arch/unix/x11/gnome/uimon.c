@@ -117,7 +117,12 @@ static char* append_string_to_input_buffer(char *old_input_buffer, GtkWidget *te
         char *char_in, *char_out = new_input_buffer + strlen(new_input_buffer);
 
         for (char_in = new_string; *char_in; char_in++) {
+#if CHAR_MIN < 0
             if (*char_in < 0 || *char_in >= 32) {
+#else
+            /* char is unsigned on raspberry Pi 2B with GCC */
+            if (*char_in >= 32) {
+#endif
                 *char_out++ = *char_in;
             }
         }
@@ -368,7 +373,7 @@ console_t *uimon_window_open(void)
         scrollbar = gtk_vscrollbar_new(vte_terminal_get_adjustment (VTE_TERMINAL(fixed.term)));
 #endif
 
-        horizontal_container = gtk_hbox_new(FALSE, 0);
+        horizontal_container = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
         gtk_container_add(GTK_CONTAINER(fixed.window), horizontal_container);
         gtk_container_add(GTK_CONTAINER(horizontal_container), fixed.term);
         gtk_container_add(GTK_CONTAINER(horizontal_container), scrollbar);
@@ -420,9 +425,13 @@ int uimon_out(const char *buffer)
 
 void uimon_window_close(void)
 {
-    gtk_widget_hide(fixed.window);
-    /* transfer focus to the main emulator window */
-    ui_restore_focus();
+    /* only close window if there is one: this avoids a GTK_CRITICAL warning
+     * when using a remote monitor */
+    if (fixed.window != NULL) {
+        gtk_widget_hide(fixed.window);
+        /* transfer focus to the main emulator window */
+        ui_restore_focus();
+    }
 }
 
 void uimon_notify_change(void)
@@ -463,8 +472,8 @@ static void fill_completions(const char *string_so_far, int initial_chars, int t
 
 static void find_next_token(const char *string_so_far, int start_of_search, int *start_of_token, int *token_len)
 {
-    for(*start_of_token = start_of_search; string_so_far[*start_of_token] && isspace(string_so_far[*start_of_token]); (*start_of_token)++);
-    for(*token_len = 0; string_so_far[*start_of_token + *token_len] && !isspace(string_so_far[*start_of_token + *token_len]); (*token_len)++);
+    for(*start_of_token = start_of_search; string_so_far[*start_of_token] && isspace((int)(string_so_far[*start_of_token])); (*start_of_token)++);
+    for(*token_len = 0; string_so_far[*start_of_token + *token_len] && !isspace((int)(string_so_far[*start_of_token + *token_len])); (*token_len)++);
 }
 
 static gboolean is_token_in(const char *string_so_far, int token_len, const linenoiseCompletions *lc)
@@ -506,7 +515,7 @@ static void monitor_completions(const char *string_so_far, linenoiseCompletions 
         struct linenoiseCompletions files_lc = {0, NULL};
         int i;
 
-        for (start_of_token += token_len; string_so_far[start_of_token] && isspace(string_so_far[start_of_token]); start_of_token++);
+        for (start_of_token += token_len; string_so_far[start_of_token] && isspace((int)(string_so_far[start_of_token])); start_of_token++);
         if (string_so_far[start_of_token] != '"') {
             char *string_to_append = concat_strings(string_so_far, start_of_token, "\"");
             linenoiseAddCompletion(lc, string_to_append);
@@ -755,9 +764,11 @@ char *uimon_get_in(char **ppchCommandLine, const char *prompt)
     char *p, *ret_sting;
 
     p = readline(prompt);
+#if defined(HAVE_READLINE) && defined(HAVE_READLINE_READLINE_H)
     if (p && *p) {
         add_history(p);
     }
+#endif
     ret_sting = lib_stralloc(p);
     free(p);
 

@@ -73,8 +73,7 @@ WaveformGenerator::WaveformGenerator()
       // Noise mask, triangle, sawtooth, pulse mask.
       // The triangle calculation is made branch-free, just for the hell of it.
       model_wave[0][0][i] = model_wave[1][0][i] = 0xfff;
-      model_wave[0][1][i] = model_wave[1][1][i] =
-	((accumulator ^ -!!msb) >> 11) & 0xffe;
+      model_wave[0][1][i] = model_wave[1][1][i] = ((accumulator ^ -!!msb) >> 11) & 0xffe;
       model_wave[0][2][i] = model_wave[1][2][i] = accumulator >> 12;
       model_wave[0][4][i] = model_wave[1][4][i] = 0xfff;
 
@@ -93,6 +92,12 @@ WaveformGenerator::WaveformGenerator()
   sync_source = this;
 
   sid_model = MOS6581;
+
+  // Accumulator's even bits are high on powerup
+  accumulator = 0x555555;
+
+  tri_saw_pipeline = 0x555;
+
   reset();
 }
 
@@ -144,6 +149,23 @@ void WaveformGenerator::writePW_HI(reg8 pw_hi)
   pulse_output = (accumulator >> 12) >= pw ? 0xfff : 0x000;
 }
 
+bool do_pre_writeback(reg8 waveform_prev, reg8 waveform, bool is6581)
+{
+    // no writeback without combined waveforms
+    if (likely(waveform_prev <= 0x8))
+        return false;
+    // This need more investigation
+    if (waveform == 8)
+        return false;
+    // What's happening here?
+    if (is6581 &&
+            ((((waveform_prev & 0x3) == 0x1) && ((waveform & 0x3) == 0x2))
+            || (((waveform_prev & 0x3) == 0x2) && ((waveform & 0x3) == 0x1))))
+        return false;
+    // ok do the writeback
+    return true;
+}
+
 void WaveformGenerator::writeCONTROL_REG(reg8 control)
 {
   reg8 waveform_prev = waveform;
@@ -189,6 +211,13 @@ void WaveformGenerator::writeCONTROL_REG(reg8 control)
     // When the test bit is falling, the second phase of the shift is
     // completed by enabling SRAM write.
 
+    // During first phase of the shift the bits are interconnected
+    // and the output of each bit is latched into the following.
+    // The output may overwrite the latched value.
+    if (do_pre_writeback(waveform_prev, waveform, sid_model == MOS6581)) {
+        write_shift_register();
+    }
+
     // bit0 = (bit22 | test) ^ bit17 = 1 ^ bit17 = ~bit17
     reg24 bit0 = (~shift_register >> 17) & 0x1;
     shift_register = ((shift_register << 1) | bit0) & 0x7fffff;
@@ -218,7 +247,7 @@ void WaveformGenerator::writeCONTROL_REG(reg8 control)
 
 reg8 WaveformGenerator::readOSC()
 {
-  return waveform_output >> 4;
+  return osc3 >> 4;
 }
 
 // ----------------------------------------------------------------------------
@@ -226,7 +255,7 @@ reg8 WaveformGenerator::readOSC()
 // ----------------------------------------------------------------------------
 void WaveformGenerator::reset()
 {
-  accumulator = 0;
+  // accumulator is not changed on reset
   freq = 0;
   pw = 0;
 
@@ -248,6 +277,7 @@ void WaveformGenerator::reset()
   shift_pipeline = 0;
 
   waveform_output = 0;
+  osc3 = 0;
   floating_output_ttl = 0;
 }
 

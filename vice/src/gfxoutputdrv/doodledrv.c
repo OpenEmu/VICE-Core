@@ -181,19 +181,19 @@ static const resource_int_t resources_int[] = {
       &undersize_handling, set_undersize_handling, NULL },
     { "DoodleMultiColorHandling", NATIVE_SS_MC2HR_2_COLORS, RES_EVENT_NO, NULL,
       &multicolor_handling, set_multicolor_handling, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 static const resource_int_t resources_int_plus4[] = {
     { "DoodleTEDLumHandling", NATIVE_SS_TED_LUM_IGNORE, RES_EVENT_NO, NULL,
       &ted_lum_handling, set_ted_lum_handling, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 static const resource_int_t resources_int_crtc[] = {
     { "DoodleCRTCTextColor", NATIVE_SS_CRTC_WHITE, RES_EVENT_NO, NULL,
       &crtc_text_color, set_crtc_text_color, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 static int doodledrv_resources_init(void)
@@ -229,7 +229,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_METHOD, IDCLS_MULTICOLOR_HANDLING,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t cmdline_options_plus4[] = {
@@ -238,7 +238,7 @@ static const cmdline_option_t cmdline_options_plus4[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_METHOD, IDCLS_TED_LUM_HANDLING,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t cmdline_options_crtc[] = {
@@ -247,7 +247,7 @@ static const cmdline_option_t cmdline_options_crtc[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_COLOR, IDCLS_CRTC_TEXT_COLOR,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static int doodledrv_cmdline_options_init(void)
@@ -364,7 +364,7 @@ static int doodle_render_and_save(native_data_t *source, int compress)
 
     if (retval != -1) {
         if (compress) {
-            result = lib_malloc(9218);
+            result = lib_malloc(9218 * 4);
             j = 0;
             i = 2;
             result[j++] = 0;
@@ -386,6 +386,7 @@ static int doodle_render_and_save(native_data_t *source, int compress)
                         result[j++] = 0xFE;
                         result[j++] = 0xFE;
                         result[j++] = 0x01;
+                        i++;
                     } else {
                         result[j++] = filebuffer[i++];
                     }

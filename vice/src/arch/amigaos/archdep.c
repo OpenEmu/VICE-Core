@@ -3,6 +3,7 @@
  *
  * Written by
  *  Mathias Roslund <vice.emu@amidog.se>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -53,6 +54,15 @@
 #include "platform.h"
 #include "ui.h"
 #include "util.h"
+
+#ifdef AMIGA_M68K
+#include <math.h>
+
+double log1p(double x)
+{
+    return log(1 + x) - (((1 + x) - 1) - x) / (1 + x);
+}
+#endif
 
 #if defined(AMIGA_M68K) && !defined(HAVE_GETTIMEOFDAY)
 struct Library *TimerBase = NULL;
@@ -109,7 +119,7 @@ char *archdep_program_name(void)
     if (program_name == NULL) {
         char *p, name[1024];
 
-#ifdef AMIGA_OS4_ALT
+#ifndef GetProgramName
         GetCliProgramName(name, 1024);
 #else
         GetProgramName(name, 1024);
@@ -236,14 +246,6 @@ FILE *archdep_open_default_log_file(void)
 
 int archdep_default_logger(const char *level_string, const char *txt)
 {
-    if (run_from_wb) {
-        return 0;
-    }
-
-    if (fputs(level_string, stdout) == EOF || fprintf(stdout, txt) < 0 || fputc ('\n', stdout) == EOF) {
-        return -1;
-    }
-
     return 0;
 }
 
@@ -388,6 +390,7 @@ void archdep_shutdown(void)
 #if defined(AMIGA_M68K) && !defined(HAVE_GETTIMEOFDAY)
     gettimeofday_shutdown();
 #endif
+    archdep_network_shutdown();
 }
 
 #if defined(AMIGA_M68K) && !defined(HAVE_GETTIMEOFDAY)

@@ -5,6 +5,7 @@
  *  Andreas Boose <viceteam@t-online.de>
  *  Ettore Perazzoli <ettore@comm2000.it>
  *  Tibor Biczo <crown@axelero.hu>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -29,6 +30,7 @@
 #include "vice.h"
 
 #include <stdio.h>
+#include <tchar.h>
 #include <windows.h>
 
 #include "cartridge.h"
@@ -37,6 +39,7 @@
 #include "keyboard.h"
 #include "lib.h"
 #include "res.h"
+#include "system.h"
 #include "translate.h"
 #include "ui.h"
 #include "uiapi.h"
@@ -137,6 +140,16 @@ static void uic64cart_attach(WPARAM wparam, HWND hwnd,
                              const uicart_params_t *cartridges)
 {
     uicart_attach(wparam, hwnd, cartridges);
+}
+
+void uic64cart_add_menu_item(HMENU menu, const char *name, int menu_id)
+{
+    TCHAR st_name[32];
+    TCHAR st_text[64];
+
+    system_mbstowcs(st_name, name, 32);
+    lib_sntprintf(st_text, 64, TEXT("%s %s..."), st_name, intl_translate_tcs(IDS_IMAGE));
+    AppendMenu(menu, MF_STRING, menu_id, st_text);
 }
 
 void uic64cart_proc(WPARAM wparam, HWND hwnd, int min_id, int max_id)

@@ -38,12 +38,16 @@ libplatform_a_SOURCES = \
 	platform_openbsd_runtime_os.c \
 	platform_openbsd_version.h \
 	platform_os2_runtime_os.c \
+	platform_qnx4_runtime_os.c \
+	platform_qnx6_runtime_os.c \
 	platform_qnx6_version.h \
 	platform_rhapsody_runtime_os.c \
 	platform_skyos_runtime_os.c \
 	platform_sco_runtime_os.c \
 	platform_solaris_runtime_os.c \
 	platform_solaris_version.h \
+	platform_sortix_runtime_os.c \
+	platform_sunos_runtime_os.c \
 	platform_syllable_runtime_os.c \
 	platform_ultrix_runtime_os.c \
 	platform_windows_runtime_os.c \

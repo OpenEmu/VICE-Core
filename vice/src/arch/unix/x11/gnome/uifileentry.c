@@ -57,6 +57,7 @@ static uilib_file_filter_t disk_image_filter[] = {
     { "*.d2m", 0 },
     { "*.d4m", 0 },
     { "*.g64", 0 },
+    { "*.g71", 0 },
     { "*.g41", 0 },
     { "*.p64", 0 },
     { "*.x64", 0 },
@@ -79,7 +80,7 @@ static uilib_file_filter_t mp3_filter[] = { { "*.mp3", 0 }, { NULL } };
 static uilib_file_filter_t flac_filter[] = { { "*.flac", 0 }, { NULL } };
 static uilib_file_filter_t vorbis_filter[] = { { "*.ogg", 0 }, { NULL } };
 static uilib_file_filter_t serial_filter[] = { { "ttyS*", 1 }, { NULL } };
-static uilib_file_filter_t vic20cart_filter[] = { { "*.prg", 0 }, { NULL } };
+static uilib_file_filter_t vic20cart_filter[] = { { "*.prg", 0 }, { "*.bin", 0 }, { NULL } };
 static uilib_file_filter_t sid_filter[] = { { "*.psid", 0 }, { "*.sid", 0 }, { NULL } };
 static uilib_file_filter_t dtvrom_filter[] = { { "*.bin", 0 }, { NULL } };
 static uilib_file_filter_t compressed_filter[] = {

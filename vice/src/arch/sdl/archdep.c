@@ -37,24 +37,12 @@
 #include "archdep_beos.c"
 #endif
 
-#if defined(UNIX_COMPILE) && !defined(CEGCC_COMPILE)
+#ifdef UNIX_COMPILE
 #include "archdep_unix.c"
 #endif
 
-#if defined(WIN32_COMPILE) && !defined(__XBOX__)
+#ifdef WIN32_COMPILE
 #include "archdep_win32.c"
-#endif
-
-#ifdef __XBOX__
-#include "archdep_xbox.c"
-#endif
-
-#ifdef CEGCC_COMPILE
-#include "archdep_cegcc.c"
-#endif
-
-#ifdef DINGOO_NATIVE
-#include "archdep_dingoo.c"
 #endif
 
 int archdep_init(int *argc, char **argv)
@@ -70,5 +58,6 @@ int archdep_init(int *argc, char **argv)
 void archdep_shutdown(void)
 {
     SDL_Quit();
+    archdep_network_shutdown();
     archdep_shutdown_extra();
 }

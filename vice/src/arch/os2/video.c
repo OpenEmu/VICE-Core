@@ -40,31 +40,19 @@
 
 #include <os2.h>
 
-#ifdef WATCOM_COMPILE
 #define INCL_MMIOOS2
-#else
-#define INCL_MMIO
-#endif
-
 #define INCL_MM_OS2          // DiveBlitImageLines
+
 #include <os2me.h>
 
-#if defined(__IBMC__) || defined(WATCOM_COMPILE)
 #include "fullscr.h"
 #include <fourcc.h>
-#endif
 
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 
-#ifdef __EMX__
-#include <graph.h>
-#endif
-
-#ifdef WATCOM_COMPILE
 #include <process.h>
-#endif
 
 #include "video.h"
 #include "videoarch.h"
@@ -388,13 +376,13 @@ static const resource_int_t resources1_int[] = {
       &border, set_border_type, NULL },
     { "Menubar", 1, RES_EVENT_NO, NULL,
       &menu, set_menu, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 static const resource_int_t resources2_int[] = {
     { "Logwin", 1, RES_EVENT_NO, NULL,
       &logwin, set_logging, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int video_arch_resources_init(void)
@@ -429,7 +417,7 @@ static const cmdline_option_t cmdline_options1[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       NULL, "Disable Main Menu Bar" },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t cmdline_options2[] = {
@@ -443,7 +431,7 @@ static const cmdline_option_t cmdline_options2[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       NULL, "Disable Logging Window" },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int video_arch_cmdline_options_init(void)

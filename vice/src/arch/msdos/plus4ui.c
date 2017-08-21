@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Matthies <andreas.matthies@gmx.net>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -38,10 +39,14 @@
 #include "tuifs.h"
 #include "ui.h"
 #include "uidrive.h"
+#include "uiiocollisions.h"
 #include "uiplus4cart.h"
+#include "uiplus4memoryhacks.h"
 #include "uiplus4model.h"
 #include "uisidcbm2.h"
 #include "uisidcart.h"
+#include "uitapeport.h"
+#include "uiuserport.h"
 #include "uiv364speech.h"
 #include "uivideo.h"
 
@@ -117,24 +122,30 @@ static tui_menu_item_def_t rom_menu_items[] = {
       "Load new 4000 ROM",
       load_rom_file_callback, "DosName4000", 0,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 /* ------------------------------------------------------------------------- */
 
 int plus4ui_init(void)
 {
-    ui_create_main_menu(0, 1, 0, 0x2e, 1, driveplus4_settings_submenu);
+    ui_create_main_menu(0, 1, 0, 0x1f, 1, driveplus4_settings_submenu);
 
     tui_menu_add_separator(ui_special_submenu);
 
     uiplus4model_init(ui_special_submenu);
 
+    uiplus4_memory_hacks_init(ui_special_submenu);
+
+    uiuserport_plus4_init(ui_special_submenu);
+
+    uitapeport_init(ui_special_submenu);
+
+    uiiocollisions_init(ui_special_submenu);
+
     tui_menu_add_separator(ui_video_submenu);
 
     uivideo_init(ui_video_submenu, VID_TED, VID_NONE);
-
-    tui_menu_add(ui_sound_submenu, sid_cbm2_ui_menu_items);
 
     uisidcart_plus4_init(ui_sound_submenu, "$FD40", "$FE80", "PLUS4", 0xfd40, 0xfe80);
     uiv364speech_init(ui_sound_submenu);

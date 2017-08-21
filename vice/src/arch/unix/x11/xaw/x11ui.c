@@ -173,7 +173,6 @@ Atom wm_protocols;
 
 /* Toplevel widget. */
 Widget _ui_top_level = NULL;
-//Widget status_bar = NULL;
 /* Our colormap. */
 Colormap colormap;
 
@@ -744,8 +743,14 @@ int ui_init(int *argc, char **argv)
     prepare_wm_command_data(*argc, argv);
 
     /* Create the toplevel. */
-    _ui_top_level = XtAppInitialize(&app_context, "VICE", NULL, 0, argc, argv,
-            fallback_resources + skip_resources, NULL, 0);
+    /* Using `sessionShellWidgetClass` in this call works with some WM's, but
+     * causes the UI init to hang later on other WM's
+     *
+     * Xfce4, Mate and Cinnamon on Debian 8.6 failed, OpenBox worked. -- BW
+     */
+    _ui_top_level = XtOpenApplication(&app_context, "VICE", NULL, 0,
+            argc, argv, fallback_resources + skip_resources,
+            applicationShellWidgetClass, NULL, 0);
     if (!_ui_top_level) {
         return -1;
     }
@@ -781,19 +786,40 @@ void ui_shutdown(void)
 {
     int i;
 
+    /* Shuts down various ui subparts, including menus */
+    ui_common_shutdown();
+
     for (i = 0; i < num_app_shells; i++) {
         lib_free(app_shells[i].title);
     }
+    /*
+     * This recursively deletes all its (remaining) children, including
+     * all app_shells[i].shell, but also all menus that have not been
+     * cleaned up yet. If they are separately destroyed after this
+     * point, that leads to accessing freed memory.
+     *
+     * At least that would happen if app_context->dispatch_level == 0,
+     * which is not true when quitting from a keyboard or menu action,
+     * but can be true when exiting because of control-C.
+     */
+    XtDestroyWidget(_ui_top_level);
 
     lib_free(wm_command_data);
     lib_free(filesel_dir);
 
-    ui_common_shutdown();
+    /*
+     * Frees extra menu resources, such as still needed when destroying
+     * tickmark menu items.
+     */
     uimenu_shutdown();
 
     if (cbm_font_struct) {
         XFreeFont(display, cbm_font_struct);
     }
+
+    XtCloseDisplay(display);
+    XtDestroyApplicationContext(app_context);
+    /* Definitely no X access after this point! */
 }
 
 typedef struct {
@@ -870,7 +896,7 @@ int ui_init_finish(void)
 
     /* Create the new `_ui_top_level'.  */
     _ui_top_level = XtVaAppCreateShell(machine_name, "VICE",
-                                       applicationShellWidgetClass, display,
+                                       sessionShellWidgetClass, display,
                                        XtNvisual, visual,
                                        XtNdepth, depth,
                                        XtNcolormap, colormap,
@@ -962,7 +988,12 @@ int ui_open_canvas_window(video_canvas_t *c, const char *title, int width, int h
         return -1;
     }
 
-    shell = XtVaCreatePopupShell(title, applicationShellWidgetClass, _ui_top_level, XtNinput, True, XtNtitle, title, XtNiconName, title, NULL);
+    /* This creates a new window; in principle the initial _ui_top_level
+     * is already a SessionShell or a "main top-level window". But for
+     * two-screen use (such as with the 128) having one screen be a
+     * child Widget of the other is somewhat asymmetric.
+     */
+    shell = XtVaCreatePopupShell(title, topLevelShellWidgetClass, _ui_top_level, XtNinput, True, XtNtitle, title, XtNiconName, title, NULL);
 
     /* Xt only allows you to change the visual of a shell widget, so the
        visual and colormap must be created before the shell widget is
@@ -1590,7 +1621,7 @@ static const char* file_filters[] = {
 /* all */ "*",
 /* palette */ "*.vpl",
 /* snapshot */ "*.vsf",
-/* disk */ "*.{[gpx]64,d{6[47],71,8[012],[124]m},g41}",
+/* disk */ "*.{[gpx]64,d{6[47],71,8[012],[124]m},g41,g71}",
 /* tape */ "*.{t64,tap}",
 /* cartridge */ "*.{crt,bin}",
 /* crt filter */ "*.crt",
@@ -1607,7 +1638,7 @@ static const char* file_filters[] = {
 /* flac */ "*.flac",
 /* ogg/vorbis */ "*.ogg",
 /* serial */ "ttyS*",
-/* vic20cart */ "*.prg",
+/* vic20cart */ "*.{prg,bin}",
 /* sid */ "*.{psid,sid}",
 /* dtvrom */ "*.bin",
 /* compressed */ "*.*z*",

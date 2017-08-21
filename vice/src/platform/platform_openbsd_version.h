@@ -190,8 +190,16 @@
 #define PLATFORM_OS "OpenBSD 5.8"
 #endif
 
+#ifdef OpenBSD5_9
+#define PLATFORM_OS "OpenBSD 5.9"
+#endif
+
+#ifdef OpenBSD6_0
+#define PLATFORM_OS "OpenBSD 6.0"
+#endif
+
 #ifndef PLATFORM_OS
 #define PLATFORM_OS "OpenBSD"
 #endif
 
-#endif // VICE_PLATFORM_OPENBSD_VERSION_H
+#endif /* VICE_PLATFORM_OPENBSD_VERSION_H */

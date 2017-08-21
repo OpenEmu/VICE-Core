@@ -1157,7 +1157,13 @@ static const unsigned int modifierMasks[] = {
 #ifdef DEBUG_KEY
                         printf("key: DOWN modifier: #%d %04x\n",i,code);
 #endif
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                            [[VICEApplication theMachineController] keyPressed:code];
+                        });
+#else
                         [[VICEApplication theMachineController] keyPressed:code];
+#endif
                     }
                 } else {
                     // key was released
@@ -1171,7 +1177,13 @@ static const unsigned int modifierMasks[] = {
 #ifdef DEBUG_KEY
                         printf("key: UP modifier: #%d %04x\n",i,code);
 #endif
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                            [[VICEApplication theMachineController] keyReleased:code];
+                        });
+#else
                         [[VICEApplication theMachineController] keyReleased:code];
+#endif
                     }
                 }
             }
@@ -1192,7 +1204,13 @@ static const unsigned int modifierMasks[] = {
 #ifdef DEBUG_KEY
                         printf("key: temp UP modifier: #%d %04x\n", i, tempCode);
 #endif
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                            [[VICEApplication theMachineController] keyReleased:tempCode];
+                        });
+#else
                         [[VICEApplication theMachineController] keyReleased:tempCode];
+#endif
                     }
                 }
             } else {
@@ -1206,7 +1224,13 @@ static const unsigned int modifierMasks[] = {
 #ifdef DEBUG_KEY
                         printf("key: temp DOWN modifier: #%d %04x\n", i, tempCode);
 #endif
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                            [[VICEApplication theMachineController] keyPressed:tempCode];
+                        });
+#else
                         [[VICEApplication theMachineController] keyPressed:tempCode];
+#endif
                     }
                 }
             }
@@ -1234,12 +1258,24 @@ static const unsigned int modifierMasks[] = {
 #ifdef DEBUG_KEY
                     printf("key: DOWN (late) modifier: #%d %04x\n", i, code);
 #endif
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                        [[VICEApplication theMachineController] keyPressed:code];
+                    });
+#else
                     [[VICEApplication theMachineController] keyPressed:code];
+#endif
                 } else {
 #ifdef DEBUG_KEY
                     printf("key: UP (late) modifier: #%d %04x\n", i, code);
 #endif
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                        [[VICEApplication theMachineController] keyReleased:code];
+                    });
+#else
                     [[VICEApplication theMachineController] keyReleased:code];
+#endif
                 }
             }
         }
@@ -1257,8 +1293,14 @@ static const unsigned int modifierMasks[] = {
         if(showKeyCodes) {
             log_message(video_log, "key: DOWN code=%u", code);
         }
-        
+ 		
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{  
+            [[VICEApplication theMachineController] keyPressed:code];
+        });
+#else
         [[VICEApplication theMachineController] keyPressed:code];
+#endif
     }
 }
 
@@ -1272,8 +1314,14 @@ static const unsigned int modifierMasks[] = {
     if(showKeyCodes) {
         log_message(video_log, "key:  UP  code=%u", code);
     }
-    
+ 
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        [[VICEApplication theMachineController] keyReleased:code];
+    });
+#else
     [[VICEApplication theMachineController] keyReleased:code];
+#endif
 }
 
 // ----- Mouse -----
@@ -1395,27 +1443,51 @@ static const unsigned int modifierMasks[] = {
 
         // allow movement outside of window as mouse driver actually only uses deltas
         if(mouseEmuEnabled) {
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                [[VICEApplication theMachineController] mouseMoveToX:px andY:py];
+            });
+#else
             [[VICEApplication theMachineController] mouseMoveToX:px andY:py];
+#endif
         }
 
         if ((px>=0)&&(px<w)&&(py>=0)&&(py<h)) {
             if(lightpenEmuEnabled) {
                 mouseX = (int)(px + 0.5f);
                 mouseY = h - 1 - (int)(py + 0.5f);
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+	        	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                    [[VICEApplication theMachineController]
+                    	lightpenUpdateOnScreen:canvasId 
+                    	toX:mouseX andY:mouseY 
+                    	withButton1:mouseLeftButtonPressed andButton2:mouseRightButtonPressed];
+            	});
+#else
                 [[VICEApplication theMachineController]
-                    lightpenUpdateOnScreen:canvasId 
-                    toX:mouseX andY:mouseY 
-                    withButton1:mouseLeftButtonPressed andButton2:mouseRightButtonPressed];
-            }
+                  lightpenUpdateOnScreen:canvasId 
+                  toX:mouseX andY:mouseY 
+                  withButton1:mouseLeftButtonPressed andButton2:mouseRightButtonPressed];
+#endif
+			}
         } else {
             if(lightpenEmuEnabled) {
                 mouseX = -1;
                 mouseY = -1;
-                [[VICEApplication theMachineController]
-                    lightpenUpdateOnScreen:canvasId 
-                    toX:mouseX andY:mouseY 
-                    withButton1:mouseLeftButtonPressed andButton2:mouseRightButtonPressed];
-            }
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+	        	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                	[[VICEApplication theMachineController]
+                    	lightpenUpdateOnScreen:canvasId 
+                    	toX:mouseX andY:mouseY 
+                    	withButton1:mouseLeftButtonPressed andButton2:mouseRightButtonPressed];
+            	});
+#else
+            	[[VICEApplication theMachineController]
+                  lightpenUpdateOnScreen:canvasId 
+                  toX:mouseX andY:mouseY 
+                  withButton1:mouseLeftButtonPressed andButton2:mouseRightButtonPressed];
+#endif
+			}
         }
     }
 }
@@ -1425,11 +1497,23 @@ static const unsigned int modifierMasks[] = {
     if (trackMouse) {
         if(mouseEmuEnabled) {
             if ([theEvent type]==NSLeftMouseDown) {
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+	        	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                	[[VICEApplication theMachineController] mouseButton:YES withState:YES];
+            	});
+#else
                 [[VICEApplication theMachineController] mouseButton:YES withState:YES];
-            }
+#endif
+			}
             else if ([theEvent type]==NSRightMouseDown) {
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+	        	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+             	   [[VICEApplication theMachineController] mouseButton:NO withState:YES];
+            	});
+#else
                 [[VICEApplication theMachineController] mouseButton:NO withState:YES];
-            }
+#endif
+			}
         }
         if(lightpenEmuEnabled) {
             if ([theEvent type]==NSLeftMouseDown) {
@@ -1438,11 +1522,20 @@ static const unsigned int modifierMasks[] = {
             else if ([theEvent type]==NSRightMouseDown) {
                 mouseRightButtonPressed = YES;
             }
-            [[VICEApplication theMachineController]
-                lightpenUpdateOnScreen:canvasId 
-                toX:mouseX andY:mouseY 
-                withButton1:mouseLeftButtonPressed andButton2:mouseRightButtonPressed];
-        }
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+	        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            	[[VICEApplication theMachineController]
+                	lightpenUpdateOnScreen:canvasId 
+                	toX:mouseX andY:mouseY 
+                	withButton1:mouseLeftButtonPressed andButton2:mouseRightButtonPressed];
+        	});
+#else
+            	[[VICEApplication theMachineController]
+                	lightpenUpdateOnScreen:canvasId 
+                	toX:mouseX andY:mouseY 
+                	withButton1:mouseLeftButtonPressed andButton2:mouseRightButtonPressed];
+#endif
+		}
     } else {
         [self stopHideTimer:TRUE];
     }
@@ -1453,11 +1546,23 @@ static const unsigned int modifierMasks[] = {
     if (trackMouse) {
         if(mouseEmuEnabled) {
             if ([theEvent type]==NSLeftMouseUp) {
-                [[VICEApplication theMachineController] mouseButton:YES withState:NO];
-            }
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+	        	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                	[[VICEApplication theMachineController] mouseButton:YES withState:NO];
+            	});
+#else
+               	[[VICEApplication theMachineController] mouseButton:YES withState:NO];
+#endif
+			}
             else if ([theEvent type]==NSRightMouseUp) {
-                [[VICEApplication theMachineController] mouseButton:NO withState:NO];
-            }
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+	        	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                	[[VICEApplication theMachineController] mouseButton:NO withState:NO];
+            	});
+#else
+               	[[VICEApplication theMachineController] mouseButton:NO withState:NO];
+#endif
+			}
         }
         if(lightpenEmuEnabled) {
             if ([theEvent type]==NSLeftMouseUp) {
@@ -1466,11 +1571,20 @@ static const unsigned int modifierMasks[] = {
             else if ([theEvent type]==NSRightMouseUp) {
                 mouseRightButtonPressed = NO;
             }
-            [[VICEApplication theMachineController]
-                lightpenUpdateOnScreen:canvasId 
-                toX:mouseX andY:mouseY 
-                withButton1:mouseLeftButtonPressed andButton2:mouseRightButtonPressed];
-        }
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+	        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+           		[[VICEApplication theMachineController]
+                	lightpenUpdateOnScreen:canvasId 
+                	toX:mouseX andY:mouseY 
+                	withButton1:mouseLeftButtonPressed andButton2:mouseRightButtonPressed];
+        	});
+#else
+          		[[VICEApplication theMachineController]
+               	lightpenUpdateOnScreen:canvasId 
+               	toX:mouseX andY:mouseY 
+               	withButton1:mouseLeftButtonPressed andButton2:mouseRightButtonPressed];
+#endif
+		}
     } else {
         [self startHideTimer];
     }

@@ -28,6 +28,8 @@
 
 #include <stdio.h>
 
+#include "clockport.h"
+#include "ide64.h"
 #include "resources.h"
 #include "tui.h"
 #include "tuimenu.h"
@@ -44,6 +46,7 @@ TUI_MENU_DEFINE_FILENAME(IDE64Image1, "IDE64 primary master")
 TUI_MENU_DEFINE_FILENAME(IDE64Image2, "IDE64 primary slave")
 TUI_MENU_DEFINE_FILENAME(IDE64Image3, "IDE64 secondary master")
 TUI_MENU_DEFINE_FILENAME(IDE64Image4, "IDE64 secondary slave")
+TUI_MENU_DEFINE_RADIO(IDE64ClockPort)
 
 static TUI_MENU_CALLBACK(ui_set_cylinders_callback)
 {
@@ -150,10 +153,16 @@ static TUI_MENU_CALLBACK(ide64_version_submenu_callback)
 
     resources_get_int("IDE64version", &value);
     switch (value) {
-    default:
-    case 0: strcpy(s, "V3"); break;
-    case 1: strcpy(s, "V4.1"); break;
-    case 2: strcpy(s, "V4.2"); break;
+        default:
+            case IDE64_VERSION_3:
+                strcpy(s, "V3");
+                break;
+            case IDE64_VERSION_4_1:
+                strcpy(s, "V4.1");
+                break;
+            case IDE64_VERSION_4_2:
+                strcpy(s, "V4.2");
+                break;
     }
     return s;
 }
@@ -177,7 +186,7 @@ static tui_menu_item_def_t ide64_hd1_menu_items[] = {
       "Set the amount of sectors",
       ui_set_sectors_callback, (void *)1, 30,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t ide64_hd2_menu_items[] = {
@@ -199,7 +208,7 @@ static tui_menu_item_def_t ide64_hd2_menu_items[] = {
       "Set the amount of sectors",
       ui_set_sectors_callback, (void *)2, 30,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t ide64_hd3_menu_items[] = {
@@ -221,7 +230,7 @@ static tui_menu_item_def_t ide64_hd3_menu_items[] = {
       "Set the amount of sectors",
       ui_set_sectors_callback, (void *)3, 30,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t ide64_hd4_menu_items[] = {
@@ -243,18 +252,125 @@ static tui_menu_item_def_t ide64_hd4_menu_items[] = {
       "Set the amount of sectors",
       ui_set_sectors_callback, (void *)4, 30,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
+};
+
+TUI_MENU_DEFINE_TOGGLE(SBDIGIMAX)
+TUI_MENU_DEFINE_RADIO(SBDIGIMAXbase)
+
+static TUI_MENU_CALLBACK(digimax_address_submenu_callback)
+{
+    int value;
+    static char s[10];
+
+    resources_get_int("SBDIGIMAXbase", &value);
+    switch (value) {
+        default:
+        case 0xde40:
+            strcpy(s, "$DE40");
+            break;
+        case 0xde48:
+            strcpy(s, "$DE48");
+            break;
+    }
+    return s;
+}
+
+static tui_menu_item_def_t digimax_address_submenu[] = {
+    { "$DE4_0", NULL, radio_SBDIGIMAXbase_callback,
+      (void *)0xde40, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
+    { "$DE4_8", NULL, radio_SBDIGIMAXbase_callback,
+      (void *)0xde48, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
+    TUI_MENU_ITEM_DEF_LIST_END
+};
+
+#ifdef HAVE_PCAP
+TUI_MENU_DEFINE_TOGGLE(SBETFE)
+TUI_MENU_DEFINE_RADIO(SBETFEbase)
+
+static TUI_MENU_CALLBACK(etfe_address_submenu_callback)
+{
+    int value;
+    static char s[10];
+
+    resources_get_int("SBETFEbase", &value);
+    switch (value) {
+        default:
+        case 0xde00:
+            strcpy(s, "$DE00");
+            break;
+        case 0xde10:
+            strcpy(s, "$DE10");
+            break;
+        case 0xdf00:
+            strcpy(s, "$DF00");
+            break;
+    }
+    return s;
+}
+
+static tui_menu_item_def_t etfe_address_submenu[] = {
+    { "$DE_00", NULL, radio_SBETFEbase_callback,
+      (void *)0xde00, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
+    { "$DE_10", NULL, radio_SBETFEbase_callback,
+      (void *)0xde10, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
+    { "$D_F00", NULL, radio_SBETFEbase_callback,
+      (void *)0xdf00, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
+    TUI_MENU_ITEM_DEF_LIST_END
+};
+#endif
+
+static tui_menu_item_def_t ide64_shortbus_menu_items[] = {
+    { "_DigiMAX device:", "Enable DigiMAX device",
+      toggle_SBDIGIMAX_callback, NULL, 3,
+      TUI_MENU_BEH_CONTINUE, NULL, NULL },
+    { "Digimax _address:", "Select base address of the DigiMAX device",
+      digimax_address_submenu_callback, NULL, 7,
+      TUI_MENU_BEH_CONTINUE, digimax_address_submenu,
+      "Digimax address" },
+#ifdef HAVE_PCAP
+    { "_ETFE device:", "Enable ETFE device",
+      toggle_SBETFE_callback, NULL, 3,
+      TUI_MENU_BEH_CONTINUE, NULL, NULL },
+    { "ETFE a_ddress:", "Select base address of the ETFE device",
+      etfe_address_submenu_callback, NULL, 7,
+      TUI_MENU_BEH_CONTINUE, etfe_address_submenu,
+      "ETFE address" },
+#endif
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t ide64_version_submenu[] = {
     { "V_3", NULL, radio_IDE64version_callback,
-      (void *)0, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
+      (void *)IDE64_VERSION_3, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "V4._1", NULL, radio_IDE64version_callback,
-      (void *)1, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
+      (void *)IDE64_VERSION_4_1, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "V4._2", NULL, radio_IDE64version_callback,
-      (void *)2, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+      (void *)IDE64_VERSION_4_2, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
+    TUI_MENU_ITEM_DEF_LIST_END
 };
+
+static TUI_MENU_CALLBACK(ide64_clockport_submenu_callback)
+{
+    int value;
+    char *s = NULL;
+    int i;
+
+    resources_get_int("IDE64ClockPort", &value);
+    for (i = 0; clockport_supported_devices[i].name; ++i) {
+        if (clockport_supported_devices[i].id == value) {
+            s = clockport_supported_devices[i].name;
+        }
+    }
+
+    if (!s) {
+        s = "Unknown";
+    }
+
+    return s;
+}
+
+static tui_menu_item_def_t ide64_clockport_submenu[CLOCKPORT_MAX_ENTRIES + 1];
 
 static tui_menu_item_def_t ide64_menu_items[] = {
     { "IDE64 _revision:", "Select revision of IDE64",
@@ -273,6 +389,14 @@ static tui_menu_item_def_t ide64_menu_items[] = {
       ui_ide64_usbserver_address_callback, NULL, 30,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
 #endif
+    { "Shortbus devices:", "Shortbus devices",
+      NULL, NULL, 11,
+      TUI_MENU_BEH_CONTINUE, ide64_shortbus_menu_items,
+      "Shortbus devices" },
+    { "IDE64 _clockport device:", "Select the clockport device",
+      ide64_clockport_submenu_callback, NULL, 20,
+      TUI_MENU_BEH_CONTINUE, ide64_clockport_submenu,
+      "IDE64 clockport device" },
     { "IDE64 primary master settings:", "Primary master settings",
       NULL, NULL, 11,
       TUI_MENU_BEH_CONTINUE, ide64_hd1_menu_items,
@@ -289,12 +413,33 @@ static tui_menu_item_def_t ide64_menu_items[] = {
       NULL, NULL, 11,
       TUI_MENU_BEH_CONTINUE, ide64_hd4_menu_items,
       "Secondary slave settings" },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 void uiide64_init(struct tui_menu *parent_submenu)
 {
     tui_menu_t ui_ide64_submenu;
+    int i;
+
+    for (i = 0; clockport_supported_devices[i].name; ++i) {
+        ide64_clockport_submenu[i].label = clockport_supported_devices[i].name;
+        ide64_clockport_submenu[i].help_string = NULL;
+        ide64_clockport_submenu[i].callback = radio_IDE64ClockPort_callback;
+        ide64_clockport_submenu[i].callback_param = (void *)clockport_supported_devices[i].id;
+        ide64_clockport_submenu[i].par_string_max_len = 20;
+        ide64_clockport_submenu[i].behavior = TUI_MENU_BEH_CLOSE;
+        ide64_clockport_submenu[i].submenu = NULL;
+        ide64_clockport_submenu[i].submenu_title = NULL;
+    }
+
+    ide64_clockport_submenu[i].label = NULL;
+    ide64_clockport_submenu[i].help_string = NULL;
+    ide64_clockport_submenu[i].callback = NULL;
+    ide64_clockport_submenu[i].callback_param = NULL;
+    ide64_clockport_submenu[i].par_string_max_len = 0;
+    ide64_clockport_submenu[i].behavior = TUI_MENU_BEH_CLOSE;
+    ide64_clockport_submenu[i].submenu = NULL;
+    ide64_clockport_submenu[i].submenu_title = NULL;
 
     ui_ide64_submenu = tui_menu_create("IDE64 settings", 1);
 

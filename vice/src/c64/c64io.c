@@ -2,7 +2,6 @@
  * c64io.c - C64 io handling ($D000-$DFFF).
  *
  * Written by
- *  Andreas Boose <viceteam@t-online.de>
  *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
@@ -763,7 +762,7 @@ static void io_source_ioreg_add_onelist(struct mem_ioreg_list_s **mem_ioreg_list
             end = current->device->start_address + current->device->address_mask;
         }
 
-        mon_ioreg_add_list(mem_ioreg_list, current->device->name, current->device->start_address, end, current->device->dump);
+        mon_ioreg_add_list(mem_ioreg_list, current->device->name, current->device->start_address, end, current->device->dump, NULL);
         current = current->next;
     }
 }
@@ -803,7 +802,7 @@ static int set_io_source_collision_handling(int val, void *param)
 static const resource_int_t resources_int[] = {
     { "IOCollisionHandling", IO_COLLISION_METHOD_DETACH_ALL, RES_EVENT_STRICT, (resource_value_t)0,
       &io_source_collision_handling, set_io_source_collision_handling, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int cartio_resources_init(void)
@@ -817,7 +816,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_METHOD, IDCLS_SELECT_CONFLICT_HANDLING,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int cartio_cmdline_options_init(void)

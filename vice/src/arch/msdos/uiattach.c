@@ -106,7 +106,7 @@ static tui_menu_item_def_t disk_image_type_submenu[] = {
       (void *)10, 0, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "D_4M", "Create D4M disk image", create_set_disk_image_type_callback,
       (void *)11, 0, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t ui_create_disk_menu_def[] = {
@@ -144,7 +144,7 @@ static tui_menu_item_def_t ui_create_disk_menu_def[] = {
       "Create a blank disk, format and attach it to drive #11",
       create_disk_image_callback, (void *)11, 0,
       TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t ui_flip_menu_def[] = {
@@ -164,7 +164,7 @@ static tui_menu_item_def_t ui_flip_menu_def[] = {
       "Attach previous disk image from flip list (ALT-F2)",
       flip_previous_callback, NULL, 0,
       TUI_MENU_BEH_RESUME, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 TUI_MENU_DEFINE_TOGGLE(AutostartHandleTrueDriveEmulation)
@@ -173,6 +173,31 @@ TUI_MENU_DEFINE_TOGGLE(AutostartRunWithColon)
 TUI_MENU_DEFINE_TOGGLE(AutostartBasicLoad)
 TUI_MENU_DEFINE_TOGGLE(AutostartDelayRandom)
 TUI_MENU_DEFINE_RADIO(AutostartPrgMode)
+
+static TUI_MENU_CALLBACK(ui_set_AutostartDelay_callback)
+{
+    if (been_activated) {
+        int delay, value;
+        char buf[10];
+
+        resources_get_int("AutostartDelay", &delay);
+        sprintf(buf, "%d", delay);
+
+        if (tui_input_string("Autostar delay", "Enter autostart delay to use:", buf, 10) == 0) {
+            value = atoi(buf);
+            if (value > 1000) {
+                value = 1000;
+            } else if (value < 0) {
+                value = 0;
+            }
+            resources_set_int("AutostartDelay", value);
+            tui_message("Autostart delay set to : %d", value);
+        } else {
+            return NULL;
+        }
+    }
+    return NULL;
+}
 
 static TUI_MENU_CALLBACK(autostart_prg_mode_submenu_callback)
 {
@@ -202,7 +227,7 @@ static tui_menu_item_def_t autostart_prg_mode_submenu[] = {
       (void *)AUTOSTART_PRG_MODE_INJECT, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "Disk Image", NULL, radio_AutostartPrgMode_callback,
       (void *)AUTOSTART_PRG_MODE_DISK, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static TUI_MENU_CALLBACK(autostart_prg_disk_image_file_callback)
@@ -243,6 +268,10 @@ static tui_menu_item_def_t ui_autostart_menu_def[] = {
     { "Load to BASIC start", "Load without ,1",
       toggle_AutostartBasicLoad_callback, NULL, 3,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
+    { "Delay (in secs)",
+      "Set the delay to use",
+      ui_set_AutostartDelay_callback, NULL, 30,
+      TUI_MENU_BEH_CONTINUE, NULL, NULL },
     { "Random delay", "Random delay",
       toggle_AutostartDelayRandom_callback, NULL, 3,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
@@ -252,7 +281,7 @@ static tui_menu_item_def_t ui_autostart_menu_def[] = {
     { "Autostart PRG disk image file:", "Select the autostart PRG disk image file",
       autostart_prg_disk_image_file_callback, NULL, 20,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 tui_menu_item_def_t ui_attach_menu_def[] = {
@@ -288,7 +317,7 @@ tui_menu_item_def_t ui_attach_menu_def[] = {
       "Select, add or remove disk images from the flip list", 
       NULL, NULL, 0,
       TUI_MENU_BEH_CONTINUE, ui_flip_menu_def, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static TUI_MENU_CALLBACK(attach_disk_callback)
@@ -304,7 +333,7 @@ static TUI_MENU_CALLBACK(attach_disk_callback)
         util_fname_split(s, &directory, &default_item);
 
         name = tui_file_selector("Attach a disk image", directory, 
-                                 "*.d64;*.d71;*.d81;*.g64;*.g41;*.x64;*.p64;*.d80;*.d82;*.d67;*.d1m;*.d2m;*.d4m;"
+                                 "*.d64;*.d71;*.d81;*.g64;*.g71;*.g41;*.x64;*.p64;*.d80;*.d82;*.d67;*.d1m;*.d2m;*.d4m;"
                                  "*.d6z;*.d7z;*.d8z;*.g6z;*.g4z;*.x6z;*.zip;*.gz;*.lzh",
                                  default_item, diskcontents_filesystem_read, &file,
                                  &file_number);

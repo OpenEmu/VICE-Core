@@ -31,7 +31,9 @@
 
 #include "types.h"
 
-#include "joystick.h"
+#ifndef COMMON_KBD
+#include "kbd.h"
+#endif
 
 /* Maximum of keyboard array (CBM-II values
  * (8 for C64/VIC20, 10 for PET, 11 for C128; we need max).  */
@@ -40,6 +42,10 @@
 /* (This is actually the same for all the machines.) */
 /* (All have 8, except CBM-II that has 6) */
 #define KBD_COLS    8
+
+/* joystick port attached keypad */
+#define KBD_JOY_KEYPAD_ROWS 5
+#define KDB_JOY_KEYPAD_COLS 4
 
 /* index to select the current keymap ("KeymapIndex") */
 #define KBD_INDEX_SYM     0
@@ -102,9 +108,13 @@ extern void keyboard_register_column4080_key(key_ctrl_column4080_func_t func);
 typedef void (*key_ctrl_caps_func_t)(void);
 extern void keyboard_register_caps_key(key_ctrl_caps_func_t func);
 
+typedef void (*key_joy_keypad_func_t)(int row, int col, int pressed);
+extern void keyboard_register_joy_keypad(key_joy_keypad_func_t func);
+
 typedef void (*keyboard_machine_func_t)(int *);
 extern void keyboard_register_machine(keyboard_machine_func_t func);
 
+extern void keyboard_register_machine(keyboard_machine_func_t func);
 extern void keyboard_alternative_set(int alternative);
 
 /* These ugly externs will go away sooner or later.  */
@@ -112,24 +122,9 @@ extern int keyarr[KBD_ROWS];
 extern int rev_keyarr[KBD_COLS];
 extern int keyboard_shiftlock;
 
-extern BYTE joystick_value[JOYSTICK_NUM + 1];
-
-extern int c64_kbd_init(void);
-extern int c128_kbd_init(void);
-extern int vic20_kbd_init(void);
-extern int pet_kbd_init(void);
-extern int plus4_kbd_init(void);
-extern int cbm2_kbd_init(void);
-
 #ifdef COMMON_KBD
 extern int keyboard_resources_init(void);
 extern int keyboard_cmdline_options_init(void);
 #endif
-
-/* FIXME: these two are apparently only used in OS/2 and BEOS ports -> move to archdep? */
-extern int kbd_cmdline_options_init(void);
-extern int kbd_resources_init(void);
-extern int pet_kbd_cmdline_options_init(void);
-extern int pet_kbd_resources_init(void);
 
 #endif

@@ -111,7 +111,7 @@ static const resource_int_t resources_int[] = {
       &use_leds, set_use_leds, NULL },
     { "ShowStatusbar", STATUSBAR_MODE_AUTO, RES_EVENT_NO, NULL,
       &statusbar_is_enabled, set_statusbar_enabled, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int ui_resources_init(void)
@@ -139,7 +139,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<Mode>", "Set the Statusbar mode (0: Off, 1: On, 2: Auto)" },
-    { NULL },
+    CMDLINE_LIST_END
 };
 
 int ui_cmdline_options_init(void)

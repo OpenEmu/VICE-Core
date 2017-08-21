@@ -17,7 +17,8 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/video \
 	-I$(top_srcdir)/src/rtc \
 	-I$(top_srcdir)/src/joyport \
-	-I$(top_srcdir)/src/samplerdrv
+	-I$(top_srcdir)/src/samplerdrv \
+	-I$(top_srcdir)/src/tapeport
 
 noinst_LIBRARIES = libvsid.a libc64.a libc64sc.a libc64c128.a libc64c64dtv.a libc64scpu64.a
 
@@ -36,7 +37,6 @@ libvsid_a_SOURCES = \
 	c64model.c \
 	c64model.h \
 	c64parallel.h \
-	c64pla.c \
 	c64pla.h \
 	c64rom.c \
 	c64rom.h \
@@ -44,6 +44,8 @@ libvsid_a_SOURCES = \
 	c64rsuser.c \
 	c64rsuser.h \
 	c64video.c \
+	vsid-debugcart.c \
+	vsid-debugcart.h \
 	musdrv.h \
 	patchrom.c \
 	patchrom.h \
@@ -61,6 +63,7 @@ libvsid_a_SOURCES = \
 	vsidmem.c \
 	vsidmeminit.c \
 	vsidmemsnapshot.c \
+	vsidpla.c \
 	vsidsound.c \
 	vsidstubs.c
 
@@ -87,7 +90,6 @@ libc64_a_SOURCES = \
 	c64drive.c \
 	c64embedded.c \
 	c64export.c \
-	c64export.h \
 	c64fastiec.c \
 	c64fastiec.h \
 	c64gluelogic.c \
@@ -156,7 +158,6 @@ libc64sc_a_SOURCES = \
 	c64drive.c \
 	c64embedded.c \
 	c64export.c \
-	c64export.h \
 	c64fastiec.c \
 	c64fastiec.h \
 	c64gluelogic.c \
@@ -227,7 +228,6 @@ libc64c128_a_SOURCES = \
 	c64cia2.c \
 	c64datasette.c \
 	c64export.c \
-	c64export.h \
 	c64gluelogic.c \
 	c64gluelogic.h \
 	c64iec.c \
@@ -260,7 +260,6 @@ libc64scpu64_a_SOURCES = \
 	c64drive.c \
 	c64embedded.c \
 	c64export.c \
-	c64export.h \
 	c64fastiec.c \
 	c64fastiec.h \
 	c64iec.c \

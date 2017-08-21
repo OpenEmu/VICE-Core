@@ -44,14 +44,19 @@
 #include "uicbm5x0model.h"
 #include "uicbm5x0set.h"
 #include "uicia.h"
+#include "uicpclockf83.h"
 #include "uidrivepetcbm2.h"
+#include "uiiocollisions.h"
 #include "uijoyport.h"
 #include "uijoystick.h"
 #include "uikeyboard.h"
+#include "uikeymap.h"
 #include "uilib.h"
 #include "uimouse.h"
 #include "uirom.h"
+#include "uisampler.h"
 #include "uisiddtv.h"
+#include "uitapelog.h"
 #include "uivicii.h"
 #include "uivideo.h"
 #include "videoarch.h"
@@ -60,6 +65,9 @@
 static const ui_menu_toggle_t cbm5x0_ui_menu_toggles[] = {
     { "CartridgeReset", IDM_TOGGLE_CART_RESET },
     { "Mouse", IDM_MOUSE },
+    { "Datasette", IDM_TOGGLE_DATASETTE },
+    { "TapeSenseDongle", IDM_TOGGLE_TAPE_SENSE_DONGLE },
+    { "DTLBasicDongle", IDM_TOGGLE_DTL_BASIC_DONGLE },
     { NULL, 0 }
 };
 
@@ -87,83 +95,6 @@ static const ui_res_value_list_t cbm5x0_ui_res_values[] = {
     { NULL, NULL, 0 }
 };
 
-/* FIXME: the keyboard selection dialog can be made generic */
-#define CBM2UI_KBD_NUM_MAP 4
-
-static const uikeyboard_mapping_entry_t mapping_entry[CBM2UI_KBD_NUM_MAP] = {
-    { IDC_CBM2KBD_MAPPING_SELECT_SYM, IDC_CBM2KBD_MAPPING_SYM,
-      IDC_CBM2KBD_MAPPING_SYM_BROWSE, "KeymapSymFile" },
-    { IDC_CBM2KBD_MAPPING_SELECT_POS, IDC_CBM2KBD_MAPPING_POS,
-      IDC_CBM2KBD_MAPPING_POS_BROWSE, "KeymapPosFile" },
-    { IDC_CBM2KBD_MAPPING_SELECT_USERSYM, IDC_CBM2KBD_MAPPING_USERSYM,
-      IDC_CBM2KBD_MAPPING_USERSYM_BROWSE, "KeymapUserSymFile" },
-    { IDC_CBM2KBD_MAPPING_SELECT_USERPOS, IDC_CBM2KBD_MAPPING_USERPOS,
-      IDC_CBM2KBD_MAPPING_USERPOS_BROWSE, "KeymapUserPosFile" },
-};
-
-static uilib_localize_dialog_param cbm5x0_kbd_trans[] = {
-    { IDC_CBM2KBD_MAPPING_SELECT_SYM, IDS_SYMBOLIC, 0 },
-    { IDC_CBM2KBD_MAPPING_SELECT_POS, IDS_POSITIONAL, 0 },
-    { IDC_CBM2KBD_MAPPING_SELECT_USERSYM, IDS_SYMBOLIC, 0 },
-    { IDC_CBM2KBD_MAPPING_SELECT_USERPOS, IDS_POSITIONAL, 0 },
-    { IDC_CBM2KBD_MAPPING_SYM_BROWSE, IDS_BROWSE, 0 },
-    { IDC_CBM2KBD_MAPPING_POS_BROWSE, IDS_BROWSE, 0 },
-    { IDC_CBM2KBD_MAPPING_USERSYM_BROWSE, IDS_BROWSE, 0 },
-    { IDC_CBM2KBD_MAPPING_USERPOS_BROWSE, IDS_BROWSE, 0 },
-    { IDC_CBM2KBD_MAPPING_DUMP, IDS_DUMP_KEYSET, 0 },
-    { IDC_KBD_SHORTCUT_DUMP, IDS_DUMP_SHORTCUTS, 0 },
-    { 0, 0, 0 }
-};
-
-static uilib_dialog_group cbm5x0_kbd_left_group[] = {
-    { IDC_CBM2KBD_MAPPING_SELECT_SYM, 1 },
-    { IDC_CBM2KBD_MAPPING_SELECT_POS, 1 },
-    { IDC_CBM2KBD_MAPPING_SELECT_USERSYM, 1 },
-    { IDC_CBM2KBD_MAPPING_SELECT_USERPOS, 1 },
-    { 0, 0 }
-};
-
-static uilib_dialog_group cbm5x0_kbd_middle_group[] = {
-    { IDC_CBM2KBD_MAPPING_SYM, 0 },
-    { IDC_CBM2KBD_MAPPING_POS, 0 },
-    { IDC_CBM2KBD_MAPPING_USERSYM, 0 },
-    { IDC_CBM2KBD_MAPPING_USERPOS, 0 },
-    { 0, 0 }
-};
-
-static uilib_dialog_group cbm5x0_kbd_right_group[] = {
-    { IDC_CBM2KBD_MAPPING_SYM_BROWSE, 0 },
-    { IDC_CBM2KBD_MAPPING_POS_BROWSE, 0 },
-    { IDC_CBM2KBD_MAPPING_USERSYM_BROWSE, 0 },
-    { IDC_CBM2KBD_MAPPING_USERPOS_BROWSE, 0 },
-    { 0, 0 }
-};
-
-static uilib_dialog_group cbm5x0_kbd_buttons_group[] = {
-    { IDC_CBM2KBD_MAPPING_DUMP, 1 },
-    { IDC_KBD_SHORTCUT_DUMP, 1 },
-    { 0, 0 }
-};
-
-static int cbm5x0_kbd_move_buttons_group[] = {
-    IDC_CBM2KBD_MAPPING_DUMP,
-    IDC_KBD_SHORTCUT_DUMP,
-    0
-};
-
-static uikeyboard_config_t uikeyboard_config = {
-    IDD_CBM2KBD_MAPPING_SETTINGS_DIALOG,
-    CBM2UI_KBD_NUM_MAP,
-    mapping_entry,
-    IDC_CBM2KBD_MAPPING_DUMP,
-    cbm5x0_kbd_trans,
-    cbm5x0_kbd_left_group,
-    cbm5x0_kbd_middle_group,
-    cbm5x0_kbd_right_group,
-    cbm5x0_kbd_buttons_group,
-    cbm5x0_kbd_move_buttons_group
-};
-
 static const uicart_params_t cbm5x0_ui_cartridges[] = {
     { IDM_LOAD_CART_1000, CARTRIDGE_CBM2_8KB_1000, IDS_ATTACH_CBM2_CART_1000, NULL, UILIB_FILTER_ALL },
     { IDM_LOAD_CART_2000_3000, CARTRIDGE_CBM2_8KB_2000, IDS_ATTACH_CBM2_CART_2000_3000, NULL, UILIB_FILTER_ALL },
@@ -177,6 +108,7 @@ ui_menu_translation_table_t cbm5x0ui_menu_translation_table[] = {
     { IDM_ABOUT, IDS_MI_ABOUT },
     { IDM_HELP, IDS_MP_HELP },
     { IDM_PAUSE, IDS_MI_PAUSE },
+    { IDM_SINGLE_FRAME_ADVANCE, IDS_MI_SINGLE_FRAME_ADVANCE },
     { IDM_EDIT_COPY, IDS_MI_EDIT_COPY },
     { IDM_EDIT_PASTE, IDS_MI_EDIT_PASTE },
     { IDM_AUTOSTART, IDS_MI_AUTOSTART },
@@ -277,6 +209,7 @@ ui_menu_translation_table_t cbm5x0ui_menu_translation_table[] = {
     { IDM_JOY_SETTINGS, IDS_MI_JOY_SETTINGS },
     { IDM_KEYBOARD_SETTINGS, IDS_MI_KEYBOARD_SETTINGS },
     { IDM_SOUND_SETTINGS, IDS_MI_SOUND_SETTINGS },
+    { IDM_SAMPLER_SETTINGS, IDS_MI_SAMPLER_SETTINGS },
     { IDM_ROM_SETTINGS, IDS_MI_ROM_SETTINGS },
     { IDM_RAM_SETTINGS, IDS_MI_RAM_SETTINGS },
     { IDM_DATASETTE_SETTINGS, IDS_MI_DATASETTE_SETTINGS },
@@ -316,6 +249,12 @@ ui_menu_translation_table_t cbm5x0ui_menu_translation_table[] = {
 #endif
     { IDM_CBM2_SETTINGS, IDS_MI_CBM5X0_SETTINGS },
     { IDM_NETWORK_SETTINGS, IDS_MI_NETWORK_SETTINGS },
+    { IDM_TAPELOG_SETTINGS, IDS_MI_TAPELOG_SETTINGS },
+    { IDM_CP_CLOCK_F83_SETTINGS, IDS_MI_CP_CLOCK_F83_SETTINGS },
+    { IDM_TOGGLE_DATASETTE, IDS_MI_TOGGLE_DATASETTE },
+    { IDM_TOGGLE_TAPE_SENSE_DONGLE, IDS_MI_TOGGLE_TAPE_SENSE_DONGLE },
+    { IDM_TOGGLE_DTL_BASIC_DONGLE, IDS_MI_TOGGLE_DTL_BASIC_DONGLE },
+    { IDM_IO_COLLISION_HANDLING, IDS_MI_IO_COLLISION_HANDLING },
     { 0, 0 }
 };
 
@@ -344,6 +283,7 @@ ui_popup_translation_table_t cbm5x0ui_popup_translation_table[] = {
     { 2, IDS_MP_JOYSTICK_SETTINGS, NULL },
     { 2, IDS_MP_MOUSE_SETTINGS, NULL },
     { 2, IDS_MP_CARTRIDGE_IO_SETTINGS, NULL },
+    { 3, IDS_MP_TAPEPORT_DEVICES, NULL },
     { 2, IDS_MP_RS232_SETTINGS, NULL },
     { 1, IDS_MP_LANGUAGE, NULL },
     { 1, IDS_MP_HELP, NULL },
@@ -418,11 +358,11 @@ static uilib_dialog_group cbm5x0_drive_right_group[] = {
 };
 
 static generic_trans_table_t cbm5x0_generic_trans[] = {
-    { IDC_2031, "2031" },
-    { IDC_2040, "2040" },
-    { IDC_3040, "3040" },
-    { IDC_4040, "4040" },
-    { IDC_1001, "1001" },
+    { IDC_2031, TEXT("2031") },
+    { IDC_2040, TEXT("2040") },
+    { IDC_3040, TEXT("3040") },
+    { IDC_4040, TEXT("4040") },
+    { IDC_1001, TEXT("1001") },
     { 0, NULL }
 };
 
@@ -454,7 +394,7 @@ static void cbm5x0_ui_specific(WPARAM wparam, HWND hwnd)
             ui_cbm5x0_settings_dialog(hwnd);
             break;
         case IDM_JOYPORT_SETTINGS:
-            ui_joyport_settings_dialog(hwnd, 1, 1, 0, 0);
+            ui_joyport_settings_dialog(hwnd, 1, 1, 0, 0, 0);
             break;
         case IDM_JOY_SETTINGS:
             ui_joystick_settings_dialog(hwnd);
@@ -485,10 +425,22 @@ static void cbm5x0_ui_specific(WPARAM wparam, HWND hwnd)
             ui_acia_settings_dialog(hwnd);
             break;
         case IDM_KEYBOARD_SETTINGS:
-            uikeyboard_settings_dialog(hwnd, &uikeyboard_config);
+            ui_keymap_settings_dialog(hwnd);
             break;
         case IDM_MOUSE_SETTINGS:
             ui_mouse_settings_dialog(hwnd, 1);
+            break;
+        case IDM_SAMPLER_SETTINGS:
+            ui_sampler_settings_dialog(hwnd);
+            break;
+        case IDM_TAPELOG_SETTINGS:
+            ui_tapelog_settings_dialog(hwnd);
+            break;
+        case IDM_CP_CLOCK_F83_SETTINGS:
+            ui_cp_clock_f83_settings_dialog(hwnd);
+            break;
+        case IDM_IO_COLLISION_HANDLING:
+            ui_iocollision_settings_dialog(hwnd);
             break;
     }
 }

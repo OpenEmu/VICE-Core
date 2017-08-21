@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Matthies <andreas.matthies@gmx.net>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -60,6 +61,8 @@
 
 #ifdef __HAIKU__
 #include <sys/wait.h>
+#include <FindDirectory.h>
+#include <StorageDefs.h>
 #endif
 
 #include "archdep.h"
@@ -71,15 +74,6 @@
 
 static char *orig_workdir;
 static char *argv0 = NULL;
-
-int archdep_network_init(void)
-{
-    return 0;
-}
-
-void archdep_network_shutdown(void)
-{
-}
 
 int archdep_init(int *argc, char **argv)
 {
@@ -123,7 +117,6 @@ const char *archdep_boot_path(void)
 {
     if (boot_path == NULL) {
         util_fname_split(argv0, &boot_path, NULL);
-
         /* This should not happen, but you never know...  */
         if (boot_path == NULL) {
             boot_path = lib_stralloc("./xxx");
@@ -397,6 +390,7 @@ int archdep_rename(const char *oldpath, const char *newpath)
 void archdep_shutdown(void)
 {
     lib_free(argv0);
+    archdep_network_shutdown();
 }
 
 char *archdep_get_runtime_os(void)

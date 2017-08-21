@@ -3,6 +3,7 @@
  *
  * Written by
  *   Dieter Baron <dillo@nih.at>
+ *   Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -53,8 +54,17 @@ extern log_t joystick_log;
 #endif
 
 #ifdef __DragonFly__
-# include <bus/usb/usb.h>
-# include <bus/usb/usbhid.h>
+/* sys/param.h contains the __DragonFly_version macro */
+# include <sys/param.h>
+# if __DragonFly_version >= 300200
+/* DragonFly >= 3.2 (USB4BSD stack) */
+#  include <bus/u4b/usb.h>
+#  include <bus/u4b/usbhid.h>
+# else
+/* DragonFly < 3.2: old USB stack */
+#  include <bus/usb/usb.h>
+#  include <bus/usb/usbhid.h>
+# endif
 #else
 # ifdef __FreeBSD__
 #  include <sys/ioccom.h>
@@ -146,7 +156,7 @@ static void usb_free_item(struct usb_joy_item **item)
 
 int usb_joystick_init(void)
 {
-    int i, j, id, fd;
+    int i, j, id = 0, fd;
     report_desc_t report;
     struct hid_item h;
     struct hid_data *d;

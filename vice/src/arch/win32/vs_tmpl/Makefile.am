@@ -29,6 +29,7 @@ EXTRA_DIST = \
 	compat.tmpl \
 	core.tmpl \
 	crtc.tmpl \
+	diag.tmpl \
 	diskimage.tmpl \
 	drive.tmpl \
 	fileio.tmpl \
@@ -38,6 +39,7 @@ EXTRA_DIST = \
 	gentranslate.tmpl \
 	genwinres.tmpl \
 	gfxoutputdrv.tmpl \
+	hwsiddrv.tmpl \
 	iec.tmpl \
 	iec128dcr.tmpl \
 	iecbus.tmpl \
@@ -46,6 +48,7 @@ EXTRA_DIST = \
 	imagecontents.tmpl \
 	joyport.tmpl \
 	lame.tmpl \
+	mididrv.tmpl \
 	mkmsvc.c \
 	mkmsvc.dsp \
 	mkmsvc.dsw \
@@ -69,12 +72,14 @@ EXTRA_DIST = \
 	scpu64.tmpl \
 	serial.tmpl \
 	sid.tmpl \
+	socketdrv.tmpl \
 	sounddrv.tmpl \
 	swresample.tmpl \
 	swresample-x86.tmpl \
 	swscale.tmpl \
 	swscale-x86.tmpl \
 	tape.tmpl \
+	tapeport.tmpl \
 	tcbm.tmpl \
 	userport.tmpl \
 	vdc.tmpl \
@@ -90,6 +95,7 @@ EXTRA_DIST = \
 	vsid.tmpl \
 	vsidlib.tmpl \
 	x264.tmpl \
+	x264common.tmpl \
 	x264encoder.tmpl \
 	x264filter.tmpl \
 	x264input.tmpl \

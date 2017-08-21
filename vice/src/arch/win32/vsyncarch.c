@@ -49,6 +49,8 @@
 
 // -------------------------------------------------------------------------
 
+static int pause_pending = 0;
+
 enum { EXTRA_PRECISION = 10 };
 
 signed long vsyncarch_frequency(void)
@@ -71,19 +73,38 @@ void vsyncarch_init(void)
 // -------------------------------------------------------------------------
 
 #if !defined(IDE_COMPILE) && !defined(WATCOM_COMPILE)
+typedef WINUSERAPI UINT (WINAPI *FPTR_SendInput)(UINT, LPINPUT,int);
+
+static FPTR_SendInput pfnSendInput = NULL;
+static int SendInput_loaded = 0;
+
+static void load_SendInput(void)
+{
+    HINSTANCE hDll = LoadLibrary ( "user32.dll");
+
+    pfnSendInput = (FPTR_SendInput)GetProcAddress( hDll, "SendInput");
+    SendInput_loaded = 1;
+}
+
 static void win32_mouse_jitter(void)
 {
     INPUT ip;
 
-    ip.type = INPUT_MOUSE;
-    ip.mi.dx = 0;
-    ip.mi.dy = 0;
-    ip.mi.mouseData = 0;
-    ip.mi.dwFlags = MOUSEEVENTF_MOVE;
-    ip.mi.time = 0;
-    ip.mi.dwExtraInfo = 0;
+    if (!SendInput_loaded) {
+        load_SendInput();
+    }
 
-    SendInput(1, &ip, sizeof(INPUT));
+    if (pfnSendInput) {
+        ip.type = INPUT_MOUSE;
+        ip.mi.dx = 0;
+        ip.mi.dy = 0;
+        ip.mi.mouseData = 0;
+        ip.mi.dwFlags = MOUSEEVENTF_MOVE;
+        ip.mi.time = 0;
+        ip.mi.dwExtraInfo = 0;
+
+        pfnSendInput(1, &ip, sizeof(INPUT));
+    }
 }
 #endif
 
@@ -119,6 +140,13 @@ void vsyncarch_presync(void)
 
 void vsyncarch_postsync(void)
 {
+    /* this function is called once a frame, so this
+       handles single frame advance */
+    if (pause_pending) {
+        ui_pause_emulation(1);
+        pause_pending = 0;
+    }
+
     /* Dispatch all the pending UI events.  */
     ui_dispatch_events();
 
@@ -133,4 +161,10 @@ void vsyncarch_postsync(void)
 int vsyncarch_vbl_sync_enabled(void)
 {
     return ui_vblank_sync_enabled();
+}
+
+void vsyncarch_advance_frame(void)
+{
+    ui_pause_emulation(0);
+    pause_pending = 1;
 }

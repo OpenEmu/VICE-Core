@@ -36,12 +36,12 @@
 #define CARTRIDGE_INCLUDE_SLOT0_API
 #include "c64cartsystem.h"
 #undef CARTRIDGE_INCLUDE_SLOT0_API
-#include "c64export.h"
 #include "c64mem.h"
 #include "cartio.h"
 #include "cartridge.h"
 #include "cmdline.h"
 #include "drive.h"
+#include "export.h"
 #include "lib.h"
 #include "log.h"
 #include "parallel.h"
@@ -108,8 +108,8 @@ static io_source_t tpi_io2_device = {
 
 static io_source_list_t *tpi_list_item = NULL;
 
-static const c64export_resource_t export_res = {
-    CARTRIDGE_NAME_IEEE488, 0, 0, NULL, &tpi_io2_device, CARTRIDGE_IEEE488
+static const export_resource_t export_res = {
+    CARTRIDGE_NAME_IEEE488, 0, 1, NULL, &tpi_io2_device, CARTRIDGE_IEEE488
 };
 
 /* ---------------------------------------------------------------------*/
@@ -438,7 +438,7 @@ static int set_ieee488_enabled(int value, void *param)
 #endif
         lib_free(tpi_rom);
         tpi_rom = NULL;
-        c64export_remove(&export_res);
+        export_remove(&export_res);
         io_source_unregister(tpi_list_item);
         tpi_list_item = NULL;
         ieee488_enabled = 0;
@@ -465,7 +465,7 @@ static int set_ieee488_enabled(int value, void *param)
         } else {
             cart_power_off();
             /* if the param is == NULL, then we should actually set the resource */
-            if (c64export_add(&export_res) < 0) {
+            if (export_add(&export_res) < 0) {
                 DBG(("IEEE: set_enabled did not register\n"));
                 lib_free(tpi_rom);
                 tpi_rom = NULL;
@@ -510,13 +510,13 @@ static int set_ieee488_filename(const char *name, void *param)
 static const resource_string_t resources_string[] = {
     { "IEEE488Image", "", RES_EVENT_NO, NULL,
       &ieee488_filename, set_ieee488_filename, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_int_t resources_int[] = {
     { "IEEE488", 0, RES_EVENT_SAME, NULL,
       &ieee488_enabled, set_ieee488_enabled, (void *)1 },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int tpi_resources_init(void)
@@ -552,7 +552,7 @@ static const cmdline_option_t cmdline_options[] =
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_NAME, IDCLS_SPECIFY_IEEE488_INTERFACE_NAME,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int tpi_cmdline_options_init(void)

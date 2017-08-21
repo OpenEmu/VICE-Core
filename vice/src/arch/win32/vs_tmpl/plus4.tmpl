@@ -19,6 +19,8 @@ INCLUDEDIRS =
 	samplerdrv
 	sid
 	tape
+	tapeport
+	userport
 	video
 
 # cpu type source files for normal compile, , relative to the top src dir, one per line, preceeded by a tab
@@ -27,6 +29,7 @@ CPUSOURCES =
 
 # source files for normal compile, relative to the top src dir, one per line, preceeded by a tab
 SOURCES =
+	plus4\debugcart.c
 	plus4\digiblaster.c
 	plus4\plus4-cmdline-options.c
 	plus4\plus4-resources.c
@@ -40,6 +43,7 @@ SOURCES =
 	plus4\plus4drive.c
 	plus4\plus4embedded.c
 	plus4\plus4iec.c
+	plus4\plus4io.c
 	plus4\plus4mem.c
 	plus4\plus4memcsory256k.c
 	plus4\plus4memhacks.c

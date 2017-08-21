@@ -31,6 +31,7 @@ INCLUDEDIRS =
 	plus4
 	raster
 	rs232drv
+	samplerdrv
 	sid
 	userport
 	vdrive
@@ -43,7 +44,6 @@ SOURCES =
 	arch\win32\c128ui.c
 	arch\win32\c64dtvui.c
 	arch\win32\c64ui.c
-	arch\win32\catweaselmkiii.c
 	arch\win32\cbm2ui.c
 	arch\win32\cbm5x0ui.c
 	arch\win32\console.c
@@ -52,14 +52,11 @@ SOURCES =
 	arch\win32\dynlib.c
 	arch\win32\fullscrn.c
 	arch\win32\gifdrv.c
-	arch\win32\hardsid.c
 	arch\win32\intl.c
 	arch\win32\joy.c
 	arch\win32\kbd.c
 	arch\win32\lightpendrv.c
-	arch\win32\mididrv.c
 	arch\win32\mousedrv.c
-	arch\win32\parsid.c
 	arch\win32\petui.c
 	arch\win32\plus4ui.c
 	arch\win32\rawnetarch.c
@@ -88,6 +85,7 @@ SOURCES =
 	arch\win32\uicia.c
 	arch\win32\uicmdline.c
 	arch\win32\uiconsole.c
+	arch\win32\uicpclockf83.c
 	arch\win32\uidatasette.c
 	arch\win32\uidigimax.c
 	arch\win32\uidqbb.c
@@ -99,16 +97,21 @@ SOURCES =
 	arch\win32\uidrivevic20.c
 	arch\win32\uids12c887rtc.c
 	arch\win32\uieasyflash.c
+	arch\win32\uiethernet.c
+	arch\win32\uiethernetcart.c
 	arch\win32\uievent.c
 	arch\win32\uiexpert.c
 	arch\win32\uifliplist.c
 	arch\win32\uigeoram.c
+	arch\win32\uigmod2.c
 	arch\win32\uihelp.c
 	arch\win32\uiide64.c
+	arch\win32\uiiocollisions.c
 	arch\win32\uiisepic.c
 	arch\win32\uijoyport.c
 	arch\win32\uijoystick.c
 	arch\win32\uikeyboard.c
+	arch\win32\uikeymap.c
 	arch\win32\uilib.c
 	arch\win32\uimagicvoice.c
 	arch\win32\uimediafile.c
@@ -126,6 +129,7 @@ SOURCES =
 	arch\win32\uipetset.c
 	arch\win32\uiplus4cart.c
 	arch\win32\uiplus4mem.c
+	arch\win32\uiplus4memoryhacks.c
 	arch\win32\uiplus4model.c
 	arch\win32\uiquicksnapshot.c
 	arch\win32\uiram.c
@@ -133,8 +137,10 @@ SOURCES =
 	arch\win32\uiretroreplay.c
 	arch\win32\uireu.c
 	arch\win32\uirom.c
+	arch\win32\uirrnetmk3.c
 	arch\win32\uirs232.c
 	arch\win32\uirs232user.c
+	arch\win32\uisampler.c
 	arch\win32\uiscpu64.c
 	arch\win32\uiscpu64model.c
 	arch\win32\uisid.c
@@ -145,9 +151,10 @@ SOURCES =
 	arch\win32\uisoundexpander.c
 	arch\win32\uisoundsampler.c
 	arch\win32\uispeed.c
+	arch\win32\uitapelog.c
 	arch\win32\uited.c
-	arch\win32\uitfe.c
-	arch\win32\uiuserportrtc.c
+	arch\win32\uiuserportrtc58321a.c
+	arch\win32\uiuserportrtcds1307.c
 	arch\win32\uiv364speech.c
 	arch\win32\uivic.c
 	arch\win32\uivic20model.c

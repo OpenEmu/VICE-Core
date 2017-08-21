@@ -42,8 +42,7 @@ bin_PROGRAMS = x64ns$(EXEEXT) x64dtvns$(EXEEXT) x64scns$(EXEEXT) \
 	xcbm2ns$(EXEEXT) xcbm5x0ns$(EXEEXT) xpetns$(EXEEXT) \
 	xscpu64ns$(EXEEXT)
 subdir = src/arch/amigaos
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	$(srcdir)/genintl_h.sh.in
+DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
 	$(top_srcdir)/configure.ac
@@ -51,7 +50,7 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/src/config.h
-CONFIG_CLEAN_FILES = genintl_h.sh
+CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 LIBRARIES = $(noinst_LIBRARIES)
 ARFLAGS = cru
@@ -59,15 +58,13 @@ libarch_a_AR = $(AR) $(ARFLAGS)
 libarch_a_LIBADD =
 am_libarch_a_OBJECTS = ahi.$(OBJEXT) amigamain.$(OBJEXT) \
 	archdep.$(OBJEXT) blockdev.$(OBJEXT) c128ui.$(OBJEXT) \
-	c64ui.$(OBJEXT) c64dtvui.$(OBJEXT) catweaselmkiii.$(OBJEXT) \
-	cbm2ui.$(OBJEXT) cbm5x0ui.$(OBJEXT) console.$(OBJEXT) \
-	cw_device.$(OBJEXT) cw_openpci.$(OBJEXT) cw_os4.$(OBJEXT) \
-	fullscreen.$(OBJEXT) hardsid.$(OBJEXT) intl.$(OBJEXT) \
-	joy.$(OBJEXT) joyai.$(OBJEXT) joyll.$(OBJEXT) kbd.$(OBJEXT) \
-	loadlibs.$(OBJEXT) mousedrv.$(OBJEXT) noinlineargs.$(OBJEXT) \
-	petui.$(OBJEXT) plus4ui.$(OBJEXT) pointer.$(OBJEXT) \
-	rs232.$(OBJEXT) scpu64ui.$(OBJEXT) screen-shot.$(OBJEXT) \
-	signals.$(OBJEXT) socketimpl.$(OBJEXT) statusbar.$(OBJEXT) \
+	c64ui.$(OBJEXT) c64dtvui.$(OBJEXT) cbm2ui.$(OBJEXT) \
+	cbm5x0ui.$(OBJEXT) console.$(OBJEXT) fullscreen.$(OBJEXT) \
+	intl.$(OBJEXT) joy.$(OBJEXT) joyai.$(OBJEXT) joyll.$(OBJEXT) \
+	kbd.$(OBJEXT) loadlibs.$(OBJEXT) mousedrv.$(OBJEXT) \
+	noinlineargs.$(OBJEXT) petui.$(OBJEXT) plus4ui.$(OBJEXT) \
+	pointer.$(OBJEXT) rs232.$(OBJEXT) scpu64ui.$(OBJEXT) \
+	screen-shot.$(OBJEXT) signals.$(OBJEXT) statusbar.$(OBJEXT) \
 	rawnetarch.$(OBJEXT) timer.$(OBJEXT) ui.$(OBJEXT) \
 	uiapi.$(OBJEXT) uiattach.$(OBJEXT) uic64cart.$(OBJEXT) \
 	uicart.$(OBJEXT) uicmdline.$(OBJEXT) uicolor.$(OBJEXT) \
@@ -136,7 +133,7 @@ AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \
 	distdir
 ETAGS = etags
 CTAGS = ctags
-DIST_SUBDIRS = $(SUBDIRS)
+DIST_SUBDIRS = info-files mui
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 am__relativize = \
   dir0=`pwd`; \
@@ -209,6 +206,7 @@ EGREP = @EGREP@
 ENABLE_ARCH = @ENABLE_ARCH@
 EXEEXT = @EXEEXT@
 FCCACHE = @FCCACHE@
+FFMPEGSUB = @FFMPEGSUB@
 FFMPEG_AVRESAMPLE_CFLAGS = @FFMPEG_AVRESAMPLE_CFLAGS@
 FFMPEG_AVRESAMPLE_LIBS = @FFMPEG_AVRESAMPLE_LIBS@
 FFMPEG_AV_CFLAGS = @FFMPEG_AV_CFLAGS@
@@ -225,6 +223,8 @@ FULLSCREEN_DRIVERS = @FULLSCREEN_DRIVERS@
 GENCAT = @GENCAT@
 GFXOUTPUT_DRIVERS = @GFXOUTPUT_DRIVERS@
 GFXOUTPUT_LIBS = @GFXOUTPUT_LIBS@
+GLIB_CFLAGS = @GLIB_CFLAGS@
+GLIB_LIBS = @GLIB_LIBS@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
 GREP = @GREP@
@@ -252,8 +252,10 @@ LDFLAGS = @LDFLAGS@
 LEX = @LEX@
 LEXLIB = @LEXLIB@
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
+LIBFFMPEGSUB = @LIBFFMPEGSUB@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
+LIBX264SUB = @LIBX264SUB@
 LINKCC = @LINKCC@
 LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
@@ -262,6 +264,7 @@ MAKEINFO = @MAKEINFO@
 MAKERTF = @MAKERTF@
 MAX_INLINE_INSN_SINGLE = @MAX_INLINE_INSN_SINGLE@
 MKDIR_P = @MKDIR_P@
+MKFONTDIR_BIN = @MKFONTDIR_BIN@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MSGFMT = @MSGFMT@
 NATIVE_TOOLS_COMPILER = @NATIVE_TOOLS_COMPILER@
@@ -285,6 +288,8 @@ PDFTEX = @PDFTEX@
 PERL = @PERL@
 PKG_CONFIG = @PKG_CONFIG@
 PLATFORM_DOX_FLAGS = @PLATFORM_DOX_FLAGS@
+PNG_CFLAGS = @PNG_CFLAGS@
+PNG_LIBS = @PNG_LIBS@
 POFILES = @POFILES@
 POSUB = @POSUB@
 QUICKTIME_INCLUDES = @QUICKTIME_INCLUDES@
@@ -303,6 +308,7 @@ RESID_DTV_LIBS = @RESID_DTV_LIBS@
 RESID_INCLUDES = @RESID_INCLUDES@
 RESID_LIBS = @RESID_LIBS@
 SDL_EXTRA_LIBS = @SDL_EXTRA_LIBS@
+SDL_VERSION = @SDL_VERSION@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 SOUND_AIX_OBJ = @SOUND_AIX_OBJ@
@@ -381,6 +387,7 @@ datarootdir = @datarootdir@
 docdir = @docdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
+ffmpeg_have_bash = @ffmpeg_have_bash@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
@@ -420,7 +427,7 @@ xpet_LDFLAGS = @xpet_LDFLAGS@
 xplus4_LDFLAGS = @xplus4_LDFLAGS@
 xscpu64_LDFLAGS = @xscpu64_LDFLAGS@
 xvic_LDFLAGS = @xvic_LDFLAGS@
-SUBDIRS = info-files mui
+@DUMMY_COMPILE_TRUE@SUBDIRS = info-files mui
 x64ns_SOURCES = x64ns.c
 x64dtvns_SOURCES = x64dtvns.c
 x64scns_SOURCES = x64scns.c
@@ -434,6 +441,7 @@ xpetns_SOURCES = xpetns.c
 AM_CPPFLAGS = \
 	@ARCH_INCLUDES@ \
 	-I$(top_builddir)/src \
+	-I$(top_builddir)/src/arch/amigaos \
 	-I$(top_srcdir)/src/drive \
 	-I$(top_srcdir)/src/c64 \
 	-I$(top_srcdir)/src/c64dtv \
@@ -465,19 +473,13 @@ libarch_a_SOURCES = \
 	c64uires.h \
 	c64dtvui.c \
 	c64dtvuires.h \
-	catweaselmkiii.c \
 	cbm2ui.c \
 	cbm2uires.h \
 	cbm5x0ui.c \
 	cbm5x0uires.h \
 	console.c \
-	cw.h \
-	cw_device.c \
-	cw_openpci.c \
-	cw_os4.c \
 	fullscreen.c \
 	fullscreenarch.h \
-	hardsid.c \
 	intl.c \
 	intl_funcs.h \
 	joy.c \
@@ -507,8 +509,6 @@ libarch_a_SOURCES = \
 	screen-shot.c \
 	screen-shot.h \
 	signals.c \
-	socketimpl.c \
-	socketimpl.h \
 	statusbar.c \
 	statusbar.h \
 	rawnetarch.c \
@@ -542,7 +542,7 @@ EXTRA_DIST = \
 	intl_text.c \
 	fixdeps.c \
 	genamigaintl.c \
-	genintl_h.sh.in \
+	genintl_h.sh \
 	genintltable.sh \
 	intl.txt \
 	make-bindist.sh
@@ -583,8 +583,6 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
-genintl_h.sh: $(top_builddir)/config.status $(srcdir)/genintl_h.sh.in
-	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 
 clean-noinstLIBRARIES:
 	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
@@ -673,15 +671,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/c128ui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/c64dtvui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/c64ui.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/catweaselmkiii.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cbm2ui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cbm5x0ui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/console.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cw_device.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cw_openpci.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cw_os4.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fullscreen.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hardsid.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/intl.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/joy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/joyai.Po@am__quote@
@@ -698,7 +691,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/scpu64ui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/screen-shot.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/signals.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/socketimpl.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/statusbar.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/timer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ui.Po@am__quote@
@@ -1071,11 +1063,11 @@ uninstall-am: uninstall-binPROGRAMS
 @NATIVE_TOOLS_TRUE@	./genamigaintl $(srcdir)/intl.txt intl.h intl_table.h
 @NATIVE_TOOLS_FALSE@intl.h: $(srcdir)/intl.txt
 @NATIVE_TOOLS_FALSE@	echo "generating intl.h..."
-@NATIVE_TOOLS_FALSE@	$(SHELL) genintl_h.sh <$(srcdir)/intl.txt >intl.h
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/genintl_h.sh <$(srcdir)/intl.txt >intl.h
 
 @NATIVE_TOOLS_FALSE@intl_table.h: $(srcdir)/intl.txt
 @NATIVE_TOOLS_FALSE@	echo "generating intl_table.h..."
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/genintltable.sh <$(srcdir)/intl.txt >intl_table.h
+@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/genintltable.sh $(DEBUGBUILD) <$(srcdir)/intl.txt >intl_table.h
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

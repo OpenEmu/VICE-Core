@@ -185,13 +185,14 @@ static void portaudio_shutdown(void)
 
 static sampler_device_t portaudio_device =
 {
-    "portaudio",
+    "portaudio based hardware audio input",
     portaudio_start_sampling,
     portaudio_stop_sampling,
     portaudio_get_sample,
     portaudio_shutdown,
-    NULL,
-    NULL
+    NULL, /* no resources */
+    NULL, /* no cmdline options */
+    NULL  /* no reset */
 };
 
 

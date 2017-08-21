@@ -2,6 +2,7 @@
  * menu_tape.h - Tape menu for SDL UI.
  *
  * Written by
+ *  Hannu Nuotio <hannu.nuotio@tut.fi>
  *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
@@ -32,5 +33,6 @@
 #include "uimenu.h"
 
 extern const ui_menu_entry_t tape_menu[];
+extern const ui_menu_entry_t tapeport_devices_menu[];
 
 #endif

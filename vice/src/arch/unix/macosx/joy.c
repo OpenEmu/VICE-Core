@@ -406,7 +406,7 @@ static const resource_string_t resources_string[] = {
       &joy_b.button_mapping, set_joy_b_button_mapping, NULL },
     { "JoyBAutoButtons", "3:4:2:2:4:4", RES_EVENT_NO, NULL,
       &joy_b.auto_button_mapping, set_joy_b_auto_button_mapping, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_int_t resources_int[] = {
@@ -454,7 +454,7 @@ static const resource_int_t resources_int[] = {
       &joy_a.hat_switch.id, set_joy_a_hat_switch, NULL },
     { "JoyBHatSwitch", 1, RES_EVENT_NO, NULL,
       &joy_b.hat_switch.id, set_joy_b_hat_switch, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int joy_arch_resources_init(void)
@@ -549,7 +549,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<0-n>", N_("Set Hat Switch for Joystick of HID B device") },
-    { NULL },
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev1cmdline_options[] = {
@@ -558,7 +558,7 @@ static const cmdline_option_t joydev1cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<0-5>", N_("Set device for joystick port 1") },
-    { NULL },
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev2cmdline_options[] = {
@@ -567,7 +567,7 @@ static const cmdline_option_t joydev2cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<0-5>", N_("Set device for joystick port 2") },
-    { NULL },
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev3cmdline_options[] = {
@@ -576,7 +576,7 @@ static const cmdline_option_t joydev3cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<0-5>", N_("Set device for extra joystick port 1") },
-    { NULL },
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev4cmdline_options[] = {
@@ -585,7 +585,16 @@ static const cmdline_option_t joydev4cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<0-5>", N_("Set device for extra joystick port 2") },
-    { NULL },
+    CMDLINE_LIST_END
+};
+
+static const cmdline_option_t joydev5cmdline_options[] = {
+    { "-extrajoydev3", SET_RESOURCE, 1,
+      NULL, NULL, "JoyDevice5", NULL,
+      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
+      IDCLS_UNUSED, IDCLS_UNUSED,
+      "<0-5>", N_("Set device for extra joystick port 3") },
+    CMDLINE_LIST_END
 };
 
 int joy_arch_cmdline_options_init(void)
@@ -612,6 +621,12 @@ int joy_arch_cmdline_options_init(void)
     }
     if (joyport_get_port_name(JOYPORT_4)) {
         if (cmdline_register_options(joydev4cmdline_options) < 0) {
+            return -1;
+        }
+        num_extra_ports++;
+    }
+    if (joyport_get_port_name(JOYPORT_5)) {
+        if (cmdline_register_options(joydev5cmdline_options) < 0) {
             return -1;
         }
         num_extra_ports++;
@@ -1073,7 +1088,7 @@ void joystick(void)
     int i;
 
     /* handle both virtual cbm joystick ports */
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < 5; i++) {
         /* what kind of device is connected to the virtual port? */ 
         int joy_port = joystick_port_map[i];
     

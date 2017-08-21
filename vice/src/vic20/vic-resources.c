@@ -61,7 +61,7 @@ static int set_border_mode(int val, void *param)
 
     if (vic_resources.border_mode != val) {
         vic_resources.border_mode = val;
-        machine_change_timing(sync ^ VIC_BORDER_MODE(vic_resources.border_mode));
+        machine_change_timing(sync, vic_resources.border_mode);
     }
     return 0;
 }
@@ -71,7 +71,7 @@ static const resource_int_t resources_int[] =
     { "VICBorderMode", VIC_NORMAL_BORDERS, RES_EVENT_SAME, NULL,
       &vic_resources.border_mode,
       set_border_mode, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int vic_resources_init(void)
@@ -83,7 +83,7 @@ int vic_resources_init(void)
     video_chip_cap.dscan_allowed = ARCHDEP_VIC_DSCAN;
     video_chip_cap.hwscale_allowed = ARCHDEP_VIC_HWSCALE;
     video_chip_cap.scale2x_allowed = ARCHDEP_VIC_DSIZE;
-    video_chip_cap.external_palette_name = "default";
+    video_chip_cap.external_palette_name = "mike-pal";
     video_chip_cap.double_buffering_allowed = ARCHDEP_VIC_DBUF;
     video_chip_cap.single_mode.sizex = 1;
     video_chip_cap.single_mode.sizey = 1;

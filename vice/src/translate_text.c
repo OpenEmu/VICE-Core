@@ -70,7 +70,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_CANNOT_CREATE_IMAGE_HU, "Nem sikerült a képmás fájlt létrehozni!"},
 /* it */ {IDGS_CANNOT_CREATE_IMAGE_IT, "Non è possibile creare il file immagine!"},
 /* ko */ {IDGS_CANNOT_CREATE_IMAGE_KO, "ÀÌ¹ÌÁö ÆÄÀÏÀ» »ý¼ºÇÒ¼ö ¾ø½À´Ï´Ù!"},
-/* nl */ {IDGS_CANNOT_CREATE_IMAGE_NL, "Kan bestand niet maken!"},
+/* nl */ {IDGS_CANNOT_CREATE_IMAGE_NL, "Kan bestand niet aanmaken!"},
 /* pl */ {IDGS_CANNOT_CREATE_IMAGE_PL, "Nie mo¿na utworzyæ pliku obrazu!"},
 /* ru */ {IDGS_CANNOT_CREATE_IMAGE_RU, "½Õ ãÔÐÕâáï áÞ×ÔÐâì äÐÙÛ ÞÑàÐ×Ð!"},
 /* sv */ {IDGS_CANNOT_CREATE_IMAGE_SV, "Kan inte skapa avbildningsfil!"},
@@ -104,7 +104,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_CANNOT_FIND_MAPPED_NAME_S_HU, "A VICE %s leképzett nevét nem találja"},
 /* it */ {IDGS_CANNOT_FIND_MAPPED_NAME_S_IT, "Non è possibile trovare il nome mappato per %s"},
 /* ko */ {IDGS_CANNOT_FIND_MAPPED_NAME_S_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_CANNOT_FIND_MAPPED_NAME_S_NL, "Kan vertaalde naam voor %s niet vinden"},
+/* nl */ {IDGS_CANNOT_FIND_MAPPED_NAME_S_NL, "Kan toegewezen naam voor %s niet vinden"},
 /* pl */ {IDGS_CANNOT_FIND_MAPPED_NAME_S_PL, "Nie mo¿na znale¼æ zmapowanej nazwy %s"},
 /* ru */ {IDGS_CANNOT_FIND_MAPPED_NAME_S_RU, "Cannot find mapped name for %s"},
 /* sv */ {IDGS_CANNOT_FIND_MAPPED_NAME_S_SV, "Kan inte kopplat namn för %s"},
@@ -240,7 +240,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_SORRY_NO_MULTI_RECORDING_HU, "Sajnálom: többszörös felvétel nem támogatott."},
 /* it */ {IDGS_SORRY_NO_MULTI_RECORDING_IT, "Le registrazioni multiple non sono supportate."},
 /* ko */ {IDGS_SORRY_NO_MULTI_RECORDING_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_SORRY_NO_MULTI_RECORDING_NL, "Sorry. Meerdere opnamen wordt niet ondersteund."},
+/* nl */ {IDGS_SORRY_NO_MULTI_RECORDING_NL, "Sorry. Meerdere gelijktijdige opnamen wordt niet ondersteund."},
 /* pl */ {IDGS_SORRY_NO_MULTI_RECORDING_PL, "Przepraszamy, wielo¶cie¿kowy zapis nie jest obs³ugiwany."},
 /* ru */ {IDGS_SORRY_NO_MULTI_RECORDING_RU, "Sorry. Multiple recording is not supported."},
 /* sv */ {IDGS_SORRY_NO_MULTI_RECORDING_SV, "Endast en inspelning kan göras åt gången."},
@@ -325,7 +325,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_DEVICE_S_NOT_FOUND_SUPPORT_HU, "A '%s' eszköz nem létezik, vagy nem támogatott."},
 /* it */ {IDGS_DEVICE_S_NOT_FOUND_SUPPORT_IT, "il device '%s' non è stato trovato oppure non è supportato."},
 /* ko */ {IDGS_DEVICE_S_NOT_FOUND_SUPPORT_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_DEVICE_S_NOT_FOUND_SUPPORT_NL, "apparaat '%s' niet gevonden of wordt niet ondersteund"},
+/* nl */ {IDGS_DEVICE_S_NOT_FOUND_SUPPORT_NL, "apparaat '%s' niet gevonden of niet ondersteund"},
 /* pl */ {IDGS_DEVICE_S_NOT_FOUND_SUPPORT_PL, "Nie znaleziono urz±dzenia '%s' lub jest ono niewspierane"},
 /* ru */ {IDGS_DEVICE_S_NOT_FOUND_SUPPORT_RU, "device '%s' not found or not supported."},
 /* sv */ {IDGS_DEVICE_S_NOT_FOUND_SUPPORT_SV, "enheten \"%s\" hittades eller stöds ej."},
@@ -393,7 +393,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_RECORD_NOT_SUPPORT_SOUND_PAR_HU, "A felvevõ eszköz nem támogatja az aktuális hangbeállításokat"},
 /* it */ {IDGS_RECORD_NOT_SUPPORT_SOUND_PAR_IT, "Il dispositivo di registrazione non supporta i parametri attuali"},
 /* ko */ {IDGS_RECORD_NOT_SUPPORT_SOUND_PAR_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_RECORD_NOT_SUPPORT_SOUND_PAR_NL, "Het opname apparaat ondersteunt de huidige geluid opties niet"},
+/* nl */ {IDGS_RECORD_NOT_SUPPORT_SOUND_PAR_NL, "Het opnameapparaat ondersteunt de huidige geluidsopties niet"},
 /* pl */ {IDGS_RECORD_NOT_SUPPORT_SOUND_PAR_PL, "Urz±dzenie zapisu nie obs³uguje obecnych parametrów d¼wiêku"},
 /* ru */ {IDGS_RECORD_NOT_SUPPORT_SOUND_PAR_RU, "The recording device doesn't support current sound parameters"},
 /* sv */ {IDGS_RECORD_NOT_SUPPORT_SOUND_PAR_SV, "Inspelningsenheten stöder inte aktuella ljudinställningar"},
@@ -444,7 +444,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_CANNOT_FLUSH_HU, "nem sikerült üríteni a puffert."},
 /* it */ {IDGS_CANNOT_FLUSH_IT, "non è possibile svuotare."},
 /* ko */ {IDGS_CANNOT_FLUSH_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_CANNOT_FLUSH_NL, "kan niet spoelen."},
+/* nl */ {IDGS_CANNOT_FLUSH_NL, "kan niet leegmaken."},
 /* pl */ {IDGS_CANNOT_FLUSH_PL, "Nie mo¿na opró¿niæ."},
 /* ru */ {IDGS_CANNOT_FLUSH_RU, "cannot flush."},
 /* sv */ {IDGS_CANNOT_FLUSH_SV, "kan inte tömma."},
@@ -564,7 +564,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_SENDING_SNAPSHOT_TO_CLIENT_HU, ""},  /* fuzzy */
 /* it */ {IDGS_SENDING_SNAPSHOT_TO_CLIENT_IT, "Invio snapshot al client in corso..."},
 /* ko */ {IDGS_SENDING_SNAPSHOT_TO_CLIENT_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_SENDING_SNAPSHOT_TO_CLIENT_NL, "Momentopname wordt naar de andere computer verstuurd..."},
+/* nl */ {IDGS_SENDING_SNAPSHOT_TO_CLIENT_NL, "Momentopname wordt naar de client verstuurd..."},
 /* pl */ {IDGS_SENDING_SNAPSHOT_TO_CLIENT_PL, "Wysy³am zrzut do klienta..."},
 /* ru */ {IDGS_SENDING_SNAPSHOT_TO_CLIENT_RU, "Sending snapshot to client..."},
 /* sv */ {IDGS_SENDING_SNAPSHOT_TO_CLIENT_SV, "Sänder ögonblicksbild till klient..."},
@@ -581,7 +581,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_CANNOT_SEND_SNAPSHOT_TO_CLIENT_HU, "Nem sikerült pillanatképet elküldeni a klienshez"},
 /* it */ {IDGS_CANNOT_SEND_SNAPSHOT_TO_CLIENT_IT, "Non è possibile inviare lo snapshot al client"},
 /* ko */ {IDGS_CANNOT_SEND_SNAPSHOT_TO_CLIENT_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_CANNOT_SEND_SNAPSHOT_TO_CLIENT_NL, "Kan de momentopname niet naar de andere computer versturen"},
+/* nl */ {IDGS_CANNOT_SEND_SNAPSHOT_TO_CLIENT_NL, "Kan de momentopname niet naar de client versturen"},
 /* pl */ {IDGS_CANNOT_SEND_SNAPSHOT_TO_CLIENT_PL, "Nie mo¿na wys³aæ zrzutu do klienta"},
 /* ru */ {IDGS_CANNOT_SEND_SNAPSHOT_TO_CLIENT_RU, "Cannot send snapshot to client"},
 /* sv */ {IDGS_CANNOT_SEND_SNAPSHOT_TO_CLIENT_SV, "Kan inte sända ögonblicksbild till klient"},
@@ -632,7 +632,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_SERVER_IS_WAITING_FOR_CLIENT_HU, ""},  /* fuzzy */
 /* it */ {IDGS_SERVER_IS_WAITING_FOR_CLIENT_IT, "Il server è in attesa di un client..."},
 /* ko */ {IDGS_SERVER_IS_WAITING_FOR_CLIENT_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_SERVER_IS_WAITING_FOR_CLIENT_NL, "De server wacht op de andere computer..."},
+/* nl */ {IDGS_SERVER_IS_WAITING_FOR_CLIENT_NL, "Server wacht op een client..."},
 /* pl */ {IDGS_SERVER_IS_WAITING_FOR_CLIENT_PL, "Serwer czeka na klienta..."},
 /* ru */ {IDGS_SERVER_IS_WAITING_FOR_CLIENT_RU, "Server is waiting for a client..."},
 /* sv */ {IDGS_SERVER_IS_WAITING_FOR_CLIENT_SV, "Servern väntar på en klient..."},
@@ -649,7 +649,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_SELECT_HU, "Nem sikerült pillanatkép fájlt létrehozni. Kérem válasszon más könyvtárat!"},
 /* it */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_SELECT_IT, "Non è possibile creare il file di snapshot. Seleziona una directory diversa per la cronologia."},
 /* ko */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_SELECT_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_SELECT_NL, "Kan het momentopnamebestand niet maken. Selecteer een andere geschiedenisdirectory!"},
+/* nl */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_SELECT_NL, "Kan het momentopnamebestand niet maken. Selecteer een andere geschiedenismap!"},
 /* pl */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_SELECT_PL, "Nie mo¿na utworzyæ pliku zrzutu. Wybierz inny katalog historii!"},
 /* ru */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_SELECT_RU, "Cannot create snapshot file. Select different history directory!"},
 /* sv */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_SELECT_SV, "Kan inte skapa ögonblicksbildfil. Välj en annan historikkatalog!"},
@@ -734,7 +734,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_REMOTE_HOST_DISCONNECTED_HU, "A távoli számítogép lekapcsolódott."},
 /* it */ {IDGS_REMOTE_HOST_DISCONNECTED_IT, "Host remoto disconnesso."},
 /* ko */ {IDGS_REMOTE_HOST_DISCONNECTED_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_REMOTE_HOST_DISCONNECTED_NL, "Andere computer heeft de verbinding verbroken."},
+/* nl */ {IDGS_REMOTE_HOST_DISCONNECTED_NL, "De andere computer heeft de verbinding verbroken."},
 /* pl */ {IDGS_REMOTE_HOST_DISCONNECTED_PL, "Zdalny host roz³±czy³ siê."},
 /* ru */ {IDGS_REMOTE_HOST_DISCONNECTED_RU, "Remote host disconnected."},
 /* sv */ {IDGS_REMOTE_HOST_DISCONNECTED_SV, "Frånkopplad från fjärrvärd."},
@@ -751,7 +751,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_REMOTE_HOST_SUSPENDING_HU, ""},  /* fuzzy */
 /* it */ {IDGS_REMOTE_HOST_SUSPENDING_IT, "Sospesione host remoto in corso..."},
 /* ko */ {IDGS_REMOTE_HOST_SUSPENDING_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_REMOTE_HOST_SUSPENDING_NL, "Andere computer halt de netplay..."},
+/* nl */ {IDGS_REMOTE_HOST_SUSPENDING_NL, "De andere computer onderbreekt de netplay..."},
 /* pl */ {IDGS_REMOTE_HOST_SUSPENDING_PL, "Zawieszenie zdalnego hosta...."},
 /* ru */ {IDGS_REMOTE_HOST_SUSPENDING_RU, "Remote host suspending..."},
 /* sv */ {IDGS_REMOTE_HOST_SUSPENDING_SV, "FJärrvärden pausar..."},
@@ -769,7 +769,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_FFMPEG_CANNOT_OPEN_VSTREAM_HU, "ffmpegdrv: Nem sikerült megnyitni a videó adatfolyamot"},
 /* it */ {IDGS_FFMPEG_CANNOT_OPEN_VSTREAM_IT, "ffmpegdrv: Non è possibile aprire il flusso video"},
 /* ko */ {IDGS_FFMPEG_CANNOT_OPEN_VSTREAM_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_FFMPEG_CANNOT_OPEN_VSTREAM_NL, "ffmpegdrv: Kan de videostroom niet openen"},
+/* nl */ {IDGS_FFMPEG_CANNOT_OPEN_VSTREAM_NL, "ffmpegdrv: Kan videostroom niet openen"},
 /* pl */ {IDGS_FFMPEG_CANNOT_OPEN_VSTREAM_PL, "ffmpegdrv: Nie mo¿na otworzyæ strumienia wideo"},
 /* ru */ {IDGS_FFMPEG_CANNOT_OPEN_VSTREAM_RU, "ffmpegdrv: ½Õ ãÔÐÕâáï ÞâÚàëâì ÒØÔÕÞ ßÞâÞÚ"},
 /* sv */ {IDGS_FFMPEG_CANNOT_OPEN_VSTREAM_SV, "ffmpegdrv: Kan inte öppna videoström"},
@@ -786,7 +786,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_FFMPEG_CANNOT_OPEN_ASTREAM_HU, "ffmpegdrv: Nem sikerült megnyitni a audió adatfolyamot"},
 /* it */ {IDGS_FFMPEG_CANNOT_OPEN_ASTREAM_IT, "ffmpegdrv: Non è possibile aprire il flusso audio"},
 /* ko */ {IDGS_FFMPEG_CANNOT_OPEN_ASTREAM_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_FFMPEG_CANNOT_OPEN_ASTREAM_NL, "ffmpegdrv: Kan de audiostroom niet openen"},
+/* nl */ {IDGS_FFMPEG_CANNOT_OPEN_ASTREAM_NL, "ffmpegdrv: Kan audiostroom niet openen"},
 /* pl */ {IDGS_FFMPEG_CANNOT_OPEN_ASTREAM_PL, "ffmpegdrv: Nie mo¿na otworzyæ strumienia audio"},
 /* ru */ {IDGS_FFMPEG_CANNOT_OPEN_ASTREAM_RU, "ffmpegdrv: ½Õ ãÔÐÕâáï ÞâÚàëâì ÐãÔØÞ ßÞâÞÚ"},
 /* sv */ {IDGS_FFMPEG_CANNOT_OPEN_ASTREAM_SV, "ffmpegdrv: Kan inte öppna ljudström"},
@@ -820,7 +820,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_IO_READ_COLL_AT_X_FROM_HU, ""},  /* fuzzy */
 /* it */ {IDGS_IO_READ_COLL_AT_X_FROM_IT, "Collisione di I/O in lettura a %X da "},
 /* ko */ {IDGS_IO_READ_COLL_AT_X_FROM_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_IO_READ_COLL_AT_X_FROM_NL, "I/O lees botsing op %X van "},
+/* nl */ {IDGS_IO_READ_COLL_AT_X_FROM_NL, "I/O lees conflict op %X van "},
 /* pl */ {IDGS_IO_READ_COLL_AT_X_FROM_PL, "Kolizja odczytu we/wy w %X z"},
 /* ru */ {IDGS_IO_READ_COLL_AT_X_FROM_RU, "I/O read collision at %X from "},
 /* sv */ {IDGS_IO_READ_COLL_AT_X_FROM_SV, "I/O-läskollision vid %X från "},
@@ -1007,7 +1007,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_COMMAND_S_UNKNOWN_HU, "`%s' parancs ismeretlen.\n"},
 /* it */ {IDGS_COMMAND_S_UNKNOWN_IT, "Comando `%s' sconosciuto.\n"},
 /* ko */ {IDGS_COMMAND_S_UNKNOWN_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_COMMAND_S_UNKNOWN_NL, "Commando %s' is onbekent.\n"},
+/* nl */ {IDGS_COMMAND_S_UNKNOWN_NL, "Commando `%s' is onbekend.\n"},
 /* pl */ {IDGS_COMMAND_S_UNKNOWN_PL, "Polecenie `%s' nieznane.\n"},
 /* ru */ {IDGS_COMMAND_S_UNKNOWN_RU, "Command `%s' unknown.\n"},
 /* sv */ {IDGS_COMMAND_S_UNKNOWN_SV, "Kommandot \"%s\" är okänt.\n"},
@@ -1024,7 +1024,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_NO_HELP_AVAILABLE_FOR_S_HU, "Nincs súgó a `%s' parancshoz\n"},
 /* it */ {IDGS_NO_HELP_AVAILABLE_FOR_S_IT, "Nessun help disponibile per `%s'\n"},
 /* ko */ {IDGS_NO_HELP_AVAILABLE_FOR_S_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_NO_HELP_AVAILABLE_FOR_S_NL, "Geen help beschikbaar voor `%s'\n"},
+/* nl */ {IDGS_NO_HELP_AVAILABLE_FOR_S_NL, "Geen hulp beschikbaar voor `%s'\n"},
 /* pl */ {IDGS_NO_HELP_AVAILABLE_FOR_S_PL, "Pomoc dla '%s' niedostêpna\n"},
 /* ru */ {IDGS_NO_HELP_AVAILABLE_FOR_S_RU, "No help available for `%s'\n"},
 /* sv */ {IDGS_NO_HELP_AVAILABLE_FOR_S_SV, "Hjälp saknas för \"%s\"\n"},
@@ -1041,7 +1041,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_SYNTAX_S_S_HU, "\nSzintaxis: %s %s\n"},
 /* it */ {IDGS_SYNTAX_S_S_IT, "\nSintassi: %s %s\n"},
 /* ko */ {IDGS_SYNTAX_S_S_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_SYNTAX_S_S_NL, "\nSyntax: %s %s\n"},
+/* nl */ {IDGS_SYNTAX_S_S_NL, "\nSyntaxis: %s %s\n"},
 /* pl */ {IDGS_SYNTAX_S_S_PL, "\nSk³adnia: %s %s\n"},
 /* ru */ {IDGS_SYNTAX_S_S_RU, "\nSyntax: %s %s\n"},
 /* sv */ {IDGS_SYNTAX_S_S_SV, "\nSyntax: %s %s\n"},
@@ -1075,7 +1075,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_AVAILABLE_COMMANDS_ARE_HU, ""},  /* fuzzy */
 /* it */ {IDGS_AVAILABLE_COMMANDS_ARE_IT, "I comandi disponibili sono:"},
 /* ko */ {IDGS_AVAILABLE_COMMANDS_ARE_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_AVAILABLE_COMMANDS_ARE_NL, "Beschikbare commandos zijn:"},
+/* nl */ {IDGS_AVAILABLE_COMMANDS_ARE_NL, "Beschikbare commando's zijn:"},
 /* pl */ {IDGS_AVAILABLE_COMMANDS_ARE_PL, "Dostêpne opcje to:"},
 /* ru */ {IDGS_AVAILABLE_COMMANDS_ARE_RU, "Available commands are:"},
 /* sv */ {IDGS_AVAILABLE_COMMANDS_ARE_SV, "Tillgängliga kommandon:"},
@@ -1092,7 +1092,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MACHINE_STATE_COMMANDS_HU, ""},  /* fuzzy */
 /* it */ {IDGS_MACHINE_STATE_COMMANDS_IT, "Comandi di stato del computer:"},
 /* ko */ {IDGS_MACHINE_STATE_COMMANDS_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MACHINE_STATE_COMMANDS_NL, "Machine status commandos:"},
+/* nl */ {IDGS_MACHINE_STATE_COMMANDS_NL, "Machine status commando's:"},
 /* pl */ {IDGS_MACHINE_STATE_COMMANDS_PL, "Komendy stanu maszyny:"},
 /* ru */ {IDGS_MACHINE_STATE_COMMANDS_RU, "Machine state commands:"},
 /* sv */ {IDGS_MACHINE_STATE_COMMANDS_SV, "Kommandon för maskinstatus:"},
@@ -1126,7 +1126,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_BANKNAME_HU, ""},  /* fuzzy */
 /* it */ {IDGS_BANKNAME_IT, "nome banco"},
 /* ko */ {IDGS_BANKNAME_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_BANKNAME_NL, "bank naam"},
+/* nl */ {IDGS_BANKNAME_NL, "banknaam"},
 /* pl */ {IDGS_BANKNAME_PL, "bankname"},
 /* ru */ {IDGS_BANKNAME_RU, "bankname"},
 /* sv */ {IDGS_BANKNAME_SV, "banknamn"},
@@ -1143,7 +1143,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_BANK_DESCRIPTION_HU, "Ha a lap száma nincs megadva, kiírja a lehetséges lapokat a memória térbõl.\nHa meg van adva, az aktuális lap számot a memória térben a megadott lapra állítja."},
 /* it */ {IDGS_MON_BANK_DESCRIPTION_IT, "Se non viene specificato il nome del banco, stampa tutti i banchi\npossibili per lo spazio di memoria.\nSe viene specificato il nome del banco, imposta il banco attuale nello\nspazio di memoria specificato."},
 /* ko */ {IDGS_MON_BANK_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_BANK_DESCRIPTION_NL, "Als de banknaam niet is opgegeven worden de mogelijke banken voor de\ngeheugenruimte weergegeven. Als de banknaam is opgegeven dan wordt de\nhuidige bank in de geheugenruimte gezet volgens de opgegeven banknaam."},
+/* nl */ {IDGS_MON_BANK_DESCRIPTION_NL, "Als de banknaam niet is opgegeven, worden de mogelijke banken voor de\ngeheugenruimte weergegeven. Als de banknaam is opgegeven, wordt de\nhuidige bank in de geheugenruimte gezet volgens de opgegeven banknaam."},
 /* pl */ {IDGS_MON_BANK_DESCRIPTION_PL, "Je¶li nie podano nazwy banku, pokazuje mo¿liwe banki pamiêci.\nJe¶li podano nazwê banku, ustawia obecny bank pamiêci na\ndany bank."},
 /* ru */ {IDGS_MON_BANK_DESCRIPTION_RU, "If bankname is not given, print the possible banks for the memspace.\nIf bankname is given set the current bank in the memspace to the given\nbank."},
 /* sv */ {IDGS_MON_BANK_DESCRIPTION_SV, "Om banknamn inte anges, skriv ut möjliga bankar för minnesområdet.\nOm banknamn anges, sätt aktuell bank i minnesområdet till den givna\nbanken."},
@@ -1160,7 +1160,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_BACKTRACE_DESCRIPTION_HU, "JSR hívás lista kiírása (legutóbbi elõször). A verem SP+1\nhelyen lévõ tartalma zárójelben. Ez csak\negy legjobb becslés."},
 /* it */ {IDGS_MON_BACKTRACE_DESCRIPTION_IT, "Stampa la catena di chiamate JSR (la chiamata più recente per prima).\nL'offset dello stack relativo a SP+1 è stampato tra parentesi. Questo è\nsolo l'ipotesi migliore."},
 /* ko */ {IDGS_MON_BACKTRACE_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_BACKTRACE_DESCRIPTION_NL, "Toon JSR gebruik (meest recent gebruikt eerst). De stack\ncompensatie relatief ten opzichte van SP+1 zal worden getoont\nbinnen de aanhalingtekens. Dit is op basis van de beste gok."},
+/* nl */ {IDGS_MON_BACKTRACE_DESCRIPTION_NL, "Toon JSR gebruik (meest recent gebruikt eerst). Het relatieve begin van de stack\nten opzichte van SP+1 zal worden getoond\ntussen de aanhalingstekens. Dit is op basis van de beste gok."},
 /* pl */ {IDGS_MON_BACKTRACE_DESCRIPTION_PL, "Pokazuje ³añcuch wezwañ JSR. Wyrównanie stosu relatywne\ndo SP+1 jest pokazane w nawiasach. Warto¶æ jest szacowana."},
 /* ru */ {IDGS_MON_BACKTRACE_DESCRIPTION_RU, "Print JSR call chain (most recent call first). Stack offset\nrelative to SP+1 is printed in parentheses. This is a best guess\nonly."},
 /* sv */ {IDGS_MON_BACKTRACE_DESCRIPTION_SV, "Skriv JSR-anropskedja (senaste anrop först). Stackavstånd\nrelativt till SP+1 visas inom parantes. Detta är bara en\ngissning."},
@@ -1177,7 +1177,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_CPU_DESCRIPTION_HU, "A processzor típusának megadása (6502/z80)."},
 /* it */ {IDGS_MON_CPU_DESCRIPTION_IT, "Specifica il tipo di CPU utilizzata al momento (6502/z80)."},
 /* ko */ {IDGS_MON_CPU_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_CPU_DESCRIPTION_NL, "Geef de soort CPU die op dit moment in gebruik is (6502/z80)."},
+/* nl */ {IDGS_MON_CPU_DESCRIPTION_NL, "Geef de soort CPU op die op dit moment in gebruik is (6502/z80)."},
 /* pl */ {IDGS_MON_CPU_DESCRIPTION_PL, "Okre¶l typ obecnie u¿ywanego CPU (6502/z80)."},
 /* ru */ {IDGS_MON_CPU_DESCRIPTION_RU, "Specify the type of CPU currently used (6502/z80)."},
 /* sv */ {IDGS_MON_CPU_DESCRIPTION_SV, "Ange typ av CPU som används för närvarande (6502/z80)."},
@@ -1211,7 +1211,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_CPUHISTORY_DESCRIPTION_HU, "<darab> utoljára végrehajtott utasítás mutatása."},
 /* it */ {IDGS_MON_CPUHISTORY_DESCRIPTION_IT, "Mostra gli ultimi <contatore> comandi eseguiti."},
 /* ko */ {IDGS_MON_CPUHISTORY_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_CPUHISTORY_DESCRIPTION_NL, "Toon <hoeveelheid> laatst uitgevoerde commandos."},
+/* nl */ {IDGS_MON_CPUHISTORY_DESCRIPTION_NL, "Toon <hoeveelheid> laatst uitgevoerde commando's."},
 /* pl */ {IDGS_MON_CPUHISTORY_DESCRIPTION_PL, "Pokazuje <ilo¶æ> ostatnio wykonanych poleceñ."},
 /* ru */ {IDGS_MON_CPUHISTORY_DESCRIPTION_RU, "Show <count> last executed commands."},
 /* sv */ {IDGS_MON_CPUHISTORY_DESCRIPTION_SV, "Visa <antal> senast exekverade kommandon."},
@@ -1245,7 +1245,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_DUMP_DESCRIPTION_HU, "Pillanatkép írása a géprõl a megadott fájlba. A pillanatkép\nkompatibilis azzal, amelyet a grafikus felület hoz létre.\nMegjegyzés: a ROM képmások nem kerülnek bele."},
 /* it */ {IDGS_MON_DUMP_DESCRIPTION_IT, "Scrive uno snapshot del computer sul file specificato.\nQuesto snapshot è compatibile con uno snapshot scritto dall'IU.\nNota: Le immagini ROM non sono incluse nel dump."},
 /* ko */ {IDGS_MON_DUMP_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_DUMP_DESCRIPTION_NL, "Schrijf een momentopname van de machine naar de opgegeven bestand.\nDeze momentopname is compatibel met een momentopname zoals geschreven van\nuit het menu.\nNB: ROM bestanden zijn niet opgenomen in de momentopname."},
+/* nl */ {IDGS_MON_DUMP_DESCRIPTION_NL, "Schrijf een momentopname van de machine naar het opgegeven bestand.\nDeze momentopname is compatibel met een momentopname zoals geschreven \nvanuit het menu.\nNB: ROM bestanden zijn niet opgenomen in de momentopname."},
 /* pl */ {IDGS_MON_DUMP_DESCRIPTION_PL, "Zapis zrzutu maszyny do danego pliku.\nZrzut ten jest kompatybilny ze zrzutami zapisywanymi przez UI.\nUwaga: W zrzucie nie s± zawarte ¿adne obrazy ROM."},
 /* ru */ {IDGS_MON_DUMP_DESCRIPTION_RU, "Write a snapshot of the machine into the file specified.\nThis snapshot is compatible with a snapshot written out by the UI.\nNote: No ROM images are included into the dump."},
 /* sv */ {IDGS_MON_DUMP_DESCRIPTION_SV, "Skriv en ögonblicksbild av maskinen till den angivna filen.\nÖgonblicksbilden är kompatibel med de som skapas från menyn.\nObservera: ROM-avbildningar inkluderas inte i bilden."},
@@ -1296,7 +1296,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_IO_DESCRIPTION_HU, "Az emulált gép I/O tartományának mutatása."},
 /* it */ {IDGS_MON_IO_DESCRIPTION_IT, "Stampa l'area di I/O del computer emulato."},
 /* ko */ {IDGS_MON_IO_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_IO_DESCRIPTION_NL, "Toon de I/O geheugenruimte van de huidige machine."},
+/* nl */ {IDGS_MON_IO_DESCRIPTION_NL, "Toon het I/O gebied van de geëmuleerde machine."},
 /* pl */ {IDGS_MON_IO_DESCRIPTION_PL, "Poka¿ obszar we/wy emulowanej maszyny."},
 /* ru */ {IDGS_MON_IO_DESCRIPTION_RU, "Print out the I/O area of the emulated machine."},
 /* sv */ {IDGS_MON_IO_DESCRIPTION_SV, "Skriv I/O-området för den emulerade maskinen."},
@@ -1415,7 +1415,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_RETURN_DESCRIPTION_HU, "Folytatja a végrehajtást és visszatér a monitorba a következõ\nRTS vagy RTI utasítás elõtt."},
 /* it */ {IDGS_MON_RETURN_DESCRIPTION_IT, "Continua l'esecuzione e ritorna al monitor subito prima della prossima\nesecuzione di RTS o RTI."},
 /* ko */ {IDGS_MON_RETURN_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_RETURN_DESCRIPTION_NL, "Ga door met uitvoeren van instructies en kom terug naar de monitor net voor de\nvolgende RTS of RTI wordt uitgevoerd."},
+/* nl */ {IDGS_MON_RETURN_DESCRIPTION_NL, "Ga door met uitvoeren van instructies en keer terug naar de monitor net voordat de\nvolgende RTS of RTI wordt uitgevoerd."},
 /* pl */ {IDGS_MON_RETURN_DESCRIPTION_PL, "Wykonuje dalej i wraca do monitora tu¿ przed wykonaniem\nnastêpnego RTS lub RTI."},
 /* ru */ {IDGS_MON_RETURN_DESCRIPTION_RU, "Continues execution and returns to the monitor just before the next\nRTS or RTI is executed."},
 /* sv */ {IDGS_MON_RETURN_DESCRIPTION_SV, "Fortsätt exekveringen och återgå till monitorn precis innan nästa\nRTS eller RTI exekveras."},
@@ -1449,7 +1449,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_STEP_DESCRIPTION_HU, "Lépkedés egyesével az utasításokon.  A DARAB-bal beállítható,\nha több utasítást kell ugrani egyszerre."},
 /* it */ {IDGS_MON_STEP_DESCRIPTION_IT, "Modalità single step attraverso le istruzioni. Il CONTATORE permette\ndi attraversare più di una singola istruzione per volta."},
 /* ko */ {IDGS_MON_STEP_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_STEP_DESCRIPTION_NL, "Enkel-stap door de instructies. AANTAL zorgt ervoor dat er meerdere\ninstructies worden uitgevoerd in een keer."},
+/* nl */ {IDGS_MON_STEP_DESCRIPTION_NL, "Stap voor stap door de instructies. AANTAL zorgt ervoor dat er meerdere\ninstructies worden uitgevoerd in een keer."},
 /* pl */ {IDGS_MON_STEP_DESCRIPTION_PL, "Przechodzi przez instrukcje krok po kroku. COUNT pozwala\nprzechodziæ przez wiêcej ni¿ jedn± instrukcjê na raz."},
 /* ru */ {IDGS_MON_STEP_DESCRIPTION_RU, "Single-step through instructions.  COUNT allows stepping\nmore than a single instruction at a time."},
 /* sv */ {IDGS_MON_STEP_DESCRIPTION_SV, "Stega genom instruktioner. ANTAL gör det möjligt att stega\ngenom mer än en enkel instruktion i varje steg."},
@@ -1466,7 +1466,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_STOPWATCH_DESCRIPTION_HU, ""},  /* fuzzy */
 /* it */ {IDGS_MON_STOPWATCH_DESCRIPTION_IT, "Stampa il numero di cicli di CPU del device attuale. 'reset' imposta il contatore a 0."},
 /* ko */ {IDGS_MON_STOPWATCH_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_STOPWATCH_DESCRIPTION_NL, "Toon de CPY cycli teller voor het huidige apparaat. 'reset' zet de teller naar 0."},
+/* nl */ {IDGS_MON_STOPWATCH_DESCRIPTION_NL, "Toon de CPU cycli teller voor het huidige apparaat. 'reset' zet de teller naar 0."},
 /* pl */ {IDGS_MON_STOPWATCH_DESCRIPTION_PL, "Poka¿ licznik cykli CPU obecnego urz±dzenia. 'reset' zeruje licznik."},
 /* ru */ {IDGS_MON_STOPWATCH_DESCRIPTION_RU, "Print the CPU cycle counter of the current device. 'reset' sets the counter to 0."},
 /* sv */ {IDGS_MON_STOPWATCH_DESCRIPTION_SV, "Visa processorcykelräknaren för aktuell enhet. \"reset\" sätter räknaren på 0."},
@@ -1483,7 +1483,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_UNDUMP_DESCRIPTION_HU, "A pillanatkép betöltése a megadott fájlból."},
 /* it */ {IDGS_MON_UNDUMP_DESCRIPTION_IT, "Legge lo snapshot del computer dal file specificato."},
 /* ko */ {IDGS_MON_UNDUMP_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_UNDUMP_DESCRIPTION_NL, "Lees een momentopname voor de machine van het opgegeven bestand."},
+/* nl */ {IDGS_MON_UNDUMP_DESCRIPTION_NL, "Lees een momentopname van de machine vanuit het opgegeven bestand."},
 /* pl */ {IDGS_MON_UNDUMP_DESCRIPTION_PL, "Odczytaj zrzut maszyny z okre¶lonego pliku."},
 /* ru */ {IDGS_MON_UNDUMP_DESCRIPTION_RU, "Read a snapshot of the machine from the file specified."},
 /* sv */ {IDGS_MON_UNDUMP_DESCRIPTION_SV, "Läs en ögonblicksbild för maskinen från den angivna filen."},
@@ -1500,7 +1500,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_SYMBOL_TABLE_COMMANDS_HU, ""},  /* fuzzy */
 /* it */ {IDGS_SYMBOL_TABLE_COMMANDS_IT, "Comandi tabella dei simboli:"},
 /* ko */ {IDGS_SYMBOL_TABLE_COMMANDS_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_SYMBOL_TABLE_COMMANDS_NL, "Symbool tabel commandos:"},
+/* nl */ {IDGS_SYMBOL_TABLE_COMMANDS_NL, "Symbool tabel commando's:"},
 /* pl */ {IDGS_SYMBOL_TABLE_COMMANDS_PL, "Polecenia tablicy symboli:"},
 /* ru */ {IDGS_SYMBOL_TABLE_COMMANDS_RU, "Symbol table commands:"},
 /* sv */ {IDGS_SYMBOL_TABLE_COMMANDS_SV, "Kommandon för symboltabell:"},
@@ -1534,7 +1534,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_ADD_LABEL_DESCRIPTION_HU, "A <memória tér> ezek közül: C: 8: 9: 10: 11:\n<cím>  amelyik címhez a címkét rendelje.\n<címke>    a címke neve; ponttal kell kezdõdjön (\".\").\n\nAz adott cím rendelése a címkéhez.  Ez a címke használható assembly\nprogram beírásakor, és visszafejtéskor megjelenik.  Mindig használható,\namikor valamilyen címet kell megadni."},
 /* it */ {IDGS_MON_ADD_LABEL_DESCRIPTION_IT, "<spazio di memoria> è uno tra: C: 8: 9: 10: 11:\n<indirizzo> è l'indirizzo a cui deve essere associata l'etichettal.\n<etichetta> è il nome dell'etichetta; deve iniziare con un punto (\".\").\n\nAssocia l'indirizzo specificato all'etichetta. Questa etichetta può\nessere usata quando si inserisce codice assembly ed è mostrata\nnella disassemblazione. In aggiunta, può essere usata ogni volta che\ndeve essere specificato un indirizzo."},
 /* ko */ {IDGS_MON_ADD_LABEL_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_ADD_LABEL_DESCRIPTION_NL, "<geheugenruimte> is een van: C: 8: 9: 10: 11:\n<adres>          is het adres waaraan de label gekoppelt moet worden.\n<label>          is de naam van de label; de naam moet beginnen met een punt\n                 (\".\").\n\nKoppel een opgegeven adres aan een label. Dit label kan worden gebruikt bij\nhet invoeren van assembleer code en wordt getoont bij een disassemblering.\nTevens kan de label gebruikt worden in plaats van het adres."},
+/* nl */ {IDGS_MON_ADD_LABEL_DESCRIPTION_NL, "<geheugenruimte> is één van: C: 8: 9: 10: 11:\n<adres>          is het adres waaraan het label gekoppeld moet worden.\n<label>          is de naam van het label; de naam moet beginnen met een punt\n                 (\".\").\n\nKoppel een opgegeven adres aan een label. Dit label kan worden gebruikt bij\nhet invoeren van assembleer code en wordt getoond bij een disassemblering.\nTevens kan het label gebruikt worden in plaats van het adres."},
 /* pl */ {IDGS_MON_ADD_LABEL_DESCRIPTION_PL, "<memspace> to jeden z: C: 8: 9: 10: 11:\n<address> to adres, pod który ma i¶æ oznaczenie.\n<label> to nazwa oznaczenia, musi zaczynaæ siê kropk± (\".\").\n\nMapuje dany adres pod oznaczenie. Mo¿na go u¿yæ\nprzy wprowadzaniu kodu asemblowania, a pokazywane jest\npodczas deasemblowania. Oznaczenia tego mo¿na go u¿ywaæ\nzawsze gdy trzeba wskazaæ dany adres."},
 /* ru */ {IDGS_MON_ADD_LABEL_DESCRIPTION_RU, "<memspace> is one of: C: 8: 9: 10: 11:\n<address>  is the address which should get the label.\n<label>    is the name of the label; it must start with a dot (\".\").\n\nMap a given address to a label.  This label can be used when entering\nassembly code and is shown during disassembly.  Additionally, it can\nbe used whenever an address must be specified."},
 /* sv */ {IDGS_MON_ADD_LABEL_DESCRIPTION_SV, "<minnesområde> är en av: C: 8: 9: 10: 11:\n<adress>       är adressen som ska få etiketten.\n<etikett>      är namnet på etiketten; måste starta med punkt (\".\").\n\nKoppla en adress till en etikett. Etiketten kan anges när assemblerkod\nmatas in och visas vid disassemblering. I tillägg kan den användas\nnärhelst en adress måste anges."},
@@ -1551,7 +1551,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_DELETE_LABEL_DESCRIPTION_HU, "<memória tér> egy ezek közül: C: 8: 9: 10: 11:\n<címke>    a címke neve; ponttal kell kezdõdjön (\".\").\n\nElõzõleg megadott címke törlése."},
 /* it */ {IDGS_MON_DELETE_LABEL_DESCRIPTION_IT, "<spazio di memoria> è uno tra: C: 8: 9: 10: 11:\n<etichetta> è il nome dell'etichetta; deve iniziare con un punto (\".\").\n\nCancella una etichetta definita precedentemente."},
 /* ko */ {IDGS_MON_DELETE_LABEL_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_DELETE_LABEL_DESCRIPTION_NL, "<geheugenruimte> is een van: C: 8: 9: 10: 11:\n<label>          is de naam van de label; de naam moet beginnen met een\npunt (\".\").\n\nVerwijder een gekoppelde label."},
+/* nl */ {IDGS_MON_DELETE_LABEL_DESCRIPTION_NL, "<geheugenruimte> is één van: C: 8: 9: 10: 11:\n<label>          is de naam van het label; de naam moet beginnen met een\npunt (\".\").\n\nVerwijder een gekoppeld label."},
 /* pl */ {IDGS_MON_DELETE_LABEL_DESCRIPTION_PL, "<memspace> to jeden z: C: 8: 9: 10: 11:\n<label> to nazwa oznaczenia, musi zaczynaæ siê kropk± (\".\").\n\nKasuje poprzednio zdefiniowane oznaczenie."},
 /* ru */ {IDGS_MON_DELETE_LABEL_DESCRIPTION_RU, "<memspace> is one of: C: 8: 9: 10: 11:\n<label>    is the name of the label; it must start with a dot (\".\").\n\nDelete a previously defined label."},
 /* sv */ {IDGS_MON_DELETE_LABEL_DESCRIPTION_SV, "<minnesområde> är en av: C: 8: 9: 10: 11:\n<etikett>      är namnet på etiketten; måste starta med punkt (\".\").\n\nTa bort en tidigare angiven etikett."},
@@ -1568,7 +1568,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_LOAD_LABELS_DESCRIPTION_HU, "Címkékrõl címekre leképezéseket tartalmazó fájl betöltése.  Ha nincs memória\ntér megadva, az alap tér lesz használva.\n\nA fájl formátuma megegyezik a `save_labels' parancs által kiírtéval;\nnéhány egymás után írt `add_label' parancsból áll."},
 /* it */ {IDGS_MON_LOAD_LABELS_DESCRIPTION_IT, "Carica un file che contiente l'associazione tra le etichette e gli indirizzi.\nSe non è specificato alcuno spazio di memoria, viene usato lo spazio\ndi lettura predefinito.\n\nIl formato del file è quello dato in output dal comando `save_labels';\nè composto da alcuni comandi `add_label', scritti uno di seguito all'altro."},
 /* ko */ {IDGS_MON_LOAD_LABELS_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_LOAD_LABELS_DESCRIPTION_NL, "Laad een bestand met de koppelingen tussen labels en adressen. Als er geen\ngeheugenruimte is opgegeven zal de standaard geheugenruimte worden gebruikt.\nHet formaat van het bestand is die door het commando 'save_labels' wordt\ngeschreven; het bestaat uit een aantal 'add_label' commandos na elkaar."},
+/* nl */ {IDGS_MON_LOAD_LABELS_DESCRIPTION_NL, "Laad een bestand met de koppelingen tussen labels en adressen. Als er geen\ngeheugenruimte is opgegeven, zal de standaard geheugenruimte worden gebruikt.\nHet formaat van het bestand is die door het commando 'save_labels' wordt\ngeschreven; het bestaat uit een aantal 'add_label' commando's na elkaar."},
 /* pl */ {IDGS_MON_LOAD_LABELS_DESCRIPTION_PL, "Wczytuje plik zawieraj±cy mapowanie oznaczeñ pod adresy. Je¶li nie\nokre¶lono zakresu pamiêci, u¿ywany jest domy¶lny zakres pamiêci.\n\nFormat pliku jest zapisywany komend±`save_labels',\nktóra sk³ada siê z komend `add_label', zapisanych jedna po drugiej."},
 /* ru */ {IDGS_MON_LOAD_LABELS_DESCRIPTION_RU, "Load a file containing a mapping of labels to addresses.  If no memory\nspace is specified, the default readspace is used.\n\nThe format of the file is the one written out by the `save_labels' command;\nit consists of some `add_label' commands, written one after the other."},
 /* sv */ {IDGS_MON_LOAD_LABELS_DESCRIPTION_SV, "Läs in en fil som innehåller koppling från etiketter till adresser.\nOm inget minnesområde anges användas standard-läsadressen.\n\nFormatet på filen är samma som skrivs av \"save_labels\"-kommandot;\ndet består av några \"add_label\"-kommandon efter varandra."},
@@ -1585,7 +1585,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_SAVE_LABELS_DESCRIPTION_HU, "Címkék mentése fájlba.  Ha nincs memória tartomány megadva, az\nösszes címkét menti."},
 /* it */ {IDGS_MON_SAVE_LABELS_DESCRIPTION_IT, "Salva le etichette su file. Se non è specificato alcuno spazio di memoria,\nvengono salvate tutte le etichette."},
 /* ko */ {IDGS_MON_SAVE_LABELS_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_SAVE_LABELS_DESCRIPTION_NL, "Sla de labels op in een bestand. Als er geen geheugenruimte is opgegeven\nworden alle labels opgeslagen."},
+/* nl */ {IDGS_MON_SAVE_LABELS_DESCRIPTION_NL, "Sla de labels op in een bestand. Als er geen geheugenruimte is opgegeven,\nworden alle labels opgeslagen."},
 /* pl */ {IDGS_MON_SAVE_LABELS_DESCRIPTION_PL, "Zapisuje oznaczenia do pliku. Je¶li nie okre¶lono obszaru pamiêci,\nzapisywanie s± wszystkie oznaczenia."},
 /* ru */ {IDGS_MON_SAVE_LABELS_DESCRIPTION_RU, "Save labels to a file.  If no memory space is specified, all of the\nlabels are saved."},
 /* sv */ {IDGS_MON_SAVE_LABELS_DESCRIPTION_SV, "Spara etiketter till en fil. Om inget minnesområde anges sparas alla\netiketterna."},
@@ -1602,7 +1602,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_SHOW_LABELS_DESCRIPTION_HU, ""},  /* fuzzy */
 /* it */ {IDGS_MON_SHOW_LABELS_DESCRIPTION_IT, ""},  /* fuzzy */
 /* ko */ {IDGS_MON_SHOW_LABELS_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_SHOW_LABELS_DESCRIPTION_NL, "Toon huidige label koppelingen. Als er geen geheugenruimte is opgegeven\nworden all labels van de standaard geheugenruimte getoont."},
+/* nl */ {IDGS_MON_SHOW_LABELS_DESCRIPTION_NL, "Toon huidige label koppelingen. Als er geen geheugenruimte is opgegeven,\nworden alle labels van de standaard geheugenruimte getoond."},
 /* pl */ {IDGS_MON_SHOW_LABELS_DESCRIPTION_PL, "Poka¿ obecne mapowania oznaczeñ. Je¶li nie okre¶lono obszaru pamiêci,\nwy¶wietlane s± wszystkie oznaczenia z domy¶lnych obszarów pamiêci. "},
 /* ru */ {IDGS_MON_SHOW_LABELS_DESCRIPTION_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_MON_SHOW_LABELS_DESCRIPTION_SV, ""},  /* fuzzy */
@@ -1619,7 +1619,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_CLEAR_LABELS_DESCRIPTION_HU, ""},  /* fuzzy */
 /* it */ {IDGS_MON_CLEAR_LABELS_DESCRIPTION_IT, ""},  /* fuzzy */
 /* ko */ {IDGS_MON_CLEAR_LABELS_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_CLEAR_LABELS_DESCRIPTION_NL, "Verwijder huidige label koppelingen. Als er geen geheugenruimte is opgegeven\nworden all labels van de standaard geheugenruimte verwijderd."},
+/* nl */ {IDGS_MON_CLEAR_LABELS_DESCRIPTION_NL, "Verwijder huidige label koppelingen. Als er geen geheugenruimte is opgegeven,\nworden alle labels van de standaard geheugenruimte verwijderd."},
 /* pl */ {IDGS_MON_CLEAR_LABELS_DESCRIPTION_PL, "Wyczy¶æ obecne oznaczenia mapowania. Je¶li nie okre¶lono obszaru\npamiêci, kasowane s± wszystkie oznaczenia z domy¶lnego obszaru pamiêci."},
 /* ru */ {IDGS_MON_CLEAR_LABELS_DESCRIPTION_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_MON_CLEAR_LABELS_DESCRIPTION_SV, ""},  /* fuzzy */
@@ -1636,7 +1636,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_ASSEMBLER_AND_MEMORY_COMMANDS_HU, ""},  /* fuzzy */
 /* it */ {IDGS_ASSEMBLER_AND_MEMORY_COMMANDS_IT, "Comandi assembler e memoria:"},
 /* ko */ {IDGS_ASSEMBLER_AND_MEMORY_COMMANDS_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_ASSEMBLER_AND_MEMORY_COMMANDS_NL, "Assembler en geheugen commandos:"},
+/* nl */ {IDGS_ASSEMBLER_AND_MEMORY_COMMANDS_NL, "Assembler en geheugen commando's:"},
 /* pl */ {IDGS_ASSEMBLER_AND_MEMORY_COMMANDS_PL, "Asembler i polecenia pamiêci:"},
 /* ru */ {IDGS_ASSEMBLER_AND_MEMORY_COMMANDS_RU, "Assembler and memory commands:"},
 /* sv */ {IDGS_ASSEMBLER_AND_MEMORY_COMMANDS_SV, "Assembler- och minneskommandon:"},
@@ -1670,7 +1670,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_WRITE_DESCRIPTION_HU, "A megadott adat `cím' helyre írása."},
 /* it */ {IDGS_MON_WRITE_DESCRIPTION_IT, "Scrive il dato specificato all'indirizzo."},
 /* ko */ {IDGS_MON_WRITE_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_WRITE_DESCRIPTION_NL, "Schrijf de opgegevem data op `adres'."},
+/* nl */ {IDGS_MON_WRITE_DESCRIPTION_NL, "Schrijf de opgegeven gegevens op `adres'."},
 /* pl */ {IDGS_MON_WRITE_DESCRIPTION_PL, "Zapisuje okre¶lone dane w 'adresie'."},
 /* ru */ {IDGS_MON_WRITE_DESCRIPTION_RU, "Write the specified data at `address'."},
 /* sv */ {IDGS_MON_WRITE_DESCRIPTION_SV, "Skriv angiven data på \"adress\"."},
@@ -1704,7 +1704,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_ASSEMBLE_DESCRIPTION_HU, "Utasítások fordítása a megadott címre. Ha csak egy utasítás\nvan, fordító módba lép (üres sort kell beírni a kilépéshez)."},
 /* it */ {IDGS_MON_ASSEMBLE_DESCRIPTION_IT, "Assembla le istruzioni a partire dall'indirizzo specificato. Se solo una\nistruzione è specificata, entra in modalità assembly (inserire una\nlinea vuota per uscire da questa modalità)."},
 /* ko */ {IDGS_MON_ASSEMBLE_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_ASSEMBLE_DESCRIPTION_NL, "Assembleer instructies naar het opgegeven adres. Als er alleen een instructie\nis opgegeven dan wordt de assembleer modus ingeschakelt (geef een lege regel\nin om de assembleer modus te verlaten)."},
+/* nl */ {IDGS_MON_ASSEMBLE_DESCRIPTION_NL, "Assembleer instructies naar het opgegeven adres. Als er alleen een instructie\nis opgegeven, wordt de assembleer modus ingeschakeld (geef een lege regel\nin om de assembleer modus te verlaten)."},
 /* pl */ {IDGS_MON_ASSEMBLE_DESCRIPTION_PL, "Assembluje instrukcje pod podanym adresem. Je¶li podano tylko\njedn± instrukcjê, wchodzi w tryb asemblowania (pusta linia\nwychodzi z trybu asemblowania)."},
 /* ru */ {IDGS_MON_ASSEMBLE_DESCRIPTION_RU, "Assemble instructions to the specified address.  If only one\ninstruction is specified, enter assembly mode (enter an empty line to\nexit assembly mode)."},
 /* sv */ {IDGS_MON_ASSEMBLE_DESCRIPTION_SV, "Assemblera instruktioner till angiven adress. Om endast en\ninstruktion angavs, aktivera assemblerläge (mata in en tom rad\nför att avsluta assemblerläget)."},
@@ -1738,7 +1738,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_COMPARE_DESCRIPTION_HU, "A forrás memóriatartomány összehasonlítása a céllal megadott\nmemóriatartománnyal. A tartományok átfedése megengedett.  Minden\nmeg nem egyezõ értéket kiír az alap adat típussal."},
 /* it */ {IDGS_MON_COMPARE_DESCRIPTION_IT, "Confronta la memoria della sorgente specificata dall'intervallo di\nindirizzi con la destinazione specificata dall'indirizzo. Le regioni possono\nsovrapporsi. Qualsiasi valore che non corrisponde è visualizzato\nutilizzando il tipo di dato predefinito."},
 /* ko */ {IDGS_MON_COMPARE_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_COMPARE_DESCRIPTION_NL, "Vergelijk geheugen van de bron opgegeven door de adres reeks met het doel\nopgegeven door het adres. De reeksen mogen overlappen. De data die niet\ngelijk is zal worden getoont volgens de huidige toon soort."},
+/* nl */ {IDGS_MON_COMPARE_DESCRIPTION_NL, "Vergelijk geheugen van de bron opgegeven door de adres reeks met het doel\nopgegeven door het adres. De reeksen mogen overlappen. De data die niet\ngelijk is zal worden getoond volgens de huidige weergavesoort."},
 /* pl */ {IDGS_MON_COMPARE_DESCRIPTION_PL, "Porównuje pamiêæ z podanego zakresu adresów z podanym adresem.\nRejony mog± siê pokrywaæ. Wszystkie niepasuj±ce warto¶ci s± pokazane\ndomy¶lnym typem danych."},
 /* ru */ {IDGS_MON_COMPARE_DESCRIPTION_RU, "Compare memory from the source specified by the address range to the\ndestination specified by the address.  The regions may overlap.  Any\nvalues that miscompare are displayed using the default displaytype."},
 /* sv */ {IDGS_MON_COMPARE_DESCRIPTION_SV, "Jämför minne från källan som anges av adressområdet mot destinationen\nsom anges av adressen. Områdena kan vara överlappande. Alla värden\nsom skiljer sig vid jämförelsen visas med standardvisningssättet."},
@@ -1772,7 +1772,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_DELETE_DESCRIPTION_HU, ""},  /* fuzzy */
 /* it */ {IDGS_MON_DELETE_DESCRIPTION_IT, "Cancella il punto di controllo `checknum'. Se non viene specificato alcun punto di controllo saranno cancellati tutti i punti di controllo."},
 /* ko */ {IDGS_MON_DELETE_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_DELETE_DESCRIPTION_NL, "Wis checkpunt 'checknum'. Als er geen checkpunt is gegeven dan worden alle checkpunter gewist"},
+/* nl */ {IDGS_MON_DELETE_DESCRIPTION_NL, "Wis checkpunt 'checknum'. Als er geen checkpunt is gegeven, worden alle checkpunten gewist."},
 /* pl */ {IDGS_MON_DELETE_DESCRIPTION_PL, "Skasuj punkt kontrolny 'checknum'. Je¶li nie okre¶lono punktu kontrolnego, skasuj wszystkie."},
 /* ru */ {IDGS_MON_DELETE_DESCRIPTION_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_MON_DELETE_DESCRIPTION_SV, "Ta bort kontrollpunkten \"kontrollnr\". Om ingen kontrollpunkt har angivits, ta bort samtliga kontrollpunkter."},
@@ -1789,7 +1789,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_DISASS_DESCRIPTION_HU, "Utasítások visszafejtése. Ha két cím van megadva, elsõ és utolsó\ncímként értelmezi õket. Ha csak egy, akkor elsõ címként, és az alap\nszámú utasítás kerül visszafejtésre. Ha nincs cím megadva, az aktuális\ncímtõl kezdi a visszafejtést, és a szokásos számú utasítást ír ki."},
 /* it */ {IDGS_MON_DISASS_DESCRIPTION_IT, "Disassembla le istruzioni. Se sono specificati due indirizzi, questi\nsono utilizzati come indirizzo di inizio e fine. Se ne viene specificato\nsolo uno, è usato come indirizzo di partenza e viene disassemblato\nil numero di istruzioni predefinito. Se non viene specificato nessun\nindirizzo, viene disassemblato il numero di istruzioni predefinito\ndall'indirizzo dot."},
 /* ko */ {IDGS_MON_DISASS_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_DISASS_DESCRIPTION_NL, "Disassembleer instructies. Als er twee adressen zijn opgegeven dan worden\ndeze gebruikt als een start en eind adres. Als er maar een adres is\nopgegeven dan wordt deze gebruikt als het start adres en een standaard\naantal instructies zal worden gedisassembleerd. Als er geen adressen zijn\nopgegeven dan wordt een standaard aantal instructies gedisassembleerd vanaf\nhet huidige adres."},
+/* nl */ {IDGS_MON_DISASS_DESCRIPTION_NL, "Disassembleer instructies. Als er twee adressen zijn opgegeven, worden\ndeze gebruikt als een start en eind adres. Als er maar één adres is\nopgegeven, wordt deze gebruikt als het start adres en een standaard\naantal instructies zal worden gedisassembleerd. Als er geen adressen zijn\nopgegeven, wordt een standaard aantal instructies gedisassembleerd vanaf\nhet huidige adres."},
 /* pl */ {IDGS_MON_DISASS_DESCRIPTION_PL, "Deasembluje instrukcje. Je¶li podano dwa adresy, u¿ywane s± jako\nadres pocz±tkowy i koñcowy. Je¶li podano tylko jeden, jest u¿ywany\njako adres pocz±tkowy i deasemblowana jest domy¶lna liczba instrukcji\nz adresu dot."},
 /* ru */ {IDGS_MON_DISASS_DESCRIPTION_RU, "Disassemble instructions.  If two addresses are specified, they are\nused as a start and end address.  If only one is specified, it is\ntreated as the start address and a default number of instructions are\ndisassembled.  If no addresses are specified, a default number of\ninstructions are disassembled from the dot address."},
 /* sv */ {IDGS_MON_DISASS_DESCRIPTION_SV, "Disassemblera instruktioner. Om två adresser anges används de som\nstart- och slutadress. Om endast en anges används den som startadress\noch ett standardantal instruktioner disassembleras. Om ingen adress\nanges disassembleras ett standardantal instruktioner från punktadressen."},
@@ -1806,7 +1806,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_FILL_DESCRIPTION_HU, "A memória kitöltése az <adat_lista> paraméterben megadott adatokkal.\nHa a címtartomány nagyobb, mint a lista, ismételni fogja azt."},
 /* it */ {IDGS_MON_FILL_DESCRIPTION_IT, "Riempe la memoria nell'intervallo di indirizzi specificato con i dati\npresenti in <lista di dati>. Se la dimensione dell'intervallo è maggiore\ndella dimensione della lista di dati, la lista di dati è ripetuta."},
 /* ko */ {IDGS_MON_FILL_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_FILL_DESCRIPTION_NL, "Vul het geheugen van de opgegeven adres reeks op met de data in <data_lijst>.\nAls de grootte van de adres reeks groter is dan de grootte van de data_lijst\ndan zal de data_lijst worder herhaald."},
+/* nl */ {IDGS_MON_FILL_DESCRIPTION_NL, "Vul het geheugen van de opgegeven adresreeks op met de data in <data_lijst>.\nAls de grootte van de adresreeks groter is dan de grootte van de data_lijst,\nzal de data_lijst worden herhaald."},
 /* pl */ {IDGS_MON_FILL_DESCRIPTION_PL, "Wype³nia pamiêæ w danym zakresie adresów danymi z <lista_danych>.\nJe¶li wielko¶æ zakresu adresów jest wiêksza ni¿ wielko¶æ listy_danych,\nlista_danych jest powtarzana."},
 /* ru */ {IDGS_MON_FILL_DESCRIPTION_RU, "Fill memory in the specified address range with the data in\n<data_list>.  If the size of the address range is greater than the size\nof the data_list, the data_list is repeated."},
 /* sv */ {IDGS_MON_FILL_DESCRIPTION_SV, "Fyll minnet i det angivna området med data i <datalista>.\nOm storleken på adressområdet är större än storleken på datalistan\nrepeteras innehållet i datalistan."},
@@ -1823,7 +1823,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_HUNT_DESCRIPTION_HU, "Az <adat_lista> adat keresése a memóriában. Ha megtalálja a sorozatot,\na kezdõcímét kiírja. Az egész tartományt végignézi az összes lehetséges\ntalálat felfedezéséhez."},
 /* it */ {IDGS_MON_HUNT_DESCRIPTION_IT, "Cerca nell'intervallo di indirizzi specificato i dati nella <lista di dati>.\nSe il dato è trovato, viene visualizzato l'indirizzo iniziale della\ncorrispondenza. Tutto l'intervallo viene ricercato per tutte le possibili\ncorrispondenze."},
 /* ko */ {IDGS_MON_HUNT_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_HUNT_DESCRIPTION_NL, "Zoek het adres bereik voor de data in <data_lijst>. Als de data is gevonden\ndan wordt het start adres getoont. Er zal door de hele reeks worden gezocht."},
+/* nl */ {IDGS_MON_HUNT_DESCRIPTION_NL, "Zoek het adresbereik voor de data in <data_lijst>. Als de data is gevonden,\n wordt het startadres getoond. Er zal door de hele reeks worden gezocht."},
 /* pl */ {IDGS_MON_HUNT_DESCRIPTION_PL, "Szukaj danych z <lista_danych> w pamiêci w podanym zakresie\nadresów. Je¶li znaleziono dane, pokazany jest pocz±tkowy adres\ntrafienia. Ca³y zakres jest przeszukiwany dla wszystkich mo¿liwych	rafieñ."},
 /* ru */ {IDGS_MON_HUNT_DESCRIPTION_RU, "Hunt memory in the specified address range for the data in\n<data_list>.  If the data is found, the starting address of the match\nis displayed.  The entire range is searched for all possible matches."},
 /* sv */ {IDGS_MON_HUNT_DESCRIPTION_SV, "Sök i minnet i det angivna området med data efter <datalista>.\nOm data påträffas visas startadressen för träffen. Hela\nområdet genomsöks för att hitta alla möjliga träffar."},
@@ -1857,7 +1857,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_I_DESCRIPTION_HU, "Memória tartalom mutatása PETSCII szövegként."},
 /* it */ {IDGS_MON_I_DESCRIPTION_IT, "Mostra il contenuto della memoria come testo PETSCII."},
 /* ko */ {IDGS_MON_I_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_I_DESCRIPTION_NL, "Toon geheugen inhoud als PETSCII tekst."},
+/* nl */ {IDGS_MON_I_DESCRIPTION_NL, "Toon geheugeninhoud als PETSCII tekst."},
 /* pl */ {IDGS_MON_I_DESCRIPTION_PL, "Poka¿ zawarto¶æ pamiêci jako tekst PETSCII."},
 /* ru */ {IDGS_MON_I_DESCRIPTION_RU, "Display memory contents as PETSCII text."},
 /* sv */ {IDGS_MON_I_DESCRIPTION_SV, "Visa minnesinnehåll som PETSCII-text."},
@@ -1874,7 +1874,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_II_DESCRIPTION_HU, "Memória tartalom megjelenítése képernyõ kód szövegként."},
 /* it */ {IDGS_MON_II_DESCRIPTION_IT, "Mostra il contenuto della memoria come testo screen code."},
 /* ko */ {IDGS_MON_II_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_II_DESCRIPTION_NL, "Toon geheugen inhoud als scherm code tekst."},
+/* nl */ {IDGS_MON_II_DESCRIPTION_NL, "Toon geheugen inhoud als schermcode tekst."},
 /* pl */ {IDGS_MON_II_DESCRIPTION_PL, "Poka¿ zawarto¶æ pamiêci jako tekst screen code."},
 /* ru */ {IDGS_MON_II_DESCRIPTION_RU, "Display memory contents as screen code text."},
 /* sv */ {IDGS_MON_II_DESCRIPTION_SV, "Visa minnesinnehåll som skärmkodstext."},
@@ -1908,7 +1908,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_MEM_DESCRIPTION_HU, ""},  /* fuzzy */
 /* it */ {IDGS_MON_MEM_DESCRIPTION_IT, "Mostra il contenuto della memoria. Se non è specificato alcun tipo di\ndato, verrà utilizzato quello predefinito. Se è specificato solo un indirizzo,\nla lunghezza del dato visualizzato è basata sul tipo. Se non è specificato\nnessun indirizzo, varrà utilizzato l'indirizzo 'dot'.Nota bene: a causa del significato ambiguo di 'b' e 'd' questi tipi di dati\ndevono essere inseriti in maiuscolo!"},
 /* ko */ {IDGS_MON_MEM_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_MEM_DESCRIPTION_NL, "Toon de geheugen inhoud. Als er geen datasoort is opgegeven dan zal de standaard\nworden gebruikt. Als er maar een adres is opgegeven dan zal de lengte van de\ngetoonde data gebaseerd worden op de datasoort. Als er geen adres is opgegeven\ndan zal het huidige adres worden gebruikt. Door de onduidelijke betekenis \nvan 'b' en 'd' moeten deze datasoorten opgegeven worden in hoofdletters!"},
+/* nl */ {IDGS_MON_MEM_DESCRIPTION_NL, "Toon de geheugeninhoud. Als er geen datasoort is opgegeven, zal de standaard\nworden gebruikt. Als er maar één adres is opgegeven, zal de lengte van de\ngetoonde data gebaseerd worden op de datasoort. Als er geen adres is opgegeven,\nzal het huidige adres worden gebruikt. Door de onduidelijke betekenis \nvan 'b' en 'd' moeten deze datasoorten opgegeven worden in hoofdletters!"},
 /* pl */ {IDGS_MON_MEM_DESCRIPTION_PL, "Pokazuje zawarto¶æ pamiêci. Je¶li nie ustalono typu danych, jest\nu¿ywany domy¶lny. Je¶li okre¶lono tylko jeden adres, d³ugo¶æ\npokazanych danych zale¿y od ich typu. Je¶li nie podano adresu,\nu¿ywany jest adres 'kropka'. Uwaga: w zwi±zku z wieloznaczno¶ci± 'b' i 'd', te typy danych\nnale¿y podaæ wielk± liter±!"},
 /* ru */ {IDGS_MON_MEM_DESCRIPTION_RU, "Display the contents of memory.  If no datatype is given, the default\nis used.  If only one address is specified, the length of data\ndisplayed is based on the datatype.  If no addresses are given, the\n'dot' address is used.\nPlease note: due to the ambiguous meaning of 'b' and 'd' these data-\ntypes must be given in uppercase!"},
 /* sv */ {IDGS_MON_MEM_DESCRIPTION_SV, "Visa minnets innehåll. Om ingen datatyp anges, används standard.\nOm endast en adress anges, justeras längden på visad data baserat\npå datatypen. Om ingen adress anges används \"punkt\"-adressen.\nObservera: på grund av tvetydig betydelse av \"b\" och \"d\" måste dessa\ndatatyper anges med stora bokstäver!"},
@@ -1925,7 +1925,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_MEMCHAR_DESCRIPTION_HU, "A memória tartalmának megjelenítése karakter grafikaként.  Ha csak egy cím\nadott, egyetlen karakter rajzolódik ki.  Ha nincs cím megadva,\na ``pont'' címet használja."},
 /* it */ {IDGS_MON_MEMCHAR_DESCRIPTION_IT, "Mosta il contenuto della memoria come dati caratteri. Se è specificato\nsolo un indirizzo, verrà visualizzato solo un carattere. Se non è\nspecificato alcun indirizzo, varrà utilizzato l'indirizzo ``dot'' ."},
 /* ko */ {IDGS_MON_MEMCHAR_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_MEMCHAR_DESCRIPTION_NL, "Toon de geheugen inhoud als karakter data. Als er maar een adres is\nopgegeven dan zal er maar een karakter worden weergegeven. Als er geen\nadres is opgegeven dan zal het huidige adres gebruikt worden."},
+/* nl */ {IDGS_MON_MEMCHAR_DESCRIPTION_NL, "Toon de geheugeninhoud als karakterdata. Als er maar één adres is\nopgegeven, zal er maar één karakter worden weergegeven. Als er geen\nadres is opgegeven, zal het huidige adres gebruikt worden."},
 /* pl */ {IDGS_MON_MEMCHAR_DESCRIPTION_PL, "Poka¿ zawarto¶æ pamiêci jako dane znakowe. Je¶li podano tylko jeden\nadres, pokazany jest tylko jeden znak. Je¶li nie podano adresów, u¿yty\njest adres 'kropka'."},
 /* ru */ {IDGS_MON_MEMCHAR_DESCRIPTION_RU, "Display the contents of memory as character data.  If only one address\nis specified, only one character is displayed.  If no addresses are\ngiven, the ``dot'' address is used."},
 /* sv */ {IDGS_MON_MEMCHAR_DESCRIPTION_SV, "Visa minnets innehåll som teckendata. Om endast en adress\nanges, visas endast ett tecken. Om ingen adress anges används\n\"punkt\"-adressen."},
@@ -1993,7 +1993,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_MEMMAPSHOW_DESCRIPTION_HU, "A memória térkép mutatása. A maszk úgy állítható, hogy csak azokat a\nhelyeket mutassa, amelyek a megadott eléréssel rendelkeznek. A maszk\negy szám az \"ioRWXrwx\" bitekkel, ahol az RWX a ROM-ra, az rwx a RAM-ra\nvonatkozik. Tetszés szerint egy címtartomány is megadható."},
 /* it */ {IDGS_MON_MEMMAPSHOW_DESCRIPTION_IT, "Mostra la mappa di memoria. La maschera può essere specificata per\nmostrare solo quelle locazioni con accessi di un certo tipo. La maschera\nè un numero con i bit \"ioRWXrwx\", dove RWX sono per la ROM e\nrwx per la RAM.\nOpzionalmente, può essere specificato anche un intervallo di indirizzi."},
 /* ko */ {IDGS_MON_MEMMAPSHOW_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_MEMMAPSHOW_DESCRIPTION_NL, "Toon de memmap. Het masker kan worden opgegeven zodat er alleen de\nadressen met toegrijpingen van een bepaalde soort(en) zal worden getoond.\nHet masker is een nummer met de bits \"ioRWXrwx\", waar RWX is voor ROM,\nen rwx voor RAM. Er kan optioneel een adres bereik worden opgegeven."},
+/* nl */ {IDGS_MON_MEMMAPSHOW_DESCRIPTION_NL, "Toon de memmap. Het masker kan worden opgegeven zodat er alleen de\nadressen met toegangen van een bepaalde soort(en) zal worden getoond.\nHet masker is een nummer met de bits \"ioRWXrwx\", waar RWX staat voor ROM,\nen rwx voor RAM. Er kan optioneel een adresbereik worden opgegeven."},
 /* pl */ {IDGS_MON_MEMMAPSHOW_DESCRIPTION_PL, "Pokazuje mapê pamiêci. By pokazaæ tylko obszar dostêpów danego typu,\nmo¿na okre¶liæ maskê. Maska to numer zawieraj±cy bity \"ioRWXrwx\", gdzie\nRWX to ROM, a rwx to RAM. Opcjonalnie mo¿na okre¶liæ zakres adresów."},
 /* ru */ {IDGS_MON_MEMMAPSHOW_DESCRIPTION_RU, "Show the memmap. The mask can be specified to show only those\nlocations with accesses of certain type(s). The mask is a number\nwith the bits \"ioRWXrwx\", where RWX are for ROM and rwx for RAM.\nOptionally, an address range can be specified."},
 /* sv */ {IDGS_MON_MEMMAPSHOW_DESCRIPTION_SV, "Visa minneskartan. Masken kan anges för att endast visa de\nceller som gäller specifik(a) typ(er). Masken är ett tal\nmed bitarna \"ioRWXrwx\", där RWX är för ROM och rwx är för\nRAM. Ett minnesområde kan eventuellt anges."},
@@ -2027,7 +2027,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_MEMSPRITE_DESCRIPTION_HU, "A memória tartalmának megjelenítése sprite adatkéne. Ha csak egy cím\nvan megadva, egyetlen sprite-ot mutat.  Ha egyáltalán nincs cím megadva,\naz aktuális címet használja."},
 /* it */ {IDGS_MON_MEMSPRITE_DESCRIPTION_IT, "Mostra il contenuto della memoria come dati sprite. Se è specificato\nsolo un indirizzo, verrà mostrato solo uno sprite. Se non è specificato\nalcun indirizzo, varrà utilizzato l'indirizzo ``dot''."},
 /* ko */ {IDGS_MON_MEMSPRITE_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_MEMSPRITE_DESCRIPTION_NL, "Toon de geheugen inhoud als sprite data. Als er maar een adres is opgegeven\ndan zal er maar een sprite worden getoond. Als er geen adres is opgegeven\ndan zal het huidige adres worden gebruikt."},
+/* nl */ {IDGS_MON_MEMSPRITE_DESCRIPTION_NL, "Toon de geheugeninhoud als sprite data. Als er maar één adres is opgegeven,\nzal er maar één sprite worden getoond. Als er geen adres is opgegeven,\nzal het huidige adres worden gebruikt."},
 /* pl */ {IDGS_MON_MEMSPRITE_DESCRIPTION_PL, "Pokazuje zawarto¶æ pamiêci jako dane duszków. Je¶li podano tylko jeden\nadres, pokazywany jest tylko jeden duszek. Je¶li nie podano adresu,\nu¿ywany jest adres ``dot'."},
 /* ru */ {IDGS_MON_MEMSPRITE_DESCRIPTION_RU, "Display the contents of memory as sprite data.  If only one address is\nspecified, only one sprite is displayed.  If no addresses are given,\nthe ``dot'' address is used."},
 /* sv */ {IDGS_MON_MEMSPRITE_DESCRIPTION_SV, "Visa minnets innehåll som spritedata. Om endast en adress\nanges, visas endast en sprite. Om ingen adress anges används\n\"punkt\"-adressen."},
@@ -2061,7 +2061,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_CHECKPOINT_COMMANDS_HU, ""},  /* fuzzy */
 /* it */ {IDGS_CHECKPOINT_COMMANDS_IT, "Comandi punti di controllo:"},
 /* ko */ {IDGS_CHECKPOINT_COMMANDS_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_CHECKPOINT_COMMANDS_NL, "Checkpunt commandos:"},
+/* nl */ {IDGS_CHECKPOINT_COMMANDS_NL, "Checkpunt commando's:"},
 /* pl */ {IDGS_CHECKPOINT_COMMANDS_PL, "Komendy punktów kontrolnych:"},
 /* ru */ {IDGS_CHECKPOINT_COMMANDS_RU, "Checkpoint commands:"},
 /* sv */ {IDGS_CHECKPOINT_COMMANDS_SV, "Kommandon för brytpunkter:"},
@@ -2103,7 +2103,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_BREAK_DESCRIPTION_HU, ""},  /* fuzzy */
 /* it */ {IDGS_MON_BREAK_DESCRIPTION_IT, "Imposta un breakpoint. Se non viene specificato alcun indirizzo,\nvengono stampati i breakpoint attuali.\nSe viene specificato un indirizzo, viene impostato un breakpoint\nper tale indirizzo e viene stampato il suo numero.\n`load|store|exec' è uno tra `load', `store' o `exec' (or una qualunque\ncombinazione di questi) per specificare su quale operazione il monitor\ninterromperà. Se non specificato, il monitor interrompe su `exec'.\nPuò anche essere specificata una condizione per il breakpoint.\nPer ulteriori informazioni, vedere il comando CONDITION."},
 /* ko */ {IDGS_MON_BREAK_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_BREAK_DESCRIPTION_NL, "Zet een breekpunt, als er geen adres is opgegeven dan zullen de huidige\ngeldige breekpunten worden geprint. Als er een adres is opgegeven dan\nzal er een breekpunt gezet worden voor dat adres en de nummer van het\nbreekpunt zal worden getoond.\n`load|store|exec' is `load', `store' of `exec' (of een combinatie) die\ngebruikt zal worden om aan te geven bij wlke operatie de monitor zou\nmoeten starten. Als er niets is opgegeven dan zal de monitor op 'exec'\nstarten.\nEen conditie kan worden opgegeven voor het breekpunt. Voor meer\ninformatie over condities zie het CONDITION commando."},
+/* nl */ {IDGS_MON_BREAK_DESCRIPTION_NL, "Zet een breekpunt, als er geen adres is opgegeven, zullen de huidige\ngeldige breekpunten worden geprint. Als er een adres is opgegeven,\nzal er een breekpunt gezet worden voor dat adres en het nummer van het\nbreekpunt zal worden getoond.\n`load|store|exec' is `load', `store' of `exec' (of een combinatie) die\ngebruikt zal worden om aan te geven bij welke operatie de monitor zou\nmoeten starten. Als er niets is opgegeven, zal de monitor op 'exec'\nstarten.\nEen conditie kan worden opgegeven voor het breekpunt. Voor meer\ninformatie over condities zie de CONDITION commando."},
 /* pl */ {IDGS_MON_BREAK_DESCRIPTION_PL, "Ustawia punkt wstrzymania. Je¶li nie podano adresu, pokazywane s±\nobecnie aktywne punkty wstrzymania.\nJe¶li podano adres, ustawiany jest punkt wstrzymania dla tego adresu\ni pokazywany jest numer punktu wstrzymania.\n`load|store|exec' to `load', `store' lub `exec' (albo ich po³±czenia),\nokre¶laj±ce  podczas których operacji nastêpuje b³±d. Je¶li nic\nnie okre¶lono, monitor przerywa dzia³anie na `exec'.\nMo¿na równie¿ okre¶liæ wyra¿enie warunkowe dla punktu wstrzymania.\nBy znale¼æ wiêcej informacji o warunkach, zobacz polecenie CONDITION."},
 /* ru */ {IDGS_MON_BREAK_DESCRIPTION_RU, "Set a breakpoint, If no address is given, the currently valid break-\npoints are printed.\nIf an address is given, a breakpoint is set for that address and the\nbreakpoint number is printed.\n`load|store|exec' is either `load', `store' or `exec' (or any combina-\ntion of these) to specify on which operation the monitor breaks. If\nnot specified, the monitor breaks on `exec'.\nA conditional expression can also be specified for the breakpoint.\nFor more information on conditions, see the CONDITION command."},
 /* sv */ {IDGS_MON_BREAK_DESCRIPTION_SV, "Sätt en övervakningspunkt, Om ingen adress anges visas de \növervakningspunkter som är giltiga.\nOm en adress anges sätts en brytpunkt på den adressen och dess\nnummer visas.\n\"load|store|exec\" är antingen \"load\", \"store\" eller \"exec\"\n(eller en kombination därutav) för att ange på vilken operation\nmonitorn stoppar. Om det inte anges bryter monitorn på \"exec\".\nEtt villkorsuttryck kan också anges för brytpunkten.\nFör mer information om villkor, se kommandot CONDITION."},
@@ -2137,7 +2137,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_COMMAND_DESCRIPTION_HU, "`parancs' megadása egy `ell_pont_szám' sorszámával adott ellenõrzési pont\nelérésekor történõ végrehajtásra.  Az `x' parancs egyelõre nem használható\nitt paraméterként."},
 /* it */ {IDGS_MON_COMMAND_DESCRIPTION_IT, "Specifica `comando' come il comando da eseguire quando\nviene incontrato il punto di controllo `checknum'. Nota che \nil comando `x' non è ancora supportato come parametro."},
 /* ko */ {IDGS_MON_COMMAND_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_COMMAND_DESCRIPTION_NL, "Geef `commando' als het command om uit te voeren wanneer checkpunt `checknum'\nwordt uitgevoerd. NB: het `x' commando is op dit moment geen geldige\nparameter."},
+/* nl */ {IDGS_MON_COMMAND_DESCRIPTION_NL, "Geef `commando' als het commando om uit te voeren wanneer checkpunt `checknum'\nwordt uitgevoerd. NB: het `x' commando is op dit moment geen geldige\nparameter."},
 /* pl */ {IDGS_MON_COMMAND_DESCRIPTION_PL, "Okre¶l 'command' jako polecenie do wykonania przy osi±gniêciu punktu 'checknum.'\nPolecenie 'x' nie jest jeszcze obs³ugiwane jako argument polecenia."},
 /* ru */ {IDGS_MON_COMMAND_DESCRIPTION_RU, "Specify `command' as the command to execute when checkpoint `checknum'\nis hit.  Note that the `x' command is not yet supported as a\ncommand argument."},
 /* sv */ {IDGS_MON_COMMAND_DESCRIPTION_SV, "Ange \"kommando\" som kommando att exekvera när vid träff på\nkontrollpunkten·\"kontrollnr\". Observera att kommandot \"x\" ännu\ninte stöds som kommandoparameter."},
@@ -2154,7 +2154,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_CONDITION_DESCRIPTION_HU, ""},  /* fuzzy */
 /* it */ {IDGS_MON_CONDITION_DESCRIPTION_IT, "Ogni volta che si esamina il punto di controllo specificato, viene valutata\nla condizione. Se è vera, il punto di controllo è attivato.\nAltrimenti viene ignorato. Se nell'espressione sono specificati i registri,\nquesti valori sono quelli usati quando viene esaminato il punto di controllo,\nnon quando viene impostata la condizione.\nLa condizione può fare uso dei registri (A, X, Y, PC, SP, FL e altri registri\nspecifici della cpu (vedi manuale)) e confrontarli (==, !=, <, >, <=, >=)\ncon altri registri o costanti.\nI registri possono essere registri di altre periferiche; questo è denotato da\nun prefisso che specifica lo spazio di memoria (cioé, c:, 8:, 9:, 10:, 11:)\nAlcuni esempi: A == 0, X == Y, 8:X == X)\n"},
 /* ko */ {IDGS_MON_CONDITION_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_CONDITION_DESCRIPTION_NL, "Elke keer de opgegeven checkpunt wordt onderzocht zal de conditie worden\ngeevalueerd. Als de evaluatie positief is dan zal de checkpunt geactiveerd\nworden, bij negatief zal er niets worden gedaan. Als er registers zijn\nopgegeven in de expressie dan zullen de waarden in die registers gebruikt\nworden op het moment dat de checkpunt wordt onderzocht, niet op het moment\ndat de conditie is opgegeven.\nDe conditie kan gebruik maken van registers (A, X, Y, PC, SP, FL en andere\nspecifieke registers (zie handleiding) en kan ze vergelijken\n (==, !=, <, >, <=, >=) met andere registers of constanten\nRegisters kunnen de registers van andere apparaten zijn; de manier van opgeven\nis door een geheugenruimte prefix (bijvoorbeeld: c:, 8:, 9:, 10:, 11:\nVoorbeelden: A == 0, X == Y, 8:X == X\n"},
+/* nl */ {IDGS_MON_CONDITION_DESCRIPTION_NL, "Elke keer dat het opgegeven checkpunt wordt onderzocht zal de conditie worden\ngeëvalueerd. Als de evaluatie positief is dan zal de checkpunt geactiveerd\nworden, bij negatief zal er niets worden gedaan. Als er registers zijn\nopgegeven in de expressie dan zullen de waarden in die registers gebruikt\nworden op het moment dat de checkpunt wordt onderzocht, niet op het moment\ndat de conditie is opgegeven.\nDe conditie kan gebruik maken van registers (A, X, Y, PC, SP, FL en andere\nspecifieke registers (zie handleiding) en kan ze vergelijken\n (==, !=, <, >, <=, >=) met andere registers of constanten\nRegisters kunnen de registers van andere apparaten zijn; de manier van opgeven\nis door een geheugenruimte prefix (bijvoorbeeld: c:, 8:, 9:, 10:, 11:\nVoorbeelden: A == 0, X == Y, 8:X == X\n"},
 /* pl */ {IDGS_MON_CONDITION_DESCRIPTION_PL, "Podczas analizy punktu kontrolnego okre¶lany jest stan.\nJe¶li jest okre¶lony jako 'prawda', punkt kontrolny jest\nuaktywniany. W innym razie jest ignorowany. Je¶li w wyra¿eniu\npodano rejestry, u¿ywane s± warto¶ci z czasu szacowania punktu\nkontrolnego, nie z czasu ustawienia stanu.\nStan mo¿e korzystaæ z rejestrów A, X, Y, PC, SP, FL, jak równie¿\ninnych, konkretnych dla danego procesora (patrz w instrukcji) i porównywaæ je\n(==, !=, <, >, <=, >=) z innymi rejestrami lub sta³ymi. Rejestry mog± byæ\nrejestrami innych urz±dzeñ, co jest okre¶lone przedrostkiem przestrzeni\npamiêci (np. c:, 8:, 9:, 10:, 11:\nPrzyk³ady: A == 0, X == Y, 8:X == X)\n"},
 /* ru */ {IDGS_MON_CONDITION_DESCRIPTION_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_MON_CONDITION_DESCRIPTION_SV, ""},  /* fuzzy */
@@ -2171,7 +2171,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_DISABLE_DESCRIPTION_HU, ""},  /* fuzzy */
 /* it */ {IDGS_MON_DISABLE_DESCRIPTION_IT, "Disattiva il punto di controllo `checknum'. Se non viene specificato alcun punto di controllo saranno disattivati tutti i punti di controllo."},
 /* ko */ {IDGS_MON_DISABLE_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_DISABLE_DESCRIPTION_NL, "Checkpunt 'checknum' uitschakelen. Als er geen checkpunt is gegeven dan worden alle checkpunten uitgeschakelt."},
+/* nl */ {IDGS_MON_DISABLE_DESCRIPTION_NL, "Checkpunt 'checknum' uitschakelen. Als er geen checkpunt is gegeven, worden alle checkpunten uitgeschakeld."},
 /* pl */ {IDGS_MON_DISABLE_DESCRIPTION_PL, "Wy³±cz punkt kontrolny 'checknum'. Je¶li nie okre¶lono punktu kontrolnego, skasuj wszystkie."},
 /* ru */ {IDGS_MON_DISABLE_DESCRIPTION_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_MON_DISABLE_DESCRIPTION_SV, ""},  /* fuzzy */
@@ -2188,7 +2188,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_ENABLE_DESCRIPTION_HU, ""},  /* fuzzy */
 /* it */ {IDGS_MON_ENABLE_DESCRIPTION_IT, "Attiva il punto di controllo `checknum'. Se non viene specificato alcun punto di controllo saranno attivati tutti i punti di controllo."},
 /* ko */ {IDGS_MON_ENABLE_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_ENABLE_DESCRIPTION_NL, "Activeer checkpunt 'checknum'. Als er geen checkpunt is gegeven dan worden alle checkpunter geactiveert"},
+/* nl */ {IDGS_MON_ENABLE_DESCRIPTION_NL, "Checkpunt 'checknum' inschakelen. Als er geen checkpunt is gegeven, worden alle checkpunten ingeschakeld."},
 /* pl */ {IDGS_MON_ENABLE_DESCRIPTION_PL, "W³±cz punkt kontrolny 'checknum'. Je¶li nie okre¶lono punktu kontrolnego, skasuj wszystkie."},
 /* ru */ {IDGS_MON_ENABLE_DESCRIPTION_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_MON_ENABLE_DESCRIPTION_SV, ""},  /* fuzzy */
@@ -2205,7 +2205,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_IGNORE_DESCRIPTION_HU, "Az ellenõrzési pont figyelmen kívül hagyása megadott számú áthaladáskor.  Ha nincs\nszám megadva, az alapértelmezett érték 1."},
 /* it */ {IDGS_MON_IGNORE_DESCRIPTION_IT, "Ignora un punto di controllo un numero specificato di occorrenze. Se\nnon è specificato alcun valore, quello predefinito è 1."},
 /* ko */ {IDGS_MON_IGNORE_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_IGNORE_DESCRIPTION_NL, "Negeer een checkpunt een opgegeven aantal keer. Als er geen aantal is\nopgegeven dan wordt de standaard waarde van 1 worden gebruikt."},
+/* nl */ {IDGS_MON_IGNORE_DESCRIPTION_NL, "Negeer een checkpunt een opgegeven aantal keer. Als er geen aantal is\nopgegeven, wordt de standaardwaarde van 1 gebruikt."},
 /* pl */ {IDGS_MON_IGNORE_DESCRIPTION_PL, "Ignoruje punkt kontrolny dan± ilo¶æ razy. Je¶li nie podano tej ilo¶ci,\ndomy¶lna warto¶æ wynosi 1."},
 /* ru */ {IDGS_MON_IGNORE_DESCRIPTION_RU, "Ignore a checkpoint a given number of crossings.  If no count is given,\nthe default value is 1."},
 /* sv */ {IDGS_MON_IGNORE_DESCRIPTION_SV, "Ignorera en kontrollpunkt det givna antalet gånger. Om inget antal ges\när standardvärdet 1."},
@@ -2222,7 +2222,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_UNTIL_DESCRIPTION_HU, "Ha nincs cím megadva, a jelenleg érvényes töréspontokat írja ki.\nHa van adott cím, egy ideiglenes töréspontot helyez el az adott címre,\nés a töréspont száma kiíródik.  A vezérlés visszakerül az emulátorhoz\ne parancs által. A töréspont elérésekor törlõdik."},
 /* it */ {IDGS_MON_UNTIL_DESCRIPTION_IT, "Se non viene specificato alcun indirizzo, vengono stampati i\nbreakpoint attualmente validi. Se viene specificato un indirizzo,\nviene impostato un breakpoint temporaneo per tale indirizzo e\nviene stampato il suo numero. Il controllo ritorna all'emulatore\nper mezzo di questo comando. Il breakpoint è cancellato quando\nviene incontrato."},
 /* ko */ {IDGS_MON_UNTIL_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_UNTIL_DESCRIPTION_NL, "Als er geen adres is opgegeven dan zullen de huidig geldige breekpunten\nworden geprint. Als er een adres is opgegeven dan wordt er een tijdelijk\nbreekpunt worden gezet voor dat adres en het breekpunt nummer zal worden\ngetoond. Na het geven van dit commando zal er terug worden gegaan naar de\nemulator. Het breekpunt zal worden verwijdert na het uitvoeren."},
+/* nl */ {IDGS_MON_UNTIL_DESCRIPTION_NL, "Als er geen adres is opgegeven, zullen de huidig geldige breekpunten\nworden geprint. Als er een adres is opgegeven, wordt er een tijdelijk\nbreekpunt gezet voor dat adres en het breekpunt nummer zal worden\ngetoond. Na het geven van dit commando zal er teruggekeerd worden naar de\nemulator. Het breekpunt zal worden verwijderd na het uitvoeren."},
 /* pl */ {IDGS_MON_UNTIL_DESCRIPTION_PL, "Je¶li nie podano adresu, pokazywane s± obecne punkty wstrzymania.\nJe¶li podano adres, ustawiany jest tymczasowy punkt wstrzymania\ni pokazywany jest numer punktu wstrzymania. To polecenie przywraca\nkontrolê do emulatora. Punkt wstrzymania jest kasowany po jego osi±gniêciu."},
 /* ru */ {IDGS_MON_UNTIL_DESCRIPTION_RU, "If no address is given, the currently valid breakpoints are printed.\nIf an address is given, a temporary breakpoint is set for that address\nand the breakpoint number is printed.  Control is returned to the\nemulator by this command.  The breakpoint is deleted once it is hit."},
 /* sv */ {IDGS_MON_UNTIL_DESCRIPTION_SV, "Om du inte anger någon adress visas de för närvarande giltiga\nbrytpunkterna. Om en adress anges sätts en temporär brytpunkt för\nden adressen och numret på den nya brytpunkten visas. Styrningen\nåterlämnas till emulatorn för det här kommandot. Brytpunkten\ntas bort när den har nåtts."},
@@ -2248,7 +2248,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_WATCH_DESCRIPTION_HU, ""},  /* fuzzy */
 /* it */ {IDGS_MON_WATCH_DESCRIPTION_IT, "Imposta un watchpoint. Se non viene specificato alcun indirizzo,\nvengono stampati i watchpoint attuali. Se viene specificato solo un\nsolo indirizzo, imposta un watchpoint per tale indirizzo. Se vengono\nspecificati due indirizzi, imposta un watchpoint per le locazioni di \nmemoria comprese tra i due indirizzi.\n`load|store|exec' è uno tra `load', `store' o `exec' (or una qualunque\ncombinazione di questi) per specificare su quale operazione il monitor\ninterromperà. Se non specificato, il monitor interrompe su `load' e\n`store'.\n"},
 /* ko */ {IDGS_MON_WATCH_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_WATCH_DESCRIPTION_NL, "Zet een kijkpunt. Als er geen adres is opgegeven dan zal de huidige\ngeldige kijkpunten worden getoont. Als er een enkel adres is opgegeven\ndan zal er een kijkpunt worden gezet voor dat adres. Als er twee\nadressen zijn opgegeven dan zal er een kijkpunt worden gezet voor de\nadressen tussen de twee adressen.\n`load|store|exec' is `load',  `store' of `exec' om aan te geven bij\nwelke operatie de monitor zou moeten starten. Als deze niet opgegeven\nis dan zal de monitor starten bij `load' en `store' operaties.\n"},
+/* nl */ {IDGS_MON_WATCH_DESCRIPTION_NL, "Zet een kijkpunt. Als er geen adres is opgegeven, zullen de huidige\ngeldige kijkpunten worden getoond. Als er een enkel adres is opgegeven,\nzal er een kijkpunt worden gezet voor dat adres. Als er twee\nadressen zijn opgegeven, zal er een kijkpunt worden gezet voor de\nadressen tussen de twee adressen.\n`load|store|exec' is `load',  `store' of `exec' om aan te geven bij\nwelke operatie de monitor zou moeten starten. Als deze niet opgegeven\nis, zal de monitor starten bij `load' en `store' operaties.\n"},
 /* pl */ {IDGS_MON_WATCH_DESCRIPTION_PL, "Ustawia punkt ¶ledzenia. Je¶li nie podano adresu, pokazywane s±\nobecnie aktualne punkty ¶ledzenia. Je¶li okre¶lono pojedynczy adres,\nustawia punkt ¶ledzenia na ten adres. Jêsli okre¶lono dwa adresy,\nustawia punkt ¶ledzenia dla obszaru pamiêci pomiêdzy tymi dwoma\nadresami.\n`load|store|exec' to `load', `store' lub `exec' (albo ich po³±czenia),\nokre¶laj±ce  podczas których operacji nastêpuje b³±d. Je¶li nic\nnie okre¶lono, monitor przerywa dzia³anie na `load' i `store'.\n"},
 /* ru */ {IDGS_MON_WATCH_DESCRIPTION_RU, "Set a watchpoint. If no address is given, the currently valid watch-\npoints are printed. If a single address is specified, set a watchpoint\nfor that address.  If two addresses are specified, set a watchpoint\nfor the memory locations between the two addresses.\n`load|store|exec' is either `load', `store' or `exec' (or any combina-\ntion of these) to specify on which operation the monitor breaks. If\nnot specified, the monitor breaks on `load' and `store'.\n"},
 /* sv */ {IDGS_MON_WATCH_DESCRIPTION_SV, "Sätt en övervakningspunkt. Om du inte anger någon adress, visas\nnu giltiga övervakningspunkter. Om du anger en ensam adress sätts en\növervakningspunkt för adressen. Om två adresser anges sätts en\növervakningspunkt för minnesområdet mellan adresserna.\n\"load|store|exec\" är antingen \"load\". \"store\" eller \"exec\" (eller en\nkombination därutav) och anger vilken operation monitorn skall\nstoppa för. Om den inte anges stoppar emulatorn på både \"load\" och\n\"store\".\n"},
@@ -2274,7 +2274,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_TRACE_DESCRIPTION_HU, ""},  /* fuzzy */
 /* it */ {IDGS_MON_TRACE_DESCRIPTION_IT, "Imposta un tracepoint. Se non viene specificato alcun indirizzo,\nvengono stampati i tracepoint attuali. Se viene specificato solo un\nsolo indirizzo, imposta un tracepoint per tale indirizzo. Se vengono\nspecificati due indirizzi, imposta un tracepoint per le locazioni di \nmemoria comprese tra i due indirizzi.\n`load|store|exec' è uno tra `load', `store' o `exec' (or una qualunque\ncombinazione di questi) per specificare su quale operazione il monitor\ninterromperà. Se non specificato, il monitor traccerà tutte e tre le\noperazioni.\n"},
 /* ko */ {IDGS_MON_TRACE_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_TRACE_DESCRIPTION_NL, "Zet een traceerpunt. Als er geen adres is opgegeven dan zullen de huidige\ngeldige traceerpunten worden getoont. Als er een enkel adres is opgegeven\ndan zal er een traceerpunt worden gezet voor dat adres. Als er twee\nadressen zijn opgegeven dan zal er een traceerpunt worden gezet voor de\nadressen tussen de twee adressen.\n`load|store|exec' is `load', `store' of 'exec' om aan te geven bij welke\noperatie de monitor zou moeten starten. Als deze niet opgegeven is dan zal\nde monitor starten bij alle operaties.\n"},
+/* nl */ {IDGS_MON_TRACE_DESCRIPTION_NL, "Zet een traceerpunt. Als er geen adres is opgegeven, zullen de huidige\ngeldige traceerpunten worden getoond. Als er een enkel adres is opgegeven,\nzal er een traceerpunt worden gezet voor dat adres. Als er twee\nadressen zijn opgegeven, zal er een traceerpunt worden gezet voor de\nadressen tussen de twee adressen.\n`load|store|exec' is `load', `store' of 'exec' om aan te geven bij welke\noperatie de monitor zou moeten starten. Als deze niet opgegeven is, zal\nde monitor starten bij alle operaties.\n"},
 /* pl */ {IDGS_MON_TRACE_DESCRIPTION_PL, "Ustawia punkt ¶ledzenia. Je¶li nie podano adresu, pokazywane s±\nw³a¶ciwe obecnie punkty ¶ledzenia. Je¶li podano jeden adres,\nustawia punkt ¶ledzenia tego adresu. Je¶li podano dwa adresy,\nustawia punkt ¶ledzenia obszaru pamiêci pomiêdzy nimi.\n`load|store|exec' to `load', `store' lub `exec' (albo ich po³±czenia),\nokre¶laj±ce  podczas których operacji nastêpuje b³±d. Je¶li nic\nnie okre¶lono, monitor ¶ledzi wszystkie trzy rodzaje operacji.\n"},
 /* ru */ {IDGS_MON_TRACE_DESCRIPTION_RU, "Set a tracepoint. If no address is given, the currently valid trace-\npoints are printed. If a single address is specified, set a tracepoint\nfor that address.  If two addresses are specified, set a tracepoint\nfor the memory locations between the two addresses.\n`load|store|exec' is either `load', `store' or `exec' (or any combina-\ntion of these) to specify on which operation the monitor breaks. If\nnot specified, the monitor traces all three operations.\n"},
 /* sv */ {IDGS_MON_TRACE_DESCRIPTION_SV, "Sätt en spårningspunkt. Om ingen adress anges visas befintliga\nspårningspunkter. Om du anger en ensam adress sätts en spårningspunkt\nför adressen. Om två adresser anges sätts en spårningspunkt för\nminnesområdet mellan adresserna.\n\"load|store|exec\" är antingen \"load\", \"store\" eller \"exec\" (eller en\nkombination därutav) och anger vilken operation monitorn skall stoppa\nför. Om den inte anges spårar monitorn alla tre operationerna.\n"},
@@ -2291,7 +2291,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MONITOR_STATE_COMMANDS_HU, ""},  /* fuzzy */
 /* it */ {IDGS_MONITOR_STATE_COMMANDS_IT, "Comandi stato monitor:"},
 /* ko */ {IDGS_MONITOR_STATE_COMMANDS_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MONITOR_STATE_COMMANDS_NL, "Monitor status commandos:"},
+/* nl */ {IDGS_MONITOR_STATE_COMMANDS_NL, "Monitor status commando's:"},
 /* pl */ {IDGS_MONITOR_STATE_COMMANDS_PL, "Monitoruj polecenia stanu:"},
 /* ru */ {IDGS_MONITOR_STATE_COMMANDS_RU, "Monitor state commands:"},
 /* sv */ {IDGS_MONITOR_STATE_COMMANDS_SV, "Kommandon för monitorstatus:"},
@@ -2308,7 +2308,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_DEVICE_DESCRIPTION_HU, "Az alapértelmezett memória eszköz beállítása a számítógépre `c:' vagy\na megadott lemezmeghajtóra (`8:', `9:')."},
 /* it */ {IDGS_MON_DEVICE_DESCRIPTION_IT, "Imposta la periferica di memoria predefinita o sul computer `c:'\noppure sul disk drive specificato (`8:', `9:')."},
 /* ko */ {IDGS_MON_DEVICE_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_DEVICE_DESCRIPTION_NL, "Zet de standaard geheugen apparaat naar of de computer `c:' of de\nopgegeven disk drive (`8:', `9:')."},
+/* nl */ {IDGS_MON_DEVICE_DESCRIPTION_NL, "Zet het standaard geheugen apparaat naar òf de computer `c:' òf de\nopgegeven disk drive (`8:', `9:')."},
 /* pl */ {IDGS_MON_DEVICE_DESCRIPTION_PL, "Ustawia komputer `c:', lub okre¶lon± stacjê dysków (`8:', `9:')\njako domy¶lne urz±dzenie pamiêci."},
 /* ru */ {IDGS_MON_DEVICE_DESCRIPTION_RU, "Set the default memory device to either the computer `c:' or the\nspecified disk drive (`8:', `9:')."},
 /* sv */ {IDGS_MON_DEVICE_DESCRIPTION_SV, "Sätt förvald minnesenhet antingen till datorn \"c:\" eller\nden angivna diskettenheten (\"8:\", \"9:\")."},
@@ -2359,7 +2359,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_RADIX_DESCRIPTION_HU, "Az alap számrendszer hexadecimális, decimális, oktális vagy bináris.\nParaméter nélkül az aktuálisat mutatja."},
 /* it */ {IDGS_MON_RADIX_DESCRIPTION_IT, "Imposta la radice predefinita a esadecimale, decimale, ottale o\nbinaria. Senza parametro viene stampata la radice attuale."},
 /* ko */ {IDGS_MON_RADIX_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_RADIX_DESCRIPTION_NL, "Zet de standaard radix naar hex, decimaal, octaal of binair. Als er\ngeen parameter is opgegeven dan zal de huidige radix worden getoond."},
+/* nl */ {IDGS_MON_RADIX_DESCRIPTION_NL, "Zet de standaard radix naar hex, decimaal, octaal of binair. Als er\ngeen parameter is opgegeven, zal de huidige radix worden getoond."},
 /* pl */ {IDGS_MON_RADIX_DESCRIPTION_PL, "Ustawia domy¶lny korzeñ na heksadecymalny, decymalny, ó¶emkowy\nlub binarny. Bez podanego argumentu, pokazywany jest obecny korzeñ."},
 /* ru */ {IDGS_MON_RADIX_DESCRIPTION_RU, "Set the default radix to hex, decimal, octal, or binary.  With no\nargument, the current radix is printed."},
 /* sv */ {IDGS_MON_RADIX_DESCRIPTION_SV, "Sätt standardradix till hex, decimal, oktal eller binär. Om du\ninte ger något argument visas nuvarande radix."},
@@ -2376,7 +2376,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_SIDEFX_DESCRIPTION_HU, "Beállítja, hogyan hatnak a monitorprogram memória olvasásai azokra a\nmemóriahelyekre, amelyeknek olvasás-mellékhatásai vannak. Ha a paraméter\n'on', az olvasások okozhatnak mellékhatásokat. Ha a paraméter 'off', akkor pedig\nnem okoznak. Ha a paraméter 'toggle', az aktuális módot átkapcsolja.\nParaméter nélküli hívás kiírja az aktuális módot."},
 /* it */ {IDGS_MON_SIDEFX_DESCRIPTION_IT, "Controlla come le letture generate dal monitor affliggono le locazioni\ndi memoria che hanno degli effetti collaterali sulla lettura.\nSe il paremetro è 'on', le letture possono causare effetti collaterali.\nSe il parametro è 'off', le letture non causano effetti collaterali.\nSe il parametro è 'scambia', la modalità attuale viene invertita.\nNessun parametro mostra lo stato attuale."},
 /* ko */ {IDGS_MON_SIDEFX_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_SIDEFX_DESCRIPTION_NL, "Geef aan hoe de lees acties van de monitor de geheugen locaties met lees\nbij-effecten beinvloed. Als de parameter 'off' is dan zullen lees acties\ngeen bij-effecten vertonen. Als de parameter 'on' is dan zullen lees\nacties bij-effecten vertonen. Als de parameter 'toggle' is dan zal de\nhuidige modus worden geschakeld. Als er geen parameter is dan zal de\nhuidige modus worden getoond."},
+/* nl */ {IDGS_MON_SIDEFX_DESCRIPTION_NL, "Geef aan hoe de leesacties van de monitor de geheugenlocaties met lees\nbij-effecten beïnvloedt. Als de parameter 'off' is, zullen lees acties\ngeen bij-effecten vertonen. Als de parameter 'on' is, zullen lees\nacties bij-effecten vertonen. Als de parameter 'toggle' is, zal de\nhuidige modus worden gewisseld. Als er geen parameter is, zal de\nhuidige modus worden getoond."},
 /* pl */ {IDGS_MON_SIDEFX_DESCRIPTION_PL, "Kontroluje w jaki sposób wygenerowane w monitorze odczyty po³o¿enia\nwp³ywaj± na obszary pamiêci, które maj± efekty uboczne odczytu.\nJe¶li argument to 'on', wtedy odczyty mog± powodowaæ efekty uboczne.\nJe¶li argument to 'off', wtedy odczyty nie powoduj± efektów ubocznych.\nJe¶li argument to 'toggle', obecny tryb jest prze³±czany.\nBrak argumentu pokazuje obecny stan."},
 /* ru */ {IDGS_MON_SIDEFX_DESCRIPTION_RU, "Control how monitor generated reads affect memory locations that have\nread side-effects.  If the argument is 'on' then reads may cause\nside-effects.  If the argument is 'off' then reads don't cause\nside-effects.  If the argument is 'toggle' then the current mode is\nswitched.  No argument displays the current state."},
 /* sv */ {IDGS_MON_SIDEFX_DESCRIPTION_SV, "Styr hur läsningar i monitorn påverkar minnesområden som har\nsidoeffekter vid läsning. Om argumentet är \"on\" tillåts läsningar\natt orsaka sidoeffekter. Om argumentet är \"off\" tillåts inte\nläsningar att orsaka sidoeffekter. Om argumentet är \"toggle\" byts\ndet nuvarande läget. Om du inte anger några argument visas\nnuvarande läge."},
@@ -2393,7 +2393,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_DISK_COMMANDS_HU, ""},  /* fuzzy */
 /* it */ {IDGS_DISK_COMMANDS_IT, "Comandi disco:"},
 /* ko */ {IDGS_DISK_COMMANDS_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_DISK_COMMANDS_NL, "Disk commandos:"},
+/* nl */ {IDGS_DISK_COMMANDS_NL, "Disk commando's:"},
 /* pl */ {IDGS_DISK_COMMANDS_PL, "Polecenia dyskowe:"},
 /* ru */ {IDGS_DISK_COMMANDS_RU, "Disk commands:"},
 /* sv */ {IDGS_DISK_COMMANDS_SV, "Diskettkommandon:"},
@@ -2427,7 +2427,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_AT_DESCRIPTION_HU, "Lemez parancs végrehajtása az aktuálisan csatolt lemezen, a 8-as egységen.\nA megadott lemez parancsot a meghajtó #15-ös csatornájára küldi."},
 /* it */ {IDGS_MON_AT_DESCRIPTION_IT, "Esegue un comando disco sull'immagine disco attualmente presente nel\ndrive 8. Il comando specificato è inviato al canale #15 del drive."},
 /* ko */ {IDGS_MON_AT_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_AT_DESCRIPTION_NL, "Doe een disk commando operatie op de huidig gekoppelde disk bestand in drive\n8, Het opgegeven disk commando zal worden gestuurt naar kanaal #15 van de\ndrive."},
+/* nl */ {IDGS_MON_AT_DESCRIPTION_NL, "Voer een disk commando uit op het huidig gekoppeld disk bestand in drive\n8, Het opgegeven disk commando zal worden gestuurd naar kanaal #15 van de\ndrive."},
 /* pl */ {IDGS_MON_AT_DESCRIPTION_PL, "Wykonaj polecenie dyskowe na obecnie zamontowanym obrazie dyskietki\nw stacji 8. Dane polecenie jest wysy³ane na kana³ #15 stacji."},
 /* ru */ {IDGS_MON_AT_DESCRIPTION_RU, "Perform a disk command on the currently attached disk image on drive 8.\nThe specified disk command is sent to the drive's channel #15."},
 /* sv */ {IDGS_MON_AT_DESCRIPTION_SV, "Utför ett diskkommando på den diskettavbildning som är ansluten till\nenhet 8. Diskkommandot sänds på diskettenhetens kanal nummer 15."},
@@ -2512,7 +2512,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_ATTACH_DESCRIPTION_HU, "Fájl csatolása az eszközhöz. (32-es eszköz = cart)"},
 /* it */ {IDGS_MON_ATTACH_DESCRIPTION_IT, "Seleziona il file per la periferica. (periferica 32 = cartuccia)"},
 /* ko */ {IDGS_MON_ATTACH_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_ATTACH_DESCRIPTION_NL, "Koppel bestand aan apparaat. (apparaat 32 = cart"},
+/* nl */ {IDGS_MON_ATTACH_DESCRIPTION_NL, "Koppel bestand aan apparaat. (apparaat 32 = cart)"},
 /* pl */ {IDGS_MON_ATTACH_DESCRIPTION_PL, "Pod³±cz plik pod urz±dzenie (urz±dzenie 32 = cart)"},
 /* ru */ {IDGS_MON_ATTACH_DESCRIPTION_RU, "Attach file to device. (device 32 = cart)"},
 /* sv */ {IDGS_MON_ATTACH_DESCRIPTION_SV, "Anslut en fil till en enhet. (enhet 32 = insticksmodul)"},
@@ -2529,7 +2529,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_BLOAD_DESCRIPTION_HU, "A megadott fájl betöltése a memóriába a megadott címre.\nHa az eszköz 0, a fájlt a fájlrendszerbõl olvassa."},
 /* it */ {IDGS_MON_BLOAD_DESCRIPTION_IT, "Carica il file specificato in memoria all'indirizzo specificato.\nSe la periferica è 0, il file è letto dal file system."},
 /* ko */ {IDGS_MON_BLOAD_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_BLOAD_DESCRIPTION_NL, "Laad het opgegeven bestand naar het geheugen met het opgegeven adres.\nAls het apparaat 0 is dan zal het bestand van het bestandssysteem\nworden geladen."},
+/* nl */ {IDGS_MON_BLOAD_DESCRIPTION_NL, "Laad het opgegeven bestand naar het geheugen met het opgegeven adres.\nAls het apparaat 0 is, zal het bestand van het bestandssysteem\nworden geladen."},
 /* pl */ {IDGS_MON_BLOAD_DESCRIPTION_PL, "Wczytaj dany plik do pamiêci w okre¶lonym adresie.\nJe¶li urz±dzenie to 0, plik jest czytany z systemu plików."},
 /* ru */ {IDGS_MON_BLOAD_DESCRIPTION_RU, "Load the specified file into memory at the specified address.\nIf device is 0, the file is read from the file system."},
 /* sv */ {IDGS_MON_BLOAD_DESCRIPTION_SV, "Läs den angivna filen till minnet på den angivna adressen.\nOm enheten är 0 läses filen från filsystemet."},
@@ -2580,7 +2580,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_BLOCK_READ_DESCRIPTION_HU, "Blokk beolvasása a megadott sávból és szektorból.,  Ha egy cím is meg\nvan adva, az adatot a memóriába tölti.  Ha az nincs, az\nadatot az alapbeállítás szerinti formában mutatja."},
 /* it */ {IDGS_MON_BLOCK_READ_DESCRIPTION_IT, "Legge il blocco dalla traccia e settore specificati. Se è specificato\nun indirizzo, il dato è caricato in memoria. Se non è specificato alcun\nindirizzo, il dato è mostrato usando il tipo di dato predefinito."},
 /* ko */ {IDGS_MON_BLOCK_READ_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_BLOCK_READ_DESCRIPTION_NL, "Lees het blok van de opgegeven spoor en sector. Als er een adres is\nopgegeven dan zal de data naar dat adres in geheugen worden geladen.\nAls er geen adres is opgegeven dan zal de data worder getoond met de\nhuidige datasoort."},
+/* nl */ {IDGS_MON_BLOCK_READ_DESCRIPTION_NL, "Lees het blok van het opgegeven spoor en sector. Als er een adres is\nopgegeven, zal de data naar dat adres in het geheugen worden geladen.\nAls er geen adres is opgegeven, zal de data worden getoond met de\nhuidige datasoort."},
 /* pl */ {IDGS_MON_BLOCK_READ_DESCRIPTION_PL, "Czytaj blok z danej ¶cie¿ki i sektora. Je¶li okre¶lono adres, dane s±\nwczytywane do pamiêci. Je¶li nie podano adresu, dane s± pokazane\nw domy¶lnym typie danych."},
 /* ru */ {IDGS_MON_BLOCK_READ_DESCRIPTION_RU, "Read the block at the specified track and sector.  If an address is\nspecified, the data is loaded into memory.  If no address is given, the\ndata is displayed using the default datatype."},
 /* sv */ {IDGS_MON_BLOCK_READ_DESCRIPTION_SV, "Läser blocket på det angivna spåret och sektorn. Om du anger en\nadress läses data till minnet. Om du inte anger någon adress visas\ninnehållet enligt standarddatatypen."},
@@ -2597,7 +2597,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_BSAVE_DESCRIPTION_HU, "A memória cím1 és cím2 közötti részének fájlba mentése.\nHa az eszköz 0, a fájl a fájlrendszerbe kerül."},
 /* it */ {IDGS_MON_BSAVE_DESCRIPTION_IT, "Salva la memoria compresa tra indirizzo1 e indirizzo2 sul file specificato.\nSe la periferica è 0, il file è scritto sul file system."},
 /* ko */ {IDGS_MON_BSAVE_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_BSAVE_DESCRIPTION_NL, "Sla het geheugen tussen adres1 en adres2 op naar het opgegeven bestand.\nAls het apparaat 0 is dan zal het bestand naar het bestandssysteem worden\ngeschreven."},
+/* nl */ {IDGS_MON_BSAVE_DESCRIPTION_NL, "Sla het geheugen tussen adres1 en adres2 op naar het opgegeven bestand.\nAls het apparaat 0 is, zal het bestand naar het bestandssysteem worden\ngeschreven."},
 /* pl */ {IDGS_MON_BSAVE_DESCRIPTION_PL, "Zapisz pamiêæ z adres1 do adres2 do okre¶lonego pliku.\nJe¶li urz±dzenie to 0, plik jest zapisywany do systemu plików."},
 /* ru */ {IDGS_MON_BSAVE_DESCRIPTION_RU, "Save the memory from address1 to address2 to the specified file.\nIf device is 0, the file is written to the file system."},
 /* sv */ {IDGS_MON_BSAVE_DESCRIPTION_SV, "Spara minnet från adress1 till adress2 till den angivna filen.\nOm enheten är 0 skrivs filen till filsystemet."},
@@ -2614,7 +2614,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_BLOCK_WRITE_DESCRIPTION_HU, "Egy adat blokk írása `cím' helyrõl a megadott sávba és szektorba\na 8-as meghajtón."},
 /* it */ {IDGS_MON_BLOCK_WRITE_DESCRIPTION_IT, "Scrive il blocco di dati all'indirizzo sulla traccia e settore specificati\ndel disco nel drive 8."},
 /* ko */ {IDGS_MON_BLOCK_WRITE_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_BLOCK_WRITE_DESCRIPTION_NL, "Schrijf een data blok van `adres' naar de opgegeven spoor en sector van\nde disk in drive 8."},
+/* nl */ {IDGS_MON_BLOCK_WRITE_DESCRIPTION_NL, "Schrijf een data blok van `adres' naar het opgegeven spoor en sector van\nde disk in drive 8."},
 /* pl */ {IDGS_MON_BLOCK_WRITE_DESCRIPTION_PL, "Zapisz blok danych w `address' w podanej ¶cie¿ce i sektorze\ndysku w stacji 8."},
 /* ru */ {IDGS_MON_BLOCK_WRITE_DESCRIPTION_RU, "Write a block of data at `address' on the specified track and sector\nof disk in drive 8."},
 /* sv */ {IDGS_MON_BLOCK_WRITE_DESCRIPTION_SV, "Skriv ett datablock på \"adress\" till det angivna spåret och sektorn\npå disken i enhet 8."},
@@ -2665,7 +2665,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_CD_DESCRIPTION_HU, ""},  /* fuzzy */
 /* it */ {IDGS_MON_CD_DESCRIPTION_IT, "Cambia la directory di lavoro."},
 /* ko */ {IDGS_MON_CD_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_CD_DESCRIPTION_NL, "Verander de huidige werk directory"},
+/* nl */ {IDGS_MON_CD_DESCRIPTION_NL, "Verander de huidige werkmap."},
 /* pl */ {IDGS_MON_CD_DESCRIPTION_PL, "Zmieñ obecny katalog roboczy"},
 /* ru */ {IDGS_MON_CD_DESCRIPTION_RU, "ÁÜÕÝØâì âÕÚãéãî àÐÑÞçãî ÔØàÕÚâÞàØî."},
 /* sv */ {IDGS_MON_CD_DESCRIPTION_SV, "Ändra aktuell arbetskatalog"},
@@ -2699,7 +2699,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_DIR_DESCRIPTION_HU, "A könyvtár tartalmának mutatása."},
 /* it */ {IDGS_MON_DIR_DESCRIPTION_IT, "Mostra il contenuto della directory."},
 /* ko */ {IDGS_MON_DIR_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_DIR_DESCRIPTION_NL, "Toon de directory inhoud."},
+/* nl */ {IDGS_MON_DIR_DESCRIPTION_NL, "Toon de directory-inhoud."},
 /* pl */ {IDGS_MON_DIR_DESCRIPTION_PL, "Poka¿ zawarto¶æ katalogu."},
 /* ru */ {IDGS_MON_DIR_DESCRIPTION_RU, "¾âÞÑàÐ×Øâì áÞÔÕàÖÐÝØÕ ÔØàÕÚâÞàØØ."},
 /* sv */ {IDGS_MON_DIR_DESCRIPTION_SV, "Visa katalogens innehåll."},
@@ -2733,7 +2733,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_LOAD_DESCRIPTION_HU, "A megadott fájl betöltése a megadott címre. A BASIC mutatókat\na megfelelõ módon beállítja, ha a számítógép memóriába tölti az adatot\n(nem minden emulátornál). Ha nincs cím megadva, az amúgy figyelmen hagyott\nkét bájtos betöltési címet használja a fájlból.\nHa az eszköz 0, a fájlt a fájlrendszerrõl olvassa."},
 /* it */ {IDGS_MON_LOAD_DESCRIPTION_IT, "Carica il file specificato in memoria all'indirizzo specificato. Imposta\ni puntatori del BASIC in modo appropriato se caricato nella memoria\ndel computer (non su tutti gli emulatori).\nUsa (altrimenti ignora) l'indirizzo di caricamento su due byte del file\nse non viene specificato alcun indirizzo.\nSe la periferica è 0, il file viene letto dal file system."},
 /* ko */ {IDGS_MON_LOAD_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_LOAD_DESCRIPTION_NL, "Laad het opgegeven bestand naar geheugen op het opgegeven adres. Zet de BASIC\nstart en eind indicators correct als het bestand naar het computer geheugen\ngeladen wordt (niet alle emulatoren). De eerste twee bytes van het bestand\nzullen als laad adres worden gebruikt als er geen adres is opgegeven. Als\nhet apparaat 0 is dan zal het bestand van het bestandssysteem worden geladen."},
+/* nl */ {IDGS_MON_LOAD_DESCRIPTION_NL, "Laad het opgegeven bestand naar het geheugen op het opgegeven adres. Zet de BASIC\nstart en eind indicators correct als het bestand naar het computer geheugen\ngeladen wordt (niet alle emulators). De eerste twee bytes van het bestand\nzullen als laad adres worden gebruikt als er geen adres is opgegeven. Als\nhet apparaat 0 is, zal het bestand van het bestandssysteem worden geladen."},
 /* pl */ {IDGS_MON_LOAD_DESCRIPTION_PL, "Wczytaj podany plik do pamiêci w konkretnym adresie. Ustaw wska¼niki\nBASIC odpowiednio, jesli zostan± wczytane do pamiêci komputera\n(nie wszystkie emulatory). U¿yj (w innym razie ignoruje) dwubajtowego\nadresu wczytywania z pliku, je¶li nie zosta³ podany adres.\nJe¶li urz±dzenie jest 0, plik zostaje oczytany z systemu plików."},
 /* ru */ {IDGS_MON_LOAD_DESCRIPTION_RU, "Load the specified file into memory at the specified address. Set BASIC\npointers appropriately if loaded into computer memory (not all emulators).\nUse (otherwise ignored) two-byte load address from file if no address\nspecified.\nIf device is 0, the file is read from the file system."},
 /* sv */ {IDGS_MON_LOAD_DESCRIPTION_SV, "Läs in den angivna filen i minnet på den angivna adressen. Sätter\nmotsvarande BASIC-pekare vid läsning till datorminnet (inte alla\nemulatorer). Om ingen adress anges används tvåbytesadressen i filen(ignoreras annars).\nOm enheten är 0 läses filen från filsystemet."},
@@ -2750,7 +2750,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_PWD_DESCRIPTION_HU, "Munkakönyvtár mutatása."},
 /* it */ {IDGS_MON_PWD_DESCRIPTION_IT, "Mostra la directory di lavoro attuale."},
 /* ko */ {IDGS_MON_PWD_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_PWD_DESCRIPTION_NL, "Toon de huidige werk directory."},
+/* nl */ {IDGS_MON_PWD_DESCRIPTION_NL, "Toon de huidige werkdirectory."},
 /* pl */ {IDGS_MON_PWD_DESCRIPTION_PL, "Poka¿ obecny katalog roboczy."},
 /* ru */ {IDGS_MON_PWD_DESCRIPTION_RU, "¾âÞÑàÐ×Øâì âÕÚãéãî àÐÑÞçãî ÔØàÕÚâÞàØî."},
 /* sv */ {IDGS_MON_PWD_DESCRIPTION_SV, "Visa aktuell arbetskatalog."},
@@ -2767,7 +2767,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_SAVE_DESCRIPTION_HU, "A memória cím1 és cím2 közötti tartományának fájlba mentése.\nA kétbájtos betöltési címet is kiírja.\nHa az eszköz 0, a fájlt a fájlrendszeren hozza létre."},
 /* it */ {IDGS_MON_SAVE_DESCRIPTION_IT, "Salva la memoria compresa tra indirizzo1 e indirizzo2 sul file\nspecificato.\nScrive l'indirizzo di caricamento su due byte.\nSe la periferica è 0, il file è scritto sul file system."},
 /* ko */ {IDGS_MON_SAVE_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_SAVE_DESCRIPTION_NL, "Sla het geheugen tussen adres1 en adres2 op naar het opgegeven bestand.\nSchrijf een load adres van twee bytes.\nAls het apparaat 0 is dan zal het bestand geschreven worden naar het\nbestandssysteem."},
+/* nl */ {IDGS_MON_SAVE_DESCRIPTION_NL, "Sla het geheugen tussen adres1 en adres2 op naar het opgegeven bestand.\nSchrijf een laad adres van twee bytes.\nAls het apparaat 0 is, zal het bestand geschreven worden naar het\nbestandssysteem."},
 /* pl */ {IDGS_MON_SAVE_DESCRIPTION_PL, "Zapisz pamiêæ od address1 do address2 do podanego pliku.\nZapisz dwubajtowy adres wczytania.\nJe¶li urz±dzenie jest 0, plik zostaje zapisany do systemu plików."},
 /* ru */ {IDGS_MON_SAVE_DESCRIPTION_RU, "Save the memory from address1 to address2 to the specified file.\nWrite two-byte load address.\nIf device is 0, the file is written to the file system."},
 /* sv */ {IDGS_MON_SAVE_DESCRIPTION_SV, "Spara minnet från adress1 till adress2 till den angivna filen.\nSkriv tvåbytes inläsningsadress.\nOm enheten är 0 skrivs filen till filsystemet."},
@@ -2784,7 +2784,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_OTHER_COMMANDS_HU, ""},  /* fuzzy */
 /* it */ {IDGS_OTHER_COMMANDS_IT, "Altri comandi:"},
 /* ko */ {IDGS_OTHER_COMMANDS_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_OTHER_COMMANDS_NL, "Andere commandos:"},
+/* nl */ {IDGS_OTHER_COMMANDS_NL, "Andere commando's:"},
 /* pl */ {IDGS_OTHER_COMMANDS_PL, "Pozosta³e polecenia:"},
 /* ru */ {IDGS_OTHER_COMMANDS_RU, "´àãÓØÕ ÚÞÜÐÝÔë:"},
 /* sv */ {IDGS_OTHER_COMMANDS_SV, "Andra kommandon:"},
@@ -2835,7 +2835,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_HELP_DESCRIPTION_HU, "Ha nincs paraméter, az összes létezõ parancs listáját mutatja.\nHa van, az adott parancshoz mutatja a súgót."},
 /* it */ {IDGS_MON_HELP_DESCRIPTION_IT, "Se non viene specificato alcun argomeno, stampa l'elenco di tutti i\ncomandi disponibili.\nSe viene specificato un argomento, stampa l'aiuto relativo a quel\ncomando."},
 /* ko */ {IDGS_MON_HELP_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_HELP_DESCRIPTION_NL, "Als er geen parameter is opgegeven dan zal een lijst van alle commandos\nworden weergegeven. Als er een parameter is opgegeven dan zal de help voor\nhet opgegeven command worden weergegeven."},
+/* nl */ {IDGS_MON_HELP_DESCRIPTION_NL, "Als er geen parameter is opgegeven, zal een lijst van alle commando's\nworden weergegeven. Als er een parameter is opgegeven, zal de help voor\nhet opgegeven commando worden weergegeven."},
 /* pl */ {IDGS_MON_HELP_DESCRIPTION_PL, "Je¶li nie jest podany argument, pokazuje listê dostêpnych poleceñ.\nJe¶li zosta³ podany argument, pokazuje pomoc do tego polecenia."},
 /* ru */ {IDGS_MON_HELP_DESCRIPTION_RU, "If no argument is given, prints out a list of all available commands\nIf an argument is given, prints out specific help for that command."},
 /* sv */ {IDGS_MON_HELP_DESCRIPTION_SV, "Om du inte anger några argument visas alla tillgängliga kommandon.\nOm du anger ett argument visas hjälp för det specifika kommandot."},
@@ -2852,7 +2852,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_STRING_HU, ""},  /* fuzzy */
 /* it */ {IDGS_STRING_IT, "stringa"},
 /* ko */ {IDGS_STRING_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_STRING_NL, "string"},
+/* nl */ {IDGS_STRING_NL, "tekenreeks"},
 /* pl */ {IDGS_STRING_PL, "string"},
 /* ru */ {IDGS_STRING_RU, "string"},
 /* sv */ {IDGS_STRING_SV, "sträng"},
@@ -2869,7 +2869,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_KEYBUF_DESCRIPTION_HU, "A megadott sztring elhelyezése a billentyûzet pufferben."},
 /* it */ {IDGS_MON_KEYBUF_DESCRIPTION_IT, "Metti la stringa specificata nel buffer di tastiera."},
 /* ko */ {IDGS_MON_KEYBUF_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_KEYBUF_DESCRIPTION_NL, "Plaats de opgegeven string in de toetsenbordbuffer."},
+/* nl */ {IDGS_MON_KEYBUF_DESCRIPTION_NL, "Plaats de opgegeven tekenreeks in de toetsenbordbuffer."},
 /* pl */ {IDGS_MON_KEYBUF_DESCRIPTION_PL, "Umie¶æ dany ci±g znaków w buforze klawiatury"},
 /* ru */ {IDGS_MON_KEYBUF_DESCRIPTION_RU, "Put the specified string into the keyboard buffer."},
 /* sv */ {IDGS_MON_KEYBUF_DESCRIPTION_SV, "Lägg den angivna strängen i tangentbordsbufferten."},
@@ -2886,7 +2886,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_PLAYBACK_DESCRIPTION_HU, "A monitor parancsokat beolvassa és végrehajtja a megadott fájlból.\nA fájl végéig halad, vagy egy beolvasott STOP parancsig."},
 /* it */ {IDGS_MON_PLAYBACK_DESCRIPTION_IT, "I comandi del monitor sono letti ed eseguiti dal file specificato. Questo\ncomando si arresta alla fine del file o quando viene letto il comando\nSTOP."},
 /* ko */ {IDGS_MON_PLAYBACK_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_PLAYBACK_DESCRIPTION_NL, "Monitor commandos van het opgegeven bestand zullen worden gelezen en\nuitgevoerd. Dit commando stopt aan het einde van het bestand of wanneer\neen STOP commando wordt gelezen."},
+/* nl */ {IDGS_MON_PLAYBACK_DESCRIPTION_NL, "Monitor commando's van het opgegeven bestand zullen worden gelezen en\nuitgevoerd. Dit commando stopt aan het einde van het bestand of wanneer\neen STOP commando wordt gelezen."},
 /* pl */ {IDGS_MON_PLAYBACK_DESCRIPTION_PL, "Polecenia monitora z podanego pliku s± odczytywane i wykonywane.\nTa komenda zatrzymuje siê na koñcu pliku, b±d¼ przy odczycie komendy STOP."},
 /* ru */ {IDGS_MON_PLAYBACK_DESCRIPTION_RU, "Monitor commands from the specified file are read and executed.  This\ncommand stops at the end of file or when a STOP command is read."},
 /* sv */ {IDGS_MON_PLAYBACK_DESCRIPTION_SV, "Monitorkommandon läses in och körs från den angivna filen. Kommandot\nstoppar vid filslut eller när ett STOP-kommando läses."},
@@ -2937,7 +2937,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_RECORD_DESCRIPTION_HU, "Ezután a parancs után az összes parancsot a megadott fájlba\nírja, amíg STOP parancs nem érkezik."},
 /* it */ {IDGS_MON_RECORD_DESCRIPTION_IT, "Dopo questo comando, tutti i comandi inseriti saranno scritti sul file\nspecificato fino a quando verrà inserito il comando STOP."},
 /* ko */ {IDGS_MON_RECORD_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_RECORD_DESCRIPTION_NL, "Na dit commando zullen alle opgegeven commandos worden geschreven naar\nhet opgegeven bestand totdat het STOP command wordt opgegeven."},
+/* nl */ {IDGS_MON_RECORD_DESCRIPTION_NL, "Na dit commando zullen alle opgegeven commando's worden geschreven naar\nhet opgegeven bestand totdat het STOP commando wordt opgegeven."},
 /* pl */ {IDGS_MON_RECORD_DESCRIPTION_PL, "Po tym poleceniu wszystkie wprowadzone polecenia s± zapisywane\ndo podanego pliku, póki nie zostanie wprowadzone polecenie STOP."},
 /* ru */ {IDGS_MON_RECORD_DESCRIPTION_RU, "After this command, all commands entered are written to the specified\nfile until the STOP command is entered."},
 /* sv */ {IDGS_MON_RECORD_DESCRIPTION_SV, "Efter detta kommando kommer alla kommandon som anges att skrivas till\nden angivna filen tills ett STOP-kommando anges."},
@@ -2971,7 +2971,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_RESOURCEGET_DESCRIPTION_HU, "Az erõforrás értékének kiírása."},
 /* it */ {IDGS_MON_RESOURCEGET_DESCRIPTION_IT, "Mostra il valore della risorsa."},
 /* ko */ {IDGS_MON_RESOURCEGET_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_RESOURCEGET_DESCRIPTION_NL, "Toont de waarde van de resource."},
+/* nl */ {IDGS_MON_RESOURCEGET_DESCRIPTION_NL, "Toont de waarde van de bron."},
 /* pl */ {IDGS_MON_RESOURCEGET_DESCRIPTION_PL, "Pokazuje warto¶æ zasobu"},
 /* ru */ {IDGS_MON_RESOURCEGET_DESCRIPTION_RU, "Displays the value of the resource."},
 /* sv */ {IDGS_MON_RESOURCEGET_DESCRIPTION_SV, "Visar värdet för resursen."},
@@ -3005,7 +3005,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_RESOURCESET_DESCRIPTION_HU, "Az erõforrás értékének beállítása."},
 /* it */ {IDGS_MON_RESOURCESET_DESCRIPTION_IT, "Imposta il valore della risorsa."},
 /* ko */ {IDGS_MON_RESOURCESET_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_RESOURCESET_DESCRIPTION_NL, "Plaats de waarde in de resource."},
+/* nl */ {IDGS_MON_RESOURCESET_DESCRIPTION_NL, "Stel de waarde in van de bron."},
 /* pl */ {IDGS_MON_RESOURCESET_DESCRIPTION_PL, "Ustawia warto¶æ zasobu."},
 /* ru */ {IDGS_MON_RESOURCESET_DESCRIPTION_RU, "Sets the value of the resource."},
 /* sv */ {IDGS_MON_RESOURCESET_DESCRIPTION_SV, "Ställer in ett värde för resursen."},
@@ -3056,7 +3056,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_STOP_DESCRIPTION_HU, "A parancsok rögzítésének befejezése.  Lásd `record'"},
 /* it */ {IDGS_MON_STOP_DESCRIPTION_IT, "Ferma il comando di registrazione. Guarda `registra'."},
 /* ko */ {IDGS_MON_STOP_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_STOP_DESCRIPTION_NL, "Stop de opname van commandos. Zie 'record'."},
+/* nl */ {IDGS_MON_STOP_DESCRIPTION_NL, "Stop de opname van commando's. Zie 'record'."},
 /* pl */ {IDGS_MON_STOP_DESCRIPTION_PL, "Przestañ zapisywaæ polecenia. Zobacz `record'."},
 /* ru */ {IDGS_MON_STOP_DESCRIPTION_RU, "Stop recording commands.  See `record'."},
 /* sv */ {IDGS_MON_STOP_DESCRIPTION_SV, "Sluta spela in kommandon. Se \"record\"."},
@@ -3090,7 +3090,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_MON_TAPECTRL_DESCRIPTION_HU, "Szalagos egység vezérlése. Érvényes parancsok:\n0 = start, 1 = indít, 2 = elõre, 3 = vissza, 4 = felvétel,\n5 = újraindít, 6 = számlálót nulláz"},
 /* it */ {IDGS_MON_TAPECTRL_DESCRIPTION_IT, "Controlla il registratore. Comandi validi:\n0 = ferma, 1 = avvia, 2 = avanti, 3 = indietro, 4 = registra,\n5 = reset, 6 = reset contatore."},
 /* ko */ {IDGS_MON_TAPECTRL_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_TAPECTRL_DESCRIPTION_NL, "Geef datasette commandos. Geldige commandos:\n0 = stop, 1 = start, 2 = vooruit, 3 = terug, 4 = opnemen,\n5 = reset, 6 = reset teller."},
+/* nl */ {IDGS_MON_TAPECTRL_DESCRIPTION_NL, "Geef datasette commando's. Geldige commando's:\n0 = stop, 1 = start, 2 = vooruit, 3 = terug, 4 = opnemen,\n5 = reset, 6 = reset teller."},
 /* pl */ {IDGS_MON_TAPECTRL_DESCRIPTION_PL, "Kontrola magnetofonu. W³a¶ciwe polecenia:\n0 = stop, 1 = start, 2 = naprzód, 3 = przewiñ, 4 = nagrywaj,\n5 = reset, 6 = reset licznika."},
 /* ru */ {IDGS_MON_TAPECTRL_DESCRIPTION_RU, "Control the datasette. Valid commands:\n0 = stop, 1 = start, 2 = forward, 3 = rewind, 4 = record,\n5 = reset, 6 = reset counter."},
 /* sv */ {IDGS_MON_TAPECTRL_DESCRIPTION_SV, "Styr bandspelaren. Giltiga kommandon:\n0 = stoppa, 1 = starta, 2 = spola framåt, 3 = spola bakåt,\n4 = spela in, 5 = återställ, 6 = nollställ räknare."},
@@ -3101,7 +3101,7 @@ translate_t string_table[] = {
 /* en */ {IDGS_CONTROL_PORT,    N_("Control port")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_CONTROL_PORT_DA, ""},  /* fuzzy */
-/* de */ {IDGS_CONTROL_PORT_DE, ""},  /* fuzzy */
+/* de */ {IDGS_CONTROL_PORT_DE, "Control Port"},
 /* es */ {IDGS_CONTROL_PORT_ES, ""},  /* fuzzy */
 /* fr */ {IDGS_CONTROL_PORT_FR, ""},  /* fuzzy */
 /* hu */ {IDGS_CONTROL_PORT_HU, ""},  /* fuzzy */
@@ -3118,7 +3118,7 @@ translate_t string_table[] = {
 /* en */ {IDGS_CONTROL_PORT_1,    N_("Control port 1")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_CONTROL_PORT_1_DA, ""},  /* fuzzy */
-/* de */ {IDGS_CONTROL_PORT_1_DE, ""},  /* fuzzy */
+/* de */ {IDGS_CONTROL_PORT_1_DE, "Control Port 1"},
 /* es */ {IDGS_CONTROL_PORT_1_ES, ""},  /* fuzzy */
 /* fr */ {IDGS_CONTROL_PORT_1_FR, ""},  /* fuzzy */
 /* hu */ {IDGS_CONTROL_PORT_1_HU, ""},  /* fuzzy */
@@ -3135,7 +3135,7 @@ translate_t string_table[] = {
 /* en */ {IDGS_CONTROL_PORT_2,    N_("Control port 2")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_CONTROL_PORT_2_DA, ""},  /* fuzzy */
-/* de */ {IDGS_CONTROL_PORT_2_DE, ""},  /* fuzzy */
+/* de */ {IDGS_CONTROL_PORT_2_DE, "Control Port 2"},
 /* es */ {IDGS_CONTROL_PORT_2_ES, ""},  /* fuzzy */
 /* fr */ {IDGS_CONTROL_PORT_2_FR, ""},  /* fuzzy */
 /* hu */ {IDGS_CONTROL_PORT_2_HU, ""},  /* fuzzy */
@@ -3152,7 +3152,7 @@ translate_t string_table[] = {
 /* en */ {IDGS_SIDCARD_CONTROL_PORT,    N_("SIDCard control port")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_SIDCARD_CONTROL_PORT_DA, ""},  /* fuzzy */
-/* de */ {IDGS_SIDCARD_CONTROL_PORT_DE, ""},  /* fuzzy */
+/* de */ {IDGS_SIDCARD_CONTROL_PORT_DE, "SIDCard Control Port"},
 /* es */ {IDGS_SIDCARD_CONTROL_PORT_ES, ""},  /* fuzzy */
 /* fr */ {IDGS_SIDCARD_CONTROL_PORT_FR, ""},  /* fuzzy */
 /* hu */ {IDGS_SIDCARD_CONTROL_PORT_HU, ""},  /* fuzzy */
@@ -3169,7 +3169,7 @@ translate_t string_table[] = {
 /* en */ {IDGS_USERPORT_JOY_ADAPTER_PORT_1,    N_("Userport joystick adapter port 1")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_USERPORT_JOY_ADAPTER_PORT_1_DA, ""},  /* fuzzy */
-/* de */ {IDGS_USERPORT_JOY_ADAPTER_PORT_1_DE, ""},  /* fuzzy */
+/* de */ {IDGS_USERPORT_JOY_ADAPTER_PORT_1_DE, "Userport Joystick Adapter Port 1"},
 /* es */ {IDGS_USERPORT_JOY_ADAPTER_PORT_1_ES, ""},  /* fuzzy */
 /* fr */ {IDGS_USERPORT_JOY_ADAPTER_PORT_1_FR, ""},  /* fuzzy */
 /* hu */ {IDGS_USERPORT_JOY_ADAPTER_PORT_1_HU, ""},  /* fuzzy */
@@ -3186,7 +3186,7 @@ translate_t string_table[] = {
 /* en */ {IDGS_USERPORT_JOY_ADAPTER_PORT_2,    N_("Userport joystick adapter port 2")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_USERPORT_JOY_ADAPTER_PORT_2_DA, ""},  /* fuzzy */
-/* de */ {IDGS_USERPORT_JOY_ADAPTER_PORT_2_DE, ""},  /* fuzzy */
+/* de */ {IDGS_USERPORT_JOY_ADAPTER_PORT_2_DE, "Userport Joystick Adapter Port 2"},
 /* es */ {IDGS_USERPORT_JOY_ADAPTER_PORT_2_ES, ""},  /* fuzzy */
 /* fr */ {IDGS_USERPORT_JOY_ADAPTER_PORT_2_FR, ""},  /* fuzzy */
 /* hu */ {IDGS_USERPORT_JOY_ADAPTER_PORT_2_HU, ""},  /* fuzzy */
@@ -3203,13 +3203,13 @@ translate_t string_table[] = {
 /* en */ {IDGS_SELECTED_PORT_NOT_PRESENT,    N_("Selected port (%d) is not present on this emulator")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_SELECTED_PORT_NOT_PRESENT_DA, ""},  /* fuzzy */
-/* de */ {IDGS_SELECTED_PORT_NOT_PRESENT_DE, ""},  /* fuzzy */
+/* de */ {IDGS_SELECTED_PORT_NOT_PRESENT_DE, "Ausgewähltes Port (%d) ist in diesem Emulator nicht verfügbar"},
 /* es */ {IDGS_SELECTED_PORT_NOT_PRESENT_ES, ""},  /* fuzzy */
 /* fr */ {IDGS_SELECTED_PORT_NOT_PRESENT_FR, ""},  /* fuzzy */
 /* hu */ {IDGS_SELECTED_PORT_NOT_PRESENT_HU, ""},  /* fuzzy */
 /* it */ {IDGS_SELECTED_PORT_NOT_PRESENT_IT, ""},  /* fuzzy */
 /* ko */ {IDGS_SELECTED_PORT_NOT_PRESENT_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_SELECTED_PORT_NOT_PRESENT_NL, "Geselelecteerde poort (%d) is niet aanwezig in deze emulator"},
+/* nl */ {IDGS_SELECTED_PORT_NOT_PRESENT_NL, "Geselecteerde poort (%d) is niet aanwezig in deze emulator"},
 /* pl */ {IDGS_SELECTED_PORT_NOT_PRESENT_PL, ""},  /* fuzzy */
 /* ru */ {IDGS_SELECTED_PORT_NOT_PRESENT_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_SELECTED_PORT_NOT_PRESENT_SV, ""},  /* fuzzy */
@@ -3220,13 +3220,13 @@ translate_t string_table[] = {
 /* en */ {IDGS_SELECTED_JOYPORT_DEV_NOT_REG,    N_("Selected control port device %d is not registered")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_SELECTED_JOYPORT_DEV_NOT_REG_DA, ""},  /* fuzzy */
-/* de */ {IDGS_SELECTED_JOYPORT_DEV_NOT_REG_DE, ""},  /* fuzzy */
+/* de */ {IDGS_SELECTED_JOYPORT_DEV_NOT_REG_DE, "Ausgewähltes Port Gerät %d ist nicht registriert"},
 /* es */ {IDGS_SELECTED_JOYPORT_DEV_NOT_REG_ES, ""},  /* fuzzy */
 /* fr */ {IDGS_SELECTED_JOYPORT_DEV_NOT_REG_FR, ""},  /* fuzzy */
 /* hu */ {IDGS_SELECTED_JOYPORT_DEV_NOT_REG_HU, ""},  /* fuzzy */
 /* it */ {IDGS_SELECTED_JOYPORT_DEV_NOT_REG_IT, ""},  /* fuzzy */
 /* ko */ {IDGS_SELECTED_JOYPORT_DEV_NOT_REG_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_SELECTED_JOYPORT_DEV_NOT_REG_NL, "Geselelecteerde spel connector apparaat %d is niet geregistreerd"},
+/* nl */ {IDGS_SELECTED_JOYPORT_DEV_NOT_REG_NL, "Geselecteerde spel connector apparaat %d is niet geregistreerd"},
 /* pl */ {IDGS_SELECTED_JOYPORT_DEV_NOT_REG_PL, ""},  /* fuzzy */
 /* ru */ {IDGS_SELECTED_JOYPORT_DEV_NOT_REG_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_SELECTED_JOYPORT_DEV_NOT_REG_SV, ""},  /* fuzzy */
@@ -3237,13 +3237,13 @@ translate_t string_table[] = {
 /* en */ {IDGS_SELECTED_JOYPORT_DEV_ALREADY_ATTACHED,    N_("Selected control port device %s on %s is already attached to %s")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_SELECTED_JOYPORT_DEV_ALREADY_ATTACHED_DA, ""},  /* fuzzy */
-/* de */ {IDGS_SELECTED_JOYPORT_DEV_ALREADY_ATTACHED_DE, ""},  /* fuzzy */
+/* de */ {IDGS_SELECTED_JOYPORT_DEV_ALREADY_ATTACHED_DE, "Ausgewähltes Control Port Gerät %s auf Port %s ist schon in Port %s in Verwendung"},
 /* es */ {IDGS_SELECTED_JOYPORT_DEV_ALREADY_ATTACHED_ES, ""},  /* fuzzy */
 /* fr */ {IDGS_SELECTED_JOYPORT_DEV_ALREADY_ATTACHED_FR, ""},  /* fuzzy */
 /* hu */ {IDGS_SELECTED_JOYPORT_DEV_ALREADY_ATTACHED_HU, ""},  /* fuzzy */
 /* it */ {IDGS_SELECTED_JOYPORT_DEV_ALREADY_ATTACHED_IT, ""},  /* fuzzy */
 /* ko */ {IDGS_SELECTED_JOYPORT_DEV_ALREADY_ATTACHED_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_SELECTED_JOYPORT_DEV_ALREADY_ATTACHED_NL, "Geselecteerde spel connector apparaat %s op %s is al gekoppelt aan %s"},
+/* nl */ {IDGS_SELECTED_JOYPORT_DEV_ALREADY_ATTACHED_NL, "Geselecteerde spel connector apparaat %s op %s is al gekoppeld aan %s"},
 /* pl */ {IDGS_SELECTED_JOYPORT_DEV_ALREADY_ATTACHED_PL, ""},  /* fuzzy */
 /* ru */ {IDGS_SELECTED_JOYPORT_DEV_ALREADY_ATTACHED_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_SELECTED_JOYPORT_DEV_ALREADY_ATTACHED_SV, ""},  /* fuzzy */
@@ -3254,13 +3254,13 @@ translate_t string_table[] = {
 /* en */ {IDGS_SELECTED_JOYPORT_SAME_INPUT_RES,    N_("Selected control port device %s on %s uses same host input resource (%s) as the device attached to %s")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_SELECTED_JOYPORT_SAME_INPUT_RES_DA, ""},  /* fuzzy */
-/* de */ {IDGS_SELECTED_JOYPORT_SAME_INPUT_RES_DE, ""},  /* fuzzy */
+/* de */ {IDGS_SELECTED_JOYPORT_SAME_INPUT_RES_DE, "Ausgewähltes Control Port Gerät %s auf Port %s benutzt die gleiche Host\nInput Resource (%s) wie das auf Port %s benutzte Gerät"},
 /* es */ {IDGS_SELECTED_JOYPORT_SAME_INPUT_RES_ES, ""},  /* fuzzy */
 /* fr */ {IDGS_SELECTED_JOYPORT_SAME_INPUT_RES_FR, ""},  /* fuzzy */
 /* hu */ {IDGS_SELECTED_JOYPORT_SAME_INPUT_RES_HU, ""},  /* fuzzy */
 /* it */ {IDGS_SELECTED_JOYPORT_SAME_INPUT_RES_IT, ""},  /* fuzzy */
 /* ko */ {IDGS_SELECTED_JOYPORT_SAME_INPUT_RES_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_SELECTED_JOYPORT_SAME_INPUT_RES_NL, "Geselecteerde spel connector apparaat %s op %s gebruikt dezelfde fyskieke invoer instelling (%s) als het apparaat gekoppelt aan %s"},
+/* nl */ {IDGS_SELECTED_JOYPORT_SAME_INPUT_RES_NL, "Geselecteerd spel connector apparaat %s op %s gebruikt dezelfde fysieke invoerinstelling (%s) als het apparaat dat gekoppeld is aan %s"},
 /* pl */ {IDGS_SELECTED_JOYPORT_SAME_INPUT_RES_PL, ""},  /* fuzzy */
 /* ru */ {IDGS_SELECTED_JOYPORT_SAME_INPUT_RES_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_SELECTED_JOYPORT_SAME_INPUT_RES_SV, ""},  /* fuzzy */
@@ -3271,13 +3271,13 @@ translate_t string_table[] = {
 /* en */ {IDGS_SELECTED_DEVICE_NOT_THIS_PORT,    N_("Selected control port device %s cannot be attached to %s")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_SELECTED_DEVICE_NOT_THIS_PORT_DA, ""},  /* fuzzy */
-/* de */ {IDGS_SELECTED_DEVICE_NOT_THIS_PORT_DE, ""},  /* fuzzy */
+/* de */ {IDGS_SELECTED_DEVICE_NOT_THIS_PORT_DE, "Ausgewähltes Control Port Gerät %s kann nicht auf Port %s verwendet werden"},
 /* es */ {IDGS_SELECTED_DEVICE_NOT_THIS_PORT_ES, ""},  /* fuzzy */
 /* fr */ {IDGS_SELECTED_DEVICE_NOT_THIS_PORT_FR, ""},  /* fuzzy */
 /* hu */ {IDGS_SELECTED_DEVICE_NOT_THIS_PORT_HU, ""},  /* fuzzy */
 /* it */ {IDGS_SELECTED_DEVICE_NOT_THIS_PORT_IT, ""},  /* fuzzy */
 /* ko */ {IDGS_SELECTED_DEVICE_NOT_THIS_PORT_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_SELECTED_DEVICE_NOT_THIS_PORT_NL, "Geselecteerde spel connector apparaat %s kan niet worden gekoppelt aan %s"},
+/* nl */ {IDGS_SELECTED_DEVICE_NOT_THIS_PORT_NL, "Geselecteerd spel connector apparaat %s kan niet worden gekoppeld aan %s"},
 /* pl */ {IDGS_SELECTED_DEVICE_NOT_THIS_PORT_PL, ""},  /* fuzzy */
 /* ru */ {IDGS_SELECTED_DEVICE_NOT_THIS_PORT_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_SELECTED_DEVICE_NOT_THIS_PORT_SV, ""},  /* fuzzy */
@@ -3523,6 +3523,176 @@ translate_t string_table[] = {
 /* tr */ {IDGS_SAMPLER_2BIT_TR, ""},  /* fuzzy */
 #endif
 
+/* joyport/sampler4bit.c */
+/* en */ {IDGS_SAMPLER_4BIT,    N_("Sampler (4bit)")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_SAMPLER_4BIT_DA, ""},  /* fuzzy */
+/* de */ {IDGS_SAMPLER_4BIT_DE, "Sampler (4bit)"},
+/* es */ {IDGS_SAMPLER_4BIT_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_SAMPLER_4BIT_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_SAMPLER_4BIT_HU, ""},  /* fuzzy */
+/* it */ {IDGS_SAMPLER_4BIT_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_SAMPLER_4BIT_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_SAMPLER_4BIT_NL, "Sampler (4bit)"},
+/* pl */ {IDGS_SAMPLER_4BIT_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_SAMPLER_4BIT_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_SAMPLER_4BIT_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_SAMPLER_4BIT_TR, ""},  /* fuzzy */
+#endif
+
+/* joyport/bbrtc.c */
+/* en */ {IDGS_BBRTC,    N_("BBRTC")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_BBRTC_DA, ""},  /* fuzzy */
+/* de */ {IDGS_BBRTC_DE, "BBRTC"},
+/* es */ {IDGS_BBRTC_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_BBRTC_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_BBRTC_HU, ""},  /* fuzzy */
+/* it */ {IDGS_BBRTC_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_BBRTC_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_BBRTC_NL, "BBRTC"},
+/* pl */ {IDGS_BBRTC_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_BBRTC_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_BBRTC_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_BBRTC_TR, ""},  /* fuzzy */
+#endif
+
+/* joyport/paperclip64.c */
+/* en */ {IDGS_PAPERCLIP64_DONGLE,    N_("Paperclip64 dongle")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_PAPERCLIP64_DONGLE_DA, ""},  /* fuzzy */
+/* de */ {IDGS_PAPERCLIP64_DONGLE_DE, "Paperclip64 Dongle"},
+/* es */ {IDGS_PAPERCLIP64_DONGLE_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_PAPERCLIP64_DONGLE_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_PAPERCLIP64_DONGLE_HU, ""},  /* fuzzy */
+/* it */ {IDGS_PAPERCLIP64_DONGLE_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_PAPERCLIP64_DONGLE_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_PAPERCLIP64_DONGLE_NL, "Paperclip64 dongle"},
+/* pl */ {IDGS_PAPERCLIP64_DONGLE_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_PAPERCLIP64_DONGLE_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_PAPERCLIP64_DONGLE_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_PAPERCLIP64_DONGLE_TR, ""},  /* fuzzy */
+#endif
+
+/* joyport/coplin_keypad.c */
+/* en */ {IDGS_COPLIN_KEYPAD,    N_("Coplin Keypad")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_COPLIN_KEYPAD_DA, ""},  /* fuzzy */
+/* de */ {IDGS_COPLIN_KEYPAD_DE, "Coplin Keypad"},
+/* es */ {IDGS_COPLIN_KEYPAD_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_COPLIN_KEYPAD_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_COPLIN_KEYPAD_HU, ""},  /* fuzzy */
+/* it */ {IDGS_COPLIN_KEYPAD_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_COPLIN_KEYPAD_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_COPLIN_KEYPAD_NL, "Coplin toetsenblok"},
+/* pl */ {IDGS_COPLIN_KEYPAD_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_COPLIN_KEYPAD_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_COPLIN_KEYPAD_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_COPLIN_KEYPAD_TR, ""},  /* fuzzy */
+#endif
+
+/* joyport/script64_dongle.c */
+/* en */ {IDGS_SCRIPT64_DONGLE,    N_("Script 64 dongle")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_SCRIPT64_DONGLE_DA, ""},  /* fuzzy */
+/* de */ {IDGS_SCRIPT64_DONGLE_DE, ""},  /* fuzzy */
+/* es */ {IDGS_SCRIPT64_DONGLE_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_SCRIPT64_DONGLE_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_SCRIPT64_DONGLE_HU, ""},  /* fuzzy */
+/* it */ {IDGS_SCRIPT64_DONGLE_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_SCRIPT64_DONGLE_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_SCRIPT64_DONGLE_NL, "Script 64 dongle"},
+/* pl */ {IDGS_SCRIPT64_DONGLE_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_SCRIPT64_DONGLE_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_SCRIPT64_DONGLE_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_SCRIPT64_DONGLE_TR, ""},  /* fuzzy */
+#endif
+
+/* joyport/vizawrite64_dongle.c */
+/* en */ {IDGS_VIZAWRITE64_DONGLE,    N_("VizaWrite 64 dongle")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_VIZAWRITE64_DONGLE_DA, ""},  /* fuzzy */
+/* de */ {IDGS_VIZAWRITE64_DONGLE_DE, ""},  /* fuzzy */
+/* es */ {IDGS_VIZAWRITE64_DONGLE_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_VIZAWRITE64_DONGLE_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_VIZAWRITE64_DONGLE_HU, ""},  /* fuzzy */
+/* it */ {IDGS_VIZAWRITE64_DONGLE_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_VIZAWRITE64_DONGLE_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_VIZAWRITE64_DONGLE_NL, "VizaWrite 64 dongle"},
+/* pl */ {IDGS_VIZAWRITE64_DONGLE_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_VIZAWRITE64_DONGLE_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_VIZAWRITE64_DONGLE_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_VIZAWRITE64_DONGLE_TR, ""},  /* fuzzy */
+#endif
+
+/* joyport/cx21.c */
+/* en */ {IDGS_CX21,    N_("Atari CX21 keypad")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_CX21_DA, ""},  /* fuzzy */
+/* de */ {IDGS_CX21_DE, "Atari CX-21 Keypad"},
+/* es */ {IDGS_CX21_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_CX21_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_CX21_HU, ""},  /* fuzzy */
+/* it */ {IDGS_CX21_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_CX21_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_CX21_NL, "Atari CX21 toetsenblok"},
+/* pl */ {IDGS_CX21_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_CX21_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_CX21_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_CX21_TR, ""},  /* fuzzy */
+#endif
+
+/* joyport/cx85.c */
+/* en */ {IDGS_CX85,    N_("Atari CX85 keypad")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_CX85_DA, ""},  /* fuzzy */
+/* de */ {IDGS_CX85_DE, "Atari CX85 keypad"},
+/* es */ {IDGS_CX85_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_CX85_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_CX85_HU, ""},  /* fuzzy */
+/* it */ {IDGS_CX85_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_CX85_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_CX85_NL, "Atari CX85 toetsenblok"},
+/* pl */ {IDGS_CX85_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_CX85_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_CX85_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_CX85_TR, ""},  /* fuzzy */
+#endif
+
+/* joyport/rushware_keypad.c */
+/* en */ {IDGS_RUSHWARE_KEYPAD,    N_("RushWare Keypad")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_RUSHWARE_KEYPAD_DA, ""},  /* fuzzy */
+/* de */ {IDGS_RUSHWARE_KEYPAD_DE, "RushWare Keypad"},
+/* es */ {IDGS_RUSHWARE_KEYPAD_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_RUSHWARE_KEYPAD_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_RUSHWARE_KEYPAD_HU, ""},  /* fuzzy */
+/* it */ {IDGS_RUSHWARE_KEYPAD_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_RUSHWARE_KEYPAD_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_RUSHWARE_KEYPAD_NL, "RushWare toetsenblok"},
+/* pl */ {IDGS_RUSHWARE_KEYPAD_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_RUSHWARE_KEYPAD_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_RUSHWARE_KEYPAD_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_RUSHWARE_KEYPAD_TR, ""},  /* fuzzy */
+#endif
+
+/* joyport/cardkey.c */
+/* en */ {IDGS_CARDKEY,    N_("Cardco Cardkey 1 keypad")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_CARDKEY_DA, ""},  /* fuzzy */
+/* de */ {IDGS_CARDKEY_DE, "Cardco Cardkey 1 Keypad"},
+/* es */ {IDGS_CARDKEY_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_CARDKEY_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_CARDKEY_HU, ""},  /* fuzzy */
+/* it */ {IDGS_CARDKEY_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_CARDKEY_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_CARDKEY_NL, "Cardco Cardkey 1 toetsenblok"},
+/* pl */ {IDGS_CARDKEY_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_CARDKEY_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_CARDKEY_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_CARDKEY_TR, ""},  /* fuzzy */
+#endif
+
 /* lightpen.c */
 /* en */ {IDGS_LIGHTPEN_UP,    N_("Light Pen (up trigger)")},
 #ifdef HAS_TRANSLATION
@@ -3533,7 +3703,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_LIGHTPEN_UP_HU, ""},  /* fuzzy */
 /* it */ {IDGS_LIGHTPEN_UP_IT, ""},  /* fuzzy */
 /* ko */ {IDGS_LIGHTPEN_UP_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_LIGHTPEN_UP_NL, "Lightpen (omhoog activeren)"},
+/* nl */ {IDGS_LIGHTPEN_UP_NL, "Light Pen (up trigger)"},
 /* pl */ {IDGS_LIGHTPEN_UP_PL, ""},  /* fuzzy */
 /* ru */ {IDGS_LIGHTPEN_UP_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_LIGHTPEN_UP_SV, ""},  /* fuzzy */
@@ -3550,7 +3720,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_LIGHTPEN_LEFT_HU, ""},  /* fuzzy */
 /* it */ {IDGS_LIGHTPEN_LEFT_IT, ""},  /* fuzzy */
 /* ko */ {IDGS_LIGHTPEN_LEFT_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_LIGHTPEN_LEFT_NL, "Lichtpen (links activeren)"},
+/* nl */ {IDGS_LIGHTPEN_LEFT_NL, "Light Pen (left trigger)"},
 /* pl */ {IDGS_LIGHTPEN_LEFT_PL, ""},  /* fuzzy */
 /* ru */ {IDGS_LIGHTPEN_LEFT_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_LIGHTPEN_LEFT_SV, ""},  /* fuzzy */
@@ -3567,7 +3737,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_DATEL_LIGHTPEN_HU, ""},  /* fuzzy */
 /* it */ {IDGS_DATEL_LIGHTPEN_IT, ""},  /* fuzzy */
 /* ko */ {IDGS_DATEL_LIGHTPEN_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_DATEL_LIGHTPEN_NL, "Datel lightpen"},
+/* nl */ {IDGS_DATEL_LIGHTPEN_NL, "Datel Light Pen"},
 /* pl */ {IDGS_DATEL_LIGHTPEN_PL, ""},  /* fuzzy */
 /* ru */ {IDGS_DATEL_LIGHTPEN_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_DATEL_LIGHTPEN_SV, ""},  /* fuzzy */
@@ -3618,7 +3788,7 @@ translate_t string_table[] = {
 /* hu */ {IDGS_INKWELL_LIGHTPEN_HU, ""},  /* fuzzy */
 /* it */ {IDGS_INKWELL_LIGHTPEN_IT, ""},  /* fuzzy */
 /* ko */ {IDGS_INKWELL_LIGHTPEN_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_INKWELL_LIGHTPEN_NL, "Inkwell lightpen"},
+/* nl */ {IDGS_INKWELL_LIGHTPEN_NL, "Inkwell Light Pen"},
 /* pl */ {IDGS_INKWELL_LIGHTPEN_PL, ""},  /* fuzzy */
 /* ru */ {IDGS_INKWELL_LIGHTPEN_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_INKWELL_LIGHTPEN_SV, ""},  /* fuzzy */
@@ -3629,19 +3799,970 @@ translate_t string_table[] = {
 /* en */ {IDGS_SET_JOYPORT_S_DEVICE,    N_("Set %s device (0: None")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_SET_JOYPORT_S_DEVICE_DA, ""},  /* fuzzy */
-/* de */ {IDGS_SET_JOYPORT_S_DEVICE_DE, ""},  /* fuzzy */
+/* de */ {IDGS_SET_JOYPORT_S_DEVICE_DE, "Gerät %s wählen (0: Kein"},
 /* es */ {IDGS_SET_JOYPORT_S_DEVICE_ES, ""},  /* fuzzy */
 /* fr */ {IDGS_SET_JOYPORT_S_DEVICE_FR, ""},  /* fuzzy */
 /* hu */ {IDGS_SET_JOYPORT_S_DEVICE_HU, ""},  /* fuzzy */
 /* it */ {IDGS_SET_JOYPORT_S_DEVICE_IT, ""},  /* fuzzy */
 /* ko */ {IDGS_SET_JOYPORT_S_DEVICE_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_SET_JOYPORT_S_DEVICE_NL, "Zet %s apparaat (0: Geen"},
+/* nl */ {IDGS_SET_JOYPORT_S_DEVICE_NL, "Stel %s apparaat in (0: Geen"},
 /* pl */ {IDGS_SET_JOYPORT_S_DEVICE_PL, ""},  /* fuzzy */
 /* ru */ {IDGS_SET_JOYPORT_S_DEVICE_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_SET_JOYPORT_S_DEVICE_SV, ""},  /* fuzzy */
 /* tr */ {IDGS_SET_JOYPORT_S_DEVICE_TR, ""},  /* fuzzy */
 #endif
 
+/* samplerdrv/sampler.c */
+/* en */ {IDGS_SAMPLER_USED_BY,    N_("Sampler system already in use by %s.")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_SAMPLER_USED_BY_DA, ""},  /* fuzzy */
+/* de */ {IDGS_SAMPLER_USED_BY_DE, "Sample System bereits von %s benutzt."},
+/* es */ {IDGS_SAMPLER_USED_BY_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_SAMPLER_USED_BY_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_SAMPLER_USED_BY_HU, ""},  /* fuzzy */
+/* it */ {IDGS_SAMPLER_USED_BY_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_SAMPLER_USED_BY_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_SAMPLER_USED_BY_NL, "Sampler systeem wordt al gebruikt door %s."},
+/* pl */ {IDGS_SAMPLER_USED_BY_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_SAMPLER_USED_BY_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_SAMPLER_USED_BY_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_SAMPLER_USED_BY_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_joystick.c */
+/* en */ {IDGS_CGA_JOY_ADAPTER,    N_("CGA userport joy adapter")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_CGA_JOY_ADAPTER_DA, "CGA brugerportjoystickadapter"},
+/* de */ {IDGS_CGA_JOY_ADAPTER_DE, "CGA Userport Joystick Adapter"},
+/* es */ {IDGS_CGA_JOY_ADAPTER_ES, "Adaptador de puerto de juegos CGA"},
+/* fr */ {IDGS_CGA_JOY_ADAPTER_FR, "Adaptateur joystick port utilisateur CGA"},
+/* hu */ {IDGS_CGA_JOY_ADAPTER_HU, "CGA userport botkormány adapter"},
+/* it */ {IDGS_CGA_JOY_ADAPTER_IT, "Adattatore joystick CGA su userport"},
+/* ko */ {IDGS_CGA_JOY_ADAPTER_KO, "CGA À¯Á®Æ÷Æ® Á¶ÀÌ ¾Æ´äÅÍ"},
+/* nl */ {IDGS_CGA_JOY_ADAPTER_NL, "CGA userport joy adapter"},
+/* pl */ {IDGS_CGA_JOY_ADAPTER_PL, "Z³±cze CGA userportu joysticka"},
+/* ru */ {IDGS_CGA_JOY_ADAPTER_RU, "CGA userport joy adapter"},
+/* sv */ {IDGS_CGA_JOY_ADAPTER_SV, "CGA-användarportsspakadapter"},
+/* tr */ {IDGS_CGA_JOY_ADAPTER_TR, "CGA userport joy dönüþtürücü"},
+#endif
+
+/* userport/userport_joystick.c */
+/* en */ {IDGS_PET_JOY_ADAPTER,    N_("PET userport joy adapter")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_PET_JOY_ADAPTER_DA, "PET brugerportjoystickadapter"},
+/* de */ {IDGS_PET_JOY_ADAPTER_DE, "PET Userport Joystick Adapter"},
+/* es */ {IDGS_PET_JOY_ADAPTER_ES, "Adaptador de puerto de juegos PET"},
+/* fr */ {IDGS_PET_JOY_ADAPTER_FR, "Adaptateur joystick port utilisateur PET"},
+/* hu */ {IDGS_PET_JOY_ADAPTER_HU, "PET userport botkormány adapter"},
+/* it */ {IDGS_PET_JOY_ADAPTER_IT, "Adattatore joystick PET su userport"},
+/* ko */ {IDGS_PET_JOY_ADAPTER_KO, "PET À¯Á®Æ÷Æ® Á¶ÀÌ ¾Æ´äÅÍ"},
+/* nl */ {IDGS_PET_JOY_ADAPTER_NL, "PET userport joy adapter"},
+/* pl */ {IDGS_PET_JOY_ADAPTER_PL, "Z³±cze PET userportu joysticka"},
+/* ru */ {IDGS_PET_JOY_ADAPTER_RU, "PET userport joy adapter"},
+/* sv */ {IDGS_PET_JOY_ADAPTER_SV, "PET-användarportsspakadapter"},
+/* tr */ {IDGS_PET_JOY_ADAPTER_TR, "PET userport joy dönüþtürücü"},
+#endif
+
+/* userport/userport_joystick.c */
+/* en */ {IDGS_HUMMER_JOY_ADAPTER,    N_("Hummer userport joy adapter")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_HUMMER_JOY_ADAPTER_DA, "Hummer brugerport joystick adapter"},
+/* de */ {IDGS_HUMMER_JOY_ADAPTER_DE, "Hummer Userport Joystick Adapter"},
+/* es */ {IDGS_HUMMER_JOY_ADAPTER_ES, "Adaptador de puerto de juegos Hummer"},
+/* fr */ {IDGS_HUMMER_JOY_ADAPTER_FR, "Adaptateur joystick port utilisateur Hummer"},
+/* hu */ {IDGS_HUMMER_JOY_ADAPTER_HU, ""},  /* fuzzy */
+/* it */ {IDGS_HUMMER_JOY_ADAPTER_IT, "Adattatore joystick HUMMER su userport"},
+/* ko */ {IDGS_HUMMER_JOY_ADAPTER_KO, "Hummer À¯Á®Æ÷Æ® Á¶ÀÌ ¾Æ´äÅÍ"},
+/* nl */ {IDGS_HUMMER_JOY_ADAPTER_NL, "Hummer userport joystick adapter"},
+/* pl */ {IDGS_HUMMER_JOY_ADAPTER_PL, "Z³±cze Hummer userportu joysticka"},
+/* ru */ {IDGS_HUMMER_JOY_ADAPTER_RU, "Hummer userport joy adapter"},
+/* sv */ {IDGS_HUMMER_JOY_ADAPTER_SV, "Hummer-användarportsspakadapter"},
+/* tr */ {IDGS_HUMMER_JOY_ADAPTER_TR, "Hummer userport joy dönüþtürücü"},
+#endif
+
+/* userport/userport_joystick.c */
+/* en */ {IDGS_OEM_JOY_ADAPTER,    N_("OEM userport joy adapter")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_OEM_JOY_ADAPTER_DA, "OEM brugerportjoystickadapter"},
+/* de */ {IDGS_OEM_JOY_ADAPTER_DE, "OEM Userport Joystick Adapter"},
+/* es */ {IDGS_OEM_JOY_ADAPTER_ES, "Adaptador de puerto de juegos OEM"},
+/* fr */ {IDGS_OEM_JOY_ADAPTER_FR, "Adaptateur joystick port utilisateur OEM"},
+/* hu */ {IDGS_OEM_JOY_ADAPTER_HU, "OEM userport botkormány adapter"},
+/* it */ {IDGS_OEM_JOY_ADAPTER_IT, "Adattatore joystick OEM su userport"},
+/* ko */ {IDGS_OEM_JOY_ADAPTER_KO, "OEM À¯Á®Æ÷Æ® Á¶ÀÌ ¾Æ´äÅÍ"},
+/* nl */ {IDGS_OEM_JOY_ADAPTER_NL, "OEM userport joy adapter"},
+/* pl */ {IDGS_OEM_JOY_ADAPTER_PL, "Z³±cze OEM userportu joysticka"},
+/* ru */ {IDGS_OEM_JOY_ADAPTER_RU, "OEM userport joy adapter"},
+/* sv */ {IDGS_OEM_JOY_ADAPTER_SV, "OEM-användarportsspakadapter"},
+/* tr */ {IDGS_OEM_JOY_ADAPTER_TR, "OEM userport joy dönüþtürücü"},
+#endif
+
+/* userport/userport_joystick.c */
+/* en */ {IDGS_HIT_JOY_ADAPTER,    N_("HIT userport joy adapter")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_HIT_JOY_ADAPTER_DA, "HIT brugerportjoystickadapter"},
+/* de */ {IDGS_HIT_JOY_ADAPTER_DE, "HIT Userport Joystick Adapter"},
+/* es */ {IDGS_HIT_JOY_ADAPTER_ES, "Adaptador de puerto de juegos HIT"},
+/* fr */ {IDGS_HIT_JOY_ADAPTER_FR, "Adaptateur joystick port utilisateur HIT"},
+/* hu */ {IDGS_HIT_JOY_ADAPTER_HU, "HIT userport botkormány adapter"},
+/* it */ {IDGS_HIT_JOY_ADAPTER_IT, "Adattatore joystick HIT su userport"},
+/* ko */ {IDGS_HIT_JOY_ADAPTER_KO, "HIT À¯Á®Æ÷Æ® Á¶ÀÌ ¾Æ´äÅÍ"},
+/* nl */ {IDGS_HIT_JOY_ADAPTER_NL, "HIT userport joy adapter"},
+/* pl */ {IDGS_HIT_JOY_ADAPTER_PL, "Z³±cze HIT userportu joysticka"},
+/* ru */ {IDGS_HIT_JOY_ADAPTER_RU, "HIT userport joy adapter"},
+/* sv */ {IDGS_HIT_JOY_ADAPTER_SV, "HIT-användarportsspakadapter"},
+/* tr */ {IDGS_HIT_JOY_ADAPTER_TR, "HIT userport joy dönüþtürücü"},
+#endif
+
+/* userport/userport_joystick.c */
+/* en */ {IDGS_KINGSOFT_JOY_ADAPTER,    N_("KingSoft userport joy adapter")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_KINGSOFT_JOY_ADAPTER_DA, ""},  /* fuzzy */
+/* de */ {IDGS_KINGSOFT_JOY_ADAPTER_DE, "Kingsoft Userport Joy Adapter"},
+/* es */ {IDGS_KINGSOFT_JOY_ADAPTER_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_KINGSOFT_JOY_ADAPTER_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_KINGSOFT_JOY_ADAPTER_HU, ""},  /* fuzzy */
+/* it */ {IDGS_KINGSOFT_JOY_ADAPTER_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_KINGSOFT_JOY_ADAPTER_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_KINGSOFT_JOY_ADAPTER_NL, "Kingsoft userport joy adapter"},
+/* pl */ {IDGS_KINGSOFT_JOY_ADAPTER_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_KINGSOFT_JOY_ADAPTER_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_KINGSOFT_JOY_ADAPTER_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_KINGSOFT_JOY_ADAPTER_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_joystick.c */
+/* en */ {IDGS_STARBYTE_JOY_ADAPTER,    N_("StarByte userport joy adapter")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_STARBYTE_JOY_ADAPTER_DA, ""},  /* fuzzy */
+/* de */ {IDGS_STARBYTE_JOY_ADAPTER_DE, "Starbyte Userport Joy Adapter"},
+/* es */ {IDGS_STARBYTE_JOY_ADAPTER_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_STARBYTE_JOY_ADAPTER_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_STARBYTE_JOY_ADAPTER_HU, ""},  /* fuzzy */
+/* it */ {IDGS_STARBYTE_JOY_ADAPTER_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_STARBYTE_JOY_ADAPTER_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_STARBYTE_JOY_ADAPTER_NL, "Starbyte userport joy adapter"},
+/* pl */ {IDGS_STARBYTE_JOY_ADAPTER_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_STARBYTE_JOY_ADAPTER_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_STARBYTE_JOY_ADAPTER_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_STARBYTE_JOY_ADAPTER_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_rtc_58321a.c */
+/* en */ {IDGS_USERPORT_RTC58321A,    N_("Userport RTC (RTC58321A)")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_USERPORT_RTC58321A_DA, ""},  /* fuzzy */
+/* de */ {IDGS_USERPORT_RTC58321A_DE, "Userport RTC (RTC58321A)"},
+/* es */ {IDGS_USERPORT_RTC58321A_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_USERPORT_RTC58321A_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_USERPORT_RTC58321A_HU, ""},  /* fuzzy */
+/* it */ {IDGS_USERPORT_RTC58321A_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_USERPORT_RTC58321A_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_USERPORT_RTC58321A_NL, "Userport RTC (RTC58321A)"},
+/* pl */ {IDGS_USERPORT_RTC58321A_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_USERPORT_RTC58321A_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_USERPORT_RTC58321A_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_USERPORT_RTC58321A_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_rtc_ds1307.c */
+/* en */ {IDGS_USERPORT_DS1307,    N_("Userport RTC (DS1307)")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_USERPORT_DS1307_DA, ""},  /* fuzzy */
+/* de */ {IDGS_USERPORT_DS1307_DE, "Userport RTC (DS1307)"},
+/* es */ {IDGS_USERPORT_DS1307_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_USERPORT_DS1307_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_USERPORT_DS1307_HU, ""},  /* fuzzy */
+/* it */ {IDGS_USERPORT_DS1307_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_USERPORT_DS1307_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_USERPORT_DS1307_NL, "Userport RTC (DS1307)"},
+/* pl */ {IDGS_USERPORT_DS1307_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_USERPORT_DS1307_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_USERPORT_DS1307_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_USERPORT_DS1307_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_diag_586220_harness.c */
+/* en */ {IDGS_USERPORT_DIAG_586220_HARNESS,    N_("Userport diag 586220 harness")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_USERPORT_DIAG_586220_HARNESS_DA, ""},  /* fuzzy */
+/* de */ {IDGS_USERPORT_DIAG_586220_HARNESS_DE, "Userport Diag 586220 Harness"},
+/* es */ {IDGS_USERPORT_DIAG_586220_HARNESS_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_USERPORT_DIAG_586220_HARNESS_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_USERPORT_DIAG_586220_HARNESS_HU, ""},  /* fuzzy */
+/* it */ {IDGS_USERPORT_DIAG_586220_HARNESS_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_USERPORT_DIAG_586220_HARNESS_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_USERPORT_DIAG_586220_HARNESS_NL, "Userport diag 586220 gareel"},
+/* pl */ {IDGS_USERPORT_DIAG_586220_HARNESS_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_USERPORT_DIAG_586220_HARNESS_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_USERPORT_DIAG_586220_HARNESS_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_USERPORT_DIAG_586220_HARNESS_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapertc.c */
+/* en */ {IDGS_TAPE_RTC,    N_("Tape RTC (PCF8583)")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_TAPE_RTC_DA, ""},  /* fuzzy */
+/* de */ {IDGS_TAPE_RTC_DE, "Band RTC (PCF8583)"},
+/* es */ {IDGS_TAPE_RTC_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_TAPE_RTC_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_TAPE_RTC_HU, ""},  /* fuzzy */
+/* it */ {IDGS_TAPE_RTC_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_TAPE_RTC_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_TAPE_RTC_NL, "Tape RTC (PCF8583)"},
+/* pl */ {IDGS_TAPE_RTC_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_TAPE_RTC_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_TAPE_RTC_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_TAPE_RTC_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/sense-dongle.c */
+/* en */ {IDGS_SENSE_DONGLE,    N_("Sense dongle")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_SENSE_DONGLE_DA, ""},  /* fuzzy */
+/* de */ {IDGS_SENSE_DONGLE_DE, "Sense Dongle"},
+/* es */ {IDGS_SENSE_DONGLE_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_SENSE_DONGLE_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_SENSE_DONGLE_HU, ""},  /* fuzzy */
+/* it */ {IDGS_SENSE_DONGLE_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_SENSE_DONGLE_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_SENSE_DONGLE_NL, "Sense dongle"},
+/* pl */ {IDGS_SENSE_DONGLE_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_SENSE_DONGLE_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_SENSE_DONGLE_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_SENSE_DONGLE_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_dac.c */
+/* en */ {IDGS_USERPORT_DAC,    N_("Userport DAC")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_USERPORT_DAC_DA, "Brugerport DAC"},
+/* de */ {IDGS_USERPORT_DAC_DE, "Userport DAC"},
+/* es */ {IDGS_USERPORT_DAC_ES, "Puerto de usuario DAC"},
+/* fr */ {IDGS_USERPORT_DAC_FR, "DAC port utilisateur"},
+/* hu */ {IDGS_USERPORT_DAC_HU, ""},  /* fuzzy */
+/* it */ {IDGS_USERPORT_DAC_IT, "DAC su userport "},
+/* ko */ {IDGS_USERPORT_DAC_KO, "À¯Á®Æ÷Æ® DAC"},
+/* nl */ {IDGS_USERPORT_DAC_NL, "Userport DAC"},
+/* pl */ {IDGS_USERPORT_DAC_PL, "Userport DAC"},
+/* ru */ {IDGS_USERPORT_DAC_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_USERPORT_DAC_SV, "Användarport-D/A-omvandlare"},
+/* tr */ {IDGS_USERPORT_DAC_TR, "Userport DAC"},
+#endif
+
+/* userport/userport_digimax.c */
+/* en */ {IDGS_USERPORT_DIGIMAX,    N_("Userport DigiMAX")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_USERPORT_DIGIMAX_DA, ""},  /* fuzzy */
+/* de */ {IDGS_USERPORT_DIGIMAX_DE, "Userport DigiMAX"},
+/* es */ {IDGS_USERPORT_DIGIMAX_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_USERPORT_DIGIMAX_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_USERPORT_DIGIMAX_HU, ""},  /* fuzzy */
+/* it */ {IDGS_USERPORT_DIGIMAX_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_USERPORT_DIGIMAX_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_USERPORT_DIGIMAX_NL, "Userport DigiMAX"},
+/* pl */ {IDGS_USERPORT_DIGIMAX_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_USERPORT_DIGIMAX_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_USERPORT_DIGIMAX_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_USERPORT_DIGIMAX_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_4bit_sampler.c */
+/* en */ {IDGS_USERPORT_4BIT_SAMPLER,    N_("Userport 4bit sampler")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_USERPORT_4BIT_SAMPLER_DA, ""},  /* fuzzy */
+/* de */ {IDGS_USERPORT_4BIT_SAMPLER_DE, "Userport 4bit Sampler"},
+/* es */ {IDGS_USERPORT_4BIT_SAMPLER_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_USERPORT_4BIT_SAMPLER_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_USERPORT_4BIT_SAMPLER_HU, ""},  /* fuzzy */
+/* it */ {IDGS_USERPORT_4BIT_SAMPLER_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_USERPORT_4BIT_SAMPLER_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_USERPORT_4BIT_SAMPLER_NL, "Userport 4bit sampler"},
+/* pl */ {IDGS_USERPORT_4BIT_SAMPLER_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_USERPORT_4BIT_SAMPLER_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_USERPORT_4BIT_SAMPLER_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_USERPORT_4BIT_SAMPLER_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_8bss.c */
+/* en */ {IDGS_USERPORT_8BSS,    N_("Userport 8bit stereo sampler")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_USERPORT_8BSS_DA, ""},  /* fuzzy */
+/* de */ {IDGS_USERPORT_8BSS_DE, "Userport 8bit Stereo Sampler"},
+/* es */ {IDGS_USERPORT_8BSS_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_USERPORT_8BSS_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_USERPORT_8BSS_HU, ""},  /* fuzzy */
+/* it */ {IDGS_USERPORT_8BSS_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_USERPORT_8BSS_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_USERPORT_8BSS_NL, "Userport 8bit stereo sampler"},
+/* pl */ {IDGS_USERPORT_8BSS_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_USERPORT_8BSS_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_USERPORT_8BSS_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_USERPORT_8BSS_TR, ""},  /* fuzzy */
+#endif
+
+/* printerdrv/interface_userport.c */
+/* en */ {IDGS_USERPORT_PRINTER,    N_("Userport printer")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_USERPORT_PRINTER_DA, ""},  /* fuzzy */
+/* de */ {IDGS_USERPORT_PRINTER_DE, "Userport Drucker"},
+/* es */ {IDGS_USERPORT_PRINTER_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_USERPORT_PRINTER_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_USERPORT_PRINTER_HU, ""},  /* fuzzy */
+/* it */ {IDGS_USERPORT_PRINTER_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_USERPORT_PRINTER_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_USERPORT_PRINTER_NL, "Userport printer"},
+/* pl */ {IDGS_USERPORT_PRINTER_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_USERPORT_PRINTER_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_USERPORT_PRINTER_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_USERPORT_PRINTER_TR, ""},  /* fuzzy */
+#endif
+
+/* datasette.c */
+/* en */ {IDGS_DATASETTE,    N_("Datasette")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_DATASETTE_DA, ""},  /* fuzzy */
+/* de */ {IDGS_DATASETTE_DE, "Datasette"},
+/* es */ {IDGS_DATASETTE_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_DATASETTE_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_DATASETTE_HU, ""},  /* fuzzy */
+/* it */ {IDGS_DATASETTE_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_DATASETTE_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_DATASETTE_NL, "Datasette"},
+/* pl */ {IDGS_DATASETTE_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_DATASETTE_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_DATASETTE_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_DATASETTE_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapelog.c */
+/* en */ {IDGS_TAPE_LOG,    N_("Tape Log")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_TAPE_LOG_DA, ""},  /* fuzzy */
+/* de */ {IDGS_TAPE_LOG_DE, "Bandlog"},
+/* es */ {IDGS_TAPE_LOG_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_TAPE_LOG_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_TAPE_LOG_HU, ""},  /* fuzzy */
+/* it */ {IDGS_TAPE_LOG_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_TAPE_LOG_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_TAPE_LOG_NL, "Tape Log"},
+/* pl */ {IDGS_TAPE_LOG_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_TAPE_LOG_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_TAPE_LOG_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_TAPE_LOG_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tape_diag_586220_harness.c */
+/* en */ {IDGS_TAPE_DIAG_586220_HARNESS,    N_("Tape 586220 diagnostics harness module")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_TAPE_DIAG_586220_HARNESS_DA, ""},  /* fuzzy */
+/* de */ {IDGS_TAPE_DIAG_586220_HARNESS_DE, "Tape 586220 Diagnose Harness Modul"},
+/* es */ {IDGS_TAPE_DIAG_586220_HARNESS_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_TAPE_DIAG_586220_HARNESS_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_TAPE_DIAG_586220_HARNESS_HU, ""},  /* fuzzy */
+/* it */ {IDGS_TAPE_DIAG_586220_HARNESS_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_TAPE_DIAG_586220_HARNESS_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_TAPE_DIAG_586220_HARNESS_NL, "Tape 586220 diagnostics gareel module"},
+/* pl */ {IDGS_TAPE_DIAG_586220_HARNESS_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_TAPE_DIAG_586220_HARNESS_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_TAPE_DIAG_586220_HARNESS_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_TAPE_DIAG_586220_HARNESS_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_EOF_WRITING_MODULE_S_SNAPSHOT_S,    N_("EOF while writing to module %s in snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_EOF_WRITING_MODULE_S_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_EOF_WRITING_MODULE_S_SNAPSHOT_S_DE, "EOF beim Schreben von Modul %s in Snapshot %s"},
+/* es */ {IDGS_EOF_WRITING_MODULE_S_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_EOF_WRITING_MODULE_S_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_EOF_WRITING_MODULE_S_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_EOF_WRITING_MODULE_S_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_EOF_WRITING_MODULE_S_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_EOF_WRITING_MODULE_S_SNAPSHOT_S_NL, "EOF tijdens het schrijven naar module %s in momentopnamebestand %s"},
+/* pl */ {IDGS_EOF_WRITING_MODULE_S_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_EOF_WRITING_MODULE_S_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_EOF_WRITING_MODULE_S_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_EOF_WRITING_MODULE_S_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_EOF_WRITING_SNAPSHOT_S,    N_("EOF while writing to snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_EOF_WRITING_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_EOF_WRITING_SNAPSHOT_S_DE, "EOF beim Schreiben auf Snapshot %s"},
+/* es */ {IDGS_EOF_WRITING_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_EOF_WRITING_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_EOF_WRITING_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_EOF_WRITING_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_EOF_WRITING_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_EOF_WRITING_SNAPSHOT_S_NL, "EOF tijdens het schrijven naar momentopnamebestand %s"},
+/* pl */ {IDGS_EOF_WRITING_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_EOF_WRITING_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_EOF_WRITING_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_EOF_WRITING_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_ERROR_WRITING_ARRAY_MODULE_S_SNAPSHOT_S,    N_("Error writing array to module %s in snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_ERROR_WRITING_ARRAY_MODULE_S_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_ERROR_WRITING_ARRAY_MODULE_S_SNAPSHOT_S_DE, "Fehler beim Schreiben (Array) auf Modul %s in Snapshot %s"},
+/* es */ {IDGS_ERROR_WRITING_ARRAY_MODULE_S_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_ERROR_WRITING_ARRAY_MODULE_S_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_ERROR_WRITING_ARRAY_MODULE_S_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_ERROR_WRITING_ARRAY_MODULE_S_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_ERROR_WRITING_ARRAY_MODULE_S_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_ERROR_WRITING_ARRAY_MODULE_S_SNAPSHOT_S_NL, "Fout bij het schrijven van een blok naar module %s in momentopnamebestand %s"},
+/* pl */ {IDGS_ERROR_WRITING_ARRAY_MODULE_S_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_ERROR_WRITING_ARRAY_MODULE_S_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_ERROR_WRITING_ARRAY_MODULE_S_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_ERROR_WRITING_ARRAY_MODULE_S_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_ERROR_WRITING_ARRAY_SNAPSHOT_S,    N_("Error writing array to snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_ERROR_WRITING_ARRAY_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_ERROR_WRITING_ARRAY_SNAPSHOT_S_DE, "Fehler bei Schreiben (Array) auf Snapshot %s"},
+/* es */ {IDGS_ERROR_WRITING_ARRAY_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_ERROR_WRITING_ARRAY_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_ERROR_WRITING_ARRAY_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_ERROR_WRITING_ARRAY_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_ERROR_WRITING_ARRAY_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_ERROR_WRITING_ARRAY_SNAPSHOT_S_NL, "Fout bij het schrijven van een block naar momentopnamebestand %s"},
+/* pl */ {IDGS_ERROR_WRITING_ARRAY_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_ERROR_WRITING_ARRAY_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_ERROR_WRITING_ARRAY_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_ERROR_WRITING_ARRAY_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_EOF_READING_MODULE_S_SNAPSHOT_S,    N_("EOF while reading from module %s in snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_EOF_READING_MODULE_S_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_EOF_READING_MODULE_S_SNAPSHOT_S_DE, "EOF beim Lesen von Modul %s in Snapshot %s"},
+/* es */ {IDGS_EOF_READING_MODULE_S_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_EOF_READING_MODULE_S_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_EOF_READING_MODULE_S_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_EOF_READING_MODULE_S_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_EOF_READING_MODULE_S_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_EOF_READING_MODULE_S_SNAPSHOT_S_NL, "EOF tijdens het lezen van module %s in momentopnamebestand %s"},
+/* pl */ {IDGS_EOF_READING_MODULE_S_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_EOF_READING_MODULE_S_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_EOF_READING_MODULE_S_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_EOF_READING_MODULE_S_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_EOF_READING_SNAPSHOT_S,    N_("EOF while reading from snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_EOF_READING_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_EOF_READING_SNAPSHOT_S_DE, "EOF beim Lesen von Snapshot %s"},
+/* es */ {IDGS_EOF_READING_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_EOF_READING_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_EOF_READING_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_EOF_READING_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_EOF_READING_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_EOF_READING_SNAPSHOT_S_NL, "EOF tijdens het lezen van momentopnamebestand %s"},
+/* pl */ {IDGS_EOF_READING_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_EOF_READING_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_EOF_READING_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_EOF_READING_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_ERROR_READING_ARRAY_MODULE_S_SNAPSHOT_S,    N_("Error reading array from module %s in snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_ERROR_READING_ARRAY_MODULE_S_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_ERROR_READING_ARRAY_MODULE_S_SNAPSHOT_S_DE, "Fehler beim Lesen von Modul %s in Snapshot %s"},
+/* es */ {IDGS_ERROR_READING_ARRAY_MODULE_S_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_ERROR_READING_ARRAY_MODULE_S_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_ERROR_READING_ARRAY_MODULE_S_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_ERROR_READING_ARRAY_MODULE_S_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_ERROR_READING_ARRAY_MODULE_S_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_ERROR_READING_ARRAY_MODULE_S_SNAPSHOT_S_NL, "Fout bij het lezen van een blok van module %s in momentopnamebestand %s"},
+/* pl */ {IDGS_ERROR_READING_ARRAY_MODULE_S_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_ERROR_READING_ARRAY_MODULE_S_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_ERROR_READING_ARRAY_MODULE_S_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_ERROR_READING_ARRAY_MODULE_S_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_ERROR_READING_ARRAY_SNAPSHOT_S,    N_("Error reading array from snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_ERROR_READING_ARRAY_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_ERROR_READING_ARRAY_SNAPSHOT_S_DE, "Fehler beim Lesen von Snapshot %s"},
+/* es */ {IDGS_ERROR_READING_ARRAY_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_ERROR_READING_ARRAY_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_ERROR_READING_ARRAY_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_ERROR_READING_ARRAY_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_ERROR_READING_ARRAY_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_ERROR_READING_ARRAY_SNAPSHOT_S_NL, "Fout bij het lezen van een blok van momentopnamebestand %s"},
+/* pl */ {IDGS_ERROR_READING_ARRAY_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_ERROR_READING_ARRAY_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_ERROR_READING_ARRAY_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_ERROR_READING_ARRAY_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_ERROR_WRITING_STRING_MODULE_S_SNAPSHOT_S,    N_("Error writing string to module %s in snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_ERROR_WRITING_STRING_MODULE_S_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_ERROR_WRITING_STRING_MODULE_S_SNAPSHOT_S_DE, "Fehler beim Schreiben (String) auf Modul %s in Snapshot %s"},
+/* es */ {IDGS_ERROR_WRITING_STRING_MODULE_S_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_ERROR_WRITING_STRING_MODULE_S_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_ERROR_WRITING_STRING_MODULE_S_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_ERROR_WRITING_STRING_MODULE_S_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_ERROR_WRITING_STRING_MODULE_S_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_ERROR_WRITING_STRING_MODULE_S_SNAPSHOT_S_NL, "Fout bij het schrijven van tekst naar module %s in momentopnamebestand %s"},
+/* pl */ {IDGS_ERROR_WRITING_STRING_MODULE_S_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_ERROR_WRITING_STRING_MODULE_S_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_ERROR_WRITING_STRING_MODULE_S_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_ERROR_WRITING_STRING_MODULE_S_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_ERROR_WRITING_STRING_SNAPSHOT_S,    N_("Error writing string to snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_ERROR_WRITING_STRING_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_ERROR_WRITING_STRING_SNAPSHOT_S_DE, "Fehler beim Schreiben (String)auf Snapshot %s"},
+/* es */ {IDGS_ERROR_WRITING_STRING_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_ERROR_WRITING_STRING_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_ERROR_WRITING_STRING_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_ERROR_WRITING_STRING_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_ERROR_WRITING_STRING_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_ERROR_WRITING_STRING_SNAPSHOT_S_NL, "Fout bij het schrijven van tekst naar momentopnamebestand %s"},
+/* pl */ {IDGS_ERROR_WRITING_STRING_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_ERROR_WRITING_STRING_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_ERROR_WRITING_STRING_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_ERROR_WRITING_STRING_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_OUT_OF_BOUNDS_READING_MODULE_S_SNAPSHOT_S,    N_("Out of bounds reading error in module %s in snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_OUT_OF_BOUNDS_READING_MODULE_S_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_OUT_OF_BOUNDS_READING_MODULE_S_SNAPSHOT_S_DE, "Lesefehler (Out-of-bounds) in Modul %s in Snapshot %s"},
+/* es */ {IDGS_OUT_OF_BOUNDS_READING_MODULE_S_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_OUT_OF_BOUNDS_READING_MODULE_S_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_OUT_OF_BOUNDS_READING_MODULE_S_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_OUT_OF_BOUNDS_READING_MODULE_S_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_OUT_OF_BOUNDS_READING_MODULE_S_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_OUT_OF_BOUNDS_READING_MODULE_S_SNAPSHOT_S_NL, "Buiten de grenzen leesfout in module %s in momentopnamebestand %s"},
+/* pl */ {IDGS_OUT_OF_BOUNDS_READING_MODULE_S_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_OUT_OF_BOUNDS_READING_MODULE_S_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_OUT_OF_BOUNDS_READING_MODULE_S_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_OUT_OF_BOUNDS_READING_MODULE_S_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_OUT_OF_BOUNDS_READING_SNAPSHOT_S,    N_("Out of bounds reading error in snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_OUT_OF_BOUNDS_READING_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_OUT_OF_BOUNDS_READING_SNAPSHOT_S_DE, "Lesefehler (Out-of-bounds) in Snapshot %s"},
+/* es */ {IDGS_OUT_OF_BOUNDS_READING_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_OUT_OF_BOUNDS_READING_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_OUT_OF_BOUNDS_READING_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_OUT_OF_BOUNDS_READING_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_OUT_OF_BOUNDS_READING_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_OUT_OF_BOUNDS_READING_SNAPSHOT_S_NL, "Buiten de grenzen fout bij het lezen van momentopnamebestand %s"},
+/* pl */ {IDGS_OUT_OF_BOUNDS_READING_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_OUT_OF_BOUNDS_READING_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_OUT_OF_BOUNDS_READING_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_OUT_OF_BOUNDS_READING_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_ILLEGAL_OFFSET_CREATE_MODULE_S_SNAPSHOT_S,    N_("Illegal offset while attempting to create module %s in snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_ILLEGAL_OFFSET_CREATE_MODULE_S_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_ILLEGAL_OFFSET_CREATE_MODULE_S_SNAPSHOT_S_DE, "Fehler ber Erstellung von Modul %s in Snapshot %s (Illegal offset)"},
+/* es */ {IDGS_ILLEGAL_OFFSET_CREATE_MODULE_S_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_ILLEGAL_OFFSET_CREATE_MODULE_S_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_ILLEGAL_OFFSET_CREATE_MODULE_S_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_ILLEGAL_OFFSET_CREATE_MODULE_S_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_ILLEGAL_OFFSET_CREATE_MODULE_S_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_ILLEGAL_OFFSET_CREATE_MODULE_S_SNAPSHOT_S_NL, "Fout beginafstand tijdens het maken van module %s in momentopnamebestand %s"},
+/* pl */ {IDGS_ILLEGAL_OFFSET_CREATE_MODULE_S_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_ILLEGAL_OFFSET_CREATE_MODULE_S_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_ILLEGAL_OFFSET_CREATE_MODULE_S_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_ILLEGAL_OFFSET_CREATE_MODULE_S_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_CANNOT_FIND_1ST_MODULE_SNAPSHOT_S,    N_("Cannot find first module in snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_CANNOT_FIND_1ST_MODULE_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_CANNOT_FIND_1ST_MODULE_SNAPSHOT_S_DE, "Kann erstes Modul in Snapshot %s nicht finden"},
+/* es */ {IDGS_CANNOT_FIND_1ST_MODULE_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_CANNOT_FIND_1ST_MODULE_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_CANNOT_FIND_1ST_MODULE_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_CANNOT_FIND_1ST_MODULE_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_CANNOT_FIND_1ST_MODULE_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_CANNOT_FIND_1ST_MODULE_SNAPSHOT_S_NL, "Kan de eerste module in momentopnamebestand %s niet vinden"},
+/* pl */ {IDGS_CANNOT_FIND_1ST_MODULE_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_CANNOT_FIND_1ST_MODULE_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_CANNOT_FIND_1ST_MODULE_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_CANNOT_FIND_1ST_MODULE_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_ERROR_MODULE_HEADER_SNAPSHOT_S,    N_("Error while reading module header in snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_ERROR_MODULE_HEADER_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_ERROR_MODULE_HEADER_SNAPSHOT_S_DE, "Fehler beim Lesen des Modulheaders in Snapshot %s"},
+/* es */ {IDGS_ERROR_MODULE_HEADER_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_ERROR_MODULE_HEADER_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_ERROR_MODULE_HEADER_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_ERROR_MODULE_HEADER_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_ERROR_MODULE_HEADER_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_ERROR_MODULE_HEADER_SNAPSHOT_S_NL, "Fout bij het lezen van het begin van een module in momentopnamebestand %s"},
+/* pl */ {IDGS_ERROR_MODULE_HEADER_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_ERROR_MODULE_HEADER_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_ERROR_MODULE_HEADER_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_ERROR_MODULE_HEADER_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_CANNOT_FIND_MODULE_S_SNAPSHOT_S,    N_("Cannot find module %s in snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_CANNOT_FIND_MODULE_S_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_CANNOT_FIND_MODULE_S_SNAPSHOT_S_DE, "Kann Modul %s in Snapshot %s nicht finden"},
+/* es */ {IDGS_CANNOT_FIND_MODULE_S_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_CANNOT_FIND_MODULE_S_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_CANNOT_FIND_MODULE_S_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_CANNOT_FIND_MODULE_S_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_CANNOT_FIND_MODULE_S_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_CANNOT_FIND_MODULE_S_SNAPSHOT_S_NL, "Kan de module %s niet vinden in momentopnamebestand %s"},
+/* pl */ {IDGS_CANNOT_FIND_MODULE_S_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_CANNOT_FIND_MODULE_S_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_CANNOT_FIND_MODULE_S_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_CANNOT_FIND_MODULE_S_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_ERROR_CLOSING_MODULE_S_SNAPSHOT_S,    N_("Error closing module %s in snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_ERROR_CLOSING_MODULE_S_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_ERROR_CLOSING_MODULE_S_SNAPSHOT_S_DE, "Fehler beim Schliessen von Modul %s in Snapshot %s"},
+/* es */ {IDGS_ERROR_CLOSING_MODULE_S_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_ERROR_CLOSING_MODULE_S_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_ERROR_CLOSING_MODULE_S_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_ERROR_CLOSING_MODULE_S_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_ERROR_CLOSING_MODULE_S_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_ERROR_CLOSING_MODULE_S_SNAPSHOT_S_NL, "Fout bij het sluiten van module %s in momentopnamebestand %s"},
+/* pl */ {IDGS_ERROR_CLOSING_MODULE_S_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_ERROR_CLOSING_MODULE_S_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_ERROR_CLOSING_MODULE_S_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_ERROR_CLOSING_MODULE_S_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_ERROR_SKIPPING_MODULE_SNAPSHOT_S,    N_("Error skipping module in snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_ERROR_SKIPPING_MODULE_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_ERROR_SKIPPING_MODULE_SNAPSHOT_S_DE, "Fehler beim Überspringen eines Moduls in Snapshot %s"},
+/* es */ {IDGS_ERROR_SKIPPING_MODULE_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_ERROR_SKIPPING_MODULE_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_ERROR_SKIPPING_MODULE_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_ERROR_SKIPPING_MODULE_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_ERROR_SKIPPING_MODULE_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_ERROR_SKIPPING_MODULE_SNAPSHOT_S_NL, "Fout bij het overslaan van module in momentopnamebestand %s"},
+/* pl */ {IDGS_ERROR_SKIPPING_MODULE_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_ERROR_SKIPPING_MODULE_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_ERROR_SKIPPING_MODULE_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_ERROR_SKIPPING_MODULE_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_CANNOT_CREATE_SNAPSHOT_S,    N_("Cannot create snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_DE, "Kann Snapshot %s nicht erzeugen"},
+/* es */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_NL, "Kan momentopnamebestand %s niet maken"},
+/* pl */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_CANNOT_CREATE_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_CANNOT_WRITE_MAGIC_STRING_SNAPSHOT_S,    N_("Cannot write magic string to snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_CANNOT_WRITE_MAGIC_STRING_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_CANNOT_WRITE_MAGIC_STRING_SNAPSHOT_S_DE, "Kann Magic String in Snapshot %s nicht schreiben"},
+/* es */ {IDGS_CANNOT_WRITE_MAGIC_STRING_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_CANNOT_WRITE_MAGIC_STRING_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_CANNOT_WRITE_MAGIC_STRING_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_CANNOT_WRITE_MAGIC_STRING_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_CANNOT_WRITE_MAGIC_STRING_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_CANNOT_WRITE_MAGIC_STRING_SNAPSHOT_S_NL, "Kan de magische tekenreeks niet schrijven naar momentopnamebestand %s"},
+/* pl */ {IDGS_CANNOT_WRITE_MAGIC_STRING_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_CANNOT_WRITE_MAGIC_STRING_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_CANNOT_WRITE_MAGIC_STRING_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_CANNOT_WRITE_MAGIC_STRING_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_CANNOT_WRITE_VERSION_SNAPSHOT_S,    N_("Cannot write version to snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_CANNOT_WRITE_VERSION_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_CANNOT_WRITE_VERSION_SNAPSHOT_S_DE, "Kann Version in Snapshot %s nicht schreiben"},
+/* es */ {IDGS_CANNOT_WRITE_VERSION_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_CANNOT_WRITE_VERSION_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_CANNOT_WRITE_VERSION_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_CANNOT_WRITE_VERSION_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_CANNOT_WRITE_VERSION_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_CANNOT_WRITE_VERSION_SNAPSHOT_S_NL, "Kan de versie niet schrijven naar momentopnamebestand %s"},
+/* pl */ {IDGS_CANNOT_WRITE_VERSION_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_CANNOT_WRITE_VERSION_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_CANNOT_WRITE_VERSION_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_CANNOT_WRITE_VERSION_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_CANNOT_WRITE_MACHINE_NAME_SNAPSHOT_S,    N_("Cannot write machine name to snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_CANNOT_WRITE_MACHINE_NAME_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_CANNOT_WRITE_MACHINE_NAME_SNAPSHOT_S_DE, "Kann Maschinennamen in Snapshot %s nicht schreiben"},
+/* es */ {IDGS_CANNOT_WRITE_MACHINE_NAME_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_CANNOT_WRITE_MACHINE_NAME_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_CANNOT_WRITE_MACHINE_NAME_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_CANNOT_WRITE_MACHINE_NAME_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_CANNOT_WRITE_MACHINE_NAME_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_CANNOT_WRITE_MACHINE_NAME_SNAPSHOT_S_NL, "Kan de machine naam niet schrijven naar momentopnamebestand %s"},
+/* pl */ {IDGS_CANNOT_WRITE_MACHINE_NAME_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_CANNOT_WRITE_MACHINE_NAME_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_CANNOT_WRITE_MACHINE_NAME_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_CANNOT_WRITE_MACHINE_NAME_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_CANNOT_OPEN_SNAPSHOT_S_READING,    N_("Cannot open snapshot %s for reading")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_CANNOT_OPEN_SNAPSHOT_S_READING_DA, ""},  /* fuzzy */
+/* de */ {IDGS_CANNOT_OPEN_SNAPSHOT_S_READING_DE, "Kann Snapshot %s nicht öffnen"},
+/* es */ {IDGS_CANNOT_OPEN_SNAPSHOT_S_READING_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_CANNOT_OPEN_SNAPSHOT_S_READING_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_CANNOT_OPEN_SNAPSHOT_S_READING_HU, ""},  /* fuzzy */
+/* it */ {IDGS_CANNOT_OPEN_SNAPSHOT_S_READING_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_CANNOT_OPEN_SNAPSHOT_S_READING_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_CANNOT_OPEN_SNAPSHOT_S_READING_NL, "Kan het momentopnamebestand %s niet openen voor lezen"},
+/* pl */ {IDGS_CANNOT_OPEN_SNAPSHOT_S_READING_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_CANNOT_OPEN_SNAPSHOT_S_READING_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_CANNOT_OPEN_SNAPSHOT_S_READING_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_CANNOT_OPEN_SNAPSHOT_S_READING_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_MAGIC_STRING_MISMATCH_SNAPSHOT_S,    N_("Magic string mismatch in snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_MAGIC_STRING_MISMATCH_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_MAGIC_STRING_MISMATCH_SNAPSHOT_S_DE, "Magic String Fehler in Snapshot %s"},
+/* es */ {IDGS_MAGIC_STRING_MISMATCH_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_MAGIC_STRING_MISMATCH_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_MAGIC_STRING_MISMATCH_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_MAGIC_STRING_MISMATCH_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_MAGIC_STRING_MISMATCH_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_MAGIC_STRING_MISMATCH_SNAPSHOT_S_NL, "Magische tekenreeks is niet wat is verwacht in momentopnamebestand %s"},
+/* pl */ {IDGS_MAGIC_STRING_MISMATCH_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_MAGIC_STRING_MISMATCH_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_MAGIC_STRING_MISMATCH_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_MAGIC_STRING_MISMATCH_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_CANNOT_READ_VERSION_SNAPSHOT_S,    N_("Cannot read version from snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_CANNOT_READ_VERSION_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_CANNOT_READ_VERSION_SNAPSHOT_S_DE, "Kann Versionsnummer von Snapshot %s nicht lesen"},
+/* es */ {IDGS_CANNOT_READ_VERSION_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_CANNOT_READ_VERSION_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_CANNOT_READ_VERSION_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_CANNOT_READ_VERSION_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_CANNOT_READ_VERSION_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_CANNOT_READ_VERSION_SNAPSHOT_S_NL, "Kan de versie niet lezen van momentopnamebestand %s"},
+/* pl */ {IDGS_CANNOT_READ_VERSION_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_CANNOT_READ_VERSION_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_CANNOT_READ_VERSION_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_CANNOT_READ_VERSION_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_CANNOT_READ_MACHINE_NAME_SNAPSHOT_S,    N_("Cannot read machine name from snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_CANNOT_READ_MACHINE_NAME_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_CANNOT_READ_MACHINE_NAME_SNAPSHOT_S_DE, "Kann Maschinenname von Snapshot %s nicht lesen"},
+/* es */ {IDGS_CANNOT_READ_MACHINE_NAME_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_CANNOT_READ_MACHINE_NAME_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_CANNOT_READ_MACHINE_NAME_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_CANNOT_READ_MACHINE_NAME_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_CANNOT_READ_MACHINE_NAME_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_CANNOT_READ_MACHINE_NAME_SNAPSHOT_S_NL, "Kan de machine naam niet lezen van momentopnamebestand %s"},
+/* pl */ {IDGS_CANNOT_READ_MACHINE_NAME_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_CANNOT_READ_MACHINE_NAME_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_CANNOT_READ_MACHINE_NAME_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_CANNOT_READ_MACHINE_NAME_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_WRONG_MACHINE_TYPE_SNAPSHOT_S,    N_("Wrong machine type in snapshot %s, snapshot type: %s, current machine: %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_WRONG_MACHINE_TYPE_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_WRONG_MACHINE_TYPE_SNAPSHOT_S_DE, "Falscher Maschinentyp in Snapshot %s, Typ: %s, aktuelle Maschine: %s"},
+/* es */ {IDGS_WRONG_MACHINE_TYPE_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_WRONG_MACHINE_TYPE_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_WRONG_MACHINE_TYPE_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_WRONG_MACHINE_TYPE_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_WRONG_MACHINE_TYPE_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_WRONG_MACHINE_TYPE_SNAPSHOT_S_NL, "Verkeerd machine soort in momentopnamebestand %s, soort in bestand: %s, huidige soort: %s"},
+/* pl */ {IDGS_WRONG_MACHINE_TYPE_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_WRONG_MACHINE_TYPE_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_WRONG_MACHINE_TYPE_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_WRONG_MACHINE_TYPE_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_EOF_CLOSING_SNAPSHOT_S,    N_("EOF while closing snapshot %s")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_EOF_CLOSING_SNAPSHOT_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_EOF_CLOSING_SNAPSHOT_S_DE, "EOF beim Schliessen von Snapshot %s"},
+/* es */ {IDGS_EOF_CLOSING_SNAPSHOT_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_EOF_CLOSING_SNAPSHOT_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_EOF_CLOSING_SNAPSHOT_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_EOF_CLOSING_SNAPSHOT_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_EOF_CLOSING_SNAPSHOT_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_EOF_CLOSING_SNAPSHOT_S_NL, "EOF tijdens het afsluiten van momentopnamebestand %s"},
+/* pl */ {IDGS_EOF_CLOSING_SNAPSHOT_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_EOF_CLOSING_SNAPSHOT_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_EOF_CLOSING_SNAPSHOT_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_EOF_CLOSING_SNAPSHOT_S_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_SNAPSHOT_HIGHER_VERSION,    N_("Snapshot %s has a higher version than what your current emulator supports, please upgrade VICE")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_SNAPSHOT_HIGHER_VERSION_DA, ""},  /* fuzzy */
+/* de */ {IDGS_SNAPSHOT_HIGHER_VERSION_DE, "Snapshot %s benötigt einen neuere Version von Vice. Bitte Upgraden!"},
+/* es */ {IDGS_SNAPSHOT_HIGHER_VERSION_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_SNAPSHOT_HIGHER_VERSION_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_SNAPSHOT_HIGHER_VERSION_HU, ""},  /* fuzzy */
+/* it */ {IDGS_SNAPSHOT_HIGHER_VERSION_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_SNAPSHOT_HIGHER_VERSION_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_SNAPSHOT_HIGHER_VERSION_NL, "Momentopnamebestand %s heeft een hogere versie dan wat de huidige emulator ondersteunt, download een recente versie van VICE"},
+/* pl */ {IDGS_SNAPSHOT_HIGHER_VERSION_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_SNAPSHOT_HIGHER_VERSION_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_SNAPSHOT_HIGHER_VERSION_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_SNAPSHOT_HIGHER_VERSION_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_INCOMPATIBLE_SNAPSHOT,    N_("Snapshot %s is incompatible (too old)")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_INCOMPATIBLE_SNAPSHOT_DA, ""},  /* fuzzy */
+/* de */ {IDGS_INCOMPATIBLE_SNAPSHOT_DE, "Snapshot %s ist nicht kompatibel (zu alt)"},
+/* es */ {IDGS_INCOMPATIBLE_SNAPSHOT_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_INCOMPATIBLE_SNAPSHOT_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_INCOMPATIBLE_SNAPSHOT_HU, ""},  /* fuzzy */
+/* it */ {IDGS_INCOMPATIBLE_SNAPSHOT_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_INCOMPATIBLE_SNAPSHOT_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_INCOMPATIBLE_SNAPSHOT_NL, "Momentopname %s is niet compatibel (te oud)"},
+/* pl */ {IDGS_INCOMPATIBLE_SNAPSHOT_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_INCOMPATIBLE_SNAPSHOT_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_INCOMPATIBLE_SNAPSHOT_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_INCOMPATIBLE_SNAPSHOT_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_SNAPSHOT_VICE_VERSION,    N_("Snapshot was created by VICE Version %d.%d.%d")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_SNAPSHOT_VICE_VERSION_DA, ""},  /* fuzzy */
+/* de */ {IDGS_SNAPSHOT_VICE_VERSION_DE, "Snapshot wurde von VICE Version %d.%d.%d erzeugt"},
+/* es */ {IDGS_SNAPSHOT_VICE_VERSION_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_SNAPSHOT_VICE_VERSION_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_SNAPSHOT_VICE_VERSION_HU, ""},  /* fuzzy */
+/* it */ {IDGS_SNAPSHOT_VICE_VERSION_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_SNAPSHOT_VICE_VERSION_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_SNAPSHOT_VICE_VERSION_NL, "Momentopname was gemaakt met VICE Versie %d.%d.%d"},
+/* pl */ {IDGS_SNAPSHOT_VICE_VERSION_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_SNAPSHOT_VICE_VERSION_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_SNAPSHOT_VICE_VERSION_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_SNAPSHOT_VICE_VERSION_TR, ""},  /* fuzzy */
+#endif
+
+/* snapshot.c */
+/* en */ {IDGS_SNAPSHOT_OLD_VICE_VERSION,    N_("Snapshot was created by VICE Version 2.4.30 or older")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_SNAPSHOT_OLD_VICE_VERSION_DA, ""},  /* fuzzy */
+/* de */ {IDGS_SNAPSHOT_OLD_VICE_VERSION_DE, "Snapshot wurde von VICE Version 2.4.30 oder älter erzeugt"},
+/* es */ {IDGS_SNAPSHOT_OLD_VICE_VERSION_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_SNAPSHOT_OLD_VICE_VERSION_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_SNAPSHOT_OLD_VICE_VERSION_HU, ""},  /* fuzzy */
+/* it */ {IDGS_SNAPSHOT_OLD_VICE_VERSION_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_SNAPSHOT_OLD_VICE_VERSION_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_SNAPSHOT_OLD_VICE_VERSION_NL, "Momentopname was gemaakt met VICE Versie 2.4.30 of ouder"},
+/* pl */ {IDGS_SNAPSHOT_OLD_VICE_VERSION_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_SNAPSHOT_OLD_VICE_VERSION_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_SNAPSHOT_OLD_VICE_VERSION_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_SNAPSHOT_OLD_VICE_VERSION_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/clockport-rrnet.c */
+/* en */ {IDGS_CLOCKPORT_RRNET_IN_USE_BY_S,    N_("ClockPort RRNET already in use by %s.")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_CLOCKPORT_RRNET_IN_USE_BY_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_CLOCKPORT_RRNET_IN_USE_BY_S_DE, "Clockport RRNET bereits von %s benutzt."},
+/* es */ {IDGS_CLOCKPORT_RRNET_IN_USE_BY_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_CLOCKPORT_RRNET_IN_USE_BY_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_CLOCKPORT_RRNET_IN_USE_BY_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_CLOCKPORT_RRNET_IN_USE_BY_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_CLOCKPORT_RRNET_IN_USE_BY_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_CLOCKPORT_RRNET_IN_USE_BY_S_NL, "ClockPort RRNET wordt al gebruikt door %s."},
+/* pl */ {IDGS_CLOCKPORT_RRNET_IN_USE_BY_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_CLOCKPORT_RRNET_IN_USE_BY_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_CLOCKPORT_RRNET_IN_USE_BY_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_CLOCKPORT_RRNET_IN_USE_BY_S_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/clockport-mp3at64.c */
+/* en */ {IDGS_CLOCKPORT_MP3AT64_IN_USE_BY_S,    N_("ClockPort MP3@64 already in use by %s.")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_CLOCKPORT_MP3AT64_IN_USE_BY_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_CLOCKPORT_MP3AT64_IN_USE_BY_S_DE, "Clockport MP3@64 bereits von %s benutzt."},
+/* es */ {IDGS_CLOCKPORT_MP3AT64_IN_USE_BY_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_CLOCKPORT_MP3AT64_IN_USE_BY_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_CLOCKPORT_MP3AT64_IN_USE_BY_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_CLOCKPORT_MP3AT64_IN_USE_BY_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_CLOCKPORT_MP3AT64_IN_USE_BY_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_CLOCKPORT_MP3AT64_IN_USE_BY_S_NL, "ClockPort MP3@64 wordt al gebruikt door %s."},
+/* pl */ {IDGS_CLOCKPORT_MP3AT64_IN_USE_BY_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_CLOCKPORT_MP3AT64_IN_USE_BY_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_CLOCKPORT_MP3AT64_IN_USE_BY_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_CLOCKPORT_MP3AT64_IN_USE_BY_S_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/cs8900io.c */
+/* en */ {IDGS_CS8900_IN_USE_BY_S,    N_("CS8900 already in use by %s.")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_CS8900_IN_USE_BY_S_DA, ""},  /* fuzzy */
+/* de */ {IDGS_CS8900_IN_USE_BY_S_DE, "CS8900 bereits von %s benutzt."},
+/* es */ {IDGS_CS8900_IN_USE_BY_S_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_CS8900_IN_USE_BY_S_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_CS8900_IN_USE_BY_S_HU, ""},  /* fuzzy */
+/* it */ {IDGS_CS8900_IN_USE_BY_S_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_CS8900_IN_USE_BY_S_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_CS8900_IN_USE_BY_S_NL, "CS8900 wordt al gebruikt door %s."},
+/* pl */ {IDGS_CS8900_IN_USE_BY_S_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_CS8900_IN_USE_BY_S_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_CS8900_IN_USE_BY_S_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_CS8900_IN_USE_BY_S_TR, ""},  /* fuzzy */
+#endif
 
 /* ------------------------ COMMAND LINE OPTION STRINGS -------------------- */
 
@@ -3689,7 +4810,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_KEYSET_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_KEYSET_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_KEYSET_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_KEYSET_NL, "Activeer keyset"},
+/* nl */ {IDCLS_ENABLE_KEYSET_NL, "Keyset inschakelen"},
 /* pl */ {IDCLS_ENABLE_KEYSET_PL, "W³±cz zestaw klawiszy"},
 /* ru */ {IDCLS_ENABLE_KEYSET_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_KEYSET_SV, ""},  /* fuzzy */
@@ -3791,7 +4912,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_AUTOSTART_HANDLE_TDE_HU, "Valós lemezegység emuláció kezelése autostartnál"},
 /* it */ {IDCLS_ENABLE_AUTOSTART_HANDLE_TDE_IT, "Emulazione hardware dei drive all'avvio automatico"},
 /* ko */ {IDCLS_ENABLE_AUTOSTART_HANDLE_TDE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_AUTOSTART_HANDLE_TDE_NL, "Manipuleer hardwarematige drive emulatie bij autostarten"},
+/* nl */ {IDCLS_ENABLE_AUTOSTART_HANDLE_TDE_NL, "Hanteer Hardwarematige Drive Emulatie bij autostarten"},
 /* pl */ {IDCLS_ENABLE_AUTOSTART_HANDLE_TDE_PL, "W³±cz rzeczywist± emulacjê napêdu przy autostarcie"},
 /* ru */ {IDCLS_ENABLE_AUTOSTART_HANDLE_TDE_RU, "Handle True Drive Emulation on autostart"},
 /* sv */ {IDCLS_ENABLE_AUTOSTART_HANDLE_TDE_SV, "Hantera äkta diskettenhetsemulering vid autostart"},
@@ -3808,7 +4929,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_AUTOSTART_HANDLE_TDE_HU, "Valós lemezegység emulációt nem kezeli autostartnál"},
 /* it */ {IDCLS_DISABLE_AUTOSTART_HANDLE_TDE_IT, "Non gestire l'emulazione hardware dei drive all'avvio automatico"},
 /* ko */ {IDCLS_DISABLE_AUTOSTART_HANDLE_TDE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_AUTOSTART_HANDLE_TDE_NL, "Geen manipulatie van de hardwarematige drive emulatie bij autostarten"},
+/* nl */ {IDCLS_DISABLE_AUTOSTART_HANDLE_TDE_NL, "Hanteer geen hardwarematige drive emulatie bij autostarten"},
 /* pl */ {IDCLS_DISABLE_AUTOSTART_HANDLE_TDE_PL, "Nie w³±czaj rzeczywistej emulacji napêdu przy autostarcie"},
 /* ru */ {IDCLS_DISABLE_AUTOSTART_HANDLE_TDE_RU, "Do not handle True Drive Emulation on autostart"},
 /* sv */ {IDCLS_DISABLE_AUTOSTART_HANDLE_TDE_SV, "Hantera inte äkta diskettenhetsemulering vid autostart"},
@@ -3825,7 +4946,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_WARP_MODE_AUTOSTART_HU, "Hipergyors mód engedélyezése autostartnál"},
 /* it */ {IDCLS_ENABLE_WARP_MODE_AUTOSTART_IT, "Attiva la modalità turbo all'avvio automatico"},
 /* ko */ {IDCLS_ENABLE_WARP_MODE_AUTOSTART_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_WARP_MODE_AUTOSTART_NL, "Activeer warp modus tijdens autostarten"},
+/* nl */ {IDCLS_ENABLE_WARP_MODE_AUTOSTART_NL, "Warp modus tijdens autostarten inschakelen"},
 /* pl */ {IDCLS_ENABLE_WARP_MODE_AUTOSTART_PL, "W³±cz tryb przy¶pieszony podczas automatycznego startu"},
 /* ru */ {IDCLS_ENABLE_WARP_MODE_AUTOSTART_RU, "Enable warp mode during autostart"},
 /* sv */ {IDCLS_ENABLE_WARP_MODE_AUTOSTART_SV, "Aktivera warpläge för autostart"},
@@ -3859,7 +4980,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_AUTOSTART_MODE_FOR_PRG_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_AUTOSTART_MODE_FOR_PRG_IT, "Imposta avvio automatico per i file PRG (0: VirtualFS, 1: Inject, 2: Disk image)"},
 /* ko */ {IDCLS_SET_AUTOSTART_MODE_FOR_PRG_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_AUTOSTART_MODE_FOR_PRG_NL, "Zet autostart modus voor PRG bestanden (0: VirtualFS, 1: Injecteer, 2: Disk bestand)"},
+/* nl */ {IDCLS_SET_AUTOSTART_MODE_FOR_PRG_NL, "Stel autostart modus in voor PRG bestanden (0: VirtualFS, 1: Injecteer, 2: Disk bestand)"},
 /* pl */ {IDCLS_SET_AUTOSTART_MODE_FOR_PRG_PL, "Okre¶l tryb autostartu z plików PRG (0: wirtualny system plików, 1: wstrzykniêcie, 2: obraz dysku)"},
 /* ru */ {IDCLS_SET_AUTOSTART_MODE_FOR_PRG_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_AUTOSTART_MODE_FOR_PRG_SV, ""},  /* fuzzy */
@@ -3870,13 +4991,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SET_DISK_IMAGE_FOR_AUTOSTART_PRG,    N_("Set disk image for autostart of PRG files")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SET_DISK_IMAGE_FOR_AUTOSTART_PRG_DA, "Vælg diskimage for autostart af PRG-filer"},
-/* de */ {IDCLS_SET_DISK_IMAGE_FOR_AUTOSTART_PRG_DE, "Disk Imagedatei für Autstart definieren"},
+/* de */ {IDCLS_SET_DISK_IMAGE_FOR_AUTOSTART_PRG_DE, "Disk Imagedatei für Autstart wählen"},
 /* es */ {IDCLS_SET_DISK_IMAGE_FOR_AUTOSTART_PRG_ES, "Seleccionar imagen disco para autoarranque ficheros PRG"},
 /* fr */ {IDCLS_SET_DISK_IMAGE_FOR_AUTOSTART_PRG_FR, "Régler l'image disque pour autodémarrage de fichiers PRG"},
 /* hu */ {IDCLS_SET_DISK_IMAGE_FOR_AUTOSTART_PRG_HU, "Lmeez képmás megadása PRG automatikus indításhoz"},
 /* it */ {IDCLS_SET_DISK_IMAGE_FOR_AUTOSTART_PRG_IT, "Imposta immagine disco per l'avvio automatico dei file PRG"},
 /* ko */ {IDCLS_SET_DISK_IMAGE_FOR_AUTOSTART_PRG_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_DISK_IMAGE_FOR_AUTOSTART_PRG_NL, "Zet disk bestand voor het autostarten van PRG bestanden"},
+/* nl */ {IDCLS_SET_DISK_IMAGE_FOR_AUTOSTART_PRG_NL, "Stel disk bestand in voor het autostarten van PRG bestanden"},
 /* pl */ {IDCLS_SET_DISK_IMAGE_FOR_AUTOSTART_PRG_PL, "Okre¶l obraz dysku do autostartu z plików PRG"},
 /* ru */ {IDCLS_SET_DISK_IMAGE_FOR_AUTOSTART_PRG_RU, "Set disk image for autostart of PRG files"},
 /* sv */ {IDCLS_SET_DISK_IMAGE_FOR_AUTOSTART_PRG_SV, "Ange diskavbildning för autostart av PRG-filer"},
@@ -3893,7 +5014,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_AUTOSTART_DELAY_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_AUTOSTART_DELAY_IT, "Imposta ritardo iniziale all'avvio automatico (0: usa predefinito)"},
 /* ko */ {IDCLS_SET_AUTOSTART_DELAY_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_AUTOSTART_DELAY_NL, "Zet de vertraging bij begin van het autostarten (0: gebruik de standaard waarde)"},
+/* nl */ {IDCLS_SET_AUTOSTART_DELAY_NL, "Stel vertraging in bij begin van het autostarten (0: gebruik de standaard waarde)"},
 /* pl */ {IDCLS_SET_AUTOSTART_DELAY_PL, "Okre¶l pocz±tkowe opó¼nienie autostartu (0: domy¶lne)"},
 /* ru */ {IDCLS_SET_AUTOSTART_DELAY_RU, "Set initial autostart delay (0: use default)"},
 /* sv */ {IDCLS_SET_AUTOSTART_DELAY_SV, "Ange inledande fördröjning för autostart (0: använd standard)"},
@@ -3910,7 +5031,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_AUTOSTART_RANDOM_DELAY_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_AUTOSTART_RANDOM_DELAY_IT, "Attiva ritardo casuale all'avvio automatico."},
 /* ko */ {IDCLS_ENABLE_AUTOSTART_RANDOM_DELAY_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_AUTOSTART_RANDOM_DELAY_NL, "Activeer willekeurige vertraging bij begin van het autostarten."},
+/* nl */ {IDCLS_ENABLE_AUTOSTART_RANDOM_DELAY_NL, "Willekeurige vertraging bij begin van het autostarten inschakelen."},
 /* pl */ {IDCLS_ENABLE_AUTOSTART_RANDOM_DELAY_PL, "W³±cz losowe opó¼nienie na pocz±tku autostartu."},
 /* ru */ {IDCLS_ENABLE_AUTOSTART_RANDOM_DELAY_RU, "Enable random initial autostart delay."},
 /* sv */ {IDCLS_ENABLE_AUTOSTART_RANDOM_DELAY_SV, "Aktivera slumpmässig inledande autostartfördröjning"},
@@ -3927,11 +5048,45 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_AUTOSTART_RANDOM_DELAY_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_AUTOSTART_RANDOM_DELAY_IT, "Disattiva ritardo casuale all'avvio automatico."},
 /* ko */ {IDCLS_DISABLE_AUTOSTART_RANDOM_DELAY_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_AUTOSTART_RANDOM_DELAY_NL, "Willekeurige vertraging bij begin van het uitostarten uitschakelen."},
+/* nl */ {IDCLS_DISABLE_AUTOSTART_RANDOM_DELAY_NL, "Willekeurige vertraging bij begin van het autostarten uitschakelen."},
 /* pl */ {IDCLS_DISABLE_AUTOSTART_RANDOM_DELAY_PL, "Wy³±cz losowe opó¼nienie na pocz±tku autostartu."},
 /* ru */ {IDCLS_DISABLE_AUTOSTART_RANDOM_DELAY_RU, "Disable random initial autostart delay."},
 /* sv */ {IDCLS_DISABLE_AUTOSTART_RANDOM_DELAY_SV, "Inaktivera slumpmässig inledande autostartfördröjning"},
 /* tr */ {IDCLS_DISABLE_AUTOSTART_RANDOM_DELAY_TR, "Otomatik baþlatmada rastgele gecikmeyi pasifleþtir"},
+#endif
+
+/* vic20/vic20-cmdline-options.c */
+/* en */ {IDCLS_ENABLE_VFLI_MOD,    N_("Enable VFLI modification.")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_VFLI_MOD_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_VFLI_MOD_DE, "VFLI Emulation aktivieren"},
+/* es */ {IDCLS_ENABLE_VFLI_MOD_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_VFLI_MOD_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_VFLI_MOD_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_VFLI_MOD_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_VFLI_MOD_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_VFLI_MOD_NL, "VFLI modificatie inschakelen"},
+/* pl */ {IDCLS_ENABLE_VFLI_MOD_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_VFLI_MOD_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_VFLI_MOD_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_VFLI_MOD_TR, ""},  /* fuzzy */
+#endif
+
+/* vic20/vic20-cmdline-options.c */
+/* en */ {IDCLS_DISABLE_VFLI_MOD,    N_("Disable VFLI modification.")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_VFLI_MOD_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_VFLI_MOD_DE, "VFLI Emulation deaktivieren"},
+/* es */ {IDCLS_DISABLE_VFLI_MOD_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_VFLI_MOD_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_VFLI_MOD_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_VFLI_MOD_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_VFLI_MOD_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_VFLI_MOD_NL, "VFLI modificatie uitschakelen"},
+/* pl */ {IDCLS_DISABLE_VFLI_MOD_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_VFLI_MOD_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_VFLI_MOD_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_VFLI_MOD_TR, ""},  /* fuzzy */
 #endif
 
 /* machine.c */
@@ -3944,11 +5099,28 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_MACHINE_JAM_ACTION_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_MACHINE_JAM_ACTION_IT, "Imposta azione al JAM della CPU: (0: Chiedi, 1: continua, 2: Monitor, 3: Reset, 4: Hard Reset, 5: Esci)"},
 /* ko */ {IDCLS_SET_MACHINE_JAM_ACTION_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_MACHINE_JAM_ACTION_NL, "Geef de actie op die gedaan moet worden bij een CPU JAM: (0: Vraag, 1: door gaan, 2: Monitor, 3: Reset, 4: Harde Reset, 5: Emulator uitschakelen)"},
+/* nl */ {IDCLS_SET_MACHINE_JAM_ACTION_NL, "Geef de actie op bij een CPU VASTLOPER: (0: Vraag, 1: Doorgaan, 2: Monitor, 3: Reset, 4: Harde Reset, 5: Emulator uitschakelen)"},
 /* pl */ {IDCLS_SET_MACHINE_JAM_ACTION_PL, "Ustal dzia³anie przy zatkaniu siê procesora: (0: zapytanie, 1: kontynuacja, 2: monitorowanie, 3: reset, 4: twardy reset, 5: wyj¶cie z emulatora)"},
 /* ru */ {IDCLS_SET_MACHINE_JAM_ACTION_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_MACHINE_JAM_ACTION_SV, ""},  /* fuzzy */
 /* tr */ {IDCLS_SET_MACHINE_JAM_ACTION_TR, ""},  /* fuzzy */
+#endif
+
+/* machine.c */
+/* en */ {IDCLS_SET_EXIT_SCREENSHOT,    N_("Set name of screenshot to save when emulator exits.")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_SET_EXIT_SCREENSHOT_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_SET_EXIT_SCREENSHOT_DE, "Name für Screenshot Datei beim Beenden."},
+/* es */ {IDCLS_SET_EXIT_SCREENSHOT_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_SET_EXIT_SCREENSHOT_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_SET_EXIT_SCREENSHOT_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_SET_EXIT_SCREENSHOT_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_SET_EXIT_SCREENSHOT_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_SET_EXIT_SCREENSHOT_NL, "Geef de naam op van de schermafdruk die wordt opgeslagen wanneer de emulator wordt afgesloten."},
+/* pl */ {IDCLS_SET_EXIT_SCREENSHOT_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_SET_EXIT_SCREENSHOT_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_SET_EXIT_SCREENSHOT_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_SET_EXIT_SCREENSHOT_TR, ""},  /* fuzzy */
 #endif
 
 /* c128/c128-cmdline-options.c, c64/c64-cmdline-options.c,
@@ -3963,7 +5135,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_USE_PAL_SYNC_FACTOR_HU, "PAL szinkron faktor használata"},
 /* it */ {IDCLS_USE_PAL_SYNC_FACTOR_IT, "Usa fattore di sincronizzazione PAL"},
 /* ko */ {IDCLS_USE_PAL_SYNC_FACTOR_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_USE_PAL_SYNC_FACTOR_NL, "Gebruik PAL synchronisatiefaktor"},
+/* nl */ {IDCLS_USE_PAL_SYNC_FACTOR_NL, "Gebruik PAL synchronisatiefactor"},
 /* pl */ {IDCLS_USE_PAL_SYNC_FACTOR_PL, "U¿ywaj synchronizacji PAL"},
 /* ru */ {IDCLS_USE_PAL_SYNC_FACTOR_RU, "Use PAL sync factor"},
 /* sv */ {IDCLS_USE_PAL_SYNC_FACTOR_SV, "Använd PAL-synkfaktor"},
@@ -3982,7 +5154,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_USE_NTSC_SYNC_FACTOR_HU, "NTSC szinkron faktor használata"},
 /* it */ {IDCLS_USE_NTSC_SYNC_FACTOR_IT, "Usa fattore di sincronizzazione NTSC"},
 /* ko */ {IDCLS_USE_NTSC_SYNC_FACTOR_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_USE_NTSC_SYNC_FACTOR_NL, "Gebruik NTSC synchronisatiefaktor"},
+/* nl */ {IDCLS_USE_NTSC_SYNC_FACTOR_NL, "Gebruik NTSC synchronisatiefactor"},
 /* pl */ {IDCLS_USE_NTSC_SYNC_FACTOR_PL, "U¿ywaj synchronizacji NTSC"},
 /* ru */ {IDCLS_USE_NTSC_SYNC_FACTOR_RU, "Use NTSC sync factor"},
 /* sv */ {IDCLS_USE_NTSC_SYNC_FACTOR_SV, "Använd NTSC-synkfaktor"},
@@ -3999,7 +5171,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_USE_PALN_SYNC_FACTOR_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_USE_PALN_SYNC_FACTOR_IT, "Usa fattore di sincronizzazione PAL-N"},
 /* ko */ {IDCLS_USE_PALN_SYNC_FACTOR_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_USE_PALN_SYNC_FACTOR_NL, "Gebruik PAL-N synchronisatiefaktor"},
+/* nl */ {IDCLS_USE_PALN_SYNC_FACTOR_NL, "Gebruik PAL-N synchronisatiefactor"},
 /* pl */ {IDCLS_USE_PALN_SYNC_FACTOR_PL, "U¿ywaj synchronizacji PAL-N"},
 /* ru */ {IDCLS_USE_PALN_SYNC_FACTOR_RU, "Use PAL-N sync factor"},
 /* sv */ {IDCLS_USE_PALN_SYNC_FACTOR_SV, "Använd PAL N-synkfaktor"},
@@ -4073,7 +5245,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_INT_KERNEL_NAME,    N_("Specify name of international Kernal ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_INT_KERNEL_NAME_DA, "Angiv navn på internationalt kerne-ROM-image"},
-/* de */ {IDCLS_SPECIFY_INT_KERNEL_NAME_DE, "Bitte Namen für internationale Kernal ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_INT_KERNEL_NAME_DE, "Namen für internationale Kernal ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_INT_KERNEL_NAME_ES, "Especificar nombre imagen ROM Kernal internacional"},
 /* fr */ {IDCLS_SPECIFY_INT_KERNEL_NAME_FR, "Spécifier le nom de l'image Kernal internationale"},
 /* hu */ {IDCLS_SPECIFY_INT_KERNEL_NAME_HU, "Adja meg a nemzetközi Kernal ROM képmás nevét"},
@@ -4090,7 +5262,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_DE_KERNEL_NAME,    N_("Specify name of German Kernal ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_DE_KERNEL_NAME_DA, "Angiv navn på tysk kerne-ROM-image"},
-/* de */ {IDCLS_SPECIFY_DE_KERNEL_NAME_DE, "Name für deutsche Kernal ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_DE_KERNEL_NAME_DE, "Name für deutsche Kernal ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_DE_KERNEL_NAME_ES, "Especificar nombre imagen ROM Kernal alemán"},
 /* fr */ {IDCLS_SPECIFY_DE_KERNEL_NAME_FR, "Spécifier le nom de l'image Kernal allemande"},
 /* hu */ {IDCLS_SPECIFY_DE_KERNEL_NAME_HU, "Adja meg a német Kernal ROM képmás nevét"},
@@ -4107,7 +5279,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_FI_KERNEL_NAME,    N_("Specify name of Finnish Kernal ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_FI_KERNEL_NAME_DA, "Angiv navn på finsk kerne-ROM-image"},
-/* de */ {IDCLS_SPECIFY_FI_KERNEL_NAME_DE, "Name für finnische Kernal ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_FI_KERNEL_NAME_DE, "Name für finnische Kernal ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_FI_KERNEL_NAME_ES, "Especificar nombre imagen ROM Kernal finlandés"},
 /* fr */ {IDCLS_SPECIFY_FI_KERNEL_NAME_FR, "Spécifier le nom de l'image Kernal finlandaise"},
 /* hu */ {IDCLS_SPECIFY_FI_KERNEL_NAME_HU, "Adja meg a finn Kernal ROM képmás nevét"},
@@ -4124,7 +5296,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_FR_KERNEL_NAME,    N_("Specify name of French Kernal ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_FR_KERNEL_NAME_DA, "Angiv navn på fransk kerne-ROM-image"},
-/* de */ {IDCLS_SPECIFY_FR_KERNEL_NAME_DE, "Name für französische Kernal ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_FR_KERNEL_NAME_DE, "Name für französische Kernal ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_FR_KERNEL_NAME_ES, "Especificar nombre imagen ROM Kernal francés"},
 /* fr */ {IDCLS_SPECIFY_FR_KERNEL_NAME_FR, "Spécifier le nom de l'image Kernal française"},
 /* hu */ {IDCLS_SPECIFY_FR_KERNEL_NAME_HU, "Adja meg a francia Kernal ROM képmás nevét"},
@@ -4141,7 +5313,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_IT_KERNEL_NAME,    N_("Specify name of Italian Kernal ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_IT_KERNEL_NAME_DA, "Angiv navn på italiensk kerne-ROM-image"},
-/* de */ {IDCLS_SPECIFY_IT_KERNEL_NAME_DE, "Name für italienische Kernal ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_IT_KERNEL_NAME_DE, "Name für italienische Kernal ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_IT_KERNEL_NAME_ES, "Especificar nombre imagen ROM Kernal italiano"},
 /* fr */ {IDCLS_SPECIFY_IT_KERNEL_NAME_FR, "Spécifier le nom de l'image Kernal italienne"},
 /* hu */ {IDCLS_SPECIFY_IT_KERNEL_NAME_HU, "Adja meg az olasz Kernal ROM képmás nevét"},
@@ -4158,7 +5330,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_NO_KERNEL_NAME,    N_("Specify name of Norwegian Kernal ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_NO_KERNEL_NAME_DA, "Angiv navn på norsk kerne-ROM-image"},
-/* de */ {IDCLS_SPECIFY_NO_KERNEL_NAME_DE, "Name für norwegische Kernal ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_NO_KERNEL_NAME_DE, "Name für norwegische Kernal ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_NO_KERNEL_NAME_ES, "Especificar nombre imagen ROM noruego"},
 /* fr */ {IDCLS_SPECIFY_NO_KERNEL_NAME_FR, "Spécifier le nom de l'image Kernal norvégienne"},
 /* hu */ {IDCLS_SPECIFY_NO_KERNEL_NAME_HU, "Adja meg a norvég Kernal ROM képmás nevét"},
@@ -4175,7 +5347,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_SV_KERNEL_NAME,    N_("Specify name of Swedish Kernal ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_SV_KERNEL_NAME_DA, "Angiv navn på svensk kerne-ROM-image"},
-/* de */ {IDCLS_SPECIFY_SV_KERNEL_NAME_DE, "Name für schwedische Kernal ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_SV_KERNEL_NAME_DE, "Name für schwedische Kernal ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_SV_KERNEL_NAME_ES, "Especificar nombre imagen ROM Kernal sueco"},
 /* fr */ {IDCLS_SPECIFY_SV_KERNEL_NAME_FR, "Spécifier le nom de l'image Kernal suédoise"},
 /* hu */ {IDCLS_SPECIFY_SV_KERNEL_NAME_HU, "Adja meg s svéd Kernal ROM képmás nevét"},
@@ -4192,13 +5364,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_CH_KERNEL_NAME,    N_("Specify name of Swiss Kernal ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_CH_KERNEL_NAME_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_CH_KERNEL_NAME_DE, "Name für schweizer Kernal ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_CH_KERNEL_NAME_DE, "Name für schweizer Kernal ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_CH_KERNEL_NAME_ES, "Especificar nombre imagen Kernal ROM suizo"},
 /* fr */ {IDCLS_SPECIFY_CH_KERNEL_NAME_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_CH_KERNEL_NAME_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SPECIFY_CH_KERNEL_NAME_IT, "Specifica il nome immagine della ROM del Kernal svizzera"},
 /* ko */ {IDCLS_SPECIFY_CH_KERNEL_NAME_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_CH_KERNEL_NAME_NL, "Geef de naam van het Zwitse Kernal ROM bestand"},
+/* nl */ {IDCLS_SPECIFY_CH_KERNEL_NAME_NL, "Geef de naam van het Zwitserse Kernal ROM bestand"},
 /* pl */ {IDCLS_SPECIFY_CH_KERNEL_NAME_PL, "Okre¶l nazwê obrazu szwajcarskiego ROM-u Kernala"},
 /* ru */ {IDCLS_SPECIFY_CH_KERNEL_NAME_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SPECIFY_CH_KERNEL_NAME_SV, ""},  /* fuzzy */
@@ -4243,7 +5415,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_INT_CHARGEN_ROM_NAME,    N_("Specify name of international character generator ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_INT_CHARGEN_ROM_NAME_DA, "Angiv navn på internationalt tegngenerator-ROM-image"},
-/* de */ {IDCLS_SPECIFY_INT_CHARGEN_ROM_NAME_DE, "Name für internationale Charakter ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_INT_CHARGEN_ROM_NAME_DE, "Name für internationale Charakter ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_INT_CHARGEN_ROM_NAME_ES, "Especificar nombre imagen ROM generador caracteres internacional"},
 /* fr */ {IDCLS_SPECIFY_INT_CHARGEN_ROM_NAME_FR, "Spécifier le nom de l'image du générateur de caractères internationaux"},
 /* hu */ {IDCLS_SPECIFY_INT_CHARGEN_ROM_NAME_HU, "Adja meg a nemzetközi karaktergenerátor ROM képmás nevét"},
@@ -4260,7 +5432,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_DE_CHARGEN_ROM_NAME,    N_("Specify name of German character generator ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_DE_CHARGEN_ROM_NAME_DA, "Angiv navn på tysk tegngenerator-ROM-image"},
-/* de */ {IDCLS_SPECIFY_DE_CHARGEN_ROM_NAME_DE, "Name für deutsche Charakter ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_DE_CHARGEN_ROM_NAME_DE, "Name für deutsche Charakter ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_DE_CHARGEN_ROM_NAME_ES, "Especificar nombre imagen ROM generador caracteres alemán"},
 /* fr */ {IDCLS_SPECIFY_DE_CHARGEN_ROM_NAME_FR, "Spécifier le nom de l'image du générateur de caractères allemands"},
 /* hu */ {IDCLS_SPECIFY_DE_CHARGEN_ROM_NAME_HU, "Adja meg a német karaktergenerátor ROM képmás nevét"},
@@ -4277,7 +5449,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_FR_CHARGEN_ROM_NAME,    N_("Specify name of French character generator ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_FR_CHARGEN_ROM_NAME_DA, "Angiv navn på fransk tegngenerator-ROM-image"},
-/* de */ {IDCLS_SPECIFY_FR_CHARGEN_ROM_NAME_DE, "Name für französische Charakter ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_FR_CHARGEN_ROM_NAME_DE, "Name für französische Charakter ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_FR_CHARGEN_ROM_NAME_ES, "Especificar nombre imagen ROM generador caracteres francés"},
 /* fr */ {IDCLS_SPECIFY_FR_CHARGEN_ROM_NAME_FR, "Spécifier le nom de l'image du générateur de caractères français"},
 /* hu */ {IDCLS_SPECIFY_FR_CHARGEN_ROM_NAME_HU, "Adja meg a francia karaktergenerátor ROM képmás nevét"},
@@ -4294,7 +5466,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_SV_CHARGEN_ROM_NAME,    N_("Specify name of Swedish character generator ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_SV_CHARGEN_ROM_NAME_DA, "Angiv navn på svensk tegngenerator-ROM-image"},
-/* de */ {IDCLS_SPECIFY_SV_CHARGEN_ROM_NAME_DE, "Name für schwedische Charakter ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_SV_CHARGEN_ROM_NAME_DE, "Name für schwedische Charakter ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_SV_CHARGEN_ROM_NAME_ES, "Especificar nombre imagen ROM generador caracteres sueco"},
 /* fr */ {IDCLS_SPECIFY_SV_CHARGEN_ROM_NAME_FR, "Spécifier le nom de l'image du générateur de caractères suédois"},
 /* hu */ {IDCLS_SPECIFY_SV_CHARGEN_ROM_NAME_HU, "Adja meg a svéd karaktergenerátor ROM képmás nevét"},
@@ -4311,7 +5483,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_CH_CHARGEN_ROM_NAME,    N_("Specify name of Swedish character generator ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_CH_CHARGEN_ROM_NAME_DA, "Angiv navn på svensk tegngenerator-ROM-image"},
-/* de */ {IDCLS_SPECIFY_CH_CHARGEN_ROM_NAME_DE, "Name für schwedische Charakter ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_CH_CHARGEN_ROM_NAME_DE, "Name für schwedische Charakter ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_CH_CHARGEN_ROM_NAME_ES, "Especificar nombre imagen ROM generador caracteres sueco"},
 /* fr */ {IDCLS_SPECIFY_CH_CHARGEN_ROM_NAME_FR, "Spécifier le nom de l'image du générateur de caractères suédois"},
 /* hu */ {IDCLS_SPECIFY_CH_CHARGEN_ROM_NAME_HU, "Adja meg a svéd karaktergenerátor ROM képmás nevét"},
@@ -4328,7 +5500,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_C64_MODE_KERNAL_NAME,    N_("Specify name of C64 mode Kernal ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_C64_MODE_KERNAL_NAME_DA, "Angiv navn på C64-kerne-ROM-image"},
-/* de */ {IDCLS_SPECIFY_C64_MODE_KERNAL_NAME_DE, "Name für C64 Modus Kernal ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_C64_MODE_KERNAL_NAME_DE, "Name für C64 Modus Kernal ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_C64_MODE_KERNAL_NAME_ES, "Especificar nombre imagen ROM Kernal modo C64"},
 /* fr */ {IDCLS_SPECIFY_C64_MODE_KERNAL_NAME_FR, "Spécifier le nom de l'image Kernal du mode C64"},
 /* hu */ {IDCLS_SPECIFY_C64_MODE_KERNAL_NAME_HU, "Adja meg a C64 módú Kernal ROM képmás nevét"},
@@ -4368,7 +5540,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_OEM_JOY_HU, "OEM userport botkormány adapter engedélyezése"},
 /* it */ {IDCLS_ENABLE_OEM_JOY_IT, "Attiva adattatore joystick OEM su userport"},
 /* ko */ {IDCLS_ENABLE_OEM_JOY_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_OEM_JOY_NL, "Activeer de OEM userport joystick adapter"},
+/* nl */ {IDCLS_ENABLE_OEM_JOY_NL, "OEM userport joystick adapter inschakelen"},
 /* pl */ {IDCLS_ENABLE_OEM_JOY_PL, "W³±cz z³±cze OEM userportu joysticka"},
 /* ru */ {IDCLS_ENABLE_OEM_JOY_RU, "Enable the OEM userport joystick adapter"},
 /* sv */ {IDCLS_ENABLE_OEM_JOY_SV, "Aktivera OEM-användarportspelportsadapter"},
@@ -4385,7 +5557,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_OEM_JOY_HU, "OEM userport botkormány adapter tiltása"},
 /* it */ {IDCLS_DISABLE_OEM_JOY_IT, "Disattiva adattatore joystick OEM su userport"},
 /* ko */ {IDCLS_DISABLE_OEM_JOY_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_OEM_JOY_NL, "De OEM userport joystick adapter uitschakelen"},
+/* nl */ {IDCLS_DISABLE_OEM_JOY_NL, "OEM userport joystick adapter uitschakelen"},
 /* pl */ {IDCLS_DISABLE_OEM_JOY_PL, "Wy³±cz z³±cze OEM userportu joysticka"},
 /* ru */ {IDCLS_DISABLE_OEM_JOY_RU, "Disable the OEM userport joystick adapter"},
 /* sv */ {IDCLS_DISABLE_OEM_JOY_SV, "Inaktivera OEM-användarportspelportsadapter"},
@@ -4402,7 +5574,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_IEE488_HU, "IEEE488 interfész emuláció engedélyezése"},
 /* it */ {IDCLS_ENABLE_IEE488_IT, "Attiva emulazione interfaccia IEEE488"},
 /* ko */ {IDCLS_ENABLE_IEE488_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_IEE488_NL, "Activeer de IEEE488 interface emulatie"},
+/* nl */ {IDCLS_ENABLE_IEE488_NL, "IEEE488 interface emulatie inschakelen"},
 /* pl */ {IDCLS_ENABLE_IEE488_PL, "W³±cz emulacjê interfejsu IEEE488"},
 /* ru */ {IDCLS_ENABLE_IEE488_RU, "Enable the IEEE488 interface emulation"},
 /* sv */ {IDCLS_ENABLE_IEE488_SV, "Aktivera emulering av IEEE488-gränssnitt"},
@@ -4419,7 +5591,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_IEE488_HU, "IEEE488 interfész emuláció tiltása"},
 /* it */ {IDCLS_DISABLE_IEE488_IT, "Disattiva emulazione interfaccia IEEE488"},
 /* ko */ {IDCLS_DISABLE_IEE488_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_IEE488_NL, "De IEEE488 interface emulatie uitschakelen"},
+/* nl */ {IDCLS_DISABLE_IEE488_NL, "IEEE488 interface emulatie uitschakelen"},
 /* pl */ {IDCLS_DISABLE_IEE488_PL, "Wy³±cz emulacjê interfejsu IEEE488"},
 /* ru */ {IDCLS_DISABLE_IEE488_RU, "Disable the IEEE488 interface emulation"},
 /* sv */ {IDCLS_DISABLE_IEE488_SV, "Inaktivera emulering av IEEE488-gränssnitt"},
@@ -4472,7 +5644,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_DEXX_ACIA_RS232_EMU_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_DEXX_ACIA_RS232_EMU_IT, "Attiva emulazione interfaccia ACIA RS232"},
 /* ko */ {IDCLS_ENABLE_DEXX_ACIA_RS232_EMU_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_DEXX_ACIA_RS232_EMU_NL, "Activeer de ACIA RS232 interface emulatie"},
+/* nl */ {IDCLS_ENABLE_DEXX_ACIA_RS232_EMU_NL, "ACIA RS232 interface emulatie inschakelen"},
 /* pl */ {IDCLS_ENABLE_DEXX_ACIA_RS232_EMU_PL, "W³±cz emulacjê interfejsu ACIA RS232"},
 /* ru */ {IDCLS_ENABLE_DEXX_ACIA_RS232_EMU_RU, "Enable the ACIA RS232 interface emulation"},
 /* sv */ {IDCLS_ENABLE_DEXX_ACIA_RS232_EMU_SV, "Aktivera ACIA RS232-gränssnittsemulering"},
@@ -4490,7 +5662,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_DEXX_ACIA_RS232_EMU_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_DEXX_ACIA_RS232_EMU_IT, "Disattiva emulazione interfaccia ACIA RS232"},
 /* ko */ {IDCLS_DISABLE_DEXX_ACIA_RS232_EMU_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_DEXX_ACIA_RS232_EMU_NL, "De ACIA RS232 interface emulatie aflsuiten"},
+/* nl */ {IDCLS_DISABLE_DEXX_ACIA_RS232_EMU_NL, "ACIA RS232 interface emulatie uitschakelen"},
 /* pl */ {IDCLS_DISABLE_DEXX_ACIA_RS232_EMU_PL, "Wy³±cz emulacjê interfejsu ACIA RS232"},
 /* ru */ {IDCLS_DISABLE_DEXX_ACIA_RS232_EMU_RU, "Disable the ACIA RS232 interface emulation"},
 /* sv */ {IDCLS_DISABLE_DEXX_ACIA_RS232_EMU_SV, "Inaktivera ACIA-RS232-gränssnittsemulering"},
@@ -4524,7 +5696,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_ACIA_IRQ_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_ACIA_IRQ_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_ACIA_IRQ_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_ACIA_IRQ_NL, "Zet de ACIA interrupt (0: Geen, 1: NMI, 2: IRQ)"},
+/* nl */ {IDCLS_SET_ACIA_IRQ_NL, "Stel de ACIA interrupt in (0: Geen, 1: NMI, 2: IRQ)"},
 /* pl */ {IDCLS_SET_ACIA_IRQ_PL, "Ustaw przerwanie ACIA (0:Brak, 1: NMI, 2: IRQ)"},
 /* ru */ {IDCLS_SET_ACIA_IRQ_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_ACIA_IRQ_SV, ""},  /* fuzzy */
@@ -4541,7 +5713,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_ACIA_MODE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_ACIA_MODE_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_ACIA_MODE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_ACIA_MODE_NL, "Zet de ACIA modus (0: normaal, 1: Swiftlink, 2: Turbo232)"},
+/* nl */ {IDCLS_SET_ACIA_MODE_NL, "Stel de ACIA modus in (0: normaal, 1: Swiftlink, 2: Turbo232)"},
 /* pl */ {IDCLS_SET_ACIA_MODE_PL, "Okre¶l tryb ACIA (0:Zwyk³y, 1: Swiftlink, 2: Turbo232)"},
 /* ru */ {IDCLS_SET_ACIA_MODE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_ACIA_MODE_SV, ""},  /* fuzzy */
@@ -4558,7 +5730,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_ACIA_BASE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_ACIA_BASE_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_ACIA_BASE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_ACIA_BASE_NL, "Zet de basisadres van de ACIA cartridge"},
+/* nl */ {IDCLS_SET_ACIA_BASE_NL, "Stel het basisadres in van de ACIA cartridge"},
 /* pl */ {IDCLS_SET_ACIA_BASE_PL, "Ustaw adres bazowy kartrid¿a ACIA"},
 /* ru */ {IDCLS_SET_ACIA_BASE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_ACIA_BASE_SV, ""},  /* fuzzy */
@@ -4577,7 +5749,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_ACIA_EMU_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_ACIA_EMU_IT, "Attiva emulazione ACIA"},
 /* ko */ {IDCLS_ENABLE_ACIA_EMU_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_ACIA_EMU_NL, "Activeer de ACIA emulatie"},
+/* nl */ {IDCLS_ENABLE_ACIA_EMU_NL, "ACIA emulatie inschakelen"},
 /* pl */ {IDCLS_ENABLE_ACIA_EMU_PL, "W³±cz emulacjê ACIA"},
 /* ru */ {IDCLS_ENABLE_ACIA_EMU_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_ACIA_EMU_SV, "Aktivera ACIA-emuleringen"},
@@ -4594,7 +5766,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_ACIA_EMU_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_ACIA_EMU_IT, "Disattiva emulazione ACIA"},
 /* ko */ {IDCLS_DISABLE_ACIA_EMU_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_ACIA_EMU_NL, "De ACIA emulatie uitschakelen"},
+/* nl */ {IDCLS_DISABLE_ACIA_EMU_NL, "ACIA emulatie uitschakelen"},
 /* pl */ {IDCLS_DISABLE_ACIA_EMU_PL, "Wy³±cz emulacjê ACIA"},
 /* ru */ {IDCLS_DISABLE_ACIA_EMU_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_ACIA_EMU_SV, "Inaktivera ACIA-emuleringen"},
@@ -4633,7 +5805,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SPECIFY_KEYMAP_FILE_INDEX_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SPECIFY_KEYMAP_FILE_INDEX_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SPECIFY_KEYMAP_FILE_INDEX_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_KEYMAP_FILE_INDEX_NL, "Geef index van het keymapbestand (0=symbolisch, 1=positioneel, 2=symbolisch (gebruiker), 3=positioneel (bebruiker))"},
+/* nl */ {IDCLS_SPECIFY_KEYMAP_FILE_INDEX_NL, "Geef index van het toetstoewijzingsbestand (0=symbolisch, 1=positioneel, 2=symbolisch (gebruiker), 3=positioneel (gebruiker))"},
 /* pl */ {IDCLS_SPECIFY_KEYMAP_FILE_INDEX_PL, "Podaj indeks uk³adu klawiatury (0=symbol, 1=pozycja, 2=symbol (u¿ytkownika), 3=pozycja (u¿ytkownika))"},
 /* ru */ {IDCLS_SPECIFY_KEYMAP_FILE_INDEX_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SPECIFY_KEYMAP_FILE_INDEX_SV, ""},  /* fuzzy */
@@ -4651,7 +5823,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SPECIFY_KEYBOARD_TYPE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SPECIFY_KEYBOARD_TYPE_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SPECIFY_KEYBOARD_TYPE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_KEYBOARD_TYPE_NL, "Geef emulatie toetsenbord soort"},
+/* nl */ {IDCLS_SPECIFY_KEYBOARD_TYPE_NL, "Geef geëmuleerd toetsenbord soort"},
 /* pl */ {IDCLS_SPECIFY_KEYBOARD_TYPE_PL, "Wybierz rodzaj emulowanej klawiatury"},
 /* ru */ {IDCLS_SPECIFY_KEYBOARD_TYPE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SPECIFY_KEYBOARD_TYPE_SV, ""},  /* fuzzy */
@@ -4669,7 +5841,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SPECIFY_KEYBOARD_MAPPING_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SPECIFY_KEYBOARD_MAPPING_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SPECIFY_KEYBOARD_MAPPING_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_KEYBOARD_MAPPING_NL, "Geef host toetsenbord opmaak"},
+/* nl */ {IDCLS_SPECIFY_KEYBOARD_MAPPING_NL, "Geef host toetsenbordindeling"},
 /* pl */ {IDCLS_SPECIFY_KEYBOARD_MAPPING_PL, "Okre¶l uk³ad klawiatury hosta"},
 /* ru */ {IDCLS_SPECIFY_KEYBOARD_MAPPING_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SPECIFY_KEYBOARD_MAPPING_SV, ""},  /* fuzzy */
@@ -4682,13 +5854,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_SYM_KEYMAP_FILE_NAME,    N_("Specify name of symbolic keymap file")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_SYM_KEYMAP_FILE_NAME_DA, "Angiv filnavn for symbolsk tastatur"},
-/* de */ {IDCLS_SPECIFY_SYM_KEYMAP_FILE_NAME_DE, "Bitte Namen für symbolische Keymap Datei definieren"},
+/* de */ {IDCLS_SPECIFY_SYM_KEYMAP_FILE_NAME_DE, "Bitte Namen für symbolische Keymap Datei wählen"},
 /* es */ {IDCLS_SPECIFY_SYM_KEYMAP_FILE_NAME_ES, "Especificar nombre fichero del mapa de teclado simbólico"},
 /* fr */ {IDCLS_SPECIFY_SYM_KEYMAP_FILE_NAME_FR, "Spécifier le nom du fichier de mappage clavier symbolique"},
 /* hu */ {IDCLS_SPECIFY_SYM_KEYMAP_FILE_NAME_HU, "Adja meg a szimbolikus leképzésfájl nevét"},
 /* it */ {IDCLS_SPECIFY_SYM_KEYMAP_FILE_NAME_IT, "Specifica il nome del file della mappa simbolica della tastiera"},
 /* ko */ {IDCLS_SPECIFY_SYM_KEYMAP_FILE_NAME_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_SYM_KEYMAP_FILE_NAME_NL, "Geef naam van het symbolisch keymapbestand"},
+/* nl */ {IDCLS_SPECIFY_SYM_KEYMAP_FILE_NAME_NL, "Geef naam van het symbolisch toetstoewijzingsbestand"},
 /* pl */ {IDCLS_SPECIFY_SYM_KEYMAP_FILE_NAME_PL, "Okre¶l nazwê pliku symbolicznego uk³adu klawiatury"},
 /* ru */ {IDCLS_SPECIFY_SYM_KEYMAP_FILE_NAME_RU, "Specify name of symbolic keymap file"},
 /* sv */ {IDCLS_SPECIFY_SYM_KEYMAP_FILE_NAME_SV, "Ange fil för symbolisk tangentbordsemulering"},
@@ -4701,13 +5873,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME,    N_("Specify name of positional keymap file")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME_DA, "Angiv fil for positionsbestemt tastatur"},
-/* de */ {IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME_DE, "Bitte Namen für positions Keymap Datei definieren"},
+/* de */ {IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME_DE, "Bitte Namen für positions Keymap Datei wählen"},
 /* es */ {IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME_ES, "Especificar nombre fichero del mapa de teclado posicional"},
 /* fr */ {IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME_FR, "Spécifier le nom du fichier de mappage clavier positionnel"},
 /* hu */ {IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME_HU, "Adja meg a pozíció szerinti leképzésfájl nevét"},
 /* it */ {IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME_IT, "Specifica il nome del file della mappa posizionale della tastiera"},
 /* ko */ {IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME_NL, "Geef naam van het positioneel keymapbestand"},
+/* nl */ {IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME_NL, "Geef naam van het positioneel toetstoewijzingsbestand"},
 /* pl */ {IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME_PL, "Okre¶l nazwê pliku pozycyjnego uk³adu klawiatury"},
 /* ru */ {IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME_RU, "Specify name of positional keymap file"},
 /* sv */ {IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME_SV, "Ange fil för positionsriktig tangentbordsemulering"},
@@ -4758,7 +5930,7 @@ translate_t string_table[] = {
 /* fr */ {IDCLS_GO64_MODE_FR, "Toujours revenir au mode C64 au redémarrage"},
 /* hu */ {IDCLS_GO64_MODE_HU, "Mindig C64 módban újraindítás után"},
 /* it */ {IDCLS_GO64_MODE_IT, "Vai sempre in modalità C64 al reset"},
-/* ko */ {IDCLS_GO64_MODE_KO, "´Ù½Ã½ÃÀÛÇÏ¸é Ç×»ó C64 ¸ðµå ·Î ¹Ù²ò´Ï´Ù"},
+/* ko */ {IDCLS_GO64_MODE_KO, "´Ù½Ã ½ÃÀÛÇÏ¸é Ç×»ó C64 ¸ðµå ·Î ¹Ù²ò´Ï´Ù"},
 /* nl */ {IDCLS_GO64_MODE_NL, "Start altijd op in C64 modus na reset"},
 /* pl */ {IDCLS_GO64_MODE_PL, "Przy restarcie zawsze prze³±czaj w tryb C64"},
 /* ru */ {IDCLS_GO64_MODE_RU, "Always switch to C64 mode on reset"},
@@ -4787,7 +5959,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_INT_FUNC_ROM_NAME,    N_("Specify name of internal Function ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_INT_FUNC_ROM_NAME_DA, "Angiv navn på internt funktions-ROM-image"},
-/* de */ {IDCLS_SPECIFY_INT_FUNC_ROM_NAME_DE, "Name der internen Funktions ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_INT_FUNC_ROM_NAME_DE, "Name der internen Funktions ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_INT_FUNC_ROM_NAME_ES, "Especificar nombre imagen ROM función interna"},
 /* fr */ {IDCLS_SPECIFY_INT_FUNC_ROM_NAME_FR, "Spécifier le nom de l'image ROM des fonctions internes"},
 /* hu */ {IDCLS_SPECIFY_INT_FUNC_ROM_NAME_HU, "Adja meg a belsõ Function ROM képmás nevét"},
@@ -4804,7 +5976,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_EXT_FUNC_ROM_NAME,    N_("Specify name of external Function ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_EXT_FUNC_ROM_NAME_DA, "Angiv navn på externt funktions-ROM-image"},
-/* de */ {IDCLS_SPECIFY_EXT_FUNC_ROM_NAME_DE, "Name der externen Funktions ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_EXT_FUNC_ROM_NAME_DE, "Name der externen Funktions ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_EXT_FUNC_ROM_NAME_ES, "Especificar nombre imagen ROM función externa"},
 /* fr */ {IDCLS_SPECIFY_EXT_FUNC_ROM_NAME_FR, "Spécifier le nom de l'image ROM des fonctions externes"},
 /* hu */ {IDCLS_SPECIFY_EXT_FUNC_ROM_NAME_HU, "Adja meg a külsõ Function ROM képmás nevét"},
@@ -4861,7 +6033,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_INT_FUNC_RTC_SAVE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_INT_FUNC_RTC_SAVE_IT, "Attiva il salvataggio dei dati RTC della internal function alla modifica."},
 /* ko */ {IDCLS_ENABLE_INT_FUNC_RTC_SAVE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_INT_FUNC_RTC_SAVE_NL, "Activeer het opslaan van de interne functie RTC data indien gewijzigd"},
+/* nl */ {IDCLS_ENABLE_INT_FUNC_RTC_SAVE_NL, "Opslaan van de interne functie RTC gegevens bij wijziging inschakelen."},
 /* pl */ {IDCLS_ENABLE_INT_FUNC_RTC_SAVE_PL, "Zapisuj dane zegara czasu rzeczywistego wewnêtrznego Function ROM-u przy zmianie"},
 /* ru */ {IDCLS_ENABLE_INT_FUNC_RTC_SAVE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_INT_FUNC_RTC_SAVE_SV, ""},  /* fuzzy */
@@ -4878,7 +6050,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_INT_FUNC_RTC_SAVE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_INT_FUNC_RTC_SAVE_IT, "Disattiva il salvataggio dei dati RTC della internal function alla modifica."},
 /* ko */ {IDCLS_DISABLE_INT_FUNC_RTC_SAVE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_INT_FUNC_RTC_SAVE_NL, "Oplaan van de interne functie RTC data op indien gewijzigd uitschakelen"},
+/* nl */ {IDCLS_DISABLE_INT_FUNC_RTC_SAVE_NL, "Opslaan van de interne functie RTC gegevens bij wijziging uitschakelen."},
 /* pl */ {IDCLS_DISABLE_INT_FUNC_RTC_SAVE_PL, "Nie zapisuj danych zegara czasu rzeczywistego wewnêtrznego Function ROM-u przy zmianie"},
 /* ru */ {IDCLS_DISABLE_INT_FUNC_RTC_SAVE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_INT_FUNC_RTC_SAVE_SV, ""},  /* fuzzy */
@@ -4895,7 +6067,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_EXT_FUNC_RTC_SAVE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_EXT_FUNC_RTC_SAVE_IT, "Attiva il salvataggio dei dati RTC della external function alla modifica."},
 /* ko */ {IDCLS_ENABLE_EXT_FUNC_RTC_SAVE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_EXT_FUNC_RTC_SAVE_NL, "Activeer het opslaan van de externe functie RTC data indien gewijzigd"},
+/* nl */ {IDCLS_ENABLE_EXT_FUNC_RTC_SAVE_NL, "Opslaan van de externe functie RTC gegevens bij wijziging inschakelen."},
 /* pl */ {IDCLS_ENABLE_EXT_FUNC_RTC_SAVE_PL, "Zapisuj dane zegara czasu rzeczywistego zewnêtrznego Function ROM-u przy zmianie"},
 /* ru */ {IDCLS_ENABLE_EXT_FUNC_RTC_SAVE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_EXT_FUNC_RTC_SAVE_SV, ""},  /* fuzzy */
@@ -4912,7 +6084,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_EXT_FUNC_RTC_SAVE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_EXT_FUNC_RTC_SAVE_IT, "Disattiva il salvataggio dei dati RTC della external function alla modifica."},
 /* ko */ {IDCLS_DISABLE_EXT_FUNC_RTC_SAVE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_EXT_FUNC_RTC_SAVE_NL, "Oplaan van de externe functie RTC data op indien gewijzigd uitschakelen"},
+/* nl */ {IDCLS_DISABLE_EXT_FUNC_RTC_SAVE_NL, "Opslaan van de externe functie RTC gegevens bij wijziging uitschakelen."},
 /* pl */ {IDCLS_DISABLE_EXT_FUNC_RTC_SAVE_PL, "Nie zapisuj danych zegara czasu rzeczywistego zewnêtrznego Function ROM-u przy zmianie"},
 /* ru */ {IDCLS_DISABLE_EXT_FUNC_RTC_SAVE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_EXT_FUNC_RTC_SAVE_SV, ""},  /* fuzzy */
@@ -4964,10 +6136,10 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_BOTH_CIA_MODELS_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_BOTH_CIA_MODELS_IT, "Imposta entrambi i modelli CIA (0 = 6526 vecchio, 1 = 6526A nuovo)"},
 /* ko */ {IDCLS_SET_BOTH_CIA_MODELS_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_BOTH_CIA_MODELS_NL, "Zet model voor beide CIAs (0 = oud 6526, 1 = nieuw 6526A)"},
-/* pl */ {IDCLS_SET_BOTH_CIA_MODELS_PL, "Ustaw oba modele CIA (0 = stary 6526, 1 = nowy 6526A)"},
+/* nl */ {IDCLS_SET_BOTH_CIA_MODELS_NL, "Stel model in voor beide CIA's (0 = oud 6526, 1 = nieuw 6526A)"},
+/* pl */ {IDCLS_SET_BOTH_CIA_MODELS_PL, ""},  /* fuzzy */
 /* ru */ {IDCLS_SET_BOTH_CIA_MODELS_RU, "Set both CIA models (0 = old 6526, 1 = new 6526A)"},
-/* sv */ {IDCLS_SET_BOTH_CIA_MODELS_SV, "Välj båda CIA-modellerna (0 = gammal 6526, 1 = ny 2526A)"},
+/* sv */ {IDCLS_SET_BOTH_CIA_MODELS_SV, ""},  /* fuzzy */
 /* tr */ {IDCLS_SET_BOTH_CIA_MODELS_TR, "Her iki CIA modelini belirle (0 = eski 6526, 1 = yeni 6526A)"},
 #endif
 
@@ -4981,10 +6153,10 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_CIA1_MODEL_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_CIA1_MODEL_IT, "Imposta modello CIA 1 (0 = 6526 vecchio, 1 = 6526A nuovo)"},
 /* ko */ {IDCLS_SET_CIA1_MODEL_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_CIA1_MODEL_NL, "Zet CIA 1 model (0 = oud 6526, 1 = nieuw 6526A)"},
-/* pl */ {IDCLS_SET_CIA1_MODEL_PL, "Ustaw model CIA 1 (0 = stary 6526, 1 = nowy 6526A)"},
+/* nl */ {IDCLS_SET_CIA1_MODEL_NL, "Stel CIA 1 model in (0 = oud 6526, 1 = nieuw 6526A)"},
+/* pl */ {IDCLS_SET_CIA1_MODEL_PL, ""},  /* fuzzy */
 /* ru */ {IDCLS_SET_CIA1_MODEL_RU, "Set CIA 1 model (0 = old 6526, 1 = new 6526A)"},
-/* sv */ {IDCLS_SET_CIA1_MODEL_SV, "Välj CIA 1-modell (0 = gammal 6526, 1 = ny 2526A)"},
+/* sv */ {IDCLS_SET_CIA1_MODEL_SV, ""},  /* fuzzy */
 /* tr */ {IDCLS_SET_CIA1_MODEL_TR, "CIA 1 modelini belirle (0 = eski 6526, 1 = yeni 6526A)"},
 #endif
 
@@ -4998,10 +6170,10 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_CIA2_MODEL_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_CIA2_MODEL_IT, "Imposta modello CIA 2 (0 = 6526 vecchio, 1 = 6526A nuovo)"},
 /* ko */ {IDCLS_SET_CIA2_MODEL_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_CIA2_MODEL_NL, "Zet CIA 2 model (0 = oud 6526, 1 = nieuw 6526A)"},
-/* pl */ {IDCLS_SET_CIA2_MODEL_PL, "Ustaw model CIA 2 (0 = stary 6526, 1 = nowy 6526A)"},
+/* nl */ {IDCLS_SET_CIA2_MODEL_NL, "Stel CIA 2 model in (0 = oud 6526, 1 = nieuw 6526A)"},
+/* pl */ {IDCLS_SET_CIA2_MODEL_PL, ""},  /* fuzzy */
 /* ru */ {IDCLS_SET_CIA2_MODEL_RU, "Set CIA 2 model (0 = old 6526, 1 = new 6526A)"},
-/* sv */ {IDCLS_SET_CIA2_MODEL_SV, "Välj CIA 2-modell (0 = gammal 6526, 1 = ny 2526A)"},
+/* sv */ {IDCLS_SET_CIA2_MODEL_SV, ""},  /* fuzzy */
 /* tr */ {IDCLS_SET_CIA2_MODEL_TR, "CIA 2 modelini belirle (0 = eski 6526, 1 = yeni 6526A)"},
 #endif
 
@@ -5015,7 +6187,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_C64_MODEL_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_C64_MODEL_IT, "Imposta modello C64 (c64/c64c/c64old, ntsc/newntsc/oldntsc, drean, jap, c64gs, pet64, ultimax)"},
 /* ko */ {IDCLS_SET_C64_MODEL_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_C64_MODEL_NL, "Zet C64 model (c64/c64c/c64old, ntsc/newntsc/oldntsc, drean, jap, c64gs, pet64, ultimax)"},
+/* nl */ {IDCLS_SET_C64_MODEL_NL, "Stel C64 model in (c64/c64c/c64old, ntsc/newntsc/oldntsc, drean, jap, c64gs, pet64, ultimax)"},
 /* pl */ {IDCLS_SET_C64_MODEL_PL, "Wybierz model C64 (c64/c64c/c64old, ntsc/newntsc/oldntsc, drean, jap, c64gs, pet64, ultimax)"},
 /* ru */ {IDCLS_SET_C64_MODEL_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_C64_MODEL_SV, "Välj C64-modell (c64/c64c/c64old, ntsc/newntsc/oldntsc, drean, jap, c64gs, pet64, ultimax)"},
@@ -5032,7 +6204,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_SCPU64_MODEL_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_SCPU64_MODEL_IT, "Imposta modello C64 (c64/c64c/c64old, ntsc/newntsc/oldntsc, drean, jap, c64gs)"},
 /* ko */ {IDCLS_SET_SCPU64_MODEL_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_SCPU64_MODEL_NL, "Zet C64 model (c64/c64c/c64old, ntsc/newntsc/oldntsc, drean, jap, c64gs)"},
+/* nl */ {IDCLS_SET_SCPU64_MODEL_NL, "Stel C64 model in (c64/c64c/c64old, ntsc/newntsc/oldntsc, drean, jap, c64gs)"},
 /* pl */ {IDCLS_SET_SCPU64_MODEL_PL, "Wybierz model C64 (c64/c64c/c64old, ntsc/newntsc/oldntsc, drean, jap, c64gs)"},
 /* ru */ {IDCLS_SET_SCPU64_MODEL_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_SCPU64_MODEL_SV, ""},  /* fuzzy */
@@ -5049,7 +6221,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_C128_MODEL_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_C128_MODEL_IT, "Imposta modello C128 (c128/c128dcr, pal/ntsc)"},
 /* ko */ {IDCLS_SET_C128_MODEL_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_C128_MODEL_NL, "Zet C128 model (c128/c128dcr, pal/ntsc)"},
+/* nl */ {IDCLS_SET_C128_MODEL_NL, "Stel C128 model in (c128/c128dcr, pal/ntsc)"},
 /* pl */ {IDCLS_SET_C128_MODEL_PL, "Ustaw model C128 (c128/c128dcr, pal/ntsc)"},
 /* ru */ {IDCLS_SET_C128_MODEL_RU, "Set C128 model (c128/c128dcr, pal/ntsc)"},
 /* sv */ {IDCLS_SET_C128_MODEL_SV, "Välj C128-modell (c128/c128dcr, pal/ntsc)"},
@@ -5066,7 +6238,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_C128_MACHINE_TYPE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_C128_MACHINE_TYPE_IT, "Imposta tipo C128 (0: Internazionale, 1: Finlandese, 2: Francese, 3: Tedesco, 4: Italiano, 5: Norvegese, 6: Svedese, 7: Svizzero)"},
 /* ko */ {IDCLS_SET_C128_MACHINE_TYPE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_C128_MACHINE_TYPE_NL, "Zet C128 machine soort (0: Internationaal, 1: Fins, 2: Frans, 3: Duits, 4: Italiaans, 5: Noors, 6: Zweeds, 7: Zwitsers)"},
+/* nl */ {IDCLS_SET_C128_MACHINE_TYPE_NL, "Stel C128 machine soort in (0: Internationaal, 1: Fins, 2: Frans, 3: Duits, 4: Italiaans, 5: Noors, 6: Zweeds, 7: Zwitsers)"},
 /* pl */ {IDCLS_SET_C128_MACHINE_TYPE_PL, "Wybierz typ maszyny C128 (0: Miêdzynarodowy, 1: Fiñski, 2: Francuski, 3: Niemiecki, 4: W³oski, 5: Norweski, 6: Szwedzki, 7: Szwajcarski)"},
 /* ru */ {IDCLS_SET_C128_MACHINE_TYPE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_C128_MACHINE_TYPE_SV, ""},  /* fuzzy */
@@ -5083,7 +6255,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_C128_FULL_BANKS_HU, "2-es és 3-as RAM bankok engedélyezése"},
 /* it */ {IDCLS_ENABLE_C128_FULL_BANKS_IT, "Attiva banchi RAM 2 e 3"},
 /* ko */ {IDCLS_ENABLE_C128_FULL_BANKS_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_C128_FULL_BANKS_NL, "Aktiveer RAM bank 2 en 3"},
+/* nl */ {IDCLS_ENABLE_C128_FULL_BANKS_NL, "RAM bank 2 en 3 inschakelen"},
 /* pl */ {IDCLS_ENABLE_C128_FULL_BANKS_PL, "W³±cz banki RAM 2 i 3"},
 /* ru */ {IDCLS_ENABLE_C128_FULL_BANKS_RU, "Enable RAM banks 2 and 3"},
 /* sv */ {IDCLS_ENABLE_C128_FULL_BANKS_SV, "Aktivera RAM-bank 2 och 3"},
@@ -5117,7 +6289,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_PLUS4_MODEL_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_PLUS4_MODEL_IT, "Imposta modello Plus4 (c16/c16pal/c16ntsc, plus4/plus4pal/plus4ntsc, v364/cv364, c232)"},
 /* ko */ {IDCLS_SET_PLUS4_MODEL_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_PLUS4_MODEL_NL, "Zet Plus4 model (c16/c16pal/c16ntsc, plus4/plus4pal/plus4ntsc, v364/cv364, c232)"},
+/* nl */ {IDCLS_SET_PLUS4_MODEL_NL, "Stel Plus4 model in (c16/c16pal/c16ntsc, plus4/plus4pal/plus4ntsc, v364/cv364, c232)"},
 /* pl */ {IDCLS_SET_PLUS4_MODEL_PL, "Ustaw model Plus4 (c16/c16pal/c16ntsc, plus4/plus4pal/plus4ntsc, v364/cv364, c232)"},
 /* ru */ {IDCLS_SET_PLUS4_MODEL_RU, "Set Plus4 model (c16/c16pal/c16ntsc, plus4/plus4pal/plus4ntsc, v364/cv364, c232)"},
 /* sv */ {IDCLS_SET_PLUS4_MODEL_SV, "Välj Plus4-modell (c16/c16pal/c16ntsc, plus4/plus4pal/plus4ntsc, v364/cv364, c232)"},
@@ -5134,7 +6306,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_VIC20_MODEL_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_VIC20_MODEL_IT, "Imposta modello VIC20 (vic20/vic20pal/vic20ntsc, vic21)"},
 /* ko */ {IDCLS_SET_VIC20_MODEL_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_VIC20_MODEL_NL, "Zet VIC20 model (vic20/vic20pal/vic20ntsc, vic21)"},
+/* nl */ {IDCLS_SET_VIC20_MODEL_NL, "Stel VIC20 model in (vic20/vic20pal/vic20ntsc, vic21)"},
 /* pl */ {IDCLS_SET_VIC20_MODEL_PL, "Wybierz model VIC20 (vic20/vic20pal/vic20ntsc, vic21)"},
 /* ru */ {IDCLS_SET_VIC20_MODEL_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_VIC20_MODEL_SV, "Välj VIC20-modell (vic20/vic20pal/vic20ntsc, vic21)"},
@@ -5151,7 +6323,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_DTV_MODEL_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_DTV_MODEL_IT, "Imposta modello DTV (v2/v2pal/v2ntsc, v3/v3pal/v3ntsc, hummer)"},
 /* ko */ {IDCLS_SET_DTV_MODEL_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_DTV_MODEL_NL, "Zet DTV model (v2/v2pal/v2ntsc, v3/v3pal/v3ntsc, hummer)"},
+/* nl */ {IDCLS_SET_DTV_MODEL_NL, "Stel DTV model in (v2/v2pal/v2ntsc, v3/v3pal/v3ntsc, hummer)"},
 /* pl */ {IDCLS_SET_DTV_MODEL_PL, "Ustaw model DTV (v2/v2pal/v2ntsc, v3/v3pal/v3ntsc, hummer)"},
 /* ru */ {IDCLS_SET_DTV_MODEL_RU, "Set DTV model (v2/v2pal/v2ntsc, v3/v3pal/v3ntsc, hummer)"},
 /* sv */ {IDCLS_SET_DTV_MODEL_SV, "Välj DTV-modell (v2/v2pal/v2ntsc, v3/v3pal/v3ntsc, hummer)"},
@@ -5164,7 +6336,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_KERNAL_ROM_NAME,    N_("Specify name of Kernal ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_KERNAL_ROM_NAME_DA, "Angiv navn på kernal-ROM-image"},
-/* de */ {IDCLS_SPECIFY_KERNAL_ROM_NAME_DE, "Name von Kernal ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_KERNAL_ROM_NAME_DE, "Name von Kernal ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_KERNAL_ROM_NAME_ES, "Especificar nombre de la imagen ROM Kernal"},
 /* fr */ {IDCLS_SPECIFY_KERNAL_ROM_NAME_FR, "Spécifier le nom de l'image ROM Kernal"},
 /* hu */ {IDCLS_SPECIFY_KERNAL_ROM_NAME_HU, "Adja meg a Kernal ROM képmás nevét"},
@@ -5181,7 +6353,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_SCPU64_ROM_NAME,    N_("Specify name of SCPU64 ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_SCPU64_ROM_NAME_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_SCPU64_ROM_NAME_DE, "Name von SCPU64 ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_SCPU64_ROM_NAME_DE, "Name von SCPU64 ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_SCPU64_ROM_NAME_ES, "Especificar nombre imagen ROM SCPU64"},
 /* fr */ {IDCLS_SPECIFY_SCPU64_ROM_NAME_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_SCPU64_ROM_NAME_HU, ""},  /* fuzzy */
@@ -5200,7 +6372,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_BASIC_ROM_NAME,    N_("Specify name of BASIC ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_BASIC_ROM_NAME_DA, "Angiv navn på BASIC-ROM-image"},
-/* de */ {IDCLS_SPECIFY_BASIC_ROM_NAME_DE, "Name von Basic ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_BASIC_ROM_NAME_DE, "Name von Basic ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_BASIC_ROM_NAME_ES, "Especificar nombre de la imagen ROM BASIC"},
 /* fr */ {IDCLS_SPECIFY_BASIC_ROM_NAME_FR, "Spécifier le nom de l'image BASIC ROM"},
 /* hu */ {IDCLS_SPECIFY_BASIC_ROM_NAME_HU, "Adja meg a BASIC ROM képmás nevét"},
@@ -5219,7 +6391,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_CHARGEN_ROM_NAME,    N_("Specify name of character generator ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_CHARGEN_ROM_NAME_DA, "Angiv navn på BASIC-ROM-image"},
-/* de */ {IDCLS_SPECIFY_CHARGEN_ROM_NAME_DE, "Name von Character ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_CHARGEN_ROM_NAME_DE, "Name von Character ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_CHARGEN_ROM_NAME_ES, "Especificar el nombre de la imagen ROM generador de caracteres"},
 /* fr */ {IDCLS_SPECIFY_CHARGEN_ROM_NAME_FR, "Spécifier le nom de l'image du générateur de caractères"},
 /* hu */ {IDCLS_SPECIFY_CHARGEN_ROM_NAME_HU, "Adja meg a karaktergenerátor ROM képmás nevét"},
@@ -5243,7 +6415,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SPECIFY_INDEX_KEYMAP_FILE_0_2_HU, "Adja meg a billentyûzet leképzési fájl típusát (0=szimbolikus, 1=német szimbolikus, 2=pozíció szerinti)"},
 /* it */ {IDCLS_SPECIFY_INDEX_KEYMAP_FILE_0_2_IT, "Specifica l'indice del file della mappa della tastiera (0=sim, 1=simGER, 2=pos)"},
 /* ko */ {IDCLS_SPECIFY_INDEX_KEYMAP_FILE_0_2_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_INDEX_KEYMAP_FILE_0_2_NL, "Geef de index van het keymapbestand (0=sym, 1=symDE, 2=pos)"},
+/* nl */ {IDCLS_SPECIFY_INDEX_KEYMAP_FILE_0_2_NL, "Geef de index van het toetstoewijzingsbestand (0=sym, 1=symDE, 2=pos)"},
 /* pl */ {IDCLS_SPECIFY_INDEX_KEYMAP_FILE_0_2_PL, "Podaj indeks dla uk³adu klawiatury (0=symbol, 1=symbolDE, 2=pozycja)"},
 /* ru */ {IDCLS_SPECIFY_INDEX_KEYMAP_FILE_0_2_RU, "Specify index of keymap file (0=sym, 1=symDE, 2=pos)"},
 /* sv */ {IDCLS_SPECIFY_INDEX_KEYMAP_FILE_0_2_SV, "Ange index för för tangentbordsinställningsfil (0=symbolisk, 1=symbolisk tysk, 2=positionsriktig)"},
@@ -5254,13 +6426,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_NAME_SYM_DE_KEYMAP,    N_("Specify name of symbolic German keymap file")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_NAME_SYM_DE_KEYMAP_DA, "Angiv fil for tysk symbolsk tastaturindstilling"},
-/* de */ {IDCLS_SPECIFY_NAME_SYM_DE_KEYMAP_DE, "Name von symbolischer Keymap Datei definieren"},
+/* de */ {IDCLS_SPECIFY_NAME_SYM_DE_KEYMAP_DE, "Name von symbolischer Keymap Datei wählen"},
 /* es */ {IDCLS_SPECIFY_NAME_SYM_DE_KEYMAP_ES, "Especificar nombre del fichero teclado simbólico alemán"},
 /* fr */ {IDCLS_SPECIFY_NAME_SYM_DE_KEYMAP_FR, "Spécifier le nom du fichier symbolique de mappage clavier"},
 /* hu */ {IDCLS_SPECIFY_NAME_SYM_DE_KEYMAP_HU, "Adja meg a nevét a német billentyûzet leképzés fájlnak"},
 /* it */ {IDCLS_SPECIFY_NAME_SYM_DE_KEYMAP_IT, "Specifica il nome del file della mappa simbolica della tastiera tedesca"},
 /* ko */ {IDCLS_SPECIFY_NAME_SYM_DE_KEYMAP_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_NAME_SYM_DE_KEYMAP_NL, "Geef de naam van het symbolische Duitse keymapbestand"},
+/* nl */ {IDCLS_SPECIFY_NAME_SYM_DE_KEYMAP_NL, "Geef de naam van het symbolische Duitse toetstoewijzingsbestand"},
 /* pl */ {IDCLS_SPECIFY_NAME_SYM_DE_KEYMAP_PL, "Okre¶l nazwê pliku symbolicznego niemieckiego uk³adu klawiatury"},
 /* ru */ {IDCLS_SPECIFY_NAME_SYM_DE_KEYMAP_RU, "Specify name of symbolic German keymap file"},
 /* sv */ {IDCLS_SPECIFY_NAME_SYM_DE_KEYMAP_SV, "Ange fil för tysk symbolisk tangentbordsemulering"},
@@ -5278,7 +6450,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_GLUE_LOGIC_TYPE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_GLUE_LOGIC_TYPE_IT, "Imposta il tipo di glue logic (0 = discreta, 1 = 252535-01)"},
 /* ko */ {IDCLS_SET_GLUE_LOGIC_TYPE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_GLUE_LOGIC_TYPE_NL, "Zet lijk logica soort (0 = discreet, 1 = 252535-01)"},
+/* nl */ {IDCLS_SET_GLUE_LOGIC_TYPE_NL, "Stel glue logic type in (0 = discreet, 1 = 252535-01)"},
 /* pl */ {IDCLS_SET_GLUE_LOGIC_TYPE_PL, "Ustaw typ glue logic (0 = dyskretna, 1 = 252535-01)"},
 /* ru */ {IDCLS_SET_GLUE_LOGIC_TYPE_RU, "Set glue logic type (0 = discrete, 1 = 252535-01)"},
 /* sv */ {IDCLS_SET_GLUE_LOGIC_TYPE_SV, "Välj typ av klisterlogik (0 = diskret, 1 = 252535-01)"},
@@ -5295,7 +6467,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_HUMMER_ADC_HU, "Hummer ADC engedélyezése"},
 /* it */ {IDCLS_ENABLE_HUMMER_ADC_IT, "Attiva Hummer ADC"},
 /* ko */ {IDCLS_ENABLE_HUMMER_ADC_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_HUMMER_ADC_NL, "Activeer Hummer ADC"},
+/* nl */ {IDCLS_ENABLE_HUMMER_ADC_NL, "Hummer ADC inschakelen"},
 /* pl */ {IDCLS_ENABLE_HUMMER_ADC_PL, "W³±cz Hummer ADC"},
 /* ru */ {IDCLS_ENABLE_HUMMER_ADC_RU, "Enable Hummer ADC"},
 /* sv */ {IDCLS_ENABLE_HUMMER_ADC_SV, "Aktivera Hummer-A/D-omvandlare"},
@@ -5329,11 +6501,28 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SELECT_CONFLICT_HANDLING_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SELECT_CONFLICT_HANDLING_IT, "Seleziona come gestire le collisioni di I/O, (0: messaggio di errore e rimozione di tutte le cartucce coinvolte, 1: messaggio di errore e rimozione delle ultima cartucce coinvolte, 2: warning nei log e 'AND' il valore di ritorno valido"},
 /* ko */ {IDCLS_SELECT_CONFLICT_HANDLING_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SELECT_CONFLICT_HANDLING_NL, "Selecteer de manier waarmee I/O conflicten worden afgehandeld, (0: fout melding en ontkoppel alle betroffene carridges, 1: fout melding en ontkoppel alle cartridges behalve de eerste cartrdige, 2: waarschuwing in het log bestand en doe een logische 'AND' met de terug gegeven waarden"},
+/* nl */ {IDCLS_SELECT_CONFLICT_HANDLING_NL, "Selecteer de manier waarop I/O conflicten worden afgehandeld, (0: foutmelding en ontkoppel alle betrokken cartridges, 1: foutmelding en ontkoppel alle cartridges behalve de eerste cartridge, 2: waarschuwing in het logbestand en doe een logische 'AND' met de teruggegeven waarden"},
 /* pl */ {IDCLS_SELECT_CONFLICT_HANDLING_PL, "Wybierz metodê obs³ugi konfliktów we/wy, (0: komunikat b³êdu i od³±czenie wszystkich konfliktuj±cych kartrid¿ów, 1: komunikat b³êdu i od³±czenie ostatnio pod³±czonych konfliktuj±cych kartrid¿ów, 2: ostrze¿enie w logu i 'AND' w³a¶ciwe warto¶ci)"},
 /* ru */ {IDCLS_SELECT_CONFLICT_HANDLING_RU, "Select the way the I/O collisions should be handled, (0: error message and detach all involved carts, 1: error message and detach last attached involved carts, 2: warning in log and 'AND' the valid return values"},
 /* sv */ {IDCLS_SELECT_CONFLICT_HANDLING_SV, "Väljer hur I/O-kollisioner skall hanteras, (0: felmeddelande och koppla från alla inblandade moduler, 1: felmeddelande och koppla från sist anslutna inblandade modul, 2: varning i logg och logisk OCH på giltiga returvärden)"},
 /* tr */ {IDCLS_SELECT_CONFLICT_HANDLING_TR, "G/Ç çakýþmalarýnýn deðerlendirilme yöntemini seç, (0: hata mesajý ve tüm ilgili cihazlarýn çýkarýlmasý, 1: hata mesajý ve en son takýlmýþ tüm ilgili cihazlarýn çýkarýlmasý, 2: log'a uyarý yazýlmasý ve geçerli dönüþ deðerlerinin 'VE'lenmesi"},
+#endif
+
+/* userport/userport.c */
+/* en */ {IDCLS_SELECT_USERPORT_CONFLICT_HANDLING,    N_("Select the way the Userport collisions should be handled, (0: error message and detach all involved devices, 1: error message and detach last attached involved device, 2: warning in log and 'AND' the valid return values")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_SELECT_USERPORT_CONFLICT_HANDLING_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_SELECT_USERPORT_CONFLICT_HANDLING_DE, "Wähle, wie Userport Kollisionen behandelt werden sollen, (0: Fehler Meldung\nund Entfernen sämtlicher betroffener Geräte, 1: Fehler Meldung und\nEntfernen des letzten Geräts, 2: Warnung im Log und liefere logische\nUND-Verknüpfung gültiger Rückgabewerte"},
+/* es */ {IDCLS_SELECT_USERPORT_CONFLICT_HANDLING_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_SELECT_USERPORT_CONFLICT_HANDLING_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_SELECT_USERPORT_CONFLICT_HANDLING_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_SELECT_USERPORT_CONFLICT_HANDLING_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_SELECT_USERPORT_CONFLICT_HANDLING_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_SELECT_USERPORT_CONFLICT_HANDLING_NL, "Selecteer de manier waarop userport conflicten worden afgehandeld, (0: foutmelding en ontkoppel alle betrokken apparaten, 1: foutmelding en ontkoppel alle apparaten behalve het eerste apparaat, 2: waarschuwing in het logbestand en doe een logische 'AND' met de teruggegeven waarden"},
+/* pl */ {IDCLS_SELECT_USERPORT_CONFLICT_HANDLING_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_SELECT_USERPORT_CONFLICT_HANDLING_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_SELECT_USERPORT_CONFLICT_HANDLING_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_SELECT_USERPORT_CONFLICT_HANDLING_TR, ""},  /* fuzzy */
 #endif
 
 /* c64/cart/c64tpi.c */
@@ -5346,7 +6535,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_IEEE488_INTERFACE_HU, "IEEE488 interfész emuláció engedélyezése"},
 /* it */ {IDCLS_ENABLE_IEEE488_INTERFACE_IT, "Attiva emulazione interfaccia IEEE488"},
 /* ko */ {IDCLS_ENABLE_IEEE488_INTERFACE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_IEEE488_INTERFACE_NL, "Activeer de IEEE488 interface emulatie"},
+/* nl */ {IDCLS_ENABLE_IEEE488_INTERFACE_NL, "IEEE488 interface emulatie inschakelen"},
 /* pl */ {IDCLS_ENABLE_IEEE488_INTERFACE_PL, "W³±cz emulacjê interfejsu IEEE488"},
 /* ru */ {IDCLS_ENABLE_IEEE488_INTERFACE_RU, "Enable the IEEE488 interface emulation"},
 /* sv */ {IDCLS_ENABLE_IEEE488_INTERFACE_SV, "Aktivera emulering av IEEE488-gränssnitt"},
@@ -5363,7 +6552,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_IEEE488_INTERFACE_HU, "IEEE488 interfész emuláció tiltása"},
 /* it */ {IDCLS_DISABLE_IEEE488_INTERFACE_IT, "Disattiva emulazione interfaccia IEEE488"},
 /* ko */ {IDCLS_DISABLE_IEEE488_INTERFACE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_IEEE488_INTERFACE_NL, "De IEEE488 interface emulatie uitschakelen"},
+/* nl */ {IDCLS_DISABLE_IEEE488_INTERFACE_NL, "IEEE488 interface emulatie uitschakelen"},
 /* pl */ {IDCLS_DISABLE_IEEE488_INTERFACE_PL, "Wy³±cz emulacjê interfejsu IEEE488"},
 /* ru */ {IDCLS_DISABLE_IEEE488_INTERFACE_RU, "Disable the IEEE488 interface emulation"},
 /* sv */ {IDCLS_DISABLE_IEEE488_INTERFACE_SV, "Inaktivera emulering av IEEE488-gränssnitt"},
@@ -5391,7 +6580,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_SAMPLE_NAME,    N_("Specify name of sample file")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_SAMPLE_NAME_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_SAMPLE_NAME_DE, "Namen für Sample Datei definieren"},
+/* de */ {IDCLS_SPECIFY_SAMPLE_NAME_DE, "Namen für Sample Datei wählen"},
 /* es */ {IDCLS_SPECIFY_SAMPLE_NAME_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_SPECIFY_SAMPLE_NAME_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_SAMPLE_NAME_HU, ""},  /* fuzzy */
@@ -5404,6 +6593,125 @@ translate_t string_table[] = {
 /* tr */ {IDCLS_SPECIFY_SAMPLE_NAME_TR, ""},  /* fuzzy */
 #endif
 
+/* tapeport/tape_diag_586220_harness.c */
+/* en */ {IDCLS_ENABLE_TAPE_DIAG_586220_HARNESS,    N_("Enable the tape part of the 586220 diagnostics harness")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_TAPE_DIAG_586220_HARNESS_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_TAPE_DIAG_586220_HARNESS_DE, "586220 Diagnose Harness für Bandteil aktivieren"},
+/* es */ {IDCLS_ENABLE_TAPE_DIAG_586220_HARNESS_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_TAPE_DIAG_586220_HARNESS_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_TAPE_DIAG_586220_HARNESS_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_TAPE_DIAG_586220_HARNESS_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_TAPE_DIAG_586220_HARNESS_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_TAPE_DIAG_586220_HARNESS_NL, "Tape onderdeel van de 586220 diagnostics gareel inschakelen"},
+/* pl */ {IDCLS_ENABLE_TAPE_DIAG_586220_HARNESS_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_TAPE_DIAG_586220_HARNESS_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_TAPE_DIAG_586220_HARNESS_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_TAPE_DIAG_586220_HARNESS_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tape_diag_586220_harness.c */
+/* en */ {IDCLS_DISABLE_TAPE_DIAG_586220_HARNESS,    N_("Disable the tape part of the 586220 diagnostics harness")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_TAPE_DIAG_586220_HARNESS_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_TAPE_DIAG_586220_HARNESS_DE, "586220 Diagnose Harness für Bandteil deaktivieren"},
+/* es */ {IDCLS_DISABLE_TAPE_DIAG_586220_HARNESS_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_TAPE_DIAG_586220_HARNESS_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_TAPE_DIAG_586220_HARNESS_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_TAPE_DIAG_586220_HARNESS_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_TAPE_DIAG_586220_HARNESS_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_TAPE_DIAG_586220_HARNESS_NL, "Tape onderdeel van de 586220 diagnostics gareel uitschakelen"},
+/* pl */ {IDCLS_DISABLE_TAPE_DIAG_586220_HARNESS_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_TAPE_DIAG_586220_HARNESS_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_TAPE_DIAG_586220_HARNESS_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_TAPE_DIAG_586220_HARNESS_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapelog.c */
+/* en */ {IDCLS_ENABLE_TAPELOG,    N_("Enable the tape log device")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_TAPELOG_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_TAPELOG_DE, "Bandlog Gerät aktivieren"},
+/* es */ {IDCLS_ENABLE_TAPELOG_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_TAPELOG_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_TAPELOG_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_TAPELOG_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_TAPELOG_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_TAPELOG_NL, "Tape log apparaat inschakelen"},
+/* pl */ {IDCLS_ENABLE_TAPELOG_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_TAPELOG_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_TAPELOG_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_TAPELOG_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapelog.c */
+/* en */ {IDCLS_DISABLE_TAPELOG,    N_("Disable the tape log device")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_TAPELOG_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_TAPELOG_DE, "Bandlog Gerät deaktivieren"},
+/* es */ {IDCLS_DISABLE_TAPELOG_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_TAPELOG_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_TAPELOG_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_TAPELOG_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_TAPELOG_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_TAPELOG_NL, "Tape log apparaat uitschakelen"},
+/* pl */ {IDCLS_DISABLE_TAPELOG_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_TAPELOG_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_TAPELOG_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_TAPELOG_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapelog.c */
+/* en */ {IDCLS_ENABLE_TAPELOG_LOG_TO_FILE,    N_("Enable logging to a file")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_TAPELOG_LOG_TO_FILE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_TAPELOG_LOG_TO_FILE_DE, "Logging auf Datei aktivieren"},
+/* es */ {IDCLS_ENABLE_TAPELOG_LOG_TO_FILE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_TAPELOG_LOG_TO_FILE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_TAPELOG_LOG_TO_FILE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_TAPELOG_LOG_TO_FILE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_TAPELOG_LOG_TO_FILE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_TAPELOG_LOG_TO_FILE_NL, "Logboekvermeldingen schrijven naar een bestand inschakelen"},
+/* pl */ {IDCLS_ENABLE_TAPELOG_LOG_TO_FILE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_TAPELOG_LOG_TO_FILE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_TAPELOG_LOG_TO_FILE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_TAPELOG_LOG_TO_FILE_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapelog.c */
+/* en */ {IDCLS_ENABLE_TAPELOG_LOG_TO_LOG,    N_("Enable logging to the emulator log file")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_TAPELOG_LOG_TO_LOG_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_TAPELOG_LOG_TO_LOG_DE, "Logging auf Emaulatorlogdatei aktivieren"},
+/* es */ {IDCLS_ENABLE_TAPELOG_LOG_TO_LOG_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_TAPELOG_LOG_TO_LOG_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_TAPELOG_LOG_TO_LOG_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_TAPELOG_LOG_TO_LOG_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_TAPELOG_LOG_TO_LOG_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_TAPELOG_LOG_TO_LOG_NL, "Schrijven naar het emulator log bestand inschakelen"},
+/* pl */ {IDCLS_ENABLE_TAPELOG_LOG_TO_LOG_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_TAPELOG_LOG_TO_LOG_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_TAPELOG_LOG_TO_LOG_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_TAPELOG_LOG_TO_LOG_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapelog.c */
+/* en */ {IDCLS_SPECIFY_TAPELOG_NAME,    N_("Specify tape log file name")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_SPECIFY_TAPELOG_NAME_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_SPECIFY_TAPELOG_NAME_DE, "Bandlogdateiname auswählen"},
+/* es */ {IDCLS_SPECIFY_TAPELOG_NAME_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_SPECIFY_TAPELOG_NAME_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_SPECIFY_TAPELOG_NAME_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_SPECIFY_TAPELOG_NAME_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_SPECIFY_TAPELOG_NAME_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_SPECIFY_TAPELOG_NAME_NL, "Geef de naam van het tape logbestand"},
+/* pl */ {IDCLS_SPECIFY_TAPELOG_NAME_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_SPECIFY_TAPELOG_NAME_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_SPECIFY_TAPELOG_NAME_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_SPECIFY_TAPELOG_NAME_TR, ""},  /* fuzzy */
+#endif
+
 /* c64/cart/georam.c */
 /* en */ {IDCLS_ENABLE_GEORAM,    N_("Enable the GEO-RAM expansion unit")},
 #ifdef HAS_TRANSLATION
@@ -5414,7 +6722,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_GEORAM_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_GEORAM_IT, "Attiva l'espansione GEO-RAM"},
 /* ko */ {IDCLS_ENABLE_GEORAM_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_GEORAM_NL, "Activeer de GEO-RAM uitbreidingseenheid"},
+/* nl */ {IDCLS_ENABLE_GEORAM_NL, "GEO-RAM uitbreidingseenheid inschakelen"},
 /* pl */ {IDCLS_ENABLE_GEORAM_PL, "W³±cz jednostkê rozszerzenia GEO-RAM"},
 /* ru */ {IDCLS_ENABLE_GEORAM_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_GEORAM_SV, "Aktivera GEORAM-expansionsenhet"},
@@ -5431,7 +6739,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_GEORAM_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_GEORAM_IT, "Disattiva l'espansione GEO-RAM"},
 /* ko */ {IDCLS_DISABLE_GEORAM_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_GEORAM_NL, "De GEO-RAM uitbreidingseenheid uitschakelen"},
+/* nl */ {IDCLS_DISABLE_GEORAM_NL, "GEO-RAM uitbreidingseenheid uitschakelen"},
 /* pl */ {IDCLS_DISABLE_GEORAM_PL, "Wy³±cz jednostkê rozszerzenia GEO-RAM"},
 /* ru */ {IDCLS_DISABLE_GEORAM_RU, "ÀÐáèØàÕÝØÕ ßÐÜïâØ GEORAM"},
 /* sv */ {IDCLS_DISABLE_GEORAM_SV, "Inaktivera GEO RAM-expansionsenhet"},
@@ -5442,7 +6750,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_GEORAM_NAME,    N_("Specify name of GEORAM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_GEORAM_NAME_DA, "Angiv navn på GEORAM-image"},
-/* de */ {IDCLS_SPECIFY_GEORAM_NAME_DE, "GEORAM Image Datei definieren"},
+/* de */ {IDCLS_SPECIFY_GEORAM_NAME_DE, "GEORAM Imagedatei wählen"},
 /* es */ {IDCLS_SPECIFY_GEORAM_NAME_ES, "Especificar nombre imagen GEORAM"},
 /* fr */ {IDCLS_SPECIFY_GEORAM_NAME_FR, "Spécifier le nom de l'image GEO-RAM"},
 /* hu */ {IDCLS_SPECIFY_GEORAM_NAME_HU, "Adja meg a GEORAM képmás nevét"},
@@ -5465,7 +6773,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ALLOW_WRITING_TO_GEORAM_IMAGE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ALLOW_WRITING_TO_GEORAM_IMAGE_IT, "Attiva la scrittura su immagine GEORAM"},
 /* ko */ {IDCLS_ALLOW_WRITING_TO_GEORAM_IMAGE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ALLOW_WRITING_TO_GEORAM_IMAGE_NL, "Aktiveer schrijven naar GEORAM bestand"},
+/* nl */ {IDCLS_ALLOW_WRITING_TO_GEORAM_IMAGE_NL, "Schrijven naar GEORAM bestand toestaan"},
 /* pl */ {IDCLS_ALLOW_WRITING_TO_GEORAM_IMAGE_PL, "Pozwól na zapis do obrazu GEORAM"},
 /* ru */ {IDCLS_ALLOW_WRITING_TO_GEORAM_IMAGE_RU, "Allow writing to GEORAM image"},
 /* sv */ {IDCLS_ALLOW_WRITING_TO_GEORAM_IMAGE_SV, "Tillåt skrivning till GEORAM-avbildning"},
@@ -5523,8 +6831,7 @@ translate_t string_table[] = {
 /* tr */ {IDCLS_DONT_SWAP_CART_IO_TR, "G/Ç haritalamasýný yer deðiþtirme (harita kartý G/Ç-1 ile VIC20 G/Ç-2 ve kart G/Ç-2 ile VIC20 G/Ç-3)"},
 #endif
 
-/* c64/cart/sfx_soundexpander.c, c64/cart/sfx_soundsampler.c,
-   c64/cart/tfe.c */
+/* c64/cart/sfx_soundexpander.c, c64/cart/sfx_soundsampler.c */
 /* en */ {IDCLS_MAP_CART_IO_2,    N_("Swap io mapping (map cart I/O to VIC20 I/O-2)")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_MAP_CART_IO_2_DA, "Ombyt I/O-forbindelse (forbind cart I/O til VIC20 I/O-2)"},
@@ -5541,8 +6848,7 @@ translate_t string_table[] = {
 /* tr */ {IDCLS_MAP_CART_IO_2_TR, "G/Ç haritalamasýný yer deðiþtir (harita kartý G/Ç ile VIC20 G/Ç-2)"},
 #endif
 
-/* c64/cart/sfx_soundexpander.c, c64/cart/sfx_soundsampler.c,
-   c64/cart/tfe.c */
+/* c64/cart/sfx_soundexpander.c, c64/cart/sfx_soundsampler.c */
 /* en */ {IDCLS_MAP_CART_IO_3,    N_("Don't swap io mapping (map cart I/O to VIC20 I/O-3)")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_MAP_CART_IO_3_DA, "Ombyt ikke I/O-forbindelse (forbind cart I/O til VIC20 I/O-3)"},
@@ -5654,7 +6960,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_PETREU_HU, "PET RAM and Expansion Unit engedélyezése"},
 /* it */ {IDCLS_ENABLE_PETREU_IT, "Attiva la RAM e l'unità di espansione del PET"},
 /* ko */ {IDCLS_ENABLE_PETREU_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_PETREU_NL, "Activeer de PET RAM en uitbreidingseenheid"},
+/* nl */ {IDCLS_ENABLE_PETREU_NL, "PET RAM en uitbreidingseenheid inschakelen"},
 /* pl */ {IDCLS_ENABLE_PETREU_PL, "W³±cz PET Ram i Expansion Unit"},
 /* ru */ {IDCLS_ENABLE_PETREU_RU, "Enable the PET Ram and Expansion Unit"},
 /* sv */ {IDCLS_ENABLE_PETREU_SV, "Aktivera PET Ram- och -expansionsenhet"},
@@ -5671,7 +6977,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_PETREU_HU, "PET RAM and Expansion Unit tiltása"},
 /* it */ {IDCLS_DISABLE_PETREU_IT, "Disattiva la RAM e l'unità di espansione del PET"},
 /* ko */ {IDCLS_DISABLE_PETREU_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_PETREU_NL, "De PET RAM en uitbreidingseenheid uitschakelen"},
+/* nl */ {IDCLS_DISABLE_PETREU_NL, "PET RAM en uitbreidingseenheid uitschakelen"},
 /* pl */ {IDCLS_DISABLE_PETREU_PL, "Wy³±cz PET Ram i Expansion Unit"},
 /* ru */ {IDCLS_DISABLE_PETREU_RU, "Disable the PET Ram and Expansion Unit"},
 /* sv */ {IDCLS_DISABLE_PETREU_SV, "Inaktivera PET Ram- och -expansionsenhet"},
@@ -5682,7 +6988,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_PETREU_NAME,    N_("Specify name of PET Ram and Expansion Unit image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_PETREU_NAME_DA, "Angiv navn på PET REU-image"},
-/* de */ {IDCLS_SPECIFY_PETREU_NAME_DE, "Namen für PET RAM Speicher und Erweiterungsmodul definieren"},
+/* de */ {IDCLS_SPECIFY_PETREU_NAME_DE, "Namen für PET RAM Speicher und Erweiterungsmodul wählen"},
 /* es */ {IDCLS_SPECIFY_PETREU_NAME_ES, "Especificar nombre imagen PET Ram y Unidad Expansión"},
 /* fr */ {IDCLS_SPECIFY_PETREU_NAME_FR, "Spécifier le nom de l'image d’unité d'expansion RAM"},
 /* hu */ {IDCLS_SPECIFY_PETREU_NAME_HU, "Adja meg a PET RAM and Expansion Unit képmás nevét"},
@@ -5716,7 +7022,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_PETDWW_NAME,    N_("Specify name of PET DWW image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_PETDWW_NAME_DA, "Angiv navn på PET DWW-image"},
-/* de */ {IDCLS_SPECIFY_PETDWW_NAME_DE, "Namen für PET DWW Image Datei definieren"},
+/* de */ {IDCLS_SPECIFY_PETDWW_NAME_DE, "Namen für PET DWW Imagedatei wählen"},
 /* es */ {IDCLS_SPECIFY_PETDWW_NAME_ES, "Especificar nombre imagen PET DWW"},
 /* fr */ {IDCLS_SPECIFY_PETDWW_NAME_FR, "Spécifier le nom de l'image PET DWW"},
 /* hu */ {IDCLS_SPECIFY_PETDWW_NAME_HU, ""},  /* fuzzy */
@@ -5739,7 +7045,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_PETDWW_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_PETDWW_IT, "Attiva la scheda hi-res PET DWW"},
 /* ko */ {IDCLS_ENABLE_PETDWW_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_PETDWW_NL, "Activeer het PET DWW hi-res bord"},
+/* nl */ {IDCLS_ENABLE_PETDWW_NL, "PET DWW hi-res bord inschakelen"},
 /* pl */ {IDCLS_ENABLE_PETDWW_PL, "W³±cz uk³ad PET DWW hi-res"},
 /* ru */ {IDCLS_ENABLE_PETDWW_RU, "Enable the PET DWW hi-res board"},
 /* sv */ {IDCLS_ENABLE_PETDWW_SV, "Aktivera PET DWW-högupplösningskort"},
@@ -5756,7 +7062,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_PETDWW_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_PETDWW_IT, "Disattiva la scheda hi-res PET DWW"},
 /* ko */ {IDCLS_DISABLE_PETDWW_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_PETDWW_NL, "Het PET DWW hi-res bord uitschakelen"},
+/* nl */ {IDCLS_DISABLE_PETDWW_NL, "PET DWW hi-res bord uitschakelen"},
 /* pl */ {IDCLS_DISABLE_PETDWW_PL, "Wy³±cz p³ytê PET DWW hi-res"},
 /* ru */ {IDCLS_DISABLE_PETDWW_RU, "Disable the PET DWW hi-res board"},
 /* sv */ {IDCLS_DISABLE_PETDWW_SV, "Inaktivera PET DWW-högupplösningskort"},
@@ -5773,7 +7079,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_USERPORT_DAC_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_USERPORT_DAC_IT, "Attiva DAC su userport per la riproduzione audio"},
 /* ko */ {IDCLS_ENABLE_USERPORT_DAC_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_USERPORT_DAC_NL, "Activeer userport DAC voor geluidsuitvoer"},
+/* nl */ {IDCLS_ENABLE_USERPORT_DAC_NL, "Userport DAC voor geluidsuitvoer inschakelen"},
 /* pl */ {IDCLS_ENABLE_USERPORT_DAC_PL, "W³±cz userport DAC jako wyj¶cie d¼wiêku"},
 /* ru */ {IDCLS_ENABLE_USERPORT_DAC_RU, "Enable Userport DAC for sound output"},
 /* sv */ {IDCLS_ENABLE_USERPORT_DAC_SV, "Aktivera D/A-omvandlare på användarporten för ljudutdata"},
@@ -5807,7 +7113,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_USERPORT_JOY_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_USERPORT_JOY_IT, "Attiva adattatore joystick su userport"},
 /* ko */ {IDCLS_ENABLE_USERPORT_JOY_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_USERPORT_JOY_NL, "Activeer Userport joystick adapter"},
+/* nl */ {IDCLS_ENABLE_USERPORT_JOY_NL, "Userport joystick adapter inschakelen"},
 /* pl */ {IDCLS_ENABLE_USERPORT_JOY_PL, "W³±cz z³±cze userportu joysticka"},
 /* ru */ {IDCLS_ENABLE_USERPORT_JOY_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_USERPORT_JOY_SV, "Aktivera adapter för användarportstyrspakar"},
@@ -5824,7 +7130,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_USERPORT_JOY_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_USERPORT_JOY_IT, "Disattiva adattatore joystick su userport"},
 /* ko */ {IDCLS_DISABLE_USERPORT_JOY_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_USERPORT_JOY_NL, "De Userport joystick adapter uitschakelen"},
+/* nl */ {IDCLS_DISABLE_USERPORT_JOY_NL, "Userport joystick adapter uitschakelen"},
 /* pl */ {IDCLS_DISABLE_USERPORT_JOY_PL, "Wy³±cz z³±cze userportu joysticka"},
 /* ru */ {IDCLS_DISABLE_USERPORT_JOY_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_USERPORT_JOY_SV, "Inativera adapter för användarportstyrspakar"},
@@ -5841,79 +7147,419 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_USERPORT_JOY_TYPE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_USERPORT_JOY_TYPE_IT, "Imposta il tipo di adattatore joystick su userport (0: CGA/Protovision, 1: PET, 2: Hummer, 3: OEM, 4: DXS/HIT, 5: Kingsoft, 6: Starbyte)"},
 /* ko */ {IDCLS_SET_USERPORT_JOY_TYPE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_USERPORT_JOY_TYPE_NL, "Zet Userport joystick adapter soort (0: CGA/Protovision, 1: PET, 2: Hummer, 3: OEM, 4: DXS/HIT, 5: Kingsoft, 6: Starbyte)"},
+/* nl */ {IDCLS_SET_USERPORT_JOY_TYPE_NL, "Stel Userport joystick adapter soort in (0: CGA/Protovision, 1: PET, 2: Hummer, 3: OEM, 4: DXS/HIT, 5: Kingsoft, 6: Starbyte)"},
 /* pl */ {IDCLS_SET_USERPORT_JOY_TYPE_PL, "Okre¶l typ z³±cza userportu joysticka (0: CGA/Protovision, 1: PET, 2: Hummer, 3: OEM, 4: DXS/HIT, 5: Kingsoft, 6: Starbyte)"},
 /* ru */ {IDCLS_SET_USERPORT_JOY_TYPE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_USERPORT_JOY_TYPE_SV, "Välj typ av styrspakadapter för användarporten (0: CGA/Protovision, 1: PET, 2: Hummer, 3: OEM, 4: DXS/HIT, 5: Kingsoft, 6: Starbyte)"},
 /* tr */ {IDCLS_SET_USERPORT_JOY_TYPE_TR, ""},  /* fuzzy */
 #endif
 
-/* userport/userport_rtc.c */
-/* en */ {IDCLS_ENABLE_USERPORT_RTC,    N_("Enable Userport RTC")},
+/* userport/userport_rtc_58321a.c */
+/* en */ {IDCLS_ENABLE_USERPORT_RTC_58321A,    N_("Enable Userport RTC (58321a)")},
 #ifdef HAS_TRANSLATION
-/* da */ {IDCLS_ENABLE_USERPORT_RTC_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_ENABLE_USERPORT_RTC_DE, "Userport RTC aktivieren"},
-/* es */ {IDCLS_ENABLE_USERPORT_RTC_ES, "Permitir puerto RTC"},
-/* fr */ {IDCLS_ENABLE_USERPORT_RTC_FR, "Activer port utilisateur RTC"},
-/* hu */ {IDCLS_ENABLE_USERPORT_RTC_HU, ""},  /* fuzzy */
-/* it */ {IDCLS_ENABLE_USERPORT_RTC_IT, "Attiva RTC su userport"},
-/* ko */ {IDCLS_ENABLE_USERPORT_RTC_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_USERPORT_RTC_NL, "Activeer de Userport RTC uitbreiding"},
-/* pl */ {IDCLS_ENABLE_USERPORT_RTC_PL, "W³±cz Userport RTC"},
-/* ru */ {IDCLS_ENABLE_USERPORT_RTC_RU, ""},  /* fuzzy */
-/* sv */ {IDCLS_ENABLE_USERPORT_RTC_SV, "Aktivera användarport-RTC"},
-/* tr */ {IDCLS_ENABLE_USERPORT_RTC_TR, ""},  /* fuzzy */
+/* da */ {IDCLS_ENABLE_USERPORT_RTC_58321A_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_USERPORT_RTC_58321A_DE, "Userport RTC (58321a) aktivieren"},
+/* es */ {IDCLS_ENABLE_USERPORT_RTC_58321A_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_USERPORT_RTC_58321A_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_USERPORT_RTC_58321A_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_USERPORT_RTC_58321A_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_USERPORT_RTC_58321A_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_USERPORT_RTC_58321A_NL, "Userport RTC (58321a) inschakelen"},
+/* pl */ {IDCLS_ENABLE_USERPORT_RTC_58321A_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_USERPORT_RTC_58321A_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_USERPORT_RTC_58321A_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_USERPORT_RTC_58321A_TR, ""},  /* fuzzy */
 #endif
 
-/* userport/userport_rtc.c */
-/* en */ {IDCLS_DISABLE_USERPORT_RTC,    N_("Disable Userport RTC")},
+/* userport/userport_rtc_58321a.c */
+/* en */ {IDCLS_DISABLE_USERPORT_RTC_58321A,    N_("Disable Userport RTC (58321a)")},
 #ifdef HAS_TRANSLATION
-/* da */ {IDCLS_DISABLE_USERPORT_RTC_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_DISABLE_USERPORT_RTC_DE, "Userport RTC deaktivieren"},
-/* es */ {IDCLS_DISABLE_USERPORT_RTC_ES, "Deshabilitar puerto RTC"},
-/* fr */ {IDCLS_DISABLE_USERPORT_RTC_FR, "Désactiver port utilisateur RTC"},
-/* hu */ {IDCLS_DISABLE_USERPORT_RTC_HU, ""},  /* fuzzy */
-/* it */ {IDCLS_DISABLE_USERPORT_RTC_IT, "Disattiva RTC su userport"},
-/* ko */ {IDCLS_DISABLE_USERPORT_RTC_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_USERPORT_RTC_NL, "De Userport RTC uitbreiding uitschakelen"},
-/* pl */ {IDCLS_DISABLE_USERPORT_RTC_PL, "Wy³±cz Userport RTC"},
-/* ru */ {IDCLS_DISABLE_USERPORT_RTC_RU, ""},  /* fuzzy */
-/* sv */ {IDCLS_DISABLE_USERPORT_RTC_SV, "Inaktivera användarport-RTC"},
-/* tr */ {IDCLS_DISABLE_USERPORT_RTC_TR, ""},  /* fuzzy */
+/* da */ {IDCLS_DISABLE_USERPORT_RTC_58321A_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_USERPORT_RTC_58321A_DE, "Userport RTC (58321a) deaktivieren"},
+/* es */ {IDCLS_DISABLE_USERPORT_RTC_58321A_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_USERPORT_RTC_58321A_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_USERPORT_RTC_58321A_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_USERPORT_RTC_58321A_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_USERPORT_RTC_58321A_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_USERPORT_RTC_58321A_NL, "Userport RTC (58321a) uitschakelen"},
+/* pl */ {IDCLS_DISABLE_USERPORT_RTC_58321A_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_USERPORT_RTC_58321A_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_USERPORT_RTC_58321A_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_USERPORT_RTC_58321A_TR, ""},  /* fuzzy */
 #endif
 
-/* userport/userport_rtc.c */
-/* en */ {IDCLS_ENABLE_USERPORT_RTC_SAVE,    N_("Enable saving of the Userport RTC data when changed.")},
+/* userport/userport_rtc_58321a.c */
+/* en */ {IDCLS_ENABLE_USERPORT_RTC_58321A_SAVE,    N_("Enable saving of the Userport RTC (58321a) data when changed.")},
 #ifdef HAS_TRANSLATION
-/* da */ {IDCLS_ENABLE_USERPORT_RTC_SAVE_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_ENABLE_USERPORT_RTC_SAVE_DE, "Userport RTC Daten bei Änderung speichern."},
-/* es */ {IDCLS_ENABLE_USERPORT_RTC_SAVE_ES, "Permitir grabar datos puerto usuario RTC cuando cambien"},
-/* fr */ {IDCLS_ENABLE_USERPORT_RTC_SAVE_FR, ""},  /* fuzzy */
-/* hu */ {IDCLS_ENABLE_USERPORT_RTC_SAVE_HU, ""},  /* fuzzy */
-/* it */ {IDCLS_ENABLE_USERPORT_RTC_SAVE_IT, "Attiva il salvataggio dei dati RTC su Userport alla modifica."},
-/* ko */ {IDCLS_ENABLE_USERPORT_RTC_SAVE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_USERPORT_RTC_SAVE_NL, "Activeer opslaan van de Userport RTC data indien gewijzigd"},
-/* pl */ {IDCLS_ENABLE_USERPORT_RTC_SAVE_PL, "Zapisuj dane zegara czasu rzeczywistego Userportu przy zmianie"},
-/* ru */ {IDCLS_ENABLE_USERPORT_RTC_SAVE_RU, ""},  /* fuzzy */
-/* sv */ {IDCLS_ENABLE_USERPORT_RTC_SAVE_SV, ""},  /* fuzzy */
-/* tr */ {IDCLS_ENABLE_USERPORT_RTC_SAVE_TR, ""},  /* fuzzy */
+/* da */ {IDCLS_ENABLE_USERPORT_RTC_58321A_SAVE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_USERPORT_RTC_58321A_SAVE_DE, "Userport RTC (58321a) Daten bei Änderung speichern."},
+/* es */ {IDCLS_ENABLE_USERPORT_RTC_58321A_SAVE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_USERPORT_RTC_58321A_SAVE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_USERPORT_RTC_58321A_SAVE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_USERPORT_RTC_58321A_SAVE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_USERPORT_RTC_58321A_SAVE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_USERPORT_RTC_58321A_SAVE_NL, "Opslaan van de Userport RTC (58321a) gegevens bij wijziging inschakelen."},
+/* pl */ {IDCLS_ENABLE_USERPORT_RTC_58321A_SAVE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_USERPORT_RTC_58321A_SAVE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_USERPORT_RTC_58321A_SAVE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_USERPORT_RTC_58321A_SAVE_TR, ""},  /* fuzzy */
 #endif
 
-/* userport/userport_rtc.c */
-/* en */ {IDCLS_DISABLE_USERPORT_RTC_SAVE,    N_("Disable saving of the Userport RTC data when changed.")},
+/* userport/userport_rtc_58321a.c */
+/* en */ {IDCLS_DISABLE_USERPORT_RTC_58321A_SAVE,    N_("Disable saving of the Userport RTC (58321a) data when changed.")},
 #ifdef HAS_TRANSLATION
-/* da */ {IDCLS_DISABLE_USERPORT_RTC_SAVE_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_DISABLE_USERPORT_RTC_SAVE_DE, "Userport RTC Daten bei Änderung nicht speichern."},
-/* es */ {IDCLS_DISABLE_USERPORT_RTC_SAVE_ES, "Deshabilitar grabar datos puerto usuario RTC cuando cambien"},
-/* fr */ {IDCLS_DISABLE_USERPORT_RTC_SAVE_FR, ""},  /* fuzzy */
-/* hu */ {IDCLS_DISABLE_USERPORT_RTC_SAVE_HU, ""},  /* fuzzy */
-/* it */ {IDCLS_DISABLE_USERPORT_RTC_SAVE_IT, "Disattiva il salvataggio dei dati RTC su Userport alla modifica."},
-/* ko */ {IDCLS_DISABLE_USERPORT_RTC_SAVE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_USERPORT_RTC_SAVE_NL, "Opslaan van de Userport RTC data indien gewijzigd uitschakelen"},
-/* pl */ {IDCLS_DISABLE_USERPORT_RTC_SAVE_PL, "Nie zapisuj danych zegara czasu rzeczywistego Userportu przy zmianie"},
-/* ru */ {IDCLS_DISABLE_USERPORT_RTC_SAVE_RU, ""},  /* fuzzy */
-/* sv */ {IDCLS_DISABLE_USERPORT_RTC_SAVE_SV, ""},  /* fuzzy */
-/* tr */ {IDCLS_DISABLE_USERPORT_RTC_SAVE_TR, ""},  /* fuzzy */
+/* da */ {IDCLS_DISABLE_USERPORT_RTC_58321A_SAVE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_USERPORT_RTC_58321A_SAVE_DE, "Userport RTC (58321a) Daten bei Änderung nicht speichern."},
+/* es */ {IDCLS_DISABLE_USERPORT_RTC_58321A_SAVE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_USERPORT_RTC_58321A_SAVE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_USERPORT_RTC_58321A_SAVE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_USERPORT_RTC_58321A_SAVE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_USERPORT_RTC_58321A_SAVE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_USERPORT_RTC_58321A_SAVE_NL, "Opslaan van de Userport RTC (58321a) gegevens bij wijziging uitschakelen."},
+/* pl */ {IDCLS_DISABLE_USERPORT_RTC_58321A_SAVE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_USERPORT_RTC_58321A_SAVE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_USERPORT_RTC_58321A_SAVE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_USERPORT_RTC_58321A_SAVE_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_rtc_ds1307.c */
+/* en */ {IDCLS_ENABLE_USERPORT_RTC_DS1307,    N_("Enable Userport RTC (DS1307)")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_DE, "Userport RTC (DS1307) aktivieren"},
+/* es */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_NL, "Userport RTC (DS1307) inschakelen"},
+/* pl */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_rtc_ds1307.c */
+/* en */ {IDCLS_DISABLE_USERPORT_RTC_DS1307,    N_("Disable Userport RTC (DS1307)")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_DE, "Userport RTC (DS1307) deaktivieren"},
+/* es */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_NL, "Userport RTC (DS1307) uitschakelen"},
+/* pl */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_rtc_ds1307.c */
+/* en */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_SAVE,    N_("Enable saving of the Userport RTC (DS1307) data when changed.")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_SAVE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_SAVE_DE, "Userport RTC (DS1307) Daten bei Änderung speichern."},
+/* es */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_SAVE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_SAVE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_SAVE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_SAVE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_SAVE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_SAVE_NL, "Opslaan van de Userport RTC (DS1307) gegevens bij wijziging inschakelen."},
+/* pl */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_SAVE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_SAVE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_SAVE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_USERPORT_RTC_DS1307_SAVE_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_rtc_ds1307.c */
+/* en */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_SAVE,    N_("Disable saving of the Userport RTC (DS1307) data when changed.")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_SAVE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_SAVE_DE, "Userport RTC (DS1307) Daten bei Änderung nicht speichern."},
+/* es */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_SAVE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_SAVE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_SAVE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_SAVE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_SAVE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_SAVE_NL, "Opslaan van de Userport RTC (DS1307) gegevens bij wijziging uitschakelen."},
+/* pl */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_SAVE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_SAVE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_SAVE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_USERPORT_RTC_DS1307_SAVE_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_diag_586220_harness.c */
+/* en */ {IDCLS_ENABLE_USERPORT_DIAG_586220_HARNESS,    N_("Enable Userport diag 586220 harness module")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_USERPORT_DIAG_586220_HARNESS_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_USERPORT_DIAG_586220_HARNESS_DE, "Userport Diag 586220 Harnessmodul aktivieren"},
+/* es */ {IDCLS_ENABLE_USERPORT_DIAG_586220_HARNESS_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_USERPORT_DIAG_586220_HARNESS_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_USERPORT_DIAG_586220_HARNESS_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_USERPORT_DIAG_586220_HARNESS_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_USERPORT_DIAG_586220_HARNESS_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_USERPORT_DIAG_586220_HARNESS_NL, "Userport diag 586220 gareel module inschakelen"},
+/* pl */ {IDCLS_ENABLE_USERPORT_DIAG_586220_HARNESS_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_USERPORT_DIAG_586220_HARNESS_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_USERPORT_DIAG_586220_HARNESS_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_USERPORT_DIAG_586220_HARNESS_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_diag_586220_harness.c */
+/* en */ {IDCLS_DISABLE_USERPORT_DIAG_586220_HARNESS,    N_("Disable Userport diag 586220 harness module")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_USERPORT_DIAG_586220_HARNESS_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_USERPORT_DIAG_586220_HARNESS_DE, "Userport Diag 586220 Harnessmodul deaktivieren"},
+/* es */ {IDCLS_DISABLE_USERPORT_DIAG_586220_HARNESS_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_USERPORT_DIAG_586220_HARNESS_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_USERPORT_DIAG_586220_HARNESS_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_USERPORT_DIAG_586220_HARNESS_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_USERPORT_DIAG_586220_HARNESS_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_USERPORT_DIAG_586220_HARNESS_NL, "Userport diag 586220 gareel module uitschakelen"},
+/* pl */ {IDCLS_DISABLE_USERPORT_DIAG_586220_HARNESS_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_USERPORT_DIAG_586220_HARNESS_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_USERPORT_DIAG_586220_HARNESS_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_USERPORT_DIAG_586220_HARNESS_TR, ""},  /* fuzzy */
+#endif
+
+/* joyport/bbrtc.c */
+/* en */ {IDCLS_ENABLE_BBRTC_SAVE,    N_("Enable saving of the BBRTC data when changed.")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_BBRTC_SAVE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_BBRTC_SAVE_DE, "BBRTC Daten bei Änderung speichern."},
+/* es */ {IDCLS_ENABLE_BBRTC_SAVE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_BBRTC_SAVE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_BBRTC_SAVE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_BBRTC_SAVE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_BBRTC_SAVE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_BBRTC_SAVE_NL, "Opslaan van de BBRTC gegevens bij wijziging inschakelen."},
+/* pl */ {IDCLS_ENABLE_BBRTC_SAVE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_BBRTC_SAVE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_BBRTC_SAVE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_BBRTC_SAVE_TR, ""},  /* fuzzy */
+#endif
+
+/* joyport/bbrtc.c */
+/* en */ {IDCLS_DISABLE_BBRTC_SAVE,    N_("Disable saving of the BBRTC data when changed.")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_BBRTC_SAVE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_BBRTC_SAVE_DE, "BBRTC Daten bei Änderung nicht speichern."},
+/* es */ {IDCLS_DISABLE_BBRTC_SAVE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_BBRTC_SAVE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_BBRTC_SAVE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_BBRTC_SAVE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_BBRTC_SAVE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_BBRTC_SAVE_NL, "Opslaan van de BBRTC gegevens bij wijziging uitschakelen."},
+/* pl */ {IDCLS_DISABLE_BBRTC_SAVE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_BBRTC_SAVE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_BBRTC_SAVE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_BBRTC_SAVE_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/sense-dongle.c */
+/* en */ {IDCLS_ENABLE_TAPE_SENSE_DONGLE,    N_("Enable tape sense dongle")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_TAPE_SENSE_DONGLE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_TAPE_SENSE_DONGLE_DE, "Band Sense Dongle aktivieren"},
+/* es */ {IDCLS_ENABLE_TAPE_SENSE_DONGLE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_TAPE_SENSE_DONGLE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_TAPE_SENSE_DONGLE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_TAPE_SENSE_DONGLE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_TAPE_SENSE_DONGLE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_TAPE_SENSE_DONGLE_NL, "Tape sense dongle inschakelen"},
+/* pl */ {IDCLS_ENABLE_TAPE_SENSE_DONGLE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_TAPE_SENSE_DONGLE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_TAPE_SENSE_DONGLE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_TAPE_SENSE_DONGLE_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/sense-dongle.c */
+/* en */ {IDCLS_DISABLE_TAPE_SENSE_DONGLE,    N_("Disable tape sense dongle")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_TAPE_SENSE_DONGLE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_TAPE_SENSE_DONGLE_DE, "Band Sense Dongle deaktivieren"},
+/* es */ {IDCLS_DISABLE_TAPE_SENSE_DONGLE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_TAPE_SENSE_DONGLE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_TAPE_SENSE_DONGLE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_TAPE_SENSE_DONGLE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_TAPE_SENSE_DONGLE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_TAPE_SENSE_DONGLE_NL, "Tape sense dongle uitschakelen"},
+/* pl */ {IDCLS_DISABLE_TAPE_SENSE_DONGLE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_TAPE_SENSE_DONGLE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_TAPE_SENSE_DONGLE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_TAPE_SENSE_DONGLE_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/dtl-basic-dongle.c */
+/* en */ {IDCLS_ENABLE_DTL_BASIC_DONGLE,    N_("Enable DTL Basic dongle")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_DTL_BASIC_DONGLE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_DTL_BASIC_DONGLE_DE, "DTL Basic Dongle aktivieren"},
+/* es */ {IDCLS_ENABLE_DTL_BASIC_DONGLE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_DTL_BASIC_DONGLE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_DTL_BASIC_DONGLE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_DTL_BASIC_DONGLE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_DTL_BASIC_DONGLE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_DTL_BASIC_DONGLE_NL, "DTL Basic dongle inschakelen"},
+/* pl */ {IDCLS_ENABLE_DTL_BASIC_DONGLE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_DTL_BASIC_DONGLE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_DTL_BASIC_DONGLE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_DTL_BASIC_DONGLE_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/dtl-basic-dongle.c */
+/* en */ {IDCLS_DISABLE_DTL_BASIC_DONGLE,    N_("Enable DTL Basic dongle")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_DTL_BASIC_DONGLE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_DTL_BASIC_DONGLE_DE, "DTL Basic Dongle aktivieren"},
+/* es */ {IDCLS_DISABLE_DTL_BASIC_DONGLE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_DTL_BASIC_DONGLE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_DTL_BASIC_DONGLE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_DTL_BASIC_DONGLE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_DTL_BASIC_DONGLE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_DTL_BASIC_DONGLE_NL, "DTL Basic dongle inschakelen"},
+/* pl */ {IDCLS_DISABLE_DTL_BASIC_DONGLE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_DTL_BASIC_DONGLE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_DTL_BASIC_DONGLE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_DTL_BASIC_DONGLE_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapertc.c */
+/* en */ {IDCLS_ENABLE_TAPERTC,    N_("Enable CP Clock F83 (PCF8583 RTC)")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_TAPERTC_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_TAPERTC_DE, "CP Clock F83 (PCF8583 RTC) aktivieren"},
+/* es */ {IDCLS_ENABLE_TAPERTC_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_TAPERTC_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_TAPERTC_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_TAPERTC_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_TAPERTC_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_TAPERTC_NL, "CP Clock F83 (PCF8583 RTC) inschakelen"},
+/* pl */ {IDCLS_ENABLE_TAPERTC_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_TAPERTC_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_TAPERTC_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_TAPERTC_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapertc.c */
+/* en */ {IDCLS_DISABLE_TAPERTC,    N_("Disable CP Clock F83 (PCF8583 RTC)")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_TAPERTC_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_TAPERTC_DE, "CP Clock F83 (PCF8583 RTC) deaktivieren"},
+/* es */ {IDCLS_DISABLE_TAPERTC_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_TAPERTC_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_TAPERTC_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_TAPERTC_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_TAPERTC_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_TAPERTC_NL, "CP Clock F83 (PCF8583 RTC) uitschakelen"},
+/* pl */ {IDCLS_DISABLE_TAPERTC_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_TAPERTC_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_TAPERTC_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_TAPERTC_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapertc.c */
+/* en */ {IDCLS_ENABLE_TAPERTC_SAVE,    N_("Enable saving of the CP Clock F83 (PCF8583 RTC) data when changed.")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_TAPERTC_SAVE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_TAPERTC_SAVE_DE, "CP Clock F83 (PCF8583 RTC) Daten bei Änderung speichern."},
+/* es */ {IDCLS_ENABLE_TAPERTC_SAVE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_TAPERTC_SAVE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_TAPERTC_SAVE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_TAPERTC_SAVE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_TAPERTC_SAVE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_TAPERTC_SAVE_NL, "Opslaan van de CP Clock F83 (PCF8583 RTC) gegevens bij wijziging inschakelen."},
+/* pl */ {IDCLS_ENABLE_TAPERTC_SAVE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_TAPERTC_SAVE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_TAPERTC_SAVE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_TAPERTC_SAVE_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapertc.c */
+/* en */ {IDCLS_DISABLE_TAPERTC_SAVE,    N_("Disable saving of the CP Clock F83 (PCF8583 RTC) data when changed.")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_TAPERTC_SAVE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_TAPERTC_SAVE_DE, "CP Clock F83 (PCF8583 RTC) Daten bei Änderung nicht speichern."},
+/* es */ {IDCLS_DISABLE_TAPERTC_SAVE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_TAPERTC_SAVE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_TAPERTC_SAVE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_TAPERTC_SAVE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_TAPERTC_SAVE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_TAPERTC_SAVE_NL, "Opslaan van de CP Clock F83 (PCF8583 RTC) gegevens bij wijziging uitschakelen."},
+/* pl */ {IDCLS_DISABLE_TAPERTC_SAVE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_TAPERTC_SAVE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_TAPERTC_SAVE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_TAPERTC_SAVE_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_4bit_sampler.c */
+/* en */ {IDCLS_ENABLE_USERPORT_4BIT_SAMPLER,    N_("Enable Userport 4bit sampler")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_USERPORT_4BIT_SAMPLER_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_USERPORT_4BIT_SAMPLER_DE, "Userport 4bit Sampler aktivieren"},
+/* es */ {IDCLS_ENABLE_USERPORT_4BIT_SAMPLER_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_USERPORT_4BIT_SAMPLER_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_USERPORT_4BIT_SAMPLER_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_USERPORT_4BIT_SAMPLER_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_USERPORT_4BIT_SAMPLER_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_USERPORT_4BIT_SAMPLER_NL, "Userport 4bit sampler inschakelen"},
+/* pl */ {IDCLS_ENABLE_USERPORT_4BIT_SAMPLER_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_USERPORT_4BIT_SAMPLER_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_USERPORT_4BIT_SAMPLER_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_USERPORT_4BIT_SAMPLER_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_4bit_sampler.c */
+/* en */ {IDCLS_DISABLE_USERPORT_4BIT_SAMPLER,    N_("Disable Userport 4bit sampler")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_USERPORT_4BIT_SAMPLER_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_USERPORT_4BIT_SAMPLER_DE, "Userport 4bit Sampler deaktivieren"},
+/* es */ {IDCLS_DISABLE_USERPORT_4BIT_SAMPLER_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_USERPORT_4BIT_SAMPLER_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_USERPORT_4BIT_SAMPLER_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_USERPORT_4BIT_SAMPLER_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_USERPORT_4BIT_SAMPLER_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_USERPORT_4BIT_SAMPLER_NL, "Userport 4bit sampler uitschakelen"},
+/* pl */ {IDCLS_DISABLE_USERPORT_4BIT_SAMPLER_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_USERPORT_4BIT_SAMPLER_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_USERPORT_4BIT_SAMPLER_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_USERPORT_4BIT_SAMPLER_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_8bss.c */
+/* en */ {IDCLS_ENABLE_USERPORT_8BSS,    N_("Enable Userport 8bit stereo sampler")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_USERPORT_8BSS_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_USERPORT_8BSS_DE, "Userport 8bit Sampler aktivieren"},
+/* es */ {IDCLS_ENABLE_USERPORT_8BSS_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_USERPORT_8BSS_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_USERPORT_8BSS_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_USERPORT_8BSS_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_USERPORT_8BSS_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_USERPORT_8BSS_NL, "Userport 8bit stereo sampler inschakelen"},
+/* pl */ {IDCLS_ENABLE_USERPORT_8BSS_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_USERPORT_8BSS_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_USERPORT_8BSS_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_USERPORT_8BSS_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_8bss.c */
+/* en */ {IDCLS_DISABLE_USERPORT_8BSS,    N_("Disable Userport 8bit stereo sampler")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_USERPORT_8BSS_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_USERPORT_8BSS_DE, "Userport 8bit Sampler deaktivieren"},
+/* es */ {IDCLS_DISABLE_USERPORT_8BSS_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_USERPORT_8BSS_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_USERPORT_8BSS_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_USERPORT_8BSS_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_USERPORT_8BSS_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_USERPORT_8BSS_NL, "Userport 8bit stereo sampler uitschakelen"},
+/* pl */ {IDCLS_DISABLE_USERPORT_8BSS_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_USERPORT_8BSS_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_USERPORT_8BSS_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_USERPORT_8BSS_TR, ""},  /* fuzzy */
 #endif
 
 /* c64/psid.c */
@@ -5937,13 +7583,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_PSID_TUNE_NUMBER,    N_("Specify PSID tune <number>")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_PSID_TUNE_NUMBER_DA, "Vælg PSID-nummer <nummer>"},
-/* de */ {IDCLS_SPECIFY_PSID_TUNE_NUMBER_DE, "PSID Stück <Nummer> definieren"},
+/* de */ {IDCLS_SPECIFY_PSID_TUNE_NUMBER_DE, "PSID Stück <Nummer> wählen"},
 /* es */ {IDCLS_SPECIFY_PSID_TUNE_NUMBER_ES, "Especificar PSID tono <número>"},
 /* fr */ {IDCLS_SPECIFY_PSID_TUNE_NUMBER_FR, "Spécifier le <numéro> de piste PSID"},
 /* hu */ {IDCLS_SPECIFY_PSID_TUNE_NUMBER_HU, "Adja meg a PSID hangzatok <szám>"},
 /* it */ {IDCLS_SPECIFY_PSID_TUNE_NUMBER_IT, "Specifica la melodia <numero> del PSID"},
 /* ko */ {IDCLS_SPECIFY_PSID_TUNE_NUMBER_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_PSID_TUNE_NUMBER_NL, "Geef PSID deuntje <nummer>"},
+/* nl */ {IDCLS_SPECIFY_PSID_TUNE_NUMBER_NL, "Geef PSID melodie <nummer>"},
 /* pl */ {IDCLS_SPECIFY_PSID_TUNE_NUMBER_PL, "Okre¶l ton PSID <numer>"},
 /* ru */ {IDCLS_SPECIFY_PSID_TUNE_NUMBER_RU, "Specify PSID tune <number>"},
 /* sv */ {IDCLS_SPECIFY_PSID_TUNE_NUMBER_SV, "Ange PSID-låt <nummer>"},
@@ -5960,7 +7606,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_RAMCART_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_RAMCART_IT, "Attiva l'espansione RamCart"},
 /* ko */ {IDCLS_ENABLE_RAMCART_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_RAMCART_NL, "Activeer de RamCart uitbreiding"},
+/* nl */ {IDCLS_ENABLE_RAMCART_NL, "RamCart uitbreiding inschakelen"},
 /* pl */ {IDCLS_ENABLE_RAMCART_PL, "W³±cz rozszerzenie RamCart"},
 /* ru */ {IDCLS_ENABLE_RAMCART_RU, "Enable the RamCart expansion"},
 /* sv */ {IDCLS_ENABLE_RAMCART_SV, "Aktivera RamCart-expansion"},
@@ -5977,7 +7623,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_RAMCART_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_RAMCART_IT, "Disattiva l'espansione RamCart"},
 /* ko */ {IDCLS_DISABLE_RAMCART_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_RAMCART_NL, "De RamCart uitbreiding uitschakelen"},
+/* nl */ {IDCLS_DISABLE_RAMCART_NL, "RamCart uitbreiding uitschakelen"},
 /* pl */ {IDCLS_DISABLE_RAMCART_PL, "Wy³±cz rozszerzenie RamCart"},
 /* ru */ {IDCLS_DISABLE_RAMCART_RU, "Disable the RamCart expansion"},
 /* sv */ {IDCLS_DISABLE_RAMCART_SV, "Inaktivera RamCart-expansion"},
@@ -5988,7 +7634,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_RAMCART_NAME,    N_("Specify name of RAMCART image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_RAMCART_NAME_DA, "Angiv navn på RAMCART-image"},
-/* de */ {IDCLS_SPECIFY_RAMCART_NAME_DE, "Name für RAMCART Image Datei definieren"},
+/* de */ {IDCLS_SPECIFY_RAMCART_NAME_DE, "Name für RAMCART Imagedatei wählen"},
 /* es */ {IDCLS_SPECIFY_RAMCART_NAME_ES, "Especificar nombre imagen RAMCART"},
 /* fr */ {IDCLS_SPECIFY_RAMCART_NAME_FR, "Spécifier le nom de l'image RAMCART"},
 /* hu */ {IDCLS_SPECIFY_RAMCART_NAME_HU, "Adja meg a RAMCART képmás nevét"},
@@ -6011,7 +7657,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ALLOW_WRITING_TO_RAMCART_IMAGE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ALLOW_WRITING_TO_RAMCART_IMAGE_IT, "Attiva scrittura su immagine RAMCart"},
 /* ko */ {IDCLS_ALLOW_WRITING_TO_RAMCART_IMAGE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ALLOW_WRITING_TO_RAMCART_IMAGE_NL, "Aktiveer schrijven naar RAMCart bestand"},
+/* nl */ {IDCLS_ALLOW_WRITING_TO_RAMCART_IMAGE_NL, "Sta schrijven naar RAMCart bestand toe"},
 /* pl */ {IDCLS_ALLOW_WRITING_TO_RAMCART_IMAGE_PL, "Pozwól na zapis do obrazu RAMCart"},
 /* ru */ {IDCLS_ALLOW_WRITING_TO_RAMCART_IMAGE_RU, "Allow writing to RAMCart image"},
 /* sv */ {IDCLS_ALLOW_WRITING_TO_RAMCART_IMAGE_SV, "Tillåt skrivning till RAMCart-avbildning"},
@@ -6045,7 +7691,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_RAMCART_READ_ONLY_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_RAMCART_READ_ONLY_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_RAMCART_READ_ONLY_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_RAMCART_READ_ONLY_NL, "Zet de RAMCart schakelaar naar alleen-lezen"},
+/* nl */ {IDCLS_RAMCART_READ_ONLY_NL, "Stel de RAMCart schakelaar in op alleen-lezen"},
 /* pl */ {IDCLS_RAMCART_READ_ONLY_PL, "Ustaw RAMCart na tryb tylko do odczytu"},
 /* ru */ {IDCLS_RAMCART_READ_ONLY_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_RAMCART_READ_ONLY_SV, ""},  /* fuzzy */
@@ -6062,7 +7708,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_RAMCART_READ_WRITE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_RAMCART_READ_WRITE_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_RAMCART_READ_WRITE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_RAMCART_READ_WRITE_NL, "Zet de RAMCart schakelaar naar lezen/schrijven"},
+/* nl */ {IDCLS_RAMCART_READ_WRITE_NL, "Stel de RAMCart schakelaar in op lezen/schrijven"},
 /* pl */ {IDCLS_RAMCART_READ_WRITE_PL, "Ustaw RAMCart na tryb zapisu i odczytu"},
 /* ru */ {IDCLS_RAMCART_READ_WRITE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_RAMCART_READ_WRITE_SV, ""},  /* fuzzy */
@@ -6086,6 +7732,40 @@ translate_t string_table[] = {
 /* tr */ {IDCLS_RAMCART_SIZE_TR, ""},  /* fuzzy */
 #endif
 
+/* c64/cart/debugcart.c */
+/* en */ {IDCLS_ENABLE_DEBUGCART,    N_("Enable Debug cartridge")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_DEBUGCART_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_DEBUGCART_DE, "Debug Modul aktivieren"},
+/* es */ {IDCLS_ENABLE_DEBUGCART_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_DEBUGCART_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_DEBUGCART_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_DEBUGCART_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_DEBUGCART_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_DEBUGCART_NL, "Debug cartridge inschakelen"},
+/* pl */ {IDCLS_ENABLE_DEBUGCART_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_DEBUGCART_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_DEBUGCART_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_DEBUGCART_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/debugcart.c */
+/* en */ {IDCLS_DISABLE_DEBUGCART,    N_("Disable Debug cartridge")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_DEBUGCART_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_DEBUGCART_DE, "Debug Modul deaktivieren"},
+/* es */ {IDCLS_DISABLE_DEBUGCART_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_DEBUGCART_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_DEBUGCART_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_DEBUGCART_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_DEBUGCART_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_DEBUGCART_NL, "Debug cartridge uitschakelen"},
+/* pl */ {IDCLS_DISABLE_DEBUGCART_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_DEBUGCART_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_DEBUGCART_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_DEBUGCART_TR, ""},  /* fuzzy */
+#endif
+
 /* c64/cart/dqbb.c */
 /* en */ {IDCLS_ENABLE_DQBB,    N_("Enable Double Quick Brown Box")},
 #ifdef HAS_TRANSLATION
@@ -6096,7 +7776,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_DQBB_HU, "Double Quick Brown Box engedélyezése"},
 /* it */ {IDCLS_ENABLE_DQBB_IT, "Attiva Double Quick Brown Box"},
 /* ko */ {IDCLS_ENABLE_DQBB_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_DQBB_NL, "Activeer de Double Quick Brown Box cartridge"},
+/* nl */ {IDCLS_ENABLE_DQBB_NL, "Double Quick Brown Box cartridge inschakelen"},
 /* pl */ {IDCLS_ENABLE_DQBB_PL, "W³±cz Double Quick Brown Box"},
 /* ru */ {IDCLS_ENABLE_DQBB_RU, "Enable Double Quick Brown Box"},
 /* sv */ {IDCLS_ENABLE_DQBB_SV, "Aktivera Double Quick Brown Box"},
@@ -6113,7 +7793,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_DQBB_HU, "Double Quick Brown Box tiltása"},
 /* it */ {IDCLS_DISABLE_DQBB_IT, "Disattiva Double Quick Brown Box"},
 /* ko */ {IDCLS_DISABLE_DQBB_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_DQBB_NL, "De Double Quick Brown Box cartridge uitschakelen"},
+/* nl */ {IDCLS_DISABLE_DQBB_NL, "Double Quick Brown Box cartridge uitschakelen"},
 /* pl */ {IDCLS_DISABLE_DQBB_PL, "Wy³±cz Double Quick Brown Box"},
 /* ru */ {IDCLS_DISABLE_DQBB_RU, "Disable Double Quick Brown Box"},
 /* sv */ {IDCLS_DISABLE_DQBB_SV, "Inaktivera Double Quick Brown Box"},
@@ -6147,7 +7827,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ALLOW_WRITING_TO_DQBB_IMAGE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ALLOW_WRITING_TO_DQBB_IMAGE_IT, "Attiva scrittura su immagine DQBB"},
 /* ko */ {IDCLS_ALLOW_WRITING_TO_DQBB_IMAGE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ALLOW_WRITING_TO_DQBB_IMAGE_NL, "Aktiveer schrijven naar DQBB bestand"},
+/* nl */ {IDCLS_ALLOW_WRITING_TO_DQBB_IMAGE_NL, "Sta schrijven naar DQBB bestand toe"},
 /* pl */ {IDCLS_ALLOW_WRITING_TO_DQBB_IMAGE_PL, "Pozwól na zapis do obrazu DQBB"},
 /* ru */ {IDCLS_ALLOW_WRITING_TO_DQBB_IMAGE_RU, "Allow writing to DQBB image"},
 /* sv */ {IDCLS_ALLOW_WRITING_TO_DQBB_IMAGE_SV, "Tillåt skrivning till DQBB-avbildning"},
@@ -6181,7 +7861,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_ISEPIC_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_ISEPIC_IT, "Attiva la cartuccia ISEPIC"},
 /* ko */ {IDCLS_ENABLE_ISEPIC_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_ISEPIC_NL, "Activeer de ISEPIC cartridge"},
+/* nl */ {IDCLS_ENABLE_ISEPIC_NL, "ISEPIC cartridge inschakelen"},
 /* pl */ {IDCLS_ENABLE_ISEPIC_PL, "W³±cz kartrid¿ ISEPIC"},
 /* ru */ {IDCLS_ENABLE_ISEPIC_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_ISEPIC_SV, "Aktivera ISEPIC-modul"},
@@ -6198,7 +7878,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_ISEPIC_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_ISEPIC_IT, "Disattiva la cartuccia ISEPIC"},
 /* ko */ {IDCLS_DISABLE_ISEPIC_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_ISEPIC_NL, "De ISEPIC cartridge uitschakelen"},
+/* nl */ {IDCLS_DISABLE_ISEPIC_NL, "ISEPIC cartridge uitschakelen"},
 /* pl */ {IDCLS_DISABLE_ISEPIC_PL, "Wy³±cz kartrid¿ ISEPIC"},
 /* ru */ {IDCLS_DISABLE_ISEPIC_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_ISEPIC_SV, "Inaktivera ISEPIC-modul"},
@@ -6232,7 +7912,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_ISEPIC_SWITCH_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_ISEPIC_SWITCH_IT, "Disattiva l'interrutore  ISEPIC"},
 /* ko */ {IDCLS_DISABLE_ISEPIC_SWITCH_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_ISEPIC_SWITCH_NL, "De ISEPIC schakelaar uitschakelen"},
+/* nl */ {IDCLS_DISABLE_ISEPIC_SWITCH_NL, "Deactiveer de ISEPIC schakelaar"},
 /* pl */ {IDCLS_DISABLE_ISEPIC_SWITCH_PL, "Wy³±cz prze³±cznik ISEPIC"},
 /* ru */ {IDCLS_DISABLE_ISEPIC_SWITCH_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_ISEPIC_SWITCH_SV, ""},  /* fuzzy */
@@ -6266,7 +7946,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ALLOW_WRITING_TO_ISEPIC_IMAGE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ALLOW_WRITING_TO_ISEPIC_IMAGE_IT, "Attiva scrittura su immagine ISEPIC"},
 /* ko */ {IDCLS_ALLOW_WRITING_TO_ISEPIC_IMAGE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ALLOW_WRITING_TO_ISEPIC_IMAGE_NL, "Aktiveer schrijven naar ISEPIC bestand"},
+/* nl */ {IDCLS_ALLOW_WRITING_TO_ISEPIC_IMAGE_NL, "Sta schrijven naar ISEPIC bestand toe"},
 /* pl */ {IDCLS_ALLOW_WRITING_TO_ISEPIC_IMAGE_PL, "Pozwól na zapis do obrazu ISEPIC"},
 /* ru */ {IDCLS_ALLOW_WRITING_TO_ISEPIC_IMAGE_RU, "Allow writing to ISEPIC image"},
 /* sv */ {IDCLS_ALLOW_WRITING_TO_ISEPIC_IMAGE_SV, "Tillåt skrivning till ISEPIC-avbildning"},
@@ -6294,7 +7974,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_MAGICVOICE_IMAGE_NAME,    N_("Specify name of Magic Voice ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_MAGICVOICE_IMAGE_NAME_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_MAGICVOICE_IMAGE_NAME_DE, "Name für Magic Voice ROM Image Datei definieren"},
+/* de */ {IDCLS_SPECIFY_MAGICVOICE_IMAGE_NAME_DE, "Name für Magic Voice ROM Imagedatei wählen"},
 /* es */ {IDCLS_SPECIFY_MAGICVOICE_IMAGE_NAME_ES, "Especificar nombre imagen Magic Voice ROM"},
 /* fr */ {IDCLS_SPECIFY_MAGICVOICE_IMAGE_NAME_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_MAGICVOICE_IMAGE_NAME_HU, ""},  /* fuzzy */
@@ -6317,7 +7997,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_MAGICVOICE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_MAGICVOICE_IT, "Attiva la cartuccia Magic Voice"},
 /* ko */ {IDCLS_ENABLE_MAGICVOICE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_MAGICVOICE_NL, "Activeer de Magic Voice cartridge"},
+/* nl */ {IDCLS_ENABLE_MAGICVOICE_NL, "Magic Voice cartridge inschakelen"},
 /* pl */ {IDCLS_ENABLE_MAGICVOICE_PL, "W³±cz kartrid¿ Magic Voice"},
 /* ru */ {IDCLS_ENABLE_MAGICVOICE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_MAGICVOICE_SV, ""},  /* fuzzy */
@@ -6334,7 +8014,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_MAGICVOICE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_MAGICVOICE_IT, "Disattiva la  cartuccia Magic Voice"},
 /* ko */ {IDCLS_DISABLE_MAGICVOICE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_MAGICVOICE_NL, "De Magic Voice cartridge uitschakelen"},
+/* nl */ {IDCLS_DISABLE_MAGICVOICE_NL, "Magic Voice cartridge uitschakelen"},
 /* pl */ {IDCLS_DISABLE_MAGICVOICE_PL, "Wy³±cz kartrid¿ Magic Voice"},
 /* ru */ {IDCLS_DISABLE_MAGICVOICE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_MAGICVOICE_SV, ""},  /* fuzzy */
@@ -6351,7 +8031,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_MMC64_HU, "MMC64 bõvítés engedélyezése"},
 /* it */ {IDCLS_ENABLE_MMC64_IT, "Attiva l'espansione MMC64"},
 /* ko */ {IDCLS_ENABLE_MMC64_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_MMC64_NL, "Activeer de MMC64 uitbreiding"},
+/* nl */ {IDCLS_ENABLE_MMC64_NL, "MMC64 uitbreiding inschakelen"},
 /* pl */ {IDCLS_ENABLE_MMC64_PL, "W³±cz rozszerzenie MMC64"},
 /* ru */ {IDCLS_ENABLE_MMC64_RU, "Enable the MMC64 expansion"},
 /* sv */ {IDCLS_ENABLE_MMC64_SV, "Aktivera MMC64-expansion"},
@@ -6368,7 +8048,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_MMC64_HU, "MMC64 bõvítés tiltása"},
 /* it */ {IDCLS_DISABLE_MMC64_IT, "Disattiva l'espansione MMC64"},
 /* ko */ {IDCLS_DISABLE_MMC64_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_MMC64_NL, "De MMC64 uitbreiding uitschakelen"},
+/* nl */ {IDCLS_DISABLE_MMC64_NL, "MMC64 uitbreiding uitschakelen"},
 /* pl */ {IDCLS_DISABLE_MMC64_PL, "Wy³±cz rozszerzenie MMC64"},
 /* ru */ {IDCLS_DISABLE_MMC64_RU, "Disable the MMC64 expansion"},
 /* sv */ {IDCLS_DISABLE_MMC64_SV, "Inaktivera MMC64-expansion"},
@@ -6396,7 +8076,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_MMC64_IMAGE_NAME,    N_("Specify name of MMC64 image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_MMC64_IMAGE_NAME_DA, "Angiv navn på MMC64-image"},
-/* de */ {IDCLS_SPECIFY_MMC64_IMAGE_NAME_DE, "Name der MMC64 Image Datei definieren"},
+/* de */ {IDCLS_SPECIFY_MMC64_IMAGE_NAME_DE, "Name der MMC64 Imagedatei wählen"},
 /* es */ {IDCLS_SPECIFY_MMC64_IMAGE_NAME_ES, "Especificar nombre imagen MMC64"},
 /* fr */ {IDCLS_SPECIFY_MMC64_IMAGE_NAME_FR, "Spécifier le nom de l'image MMC64"},
 /* hu */ {IDCLS_SPECIFY_MMC64_IMAGE_NAME_HU, "Adja meg az MMC64 képmás nevét"},
@@ -6453,7 +8133,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_MMC64_READONLY_HU, "MMC64 kártya csak olvasható"},
 /* it */ {IDCLS_MMC64_READONLY_IT, "Imposta la card MMC64 in sola lettura"},
 /* ko */ {IDCLS_MMC64_READONLY_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_MMC64_READONLY_NL, "Zet de MMC64 als alleen-lezen"},
+/* nl */ {IDCLS_MMC64_READONLY_NL, "Stel de MMC64 in als alleen-lezen"},
 /* pl */ {IDCLS_MMC64_READONLY_PL, "Ustaw kartê MMC64 na tryb tylko do odczytu"},
 /* ru */ {IDCLS_MMC64_READONLY_RU, "Set the MMC64 card to read-only"},
 /* sv */ {IDCLS_MMC64_READONLY_SV, "Skrivskydda MMC64-kort"},
@@ -6470,7 +8150,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_MMC64_READWRITE_HU, "MMC64 kártya írható/olvasható"},
 /* it */ {IDCLS_MMC64_READWRITE_IT, "Imposta la card MMC64 in lettura/scrittura"},
 /* ko */ {IDCLS_MMC64_READWRITE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_MMC64_READWRITE_NL, "Zet de MMC64 als lezen/schrijven"},
+/* nl */ {IDCLS_MMC64_READWRITE_NL, "Stel de MMC64 in als lezen/schrijven"},
 /* pl */ {IDCLS_MMC64_READWRITE_PL, "Ustaw kartê MMC64 na tryb zapisu i odczytu"},
 /* ru */ {IDCLS_MMC64_READWRITE_RU, "Set the MMC64 card to read/write"},
 /* sv */ {IDCLS_MMC64_READWRITE_SV, "Tillåt skrivning på MMC64-kort"},
@@ -6487,7 +8167,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_MMC64_BIOS_WRITE_HU, "MMC64 BIOS mentése változás után"},
 /* it */ {IDCLS_MMC64_BIOS_WRITE_IT, "Salva il bios MMC64 alla modifica"},
 /* ko */ {IDCLS_MMC64_BIOS_WRITE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_MMC64_BIOS_WRITE_NL, "Sla de MMC64 BIOS op als er veranderingen zijn gemaakt"},
+/* nl */ {IDCLS_MMC64_BIOS_WRITE_NL, "Sla de MMC64 BIOS op bij wijziging"},
 /* pl */ {IDCLS_MMC64_BIOS_WRITE_PL, "Zapisuj bios MMC64 przy zmianie"},
 /* ru */ {IDCLS_MMC64_BIOS_WRITE_RU, "Save the MMC64 bios when changed"},
 /* sv */ {IDCLS_MMC64_BIOS_WRITE_SV, "Spara MMC64-BIOS vid ändring"},
@@ -6504,7 +8184,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_MMC64_BIOS_READ_ONLY_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_MMC64_BIOS_READ_ONLY_IT, "Non salvare il bios MMC64 alla modifica"},
 /* ko */ {IDCLS_MMC64_BIOS_READ_ONLY_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_MMC64_BIOS_READ_ONLY_NL, "Sla de MMC64 BIOS niet op als er veranderingen zijn gemaakt"},
+/* nl */ {IDCLS_MMC64_BIOS_READ_ONLY_NL, "Sla de MMC64 BIOS niet op bij wijziging"},
 /* pl */ {IDCLS_MMC64_BIOS_READ_ONLY_PL, "Nie zapisuj bios-a MMC64 przy zmianie"},
 /* ru */ {IDCLS_MMC64_BIOS_READ_ONLY_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_MMC64_BIOS_READ_ONLY_SV, ""},  /* fuzzy */
@@ -6521,7 +8201,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_MMC64_SET_FLASH_JUMPER_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_MMC64_SET_FLASH_JUMPER_IT, "Imposta il ponticello flash della MMC64"},
 /* ko */ {IDCLS_MMC64_SET_FLASH_JUMPER_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_MMC64_SET_FLASH_JUMPER_NL, "Zet de MMC64 Flash Jumper"},
+/* nl */ {IDCLS_MMC64_SET_FLASH_JUMPER_NL, "Stel de MMC64 Flash Jumper in"},
 /* pl */ {IDCLS_MMC64_SET_FLASH_JUMPER_PL, "Ustaw zworkê MMC64 Flash"},
 /* ru */ {IDCLS_MMC64_SET_FLASH_JUMPER_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_MMC64_SET_FLASH_JUMPER_SV, ""},  /* fuzzy */
@@ -6545,11 +8225,79 @@ translate_t string_table[] = {
 /* tr */ {IDCLS_MMC64_UNSET_FLASH_JUMPER_TR, ""},  /* fuzzy */
 #endif
 
+/* c64/cart/rrnetmk3.c */
+/* en */ {IDCLS_RRNETMK3_BIOS_WRITE,    N_("Save the RRNETMK3 bios when changed")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_RRNETMK3_BIOS_WRITE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_RRNETMK3_BIOS_WRITE_DE, "RRNETMK3 BIOS speichern bei Änderung"},
+/* es */ {IDCLS_RRNETMK3_BIOS_WRITE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_RRNETMK3_BIOS_WRITE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_RRNETMK3_BIOS_WRITE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_RRNETMK3_BIOS_WRITE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_RRNETMK3_BIOS_WRITE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_RRNETMK3_BIOS_WRITE_NL, "Sla de RRNET MK3 bios op bij wijziging"},
+/* pl */ {IDCLS_RRNETMK3_BIOS_WRITE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_RRNETMK3_BIOS_WRITE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_RRNETMK3_BIOS_WRITE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_RRNETMK3_BIOS_WRITE_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/rrnetmk3.c */
+/* en */ {IDCLS_RRNETMK3_BIOS_READ_ONLY,    N_("Do not save the RRNETMK3 bios when changed")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_RRNETMK3_BIOS_READ_ONLY_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_RRNETMK3_BIOS_READ_ONLY_DE, "RRNETMK3 BIOS nicht speichern bei Änderung"},
+/* es */ {IDCLS_RRNETMK3_BIOS_READ_ONLY_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_RRNETMK3_BIOS_READ_ONLY_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_RRNETMK3_BIOS_READ_ONLY_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_RRNETMK3_BIOS_READ_ONLY_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_RRNETMK3_BIOS_READ_ONLY_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_RRNETMK3_BIOS_READ_ONLY_NL, "Sla de RRNET MK3 bios niet op bij wijziging"},
+/* pl */ {IDCLS_RRNETMK3_BIOS_READ_ONLY_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_RRNETMK3_BIOS_READ_ONLY_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_RRNETMK3_BIOS_READ_ONLY_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_RRNETMK3_BIOS_READ_ONLY_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/rrnetmk3.c */
+/* en */ {IDCLS_RRNETMK3_SET_FLASH_JUMPER,    N_("Set the RRNETMK3 Flash Jumper")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_RRNETMK3_SET_FLASH_JUMPER_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_RRNETMK3_SET_FLASH_JUMPER_DE, "Aktiviere RRNETMK3 Flash Jumper"},
+/* es */ {IDCLS_RRNETMK3_SET_FLASH_JUMPER_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_RRNETMK3_SET_FLASH_JUMPER_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_RRNETMK3_SET_FLASH_JUMPER_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_RRNETMK3_SET_FLASH_JUMPER_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_RRNETMK3_SET_FLASH_JUMPER_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_RRNETMK3_SET_FLASH_JUMPER_NL, "Stel de RRNET MK3 Flash Jumper in"},
+/* pl */ {IDCLS_RRNETMK3_SET_FLASH_JUMPER_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_RRNETMK3_SET_FLASH_JUMPER_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_RRNETMK3_SET_FLASH_JUMPER_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_RRNETMK3_SET_FLASH_JUMPER_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/rrnetmk3.c */
+/* en */ {IDCLS_RRNETMK3_UNSET_FLASH_JUMPER,    N_("Remove the RRNETMK3 Flash Jumper")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_RRNETMK3_UNSET_FLASH_JUMPER_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_RRNETMK3_UNSET_FLASH_JUMPER_DE, "Deaktiviere RRNETMK3 Flash Jumper"},
+/* es */ {IDCLS_RRNETMK3_UNSET_FLASH_JUMPER_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_RRNETMK3_UNSET_FLASH_JUMPER_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_RRNETMK3_UNSET_FLASH_JUMPER_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_RRNETMK3_UNSET_FLASH_JUMPER_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_RRNETMK3_UNSET_FLASH_JUMPER_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_RRNETMK3_UNSET_FLASH_JUMPER_NL, "Verwijder de RRNET MK3 Flash Jumper"},
+/* pl */ {IDCLS_RRNETMK3_UNSET_FLASH_JUMPER_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_RRNETMK3_UNSET_FLASH_JUMPER_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_RRNETMK3_UNSET_FLASH_JUMPER_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_RRNETMK3_UNSET_FLASH_JUMPER_TR, ""},  /* fuzzy */
+#endif
+
 /* c64/cart/mmcreplay.c */
 /* en */ {IDCLS_SELECT_MMC_REPLAY_CARD_IMAGE_FILENAME,    N_("Specify MMC Replay card image filename")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SELECT_MMC_REPLAY_CARD_IMAGE_FILENAME_DA, "Angiv filnavn for MMC Replay kort-image"},
-/* de */ {IDCLS_SELECT_MMC_REPLAY_CARD_IMAGE_FILENAME_DE, "MMC Replay Modul imeage datei definieren"},
+/* de */ {IDCLS_SELECT_MMC_REPLAY_CARD_IMAGE_FILENAME_DE, "MMC Replay Modul imeage datei wählen"},
 /* es */ {IDCLS_SELECT_MMC_REPLAY_CARD_IMAGE_FILENAME_ES, "Especificar fichero imagen tarjeta MMC Replay"},
 /* fr */ {IDCLS_SELECT_MMC_REPLAY_CARD_IMAGE_FILENAME_FR, "Spécifier le nom du fichier de l'image carte MMC Replay"},
 /* hu */ {IDCLS_SELECT_MMC_REPLAY_CARD_IMAGE_FILENAME_HU, ""},  /* fuzzy */
@@ -6589,7 +8337,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_MMC_REPLAY_CARD_WRITE_ENABLE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_MMC_REPLAY_CARD_WRITE_ENABLE_IT, "Attiva scrittura su immagine card MMC Replay"},
 /* ko */ {IDCLS_MMC_REPLAY_CARD_WRITE_ENABLE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_MMC_REPLAY_CARD_WRITE_ENABLE_NL, "Aktiveer schrijven naar MMC Replay card bestand"},
+/* nl */ {IDCLS_MMC_REPLAY_CARD_WRITE_ENABLE_NL, "Schrijven naar MMC Replay card bestand inschakelen"},
 /* pl */ {IDCLS_MMC_REPLAY_CARD_WRITE_ENABLE_PL, "W³±cz zapis do obrazu karty MMC Replay"},
 /* ru */ {IDCLS_MMC_REPLAY_CARD_WRITE_ENABLE_RU, "Enable writes to MMC Replay card image"},
 /* sv */ {IDCLS_MMC_REPLAY_CARD_WRITE_ENABLE_SV, "Aktivera skrivning till MMC Replay-kortavbildning"},
@@ -6617,7 +8365,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SELECT_MMC_REPLAY_EEPROM_IMAGE,    N_("Specify MMC Replay EEPROM image filename")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SELECT_MMC_REPLAY_EEPROM_IMAGE_DA, "Angiv filnavn for MMC Replay EEPROM-image"},
-/* de */ {IDCLS_SELECT_MMC_REPLAY_EEPROM_IMAGE_DE, "MMC Replay EEPROM Imagedatei definieren"},
+/* de */ {IDCLS_SELECT_MMC_REPLAY_EEPROM_IMAGE_DE, "MMC Replay EEPROM Imagedatei wählen"},
 /* es */ {IDCLS_SELECT_MMC_REPLAY_EEPROM_IMAGE_ES, "Especificar nombre fichero imagen EEPROM MMC Replay"},
 /* fr */ {IDCLS_SELECT_MMC_REPLAY_EEPROM_IMAGE_FR, "Spécifier le nom du fichier de l'image EEPROM MMC Replay"},
 /* hu */ {IDCLS_SELECT_MMC_REPLAY_EEPROM_IMAGE_HU, ""},  /* fuzzy */
@@ -6640,7 +8388,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_MMC_REPLAY_EEPROM_WRITE_ENABLE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_MMC_REPLAY_EEPROM_WRITE_ENABLE_IT, "Attiva scrittura su immagine EEPROM MMC Replay"},
 /* ko */ {IDCLS_MMC_REPLAY_EEPROM_WRITE_ENABLE_KO, "MMC Replay EEPROM ÀÌ¹ÌÁö ¿¡ ¾²±â °¡´ÉÇÏ°Ô ÇÏ±â"},
-/* nl */ {IDCLS_MMC_REPLAY_EEPROM_WRITE_ENABLE_NL, "Aktiveer schrijven naar MMC Replay EEPROM bestand"},
+/* nl */ {IDCLS_MMC_REPLAY_EEPROM_WRITE_ENABLE_NL, "Schrijven naar MMC Replay EEPROM bestand inschakelen"},
 /* pl */ {IDCLS_MMC_REPLAY_EEPROM_WRITE_ENABLE_PL, "W³±cz zapis do obrazu EEPROM MMC Replay"},
 /* ru */ {IDCLS_MMC_REPLAY_EEPROM_WRITE_ENABLE_RU, "Enable writes to MMC Replay EEPROM image"},
 /* sv */ {IDCLS_MMC_REPLAY_EEPROM_WRITE_ENABLE_SV, "Aktivera skrivning till MMC Replay EEPROM-avbildning"},
@@ -6674,7 +8422,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_MMC_REPLAY_RESCUE_MODE_ENABLE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_MMC_REPLAY_RESCUE_MODE_ENABLE_IT, "Attiva modalità ripristino MMC Replay"},
 /* ko */ {IDCLS_MMC_REPLAY_RESCUE_MODE_ENABLE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_MMC_REPLAY_RESCUE_MODE_ENABLE_NL, "Activeer MMC Replay reddingsmodus"},
+/* nl */ {IDCLS_MMC_REPLAY_RESCUE_MODE_ENABLE_NL, "MMC Replay reddingsmodus inschakelen"},
 /* pl */ {IDCLS_MMC_REPLAY_RESCUE_MODE_ENABLE_PL, "W³±cz tryb ratunkowy MMC Replay"},
 /* ru */ {IDCLS_MMC_REPLAY_RESCUE_MODE_ENABLE_RU, "Enable MMC Replay rescue mode"},
 /* sv */ {IDCLS_MMC_REPLAY_RESCUE_MODE_ENABLE_SV, "Aktivera MMC Replay-räddningsläge"},
@@ -6708,7 +8456,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ALLOW_WRITING_TO_MMC_REPLAY_IMAGE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ALLOW_WRITING_TO_MMC_REPLAY_IMAGE_IT, "Attiva scrittura su immagine MMC Replay"},
 /* ko */ {IDCLS_ALLOW_WRITING_TO_MMC_REPLAY_IMAGE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ALLOW_WRITING_TO_MMC_REPLAY_IMAGE_NL, "Aktiveer schrijven naar MMC Replay bestand"},
+/* nl */ {IDCLS_ALLOW_WRITING_TO_MMC_REPLAY_IMAGE_NL, "Sta schrijven naar MMC Replay bestand toe"},
 /* pl */ {IDCLS_ALLOW_WRITING_TO_MMC_REPLAY_IMAGE_PL, "Pozwól na zapis do obrazu MMC Replay"},
 /* ru */ {IDCLS_ALLOW_WRITING_TO_MMC_REPLAY_IMAGE_RU, "Allow writing to MMC Replay image"},
 /* sv */ {IDCLS_ALLOW_WRITING_TO_MMC_REPLAY_IMAGE_SV, "Tillåt skrivning till MMC Replay-avbildning"},
@@ -6732,6 +8480,91 @@ translate_t string_table[] = {
 /* tr */ {IDCLS_DO_NOT_WRITE_TO_MMC_REPLAY_IMAGE_TR, "MMC Replay imajýna yazma"},
 #endif
 
+/* c64/cart/mmcreplay.c */
+/* en */ {IDCLS_SELECT_GMOD2_EEPROM_IMAGE,    N_("Specify GMod2 EEPROM image filename")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_SELECT_GMOD2_EEPROM_IMAGE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_SELECT_GMOD2_EEPROM_IMAGE_DE, "GMod2 EEPROM Imagedatei wählen"},
+/* es */ {IDCLS_SELECT_GMOD2_EEPROM_IMAGE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_SELECT_GMOD2_EEPROM_IMAGE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_SELECT_GMOD2_EEPROM_IMAGE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_SELECT_GMOD2_EEPROM_IMAGE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_SELECT_GMOD2_EEPROM_IMAGE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_SELECT_GMOD2_EEPROM_IMAGE_NL, "Geef de naam van het GMod2 EEPROM bestand"},
+/* pl */ {IDCLS_SELECT_GMOD2_EEPROM_IMAGE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_SELECT_GMOD2_EEPROM_IMAGE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_SELECT_GMOD2_EEPROM_IMAGE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_SELECT_GMOD2_EEPROM_IMAGE_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/mmcreplay.c */
+/* en */ {IDCLS_GMOD2_EEPROM_WRITE_ENABLE,    N_("Enable writes to GMod2 EEPROM image")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_GMOD2_EEPROM_WRITE_ENABLE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_GMOD2_EEPROM_WRITE_ENABLE_DE, "Erlaube Schreibzugriff auf GMod2 EEPROM Image"},
+/* es */ {IDCLS_GMOD2_EEPROM_WRITE_ENABLE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_GMOD2_EEPROM_WRITE_ENABLE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_GMOD2_EEPROM_WRITE_ENABLE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_GMOD2_EEPROM_WRITE_ENABLE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_GMOD2_EEPROM_WRITE_ENABLE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_GMOD2_EEPROM_WRITE_ENABLE_NL, "Schrijven naar GMod2 EEPROM bestand inschakelen"},
+/* pl */ {IDCLS_GMOD2_EEPROM_WRITE_ENABLE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_GMOD2_EEPROM_WRITE_ENABLE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_GMOD2_EEPROM_WRITE_ENABLE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_GMOD2_EEPROM_WRITE_ENABLE_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/mmcreplay.c */
+/* en */ {IDCLS_GMOD2_EEPROM_WRITE_DISABLE,    N_("Disable writes to GMod2 EEPROM image")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_GMOD2_EEPROM_WRITE_DISABLE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_GMOD2_EEPROM_WRITE_DISABLE_DE, "Schreibzugriff auf GMod2 EEPROM Imagedatei verhindern"},
+/* es */ {IDCLS_GMOD2_EEPROM_WRITE_DISABLE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_GMOD2_EEPROM_WRITE_DISABLE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_GMOD2_EEPROM_WRITE_DISABLE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_GMOD2_EEPROM_WRITE_DISABLE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_GMOD2_EEPROM_WRITE_DISABLE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_GMOD2_EEPROM_WRITE_DISABLE_NL, "Schrijven naar GMod2 EEPROM bestand uitschakelen"},
+/* pl */ {IDCLS_GMOD2_EEPROM_WRITE_DISABLE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_GMOD2_EEPROM_WRITE_DISABLE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_GMOD2_EEPROM_WRITE_DISABLE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_GMOD2_EEPROM_WRITE_DISABLE_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/gmod2.c */
+/* en */ {IDCLS_ENABLE_SAVE_GMOD2_ROM_AT_EXIT,    N_("Enable saving of the GMod2 ROM at exit")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_SAVE_GMOD2_ROM_AT_EXIT_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_SAVE_GMOD2_ROM_AT_EXIT_DE, "Speichern des GMod2 ROMs beim Beenden aktivieren"},
+/* es */ {IDCLS_ENABLE_SAVE_GMOD2_ROM_AT_EXIT_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_SAVE_GMOD2_ROM_AT_EXIT_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_SAVE_GMOD2_ROM_AT_EXIT_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_SAVE_GMOD2_ROM_AT_EXIT_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_SAVE_GMOD2_ROM_AT_EXIT_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_SAVE_GMOD2_ROM_AT_EXIT_NL, "Opslaan van het GMod2 ROM bestand bij afsluiten inschakelen"},
+/* pl */ {IDCLS_ENABLE_SAVE_GMOD2_ROM_AT_EXIT_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_SAVE_GMOD2_ROM_AT_EXIT_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_SAVE_GMOD2_ROM_AT_EXIT_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_SAVE_GMOD2_ROM_AT_EXIT_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/gmod2.c */
+/* en */ {IDCLS_DISABLE_SAVE_GMOD2_ROM_AT_EXIT,    N_("Disable saving of the GMod2 ROM at exit")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_SAVE_GMOD2_ROM_AT_EXIT_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_SAVE_GMOD2_ROM_AT_EXIT_DE, "Speichern des GMod2 ROMs beim Beenden deaktivieren"},
+/* es */ {IDCLS_DISABLE_SAVE_GMOD2_ROM_AT_EXIT_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_SAVE_GMOD2_ROM_AT_EXIT_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_SAVE_GMOD2_ROM_AT_EXIT_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_SAVE_GMOD2_ROM_AT_EXIT_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_SAVE_GMOD2_ROM_AT_EXIT_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_SAVE_GMOD2_ROM_AT_EXIT_NL, "Opslaan van het GMod2 ROM bestand bij afsluiten uitschakelen"},
+/* pl */ {IDCLS_DISABLE_SAVE_GMOD2_ROM_AT_EXIT_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_SAVE_GMOD2_ROM_AT_EXIT_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_SAVE_GMOD2_ROM_AT_EXIT_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_SAVE_GMOD2_ROM_AT_EXIT_TR, ""},  /* fuzzy */
+#endif
+
 /* c64/cart/retroreplay.c */
 /* en */ {IDCLS_ENABLE_SAVE_RR_ROM_AT_EXIT,    N_("Enable saving of the RR ROM at exit")},
 #ifdef HAS_TRANSLATION
@@ -6742,7 +8575,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_SAVE_RR_ROM_AT_EXIT_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_SAVE_RR_ROM_AT_EXIT_IT, "Attiva salvataggio ROM della RR all'uscita"},
 /* ko */ {IDCLS_ENABLE_SAVE_RR_ROM_AT_EXIT_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_SAVE_RR_ROM_AT_EXIT_NL, "Activeer opslaan van het RR ROM bestand bij afsluiten"},
+/* nl */ {IDCLS_ENABLE_SAVE_RR_ROM_AT_EXIT_NL, "Opslaan van het RR ROM bestand bij afsluiten inschakelen"},
 /* pl */ {IDCLS_ENABLE_SAVE_RR_ROM_AT_EXIT_PL, "W³±cz zapis ROM RR przy wyj¶ciu"},
 /* ru */ {IDCLS_ENABLE_SAVE_RR_ROM_AT_EXIT_RU, "Enable saving of the RR ROM at exit"},
 /* sv */ {IDCLS_ENABLE_SAVE_RR_ROM_AT_EXIT_SV, "Aktivera sparande av RR-ROM vid avslutning"},
@@ -6759,7 +8592,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_SAVE_RR_ROM_AT_EXIT_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_SAVE_RR_ROM_AT_EXIT_IT, "Disattiva salvataggio ROM della RR all'uscita"},
 /* ko */ {IDCLS_DISABLE_SAVE_RR_ROM_AT_EXIT_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_SAVE_RR_ROM_AT_EXIT_NL, "Uitschakelen van het opslaan van het RR ROM bestand bij afsluiten"},
+/* nl */ {IDCLS_DISABLE_SAVE_RR_ROM_AT_EXIT_NL, "Opslaan van het RR ROM bestand bij afsluiten uitschakelen"},
 /* pl */ {IDCLS_DISABLE_SAVE_RR_ROM_AT_EXIT_PL, "Wy³±cz zapis ROM RR przy wyj¶ciu"},
 /* ru */ {IDCLS_DISABLE_SAVE_RR_ROM_AT_EXIT_RU, "Disable saving of the RR ROM at exit"},
 /* sv */ {IDCLS_DISABLE_SAVE_RR_ROM_AT_EXIT_SV, "Inaktivera sparande av RR-ROM vid avslutning"},
@@ -6776,7 +8609,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_RR_BANK_JUMPER_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_RR_BANK_JUMPER_IT, "Imposta ponticello bank della RR"},
 /* ko */ {IDCLS_SET_RR_BANK_JUMPER_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_RR_BANK_JUMPER_NL, "Zet RR bank jumper"},
+/* nl */ {IDCLS_SET_RR_BANK_JUMPER_NL, "Stel RR bank jumper in"},
 /* pl */ {IDCLS_SET_RR_BANK_JUMPER_PL, "Ustaw zworkê RR Bank"},
 /* ru */ {IDCLS_SET_RR_BANK_JUMPER_RU, "Set RR Bank Jumper"},
 /* sv */ {IDCLS_SET_RR_BANK_JUMPER_SV, "Aktivera RR-bankbygel"},
@@ -6793,7 +8626,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_UNSET_RR_BANK_JUMPER_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_UNSET_RR_BANK_JUMPER_IT, "Rimuovi ponticello bank della RR"},
 /* ko */ {IDCLS_UNSET_RR_BANK_JUMPER_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_UNSET_RR_BANK_JUMPER_NL, "Zet RR bank jumper niet"},
+/* nl */ {IDCLS_UNSET_RR_BANK_JUMPER_NL, "Verwijder RR bank jumper"},
 /* pl */ {IDCLS_UNSET_RR_BANK_JUMPER_PL, "Usuñ zworkê RR Bank"},
 /* ru */ {IDCLS_UNSET_RR_BANK_JUMPER_RU, "Unset RR Bank Jumper"},
 /* sv */ {IDCLS_UNSET_RR_BANK_JUMPER_SV, "Inaktivera RR-bankbygel"},
@@ -6810,7 +8643,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_RR_FLASH_JUMPER_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_RR_FLASH_JUMPER_IT, "Imposta ponticello flash della RR"},
 /* ko */ {IDCLS_SET_RR_FLASH_JUMPER_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_RR_FLASH_JUMPER_NL, "Zet RR Flash Jumper"},
+/* nl */ {IDCLS_SET_RR_FLASH_JUMPER_NL, "Stel RR Flash Jumper in"},
 /* pl */ {IDCLS_SET_RR_FLASH_JUMPER_PL, "Ustaw prze³±cznik RR Flash"},
 /* ru */ {IDCLS_SET_RR_FLASH_JUMPER_RU, "Set RR Flash Jumper"},
 /* sv */ {IDCLS_SET_RR_FLASH_JUMPER_SV, "Sätt RR-flashbygel"},
@@ -6827,7 +8660,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_UNSET_RR_FLASH_JUMPER_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_UNSET_RR_FLASH_JUMPER_IT, "Rimuovi ponticello bank della RR"},
 /* ko */ {IDCLS_UNSET_RR_FLASH_JUMPER_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_UNSET_RR_FLASH_JUMPER_NL, "Zet RR bank jumper niet"},
+/* nl */ {IDCLS_UNSET_RR_FLASH_JUMPER_NL, "Verwijder RR bank jumper"},
 /* pl */ {IDCLS_UNSET_RR_FLASH_JUMPER_PL, "Usuñ zworkê RR Bank"},
 /* ru */ {IDCLS_UNSET_RR_FLASH_JUMPER_RU, "Unset RR Bank Jumper"},
 /* sv */ {IDCLS_UNSET_RR_FLASH_JUMPER_SV, "Inaktivera RR-bankbygel"},
@@ -6844,7 +8677,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_RR_REVISION_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_RR_REVISION_IT, "Imposta revisione RR (0: Retro Replay, 1: Nordic Replay)"},
 /* ko */ {IDCLS_RR_REVISION_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_RR_REVISION_NL, "Zet RR Revisie (0: Retro Replay, 1: Nordic Replay)"},
+/* nl */ {IDCLS_RR_REVISION_NL, "Stel RR Revisie in (0: Retro Replay, 1: Nordic Replay)"},
 /* pl */ {IDCLS_RR_REVISION_PL, "Okre¶l wersjê RR (0: Retro Replay, 1: Nordic Replay)"},
 /* ru */ {IDCLS_RR_REVISION_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_RR_REVISION_SV, ""},  /* fuzzy */
@@ -6855,13 +8688,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_ENABLE_SS_RAM_EXPANSION,    N_("Enable SS 32k RAM expansion")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ENABLE_SS_RAM_EXPANSION_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_ENABLE_SS_RAM_EXPANSION_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_SS_RAM_EXPANSION_DE, "SS 32k RAM Erweiterung aktivieren"},
 /* es */ {IDCLS_ENABLE_SS_RAM_EXPANSION_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_ENABLE_SS_RAM_EXPANSION_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_ENABLE_SS_RAM_EXPANSION_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_SS_RAM_EXPANSION_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_SS_RAM_EXPANSION_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_SS_RAM_EXPANSION_NL, "Activeer de SS 32k RAM uitbreiding"},
+/* nl */ {IDCLS_ENABLE_SS_RAM_EXPANSION_NL, "SS 32k RAM uitbreiding inschakelen"},
 /* pl */ {IDCLS_ENABLE_SS_RAM_EXPANSION_PL, ""},  /* fuzzy */
 /* ru */ {IDCLS_ENABLE_SS_RAM_EXPANSION_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_SS_RAM_EXPANSION_SV, ""},  /* fuzzy */
@@ -6872,13 +8705,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_DISABLE_SS_RAM_EXPANSION,    N_("Disable SS 32k RAM expansion")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_DISABLE_SS_RAM_EXPANSION_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_DISABLE_SS_RAM_EXPANSION_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_SS_RAM_EXPANSION_DE, "SS 32k RAM Erweiterung deaktivieren"},
 /* es */ {IDCLS_DISABLE_SS_RAM_EXPANSION_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_DISABLE_SS_RAM_EXPANSION_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_DISABLE_SS_RAM_EXPANSION_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_SS_RAM_EXPANSION_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_DISABLE_SS_RAM_EXPANSION_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_SS_RAM_EXPANSION_NL, "De SS 32k RAM uitbreiding uitschakelen"},
+/* nl */ {IDCLS_DISABLE_SS_RAM_EXPANSION_NL, "SS 32k RAM uitbreiding uitschakelen"},
 /* pl */ {IDCLS_DISABLE_SS_RAM_EXPANSION_PL, ""},  /* fuzzy */
 /* ru */ {IDCLS_DISABLE_SS_RAM_EXPANSION_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_SS_RAM_EXPANSION_SV, ""},  /* fuzzy */
@@ -6895,7 +8728,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_REU_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_REU_IT, "Attiva l'espansione di RAM"},
 /* ko */ {IDCLS_ENABLE_REU_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_REU_NL, "Activeer de RAM uitbreidingseenheid (REU)"},
+/* nl */ {IDCLS_ENABLE_REU_NL, "RAM uitbreidingseenheid (REU) inschakelen"},
 /* pl */ {IDCLS_ENABLE_REU_PL, "W³±cz RAM Expansion Unit"},
 /* ru */ {IDCLS_ENABLE_REU_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_REU_SV, "Aktivera RAM-expansionsenhet"},
@@ -6912,7 +8745,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_REU_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_REU_IT, "Disattiva l'espansione di RAM"},
 /* ko */ {IDCLS_DISABLE_REU_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_REU_NL, "De RAM uitbreidingseenheid (REU) uitschakelen"},
+/* nl */ {IDCLS_DISABLE_REU_NL, "RAM uitbreidingseenheid (REU) uitschakelen"},
 /* pl */ {IDCLS_DISABLE_REU_PL, "Wy³±cz RAM Expansion Unit"},
 /* ru */ {IDCLS_DISABLE_REU_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_REU_SV, "Inaktivera RAM-expansionsenhet"},
@@ -6923,7 +8756,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_REU_NAME,    N_("Specify name of REU image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_REU_NAME_DA, "Angiv navn på REU-image"},
-/* de */ {IDCLS_SPECIFY_REU_NAME_DE, "Namen für REU Image Datei definieren"},
+/* de */ {IDCLS_SPECIFY_REU_NAME_DE, "Namen für REU Imagedatei wählen"},
 /* es */ {IDCLS_SPECIFY_REU_NAME_ES, "Especificar nombre imagen REU"},
 /* fr */ {IDCLS_SPECIFY_REU_NAME_FR, "Spécifier le nom de l'image REU"},
 /* hu */ {IDCLS_SPECIFY_REU_NAME_HU, "Adja meg a REU képmás nevét"},
@@ -6946,7 +8779,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ALLOW_WRITING_TO_REU_IMAGE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ALLOW_WRITING_TO_REU_IMAGE_IT, "Attiva scrittura su immagine REU"},
 /* ko */ {IDCLS_ALLOW_WRITING_TO_REU_IMAGE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ALLOW_WRITING_TO_REU_IMAGE_NL, "Aktiveer schrijven naar REU bestand"},
+/* nl */ {IDCLS_ALLOW_WRITING_TO_REU_IMAGE_NL, "Sta schrijven naar REU bestand toe"},
 /* pl */ {IDCLS_ALLOW_WRITING_TO_REU_IMAGE_PL, "Pozwól na zapis do obrazu REU"},
 /* ru */ {IDCLS_ALLOW_WRITING_TO_REU_IMAGE_RU, "Allow writing to REU image"},
 /* sv */ {IDCLS_ALLOW_WRITING_TO_REU_IMAGE_SV, "Tillåt skrivning till REU-avbildning"},
@@ -6987,90 +8820,124 @@ translate_t string_table[] = {
 /* tr */ {IDCLS_REU_SIZE_TR, ""},  /* fuzzy */
 #endif
 
-#ifdef HAVE_TFE
-/* c64/cart/tfe.c */
-/* en */ {IDCLS_ENABLE_TFE,    N_("Enable the TFE (\"The Final Ethernet\") unit")},
+#ifdef HAVE_PCAP
+/* c64/cart/ethernetcart.c */
+/* en */ {IDCLS_ENABLE_TFE,    N_("Enable the Ethernet Cartridge in TFE (\"The Final Ethernet\") compatible mode and set default I/O address")},
 #ifdef HAS_TRANSLATION
-/* da */ {IDCLS_ENABLE_TFE_DA, "Aktivér TFE-enhed (\"The Final Ethernet\")"},
-/* de */ {IDCLS_ENABLE_TFE_DE, "TFE (\"the final ethernet\") Erweiterung aktivitieren"},
-/* es */ {IDCLS_ENABLE_TFE_ES, "Permitir unidad TFE (\"The Final Ethernet\")"},
-/* fr */ {IDCLS_ENABLE_TFE_FR, "Activer l'unité TFE (\"The Final Ethernet\")"},
-/* hu */ {IDCLS_ENABLE_TFE_HU, "TFE (\"the final ethernet\") egység engedélyezése"},
-/* it */ {IDCLS_ENABLE_TFE_IT, "Attiva l'unità TFE (\"The Final Ethernet\")"},
+/* da */ {IDCLS_ENABLE_TFE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_TFE_DE, "Aktiviere Ethernet Erweiterungsmodul in TFE (\"The Final Ethernet\") kompatiblen Modus und setze die Standard I/O Adresse"},
+/* es */ {IDCLS_ENABLE_TFE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_TFE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_TFE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_TFE_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_TFE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_TFE_NL, "Activeer de TFE (\"The Final Ethernet\") eenheid"},
-/* pl */ {IDCLS_ENABLE_TFE_PL, "W³±cz jednostkê TFE (\"The Final Ethernet\")"},
-/* ru */ {IDCLS_ENABLE_TFE_RU, "Enable the TFE (\"The Final Ethernet\") unit"},
-/* sv */ {IDCLS_ENABLE_TFE_SV, "Aktivera TFE-enhet (\"The Final Ethernet\")"},
-/* tr */ {IDCLS_ENABLE_TFE_TR, "TFE (\"The Final Ethernet\") birimini aktif et"},
+/* nl */ {IDCLS_ENABLE_TFE_NL, "Ethernet Cartridge inschakelen in TFE (\"The Final Ethernet\") compatibel modus en zet het standaard I/O adres"},
+/* pl */ {IDCLS_ENABLE_TFE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_TFE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_TFE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_TFE_TR, ""},  /* fuzzy */
 #endif
 
-/* c64/cart/tfe.c */
-/* en */ {IDCLS_DISABLE_TFE,    N_("Disable the TFE (\"The Final Ethernet\") unit")},
+/* c64/cart/ethernetcart.c */
+/* en */ {IDCLS_ENABLE_RRNET,    N_("Enable the Ethernet Cartridge in RR-Net compatible mode and set default I/O address")},
 #ifdef HAS_TRANSLATION
-/* da */ {IDCLS_DISABLE_TFE_DA, "Deaktivér TFE-enhed (\"The Final Ethernet\")"},
-/* de */ {IDCLS_DISABLE_TFE_DE, "TFE (\"the final ethernet\") Erweiterung deaktivitieren"},
-/* es */ {IDCLS_DISABLE_TFE_ES, "Deshabilitar unidad TFE (\"The Final Ethernet\")"},
-/* fr */ {IDCLS_DISABLE_TFE_FR, "Désactiver l'unité TFE (\"The Final Ethernet\")"},
-/* hu */ {IDCLS_DISABLE_TFE_HU, "TFE (\"The Final Ethernet\") egység tiltása"},
-/* it */ {IDCLS_DISABLE_TFE_IT, "Disattiva l'unità TFE (\"The Final Ethernet\")"},
-/* ko */ {IDCLS_DISABLE_TFE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_TFE_NL, "De TFE (\"The Final Ethernet\") eenheid uitschakelen"},
-/* pl */ {IDCLS_DISABLE_TFE_PL, "Wy³±cz jednostkê TFE (\"The Final Ethernet\")"},
-/* ru */ {IDCLS_DISABLE_TFE_RU, "Disable the TFE (\"The Final Ethernet\") unit"},
-/* sv */ {IDCLS_DISABLE_TFE_SV, "Inaktivera TFE-enhet (\"The Final Ethernet\")"},
-/* tr */ {IDCLS_DISABLE_TFE_TR, "TFE (\"The Final Ethernet\") birimini pasifleþtir"},
+/* da */ {IDCLS_ENABLE_RRNET_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_RRNET_DE, "Aktiviere Ethernet Erweiterungsmodul in RR-Net kompatiblen Modus uns\nsetze die Standard I/O Adresse"},
+/* es */ {IDCLS_ENABLE_RRNET_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_RRNET_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_RRNET_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_RRNET_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_RRNET_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_RRNET_NL, "Ethernet Cartridge inschakelen in RR-Net compatibel modus en zet het standaard I/O adres"},
+/* pl */ {IDCLS_ENABLE_RRNET_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_RRNET_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_RRNET_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_RRNET_TR, ""},  /* fuzzy */
 #endif
 
-/* c64/cart/tfe.c */
-/* en */ {IDCLS_TFE_INTERFACE,    N_("Set the system ethernet interface for TFE emulation")},
+/* c64/cart/ethernetcart.c */
+/* en */ {IDCLS_ENABLE_ETHERNETCART,    N_("Enable the Ethernet Cartridge (TFE/RR-Net/64NIC/FB-NET)")},
 #ifdef HAS_TRANSLATION
-/* da */ {IDCLS_TFE_INTERFACE_DA, "Indstil systemets netkort til TFE-emulering"},
-/* de */ {IDCLS_TFE_INTERFACE_DE, "Setze die System Ethernet Schnittstelle für die TFE Emulation"},
-/* es */ {IDCLS_TFE_INTERFACE_ES, "Seleccionar interface sistema ethernet para emulación TFE"},
-/* fr */ {IDCLS_TFE_INTERFACE_FR, "Définir l’interface ethernet pour l’émulation TFE"},
-/* hu */ {IDCLS_TFE_INTERFACE_HU, "Rendszer ethernet eszköz beállítása TFE emulációhoz"},
-/* it */ {IDCLS_TFE_INTERFACE_IT, "Imposta l'interfaccia ethernet per l'emulazione TFE"},
-/* ko */ {IDCLS_TFE_INTERFACE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_TFE_INTERFACE_NL, "Zet de systeem ethernetinterface voor de TFE emulatie"},
-/* pl */ {IDCLS_TFE_INTERFACE_PL, "Ustaw interfejs systemowy ethernet emulacji TFE"},
-/* ru */ {IDCLS_TFE_INTERFACE_RU, "Set the system ethernet interface for TFE emulation"},
-/* sv */ {IDCLS_TFE_INTERFACE_SV, "Ställ in systemets ethernetgränssnitt för TFE-emulering"},
-/* tr */ {IDCLS_TFE_INTERFACE_TR, "Sistem ethernet arabirimini TFE emülasyonu için ayarla"},
+/* da */ {IDCLS_ENABLE_ETHERNETCART_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_ETHERNETCART_DE, "Ethernet Cartridge (TFE/RR-Net/64NIC/FB-NET) aktivieren"},
+/* es */ {IDCLS_ENABLE_ETHERNETCART_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_ETHERNETCART_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_ETHERNETCART_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_ETHERNETCART_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_ETHERNETCART_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_ETHERNETCART_NL, "Ethernet Cartridge (TFE/RR-Net/64NIC/FB-NET) inschakelen"},
+/* pl */ {IDCLS_ENABLE_ETHERNETCART_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_ETHERNETCART_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_ETHERNETCART_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_ETHERNETCART_TR, ""},  /* fuzzy */
 #endif
 
-/* c64/cart/tfe.c */
-/* en */ {IDCLS_ENABLE_TFE_AS_RRNET,    N_("Enable RRNet mode of TFE emulation")},
+/* c64/cart/ethernetcart.c */
+/* en */ {IDCLS_DISABLE_ETHERNETCART,    N_("Disable the Ethernet Cartridge (TFE/RR-Net/64NIC/FB-NET)")},
 #ifdef HAS_TRANSLATION
-/* da */ {IDCLS_ENABLE_TFE_AS_RRNET_DA, "Aktivér RRNet-tilstand af TFE-emulering"},
-/* de */ {IDCLS_ENABLE_TFE_AS_RRNET_DE, "RRNet Modus der TFE Emulation aktivieren"},
-/* es */ {IDCLS_ENABLE_TFE_AS_RRNET_ES, "Permitir emulación TFE en modo RRNet"},
-/* fr */ {IDCLS_ENABLE_TFE_AS_RRNET_FR, "Activer le mode RRNet de l’émulation TFE"},
-/* hu */ {IDCLS_ENABLE_TFE_AS_RRNET_HU, "RRNet mód engedélyezése TFE emulációhoz"},
-/* it */ {IDCLS_ENABLE_TFE_AS_RRNET_IT, "Attiva la modalità RRNet dell'emulazione TFE"},
-/* ko */ {IDCLS_ENABLE_TFE_AS_RRNET_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_TFE_AS_RRNET_NL, "Activeer RRNet modus van de TFE emulatie"},
-/* pl */ {IDCLS_ENABLE_TFE_AS_RRNET_PL, "W³±cz tryb RRNet emulacji TFE"},
-/* ru */ {IDCLS_ENABLE_TFE_AS_RRNET_RU, "Enable RRNet mode of TFE emulation"},
-/* sv */ {IDCLS_ENABLE_TFE_AS_RRNET_SV, "Aktivera RRNet-läge på TFE-emulering"},
-/* tr */ {IDCLS_ENABLE_TFE_AS_RRNET_TR, "TFE emülasyonunun RRNet modunu aktif et"},
+/* da */ {IDCLS_DISABLE_ETHERNETCART_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_ETHERNETCART_DE, "Ethernet Cartridge  (TFE/RR-Net/64NIC/FB-NET)deaktivieren"},
+/* es */ {IDCLS_DISABLE_ETHERNETCART_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_ETHERNETCART_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_ETHERNETCART_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_ETHERNETCART_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_ETHERNETCART_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_ETHERNETCART_NL, "Ethernet Cartridge (TFE/RR-Net/64NIC/FB-NET) uitschakelen"},
+/* pl */ {IDCLS_DISABLE_ETHERNETCART_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_ETHERNETCART_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_ETHERNETCART_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_ETHERNETCART_TR, ""},  /* fuzzy */
 #endif
 
-/* c64/cart/tfe.c */
-/* en */ {IDCLS_DISABLE_TFE_AS_RRNET,    N_("Disable RRNet mode of TFE emulation")},
+/* c64/cart/ethernetcart.c */
+/* en */ {IDCLS_ETHERNETCART_BASE,    N_("Base address of the Ethernet Cartridge")},
 #ifdef HAS_TRANSLATION
-/* da */ {IDCLS_DISABLE_TFE_AS_RRNET_DA, "Deaktivér RRNet-läge af TFE-emulering"},
-/* de */ {IDCLS_DISABLE_TFE_AS_RRNET_DE, "RRNet Modus der TFE Emulation deaktivieren"},
-/* es */ {IDCLS_DISABLE_TFE_AS_RRNET_ES, "Deshabilitar emulación TFE en modo RRNet"},
-/* fr */ {IDCLS_DISABLE_TFE_AS_RRNET_FR, "Désactiver le mode RRNet de l’émulation TFE"},
-/* hu */ {IDCLS_DISABLE_TFE_AS_RRNET_HU, "RRNet mód tiltása TFE emulációhoz"},
-/* it */ {IDCLS_DISABLE_TFE_AS_RRNET_IT, "Disattiva la modalità RRNet dell'emulazione TFE"},
-/* ko */ {IDCLS_DISABLE_TFE_AS_RRNET_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_TFE_AS_RRNET_NL, "RRNet modus van de TFE emulatie uitschakelen"},
-/* pl */ {IDCLS_DISABLE_TFE_AS_RRNET_PL, "Wy³±cz tryb RRNet emulacji TFE"},
-/* ru */ {IDCLS_DISABLE_TFE_AS_RRNET_RU, "Disable RRNet mode of TFE emulation"},
-/* sv */ {IDCLS_DISABLE_TFE_AS_RRNET_SV, "Inaktivera RRNet-läge på TFE-emulering"},
-/* tr */ {IDCLS_DISABLE_TFE_AS_RRNET_TR, "TFE emülasyonunun RRNet modunu pasifleþtir"},
+/* da */ {IDCLS_ETHERNETCART_BASE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ETHERNETCART_BASE_DE, "Basis Adresse für Ethernet Erweiterungmodul"},
+/* es */ {IDCLS_ETHERNETCART_BASE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ETHERNETCART_BASE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ETHERNETCART_BASE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ETHERNETCART_BASE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ETHERNETCART_BASE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ETHERNETCART_BASE_NL, "Basisadres van de Ethernet Cartridge"},
+/* pl */ {IDCLS_ETHERNETCART_BASE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ETHERNETCART_BASE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ETHERNETCART_BASE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ETHERNETCART_BASE_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/ethernetcart.c */
+/* en */ {IDCLS_ETHERNETCART_MODE,    N_("Mode of Ethernet Cartridge (0: TFE, 1: RR-Net)")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ETHERNETCART_MODE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ETHERNETCART_MODE_DE, "Modus des Ethernet Erweiterungsmoduls (0: TFE, 1: RR-Net)"},
+/* es */ {IDCLS_ETHERNETCART_MODE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ETHERNETCART_MODE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ETHERNETCART_MODE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ETHERNETCART_MODE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ETHERNETCART_MODE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ETHERNETCART_MODE_NL, "Modus van den Ethernet Cartridge (0: TFE, 1: RR-Net)"},
+/* pl */ {IDCLS_ETHERNETCART_MODE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ETHERNETCART_MODE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ETHERNETCART_MODE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ETHERNETCART_MODE_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/cs8900io.c */
+/* en */ {IDCLS_ETHERNET_INTERFACE,    N_("Set the system ethernet interface")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ETHERNET_INTERFACE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ETHERNET_INTERFACE_DE, "Setze die System Ethernet Schnittstelle"},
+/* es */ {IDCLS_ETHERNET_INTERFACE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ETHERNET_INTERFACE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ETHERNET_INTERFACE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ETHERNET_INTERFACE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ETHERNET_INTERFACE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ETHERNET_INTERFACE_NL, "Stel de systeem ethernetinterface in"},
+/* pl */ {IDCLS_ETHERNET_INTERFACE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ETHERNET_INTERFACE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ETHERNET_INTERFACE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ETHERNET_INTERFACE_TR, ""},  /* fuzzy */
 #endif
 #endif
 
@@ -7118,7 +8985,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ATTACH_CRT_CART_HU, "CRT cartridge képmás csatolása"},
 /* it */ {IDCLS_ATTACH_CRT_CART_IT, "Seleziona immagine cartuccia CRT"},
 /* ko */ {IDCLS_ATTACH_CRT_CART_KO, "CRT Ä«Æ®¸®Áö ÀÌ¹ÌÁö¸¦ ºÙ¿©³ÖÀ¸½Ã¿À"},
-/* nl */ {IDCLS_ATTACH_CRT_CART_NL, "Koppel CRT cartridge bestand aan"},
+/* nl */ {IDCLS_ATTACH_CRT_CART_NL, "Koppel CRT cartridge bestand"},
 /* pl */ {IDCLS_ATTACH_CRT_CART_PL, "Zamontuj obraz kartrid¿a CRT"},
 /* ru */ {IDCLS_ATTACH_CRT_CART_RU, "Attach CRT cartridge image"},
 /* sv */ {IDCLS_ATTACH_CRT_CART_SV, "Anslut CRT-insticksmodulfil"},
@@ -7959,6 +9826,23 @@ translate_t string_table[] = {
 #endif
 
 /* c64/cart/c64cart.c */
+/* en */ {IDCLS_ATTACH_RAW_EASYCALC_CART,    N_("Attach raw 24kB Easy Calc Result cartridge image")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ATTACH_RAW_EASYCALC_CART_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ATTACH_RAW_EASYCALC_CART_DE, "Easy Calc Result Erweiterungsmodul Image (24kb raw) einlegen"},
+/* es */ {IDCLS_ATTACH_RAW_EASYCALC_CART_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ATTACH_RAW_EASYCALC_CART_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ATTACH_RAW_EASYCALC_CART_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ATTACH_RAW_EASYCALC_CART_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ATTACH_RAW_EASYCALC_CART_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ATTACH_RAW_EASYCALC_CART_NL, "Koppel binair 24kB Easy Calc Result cartridge bestand"},
+/* pl */ {IDCLS_ATTACH_RAW_EASYCALC_CART_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ATTACH_RAW_EASYCALC_CART_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ATTACH_RAW_EASYCALC_CART_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ATTACH_RAW_EASYCALC_CART_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/c64cart.c */
 /* en */ {IDCLS_ATTACH_RAW_PAGEFOX_CART,    N_("Attach raw 64KB Pagefox cartridge image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ATTACH_RAW_PAGEFOX_CART_DA, "Tilslut råt 64kB Pagefox cartridge image"},
@@ -8061,6 +9945,23 @@ translate_t string_table[] = {
 #endif
 
 /* c64/cart/c64cart.c */
+/* en */ {IDCLS_ATTACH_RAW_RRNETMK3_CART,    N_("Attach raw 8kB RR-Net MK3 cartridge image")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ATTACH_RAW_RRNETMK3_CART_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ATTACH_RAW_RRNETMK3_CART_DE, "8kB RR-Net MK3 Image (raw) einlegen"},
+/* es */ {IDCLS_ATTACH_RAW_RRNETMK3_CART_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ATTACH_RAW_RRNETMK3_CART_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ATTACH_RAW_RRNETMK3_CART_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ATTACH_RAW_RRNETMK3_CART_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ATTACH_RAW_RRNETMK3_CART_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ATTACH_RAW_RRNETMK3_CART_NL, "Koppel binair 8kB RRNET MK3 cartridge bestand"},
+/* pl */ {IDCLS_ATTACH_RAW_RRNETMK3_CART_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ATTACH_RAW_RRNETMK3_CART_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ATTACH_RAW_RRNETMK3_CART_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ATTACH_RAW_RRNETMK3_CART_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/c64cart.c */
 /* en */ {IDCLS_ATTACH_RAW_ROSS_CART,    N_("Attach raw 16/32kB ROSS cartridge image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ATTACH_RAW_ROSS_CART_DA, "Tilslut råt 16/32kB ROSS cartridge image"},
@@ -8138,7 +10039,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_EXPERT_CART_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_EXPERT_CART_IT, "Attiva Expert Cartridge"},
 /* ko */ {IDCLS_ENABLE_EXPERT_CART_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_EXPERT_CART_NL, "Activeer Expert Cartridge"},
+/* nl */ {IDCLS_ENABLE_EXPERT_CART_NL, "Expert Cartridge inschakelen"},
 /* pl */ {IDCLS_ENABLE_EXPERT_CART_PL, "W³±cz Expert Cartridge"},
 /* ru */ {IDCLS_ENABLE_EXPERT_CART_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_EXPERT_CART_SV, "Aktivera Expert Cartridge"},
@@ -8172,7 +10073,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_EXPERT_FILENAME_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_EXPERT_FILENAME_IT, "Imposta nome immagine Expert Cartridge"},
 /* ko */ {IDCLS_SET_EXPERT_FILENAME_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_EXPERT_FILENAME_NL, "Zet Expert Cartridge bestandsnaam"},
+/* nl */ {IDCLS_SET_EXPERT_FILENAME_NL, "Stel Expert Cartridge bestandsnaam in"},
 /* pl */ {IDCLS_SET_EXPERT_FILENAME_PL, "Okre¶l nazwê obrazu Expert Cartridge"},
 /* ru */ {IDCLS_SET_EXPERT_FILENAME_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_EXPERT_FILENAME_SV, "Välj Expert Cartridge-modulfil"},
@@ -8189,7 +10090,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_EXPERT_MODE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_EXPERT_MODE_IT, "Imposta modalità Expert Cartridge (0: Off, 1: Prg, 2: On)"},
 /* ko */ {IDCLS_SET_EXPERT_MODE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_EXPERT_MODE_NL, "Zet de Expert Cartridge modus (0: uit, 1: prg, 2: aan)"},
+/* nl */ {IDCLS_SET_EXPERT_MODE_NL, "Stel de Expert Cartridge modus in (0: uit, 1: prg, 2: aan)"},
 /* pl */ {IDCLS_SET_EXPERT_MODE_PL, "Wybierz tryb Expert Cartridge (0: Wy³±czony, 1: Prg, 2: W³±czony)"},
 /* ru */ {IDCLS_SET_EXPERT_MODE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_EXPERT_MODE_SV, ""},  /* fuzzy */
@@ -8206,7 +10107,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ALLOW_WRITING_TO_EXPERT_IMAGE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ALLOW_WRITING_TO_EXPERT_IMAGE_IT, "Attiva scrittura su immagine Expert Cartridge"},
 /* ko */ {IDCLS_ALLOW_WRITING_TO_EXPERT_IMAGE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ALLOW_WRITING_TO_EXPERT_IMAGE_NL, "Activeer schrijven naar Expert Cartridge bestand"},
+/* nl */ {IDCLS_ALLOW_WRITING_TO_EXPERT_IMAGE_NL, "Sta schrijven naar Expert Cartridge bestand toe"},
 /* pl */ {IDCLS_ALLOW_WRITING_TO_EXPERT_IMAGE_PL, "Pozwól na zapis do obrazu Expert Cartridge"},
 /* ru */ {IDCLS_ALLOW_WRITING_TO_EXPERT_IMAGE_RU, "Allow writing to Expert Cartridge image"},
 /* sv */ {IDCLS_ALLOW_WRITING_TO_EXPERT_IMAGE_SV, "Tillåt skrivning till Expert Cartridge-avbildning"},
@@ -8240,7 +10141,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_CART_HU, "Alap cartridge tiltása"},
 /* it */ {IDCLS_DISABLE_CART_IT, "Disattiva cartuccia predefinita"},
 /* ko */ {IDCLS_DISABLE_CART_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_CART_NL, "De standaard cartridge uitschakelen"},
+/* nl */ {IDCLS_DISABLE_CART_NL, "Standaard cartridge uitschakelen"},
 /* pl */ {IDCLS_DISABLE_CART_PL, "Wy³±cz domy¶lny kartrid¿"},
 /* ru */ {IDCLS_DISABLE_CART_RU, "Disable default cartridge"},
 /* sv */ {IDCLS_DISABLE_CART_SV, "Inaktivera standardinsticksmodul"},
@@ -8268,7 +10169,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_IDE64_NAME,    N_("Specify name of IDE64 image file")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_IDE64_NAME_DA, "Angiv navn på IDE64-cartridge image"},
-/* de */ {IDCLS_SPECIFY_IDE64_NAME_DE, "Namen für IDE64 Image Datei definieren"},
+/* de */ {IDCLS_SPECIFY_IDE64_NAME_DE, "Namen für IDE64 Imagedatei wählen"},
 /* es */ {IDCLS_SPECIFY_IDE64_NAME_ES, "Especificar nombre fichero imagen IDE64"},
 /* fr */ {IDCLS_SPECIFY_IDE64_NAME_FR, "Spécifier le nom de l'image IDE64"},
 /* hu */ {IDCLS_SPECIFY_IDE64_NAME_HU, "Adja meg az IDE64 képmás fájlnevét"},
@@ -8371,13 +10272,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_NO_AUTODETECT_IDE64_GEOMETRY,    N_("Do not autodetect geometry of formatted images")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_NO_AUTODETECT_IDE64_GEOMETRY_DA, "Autodetektér ikke geometri fra formatterede images"},
-/* de */ {IDCLS_NO_AUTODETECT_IDE64_GEOMETRY_DE, "Geometrie von formatierten Image Dateien nicht automatisch erkennen"},
+/* de */ {IDCLS_NO_AUTODETECT_IDE64_GEOMETRY_DE, "Geometrie von formatierten Imagedateien nicht automatisch erkennen"},
 /* es */ {IDCLS_NO_AUTODETECT_IDE64_GEOMETRY_ES, "No autodetectar formato geometría imágenes"},
 /* fr */ {IDCLS_NO_AUTODETECT_IDE64_GEOMETRY_FR, "Ne pas détecter automatiquement la géométrie des images formattées"},
 /* hu */ {IDCLS_NO_AUTODETECT_IDE64_GEOMETRY_HU, "Formázott képmások geometriáját ne ismerje fel automatikusan"},
 /* it */ {IDCLS_NO_AUTODETECT_IDE64_GEOMETRY_IT, "Non rilevare automaticamente la geometrica delle immagini formattate"},
 /* ko */ {IDCLS_NO_AUTODETECT_IDE64_GEOMETRY_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_NO_AUTODETECT_IDE64_GEOMETRY_NL, "Niet automatisch de grootte van de geformateerde bestanden detecteren"},
+/* nl */ {IDCLS_NO_AUTODETECT_IDE64_GEOMETRY_NL, "Niet automatisch de grootte van de geformatteerde bestanden detecteren"},
 /* pl */ {IDCLS_NO_AUTODETECT_IDE64_GEOMETRY_PL, "Nie wykrywaj geometrii sformatowanych obrazów"},
 /* ru */ {IDCLS_NO_AUTODETECT_IDE64_GEOMETRY_RU, "Do not autodetect geometry of formatted images"},
 /* sv */ {IDCLS_NO_AUTODETECT_IDE64_GEOMETRY_SV, "Autodetektera inte geometri från formaterad avbildningsfil"},
@@ -8394,7 +10295,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_IDE64_VERSION_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_IDE64_VERSION_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_IDE64_VERSION_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_IDE64_VERSION_NL, "SID cartridge versie"},
+/* nl */ {IDCLS_IDE64_VERSION_NL, "IDE64 cartridge versie"},
 /* pl */ {IDCLS_IDE64_VERSION_PL, "Wersja kartrid¿a IDE64"},
 /* ru */ {IDCLS_IDE64_VERSION_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_IDE64_VERSION_SV, ""},  /* fuzzy */
@@ -8411,7 +10312,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_IDE64_USB_SERVER_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_IDE64_USB_SERVER_IT, "Attiva server IDE64 USB"},
 /* ko */ {IDCLS_ENABLE_IDE64_USB_SERVER_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_IDE64_USB_SERVER_NL, "Activeer IDE64 USB server"},
+/* nl */ {IDCLS_ENABLE_IDE64_USB_SERVER_NL, "IDE64 USB server inschakelen"},
 /* pl */ {IDCLS_ENABLE_IDE64_USB_SERVER_PL, "W³±cz serwer USB IDE64"},
 /* ru */ {IDCLS_ENABLE_IDE64_USB_SERVER_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_IDE64_USB_SERVER_SV, ""},  /* fuzzy */
@@ -8445,7 +10346,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_IDE64_USB_SERVER_ADDRESS_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_IDE64_USB_SERVER_ADDRESS_IT, "Indirizzo server IDE64 USB"},
 /* ko */ {IDCLS_IDE64_USB_SERVER_ADDRESS_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_IDE64_USB_SERVER_ADDRESS_NL, "IDE64 USB server adres"},
+/* nl */ {IDCLS_IDE64_USB_SERVER_ADDRESS_NL, "IDE64 USB serveradres"},
 /* pl */ {IDCLS_IDE64_USB_SERVER_ADDRESS_PL, "Adres serwera USB IDE64"},
 /* ru */ {IDCLS_IDE64_USB_SERVER_ADDRESS_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_IDE64_USB_SERVER_ADDRESS_SV, ""},  /* fuzzy */
@@ -8462,7 +10363,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_IDE64_RTC_SAVE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_IDE64_RTC_SAVE_IT, "Attiva il salvataggio dei dati RTC dell'IDE64 alla modifica."},
 /* ko */ {IDCLS_ENABLE_IDE64_RTC_SAVE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_IDE64_RTC_SAVE_NL, "Activeer opslaan van de IDE64 RTC data indien gewijzigd"},
+/* nl */ {IDCLS_ENABLE_IDE64_RTC_SAVE_NL, "Opslaan van de IDE64 RTC gegevens bij wijziging inschakelen."},
 /* pl */ {IDCLS_ENABLE_IDE64_RTC_SAVE_PL, "Zapisuj dane zegara czasu rzeczywistego IDE64 przy zmianie"},
 /* ru */ {IDCLS_ENABLE_IDE64_RTC_SAVE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_IDE64_RTC_SAVE_SV, ""},  /* fuzzy */
@@ -8479,7 +10380,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_IDE64_RTC_SAVE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_IDE64_RTC_SAVE_IT, "Disattiva il salvataggio dei dati RTC dell'IDE64 alla modifica."},
 /* ko */ {IDCLS_DISABLE_IDE64_RTC_SAVE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_IDE64_RTC_SAVE_NL, "Opslaan van de IDE64 RTC data indien gewijzigd uitschakelen"},
+/* nl */ {IDCLS_DISABLE_IDE64_RTC_SAVE_NL, "Opslaan van de IDE64 RTC gegevens bij wijziging uitschakelen."},
 /* pl */ {IDCLS_DISABLE_IDE64_RTC_SAVE_PL, "Nie zapisuj danych zegara czasu rzeczywistego IDE64 przy zmianie"},
 /* ru */ {IDCLS_DISABLE_IDE64_RTC_SAVE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_IDE64_RTC_SAVE_SV, ""},  /* fuzzy */
@@ -8507,7 +10408,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_CBM2_MODEL,    N_("Specify CBM-II model to emulate. (610, 620, 620+, 710, 720, 720+)")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_CBM2_MODEL_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_CBM2_MODEL_DE, "CBM-II Modell für Emulation definieren. (610, 620, 620+, 710, 720, 720+)"},
+/* de */ {IDCLS_SPECIFY_CBM2_MODEL_DE, "CBM-II Modell für Emulation wählen. (610, 620, 620+, 710, 720, 720+)"},
 /* es */ {IDCLS_SPECIFY_CBM2_MODEL_ES, "Especificar modelo CBM-II para emular. (610, 620, 620+, 710, 720, 720+)"},
 /* fr */ {IDCLS_SPECIFY_CBM2_MODEL_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_CBM2_MODEL_HU, ""},  /* fuzzy */
@@ -8524,7 +10425,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_CBM5X0_MODEL,    N_("Specify CBM-II model to emulate. (510)")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_CBM5X0_MODEL_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_CBM5X0_MODEL_DE, "CBM-II Modell für Emulation definieren. (510)"},
+/* de */ {IDCLS_SPECIFY_CBM5X0_MODEL_DE, "CBM-II Modell für Emulation wählen. (510)"},
 /* es */ {IDCLS_SPECIFY_CBM5X0_MODEL_ES, "Especificar modelo CBM-II para emular. (510)"},
 /* fr */ {IDCLS_SPECIFY_CBM5X0_MODEL_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_CBM5X0_MODEL_HU, ""},  /* fuzzy */
@@ -8592,7 +10493,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_CBM2_MODEL_HARDWARE,    N_("Specify CBM-II model hardware (0=6x0, 1=7x0)")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_CBM2_MODEL_HARDWARE_DA, "Angiv hardware for CBM-II-model (0=6x0, 1=7x0)"},
-/* de */ {IDCLS_SPECIFY_CBM2_MODEL_HARDWARE_DE, "CBM-II Hardware Modell definieren (0=6x0, 1=7x0)"},
+/* de */ {IDCLS_SPECIFY_CBM2_MODEL_HARDWARE_DE, "CBM-II Hardware Modell wählen (0=6x0, 1=7x0)"},
 /* es */ {IDCLS_SPECIFY_CBM2_MODEL_HARDWARE_ES, "Especificar modelo hardware CBM-II (0=6x0, 1=7x0)"},
 /* fr */ {IDCLS_SPECIFY_CBM2_MODEL_HARDWARE_FR, "Spécifier le modèle hardware CBM-II (0=6x0, 1=7x0)"},
 /* hu */ {IDCLS_SPECIFY_CBM2_MODEL_HARDWARE_HU, "Adja meg a CBM-II hardver modellt (0=6x0, 1=7x0)"},
@@ -8626,7 +10527,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_SIZE_OF_RAM,    N_("Specify size of RAM (64/128/256/512/1024 kByte)")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_SIZE_OF_RAM_DA, "Angiv størrelse på RAM (64/128/256/512/1024 kByte)"},
-/* de */ {IDCLS_SPECIFY_SIZE_OF_RAM_DE, "RAM Größe definieren (64/128/256/512/1024 kByte)"},
+/* de */ {IDCLS_SPECIFY_SIZE_OF_RAM_DE, "RAM Größe wählen (64/128/256/512/1024 kByte)"},
 /* es */ {IDCLS_SPECIFY_SIZE_OF_RAM_ES, "Especificar tamaño RAM  (64/128/256/512/1024 KB)"},
 /* fr */ {IDCLS_SPECIFY_SIZE_OF_RAM_FR, "Spécifier la taille de la RAM (64/128/256/512/1024 KO)"},
 /* hu */ {IDCLS_SPECIFY_SIZE_OF_RAM_HU, "Adja meg a RAM méretét (64/128/256/512/1024 kBájt)"},
@@ -8643,7 +10544,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_SIZE_OF_RAM_CBM2,    N_("Specify size of RAM (128/256/512/1024 kByte)")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_SIZE_OF_RAM_CBM2_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_SIZE_OF_RAM_CBM2_DE, "RAM Größe definieren (128/256/512/1024 kByte)"},
+/* de */ {IDCLS_SPECIFY_SIZE_OF_RAM_CBM2_DE, "RAM Größe wählen (128/256/512/1024 kByte)"},
 /* es */ {IDCLS_SPECIFY_SIZE_OF_RAM_CBM2_ES, "Especificar tamaño RAM  (128/256/512/1024 kByte)"},
 /* fr */ {IDCLS_SPECIFY_SIZE_OF_RAM_CBM2_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_SIZE_OF_RAM_CBM2_HU, ""},  /* fuzzy */
@@ -8660,7 +10561,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_CART_ROM_1000_NAME,    N_("Specify name of cartridge ROM image for $1000")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_CART_ROM_1000_NAME_DA, "Angiv navn på cartridge-ROM-image for $1000"},
-/* de */ {IDCLS_SPECIFY_CART_ROM_1000_NAME_DE, "Name für ROM Module Image Datei ($1000)"},
+/* de */ {IDCLS_SPECIFY_CART_ROM_1000_NAME_DE, "Name für ROM Module Imagedatei ($1000)"},
 /* es */ {IDCLS_SPECIFY_CART_ROM_1000_NAME_ES, "Especificar nombre imagen cartucho ROM para $1000"},
 /* fr */ {IDCLS_SPECIFY_CART_ROM_1000_NAME_FR, "Spécifier le nom de l’image de cartouche ROM pour $1000"},
 /* hu */ {IDCLS_SPECIFY_CART_ROM_1000_NAME_HU, "Adja meg a $1000 címû cartridge ROM képmás nevét"},
@@ -8677,7 +10578,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_CART_ROM_2000_NAME,    N_("Specify name of cartridge ROM image for $2000-$3fff")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_CART_ROM_2000_NAME_DA, "Angiv navn på cartridge-ROM-image for $2000-3fff"},
-/* de */ {IDCLS_SPECIFY_CART_ROM_2000_NAME_DE, "Name für ROM Module Image Datei ($2000-3fff)"},
+/* de */ {IDCLS_SPECIFY_CART_ROM_2000_NAME_DE, "Name für ROM Module Imagedatei ($2000-3fff)"},
 /* es */ {IDCLS_SPECIFY_CART_ROM_2000_NAME_ES, "Especificar nombre imagen cartucho ROM para $2000-$3FFF"},
 /* fr */ {IDCLS_SPECIFY_CART_ROM_2000_NAME_FR, "Spécifier le nom de l’image de cartouche ROM pour $2000-$3fff"},
 /* hu */ {IDCLS_SPECIFY_CART_ROM_2000_NAME_HU, "Adja meg a $2000-$3fff címû cartridge ROM képmás nevét"},
@@ -8694,7 +10595,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_CART_ROM_4000_NAME,    N_("Specify name of cartridge ROM image for $4000-$5fff")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_CART_ROM_4000_NAME_DA, "Angiv navn på cartridge-ROM-image for $4000-$5fff"},
-/* de */ {IDCLS_SPECIFY_CART_ROM_4000_NAME_DE, "Name für ROM Module Image Datei ($4000-5fff)"},
+/* de */ {IDCLS_SPECIFY_CART_ROM_4000_NAME_DE, "Name für ROM Module Imagedatei ($4000-5fff)"},
 /* es */ {IDCLS_SPECIFY_CART_ROM_4000_NAME_ES, "Especificar nombre imagen cartucho ROM para $4000-$5FFF"},
 /* fr */ {IDCLS_SPECIFY_CART_ROM_4000_NAME_FR, "Spécifier le nom de l’image de cartouche ROM pour $4000-$5fff"},
 /* hu */ {IDCLS_SPECIFY_CART_ROM_4000_NAME_HU, "Adja meg a $4000-$5fff címû cartridge ROM képmás nevét"},
@@ -8711,7 +10612,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_CART_ROM_6000_NAME,    N_("Specify name of cartridge ROM image for $6000-$7fff")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_CART_ROM_6000_NAME_DA, "Angiv navn på cartridge-ROM-image for $6000-$7fff"},
-/* de */ {IDCLS_SPECIFY_CART_ROM_6000_NAME_DE, "Name für ROM Module Image Datei ($6000-7fff)"},
+/* de */ {IDCLS_SPECIFY_CART_ROM_6000_NAME_DE, "Name für ROM Module Imagedatei ($6000-7fff)"},
 /* es */ {IDCLS_SPECIFY_CART_ROM_6000_NAME_ES, "Especificar nombre imagen cartucho ROM para $6000-$7FFF"},
 /* fr */ {IDCLS_SPECIFY_CART_ROM_6000_NAME_FR, "Spécifier le nom de l’image de cartouche ROM pour $6000-$7fff"},
 /* hu */ {IDCLS_SPECIFY_CART_ROM_6000_NAME_HU, "Adja meg a $6000-$7fff címû cartridge ROM képmás nevét"},
@@ -8734,7 +10635,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_RAM_MAPPING_IN_0800_HU, "$0800-$0FFF RAM leképzés engedélyezése"},
 /* it */ {IDCLS_ENABLE_RAM_MAPPING_IN_0800_IT, "Attiva mappatura della RAM a $0800-$0FFF"},
 /* ko */ {IDCLS_ENABLE_RAM_MAPPING_IN_0800_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_RAM_MAPPING_IN_0800_NL, "Activeer RAM op adres $0800-$0FFF"},
+/* nl */ {IDCLS_ENABLE_RAM_MAPPING_IN_0800_NL, "RAM op adres $0800-$0FFF inschakelen"},
 /* pl */ {IDCLS_ENABLE_RAM_MAPPING_IN_0800_PL, "W³±cz mapowanie RAM w $0800-$0FFF"},
 /* ru */ {IDCLS_ENABLE_RAM_MAPPING_IN_0800_RU, "Enable RAM mapping in $0800-$0FFF"},
 /* sv */ {IDCLS_ENABLE_RAM_MAPPING_IN_0800_SV, "Aktivera RAM-mappning på $0800-$0FFF"},
@@ -8768,7 +10669,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_RAM_MAPPING_IN_1000_HU, "$1000-$1FFF RAM leképzés engedélyezése"},
 /* it */ {IDCLS_ENABLE_RAM_MAPPING_IN_1000_IT, "Attiva mappatura della RAM a $1000-$1FFF"},
 /* ko */ {IDCLS_ENABLE_RAM_MAPPING_IN_1000_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_RAM_MAPPING_IN_1000_NL, "Activeer RAM op adres $1000-$1FFF"},
+/* nl */ {IDCLS_ENABLE_RAM_MAPPING_IN_1000_NL, "RAM op adres $1000-$1FFF inschakelen"},
 /* pl */ {IDCLS_ENABLE_RAM_MAPPING_IN_1000_PL, "W³±cz mapowanie RAM w $1000-$1FFF"},
 /* ru */ {IDCLS_ENABLE_RAM_MAPPING_IN_1000_RU, "Enable RAM mapping in $1000-$1FFF"},
 /* sv */ {IDCLS_ENABLE_RAM_MAPPING_IN_1000_SV, "Aktivera RAM-mappning på $1000-$1FFF"},
@@ -8802,7 +10703,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_RAM_MAPPING_IN_2000_HU, "$2000-$3FFF RAM leképzés engedélyezése"},
 /* it */ {IDCLS_ENABLE_RAM_MAPPING_IN_2000_IT, "Attiva mappatura della RAM a $2000-$3FFF"},
 /* ko */ {IDCLS_ENABLE_RAM_MAPPING_IN_2000_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_RAM_MAPPING_IN_2000_NL, "Activeer RAM op adres $2000-$3FFF"},
+/* nl */ {IDCLS_ENABLE_RAM_MAPPING_IN_2000_NL, "RAM op adres $2000-$3FFF inschakelen"},
 /* pl */ {IDCLS_ENABLE_RAM_MAPPING_IN_2000_PL, "W³±cz mapowanie RAM w $2000-$3FFF"},
 /* ru */ {IDCLS_ENABLE_RAM_MAPPING_IN_2000_RU, "Enable RAM mapping in $2000-$3FFF"},
 /* sv */ {IDCLS_ENABLE_RAM_MAPPING_IN_2000_SV, "Aktivera RAM-mappning på $2000-$3FFF"},
@@ -8836,7 +10737,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_RAM_MAPPING_IN_4000_HU, "$4000-$5FFF RAM leképzés engedélyezése"},
 /* it */ {IDCLS_ENABLE_RAM_MAPPING_IN_4000_IT, "Attiva mappatura della RAM a $4000-$5FFF"},
 /* ko */ {IDCLS_ENABLE_RAM_MAPPING_IN_4000_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_RAM_MAPPING_IN_4000_NL, "Activeer RAM op adres $4000-$5FFF"},
+/* nl */ {IDCLS_ENABLE_RAM_MAPPING_IN_4000_NL, "RAM op adres $4000-$5FFF inschakelen"},
 /* pl */ {IDCLS_ENABLE_RAM_MAPPING_IN_4000_PL, "W³±cz mapowanie RAM w $4000-$5FFF"},
 /* ru */ {IDCLS_ENABLE_RAM_MAPPING_IN_4000_RU, "Enable RAM mapping in $4000-$5FFF"},
 /* sv */ {IDCLS_ENABLE_RAM_MAPPING_IN_4000_SV, "Aktivera RAM-mappning på $4000-$5FFF"},
@@ -8853,7 +10754,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_RAM_MAPPING_IN_4000_HU, "$4000-$5FFF RAM leképzés tiltása"},
 /* it */ {IDCLS_DISABLE_RAM_MAPPING_IN_4000_IT, "Disattiva mappatura della RAM a $4000-$5FFF"},
 /* ko */ {IDCLS_DISABLE_RAM_MAPPING_IN_4000_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_RAM_MAPPING_IN_4000_NL, "RAM op adres $4000-$5FFF uitchakelen"},
+/* nl */ {IDCLS_DISABLE_RAM_MAPPING_IN_4000_NL, "RAM op adres $4000-$5FFF uitschakelen"},
 /* pl */ {IDCLS_DISABLE_RAM_MAPPING_IN_4000_PL, "Wy³±cz mapowanie RAM w $4000-$5FFF"},
 /* ru */ {IDCLS_DISABLE_RAM_MAPPING_IN_4000_RU, "Disable RAM mapping in $4000-$5FFF"},
 /* sv */ {IDCLS_DISABLE_RAM_MAPPING_IN_4000_SV, "Inaktivera RAM-mappning på $4000-$5FFF"},
@@ -8870,7 +10771,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_RAM_MAPPING_IN_6000_HU, "$6000-$7FFF RAM leképzés engedélyezése"},
 /* it */ {IDCLS_ENABLE_RAM_MAPPING_IN_6000_IT, "Attiva mappatura della RAM a $6000-$7FFF"},
 /* ko */ {IDCLS_ENABLE_RAM_MAPPING_IN_6000_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_RAM_MAPPING_IN_6000_NL, "Activeer RAM op adres $6000-$7FFF"},
+/* nl */ {IDCLS_ENABLE_RAM_MAPPING_IN_6000_NL, "RAM op adres $6000-$7FFF inschakelen"},
 /* pl */ {IDCLS_ENABLE_RAM_MAPPING_IN_6000_PL, "W³±cz mapowanie RAM w $6000-$7FFF"},
 /* ru */ {IDCLS_ENABLE_RAM_MAPPING_IN_6000_RU, "Enable RAM mapping in $6000-$7FFF"},
 /* sv */ {IDCLS_ENABLE_RAM_MAPPING_IN_6000_SV, "Aktivera RAM-mappning på $6000-$7FFF"},
@@ -8904,7 +10805,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_RAM_MAPPING_IN_C000_HU, "$C000-$CFFF RAM leképzés engedélyezése"},
 /* it */ {IDCLS_ENABLE_RAM_MAPPING_IN_C000_IT, "Attiva mappatura della RAM a $C000-$CFFF"},
 /* ko */ {IDCLS_ENABLE_RAM_MAPPING_IN_C000_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_RAM_MAPPING_IN_C000_NL, "Activeer RAM op adres $C000-$CFFF"},
+/* nl */ {IDCLS_ENABLE_RAM_MAPPING_IN_C000_NL, "RAM op adres $C000-$CFFF inschakelen"},
 /* pl */ {IDCLS_ENABLE_RAM_MAPPING_IN_C000_PL, "W³±cz mapowanie RAM w $C000-$CFFF"},
 /* ru */ {IDCLS_ENABLE_RAM_MAPPING_IN_C000_RU, "Enable RAM mapping in $C000-$CFFF"},
 /* sv */ {IDCLS_ENABLE_RAM_MAPPING_IN_C000_SV, "Aktivera RAM-mappning på $C000-$CFFF"},
@@ -8933,13 +10834,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_KEYMAP_INDEX,    N_("Specify index of keymap file (0: UK business symbolic, 1: UK business positional, 2: Graphics symbolic, 3: Graphics positional, 4: German business symbolic, 5: German business positional)")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_KEYMAP_INDEX_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_KEYMAP_INDEX_DE, "Index der Keymap Datei definieren (0: UK business symbolic, 1: UK business positional, 2: Graphics symbolic, 3: Graphics positional, 4: German business symbolic, 5: German business positional)"},
+/* de */ {IDCLS_SPECIFY_KEYMAP_INDEX_DE, "Index der Keymap Datei wählen (0: UK business symbolic, 1: UK business positional, 2: Graphics symbolic, 3: Graphics positional, 4: German business symbolic, 5: German business positional)"},
 /* es */ {IDCLS_SPECIFY_KEYMAP_INDEX_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_SPECIFY_KEYMAP_INDEX_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_KEYMAP_INDEX_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SPECIFY_KEYMAP_INDEX_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SPECIFY_KEYMAP_INDEX_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_KEYMAP_INDEX_NL, "Geef index van het keymapbestand (0: UK business symbolisch, 1: UK business positioneel, 2: grafisch symbolisch, 3: graphisch positioneel, 4: Duits business symbolisch, 5: Duits business positioneel)"},
+/* nl */ {IDCLS_SPECIFY_KEYMAP_INDEX_NL, "Geef index van het toetstoewijzingsbestand (0: UK business symbolisch, 1: UK business positioneel, 2: grafisch symbolisch, 3: grafisch positioneel, 4: Duits business symbolisch, 5: Duits business positioneel)"},
 /* pl */ {IDCLS_SPECIFY_KEYMAP_INDEX_PL, "Podaj indeks uk³adu klawiatury (0: UK biznesowa - symbol, 1: UK biznesowa - pozycja, 2: Graficzna - symbol, 3: Graficzna - pozycja, 4: Niemiecka biznesowa - symbol, 5: Niemiecka biznesowa - pozycja)"},
 /* ru */ {IDCLS_SPECIFY_KEYMAP_INDEX_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SPECIFY_KEYMAP_INDEX_SV, ""},  /* fuzzy */
@@ -8950,13 +10851,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_GFX_SYM_KEYMAP_NAME,    N_("Specify name of graphics keyboard symbolic keymap file")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_GFX_SYM_KEYMAP_NAME_DA, "Angiv fil for symbolsk tastaturemulering for \"graphics\"-tastatur"},
-/* de */ {IDCLS_SPECIFY_GFX_SYM_KEYMAP_NAME_DE, "Keymap Datei für graphics keyboard symbolic definieren"},
+/* de */ {IDCLS_SPECIFY_GFX_SYM_KEYMAP_NAME_DE, "Keymap Datei für graphics keyboard symbolic wählen"},
 /* es */ {IDCLS_SPECIFY_GFX_SYM_KEYMAP_NAME_ES, "Especificar nombre fichero gráficos teclado simbólico"},
 /* fr */ {IDCLS_SPECIFY_GFX_SYM_KEYMAP_NAME_FR, "Spécifier le nom du fichier de mappage clavier symbolique"},
 /* hu */ {IDCLS_SPECIFY_GFX_SYM_KEYMAP_NAME_HU, "Adja meg a grafikus és szimbolikus billentyûzet leképzési fájl nevét."},
 /* it */ {IDCLS_SPECIFY_GFX_SYM_KEYMAP_NAME_IT, "Specifica il nome del file della mappa simbolica della tastiera grafica"},
 /* ko */ {IDCLS_SPECIFY_GFX_SYM_KEYMAP_NAME_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_GFX_SYM_KEYMAP_NAME_NL, "Geef de naam van het symbolisch keymapbestand voor het grafische toetsenbord"},
+/* nl */ {IDCLS_SPECIFY_GFX_SYM_KEYMAP_NAME_NL, "Geef de naam van het symbolisch toetstoewijzingsbestand voor het grafische toetsenbord"},
 /* pl */ {IDCLS_SPECIFY_GFX_SYM_KEYMAP_NAME_PL, "Okre¶l nazwê pliku symbolicznego uk³adu klawiatury graficznej"},
 /* ru */ {IDCLS_SPECIFY_GFX_SYM_KEYMAP_NAME_RU, "Specify name of graphics keyboard symbolic keymap file"},
 /* sv */ {IDCLS_SPECIFY_GFX_SYM_KEYMAP_NAME_SV, "Ange fil för symbolisk tangentbordsemulering för \"graphics\"-tangentbord"},
@@ -8967,13 +10868,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_GFX_POS_KEYMAP_NAME,    N_("Specify name of graphics keyboard positional keymap file")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_GFX_POS_KEYMAP_NAME_DA, "Angiv fil for positionsbestemt tastaturemulering for \"graphics\"-tastatur"},
-/* de */ {IDCLS_SPECIFY_GFX_POS_KEYMAP_NAME_DE, "Keymap Datei für graphics keyboard positional definieren"},
+/* de */ {IDCLS_SPECIFY_GFX_POS_KEYMAP_NAME_DE, "Keymap Datei für graphics keyboard positional wählen"},
 /* es */ {IDCLS_SPECIFY_GFX_POS_KEYMAP_NAME_ES, "Especificar nombre fichero gráficos teclado posicional"},
 /* fr */ {IDCLS_SPECIFY_GFX_POS_KEYMAP_NAME_FR, "Spécifier le nom du fichier de mappage clavier positionnel"},
 /* hu */ {IDCLS_SPECIFY_GFX_POS_KEYMAP_NAME_HU, "Adja meg a grafikus és pozíció szerinti billentyûzet leképzési fájl nevét."},
 /* it */ {IDCLS_SPECIFY_GFX_POS_KEYMAP_NAME_IT, "Specifica il nome del file della mappa posizionale della tastiera grafica"},
 /* ko */ {IDCLS_SPECIFY_GFX_POS_KEYMAP_NAME_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_GFX_POS_KEYMAP_NAME_NL, "Geef de naam van het positioneel keymapbestand voor het grafische toetsenbord"},
+/* nl */ {IDCLS_SPECIFY_GFX_POS_KEYMAP_NAME_NL, "Geef de naam van het positioneel toetstoewijzingsbestand voor het grafische toetsenbord"},
 /* pl */ {IDCLS_SPECIFY_GFX_POS_KEYMAP_NAME_PL, "Okre¶l nazwê pliku pozycyjnego uk³adu klawiatury graficznej"},
 /* ru */ {IDCLS_SPECIFY_GFX_POS_KEYMAP_NAME_RU, "Specify name of graphics keyboard positional keymap file"},
 /* sv */ {IDCLS_SPECIFY_GFX_POS_KEYMAP_NAME_SV, "Ange fil för positionsriktig tangentbordsemulering för \"graphics\"-tangentbord"},
@@ -8984,13 +10885,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_BUK_SYM_KEYMAP_NAME,    N_("Specify name of UK business keyboard symbolic keymap file")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_BUK_SYM_KEYMAP_NAME_DA, "Angiv fil for symbolsk tastaturemulering for Britisk \"business\"-tastatur"},
-/* de */ {IDCLS_SPECIFY_BUK_SYM_KEYMAP_NAME_DE, "Keymap Datei für UK business keyboard symbolic definieren"},
+/* de */ {IDCLS_SPECIFY_BUK_SYM_KEYMAP_NAME_DE, "Keymap Datei für UK business keyboard symbolic wählen"},
 /* es */ {IDCLS_SPECIFY_BUK_SYM_KEYMAP_NAME_ES, "Especificar nombre fichero teclado UK business simbólico"},
 /* fr */ {IDCLS_SPECIFY_BUK_SYM_KEYMAP_NAME_FR, "Spécifier le nom du fichier de mappage clavier symbolique UK"},
 /* hu */ {IDCLS_SPECIFY_BUK_SYM_KEYMAP_NAME_HU, "Adja meg az angol, hivatalos, szimbolikus billentyûzet leképzési fájl nevét."},
 /* it */ {IDCLS_SPECIFY_BUK_SYM_KEYMAP_NAME_IT, "Specifica il nome del file della mappa simbolica della tastiera UK business"},
 /* ko */ {IDCLS_SPECIFY_BUK_SYM_KEYMAP_NAME_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_BUK_SYM_KEYMAP_NAME_NL, "Geef de naam van het symbolisch keymapbestand voor het UK zakelijk toetsenbord"},
+/* nl */ {IDCLS_SPECIFY_BUK_SYM_KEYMAP_NAME_NL, "Geef de naam van het symbolisch toetstoewijzingsbestand voor het UK zakelijk toetsenbord"},
 /* pl */ {IDCLS_SPECIFY_BUK_SYM_KEYMAP_NAME_PL, "Okre¶l nazwê pliku symbolicznego uk³adu angielskiej klawiatury biznesowej"},
 /* ru */ {IDCLS_SPECIFY_BUK_SYM_KEYMAP_NAME_RU, "Specify name of UK business keyboard symbolic keymap file"},
 /* sv */ {IDCLS_SPECIFY_BUK_SYM_KEYMAP_NAME_SV, "Ange fil för symbolisk tangentbordsemulering för brittiskt \"business\"-tangentbord"},
@@ -9001,13 +10902,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_BUK_POS_KEYMAP_NAME,    N_("Specify name of UK business keyboard positional keymap file")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_BUK_POS_KEYMAP_NAME_DA, "Angiv fil for positionsbestemt tastaturemulering for Britisk \"business\"-tastatur"},
-/* de */ {IDCLS_SPECIFY_BUK_POS_KEYMAP_NAME_DE, "Keymap Datei für UK business keyboard positional definieren"},
+/* de */ {IDCLS_SPECIFY_BUK_POS_KEYMAP_NAME_DE, "Keymap Datei für UK business keyboard positional wählen"},
 /* es */ {IDCLS_SPECIFY_BUK_POS_KEYMAP_NAME_ES, "Especificar nombre fichero teclado UK business posicional"},
 /* fr */ {IDCLS_SPECIFY_BUK_POS_KEYMAP_NAME_FR, "Spécifier le nom du fichier de mappage clavier positionnel UK"},
 /* hu */ {IDCLS_SPECIFY_BUK_POS_KEYMAP_NAME_HU, "Adja meg az angol, hivatalos, pozíció szerinti billentyûzet leképzési fájl nevét."},
 /* it */ {IDCLS_SPECIFY_BUK_POS_KEYMAP_NAME_IT, "Specifica il nome del file della mappa posizionale della tastiera UK business"},
 /* ko */ {IDCLS_SPECIFY_BUK_POS_KEYMAP_NAME_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_BUK_POS_KEYMAP_NAME_NL, "Geef de naam van het positioneel keymapbestand voor het UK zakelijk toetsenbord"},
+/* nl */ {IDCLS_SPECIFY_BUK_POS_KEYMAP_NAME_NL, "Geef de naam van het positioneel toetstoewijzingsbestand voor het UK zakelijk toetsenbord"},
 /* pl */ {IDCLS_SPECIFY_BUK_POS_KEYMAP_NAME_PL, "Okre¶l nazwê pliku pozycyjnego uk³adu angielskiej klawiatury biznesowej"},
 /* ru */ {IDCLS_SPECIFY_BUK_POS_KEYMAP_NAME_RU, "Specify name of UK business keyboard positional keymap file"},
 /* sv */ {IDCLS_SPECIFY_BUK_POS_KEYMAP_NAME_SV, "Ange fil för positionsriktig tangentbordsemulering för brittiskt \"business\"-tangentbord"},
@@ -9018,13 +10919,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_BDE_SYM_KEYMAP_NAME,    N_("Specify name of German business keyboard symbolic keymap file")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_BDE_SYM_KEYMAP_NAME_DA, "Angiv fil for symbolsk tastaturemulering for Tysk \"business\"-tastatur"},
-/* de */ {IDCLS_SPECIFY_BDE_SYM_KEYMAP_NAME_DE, "Keymap Datei für German business keyboard symbolic definieren"},
+/* de */ {IDCLS_SPECIFY_BDE_SYM_KEYMAP_NAME_DE, "Keymap Datei für German business keyboard symbolic wählen"},
 /* es */ {IDCLS_SPECIFY_BDE_SYM_KEYMAP_NAME_ES, "Especificar nombre fichero teclado Alemán business simbólico"},
 /* fr */ {IDCLS_SPECIFY_BDE_SYM_KEYMAP_NAME_FR, "Spécifier le nom du fichier de mappage clavier symbolique allemand"},
 /* hu */ {IDCLS_SPECIFY_BDE_SYM_KEYMAP_NAME_HU, "Adja meg a német, hivatalos, szimbolikus billentyûzet leképzési fájl nevét."},
 /* it */ {IDCLS_SPECIFY_BDE_SYM_KEYMAP_NAME_IT, "Specifica il nome del file della mappa simbolica della tastiera business tedesca"},
 /* ko */ {IDCLS_SPECIFY_BDE_SYM_KEYMAP_NAME_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_BDE_SYM_KEYMAP_NAME_NL, "Geef de naam van het symbolisch keymapbestand voor het Duitse zakelijk toetsenbord"},
+/* nl */ {IDCLS_SPECIFY_BDE_SYM_KEYMAP_NAME_NL, "Geef de naam van het symbolisch toetstoewijzingsbestand voor het Duitse zakelijk toetsenbord"},
 /* pl */ {IDCLS_SPECIFY_BDE_SYM_KEYMAP_NAME_PL, "Okre¶l nazwê pliku symbolicznego uk³adu niemieckiej klawiatury biznesowej"},
 /* ru */ {IDCLS_SPECIFY_BDE_SYM_KEYMAP_NAME_RU, "Specify name of German business keyboard symbolic keymap file"},
 /* sv */ {IDCLS_SPECIFY_BDE_SYM_KEYMAP_NAME_SV, "Ange fil för symbolisk tangentbordsemulering för tyskt \"business\"-tangentbord"},
@@ -9035,13 +10936,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_BDE_POS_KEYMAP_NAME,    N_("Specify name of German business keyboard positional keymap file")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_BDE_POS_KEYMAP_NAME_DA, "Angiv fil for positionsbestemt tastaturemulering for Tysk \"business\"-tastatur"},
-/* de */ {IDCLS_SPECIFY_BDE_POS_KEYMAP_NAME_DE, "Keymap Datei für German business keyboard positional definieren"},
+/* de */ {IDCLS_SPECIFY_BDE_POS_KEYMAP_NAME_DE, "Keymap Datei für German business keyboard positional wählen"},
 /* es */ {IDCLS_SPECIFY_BDE_POS_KEYMAP_NAME_ES, "Especificar nombre fichero teclado Alemán business posicional"},
 /* fr */ {IDCLS_SPECIFY_BDE_POS_KEYMAP_NAME_FR, "Spécifier le nom du fichier de mappage clavier positionnel allemand"},
 /* hu */ {IDCLS_SPECIFY_BDE_POS_KEYMAP_NAME_HU, "Adja meg a német, hivatalos, pozíció szerinti billentyûzet leképzési fájl nevét."},
 /* it */ {IDCLS_SPECIFY_BDE_POS_KEYMAP_NAME_IT, "Specifica il nome del file della mappa posizionale della tastiera business tedesca"},
 /* ko */ {IDCLS_SPECIFY_BDE_POS_KEYMAP_NAME_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_BDE_POS_KEYMAP_NAME_NL, "Geef de naam van het positioneel keymapbestand voor het Duitse zakelijk toetsenbord"},
+/* nl */ {IDCLS_SPECIFY_BDE_POS_KEYMAP_NAME_NL, "Geef de naam van het positioneel toetstoewijzingsbestand voor het Duitse zakelijk toetsenbord"},
 /* pl */ {IDCLS_SPECIFY_BDE_POS_KEYMAP_NAME_PL, "Okre¶l nazwê pliku pozycyjnego uk³adu niemieckiej klawiatury biznesowej"},
 /* ru */ {IDCLS_SPECIFY_BDE_POS_KEYMAP_NAME_RU, "Specify name of German business keyboard positional keymap file"},
 /* sv */ {IDCLS_SPECIFY_BDE_POS_KEYMAP_NAME_SV, "Ange fil för positionsriktig tangentbordsemulering för tyskt \"business\"-tangentbord"},
@@ -9059,7 +10960,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_TRUE_DRIVE_HU, "Lemezegységek hardver szintû emulációjának engedélyezése"},
 /* it */ {IDCLS_ENABLE_TRUE_DRIVE_IT, "Attiva emulazione hardware dei disk drive"},
 /* ko */ {IDCLS_ENABLE_TRUE_DRIVE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_TRUE_DRIVE_NL, "Activeer hardwarematige emulatie van diskdrives"},
+/* nl */ {IDCLS_ENABLE_TRUE_DRIVE_NL, "Hardwarematige emulatie van diskdrives inschakelen"},
 /* pl */ {IDCLS_ENABLE_TRUE_DRIVE_PL, "W³±cz sprzêtow± emulacjê stacji dysków"},
 /* ru */ {IDCLS_ENABLE_TRUE_DRIVE_RU, "Enable hardware-level emulation of disk drives"},
 /* sv */ {IDCLS_ENABLE_TRUE_DRIVE_SV, "Aktivera emulering av diskettstationer på maskinvarunivå"},
@@ -9093,7 +10994,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_DRIVE_SOUND_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_DRIVE_SOUND_IT, "Attiva emulazione audio dei disk drive"},
 /* ko */ {IDCLS_ENABLE_DRIVE_SOUND_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_DRIVE_SOUND_NL, "Activeer geluidsemulatie van diskdrives"},
+/* nl */ {IDCLS_ENABLE_DRIVE_SOUND_NL, "Geluidsemulatie van diskdrives inschakelen"},
 /* pl */ {IDCLS_ENABLE_DRIVE_SOUND_PL, "W³±cz emulacjê odg³osów stacji dysków"},
 /* ru */ {IDCLS_ENABLE_DRIVE_SOUND_RU, "Enable sound emulation of disk drives"},
 /* sv */ {IDCLS_ENABLE_DRIVE_SOUND_SV, "Aktivera ljudemulering för diskettstationer"},
@@ -9127,7 +11028,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_DRIVE_SOUND_VOLUME_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_DRIVE_SOUND_VOLUME_IT, "Imposta il volume per l'emulazione audio del disk drive (0-4000)"},
 /* ko */ {IDCLS_SET_DRIVE_SOUND_VOLUME_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_DRIVE_SOUND_VOLUME_NL, "Zet de volume van de diskdrive geluidemulatie (0-4000)"},
+/* nl */ {IDCLS_SET_DRIVE_SOUND_VOLUME_NL, "Stel het volume in van de diskdrive geluidemulatie (0-4000)"},
 /* pl */ {IDCLS_SET_DRIVE_SOUND_VOLUME_PL, "Ustaw g³o¶no¶æ emulacji odg³osów stacji dysków (0-4000)"},
 /* ru */ {IDCLS_SET_DRIVE_SOUND_VOLUME_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_DRIVE_SOUND_VOLUME_SV, "Välj volym för ljudemulering för diskettstation (0-4000)"},
@@ -9215,7 +11116,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_DRIVE_TYPE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_DRIVE_TYPE_IT, "Imposta tipo drive (0: nessun drive"},
 /* ko */ {IDCLS_SET_DRIVE_TYPE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_DRIVE_TYPE_NL, "Zet drive soort (0: geen drive"},
+/* nl */ {IDCLS_SET_DRIVE_TYPE_NL, "Stel drive soort in (0: geen drive"},
 /* pl */ {IDCLS_SET_DRIVE_TYPE_PL, "Ustaw typ stacji (0: brak stacji"},
 /* ru */ {IDCLS_SET_DRIVE_TYPE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_DRIVE_TYPE_SV, ""},  /* fuzzy */
@@ -9232,7 +11133,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_DRIVE_RPM_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_DRIVE_RPM_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_DRIVE_RPM_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_DRIVE_RPM_NL, "Zet drive rpm (30000 = 300rpm)"},
+/* nl */ {IDCLS_SET_DRIVE_RPM_NL, "Stel drive rpm in (30000 = 300rpm)"},
 /* pl */ {IDCLS_SET_DRIVE_RPM_PL, ""},  /* fuzzy */
 /* ru */ {IDCLS_SET_DRIVE_RPM_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_DRIVE_RPM_SV, ""},  /* fuzzy */
@@ -9249,7 +11150,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_DRIVE_WOBBLE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_DRIVE_WOBBLE_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_DRIVE_WOBBLE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_DRIVE_WOBBLE_NL, "Zet drive wiebel (100 = +/-0.5rpm)"},
+/* nl */ {IDCLS_SET_DRIVE_WOBBLE_NL, "Stel drive wiebel in (100 = +/-0.5rpm)"},
 /* pl */ {IDCLS_SET_DRIVE_WOBBLE_PL, ""},  /* fuzzy */
 /* ru */ {IDCLS_SET_DRIVE_WOBBLE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_DRIVE_WOBBLE_SV, ""},  /* fuzzy */
@@ -9302,7 +11203,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_OVERSIZED_HANDLING_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_OVERSIZED_HANDLING_IT, "Seleziona come gestire il sovradimensionamento dell'input, (0: scale down, 1: ritaglia sinistra alto, 2: ritaglia centro alto,  3: ritaglia destra alto, 4: ritaglia sinistra centro, 5: ritaglia centro, 6: ritaglia destra centro, 7: ritaglia sinistra basso, 8: ritaglia centro basso, 9:  ritaglia destra basso)"},
 /* ko */ {IDCLS_OVERSIZED_HANDLING_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_OVERSIZED_HANDLING_NL, "Selecteer de manier waarop de te grootte invoer moet worden afgehandeld, (0: maak kleiner, 1: crop linker bovenkant, 2: crop midden bovenkant, 3: crop rechter bovenkant, 4: crop linker midden, 5: crop midden, 6: crop rechter midden, 7: crop linker onderkant, 8: crop midden onderkant, 9: crop rechter onderkant)"},
+/* nl */ {IDCLS_OVERSIZED_HANDLING_NL, "Selecteer de manier waarop de te grote invoer moet worden afgehandeld, (0: maak kleiner, 1: knip linker bovenkant, 2: knip midden bovenkant, 3: knip rechter bovenkant, 4: knip linker midden, 5: knip midden, 6: knip rechter midden, 7: knip linker onderkant, 8: knip midden onderkant, 9: knip rechter onderkant)"},
 /* pl */ {IDCLS_OVERSIZED_HANDLING_PL, "Wybierz sposób, w jaki ma byæ obs³ugiwany za du¿y obraz, (0: zmniejszenie, 1: ¶ciêcie z góry z lewej, 2: ¶ciêcie z góry, 3: ¶ciêcie z prawej z góry, 4: ¶ciêcie z lewej, 5: ¶ciêcie od ¶rodka, 6: ¶ciêcie z prawej, 7: ¶ciêcie z lewej z do³u, 8: ¶ciêcie z do³u, 9: ¶ciêcie z prawej z do³u)"},
 /* ru */ {IDCLS_OVERSIZED_HANDLING_RU, "Select the way the oversized input should be handled, (0: scale down, 1: crop left top, 2: crop center top,  3: crop right top, 4: crop left center, 5: crop center, 6: crop right center, 7: crop left bottom, 8: crop center bottom, 9:  crop right bottom)"},
 /* sv */ {IDCLS_OVERSIZED_HANDLING_SV, "Välj hur för stor indata skall hanteras, (0: skala ned, 1: visa övre vänstra, 2: visa övre mitten, 3: visa övre högra, 4: visa vänstra mitten, 5: visa mitten, 6: visa högra mitten, 7: visa nedre vänstra, 8: visa nedre mitten, 9: visa nedre högre)"},
@@ -9398,7 +11299,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_1540_DOS_ROM_NAME,    N_("Specify name of 1540 DOS ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_1540_DOS_ROM_NAME_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_1540_DOS_ROM_NAME_DE, "Name der 1540 DOS ROM Image Datei definieren"},
+/* de */ {IDCLS_SPECIFY_1540_DOS_ROM_NAME_DE, "Name der 1540 DOS ROM Imagedatei wählen"},
 /* es */ {IDCLS_SPECIFY_1540_DOS_ROM_NAME_ES, "Especificar nombre imagen ROM de 1540 DOS "},
 /* fr */ {IDCLS_SPECIFY_1540_DOS_ROM_NAME_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_1540_DOS_ROM_NAME_HU, ""},  /* fuzzy */
@@ -9415,7 +11316,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_1541_DOS_ROM_NAME,    N_("Specify name of 1541 DOS ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_1541_DOS_ROM_NAME_DA, "Angiv navn på 1541-DOS-ROM-image"},
-/* de */ {IDCLS_SPECIFY_1541_DOS_ROM_NAME_DE, "Name der 1541 DOS ROM Image Datei definieren"},
+/* de */ {IDCLS_SPECIFY_1541_DOS_ROM_NAME_DE, "Name der 1541 DOS ROM Imagedatei wählen"},
 /* es */ {IDCLS_SPECIFY_1541_DOS_ROM_NAME_ES, "Especificar nombre imagen ROM de 1541 DOS "},
 /* fr */ {IDCLS_SPECIFY_1541_DOS_ROM_NAME_FR, "Spécifier le nom de l'image 1541 DOS ROM"},
 /* hu */ {IDCLS_SPECIFY_1541_DOS_ROM_NAME_HU, "Adja meg az 1541 DOS ROM képmás nevét"},
@@ -9432,7 +11333,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_1541_II_DOS_ROM_NAME,    N_("Specify name of 1541-II DOS ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_1541_II_DOS_ROM_NAME_DA, "Angivn navn på 1541-II-DOS-ROM-image"},
-/* de */ {IDCLS_SPECIFY_1541_II_DOS_ROM_NAME_DE, "Name der 1541-II DOS ROM Image Datei definieren"},
+/* de */ {IDCLS_SPECIFY_1541_II_DOS_ROM_NAME_DE, "Name der 1541-II DOS ROM Imagedatei wählen"},
 /* es */ {IDCLS_SPECIFY_1541_II_DOS_ROM_NAME_ES, "Especificar nombre imagen ROM de 1541-II DOS"},
 /* fr */ {IDCLS_SPECIFY_1541_II_DOS_ROM_NAME_FR, "Spécifier le nom de l'image 1541-II DOS ROM"},
 /* hu */ {IDCLS_SPECIFY_1541_II_DOS_ROM_NAME_HU, "Adja meg az 1541-II DOS ROM képmás nevét"},
@@ -9449,7 +11350,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_1570_DOS_ROM_NAME,    N_("Specify name of 1570 DOS ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_1570_DOS_ROM_NAME_DA, "Angivn navn på 1570-DOS-ROM-image"},
-/* de */ {IDCLS_SPECIFY_1570_DOS_ROM_NAME_DE, "Name der 1570 DOS ROM Image Datei definieren"},
+/* de */ {IDCLS_SPECIFY_1570_DOS_ROM_NAME_DE, "Name der 1570 DOS ROM Imagedatei wählen"},
 /* es */ {IDCLS_SPECIFY_1570_DOS_ROM_NAME_ES, "Especificar nombre imagen ROM de 1570 DOS"},
 /* fr */ {IDCLS_SPECIFY_1570_DOS_ROM_NAME_FR, "Spécifier le nom de l'image 1570 DOS ROM"},
 /* hu */ {IDCLS_SPECIFY_1570_DOS_ROM_NAME_HU, "Adja meg az 1570 DOS ROM képmás nevét"},
@@ -9466,7 +11367,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_1571_DOS_ROM_NAME,    N_("Specify name of 1571 DOS ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_1571_DOS_ROM_NAME_DA, "Angivn navn på 1571-DOS-ROM-image"},
-/* de */ {IDCLS_SPECIFY_1571_DOS_ROM_NAME_DE, "Name der 1571 DOS ROM Image Datei definieren"},
+/* de */ {IDCLS_SPECIFY_1571_DOS_ROM_NAME_DE, "Name der 1571 DOS ROM Imagedatei wählen"},
 /* es */ {IDCLS_SPECIFY_1571_DOS_ROM_NAME_ES, "Especificar nombre imagen ROM de 1571 DOS "},
 /* fr */ {IDCLS_SPECIFY_1571_DOS_ROM_NAME_FR, "Spécifier le nom de l'image 1571 DOS ROM"},
 /* hu */ {IDCLS_SPECIFY_1571_DOS_ROM_NAME_HU, "Adja meg az 1571 DOS ROM képmás nevét"},
@@ -9483,7 +11384,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_1581_DOS_ROM_NAME,    N_("Specify name of 1581 DOS ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_1581_DOS_ROM_NAME_DA, "Angivn navn på 1581-DOS-ROM-image"},
-/* de */ {IDCLS_SPECIFY_1581_DOS_ROM_NAME_DE, "Name der 1581 DOS ROM Image Datei definieren"},
+/* de */ {IDCLS_SPECIFY_1581_DOS_ROM_NAME_DE, "Name der 1581 DOS ROM Imagedatei wählen"},
 /* es */ {IDCLS_SPECIFY_1581_DOS_ROM_NAME_ES, "Especificar nombre imagen ROM de 1581 DOS "},
 /* fr */ {IDCLS_SPECIFY_1581_DOS_ROM_NAME_FR, "Spécifier le nom de l'image 1581 DOS ROM"},
 /* hu */ {IDCLS_SPECIFY_1581_DOS_ROM_NAME_HU, "Adja meg az 1581 DOS ROM képmás nevét"},
@@ -9500,7 +11401,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_2000_DOS_ROM_NAME,    N_("Specify name of 2000 DOS ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_2000_DOS_ROM_NAME_DA, "Angiv navn på 2000-DOS-ROM-image"},
-/* de */ {IDCLS_SPECIFY_2000_DOS_ROM_NAME_DE, "Name der 2000 DOS ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_2000_DOS_ROM_NAME_DE, "Name der 2000 DOS ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_2000_DOS_ROM_NAME_ES, "Especificar nombre imagen 2000 DOS ROM"},
 /* fr */ {IDCLS_SPECIFY_2000_DOS_ROM_NAME_FR, "Spécifier le nom de l'image 2000 DOS ROM"},
 /* hu */ {IDCLS_SPECIFY_2000_DOS_ROM_NAME_HU, ""},  /* fuzzy */
@@ -9517,7 +11418,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_4000_DOS_ROM_NAME,    N_("Specify name of 4000 DOS ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_4000_DOS_ROM_NAME_DA, "Angiv navn på 4000-DOS-ROM-image"},
-/* de */ {IDCLS_SPECIFY_4000_DOS_ROM_NAME_DE, "Name der 4000 DOS ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_4000_DOS_ROM_NAME_DE, "Name der 4000 DOS ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_4000_DOS_ROM_NAME_ES, "Especificar nombre imagen 4000 DOS ROM"},
 /* fr */ {IDCLS_SPECIFY_4000_DOS_ROM_NAME_FR, "Spécifier le nom de l'image 4000 DOS ROM"},
 /* hu */ {IDCLS_SPECIFY_4000_DOS_ROM_NAME_HU, ""},  /* fuzzy */
@@ -9557,7 +11458,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_DRIVE_RTC_SAVE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_DRIVE_RTC_SAVE_IT, "Attiva il salvataggio dei dati RTC del FD2000/4000 alla modifica."},
 /* ko */ {IDCLS_ENABLE_DRIVE_RTC_SAVE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_DRIVE_RTC_SAVE_NL, "Activeer het opslaan van de FD2000/4000 RTC data indien gewijzigd."},
+/* nl */ {IDCLS_ENABLE_DRIVE_RTC_SAVE_NL, "Opslaan van de FD2000/4000 RTC gegevens bij wijziging inschakelen."},
 /* pl */ {IDCLS_ENABLE_DRIVE_RTC_SAVE_PL, "Zapisuj dane zegara czasu rzeczywistego FD2000/4000 przy zmianie"},
 /* ru */ {IDCLS_ENABLE_DRIVE_RTC_SAVE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_DRIVE_RTC_SAVE_SV, ""},  /* fuzzy */
@@ -9574,7 +11475,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_DRIVE_RTC_SAVE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_DRIVE_RTC_SAVE_IT, "Disattiva il salvataggio dei dati RTC del FD2000/4000 alla modifica."},
 /* ko */ {IDCLS_DISABLE_DRIVE_RTC_SAVE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_DRIVE_RTC_SAVE_NL, "Het opslaan van de FD2000/4000 RTC data indien gewijzigd uitschakelen."},
+/* nl */ {IDCLS_DISABLE_DRIVE_RTC_SAVE_NL, "Opslaan van de FD2000/4000 RTC gegevens bij wijziging uitschakelen."},
 /* pl */ {IDCLS_DISABLE_DRIVE_RTC_SAVE_PL, "Nie zapisuj danych zegara czasu rzeczywistego FD2000/4000 przy zmianie"},
 /* ru */ {IDCLS_DISABLE_DRIVE_RTC_SAVE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_DRIVE_RTC_SAVE_SV, ""},  /* fuzzy */
@@ -9591,7 +11492,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_DRIVE_RAM_2000_HU, "8KB RAM kiterjeszés engedélyezése a $2000-$3FFF címen"},
 /* it */ {IDCLS_ENABLE_DRIVE_RAM_2000_IT, "Attiva l'espansione di RAM di 8KB a $2000-$3FFF"},
 /* ko */ {IDCLS_ENABLE_DRIVE_RAM_2000_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_DRIVE_RAM_2000_NL, "Activeer 8KB RAM uitbreiding op adres $2000-$3FFF"},
+/* nl */ {IDCLS_ENABLE_DRIVE_RAM_2000_NL, "8KB RAM uitbreiding op adres $2000-$3FFF inschakelen"},
 /* pl */ {IDCLS_ENABLE_DRIVE_RAM_2000_PL, "W³±cz rozszerzenie 8KB RAM w $2000-$3FFF"},
 /* ru */ {IDCLS_ENABLE_DRIVE_RAM_2000_RU, "Enable 8KB RAM expansion at $2000-$3FFF"},
 /* sv */ {IDCLS_ENABLE_DRIVE_RAM_2000_SV, "Aktivera 8KB RAM-expansion på $2000-$3FFF"},
@@ -9625,7 +11526,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_DRIVE_RAM_4000_HU, "8KB RAM kiterjeszés engedélyezése a $4000-$5FFF címen"},
 /* it */ {IDCLS_ENABLE_DRIVE_RAM_4000_IT, "Attiva l'espansione di RAM di 8KB a $4000-$5FFF"},
 /* ko */ {IDCLS_ENABLE_DRIVE_RAM_4000_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_DRIVE_RAM_4000_NL, "Activeer 8KB RAM uitbreiding op adres $4000-$5FFF"},
+/* nl */ {IDCLS_ENABLE_DRIVE_RAM_4000_NL, "8KB RAM uitbreiding op adres $4000-$5FFF inschakelen"},
 /* pl */ {IDCLS_ENABLE_DRIVE_RAM_4000_PL, "W³±cz rozszerzenie 8KB RAM w $4000-$5FFF"},
 /* ru */ {IDCLS_ENABLE_DRIVE_RAM_4000_RU, "Enable 8KB RAM expansion at $4000-$5FFF"},
 /* sv */ {IDCLS_ENABLE_DRIVE_RAM_4000_SV, "Aktivera 8KB RAM-expansion på $4000-$5FFF"},
@@ -9659,7 +11560,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_DRIVE_RAM_6000_HU, "8KB RAM kiterjeszés engedélyezése a $6000-$7FFF címen"},
 /* it */ {IDCLS_ENABLE_DRIVE_RAM_6000_IT, "Attiva l'espansione di RAM di 8KB a $6000-$7FFF"},
 /* ko */ {IDCLS_ENABLE_DRIVE_RAM_6000_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_DRIVE_RAM_6000_NL, "Activeer 8KB RAM uitbreiding op adres $6000-$7FFF"},
+/* nl */ {IDCLS_ENABLE_DRIVE_RAM_6000_NL, "8KB RAM uitbreiding op adres $6000-$7FFF inschakelen"},
 /* pl */ {IDCLS_ENABLE_DRIVE_RAM_6000_PL, "W³±cz rozszerzenie 8KB RAM w $6000-$7FFF"},
 /* ru */ {IDCLS_ENABLE_DRIVE_RAM_6000_RU, "Enable 8KB RAM expansion at $6000-$7FFF"},
 /* sv */ {IDCLS_ENABLE_DRIVE_RAM_6000_SV, "Aktivera 8KB RAM-expansion på $6000-$7FFF"},
@@ -9693,7 +11594,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_DRIVE_RAM_8000_HU, "8KB RAM kiterjeszés engedélyezése a $8000-$9FFF címen"},
 /* it */ {IDCLS_ENABLE_DRIVE_RAM_8000_IT, "Attiva l'espansione di RAM di 8KB a $8000-$9FFF"},
 /* ko */ {IDCLS_ENABLE_DRIVE_RAM_8000_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_DRIVE_RAM_8000_NL, "Activeer 8KB RAM uitbreiding op adres $8000-$9FFF"},
+/* nl */ {IDCLS_ENABLE_DRIVE_RAM_8000_NL, "8KB RAM uitbreiding op adres $8000-$9FFF inschakelen"},
 /* pl */ {IDCLS_ENABLE_DRIVE_RAM_8000_PL, "W³±cz rozszerzenie 8KB RAM w $8000-$9FFF"},
 /* ru */ {IDCLS_ENABLE_DRIVE_RAM_8000_RU, "Enable 8KB RAM expansion at $8000-$9FFF"},
 /* sv */ {IDCLS_ENABLE_DRIVE_RAM_8000_SV, "Aktivera 8KB RAM-expansion på $8000-$9FFF"},
@@ -9727,7 +11628,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_DRIVE_RAM_A000_HU, "8KB RAM kiterjeszés engedélyezése a $A000-$BFFF címen"},
 /* it */ {IDCLS_ENABLE_DRIVE_RAM_A000_IT, "Attiva l'espansione di RAM di 8KB a $A000-$BFFF"},
 /* ko */ {IDCLS_ENABLE_DRIVE_RAM_A000_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_DRIVE_RAM_A000_NL, "Activeer 8KB RAM uitbreiding op adres $A000-$BFFF"},
+/* nl */ {IDCLS_ENABLE_DRIVE_RAM_A000_NL, "8KB RAM uitbreiding op adres $A000-$BFFF inschakelen"},
 /* pl */ {IDCLS_ENABLE_DRIVE_RAM_A000_PL, "W³±cz rozszerzenie 8KB RAM w $A000-$BFFF"},
 /* ru */ {IDCLS_ENABLE_DRIVE_RAM_A000_RU, "Enable 8KB RAM expansion at $A000-$BFFF"},
 /* sv */ {IDCLS_ENABLE_DRIVE_RAM_A000_SV, "Aktivera 8KB RAM-expansion på $A000-$BFFF"},
@@ -9761,7 +11662,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_PAR_CABLE_C64EXP_TYPE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_PAR_CABLE_C64EXP_TYPE_IT, "Imposta il tipo di cavo parallelo (0: none, 1: standard, 2: Dolphin DOS 3, 3: Formel 64)"},
 /* ko */ {IDCLS_PAR_CABLE_C64EXP_TYPE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_PAR_CABLE_C64EXP_TYPE_NL, "Zet parallele kabelsoort (0: geen, 1: standaard, 2: Dolphin DOS 3, 3: Formel 64)"},
+/* nl */ {IDCLS_PAR_CABLE_C64EXP_TYPE_NL, "Stel parallelle kabelsoort in (0: geen, 1: standaard, 2: Dolphin DOS 3, 3: Formel 64)"},
 /* pl */ {IDCLS_PAR_CABLE_C64EXP_TYPE_PL, "Okre¶l typ ³±cza równoleg³ego (0: brak, 1: zwyk³e, 2: Dolphin DOS 3, 3: Formel 64)"},
 /* ru */ {IDCLS_PAR_CABLE_C64EXP_TYPE_RU, "Set parallel cable type (0: none, 1: standard, 2: Dolphin DOS 3, 3: Formel 64)"},
 /* sv */ {IDCLS_PAR_CABLE_C64EXP_TYPE_SV, "Välj typ av parallellkabel (0: ingen, 1: standard, 2: Dolphin DOS 3, 3: Formel 64)"},
@@ -9806,7 +11707,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_PROFDOS_1571_ROM_NAME,    N_("Specify name of Professional DOS 1571 ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_PROFDOS_1571_ROM_NAME_DA, "Angiv navn på Professional DOS 1571-ROM-image"},
-/* de */ {IDCLS_SPECIFY_PROFDOS_1571_ROM_NAME_DE, "Name von Professional DOS 1571 Datei definieren"},
+/* de */ {IDCLS_SPECIFY_PROFDOS_1571_ROM_NAME_DE, "Name von Professional DOS 1571 Datei wählen"},
 /* es */ {IDCLS_SPECIFY_PROFDOS_1571_ROM_NAME_ES, "Especificar nombre imagen ROM Professional DOS 1571"},
 /* fr */ {IDCLS_SPECIFY_PROFDOS_1571_ROM_NAME_FR, "Spécifier le nom du nouveau ROM Professional DOS 1571"},
 /* hu */ {IDCLS_SPECIFY_PROFDOS_1571_ROM_NAME_HU, "Adja meg a Professional DOS 1571 ROM képmást"},
@@ -9857,7 +11758,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_SUPERCARD_ROM_NAME,    N_("Specify name of SuperCard+ ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_SUPERCARD_ROM_NAME_DA, "Angiv navn på SuperCard+ ROM-image"},
-/* de */ {IDCLS_SPECIFY_SUPERCARD_ROM_NAME_DE, "Name von SuperCard+ ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_SUPERCARD_ROM_NAME_DE, "Name von SuperCard+ ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_SUPERCARD_ROM_NAME_ES, "Especificar nombre de Imagen ROM SuperCard+"},
 /* fr */ {IDCLS_SPECIFY_SUPERCARD_ROM_NAME_FR, "Spécifier le nom de l'image ROM SuperCard+"},
 /* hu */ {IDCLS_SPECIFY_SUPERCARD_ROM_NAME_HU, ""},  /* fuzzy */
@@ -9870,6 +11771,57 @@ translate_t string_table[] = {
 /* tr */ {IDCLS_SPECIFY_SUPERCARD_ROM_NAME_TR, "SuperCard+ ROM imajýnýn ismini belirt"},
 #endif
 
+/* drive/iec/c64exp/c64exp-cmdline-options.c */
+/* en */ {IDCLS_ENABLE_STARDOS,    N_("Enable StarDOS")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_STARDOS_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_STARDOS_DE, ""},  /* fuzzy */
+/* es */ {IDCLS_ENABLE_STARDOS_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_STARDOS_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_STARDOS_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_STARDOS_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_STARDOS_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_STARDOS_NL, "Activeer StarDOS"},
+/* pl */ {IDCLS_ENABLE_STARDOS_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_STARDOS_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_STARDOS_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_STARDOS_TR, ""},  /* fuzzy */
+#endif
+
+/* drive/iec/c64exp/c64exp-cmdline-options.c */
+/* en */ {IDCLS_DISABLE_STARDOS,    N_("Disable StarDOS")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_STARDOS_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_STARDOS_DE, ""},  /* fuzzy */
+/* es */ {IDCLS_DISABLE_STARDOS_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_STARDOS_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_STARDOS_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_STARDOS_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_STARDOS_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_STARDOS_NL, "StarDOS uitschakelen"},
+/* pl */ {IDCLS_DISABLE_STARDOS_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_STARDOS_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_STARDOS_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_STARDOS_TR, ""},  /* fuzzy */
+#endif
+
+/* drive/iec/c64exp/c64exp-cmdline-options.c */
+/* en */ {IDCLS_SPECIFY_STARDOS_ROM_NAME,    N_("Specify name of StarDOS ROM image")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_SPECIFY_STARDOS_ROM_NAME_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_SPECIFY_STARDOS_ROM_NAME_DE, ""},  /* fuzzy */
+/* es */ {IDCLS_SPECIFY_STARDOS_ROM_NAME_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_SPECIFY_STARDOS_ROM_NAME_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_SPECIFY_STARDOS_ROM_NAME_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_SPECIFY_STARDOS_ROM_NAME_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_SPECIFY_STARDOS_ROM_NAME_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_SPECIFY_STARDOS_ROM_NAME_NL, "Geef de naam van het StarDOS ROM bestand"},
+/* pl */ {IDCLS_SPECIFY_STARDOS_ROM_NAME_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_SPECIFY_STARDOS_ROM_NAME_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_SPECIFY_STARDOS_ROM_NAME_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_SPECIFY_STARDOS_ROM_NAME_TR, ""},  /* fuzzy */
+#endif
+
 /* drive/iec/plus4exp/plus4exp-cmdline-options.c */
 /* en */ {IDCLS_PAR_CABLE_PLUS4EXP_TYPE,    N_("Set parallel cable type (0: none, 1: standard)")},
 #ifdef HAS_TRANSLATION
@@ -9880,7 +11832,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_PAR_CABLE_PLUS4EXP_TYPE_HU, "Adja meg a párhuzamos kábel típusát (0: nincs, 1: standard)"},
 /* it */ {IDCLS_PAR_CABLE_PLUS4EXP_TYPE_IT, "Imposta il tipo di cavo parallelo (0: nessuno, 1: standard)"},
 /* ko */ {IDCLS_PAR_CABLE_PLUS4EXP_TYPE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_PAR_CABLE_PLUS4EXP_TYPE_NL, "Zet parallelle kabelsoort (0: geen, 1: standaard)"},
+/* nl */ {IDCLS_PAR_CABLE_PLUS4EXP_TYPE_NL, "Stel parallelle kabelsoort in (0: geen, 1: standaard)"},
 /* pl */ {IDCLS_PAR_CABLE_PLUS4EXP_TYPE_PL, "Ustaw typ kabla portu równoleg³ego (0: brak, 1: typowy)"},
 /* ru */ {IDCLS_PAR_CABLE_PLUS4EXP_TYPE_RU, "Set parallel cable type (0: none, 1: standard)"},
 /* sv */ {IDCLS_PAR_CABLE_PLUS4EXP_TYPE_SV, "Välj typ av parallellkabel (0: ingen, 1: standard)"},
@@ -9891,7 +11843,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_1571CR_DOS_ROM_NAME,    N_("Specify name of 1571CR DOS ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_1571CR_DOS_ROM_NAME_DA, "Angiv navn på 1571CR-DOS-ROM-image"},
-/* de */ {IDCLS_SPECIFY_1571CR_DOS_ROM_NAME_DE, "Name der 1571CR DOS ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_1571CR_DOS_ROM_NAME_DE, "Name der 1571CR DOS ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_1571CR_DOS_ROM_NAME_ES, "Especificar nombre imagen DOS ROM 1571CR"},
 /* fr */ {IDCLS_SPECIFY_1571CR_DOS_ROM_NAME_FR, "Spécifier le nom de l'image 1571CR DOS ROM"},
 /* hu */ {IDCLS_SPECIFY_1571CR_DOS_ROM_NAME_HU, "Adja meg az 1571CR DOS ROM képmás nevét"},
@@ -9908,7 +11860,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_2031_DOS_ROM_NAME,    N_("Specify name of 2031 DOS ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_2031_DOS_ROM_NAME_DA, "Angiv navn på 2031-DOS-ROM-image"},
-/* de */ {IDCLS_SPECIFY_2031_DOS_ROM_NAME_DE, "Name der 2031 DOS ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_2031_DOS_ROM_NAME_DE, "Name der 2031 DOS ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_2031_DOS_ROM_NAME_ES, "Especificar nombre imagen DOS ROM 2031"},
 /* fr */ {IDCLS_SPECIFY_2031_DOS_ROM_NAME_FR, "Spécifier le nom de l'image 2031 DOS ROM"},
 /* hu */ {IDCLS_SPECIFY_2031_DOS_ROM_NAME_HU, "Adja meg a 2031 DOS ROM képmás nevét"},
@@ -9925,7 +11877,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_2040_DOS_ROM_NAME,    N_("Specify name of 2040 DOS ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_2040_DOS_ROM_NAME_DA, "Angiv navn på 2040-DOS-ROM-image"},
-/* de */ {IDCLS_SPECIFY_2040_DOS_ROM_NAME_DE, "Name der 2040 DOS ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_2040_DOS_ROM_NAME_DE, "Name der 2040 DOS ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_2040_DOS_ROM_NAME_ES, "Especificar nombre imagen DOS ROM 2040"},
 /* fr */ {IDCLS_SPECIFY_2040_DOS_ROM_NAME_FR, "Spécifier le nom de l'image 2040 DOS ROM"},
 /* hu */ {IDCLS_SPECIFY_2040_DOS_ROM_NAME_HU, "Adja meg a 2040 DOS ROM képmás nevét"},
@@ -9942,7 +11894,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_3040_DOS_ROM_NAME,    N_("Specify name of 3040 DOS ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_3040_DOS_ROM_NAME_DA, "Angiv navn på 3040-DOS-ROM-image"},
-/* de */ {IDCLS_SPECIFY_3040_DOS_ROM_NAME_DE, "Name der 3040 DOS ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_3040_DOS_ROM_NAME_DE, "Name der 3040 DOS ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_3040_DOS_ROM_NAME_ES, "Especificar nombre imagen DOS ROM 3040"},
 /* fr */ {IDCLS_SPECIFY_3040_DOS_ROM_NAME_FR, "Spécifier le nom de l'image 3040 DOS ROM"},
 /* hu */ {IDCLS_SPECIFY_3040_DOS_ROM_NAME_HU, "Adja meg a 3040 DOS ROM képmás nevét"},
@@ -9959,7 +11911,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_4040_DOS_ROM_NAME,    N_("Specify name of 4040 DOS ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_4040_DOS_ROM_NAME_DA, "Angiv navn på 4040-DOS-ROM-image"},
-/* de */ {IDCLS_SPECIFY_4040_DOS_ROM_NAME_DE, "Name der 4040 DOS ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_4040_DOS_ROM_NAME_DE, "Name der 4040 DOS ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_4040_DOS_ROM_NAME_ES, "Especificar nombre imagen DOS ROM 4040"},
 /* fr */ {IDCLS_SPECIFY_4040_DOS_ROM_NAME_FR, "Spécifier le nom de l'image 4040 DOS ROM"},
 /* hu */ {IDCLS_SPECIFY_4040_DOS_ROM_NAME_HU, "Adja meg a 4040 DOS ROM képmás nevét"},
@@ -9976,7 +11928,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_1001_DOS_ROM_NAME,    N_("Specify name of 1001/8050/8250 DOS ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_1001_DOS_ROM_NAME_DA, "Angiv navn på 1001/8050/8250-DOS-ROM-image"},
-/* de */ {IDCLS_SPECIFY_1001_DOS_ROM_NAME_DE, "Name der 1001/8040/8205 DOS ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_1001_DOS_ROM_NAME_DE, "Name der 1001/8040/8205 DOS ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_1001_DOS_ROM_NAME_ES, "Especificar nombre imagen DOS ROM 1001/8050/8250"},
 /* fr */ {IDCLS_SPECIFY_1001_DOS_ROM_NAME_FR, "Spécifier le nom de l'image 1001/8050/8250 DOS ROM"},
 /* hu */ {IDCLS_SPECIFY_1001_DOS_ROM_NAME_HU, "Adja meg az 1001/8050/8250 DOS ROM képmás nevét"},
@@ -9993,7 +11945,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_1551_DOS_ROM_NAME,    N_("Specify name of 1551 DOS ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_1551_DOS_ROM_NAME_DA, "Angiv navn på 1551-DOS-ROM-image"},
-/* de */ {IDCLS_SPECIFY_1551_DOS_ROM_NAME_DE, "Name der 1551 DOS ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_1551_DOS_ROM_NAME_DE, "Name der 1551 DOS ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_1551_DOS_ROM_NAME_ES, "Especificar nombre imagen DOS ROM 1551"},
 /* fr */ {IDCLS_SPECIFY_1551_DOS_ROM_NAME_FR, "Spécifier le nom de l'image 1551 DOS ROM"},
 /* hu */ {IDCLS_SPECIFY_1551_DOS_ROM_NAME_HU, "Adja meg az 1551 DOS ROM képmás nevét"},
@@ -10084,7 +12036,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_FSDEVICE_8_CONVERT_P00_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_FSDEVICE_8_CONVERT_P00_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_FSDEVICE_8_CONVERT_P00_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_FSDEVICE_8_CONVERT_P00_NL, "Activeer ondersteuning voor het lezen van P00 bestanden voor drive 8"},
+/* nl */ {IDCLS_ENABLE_FSDEVICE_8_CONVERT_P00_NL, "Ondersteuning voor het lezen van P00 bestanden voor drive 8 inschakelen"},
 /* pl */ {IDCLS_ENABLE_FSDEVICE_8_CONVERT_P00_PL, "W³±cz obs³ugê plików P00 przy odczycie z napêdu 8"},
 /* ru */ {IDCLS_ENABLE_FSDEVICE_8_CONVERT_P00_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_FSDEVICE_8_CONVERT_P00_SV, ""},  /* fuzzy */
@@ -10118,7 +12070,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_FSDEVICE_9_CONVERT_P00_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_FSDEVICE_9_CONVERT_P00_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_FSDEVICE_9_CONVERT_P00_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_FSDEVICE_9_CONVERT_P00_NL, "Activeer ondersteuning voor het lezen van P00 bestanden voor drive 9"},
+/* nl */ {IDCLS_ENABLE_FSDEVICE_9_CONVERT_P00_NL, "Ondersteuning voor het lezen van P00 bestanden voor drive 9 inschakelen"},
 /* pl */ {IDCLS_ENABLE_FSDEVICE_9_CONVERT_P00_PL, "W³±cz obs³ugê plików P00 przy odczycie z napêdu 9"},
 /* ru */ {IDCLS_ENABLE_FSDEVICE_9_CONVERT_P00_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_FSDEVICE_9_CONVERT_P00_SV, ""},  /* fuzzy */
@@ -10152,7 +12104,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_FSDEVICE_10_CONVERT_P00_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_FSDEVICE_10_CONVERT_P00_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_FSDEVICE_10_CONVERT_P00_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_FSDEVICE_10_CONVERT_P00_NL, "Activeer ondersteuning voor het lezen van P00 bestanden voor drive 10"},
+/* nl */ {IDCLS_ENABLE_FSDEVICE_10_CONVERT_P00_NL, "Ondersteuning voor het lezen van P00 bestanden voor drive 10 inschakelen"},
 /* pl */ {IDCLS_ENABLE_FSDEVICE_10_CONVERT_P00_PL, "W³±cz obs³ugê plików P00 przy odczycie z napêdu 10"},
 /* ru */ {IDCLS_ENABLE_FSDEVICE_10_CONVERT_P00_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_FSDEVICE_10_CONVERT_P00_SV, ""},  /* fuzzy */
@@ -10186,7 +12138,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_FSDEVICE_11_CONVERT_P00_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_FSDEVICE_11_CONVERT_P00_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_FSDEVICE_11_CONVERT_P00_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_FSDEVICE_11_CONVERT_P00_NL, "Activeer ondersteuning voor het lezen van P00 bestanden voor drive 11"},
+/* nl */ {IDCLS_ENABLE_FSDEVICE_11_CONVERT_P00_NL, "Ondersteuning voor het lezen van P00 bestanden voor drive 11 inschakelen"},
 /* pl */ {IDCLS_ENABLE_FSDEVICE_11_CONVERT_P00_PL, "W³±cz obs³ugê plików P00 przy odczycie z napêdu 11"},
 /* ru */ {IDCLS_ENABLE_FSDEVICE_11_CONVERT_P00_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_FSDEVICE_11_CONVERT_P00_SV, ""},  /* fuzzy */
@@ -10220,7 +12172,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_FSDEVICE_8_SAVE_P00_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_FSDEVICE_8_SAVE_P00_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_FSDEVICE_8_SAVE_P00_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_FSDEVICE_8_SAVE_P00_NL, "Activeer opslaan van P00 bestanden voor drive 8"},
+/* nl */ {IDCLS_ENABLE_FSDEVICE_8_SAVE_P00_NL, "Opslaan van P00 bestanden voor drive 8 inschakelen"},
 /* pl */ {IDCLS_ENABLE_FSDEVICE_8_SAVE_P00_PL, "W³±cz zapis plików P00 w napêdzie 8"},
 /* ru */ {IDCLS_ENABLE_FSDEVICE_8_SAVE_P00_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_FSDEVICE_8_SAVE_P00_SV, ""},  /* fuzzy */
@@ -10254,7 +12206,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_FSDEVICE_9_SAVE_P00_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_FSDEVICE_9_SAVE_P00_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_FSDEVICE_9_SAVE_P00_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_FSDEVICE_9_SAVE_P00_NL, "Activeer opslaan van P00 bestanden voor drive 9"},
+/* nl */ {IDCLS_ENABLE_FSDEVICE_9_SAVE_P00_NL, "Opslaan van P00 bestanden voor drive 9 inschakelen"},
 /* pl */ {IDCLS_ENABLE_FSDEVICE_9_SAVE_P00_PL, "W³±cz zapis plików P00 w napêdzie 9"},
 /* ru */ {IDCLS_ENABLE_FSDEVICE_9_SAVE_P00_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_FSDEVICE_9_SAVE_P00_SV, ""},  /* fuzzy */
@@ -10288,7 +12240,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_FSDEVICE_10_SAVE_P00_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_FSDEVICE_10_SAVE_P00_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_FSDEVICE_10_SAVE_P00_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_FSDEVICE_10_SAVE_P00_NL, "Activeer opslaan van P00 bestanden voor drive 10"},
+/* nl */ {IDCLS_ENABLE_FSDEVICE_10_SAVE_P00_NL, "Opslaan van P00 bestanden voor drive 10 inschakelen"},
 /* pl */ {IDCLS_ENABLE_FSDEVICE_10_SAVE_P00_PL, "W³±cz zapis plików P00 w napêdzie 10"},
 /* ru */ {IDCLS_ENABLE_FSDEVICE_10_SAVE_P00_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_FSDEVICE_10_SAVE_P00_SV, ""},  /* fuzzy */
@@ -10322,7 +12274,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_FSDEVICE_11_SAVE_P00_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_FSDEVICE_11_SAVE_P00_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_FSDEVICE_11_SAVE_P00_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_FSDEVICE_11_SAVE_P00_NL, "Activeer opslaan van P00 bestanden voor drive 11"},
+/* nl */ {IDCLS_ENABLE_FSDEVICE_11_SAVE_P00_NL, "Opslaan van P00 bestanden voor drive 11 inschakelen"},
 /* pl */ {IDCLS_ENABLE_FSDEVICE_11_SAVE_P00_PL, "W³±cz zapis plików P00 w napêdzie 11"},
 /* ru */ {IDCLS_ENABLE_FSDEVICE_11_SAVE_P00_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_FSDEVICE_11_SAVE_P00_SV, ""},  /* fuzzy */
@@ -10537,7 +12489,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_EDITOR_ROM_NAME,    N_("Specify name of Editor ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_EDITOR_ROM_NAME_DA, "Angiv navn på Editor-ROM-image"},
-/* de */ {IDCLS_SPECIFY_EDITOR_ROM_NAME_DE, "Name für Editor ROM Image Datei definieren"},
+/* de */ {IDCLS_SPECIFY_EDITOR_ROM_NAME_DE, "Name für Editor ROM Imagedatei wählen"},
 /* es */ {IDCLS_SPECIFY_EDITOR_ROM_NAME_ES, "Especificar nombre imagen editor ROM"},
 /* fr */ {IDCLS_SPECIFY_EDITOR_ROM_NAME_FR, "Spécifier le nom de l’image ROM Editor"},
 /* hu */ {IDCLS_SPECIFY_EDITOR_ROM_NAME_HU, "Adja meg a szerkesztõ ROM képmás nevét"},
@@ -10554,7 +12506,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_4K_ROM_9XXX_NAME,    N_("Specify 4K extension ROM name at $9***")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_4K_ROM_9XXX_NAME_DA, "Angiv navn på 4K-udviddelses-ROM på $9***"},
-/* de */ {IDCLS_SPECIFY_4K_ROM_9XXX_NAME_DE, "4K Erweiterungs ROM Datei Name bei $9*** definieren"},
+/* de */ {IDCLS_SPECIFY_4K_ROM_9XXX_NAME_DE, "4K Erweiterungs ROM Dateiname bei $9*** wählen"},
 /* es */ {IDCLS_SPECIFY_4K_ROM_9XXX_NAME_ES, "Especificar nombre extensión ROM 4KB en $9***"},
 /* fr */ {IDCLS_SPECIFY_4K_ROM_9XXX_NAME_FR, "Spécifier le nom de l'extension ROM 4K à $9***"},
 /* hu */ {IDCLS_SPECIFY_4K_ROM_9XXX_NAME_HU, "Adja meg a $9*** címû 4K ROM kiterjesztés nevét"},
@@ -10571,7 +12523,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_4K_ROM_AXXX_NAME,    N_("Specify 4K extension ROM name at $A***")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_4K_ROM_AXXX_NAME_DA, "Angiv navn på 4K-udviddelses-ROM på $A***"},
-/* de */ {IDCLS_SPECIFY_4K_ROM_AXXX_NAME_DE, "4K Erweiterungs ROM Datei Name bei $A*** definieren"},
+/* de */ {IDCLS_SPECIFY_4K_ROM_AXXX_NAME_DE, "4K Erweiterungs ROM Dateiname bei $A*** wählen"},
 /* es */ {IDCLS_SPECIFY_4K_ROM_AXXX_NAME_ES, "Especificar nombre extensión ROM 4KB en $A***"},
 /* fr */ {IDCLS_SPECIFY_4K_ROM_AXXX_NAME_FR, "Spécifier le nom de l'extension ROM 4K à $A***"},
 /* hu */ {IDCLS_SPECIFY_4K_ROM_AXXX_NAME_HU, "Adja meg a $A*** címû 4K ROM kiterjesztés nevét"},
@@ -10588,7 +12540,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_4K_ROM_BXXX_NAME,    N_("Specify 4K extension ROM name at $B***")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_4K_ROM_BXXX_NAME_DA, "Angiv navn på 4K-udviddelses-ROM på $B***"},
-/* de */ {IDCLS_SPECIFY_4K_ROM_BXXX_NAME_DE, "4K Erweiterungs ROM Datei Name bei $B*** definieren"},
+/* de */ {IDCLS_SPECIFY_4K_ROM_BXXX_NAME_DE, "4K Erweiterungs ROM Dateiname bei $B*** wählen"},
 /* es */ {IDCLS_SPECIFY_4K_ROM_BXXX_NAME_ES, "Especificar nombre extensión ROM 4KB en $B***"},
 /* fr */ {IDCLS_SPECIFY_4K_ROM_BXXX_NAME_FR, "Spécifier le nom de l'extension ROM 4K à $B***"},
 /* hu */ {IDCLS_SPECIFY_4K_ROM_BXXX_NAME_HU, "Adja meg a $B*** címû 4K ROM kiterjesztés nevét"},
@@ -10611,7 +12563,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_PET8296_ENABLE_4K_RAM_AT_9000_HU, "PET8296 4K RAM engedélyezése a $9*** címen"},
 /* it */ {IDCLS_PET8296_ENABLE_4K_RAM_AT_9000_IT, "Attiva la mappatura della RAM di 4K del PET8296 a $9***"},
 /* ko */ {IDCLS_PET8296_ENABLE_4K_RAM_AT_9000_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_PET8296_ENABLE_4K_RAM_AT_9000_NL, "Activeer PET8296 4K RAM op adres $9***"},
+/* nl */ {IDCLS_PET8296_ENABLE_4K_RAM_AT_9000_NL, "PET8296 4K RAM op adres $9*** inschakelen"},
 /* pl */ {IDCLS_PET8296_ENABLE_4K_RAM_AT_9000_PL, "W³±cz mapowanie 4K RAM PET8296 w $9***"},
 /* ru */ {IDCLS_PET8296_ENABLE_4K_RAM_AT_9000_RU, "Enable PET8296 4K RAM mapping at $9***"},
 /* sv */ {IDCLS_PET8296_ENABLE_4K_RAM_AT_9000_SV, "Aktivera PET8296 4K-RAM-mappning på $9***"},
@@ -10645,7 +12597,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_PET8296_ENABLE_4K_RAM_AT_A000_HU, "PET8296 4K RAM engedélyezése a $A*** címen"},
 /* it */ {IDCLS_PET8296_ENABLE_4K_RAM_AT_A000_IT, "Attiva la mappatura della RAM di 4K del PET8296 a $A***"},
 /* ko */ {IDCLS_PET8296_ENABLE_4K_RAM_AT_A000_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_PET8296_ENABLE_4K_RAM_AT_A000_NL, "Activeer PET8296 4K RAM op adres $A***"},
+/* nl */ {IDCLS_PET8296_ENABLE_4K_RAM_AT_A000_NL, "PET8296 4K RAM op adres $A*** inschakelen"},
 /* pl */ {IDCLS_PET8296_ENABLE_4K_RAM_AT_A000_PL, "W³±cz mapowanie 4K RAM PET8296 w $A***"},
 /* ru */ {IDCLS_PET8296_ENABLE_4K_RAM_AT_A000_RU, "Enable PET8296 4K RAM mapping at $A***"},
 /* sv */ {IDCLS_PET8296_ENABLE_4K_RAM_AT_A000_SV, "Aktivera PET8296 4K-RAM-mappning på $A***"},
@@ -10679,7 +12631,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_SUPERPET_IO_HU, "SuperPET I/O engedélyezése"},
 /* it */ {IDCLS_ENABLE_SUPERPET_IO_IT, "Attiva l'I/O del SuperPET"},
 /* ko */ {IDCLS_ENABLE_SUPERPET_IO_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_SUPERPET_IO_NL, "Activeer SuperPET I/O"},
+/* nl */ {IDCLS_ENABLE_SUPERPET_IO_NL, "SuperPET I/O inschakelen"},
 /* pl */ {IDCLS_ENABLE_SUPERPET_IO_PL, "W³±cz we/wy SuperPET"},
 /* ru */ {IDCLS_ENABLE_SUPERPET_IO_RU, "Enable SuperPET I/O"},
 /* sv */ {IDCLS_ENABLE_SUPERPET_IO_SV, "Aktivera SuperPET-I/O"},
@@ -10713,7 +12665,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_ROM_1_KERNAL_PATCHES_HU, "ROM 1 Kernal foltozás engedélyezése"},
 /* it */ {IDCLS_ENABLE_ROM_1_KERNAL_PATCHES_IT, "Attiva le patch del Kernal della ROM 1"},
 /* ko */ {IDCLS_ENABLE_ROM_1_KERNAL_PATCHES_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_ROM_1_KERNAL_PATCHES_NL, "Activeer ROM 1 Kernalverbeteringen"},
+/* nl */ {IDCLS_ENABLE_ROM_1_KERNAL_PATCHES_NL, "ROM 1 Kernalverbeteringen inschakelen"},
 /* pl */ {IDCLS_ENABLE_ROM_1_KERNAL_PATCHES_PL, "W³±cz ³atki Kernala ROM 1"},
 /* ru */ {IDCLS_ENABLE_ROM_1_KERNAL_PATCHES_RU, "Enable ROM 1 Kernal patches"},
 /* sv */ {IDCLS_ENABLE_ROM_1_KERNAL_PATCHES_SV, "Aktivera ROM 1-Kernalpatchar"},
@@ -10860,7 +12812,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_6809_ROM_AT_A000,    N_("Specify 4K to 24K ROM file name at $A000 for 6809")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_6809_ROM_AT_A000_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_6809_ROM_AT_A000_DE, "4K-24K Erweiterungs ROM Datei Name für $A000 für 6809 definieren"},
+/* de */ {IDCLS_SPECIFY_6809_ROM_AT_A000_DE, "4K-24K Erweiterungs ROM Dateiname für $A000 für 6809 wählen"},
 /* es */ {IDCLS_SPECIFY_6809_ROM_AT_A000_ES, "Especificar nombre ROM 4K a 24K  en $A000 para 6809"},
 /* fr */ {IDCLS_SPECIFY_6809_ROM_AT_A000_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_6809_ROM_AT_A000_HU, ""},  /* fuzzy */
@@ -10877,7 +12829,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_6809_ROM_AT_B000,    N_("Specify 4K to 20K ROM file name at $B000 for 6809")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_6809_ROM_AT_B000_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_6809_ROM_AT_B000_DE, "4K-20K Erweiterungs ROM Datei Name für $B000 für 6809 definieren"},
+/* de */ {IDCLS_SPECIFY_6809_ROM_AT_B000_DE, "4K-20K Erweiterungs ROM Dateiname für $B000 für 6809 wählen"},
 /* es */ {IDCLS_SPECIFY_6809_ROM_AT_B000_ES, "Especificar nombre ROM 4K a 20K  en $B000 para 6809"},
 /* fr */ {IDCLS_SPECIFY_6809_ROM_AT_B000_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_6809_ROM_AT_B000_HU, ""},  /* fuzzy */
@@ -10894,7 +12846,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_6809_ROM_AT_C000,    N_("Specify 4K to 16K ROM file name at $C000 for 6809")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_6809_ROM_AT_C000_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_6809_ROM_AT_C000_DE, "4K-16K Erweiterungs ROM Datei Name für $C000 für 6809 definieren"},
+/* de */ {IDCLS_SPECIFY_6809_ROM_AT_C000_DE, "4K-16K Erweiterungs ROM Dateiname für $C000 für 6809 wählen"},
 /* es */ {IDCLS_SPECIFY_6809_ROM_AT_C000_ES, "Especificar nombre ROM 4K a 16K  en $C000 para 6809"},
 /* fr */ {IDCLS_SPECIFY_6809_ROM_AT_C000_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_6809_ROM_AT_C000_HU, ""},  /* fuzzy */
@@ -10911,7 +12863,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_6809_ROM_AT_D000,    N_("Specify 4K to 12K ROM file name at $D000 for 6809")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_6809_ROM_AT_D000_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_6809_ROM_AT_D000_DE, "4K-12K Erweiterungs ROM Datei Name für $D000 für 6809 definieren"},
+/* de */ {IDCLS_SPECIFY_6809_ROM_AT_D000_DE, "4K-12K Erweiterungs ROM Dateiname für $D000 für 6809 wählen"},
 /* es */ {IDCLS_SPECIFY_6809_ROM_AT_D000_ES, "Especificar nombre ROM 4K a 12K  en $D000 para 6809"},
 /* fr */ {IDCLS_SPECIFY_6809_ROM_AT_D000_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_6809_ROM_AT_D000_HU, ""},  /* fuzzy */
@@ -10928,7 +12880,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_6809_ROM_AT_E000,    N_("Specify 2K or 8K ROM file name at $E000 for 6809")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_6809_ROM_AT_E000_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_6809_ROM_AT_E000_DE, "4K-8K Erweiterungs ROM Datei Name für $E000 für 6809 definieren"},
+/* de */ {IDCLS_SPECIFY_6809_ROM_AT_E000_DE, "4K-8K Erweiterungs ROM Dateiname für $E000 für 6809 wählen"},
 /* es */ {IDCLS_SPECIFY_6809_ROM_AT_E000_ES, "Especificar nombre ROM 4K a 8K  en $E000 para 6809"},
 /* fr */ {IDCLS_SPECIFY_6809_ROM_AT_E000_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_6809_ROM_AT_E000_HU, ""},  /* fuzzy */
@@ -10945,7 +12897,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_6809_ROM_AT_F000,    N_("Specify 4K ROM file name at $F000 for 6809")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_6809_ROM_AT_F000_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_6809_ROM_AT_F000_DE, "4K Erweiterungs ROM Datei Name für $F000 für 6809 definieren"},
+/* de */ {IDCLS_SPECIFY_6809_ROM_AT_F000_DE, "4K Erweiterungs ROM Dateiname für $F000 für 6809 wählen"},
 /* es */ {IDCLS_SPECIFY_6809_ROM_AT_F000_ES, "Especificar nombre ROM 4K en $F000 para 6809"},
 /* fr */ {IDCLS_SPECIFY_6809_ROM_AT_F000_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_6809_ROM_AT_F000_HU, ""},  /* fuzzy */
@@ -11070,7 +13022,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_CRTC_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_CRTC_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_CRTC_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_CRTC_NL, "Activeer CRTC"},
+/* nl */ {IDCLS_ENABLE_CRTC_NL, "CRTC inschakelen"},
 /* pl */ {IDCLS_ENABLE_CRTC_PL, "W³±cz CRTC"},
 /* ru */ {IDCLS_ENABLE_CRTC_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_CRTC_SV, ""},  /* fuzzy */
@@ -11104,7 +13056,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_VIDEO_SIZE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_VIDEO_SIZE_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_VIDEO_SIZE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_VIDEO_SIZE_NL, "Zet video grootte (0: Automatisch, 40: 40 Kolommen, 80: 80 Kolommen)"},
+/* nl */ {IDCLS_SET_VIDEO_SIZE_NL, "Stel video grootte in (0: Automatisch, 40: 40 Kolommen, 80: 80 Kolommen)"},
 /* pl */ {IDCLS_SET_VIDEO_SIZE_PL, "Okre¶l wielko¶æ obrazu (0: Automatyczna, 40: 40 kolumn, 80: 80 kolumn)"},
 /* ru */ {IDCLS_SET_VIDEO_SIZE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_VIDEO_SIZE_SV, ""},  /* fuzzy */
@@ -11121,7 +13073,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_USERPORT_DIAG_PIN_HU, "Userport diagnosztikai láb engedélyezése"},
 /* it */ {IDCLS_ENABLE_USERPORT_DIAG_PIN_IT, "Attiva pin diagnostico su userport"},
 /* ko */ {IDCLS_ENABLE_USERPORT_DIAG_PIN_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_USERPORT_DIAG_PIN_NL, "Activeer userport diagnostic pin"},
+/* nl */ {IDCLS_ENABLE_USERPORT_DIAG_PIN_NL, "Userport diagnostic pin inschakelen"},
 /* pl */ {IDCLS_ENABLE_USERPORT_DIAG_PIN_PL, "W³±cz pin diagnostyczny userportu"},
 /* ru */ {IDCLS_ENABLE_USERPORT_DIAG_PIN_RU, "Enable userport diagnostic pin"},
 /* sv */ {IDCLS_ENABLE_USERPORT_DIAG_PIN_SV, "Aktivera diagnostik på användarporten"},
@@ -11149,7 +13101,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_FUNCTION_LOW_ROM_NAME,    N_("Specify name of Function low ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_FUNCTION_LOW_ROM_NAME_DA, "Angiv navn på image for lav funktions-ROM"},
-/* de */ {IDCLS_SPECIFY_FUNCTION_LOW_ROM_NAME_DE, "Namen für Funktions ROM Datei (unterer Bereich) definieren"},
+/* de */ {IDCLS_SPECIFY_FUNCTION_LOW_ROM_NAME_DE, "Namen für Funktions ROM Datei (unterer Bereich) wählen"},
 /* es */ {IDCLS_SPECIFY_FUNCTION_LOW_ROM_NAME_ES, "Especificar nombre imagen ROM función baja"},
 /* fr */ {IDCLS_SPECIFY_FUNCTION_LOW_ROM_NAME_FR, "Spécifier le nom de l'image basse ROM Fonction"},
 /* hu */ {IDCLS_SPECIFY_FUNCTION_LOW_ROM_NAME_HU, "Adja meg az alsó Function ROM képmás nevét"},
@@ -11166,7 +13118,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_FUNCTION_HIGH_ROM_NAME,    N_("Specify name of Function high ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_FUNCTION_HIGH_ROM_NAME_DA, "Angiv navn på image for høj funktions-ROM"},
-/* de */ {IDCLS_SPECIFY_FUNCTION_HIGH_ROM_NAME_DE, "Namen für Funktions ROM Datei (oberer Bereich) definieren"},
+/* de */ {IDCLS_SPECIFY_FUNCTION_HIGH_ROM_NAME_DE, "Namen für Funktions ROM Datei (oberer Bereich) wählen"},
 /* es */ {IDCLS_SPECIFY_FUNCTION_HIGH_ROM_NAME_ES, "Especificar nombre imagen ROM función alta"},
 /* fr */ {IDCLS_SPECIFY_FUNCTION_HIGH_ROM_NAME_FR, "Spécifier le nom de l'image haute ROM Fonction"},
 /* hu */ {IDCLS_SPECIFY_FUNCTION_HIGH_ROM_NAME_HU, "Adja meg a felsõ Function ROM képmás nevét"},
@@ -11183,7 +13135,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_CART_1_LOW_ROM_NAME,    N_("Specify name of Cartridge 1 low ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_CART_1_LOW_ROM_NAME_DA, "Angiv navn på image for lav cartridge 1 ROM"},
-/* de */ {IDCLS_SPECIFY_CART_1_LOW_ROM_NAME_DE, "Name für Erweiterungsmodul 1 ROM Datei (unterer Bereich) definieren"},
+/* de */ {IDCLS_SPECIFY_CART_1_LOW_ROM_NAME_DE, "Name für Erweiterungsmodul 1 ROM Datei (unterer Bereich) wählen"},
 /* es */ {IDCLS_SPECIFY_CART_1_LOW_ROM_NAME_ES, "Especificar nombre imagen ROM cartucho 1 bajo"},
 /* fr */ {IDCLS_SPECIFY_CART_1_LOW_ROM_NAME_FR, "Spécifier le nom de l'image basse ROM Cartouche 1"},
 /* hu */ {IDCLS_SPECIFY_CART_1_LOW_ROM_NAME_HU, "Adja meg az alsó Cartridge 1 ROM képmás nevét"},
@@ -11200,7 +13152,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_CART_1_HIGH_ROM_NAME,    N_("Specify name of Cartridge 1 high ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_CART_1_HIGH_ROM_NAME_DA, "Angiv navn på image for høj cartridge 1 ROM"},
-/* de */ {IDCLS_SPECIFY_CART_1_HIGH_ROM_NAME_DE, "Name für Erweiterungsmodul 1 ROM Datei (oberer Bereich) definieren"},
+/* de */ {IDCLS_SPECIFY_CART_1_HIGH_ROM_NAME_DE, "Name für Erweiterungsmodul 1 ROM Datei (oberer Bereich) wählen"},
 /* es */ {IDCLS_SPECIFY_CART_1_HIGH_ROM_NAME_ES, "Especificar nombre imagen ROM cartucho 1 alto"},
 /* fr */ {IDCLS_SPECIFY_CART_1_HIGH_ROM_NAME_FR, "Spécifier le nom de l'image haute ROM Cartouche 1"},
 /* hu */ {IDCLS_SPECIFY_CART_1_HIGH_ROM_NAME_HU, "Adja meg a felsõ Cartridge 1 ROM képmás nevét"},
@@ -11217,7 +13169,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_CART_2_LOW_ROM_NAME,    N_("Specify name of Cartridge 2 low ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_CART_2_LOW_ROM_NAME_DA, "Angiv navn på image for lav cartridge 2 ROM"},
-/* de */ {IDCLS_SPECIFY_CART_2_LOW_ROM_NAME_DE, "Name für Erweiterungsmodul 2 ROM Datei (unterer Bereich) definieren"},
+/* de */ {IDCLS_SPECIFY_CART_2_LOW_ROM_NAME_DE, "Name für Erweiterungsmodul 2 ROM Datei (unterer Bereich) wählen"},
 /* es */ {IDCLS_SPECIFY_CART_2_LOW_ROM_NAME_ES, "Especificar nombre imagen ROM cartucho 2 bajo"},
 /* fr */ {IDCLS_SPECIFY_CART_2_LOW_ROM_NAME_FR, "Spécifier le nom de l'image basse ROM Cartouche 2"},
 /* hu */ {IDCLS_SPECIFY_CART_2_LOW_ROM_NAME_HU, "Adja meg az alsó Cartridge 2 ROM képmás nevét"},
@@ -11234,7 +13186,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_CART_2_HIGH_ROM_NAME,    N_("Specify name of Cartridge 2 high ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_CART_2_HIGH_ROM_NAME_DA, "Angiv navn på image for høj cartridge 1 ROM"},
-/* de */ {IDCLS_SPECIFY_CART_2_HIGH_ROM_NAME_DE, "Name für Erweiterungsmodul 2 ROM Datei (oberer Bereich) definieren"},
+/* de */ {IDCLS_SPECIFY_CART_2_HIGH_ROM_NAME_DE, "Name für Erweiterungsmodul 2 ROM Datei (oberer Bereich) wählen"},
 /* es */ {IDCLS_SPECIFY_CART_2_HIGH_ROM_NAME_ES, "Especificar nombre imagen ROM cartucho 2 alto"},
 /* fr */ {IDCLS_SPECIFY_CART_2_HIGH_ROM_NAME_FR, "Spécifier le nom de l'image haute ROM Cartouche 2"},
 /* hu */ {IDCLS_SPECIFY_CART_2_HIGH_ROM_NAME_HU, "Adja meg a felsõ Cartridge 2 ROM képmás nevét"},
@@ -11274,7 +13226,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_SATURATION_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_SATURATION_IT, "Imposta la saturazione della palette calcolata internamente"},
 /* ko */ {IDCLS_SET_SATURATION_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_SATURATION_NL, "Zet de verzadiging van het intern berekend kleurenpalet"},
+/* nl */ {IDCLS_SET_SATURATION_NL, "Stel de verzadiging in van het intern berekend kleurenpalet"},
 /* pl */ {IDCLS_SET_SATURATION_PL, "Okre¶l nasycenie wewnêtrznie obliczonej palety kolorystycznej"},
 /* ru */ {IDCLS_SET_SATURATION_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_SATURATION_SV, ""},  /* fuzzy */
@@ -11291,7 +13243,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_CONTRAST_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_CONTRAST_IT, "Imposta il constrasto della palette calcolata internamente"},
 /* ko */ {IDCLS_SET_CONTRAST_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_CONTRAST_NL, "Zet het contrast van het intern berekend kleurenpalet"},
+/* nl */ {IDCLS_SET_CONTRAST_NL, "Stel het contrast in van het intern berekend kleurenpalet"},
 /* pl */ {IDCLS_SET_CONTRAST_PL, "Okre¶l kontrast wewnêtrznie obliczonej palety kolorystycznej"},
 /* ru */ {IDCLS_SET_CONTRAST_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_CONTRAST_SV, ""},  /* fuzzy */
@@ -11308,7 +13260,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_BRIGHTNESS_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_BRIGHTNESS_IT, "Imposta la luminanza della palette calcolata internamente"},
 /* ko */ {IDCLS_SET_BRIGHTNESS_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_BRIGHTNESS_NL, "Zet de helderheid van het intern berekend kleurenpalet"},
+/* nl */ {IDCLS_SET_BRIGHTNESS_NL, "Stel de helderheid in van het intern berekend kleurenpalet"},
 /* pl */ {IDCLS_SET_BRIGHTNESS_PL, "Okre¶l jasno¶æ wewnêtrznie obliczonej palety kolorystycznej"},
 /* ru */ {IDCLS_SET_BRIGHTNESS_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_BRIGHTNESS_SV, ""},  /* fuzzy */
@@ -11325,7 +13277,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_GAMMA_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_GAMMA_IT, "Imposta la gamma della palette calcolata internamente"},
 /* ko */ {IDCLS_SET_GAMMA_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_GAMMA_NL, "Zet de gamma van het intern berekend kleurenpalet"},
+/* nl */ {IDCLS_SET_GAMMA_NL, "Stel de gamma in van het intern berekend kleurenpalet"},
 /* pl */ {IDCLS_SET_GAMMA_PL, "Okre¶l jaskrawo¶æ wewnêtrznie obliczonej palety kolorystycznej"},
 /* ru */ {IDCLS_SET_GAMMA_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_GAMMA_SV, ""},  /* fuzzy */
@@ -11342,7 +13294,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_TINT_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_TINT_IT, "Imposta la sfumatura della palette calcolata internamente"},
 /* ko */ {IDCLS_SET_TINT_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_TINT_NL, "Zet de tint van het intern berekend kleuren palette"},
+/* nl */ {IDCLS_SET_TINT_NL, "Stel de tint in van het intern berekend kleuren palette"},
 /* pl */ {IDCLS_SET_TINT_PL, "Okre¶l odcieñ wewnêtrznie obliczonej palety kolorystycznej"},
 /* ru */ {IDCLS_SET_TINT_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_TINT_SV, ""},  /* fuzzy */
@@ -11359,7 +13311,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_ODDLINES_PHASE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_ODDLINES_PHASE_IT, "Imposta la fase per la portante colore nelle linee dispari"},
 /* ko */ {IDCLS_SET_ODDLINES_PHASE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_ODDLINES_PHASE_NL, "Zet de fase van de kleuren drager in oneven lijnen"},
+/* nl */ {IDCLS_SET_ODDLINES_PHASE_NL, "Stel de fase in van de kleuren drager in oneven lijnen"},
 /* pl */ {IDCLS_SET_ODDLINES_PHASE_PL, "Okre¶l fazê no¶nika koloru w liniach nieparzystych"},
 /* ru */ {IDCLS_SET_ODDLINES_PHASE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_ODDLINES_PHASE_SV, ""},  /* fuzzy */
@@ -11376,7 +13328,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_ODDLINES_OFFSET_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_ODDLINES_OFFSET_IT, "Imposta l'offset della fase per la portate colore nelle linee dispari"},
 /* ko */ {IDCLS_SET_ODDLINES_OFFSET_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_ODDLINES_OFFSET_NL, "Zet de fase compensatie van de kleuren drager in oneven lijnen"},
+/* nl */ {IDCLS_SET_ODDLINES_OFFSET_NL, "Stel de fase in compensatie van de kleuren drager in oneven lijnen"},
 /* pl */ {IDCLS_SET_ODDLINES_OFFSET_PL, "Okre¶l wyrównanie fazy no¶nika koloru w liniach nieparzystych"},
 /* ru */ {IDCLS_SET_ODDLINES_OFFSET_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_ODDLINES_OFFSET_SV, ""},  /* fuzzy */
@@ -11393,7 +13345,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_BLUR_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_BLUR_IT, "Valore della sfuocatura orizzontale per l'emulazione CRT"},
 /* ko */ {IDCLS_SET_BLUR_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_BLUR_NL, "Wazigheid hoeveelheid voor de CRT emulatie."},
+/* nl */ {IDCLS_SET_BLUR_NL, "Horizontale wazigheid hoeveelheid voor de CRT emulatie."},
 /* pl */ {IDCLS_SET_BLUR_PL, "Warto¶æ rozmycia w poziomie emulacji CRT"},
 /* ru */ {IDCLS_SET_BLUR_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_BLUR_SV, ""},  /* fuzzy */
@@ -11438,7 +13390,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_PRT_DRIVER_4_NAME,    N_("Specify name of printer driver for device #4. (ascii/mps803/nl10/raw)")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_PRT_DRIVER_4_NAME_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_PRT_DRIVER_4_NAME_DE, "Name für Druckertreiber für Gerät #4 definieren. (ascii/mps803/nl10/raw)"},
+/* de */ {IDCLS_SPECIFY_PRT_DRIVER_4_NAME_DE, "Name für Druckertreiber für Gerät #4 wählen. (ascii/mps803/nl10/raw)"},
 /* es */ {IDCLS_SPECIFY_PRT_DRIVER_4_NAME_ES, "Especificar nombre controlador impresora periférico #4. (ascii/mps803/nl10/raw)"},
 /* fr */ {IDCLS_SPECIFY_PRT_DRIVER_4_NAME_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_PRT_DRIVER_4_NAME_HU, ""},  /* fuzzy */
@@ -11455,7 +13407,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_PRT_DRIVER_5_NAME,    N_("Specify name of printer driver for device #5. (ascii/mps803/nl10/raw)")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_PRT_DRIVER_5_NAME_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_PRT_DRIVER_5_NAME_DE, "Name für Druckertreiber für Gerät #5 definieren. (ascii/mps803/nl10/raw)"},
+/* de */ {IDCLS_SPECIFY_PRT_DRIVER_5_NAME_DE, "Name für Druckertreiber für Gerät #5 wählen. (ascii/mps803/nl10/raw)"},
 /* es */ {IDCLS_SPECIFY_PRT_DRIVER_5_NAME_ES, "Especificar nombre controlador impresora periférico #5. (ascii/mps803/nl10/raw)"},
 /* fr */ {IDCLS_SPECIFY_PRT_DRIVER_5_NAME_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_PRT_DRIVER_5_NAME_HU, ""},  /* fuzzy */
@@ -11472,7 +13424,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_PRT_DRIVER_6_NAME,    N_("Specify name of printer driver for device #6. (1520/raw)")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_PRT_DRIVER_6_NAME_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_PRT_DRIVER_6_NAME_DE, "Name für Druckertreiber für Gerät #6 definieren. (1520/raw)"},
+/* de */ {IDCLS_SPECIFY_PRT_DRIVER_6_NAME_DE, "Name für Druckertreiber für Gerät #6 wählen. (1520/raw)"},
 /* es */ {IDCLS_SPECIFY_PRT_DRIVER_6_NAME_ES, "Especificar nombre controlador impresora periférico #6. (ascii/mps803/nl10/raw)"},
 /* fr */ {IDCLS_SPECIFY_PRT_DRIVER_6_NAME_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_PRT_DRIVER_6_NAME_HU, ""},  /* fuzzy */
@@ -11489,7 +13441,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_PRT_DRIVER_USR_NAME,    N_("Specify name of printer driver for the userport printer. (ascii/nl10/raw)")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_PRT_DRIVER_USR_NAME_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_PRT_DRIVER_USR_NAME_DE, "Name für Userport Druckertreiber definieren. (ascii/nl10/raw)"},
+/* de */ {IDCLS_SPECIFY_PRT_DRIVER_USR_NAME_DE, "Name für Userport Druckertreiber wählen. (ascii/nl10/raw)"},
 /* es */ {IDCLS_SPECIFY_PRT_DRIVER_USR_NAME_ES, "Especificar nombre controlador impresión para puerto impresora. (ascii/nl10/raw)"},
 /* fr */ {IDCLS_SPECIFY_PRT_DRIVER_USR_NAME_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_PRT_DRIVER_USR_NAME_HU, ""},  /* fuzzy */
@@ -11512,7 +13464,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_DEVICE_TYPE_4_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_DEVICE_TYPE_4_IT, "Specifica il tipo di periferica #4 (0: Nessuna, 1: Filesystem, 2: Reale)"},
 /* ko */ {IDCLS_SET_DEVICE_TYPE_4_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_DEVICE_TYPE_4_NL, "Zet apparaat soort voor apparaat #4 (0: Geen, 1: Bestandssysteem, 2: Echt)"},
+/* nl */ {IDCLS_SET_DEVICE_TYPE_4_NL, "Stel apparaatsoort invoor apparaat #4 (0: Geen, 1: Bestandssysteem, 2: Echt)"},
 /* pl */ {IDCLS_SET_DEVICE_TYPE_4_PL, "Okre¶l typ urz±dzenia #4 (0: Brak, 1: System plików, 2: Rzeczywiste)"},
 /* ru */ {IDCLS_SET_DEVICE_TYPE_4_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_DEVICE_TYPE_4_SV, ""},  /* fuzzy */
@@ -11529,7 +13481,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_DEVICE_TYPE_5_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_DEVICE_TYPE_5_IT, "Specifica il tipo di periferica #5 (0: Nessuna, 1: Filesystem, 2: Reale)"},
 /* ko */ {IDCLS_SET_DEVICE_TYPE_5_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_DEVICE_TYPE_5_NL, "Zet apparaat soort voor apparaat #5 (0: Geen, 1: Bestandssysteem, 2: Echt)"},
+/* nl */ {IDCLS_SET_DEVICE_TYPE_5_NL, "Stel apparaatsoort in voor apparaat #5 (0: Geen, 1: Bestandssysteem, 2: Echt)"},
 /* pl */ {IDCLS_SET_DEVICE_TYPE_5_PL, "Okre¶l typ urz±dzenia #5 (0: Brak, 1: System plików, 2: Rzeczywiste)"},
 /* ru */ {IDCLS_SET_DEVICE_TYPE_5_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_DEVICE_TYPE_5_SV, ""},  /* fuzzy */
@@ -11546,7 +13498,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_DEVICE_TYPE_6_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_DEVICE_TYPE_6_IT, "Specifica il tipo di periferica #6 (0: Nessuna, 1: Filesystem, 2: Reale)"},
 /* ko */ {IDCLS_SET_DEVICE_TYPE_6_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_DEVICE_TYPE_6_NL, "Zet apparaat soort voor apparaat #6 (0: Geen, 1: Bestandssysteem, 2: Echt)"},
+/* nl */ {IDCLS_SET_DEVICE_TYPE_6_NL, "Stel apparaatsoort in voor apparaat #6 (0: Geen, 1: Bestandssysteem, 2: Echt)"},
 /* pl */ {IDCLS_SET_DEVICE_TYPE_6_PL, "Okre¶l typ urz±dzenia #6 (0: Brak, 1: System plików, 2: Rzeczywiste)"},
 /* ru */ {IDCLS_SET_DEVICE_TYPE_6_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_DEVICE_TYPE_6_SV, ""},  /* fuzzy */
@@ -11563,7 +13515,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_DEVICE_TYPE_7_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_DEVICE_TYPE_7_IT, "Specifica il tipo di periferica #7 (0: Nessuna, 1: Filesystem, 2: Reale)"},
 /* ko */ {IDCLS_SET_DEVICE_TYPE_7_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_DEVICE_TYPE_7_NL, "Zet apparaat soort voor apparaat #7 (0: Geen, 2: Echt)"},
+/* nl */ {IDCLS_SET_DEVICE_TYPE_7_NL, "Stel apparaatsoort in voor apparaat #7 (0: Geen, 2: Echt)"},
 /* pl */ {IDCLS_SET_DEVICE_TYPE_7_PL, "Okre¶l typ urz±dzenia #7 (0: Brak, 2: Rzeczywiste)"},
 /* ru */ {IDCLS_SET_DEVICE_TYPE_7_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_DEVICE_TYPE_7_SV, ""},  /* fuzzy */
@@ -11580,7 +13532,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_USERPORT_PRINTER_HU, "Userport nyomtató emulációjának engedélyezése"},
 /* it */ {IDCLS_ENABLE_USERPORT_PRINTER_IT, "Attiva l'emulazione della stampante su userport"},
 /* ko */ {IDCLS_ENABLE_USERPORT_PRINTER_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_USERPORT_PRINTER_NL, "Activeer userport printeremulatie"},
+/* nl */ {IDCLS_ENABLE_USERPORT_PRINTER_NL, "Userport printeremulatie inschakelen"},
 /* pl */ {IDCLS_ENABLE_USERPORT_PRINTER_PL, "W³±cz emulacjê drukarki w userporcie"},
 /* ru */ {IDCLS_ENABLE_USERPORT_PRINTER_RU, "Enable the userport printer emulation"},
 /* sv */ {IDCLS_ENABLE_USERPORT_PRINTER_SV, "Aktivera emulering av skrivare på användarporten"},
@@ -11597,7 +13549,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_USERPORT_PRINTER_HU, "Userport nyomtató emulációjának tiltása"},
 /* it */ {IDCLS_DISABLE_USERPORT_PRINTER_IT, "Disattiva l'emulazione della stampante su userport"},
 /* ko */ {IDCLS_DISABLE_USERPORT_PRINTER_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_USERPORT_PRINTER_NL, "De userport printeremulatie uitschakelen"},
+/* nl */ {IDCLS_DISABLE_USERPORT_PRINTER_NL, "Userport printeremulatie uitschakelen"},
 /* pl */ {IDCLS_DISABLE_USERPORT_PRINTER_PL, "Wy³±cz emulacjê drukarki w userporcie"},
 /* ru */ {IDCLS_DISABLE_USERPORT_PRINTER_RU, "Disable the userport printer emulation"},
 /* sv */ {IDCLS_DISABLE_USERPORT_PRINTER_SV, "Inaktivera emulering av skrivare på användarporten"},
@@ -11608,13 +13560,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_OUTPUT_DEVICE_4_NAME,    N_("Specify name of output device for device #4")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_OUTPUT_DEVICE_4_NAME_DA, "Angiv navn på uddataenhed for enhed #4"},
-/* de */ {IDCLS_SPECIFY_OUTPUT_DEVICE_4_NAME_DE, "Name für Druckerausgabe Datei Gerät #4 definieren"},
+/* de */ {IDCLS_SPECIFY_OUTPUT_DEVICE_4_NAME_DE, "Name für Druckerausgabe Datei Gerät #4 wählen"},
 /* es */ {IDCLS_SPECIFY_OUTPUT_DEVICE_4_NAME_ES, "Especificar nombre periférico de salida para periférico #4"},
 /* fr */ {IDCLS_SPECIFY_OUTPUT_DEVICE_4_NAME_FR, "Spécifiez le nom du périphérique de sortie pour le périphérique #4"},
 /* hu */ {IDCLS_SPECIFY_OUTPUT_DEVICE_4_NAME_HU, "Adja meg a kimeneti eszköz nevét a #4-es egységhez"},
 /* it */ {IDCLS_SPECIFY_OUTPUT_DEVICE_4_NAME_IT, "Specifica il nome del dispositivo di output per la periferica #4"},
 /* ko */ {IDCLS_SPECIFY_OUTPUT_DEVICE_4_NAME_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_OUTPUT_DEVICE_4_NAME_NL, "Geef de naam van het uitvoer apparaat voor apparaat #4"},
+/* nl */ {IDCLS_SPECIFY_OUTPUT_DEVICE_4_NAME_NL, "Geef de naam van het uitvoerapparaat voor apparaat #4"},
 /* pl */ {IDCLS_SPECIFY_OUTPUT_DEVICE_4_NAME_PL, "Okre¶l nazwê urz±dzenia wyj¶cia #4"},
 /* ru */ {IDCLS_SPECIFY_OUTPUT_DEVICE_4_NAME_RU, "Specify name of output device for device #4"},
 /* sv */ {IDCLS_SPECIFY_OUTPUT_DEVICE_4_NAME_SV, "Ange namn på utskriftsenhet för enhet 4"},
@@ -11625,13 +13577,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_OUTPUT_DEVICE_5_NAME,    N_("Specify name of output device for device #5")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_OUTPUT_DEVICE_5_NAME_DA, "Angiv navn på uddataenhed for enhed #5"},
-/* de */ {IDCLS_SPECIFY_OUTPUT_DEVICE_5_NAME_DE, "Name für Druckerausgabe Datei Gerät #5 definieren"},
+/* de */ {IDCLS_SPECIFY_OUTPUT_DEVICE_5_NAME_DE, "Name für Druckerausgabe Datei Gerät #5 wählen"},
 /* es */ {IDCLS_SPECIFY_OUTPUT_DEVICE_5_NAME_ES, "Especificar nombre periférico de salida para periférico #5"},
 /* fr */ {IDCLS_SPECIFY_OUTPUT_DEVICE_5_NAME_FR, "Spécifiez le nom du périphérique de sortie pour le périphérique #5"},
 /* hu */ {IDCLS_SPECIFY_OUTPUT_DEVICE_5_NAME_HU, "Adja meg a kimeneti eszköz nevét a #5-ös egységhez"},
 /* it */ {IDCLS_SPECIFY_OUTPUT_DEVICE_5_NAME_IT, "Specifica il nome del dispositivo di output per la periferica #5"},
 /* ko */ {IDCLS_SPECIFY_OUTPUT_DEVICE_5_NAME_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_OUTPUT_DEVICE_5_NAME_NL, "Geef de naam van het uitvoer apparaat voor apparaat #5"},
+/* nl */ {IDCLS_SPECIFY_OUTPUT_DEVICE_5_NAME_NL, "Geef de naam van het uitvoerapparaat voor apparaat #5"},
 /* pl */ {IDCLS_SPECIFY_OUTPUT_DEVICE_5_NAME_PL, "Okre¶l nazwê urz±dzenia wyj¶cia #5"},
 /* ru */ {IDCLS_SPECIFY_OUTPUT_DEVICE_5_NAME_RU, "Specify name of output device for device #5"},
 /* sv */ {IDCLS_SPECIFY_OUTPUT_DEVICE_5_NAME_SV, "Ange namn på utskriftsenhet för enhet 5"},
@@ -11642,13 +13594,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_OUTPUT_DEVICE_6_NAME,    N_("Specify name of output device for device #6")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_OUTPUT_DEVICE_6_NAME_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_OUTPUT_DEVICE_6_NAME_DE, "Name für Druckerausgabe Datei Gerät #6 definieren"},
+/* de */ {IDCLS_SPECIFY_OUTPUT_DEVICE_6_NAME_DE, "Name für Druckerausgabe Datei Gerät #6 wählen"},
 /* es */ {IDCLS_SPECIFY_OUTPUT_DEVICE_6_NAME_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_SPECIFY_OUTPUT_DEVICE_6_NAME_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_OUTPUT_DEVICE_6_NAME_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SPECIFY_OUTPUT_DEVICE_6_NAME_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SPECIFY_OUTPUT_DEVICE_6_NAME_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_OUTPUT_DEVICE_6_NAME_NL, "Geef de naam van het uitvoer apparaat voor apparaat #6"},
+/* nl */ {IDCLS_SPECIFY_OUTPUT_DEVICE_6_NAME_NL, "Geef de naam van het uitvoerapparaat voor apparaat #6"},
 /* pl */ {IDCLS_SPECIFY_OUTPUT_DEVICE_6_NAME_PL, "Okre¶l nazwê urz±dzenia wyj¶cia #6"},
 /* ru */ {IDCLS_SPECIFY_OUTPUT_DEVICE_6_NAME_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SPECIFY_OUTPUT_DEVICE_6_NAME_SV, ""},  /* fuzzy */
@@ -11659,13 +13611,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_OUTPUT_DEVICE_USR_NAME,    N_("Specify name of output device for the userport printer")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_OUTPUT_DEVICE_USR_NAME_DA, "Angiv navn på uddataenhed for brugerports-printer"},
-/* de */ {IDCLS_SPECIFY_OUTPUT_DEVICE_USR_NAME_DE, "Name für Druckerausgabe Datei Userport definieren"},
+/* de */ {IDCLS_SPECIFY_OUTPUT_DEVICE_USR_NAME_DE, "Name für Druckerausgabe Datei Userport wählen"},
 /* es */ {IDCLS_SPECIFY_OUTPUT_DEVICE_USR_NAME_ES, "Especificar nombre periférico de salida para puerto usuario impresora"},
 /* fr */ {IDCLS_SPECIFY_OUTPUT_DEVICE_USR_NAME_FR, "Spécifiez le nom du périphérique de sortie pour l'imprimante userport"},
 /* hu */ {IDCLS_SPECIFY_OUTPUT_DEVICE_USR_NAME_HU, "Adja meg a kimeneti eszköz nevét a userport nyomtatóhoz"},
 /* it */ {IDCLS_SPECIFY_OUTPUT_DEVICE_USR_NAME_IT, "Specifica il nome del dispositivo di output per la stampante su userport"},
 /* ko */ {IDCLS_SPECIFY_OUTPUT_DEVICE_USR_NAME_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_OUTPUT_DEVICE_USR_NAME_NL, "Geef de naam van het uitvoer apparaat voor de userport printer"},
+/* nl */ {IDCLS_SPECIFY_OUTPUT_DEVICE_USR_NAME_NL, "Geef de naam van het uitvoerapparaat voor de userport printer"},
 /* pl */ {IDCLS_SPECIFY_OUTPUT_DEVICE_USR_NAME_PL, "Okre¶l nazwê urz±dzenia wyj¶ciowego dla drukarki w userporcie"},
 /* ru */ {IDCLS_SPECIFY_OUTPUT_DEVICE_USR_NAME_RU, "Specify name of output device for the userport printer"},
 /* sv */ {IDCLS_SPECIFY_OUTPUT_DEVICE_USR_NAME_SV, "Ange namn på utskriftsenhet för användarporten"},
@@ -11676,13 +13628,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_TEXT_DEVICE_DUMP_NAME,    N_("Specify name of printer text device or dump file")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_TEXT_DEVICE_DUMP_NAME_DA, "Angiv navn på printer-tekst-enhed eller dump-fil"},
-/* de */ {IDCLS_SPECIFY_TEXT_DEVICE_DUMP_NAME_DE, "Name für Druckerausgabe Textgerät oder Dump Datei definieren"},
+/* de */ {IDCLS_SPECIFY_TEXT_DEVICE_DUMP_NAME_DE, "Name für Druckerausgabe Textgerät oder Dump Datei wählen"},
 /* es */ {IDCLS_SPECIFY_TEXT_DEVICE_DUMP_NAME_ES, "Especificar nombre del periférico para imprimir texto o fichero de volcado"},
 /* fr */ {IDCLS_SPECIFY_TEXT_DEVICE_DUMP_NAME_FR, "Spécifier le nom de l'imprimante texte ou \"dump file\""},
 /* hu */ {IDCLS_SPECIFY_TEXT_DEVICE_DUMP_NAME_HU, "Adja meg a szövegnyomtató eszköz nevét, vagy a kimeneti fájlt"},
 /* it */ {IDCLS_SPECIFY_TEXT_DEVICE_DUMP_NAME_IT, "Specifica il nome del dispositivo testuale di stampa o salva su file"},
 /* ko */ {IDCLS_SPECIFY_TEXT_DEVICE_DUMP_NAME_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_TEXT_DEVICE_DUMP_NAME_NL, "Geef de naam van het text apparaat of het dumpbestand"},
+/* nl */ {IDCLS_SPECIFY_TEXT_DEVICE_DUMP_NAME_NL, "Geef de naam van het printer tekst apparaat of het dumpbestand"},
 /* pl */ {IDCLS_SPECIFY_TEXT_DEVICE_DUMP_NAME_PL, "Okre¶l nazwê urz±dzenia tekstowego drukarki lub pliku zrzutu"},
 /* ru */ {IDCLS_SPECIFY_TEXT_DEVICE_DUMP_NAME_RU, "Specify name of printer text device or dump file"},
 /* sv */ {IDCLS_SPECIFY_TEXT_DEVICE_DUMP_NAME_SV, "Ange namn på textenhet för utskrift eller dumpfil"},
@@ -11693,13 +13645,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_TEXT_DEVICE_4,    N_("Specify printer text output device for printer #4")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_TEXT_DEVICE_4_DA, "Angiv printer tekst-uddata enhed for printer #4"},
-/* de */ {IDCLS_SPECIFY_TEXT_DEVICE_4_DE, "Textausgabe Gerät für Drucker #4 definieren"},
+/* de */ {IDCLS_SPECIFY_TEXT_DEVICE_4_DE, "Textausgabe Gerät für Drucker #4 wählen"},
 /* es */ {IDCLS_SPECIFY_TEXT_DEVICE_4_ES, "Especificar periférico salida impresión texto impresora #4"},
 /* fr */ {IDCLS_SPECIFY_TEXT_DEVICE_4_FR, "Spécifier le périphérique de sortie texte pour l'imprimante 4"},
 /* hu */ {IDCLS_SPECIFY_TEXT_DEVICE_4_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SPECIFY_TEXT_DEVICE_4_IT, "Specifica il dispositivo di uscita testuale per la stampante #4"},
 /* ko */ {IDCLS_SPECIFY_TEXT_DEVICE_4_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_TEXT_DEVICE_4_NL, "Geef het tekst uitvoer apparaat voor printer #4"},
+/* nl */ {IDCLS_SPECIFY_TEXT_DEVICE_4_NL, "Geef het printer tekst uitvoer apparaat voor printer #4"},
 /* pl */ {IDCLS_SPECIFY_TEXT_DEVICE_4_PL, "Okre¶l urz±dzenie wyj¶cia tekstowego drukarki #4"},
 /* ru */ {IDCLS_SPECIFY_TEXT_DEVICE_4_RU, "Specify printer text output device for printer #4"},
 /* sv */ {IDCLS_SPECIFY_TEXT_DEVICE_4_SV, "Ange skrivartextutenhet för skrivare 4"},
@@ -11710,13 +13662,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_TEXT_DEVICE_5,    N_("Specify printer text output device for printer #5")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_TEXT_DEVICE_5_DA, "Angiv printer tekst-uddata enhed for printer #5"},
-/* de */ {IDCLS_SPECIFY_TEXT_DEVICE_5_DE, "Textausgabe Gerät für Drucker #5 definieren"},
+/* de */ {IDCLS_SPECIFY_TEXT_DEVICE_5_DE, "Textausgabe Gerät für Drucker #5 wählen"},
 /* es */ {IDCLS_SPECIFY_TEXT_DEVICE_5_ES, "Especificar periférico salida impresión texto impresora #5"},
 /* fr */ {IDCLS_SPECIFY_TEXT_DEVICE_5_FR, "Spécifier le périphérique de sortie texte pour l'imprimante 5"},
 /* hu */ {IDCLS_SPECIFY_TEXT_DEVICE_5_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SPECIFY_TEXT_DEVICE_5_IT, "Specifica il dispositivo di uscita testuale per la stampante #5"},
 /* ko */ {IDCLS_SPECIFY_TEXT_DEVICE_5_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_TEXT_DEVICE_5_NL, "Geef het tekst uitvoer apparaat voor printer #5"},
+/* nl */ {IDCLS_SPECIFY_TEXT_DEVICE_5_NL, "Geef het printer tekst uitvoer apparaat voor printer #5"},
 /* pl */ {IDCLS_SPECIFY_TEXT_DEVICE_5_PL, "Okre¶l urz±dzenie wyj¶cia tekstowego drukarki #5"},
 /* ru */ {IDCLS_SPECIFY_TEXT_DEVICE_5_RU, "Specify printer text output device for printer #5"},
 /* sv */ {IDCLS_SPECIFY_TEXT_DEVICE_5_SV, "Ange skrivartextutenhet för skrivare 5"},
@@ -11727,13 +13679,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_TEXT_DEVICE_6,    N_("Specify printer text output device for printer #6")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_TEXT_DEVICE_6_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_TEXT_DEVICE_6_DE, "Textausgabe Gerät für Drucker #6 definieren"},
+/* de */ {IDCLS_SPECIFY_TEXT_DEVICE_6_DE, "Textausgabe Gerät für Drucker #6 wählen"},
 /* es */ {IDCLS_SPECIFY_TEXT_DEVICE_6_ES, "Especificar periférico salida impresión texto impresora #6"},
 /* fr */ {IDCLS_SPECIFY_TEXT_DEVICE_6_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_TEXT_DEVICE_6_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SPECIFY_TEXT_DEVICE_6_IT, "Specifica il dispositivo di uscita testuale per la stampante #6"},
 /* ko */ {IDCLS_SPECIFY_TEXT_DEVICE_6_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_TEXT_DEVICE_6_NL, "Geef het tekst uitvoer apparaat voor printer #6"},
+/* nl */ {IDCLS_SPECIFY_TEXT_DEVICE_6_NL, "Geef het printer tekst uitvoer apparaat voor printer #6"},
 /* pl */ {IDCLS_SPECIFY_TEXT_DEVICE_6_PL, "Okre¶l urz±dzenie wyj¶cia tekstowego drukarki #6"},
 /* ru */ {IDCLS_SPECIFY_TEXT_DEVICE_6_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SPECIFY_TEXT_DEVICE_6_SV, ""},  /* fuzzy */
@@ -11744,13 +13696,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_TEXT_USERPORT,    N_("Specify printer text output device for userport printer")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_TEXT_USERPORT_DA, "Angiv printer tekst-uddata enhed for brugerports-printer"},
-/* de */ {IDCLS_SPECIFY_TEXT_USERPORT_DE, "Textausgabe Gerät für Userport Drucker definieren"},
+/* de */ {IDCLS_SPECIFY_TEXT_USERPORT_DE, "Textausgabe Gerät für Userport Drucker wählen"},
 /* es */ {IDCLS_SPECIFY_TEXT_USERPORT_ES, "Especificar periférico de salida para imprimir texto impresora puerto usuario"},
 /* fr */ {IDCLS_SPECIFY_TEXT_USERPORT_FR, "Spécifier le périphérique de sortie text pour l'imprimante userport"},
 /* hu */ {IDCLS_SPECIFY_TEXT_USERPORT_HU, "Adja meg a szövegnyomtató eszközt a userport nyomtatóhoz"},
 /* it */ {IDCLS_SPECIFY_TEXT_USERPORT_IT, "Specifica il nome del dispositivo di output testuale di stampa per la stampante su userport"},
 /* ko */ {IDCLS_SPECIFY_TEXT_USERPORT_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_TEXT_USERPORT_NL, "Geef het tekst uitvoer apparaat voor de userport printer"},
+/* nl */ {IDCLS_SPECIFY_TEXT_USERPORT_NL, "Geef het printer tekst uitvoer apparaat voor de userport printer"},
 /* pl */ {IDCLS_SPECIFY_TEXT_USERPORT_PL, "Okre¶l urz±dzenie wyj¶cia tekstu dla drukarki w userporcie"},
 /* ru */ {IDCLS_SPECIFY_TEXT_USERPORT_RU, "Specify printer text output device for userport printer"},
 /* sv */ {IDCLS_SPECIFY_TEXT_USERPORT_SV, "Ange skrivartextutenhet för användarportsskrivare"},
@@ -11767,7 +13719,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_VIDEO_CACHE_HU, "Videó gyorsítótár engedélyezése"},
 /* it */ {IDCLS_ENABLE_VIDEO_CACHE_IT, "Attiva la cache video"},
 /* ko */ {IDCLS_ENABLE_VIDEO_CACHE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_VIDEO_CACHE_NL, "Activeer de videocache"},
+/* nl */ {IDCLS_ENABLE_VIDEO_CACHE_NL, "Videocache inschakelen"},
 /* pl */ {IDCLS_ENABLE_VIDEO_CACHE_PL, "W³±cz cache wideo"},
 /* ru */ {IDCLS_ENABLE_VIDEO_CACHE_RU, "Enable the video cache"},
 /* sv */ {IDCLS_ENABLE_VIDEO_CACHE_SV, "Aktivera videocache"},
@@ -11784,7 +13736,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_VIDEO_CACHE_HU, "Videó gyorsítótár tiltása"},
 /* it */ {IDCLS_DISABLE_VIDEO_CACHE_IT, "Disattiva la cache video"},
 /* ko */ {IDCLS_DISABLE_VIDEO_CACHE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_VIDEO_CACHE_NL, "De videocache uitschakelen"},
+/* nl */ {IDCLS_DISABLE_VIDEO_CACHE_NL, "Videocache uitschakelen"},
 /* pl */ {IDCLS_DISABLE_VIDEO_CACHE_PL, "Wy³±cz cache wideo"},
 /* ru */ {IDCLS_DISABLE_VIDEO_CACHE_RU, "Disable the video cache"},
 /* sv */ {IDCLS_DISABLE_VIDEO_CACHE_SV, "Inaktivera videocache"},
@@ -11796,7 +13748,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_RS232_1_NAME,    N_("Specify name of first RS232 device")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_RS232_1_NAME_DA, "Angiv navn på første RS232-enhed"},
-/* de */ {IDCLS_SPECIFY_RS232_1_NAME_DE, "Name für erstes RS232 Gerät definieren"},
+/* de */ {IDCLS_SPECIFY_RS232_1_NAME_DE, "Name für erstes RS232 Gerät wählen"},
 /* es */ {IDCLS_SPECIFY_RS232_1_NAME_ES, "Especificar el nombre del primer periférico RS232"},
 /* fr */ {IDCLS_SPECIFY_RS232_1_NAME_FR, "Spécifier le nom du 1er périphérique RS232"},
 /* hu */ {IDCLS_SPECIFY_RS232_1_NAME_HU, "Adja meg az elsõ RS232-es eszköz nevét"},
@@ -11813,7 +13765,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_RS232_2_NAME,    N_("Specify name of second RS232 device")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_RS232_2_NAME_DA, "Angiv navn på anden RS232-enhed"},
-/* de */ {IDCLS_SPECIFY_RS232_2_NAME_DE, "Name für zweites RS232 Gerät definieren"},
+/* de */ {IDCLS_SPECIFY_RS232_2_NAME_DE, "Name für zweites RS232 Gerät wählen"},
 /* es */ {IDCLS_SPECIFY_RS232_2_NAME_ES, "Especificar el nombre del segundo periférico RS232"},
 /* fr */ {IDCLS_SPECIFY_RS232_2_NAME_FR, "Spécifier le nom du 2e périphérique RS232"},
 /* hu */ {IDCLS_SPECIFY_RS232_2_NAME_HU, "Adja meg a második RS232-es eszköz nevét"},
@@ -11830,7 +13782,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_RS232_3_NAME,    N_("Specify name of third RS232 device")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_RS232_3_NAME_DA, "Angiv navn på tredje RS232-enhed"},
-/* de */ {IDCLS_SPECIFY_RS232_3_NAME_DE, "Name für drittes RS232 Gerät definieren"},
+/* de */ {IDCLS_SPECIFY_RS232_3_NAME_DE, "Name für drittes RS232 Gerät wählen"},
 /* es */ {IDCLS_SPECIFY_RS232_3_NAME_ES, "Especificar el nombre del tercer periférico RS232"},
 /* fr */ {IDCLS_SPECIFY_RS232_3_NAME_FR, "Spécifier le nom du 3e périphérique RS232"},
 /* hu */ {IDCLS_SPECIFY_RS232_3_NAME_HU, "Adja meg a harmadik RS232-es eszköz nevét"},
@@ -11847,7 +13799,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_RS232_4_NAME,    N_("Specify name of fourth RS232 device")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_RS232_4_NAME_DA, "Angiv navn på fjerde RS232-enhed"},
-/* de */ {IDCLS_SPECIFY_RS232_4_NAME_DE, "Name für viertes RS232 Gerät definieren"},
+/* de */ {IDCLS_SPECIFY_RS232_4_NAME_DE, "Name für viertes RS232 Gerät wählen"},
 /* es */ {IDCLS_SPECIFY_RS232_4_NAME_ES, "Especificar el nombre del cuarto periférico RS232"},
 /* fr */ {IDCLS_SPECIFY_RS232_4_NAME_FR, "Spécifier le nom du 4e périphérique RS232"},
 /* hu */ {IDCLS_SPECIFY_RS232_4_NAME_HU, "Adja meg a negyedik RS232-es eszköz nevét"},
@@ -11871,7 +13823,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_RS232_USERPORT_HU, "RS232 userport emuláció engedélyezése"},
 /* it */ {IDCLS_ENABLE_RS232_USERPORT_IT, "Attiva l'emulazione della RS232 su userport"},
 /* ko */ {IDCLS_ENABLE_RS232_USERPORT_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_RS232_USERPORT_NL, "Activeer RS232 userportemulatie"},
+/* nl */ {IDCLS_ENABLE_RS232_USERPORT_NL, "RS232 userportemulatie inschakelen"},
 /* pl */ {IDCLS_ENABLE_RS232_USERPORT_PL, "W³±cz emulacjê userportu RS232"},
 /* ru */ {IDCLS_ENABLE_RS232_USERPORT_RU, "Enable RS232 userport emulation"},
 /* sv */ {IDCLS_ENABLE_RS232_USERPORT_SV, "Aktivera RS232-emulering på användarporten"},
@@ -11922,7 +13874,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_BAUD_RS232_USERPORT_HU, "Bitráta megadása az RS232 userport emulációhoz."},
 /* it */ {IDCLS_SET_BAUD_RS232_USERPORT_IT, "Imposta la velocità della RS232 su userport (in baud)"},
 /* ko */ {IDCLS_SET_BAUD_RS232_USERPORT_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_BAUD_RS232_USERPORT_NL, "Zet de baud rate van de RS232 userport emulatie."},
+/* nl */ {IDCLS_SET_BAUD_RS232_USERPORT_NL, "Stel de baud rate in van de RS232 userport emulatie."},
 /* pl */ {IDCLS_SET_BAUD_RS232_USERPORT_PL, "Okre¶l prêdko¶æ transmisji emulacji userportu RS232."},
 /* ru */ {IDCLS_SET_BAUD_RS232_USERPORT_RU, "Set the baud rate of the RS232 userport emulation."},
 /* sv */ {IDCLS_SET_BAUD_RS232_USERPORT_SV, "Ange baudhastighet för RS232-emuleringen på användarporten."},
@@ -11933,7 +13885,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_RS232_DEVICE_USERPORT,    N_("Specify VICE RS232 device for userport")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_RS232_DEVICE_USERPORT_DA, "Angiv VICE RS232-enhed for brugerporten"},
-/* de */ {IDCLS_SPECIFY_RS232_DEVICE_USERPORT_DE, "VICE RS232 Gerät für Userport definieren"},
+/* de */ {IDCLS_SPECIFY_RS232_DEVICE_USERPORT_DE, "VICE RS232 Gerät für Userport wählen"},
 /* es */ {IDCLS_SPECIFY_RS232_DEVICE_USERPORT_ES, "Especificar periférico VICE RS232 para puerto usuario"},
 /* fr */ {IDCLS_SPECIFY_RS232_DEVICE_USERPORT_FR, "Spécifier un périphérique VICE RS232 pour le userport"},
 /* hu */ {IDCLS_SPECIFY_RS232_DEVICE_USERPORT_HU, "VICE RS232-es userport eszköz megadása"},
@@ -11956,7 +13908,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_IEC_4_HU, "IEC eszköz #4 emulációjának engedélyezése"},
 /* it */ {IDCLS_ENABLE_IEC_4_IT, "Attiva emulazione IEC per la periferica #4"},
 /* ko */ {IDCLS_ENABLE_IEC_4_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_IEC_4_NL, "Activeer IEC apparaat emulatie voor apparaat #4"},
+/* nl */ {IDCLS_ENABLE_IEC_4_NL, "IEC apparaat emulatie voor apparaat #4 inschakelen"},
 /* pl */ {IDCLS_ENABLE_IEC_4_PL, "W³±cz emulacjê IEC urz±dzenia #4"},
 /* ru */ {IDCLS_ENABLE_IEC_4_RU, "Enable IEC device emulation for device #4"},
 /* sv */ {IDCLS_ENABLE_IEC_4_SV, "Aktivera IEC-enhetsemulering för enhet 4"},
@@ -11990,7 +13942,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_IEC_5_HU, "IEC eszköz #5 emulációjának engedélyezése"},
 /* it */ {IDCLS_ENABLE_IEC_5_IT, "Attiva emulazione IEC per la periferica #5"},
 /* ko */ {IDCLS_ENABLE_IEC_5_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_IEC_5_NL, "Activeer IEC apparaat emulatie voor apparaat #5"},
+/* nl */ {IDCLS_ENABLE_IEC_5_NL, "IEC apparaat emulatie voor apparaat #5 inschakelen"},
 /* pl */ {IDCLS_ENABLE_IEC_5_PL, "W³±cz emulacjê IEC urz±dzenia #5"},
 /* ru */ {IDCLS_ENABLE_IEC_5_RU, "Enable IEC device emulation for device #5"},
 /* sv */ {IDCLS_ENABLE_IEC_5_SV, "Aktivera IEC-enhetsemulering för enhet 5"},
@@ -12024,7 +13976,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_IEC_6_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_IEC_6_IT, "Attiva emulazione IEC per la periferica #6"},
 /* ko */ {IDCLS_ENABLE_IEC_6_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_IEC_6_NL, "Activeer IEC apparaat emulatie voor apparaat #6"},
+/* nl */ {IDCLS_ENABLE_IEC_6_NL, "IEC apparaat emulatie voor apparaat #6 inschakelen"},
 /* pl */ {IDCLS_ENABLE_IEC_6_PL, "W³±cz emulacjê IEC urz±dzenia #6"},
 /* ru */ {IDCLS_ENABLE_IEC_6_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_IEC_6_SV, ""},  /* fuzzy */
@@ -12058,7 +14010,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_IEC_7_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_IEC_7_IT, "Attiva emulazione IEC per la periferica #7"},
 /* ko */ {IDCLS_ENABLE_IEC_7_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_IEC_7_NL, "Activeer IEC apparaat emulatie voor apparaat #7"},
+/* nl */ {IDCLS_ENABLE_IEC_7_NL, "IEC apparaat emulatie voor apparaat #7 inschakelen"},
 /* pl */ {IDCLS_ENABLE_IEC_7_PL, "W³±cz emulacjê IEC urz±dzenia #7"},
 /* ru */ {IDCLS_ENABLE_IEC_7_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_IEC_7_SV, ""},  /* fuzzy */
@@ -12092,7 +14044,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_IEC_8_HU, "IEC eszköz #8 emulációjának engedélyezése"},
 /* it */ {IDCLS_ENABLE_IEC_8_IT, "Attiva emulazione IEC per la periferica #8"},
 /* ko */ {IDCLS_ENABLE_IEC_8_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_IEC_8_NL, "Activeer IEC apparaat emulatie voor apparaat #8"},
+/* nl */ {IDCLS_ENABLE_IEC_8_NL, "IEC apparaat emulatie voor apparaat #8 inschakelen"},
 /* pl */ {IDCLS_ENABLE_IEC_8_PL, "W³±cz emulacjê IEC urz±dzenia #8"},
 /* ru */ {IDCLS_ENABLE_IEC_8_RU, "Enable IEC device emulation for device #8"},
 /* sv */ {IDCLS_ENABLE_IEC_8_SV, "Aktivera IEC-enhetsemulering för enhet 8"},
@@ -12126,7 +14078,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_IEC_9_HU, "IEC eszköz #9 emulációjának engedélyezése"},
 /* it */ {IDCLS_ENABLE_IEC_9_IT, "Attiva emulazione IEC per la periferica #9"},
 /* ko */ {IDCLS_ENABLE_IEC_9_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_IEC_9_NL, "Activeer IEC apparaat emulatie voor apparaat #9"},
+/* nl */ {IDCLS_ENABLE_IEC_9_NL, "IEC apparaat emulatie voor apparaat #9 inschakelen"},
 /* pl */ {IDCLS_ENABLE_IEC_9_PL, "W³±cz emulacjê IEC urz±dzenia #9"},
 /* ru */ {IDCLS_ENABLE_IEC_9_RU, "Enable IEC device emulation for device #9"},
 /* sv */ {IDCLS_ENABLE_IEC_9_SV, "Aktivera IEC-enhetsemulering för enhet 9"},
@@ -12160,7 +14112,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_IEC_10_HU, "IEC eszköz #10 emulációjának engedélyezése"},
 /* it */ {IDCLS_ENABLE_IEC_10_IT, "Attiva emulazione IEC per la periferica #10"},
 /* ko */ {IDCLS_ENABLE_IEC_10_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_IEC_10_NL, "Activeer IEC apparaat emulatie voor apparaat #10"},
+/* nl */ {IDCLS_ENABLE_IEC_10_NL, "IEC apparaat emulatie voor apparaat #10 inschakelen"},
 /* pl */ {IDCLS_ENABLE_IEC_10_PL, "W³±cz emulacjê IEC urz±dzenia #10"},
 /* ru */ {IDCLS_ENABLE_IEC_10_RU, "Enable IEC device emulation for device #10"},
 /* sv */ {IDCLS_ENABLE_IEC_10_SV, "Aktivera IEC-enhetsemulering för enhet 10"},
@@ -12194,7 +14146,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_IEC_11_HU, "IEC eszköz #11 emulációjának engedélyezése"},
 /* it */ {IDCLS_ENABLE_IEC_11_IT, "Attiva emulazione IEC per la periferica #11"},
 /* ko */ {IDCLS_ENABLE_IEC_11_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_IEC_11_NL, "Activeer IEC apparaat emulatie voor apparaat #11"},
+/* nl */ {IDCLS_ENABLE_IEC_11_NL, "IEC apparaat emulatie voor apparaat #11 inschakelen"},
 /* pl */ {IDCLS_ENABLE_IEC_11_PL, "W³±cz emulacjê IEC urz±dzenia #11"},
 /* ru */ {IDCLS_ENABLE_IEC_11_RU, "Enable IEC device emulation for device #11"},
 /* sv */ {IDCLS_ENABLE_IEC_11_SV, "Aktivera IEC-enhetsemulering för enhet 11"},
@@ -12379,6 +14331,25 @@ translate_t string_table[] = {
 #endif
 #endif
 
+#ifdef HAVE_SSI2001
+/* sid/sid-cmdline-options.c */
+/* en */ {IDCLS_SSI2001_ENGINE_MODEL,    N_("1792: SSI2001")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_SSI2001_ENGINE_MODEL_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_SSI2001_ENGINE_MODEL_DE, "1792: SSI2001"},
+/* es */ {IDCLS_SSI2001_ENGINE_MODEL_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_SSI2001_ENGINE_MODEL_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_SSI2001_ENGINE_MODEL_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_SSI2001_ENGINE_MODEL_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_SSI2001_ENGINE_MODEL_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_SSI2001_ENGINE_MODEL_NL, "1792: SSI2001"},
+/* pl */ {IDCLS_SSI2001_ENGINE_MODEL_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_SSI2001_ENGINE_MODEL_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_SSI2001_ENGINE_MODEL_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_SSI2001_ENGINE_MODEL_TR, ""},  /* fuzzy */
+#endif
+#endif
+
 /* sid/sid-cmdline-options.c */
 /* en */ {IDCLS_ENABLE_SIDCART,    N_("Enable the SID cartridge")},
 #ifdef HAS_TRANSLATION
@@ -12389,7 +14360,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_SIDCART_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_SIDCART_IT, "Attiva cartuccia SID"},
 /* ko */ {IDCLS_ENABLE_SIDCART_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_SIDCART_NL, "Activeer de SID cartridge"},
+/* nl */ {IDCLS_ENABLE_SIDCART_NL, "SID cartridge inschakelen"},
 /* pl */ {IDCLS_ENABLE_SIDCART_PL, "W³±cz kartrid¿ SID"},
 /* ru */ {IDCLS_ENABLE_SIDCART_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_SIDCART_SV, "Aktivera SID-insticksmodul"},
@@ -12406,7 +14377,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_SIDCART_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_SIDCART_IT, "Disattiva la cartuccia SID"},
 /* ko */ {IDCLS_DISABLE_SIDCART_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_SIDCART_NL, "De SID cartridge uitschakelen"},
+/* nl */ {IDCLS_DISABLE_SIDCART_NL, "SID cartridge uitschakelen"},
 /* pl */ {IDCLS_DISABLE_SIDCART_PL, "Wy³±cz kartrid¿ SID"},
 /* ru */ {IDCLS_DISABLE_SIDCART_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_SIDCART_SV, "Inaktivera SID-insticksmodul"},
@@ -12698,7 +14669,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_HARDSID_MAIN_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_HARDSID_MAIN_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_HARDSID_MAIN_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_HARDSID_MAIN_NL, "Zet de HardSID apparaat voor de hoofd SID uitvoer"},
+/* nl */ {IDCLS_HARDSID_MAIN_NL, "Zet het HardSID apparaat voor de hoofd SID uitvoer"},
 /* pl */ {IDCLS_HARDSID_MAIN_PL, "Okre¶l urz±dzenie HardSID dla g³ównego wyj¶cia SID"},
 /* ru */ {IDCLS_HARDSID_MAIN_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_HARDSID_MAIN_SV, ""},  /* fuzzy */
@@ -12715,7 +14686,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_HARDSID_RIGHT_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_HARDSID_RIGHT_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_HARDSID_RIGHT_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_HARDSID_RIGHT_NL, "Zet de HardSID apparaat vood de rechter SID uitvoer"},
+/* nl */ {IDCLS_HARDSID_RIGHT_NL, "Zet het HardSID apparaat voor de rechter SID uitvoer"},
 /* pl */ {IDCLS_HARDSID_RIGHT_PL, "Okre¶l urz±dzenie SID dla prawego wyj¶cia SID"},
 /* ru */ {IDCLS_HARDSID_RIGHT_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_HARDSID_RIGHT_SV, ""},  /* fuzzy */
@@ -12733,7 +14704,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_STRETCH_VERTICAL_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_STRETCH_VERTICAL_IT, "Attiva allungamento verticale aggiuntivo."},
 /* ko */ {IDCLS_ENABLE_STRETCH_VERTICAL_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_STRETCH_VERTICAL_NL, "Aktiveer additionele vertikale rekking."},
+/* nl */ {IDCLS_ENABLE_STRETCH_VERTICAL_NL, "Additionele verticale rekking inschakelen."},
 /* pl */ {IDCLS_ENABLE_STRETCH_VERTICAL_PL, "W³±cz dodatkowe rozci±ganie w pionie"},
 /* ru */ {IDCLS_ENABLE_STRETCH_VERTICAL_RU, "Enable additional vertical stretching."},
 /* sv */ {IDCLS_ENABLE_STRETCH_VERTICAL_SV, "Aktivera ytterligare vertikal utdragning."},
@@ -12750,7 +14721,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_STRETCH_VERTICAL_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_STRETCH_VERTICAL_IT, "Disattiva allungamento verticale aggiuntivo."},
 /* ko */ {IDCLS_DISABLE_STRETCH_VERTICAL_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_STRETCH_VERTICAL_NL, "Additionele vertikale rekking afsluiten."},
+/* nl */ {IDCLS_DISABLE_STRETCH_VERTICAL_NL, "Additionele verticale rekking uitschakelen."},
 /* pl */ {IDCLS_DISABLE_STRETCH_VERTICAL_PL, "Wy³±cz dodatkowe rozci±ganie w pionie"},
 /* ru */ {IDCLS_DISABLE_STRETCH_VERTICAL_RU, "Disable additional vertical stretching."},
 /* sv */ {IDCLS_DISABLE_STRETCH_VERTICAL_SV, "Inaktivera ytterligare vertikal utdragning."},
@@ -12767,7 +14738,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_VDC_MEMORY_16KB_HU, "VDC memória méret beállítása 16KB-ra"},
 /* it */ {IDCLS_SET_VDC_MEMORY_16KB_IT, "Imposta la dimensione della memoria del VDC a 16KB"},
 /* ko */ {IDCLS_SET_VDC_MEMORY_16KB_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_VDC_MEMORY_16KB_NL, "Zet de VDC geheugengrootte als 16KB"},
+/* nl */ {IDCLS_SET_VDC_MEMORY_16KB_NL, "Stel de VDC geheugengrootte in op 16KB"},
 /* pl */ {IDCLS_SET_VDC_MEMORY_16KB_PL, "Ustaw rozmiar pamiêci VDC na 16 KB"},
 /* ru */ {IDCLS_SET_VDC_MEMORY_16KB_RU, "Set the VDC memory size to 16KB"},
 /* sv */ {IDCLS_SET_VDC_MEMORY_16KB_SV, "Sätt VDC-minnesstorlek till 16KB"},
@@ -12784,7 +14755,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_VDC_MEMORY_64KB_HU, "VDC memória méret beállítása 64KB-ra"},
 /* it */ {IDCLS_SET_VDC_MEMORY_64KB_IT, "Imposta la dimensione della memoria del VDC a 64KB"},
 /* ko */ {IDCLS_SET_VDC_MEMORY_64KB_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_VDC_MEMORY_64KB_NL, "Zet de VDC geheugengrootte als 64KB"},
+/* nl */ {IDCLS_SET_VDC_MEMORY_64KB_NL, "Stel de VDC geheugengrootte in op 64KB"},
 /* pl */ {IDCLS_SET_VDC_MEMORY_64KB_PL, "Ustaw rozmiar pamiêci VDC na 64 KB"},
 /* ru */ {IDCLS_SET_VDC_MEMORY_64KB_RU, "Set the VDC memory size to 64KB"},
 /* sv */ {IDCLS_SET_VDC_MEMORY_64KB_SV, "Sätt VDC-minnesstorlek till 64KB"},
@@ -12801,7 +14772,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_VDC_REVISION_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_VDC_REVISION_IT, "Imposta la revisione del VDC (0..2)"},
 /* ko */ {IDCLS_SET_VDC_REVISION_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_VDC_REVISION_NL, "Zet de VDC revisie (0..2)"},
+/* nl */ {IDCLS_SET_VDC_REVISION_NL, "Stel de VDC revisie in (0..2)"},
 /* pl */ {IDCLS_SET_VDC_REVISION_PL, "Okre¶l wersjê VDC (0..2)"},
 /* ru */ {IDCLS_SET_VDC_REVISION_RU, "Set VDC revision (0..2)"},
 /* sv */ {IDCLS_SET_VDC_REVISION_SV, "Ange VDC-revision (0..2)"},
@@ -12852,7 +14823,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_VIC1112_IEEE488_HU, "VIC-1112 IEEE488 interfész engedélyezése"},
 /* it */ {IDCLS_ENABLE_VIC1112_IEEE488_IT, "Attiva interfaccia IEEE488 VIC-1112"},
 /* ko */ {IDCLS_ENABLE_VIC1112_IEEE488_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_VIC1112_IEEE488_NL, "Activeer VIC-1112 IEEE488 interface"},
+/* nl */ {IDCLS_ENABLE_VIC1112_IEEE488_NL, "VIC-1112 IEEE488 interface inschakelen"},
 /* pl */ {IDCLS_ENABLE_VIC1112_IEEE488_PL, "W³±cz interfejs IEEE488 VIC-1112"},
 /* ru */ {IDCLS_ENABLE_VIC1112_IEEE488_RU, "Enable VIC-1112 IEEE488 interface"},
 /* sv */ {IDCLS_ENABLE_VIC1112_IEEE488_SV, "Aktivera VIC-1112-IEEE488-gränssnitt"},
@@ -12880,7 +14851,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_EXT_ROM_2000_NAME,    N_("Specify 4/8/16K extension ROM name at $2000")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_EXT_ROM_2000_NAME_DA, "Angiv navn for 4/8/16k-udviddelses-ROM på $2000"},
-/* de */ {IDCLS_SPECIFY_EXT_ROM_2000_NAME_DE, "4/8/16K Erweiterungs ROM Datei Name für $2000 definieren"},
+/* de */ {IDCLS_SPECIFY_EXT_ROM_2000_NAME_DE, "4/8/16K Erweiterungs ROM Dateiname für $2000 wählen"},
 /* es */ {IDCLS_SPECIFY_EXT_ROM_2000_NAME_ES, "Especificar nombre ROM extendida de 4/8/16KB en $2000"},
 /* fr */ {IDCLS_SPECIFY_EXT_ROM_2000_NAME_FR, "Spécifier le nom de l'extension ROM 4/8/16K à $2000"},
 /* hu */ {IDCLS_SPECIFY_EXT_ROM_2000_NAME_HU, "Adja meg a $2000 címû 4/8/16K ROM kiterjesztés nevét"},
@@ -12897,7 +14868,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_EXT_ROM_4000_NAME,    N_("Specify 4/8/16K extension ROM name at $4000")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_EXT_ROM_4000_NAME_DA, "Angiv navn for 4/8/16k-udviddelses-ROM på $4000"},
-/* de */ {IDCLS_SPECIFY_EXT_ROM_4000_NAME_DE, "4/8/16K Erweiterungs ROM Datei Name für $4000 definieren"},
+/* de */ {IDCLS_SPECIFY_EXT_ROM_4000_NAME_DE, "4/8/16K Erweiterungs ROM Dateiname für $4000 wählen"},
 /* es */ {IDCLS_SPECIFY_EXT_ROM_4000_NAME_ES, "Especificar nombre ROM extendida de 4/8/16KB en $4000"},
 /* fr */ {IDCLS_SPECIFY_EXT_ROM_4000_NAME_FR, "Spécifier le nom de l'extension ROM 4/8/16K à $4000"},
 /* hu */ {IDCLS_SPECIFY_EXT_ROM_4000_NAME_HU, "Adja meg a $4000 címû 4/8/16K ROM kiterjesztés nevét"},
@@ -12914,7 +14885,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_EXT_ROM_6000_NAME,    N_("Specify 4/8/16K extension ROM name at $6000")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_EXT_ROM_6000_NAME_DA, "Angiv navn for 4/8/16k-udviddelses-ROM på $6000"},
-/* de */ {IDCLS_SPECIFY_EXT_ROM_6000_NAME_DE, "4/8/16K Erweiterungs ROM Datei Name für $6000 definieren"},
+/* de */ {IDCLS_SPECIFY_EXT_ROM_6000_NAME_DE, "4/8/16K Erweiterungs ROM Dateiname für $6000 wählen"},
 /* es */ {IDCLS_SPECIFY_EXT_ROM_6000_NAME_ES, "Especificar nombre ROM extendida de 4/8/16KB en $6000"},
 /* fr */ {IDCLS_SPECIFY_EXT_ROM_6000_NAME_FR, "Spécifier le nom de l'extension ROM 4/8/16K à $6000"},
 /* hu */ {IDCLS_SPECIFY_EXT_ROM_6000_NAME_HU, "Adja meg a $6000 címû 4/8/16K ROM kiterjesztés nevét"},
@@ -12931,7 +14902,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_EXT_ROM_A000_NAME,    N_("Specify 4/8K extension ROM name at $A000")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_EXT_ROM_A000_NAME_DA, "Angiv navn for 4/8k-udviddelses-ROM på $A000"},
-/* de */ {IDCLS_SPECIFY_EXT_ROM_A000_NAME_DE, "4/8/16K Erweiterungs ROM Datei Name für $A000 definieren"},
+/* de */ {IDCLS_SPECIFY_EXT_ROM_A000_NAME_DE, "4/8/16K Erweiterungs ROM Dateiname für $A000 wählen"},
 /* es */ {IDCLS_SPECIFY_EXT_ROM_A000_NAME_ES, "Especificar nombre ROM extendida de 4/8KB en $A000"},
 /* fr */ {IDCLS_SPECIFY_EXT_ROM_A000_NAME_FR, "Spécifier le nom de l'extension ROM 4/8K à $A000"},
 /* hu */ {IDCLS_SPECIFY_EXT_ROM_A000_NAME_HU, "Adja meg a $A000 címû 4/8K ROM kiterjesztés nevét"},
@@ -12948,7 +14919,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_EXT_ROM_B000_NAME,    N_("Specify 4K extension ROM name at $B000")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_EXT_ROM_B000_NAME_DA, "Angiv navn for 4k-udviddelses-ROM på $B000"},
-/* de */ {IDCLS_SPECIFY_EXT_ROM_B000_NAME_DE, "4/8/16K Erweiterungs ROM Datei Name für $B000 definieren"},
+/* de */ {IDCLS_SPECIFY_EXT_ROM_B000_NAME_DE, "4/8/16K Erweiterungs ROM Dateiname für $B000 wählen"},
 /* es */ {IDCLS_SPECIFY_EXT_ROM_B000_NAME_ES, "Especificar nombre ROM extendida de 4KB en $B000"},
 /* fr */ {IDCLS_SPECIFY_EXT_ROM_B000_NAME_FR, "Spécifier le nom de l'extension ROM 4K à $B000"},
 /* hu */ {IDCLS_SPECIFY_EXT_ROM_B000_NAME_HU, "Adja meg a $B000 címû 4K ROM kiterjesztés nevét"},
@@ -12961,11 +14932,28 @@ translate_t string_table[] = {
 /* tr */ {IDCLS_SPECIFY_EXT_ROM_B000_NAME_TR, "$B000 adresindeki 4K uzantýsý ROM ismini belirt"},
 #endif
 
+/* vic20/cart/behrbonz.c */
+/* en */ {IDCLS_SPECIFY_BEHRBONZ_ROM_NAME,    N_("Specify Behr Bonz extension ROM name")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_SPECIFY_BEHRBONZ_ROM_NAME_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_SPECIFY_BEHRBONZ_ROM_NAME_DE, "Behr Bonz Erweiterungs ROM Dateiname wählen"},
+/* es */ {IDCLS_SPECIFY_BEHRBONZ_ROM_NAME_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_SPECIFY_BEHRBONZ_ROM_NAME_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_SPECIFY_BEHRBONZ_ROM_NAME_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_SPECIFY_BEHRBONZ_ROM_NAME_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_SPECIFY_BEHRBONZ_ROM_NAME_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_SPECIFY_BEHRBONZ_ROM_NAME_NL, "Geef de naam van het bestand voor de Behr Bonz uitbreidings ROM"},
+/* pl */ {IDCLS_SPECIFY_BEHRBONZ_ROM_NAME_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_SPECIFY_BEHRBONZ_ROM_NAME_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_SPECIFY_BEHRBONZ_ROM_NAME_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_SPECIFY_BEHRBONZ_ROM_NAME_TR, ""},  /* fuzzy */
+#endif
+
 /* vic20/cart/vic20cart.c */
 /* en */ {IDCLS_SPECIFY_GENERIC_ROM_NAME,    N_("Specify generic extension ROM name")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_GENERIC_ROM_NAME_DA, "Angiv navn på standard-udviddelses-ROM"},
-/* de */ {IDCLS_SPECIFY_GENERIC_ROM_NAME_DE, "Generisches Erweiterungs ROM definieren"},
+/* de */ {IDCLS_SPECIFY_GENERIC_ROM_NAME_DE, "Generisches Erweiterungs ROM wählen"},
 /* es */ {IDCLS_SPECIFY_GENERIC_ROM_NAME_ES, "Especificar nombre ROM extendida generica"},
 /* fr */ {IDCLS_SPECIFY_GENERIC_ROM_NAME_FR, "Spécifier le nom de l'extension ROM générique"},
 /* hu */ {IDCLS_SPECIFY_GENERIC_ROM_NAME_HU, "Adja meg az általános ROM kiterjesztés nevét"},
@@ -12982,7 +14970,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_MEGA_CART_ROM_NAME,    N_("Specify Mega-Cart extension ROM name")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_MEGA_CART_ROM_NAME_DA, "Angiv navn på MegaCart-udviddelses-ROM"},
-/* de */ {IDCLS_SPECIFY_MEGA_CART_ROM_NAME_DE, "Mega-Cart Erweiterungs ROM definieren"},
+/* de */ {IDCLS_SPECIFY_MEGA_CART_ROM_NAME_DE, "Mega-Cart Erweiterungs ROM wählen"},
 /* es */ {IDCLS_SPECIFY_MEGA_CART_ROM_NAME_ES, "Especificar nombre ROM extendida Mega Cart"},
 /* fr */ {IDCLS_SPECIFY_MEGA_CART_ROM_NAME_FR, "Spécifier le nom de l'extension ROM Mega-Cart"},
 /* hu */ {IDCLS_SPECIFY_MEGA_CART_ROM_NAME_HU, "Adja meg a Mega-Cart ROM kiterjesztés nevét"},
@@ -12999,7 +14987,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_FINAL_EXPANSION_ROM_NAME,    N_("Specify Final Expansion extension ROM name")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_FINAL_EXPANSION_ROM_NAME_DA, "Angiv navn på Final Expansion udviddelses-ROM"},
-/* de */ {IDCLS_SPECIFY_FINAL_EXPANSION_ROM_NAME_DE, "Name für Final Expansion Erweiterungs ROM definieren"},
+/* de */ {IDCLS_SPECIFY_FINAL_EXPANSION_ROM_NAME_DE, "Name für Final Expansion Erweiterungs ROM wählen"},
 /* es */ {IDCLS_SPECIFY_FINAL_EXPANSION_ROM_NAME_ES, "Especificar nombre ROM extendida Final Expansion"},
 /* fr */ {IDCLS_SPECIFY_FINAL_EXPANSION_ROM_NAME_FR, "Spécifier le nom de l'extension ROM Final Expansion"},
 /* hu */ {IDCLS_SPECIFY_FINAL_EXPANSION_ROM_NAME_HU, "Adja meg a Final Expansion ROM kiterjesztés nevét"},
@@ -13016,7 +15004,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_VIC_FP_ROM_NAME,    N_("Specify Vic Flash Plugin extension ROM name")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_VIC_FP_ROM_NAME_DA, "Angiv navn på Vic Flash Plugin udviddelses-ROM"},
-/* de */ {IDCLS_SPECIFY_VIC_FP_ROM_NAME_DE, "Name für Vic Flash Plugin Erweiterungs ROM definieren"},
+/* de */ {IDCLS_SPECIFY_VIC_FP_ROM_NAME_DE, "Name für Vic Flash Plugin Erweiterungs ROM wählen"},
 /* es */ {IDCLS_SPECIFY_VIC_FP_ROM_NAME_ES, "Especificar nombre ROM extendida Vic Flash Plugin"},
 /* fr */ {IDCLS_SPECIFY_VIC_FP_ROM_NAME_FR, "Spécifier le nom de l'extension ROM Vic Flash Plugin"},
 /* hu */ {IDCLS_SPECIFY_VIC_FP_ROM_NAME_HU, ""},  /* fuzzy */
@@ -13033,7 +15021,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_VIC_UM_ROM_NAME,    N_("Specify UltiMem extension ROM name")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_VIC_UM_ROM_NAME_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_VIC_UM_ROM_NAME_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_SPECIFY_VIC_UM_ROM_NAME_DE, "UltiMem Erweiterungs ROM wählen"},
 /* es */ {IDCLS_SPECIFY_VIC_UM_ROM_NAME_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_SPECIFY_VIC_UM_ROM_NAME_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_VIC_UM_ROM_NAME_HU, ""},  /* fuzzy */
@@ -13056,7 +15044,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_FINALEXPANSION_WRITEBACK_HU, "Final Expansion ROM fájlba visszaírás engedélyezése"},
 /* it */ {IDCLS_ENABLE_FINALEXPANSION_WRITEBACK_IT, "Attiva write back per Final Expansion su file ROM"},
 /* ko */ {IDCLS_ENABLE_FINALEXPANSION_WRITEBACK_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_FINALEXPANSION_WRITEBACK_NL, "Activeer terug schrijven naar ROM bestand voor Final Expansion"},
+/* nl */ {IDCLS_ENABLE_FINALEXPANSION_WRITEBACK_NL, "Terugschrijven naar ROM bestand voor Final Expansion inschakelen"},
 /* pl */ {IDCLS_ENABLE_FINALEXPANSION_WRITEBACK_PL, "W³±cz zapis do pliku ROM Final Expansion"},
 /* ru */ {IDCLS_ENABLE_FINALEXPANSION_WRITEBACK_RU, "Enable Final Expansion write back to ROM file"},
 /* sv */ {IDCLS_ENABLE_FINALEXPANSION_WRITEBACK_SV, "Aktivera återskrivning till ROM-fil för Final Expansion"},
@@ -13073,7 +15061,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_FINALEXPANSION_WRITEBACK_HU, "Final Expansion ROM fájlba visszaírás tiltása"},
 /* it */ {IDCLS_DISABLE_FINALEXPANSION_WRITEBACK_IT, "Disattiva write back per Final Expansion su file ROM"},
 /* ko */ {IDCLS_DISABLE_FINALEXPANSION_WRITEBACK_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_FINALEXPANSION_WRITEBACK_NL, "Terug schrijven naar ROM bestand voor Final Expansion uitschakelen"},
+/* nl */ {IDCLS_DISABLE_FINALEXPANSION_WRITEBACK_NL, "Deactiveer terug schrijven naar ROM bestand voor Final Expansion"},
 /* pl */ {IDCLS_DISABLE_FINALEXPANSION_WRITEBACK_PL, "Wy³±cz zapis do pliku ROM Final Expansion"},
 /* ru */ {IDCLS_DISABLE_FINALEXPANSION_WRITEBACK_RU, "Disable Final Expansion write back to ROM file"},
 /* sv */ {IDCLS_DISABLE_FINALEXPANSION_WRITEBACK_SV, "Inaktivera återskrivning till ROM-fil för Final Expansion"},
@@ -13084,7 +15072,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SET_MEGACART_NVRAM_NAME,    N_("Set Mega-Cart NvRAM filename")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SET_MEGACART_NVRAM_NAME_DA, "Vælg Mega-Cart NvRAM filnavn"},
-/* de */ {IDCLS_SET_MEGACART_NVRAM_NAME_DE, "Mega-Cart NvRAM Imagename definieren"},
+/* de */ {IDCLS_SET_MEGACART_NVRAM_NAME_DE, "Mega-Cart NvRAM Imagename wählen"},
 /* es */ {IDCLS_SET_MEGACART_NVRAM_NAME_ES, "Seleccionar nombre fichero  Mega-Cart NvRAM"},
 /* fr */ {IDCLS_SET_MEGACART_NVRAM_NAME_FR, "Nom du fichier NvRAM Mega-Cart"},
 /* hu */ {IDCLS_SET_MEGACART_NVRAM_NAME_HU, ""},  /* fuzzy */
@@ -13107,7 +15095,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_MEGACART_NVRAM_WRITE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_MEGACART_NVRAM_WRITE_IT, "Write back NvRAM Mega-Cart"},
 /* ko */ {IDCLS_ENABLE_MEGACART_NVRAM_WRITE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_MEGACART_NVRAM_WRITE_NL, "Activeer Mega-Cart NvRAM terug schrijven"},
+/* nl */ {IDCLS_ENABLE_MEGACART_NVRAM_WRITE_NL, "Mega-Cart NvRAM terugschrijven inschakelem"},
 /* pl */ {IDCLS_ENABLE_MEGACART_NVRAM_WRITE_PL, "W³±cz zapis do NvRAM Mega-Cart"},
 /* ru */ {IDCLS_ENABLE_MEGACART_NVRAM_WRITE_RU, "Enable Mega-Cart NvRAM writeback"},
 /* sv */ {IDCLS_ENABLE_MEGACART_NVRAM_WRITE_SV, "Aktivera Mega-Cart NvRAM-återskrivning"},
@@ -13124,7 +15112,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_MEGACART_NVRAM_WRITE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_MEGACART_NVRAM_WRITE_IT, "Disattiva write back su NvRAM Mega-Cart"},
 /* ko */ {IDCLS_DISABLE_MEGACART_NVRAM_WRITE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_MEGACART_NVRAM_WRITE_NL, "Mega-Cart NvRAM terug schrijven uitschakelen"},
+/* nl */ {IDCLS_DISABLE_MEGACART_NVRAM_WRITE_NL, "Mega-Cart NvRAM terugschrijven uitschakelen"},
 /* pl */ {IDCLS_DISABLE_MEGACART_NVRAM_WRITE_PL, "Wy³±cz zapis do NvRAM Mega-Cart"},
 /* ru */ {IDCLS_DISABLE_MEGACART_NVRAM_WRITE_RU, "Disable Mega-Cart NvRAM writeback"},
 /* sv */ {IDCLS_DISABLE_MEGACART_NVRAM_WRITE_SV, "Inaktivera Mega-Cart NvRAM-återskrivning"},
@@ -13141,7 +15129,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_VICFP_ROM_WRITE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_VICFP_ROM_WRITE_IT, "Attiva write back per Vic Flash Plugin su file ROM"},
 /* ko */ {IDCLS_ENABLE_VICFP_ROM_WRITE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_VICFP_ROM_WRITE_NL, "Activeer terug schrijven naar ROM bestand voor Vic Flash Plugin"},
+/* nl */ {IDCLS_ENABLE_VICFP_ROM_WRITE_NL, "Terugschrijven naar ROM bestand voor Vic Flash Plugin inschakelen"},
 /* pl */ {IDCLS_ENABLE_VICFP_ROM_WRITE_PL, "W³±cz zapis do pliku ROM Vic Flash Plugin"},
 /* ru */ {IDCLS_ENABLE_VICFP_ROM_WRITE_RU, "Enable Vic Flash Plugin write back to ROM file"},
 /* sv */ {IDCLS_ENABLE_VICFP_ROM_WRITE_SV, "Aktivera återskrivning till ROM-fil för Vic Flash-insticksmodul"},
@@ -13158,7 +15146,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_VICFP_ROM_WRITE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_VICFP_ROM_WRITE_IT, "Disattiva write back per Vic Flash Plugin su file ROM"},
 /* ko */ {IDCLS_DISABLE_VICFP_ROM_WRITE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_VICFP_ROM_WRITE_NL, "Terug schrijven naar ROM bestand voor Vic Flash Plugin uitschakelen"},
+/* nl */ {IDCLS_DISABLE_VICFP_ROM_WRITE_NL, "Terugschrijven naar ROM bestand voor Vic Flash Plugin uitschakelen"},
 /* pl */ {IDCLS_DISABLE_VICFP_ROM_WRITE_PL, "Wy³±cz zapis do pliku ROM Vic Flash Plugin"},
 /* ru */ {IDCLS_DISABLE_VICFP_ROM_WRITE_RU, "Disable Vic Flash Plugin write back to ROM file"},
 /* sv */ {IDCLS_DISABLE_VICFP_ROM_WRITE_SV, "Inaktivera återskrivning till ROM-fil för Vic Flash-insticksmodul"},
@@ -13169,13 +15157,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_ENABLE_VIC_UM_ROM_WRITE,    N_("Enable UltiMem write back to ROM file")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ENABLE_VIC_UM_ROM_WRITE_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_ENABLE_VIC_UM_ROM_WRITE_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_VIC_UM_ROM_WRITE_DE, "UltiMem ROM Schreibzugriff aktivieren"},
 /* es */ {IDCLS_ENABLE_VIC_UM_ROM_WRITE_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_ENABLE_VIC_UM_ROM_WRITE_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_ENABLE_VIC_UM_ROM_WRITE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_VIC_UM_ROM_WRITE_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_VIC_UM_ROM_WRITE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_VIC_UM_ROM_WRITE_NL, "Activeer terug schrijven naar ROM bestand voor UltiMem"},
+/* nl */ {IDCLS_ENABLE_VIC_UM_ROM_WRITE_NL, "Terugschrijven naar ROM bestand voor UltiMem inschakelen"},
 /* pl */ {IDCLS_ENABLE_VIC_UM_ROM_WRITE_PL, ""},  /* fuzzy */
 /* ru */ {IDCLS_ENABLE_VIC_UM_ROM_WRITE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_VIC_UM_ROM_WRITE_SV, ""},  /* fuzzy */
@@ -13186,13 +15174,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_DISABLE_VIC_UM_ROM_WRITE,    N_("Disable UltiMem write back to ROM file")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_DISABLE_VIC_UM_ROM_WRITE_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_DISABLE_VIC_UM_ROM_WRITE_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_VIC_UM_ROM_WRITE_DE, "UltiMem ROM Schreibzugriff deaktivieren"},
 /* es */ {IDCLS_DISABLE_VIC_UM_ROM_WRITE_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_DISABLE_VIC_UM_ROM_WRITE_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_DISABLE_VIC_UM_ROM_WRITE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_VIC_UM_ROM_WRITE_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_DISABLE_VIC_UM_ROM_WRITE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_VIC_UM_ROM_WRITE_NL, "Terug schrijven naar ROM bestand voor UltiMem uitschakelen"},
+/* nl */ {IDCLS_DISABLE_VIC_UM_ROM_WRITE_NL, "Terugschrijven naar ROM bestand voor UltiMem uitschakelen"},
 /* pl */ {IDCLS_DISABLE_VIC_UM_ROM_WRITE_PL, ""},  /* fuzzy */
 /* ru */ {IDCLS_DISABLE_VIC_UM_ROM_WRITE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_VIC_UM_ROM_WRITE_SV, ""},  /* fuzzy */
@@ -13203,13 +15191,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_ENABLE_IO2_RAM,    N_("Enable I/O-2 RAM")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ENABLE_IO2_RAM_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_ENABLE_IO2_RAM_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_IO2_RAM_DE, "I/O-2 RAM aktivieren"},
 /* es */ {IDCLS_ENABLE_IO2_RAM_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_ENABLE_IO2_RAM_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_ENABLE_IO2_RAM_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_IO2_RAM_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_IO2_RAM_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_IO2_RAM_NL, "Activeer I/O-2 RAM"},
+/* nl */ {IDCLS_ENABLE_IO2_RAM_NL, "I/O-2 RAM inschakelen"},
 /* pl */ {IDCLS_ENABLE_IO2_RAM_PL, ""},  /* fuzzy */
 /* ru */ {IDCLS_ENABLE_IO2_RAM_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_IO2_RAM_SV, ""},  /* fuzzy */
@@ -13220,7 +15208,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_DISABLE_IO2_RAM,    N_("Disable I/O-2 RAM")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_DISABLE_IO2_RAM_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_DISABLE_IO2_RAM_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_IO2_RAM_DE, "I/O-2 RAM deaktivieren"},
 /* es */ {IDCLS_DISABLE_IO2_RAM_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_DISABLE_IO2_RAM_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_DISABLE_IO2_RAM_HU, ""},  /* fuzzy */
@@ -13237,13 +15225,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_ENABLE_IO3_RAM,    N_("Enable I/O-3 RAM")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ENABLE_IO3_RAM_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_ENABLE_IO3_RAM_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_IO3_RAM_DE, "I/O-3 RAM aktivieren"},
 /* es */ {IDCLS_ENABLE_IO3_RAM_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_ENABLE_IO3_RAM_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_ENABLE_IO3_RAM_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_IO3_RAM_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_IO3_RAM_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_IO3_RAM_NL, "Activeer I/O-3 RAM"},
+/* nl */ {IDCLS_ENABLE_IO3_RAM_NL, "I/O-3 RAM inschakelen"},
 /* pl */ {IDCLS_ENABLE_IO3_RAM_PL, ""},  /* fuzzy */
 /* ru */ {IDCLS_ENABLE_IO3_RAM_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_IO3_RAM_SV, ""},  /* fuzzy */
@@ -13254,7 +15242,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_DISABLE_IO3_RAM,    N_("Disable I/O-3 RAM")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_DISABLE_IO3_RAM_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_DISABLE_IO3_RAM_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_IO3_RAM_DE, "I/O-3 RAM deaktivieren"},
 /* es */ {IDCLS_DISABLE_IO3_RAM_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_DISABLE_IO3_RAM_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_DISABLE_IO3_RAM_HU, ""},  /* fuzzy */
@@ -13277,7 +15265,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_BORDER_MODE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_BORDER_MODE_IT, "Imposta la modalità di visualizzazione del bordo (0: normale, 1: intero, 2: debug)"},
 /* ko */ {IDCLS_SET_BORDER_MODE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_BORDER_MODE_NL, "Zet border weergavemodus (0: normaal, 1: volledig, 2: debug)"},
+/* nl */ {IDCLS_SET_BORDER_MODE_NL, "Stel border weergavemodus in (0: normaal, 1: volledig, 2: debug)"},
 /* pl */ {IDCLS_SET_BORDER_MODE_PL, "Okre¶l tryb wy¶wietlania ramki (0: zwyk³a, 1: pe³na, 2: debug)"},
 /* ru */ {IDCLS_SET_BORDER_MODE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_BORDER_MODE_SV, ""},  /* fuzzy */
@@ -13294,7 +15282,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_SPRITE_BACKGROUND_HU, "Sprite-háttér ütközési regiszterek engedélyezése"},
 /* it */ {IDCLS_ENABLE_SPRITE_BACKGROUND_IT, "Attiva registri di collisione sprite-sfondo"},
 /* ko */ {IDCLS_ENABLE_SPRITE_BACKGROUND_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_SPRITE_BACKGROUND_NL, "Activeer sprite-achtergrond botsing registers"},
+/* nl */ {IDCLS_ENABLE_SPRITE_BACKGROUND_NL, "Sprite-achtergrond botsing registers inschakelen"},
 /* pl */ {IDCLS_ENABLE_SPRITE_BACKGROUND_PL, "W³±cz rejestry kolizji duszków z t³em"},
 /* ru */ {IDCLS_ENABLE_SPRITE_BACKGROUND_RU, "Enable sprite-background collision registers"},
 /* sv */ {IDCLS_ENABLE_SPRITE_BACKGROUND_SV, "Aktivera sprite-till-bakgrund-kollisionsregister"},
@@ -13328,7 +15316,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_SPRITE_SPRITE_HU, "Sprite-sprite ütközési regiszterek engedélyezése"},
 /* it */ {IDCLS_ENABLE_SPRITE_SPRITE_IT, "Attiva registri di collisione sprite-sprite"},
 /* ko */ {IDCLS_ENABLE_SPRITE_SPRITE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_SPRITE_SPRITE_NL, "Activeer sprite-sprite botsing registers"},
+/* nl */ {IDCLS_ENABLE_SPRITE_SPRITE_NL, "Sprite-sprite botsing registers inschakelen"},
 /* pl */ {IDCLS_ENABLE_SPRITE_SPRITE_PL, "W³±cz rejestry kolizji duszków"},
 /* ru */ {IDCLS_ENABLE_SPRITE_SPRITE_RU, "Enable sprite-sprite collision registers"},
 /* sv */ {IDCLS_ENABLE_SPRITE_SPRITE_SV, "Aktivera sprite-till-sprite-kollisionsregister"},
@@ -13362,7 +15350,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_VSPBUG_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_VSPBUG_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_VSPBUG_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_VSPBUG_NL, "Activeer VSP bug emulatie"},
+/* nl */ {IDCLS_ENABLE_VSPBUG_NL, "VSP bug emulatie inschakelen"},
 /* pl */ {IDCLS_ENABLE_VSPBUG_PL, "W³±cz emulacjê blêdu VSP"},
 /* ru */ {IDCLS_ENABLE_VSPBUG_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_VSPBUG_SV, ""},  /* fuzzy */
@@ -13396,7 +15384,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_USE_NEW_LUMINANCES_HU, "Az új fényerõket használja"},
 /* it */ {IDCLS_USE_NEW_LUMINANCES_IT, "Usa nuove luminanze"},
 /* ko */ {IDCLS_USE_NEW_LUMINANCES_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_USE_NEW_LUMINANCES_NL, "Gebruik nieuwe kleuren"},
+/* nl */ {IDCLS_USE_NEW_LUMINANCES_NL, "Gebruik nieuwe luminantie"},
 /* pl */ {IDCLS_USE_NEW_LUMINANCES_PL, "U¿yj nowego typu jaskrawo¶ci"},
 /* ru */ {IDCLS_USE_NEW_LUMINANCES_RU, "Use new luminances"},
 /* sv */ {IDCLS_USE_NEW_LUMINANCES_SV, "Använd nya ljusstyrkor"},
@@ -13413,7 +15401,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_USE_OLD_LUMINANCES_HU, "A régi fényerõket használja"},
 /* it */ {IDCLS_USE_OLD_LUMINANCES_IT, "Usa vecchie luminanze"},
 /* ko */ {IDCLS_USE_OLD_LUMINANCES_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_USE_OLD_LUMINANCES_NL, "Gebruik oude kleuren"},
+/* nl */ {IDCLS_USE_OLD_LUMINANCES_NL, "Gebruik oude luminantie"},
 /* pl */ {IDCLS_USE_OLD_LUMINANCES_PL, "U¿yj starego typu jaskrawo¶ci"},
 /* ru */ {IDCLS_USE_OLD_LUMINANCES_RU, "Use old luminances"},
 /* sv */ {IDCLS_USE_OLD_LUMINANCES_SV, "Använd gamla ljusstyrkor"},
@@ -13430,7 +15418,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_HWSCALE_POSSIBLE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_HWSCALE_POSSIBLE_IT, "Attiva la possibilità di ridimensionamento a livello hardware"},
 /* ko */ {IDCLS_ENABLE_HWSCALE_POSSIBLE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_HWSCALE_POSSIBLE_NL, "Activeer de mogelijkheid van hardwareschaling"},
+/* nl */ {IDCLS_ENABLE_HWSCALE_POSSIBLE_NL, "Mogelijkheid van hardwareschaling inschakelen"},
 /* pl */ {IDCLS_ENABLE_HWSCALE_POSSIBLE_PL, "W³±cz mo¿liwo¶æ skalowania sprzêtowego"},
 /* ru */ {IDCLS_ENABLE_HWSCALE_POSSIBLE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_HWSCALE_POSSIBLE_SV, ""},  /* fuzzy */
@@ -13447,7 +15435,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_HWSCALE_POSSIBLE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_HWSCALE_POSSIBLE_IT, "Disattiva la possibilità di ridimensionamento a livello hardware"},
 /* ko */ {IDCLS_DISABLE_HWSCALE_POSSIBLE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_HWSCALE_POSSIBLE_NL, "De mogelijkheid van hardwareschaling uitschakelen"},
+/* nl */ {IDCLS_DISABLE_HWSCALE_POSSIBLE_NL, "Mogelijkheid van hardwareschaling uitschakelen"},
 /* pl */ {IDCLS_DISABLE_HWSCALE_POSSIBLE_PL, "Wy³±cz mo¿liwo¶æ skalowania sprzêtowego"},
 /* ru */ {IDCLS_DISABLE_HWSCALE_POSSIBLE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_HWSCALE_POSSIBLE_SV, ""},  /* fuzzy */
@@ -13464,7 +15452,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_DOUBLE_SIZE_HU, "Dupla méret engedélyezése"},
 /* it */ {IDCLS_ENABLE_DOUBLE_SIZE_IT, "Attiva dimensione doppia"},
 /* ko */ {IDCLS_ENABLE_DOUBLE_SIZE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_DOUBLE_SIZE_NL, "Activeer dubbele grootte"},
+/* nl */ {IDCLS_ENABLE_DOUBLE_SIZE_NL, "Dubbele grootte inschakelen"},
 /* pl */ {IDCLS_ENABLE_DOUBLE_SIZE_PL, "W³±cz podwójny rozmiar"},
 /* ru */ {IDCLS_ENABLE_DOUBLE_SIZE_RU, "Enable double size"},
 /* sv */ {IDCLS_ENABLE_DOUBLE_SIZE_SV, "Aktivera dubbel storlek"},
@@ -13498,7 +15486,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_DOUBLE_SCAN_HU, "Dupla pásztázás engedélyezése"},
 /* it */ {IDCLS_ENABLE_DOUBLE_SCAN_IT, "Attiva scansione doppia"},
 /* ko */ {IDCLS_ENABLE_DOUBLE_SCAN_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_DOUBLE_SCAN_NL, "Activeer dubbele scan"},
+/* nl */ {IDCLS_ENABLE_DOUBLE_SCAN_NL, "Dubbele scan inschakelen"},
 /* pl */ {IDCLS_ENABLE_DOUBLE_SCAN_PL, "W³±cz podwójne skanowanie"},
 /* ru */ {IDCLS_ENABLE_DOUBLE_SCAN_RU, "Enable double scan"},
 /* sv */ {IDCLS_ENABLE_DOUBLE_SCAN_SV, "Aktivera dubbelskanning"},
@@ -13532,7 +15520,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_AUDIO_LEAK_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_AUDIO_LEAK_IT, "Attiva emulazione audio leak"},
 /* ko */ {IDCLS_ENABLE_AUDIO_LEAK_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_AUDIO_LEAK_NL, "Activeer audio lek emulatie"},
+/* nl */ {IDCLS_ENABLE_AUDIO_LEAK_NL, "Audio lek emulatie inschakelen"},
 /* pl */ {IDCLS_ENABLE_AUDIO_LEAK_PL, "W³±cz emulacjê brudów w d¼wiêku"},
 /* ru */ {IDCLS_ENABLE_AUDIO_LEAK_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_AUDIO_LEAK_SV, "Aktivera emulering av audioläckage"},
@@ -13549,7 +15537,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_AUDIO_LEAK_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_AUDIO_LEAK_IT, "Disattiva emulazione audio leak"},
 /* ko */ {IDCLS_DISABLE_AUDIO_LEAK_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_AUDIO_LEAK_NL, "De audio lek emulatie uitschakelen"},
+/* nl */ {IDCLS_DISABLE_AUDIO_LEAK_NL, "Audio lek emulatie uitschakelen"},
 /* pl */ {IDCLS_DISABLE_AUDIO_LEAK_PL, "Wy³±cz emulacjê brudów w d¼wiêku"},
 /* ru */ {IDCLS_DISABLE_AUDIO_LEAK_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_AUDIO_LEAK_SV, "Inaktivera emulering av audioläckage"},
@@ -13566,7 +15554,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_HARDWARE_SCALING_HU, "Hardver átméretezés engedélyezése"},
 /* it */ {IDCLS_ENABLE_HARDWARE_SCALING_IT, "Attiva ridimensionamento a livello hardware"},
 /* ko */ {IDCLS_ENABLE_HARDWARE_SCALING_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_HARDWARE_SCALING_NL, "Activeer hardwareschaling"},
+/* nl */ {IDCLS_ENABLE_HARDWARE_SCALING_NL, "Hardwareschaling inschakelen"},
 /* pl */ {IDCLS_ENABLE_HARDWARE_SCALING_PL, "W³±cz skalowanie sprzêtowe"},
 /* ru */ {IDCLS_ENABLE_HARDWARE_SCALING_RU, "Enable hardware scaling"},
 /* sv */ {IDCLS_ENABLE_HARDWARE_SCALING_SV, "Aktivera maskinvaruskalning"},
@@ -13600,7 +15588,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_VIDEO_FILTER_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_VIDEO_FILTER_IT, "Seleziona il filtro di rendering, (0: none, 1: CRT emulation, 2: scale2x)"},
 /* ko */ {IDCLS_SET_VIDEO_FILTER_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_VIDEO_FILTER_NL, "Selecteer de rendering filter: (0: geen, 1: CRT emulatie, 2: Scale2x)"},
+/* nl */ {IDCLS_SET_VIDEO_FILTER_NL, "Selecteer rendering filter: (0: geen, 1: CRT emulatie, 2: Scale2x)"},
 /* pl */ {IDCLS_SET_VIDEO_FILTER_PL, "Wybierz filtr renderera: (0:brak, 1: emulacja CRT, 2: scale2x)"},
 /* ru */ {IDCLS_SET_VIDEO_FILTER_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_VIDEO_FILTER_SV, "Ange rendreringsfiler: (0:ingen, 1:CRT-emulering, 2: scale2x)"},
@@ -13645,13 +15633,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_EXTERNAL_PALETTE_NAME,    N_("Specify name of file of external palette")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_EXTERNAL_PALETTE_NAME_DA, "Angiv filnavn for ekstern palette"},
-/* de */ {IDCLS_SPECIFY_EXTERNAL_PALETTE_NAME_DE, "Dateiname für externe Palette definieren"},
+/* de */ {IDCLS_SPECIFY_EXTERNAL_PALETTE_NAME_DE, "Dateiname für externe Palette wählen"},
 /* es */ {IDCLS_SPECIFY_EXTERNAL_PALETTE_NAME_ES, "Especificar nombre fichero de la paleta externa"},
 /* fr */ {IDCLS_SPECIFY_EXTERNAL_PALETTE_NAME_FR, "Spécifier le nom du fichier de la palette externe"},
 /* hu */ {IDCLS_SPECIFY_EXTERNAL_PALETTE_NAME_HU, "Adja meg a külsõ paletta nevét"},
 /* it */ {IDCLS_SPECIFY_EXTERNAL_PALETTE_NAME_IT, "Specifica il nome del file della palette esterna"},
 /* ko */ {IDCLS_SPECIFY_EXTERNAL_PALETTE_NAME_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SPECIFY_EXTERNAL_PALETTE_NAME_NL, "Geef de naam van het extern kleurenpaletbestand"},
+/* nl */ {IDCLS_SPECIFY_EXTERNAL_PALETTE_NAME_NL, "Geef de naam van het externe kleurenpaletbestand"},
 /* pl */ {IDCLS_SPECIFY_EXTERNAL_PALETTE_NAME_PL, "Okre¶l nazwê pliku zewnêtrznej palety barw"},
 /* ru */ {IDCLS_SPECIFY_EXTERNAL_PALETTE_NAME_RU, "Specify name of file of external palette"},
 /* sv */ {IDCLS_SPECIFY_EXTERNAL_PALETTE_NAME_SV, "Ange namn på fil för extern palett"},
@@ -13685,7 +15673,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SELECT_FULLSCREEN_DEVICE_HU, "Teljesképernyõs eszköz kiválasztása"},
 /* it */ {IDCLS_SELECT_FULLSCREEN_DEVICE_IT, "Seleziona il dispositivo per la visualizzazione a schermo intero"},
 /* ko */ {IDCLS_SELECT_FULLSCREEN_DEVICE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SELECT_FULLSCREEN_DEVICE_NL, "Selecteer volschermapparaat"},
+/* nl */ {IDCLS_SELECT_FULLSCREEN_DEVICE_NL, "Selecteer volledig schermapparaat"},
 /* pl */ {IDCLS_SELECT_FULLSCREEN_DEVICE_PL, "Wybierz urz±dzenie pe³nego ekranu"},
 /* ru */ {IDCLS_SELECT_FULLSCREEN_DEVICE_RU, "Select fullscreen device"},
 /* sv */ {IDCLS_SELECT_FULLSCREEN_DEVICE_SV, "Ange fullskärmsenhet"},
@@ -13719,7 +15707,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_P_SECONDS_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_P_SECONDS_IT, "<Secondi>"},
 /* ko */ {IDCLS_P_SECONDS_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_P_SECONDS_NL, "<Seconded>"},
+/* nl */ {IDCLS_P_SECONDS_NL, "<Seconden>"},
 /* pl */ {IDCLS_P_SECONDS_PL, "<sekund>"},
 /* ru */ {IDCLS_P_SECONDS_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_P_SECONDS_SV, ""},  /* fuzzy */
@@ -13736,7 +15724,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SELECT_FULLSCREEN_MODE_HU, "Teljes képernyõs mód kiválasztása"},
 /* it */ {IDCLS_SELECT_FULLSCREEN_MODE_IT, "Seleziona modalità a schermo intero"},
 /* ko */ {IDCLS_SELECT_FULLSCREEN_MODE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SELECT_FULLSCREEN_MODE_NL, "Activeer volschermmodus"},
+/* nl */ {IDCLS_SELECT_FULLSCREEN_MODE_NL, "Volledig scherm-modus inschakelen"},
 /* pl */ {IDCLS_SELECT_FULLSCREEN_MODE_PL, "Wybierz tryb pe³nego ekranu"},
 /* ru */ {IDCLS_SELECT_FULLSCREEN_MODE_RU, "Select fullscreen mode"},
 /* sv */ {IDCLS_SELECT_FULLSCREEN_MODE_SV, "Aktivera fullskärmsläge"},
@@ -13770,7 +15758,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_DEVICE_TYPE_8_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_DEVICE_TYPE_8_IT, "Imposta il tipo di periferica #8 (0: Nessuna, 1: Filesystem, 2: OpenCBM, 3: Dispositivo a blocchi)"},
 /* ko */ {IDCLS_SET_DEVICE_TYPE_8_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_DEVICE_TYPE_8_NL, "Zet het apparaatsoort voor apparaat #8 (0: Geen, 1: Bestandssysteem, 2: OpenCBM, 3: Blok apparaat)"},
+/* nl */ {IDCLS_SET_DEVICE_TYPE_8_NL, "Stel het apparaatsoort in voor apparaat #8 (0: Geen, 1: Bestandssysteem, 2: OpenCBM, 3: Blok apparaat)"},
 /* pl */ {IDCLS_SET_DEVICE_TYPE_8_PL, "Okre¶l typ urz±dzenia #8 (0: Brak, 1: System plików, 2: OpenCBM, 3: Urz±dzenie blokowe)"},
 /* ru */ {IDCLS_SET_DEVICE_TYPE_8_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_DEVICE_TYPE_8_SV, ""},  /* fuzzy */
@@ -13787,7 +15775,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_DEVICE_TYPE_9_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_DEVICE_TYPE_9_IT, "Imposta il tipo di periferica #9 (0: Nessuna, 1: Filesystem, 2: OpenCBM, 3: Dispositivo a blocchi)"},
 /* ko */ {IDCLS_SET_DEVICE_TYPE_9_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_DEVICE_TYPE_9_NL, "Zet het apparaatsoort voor apparaat #9 (0: Geen, 1: Bestandssysteem, 2: OpenCBM, 3: Blok apparaat)"},
+/* nl */ {IDCLS_SET_DEVICE_TYPE_9_NL, "Stel het apparaatsoort in voor apparaat #9 (0: Geen, 1: Bestandssysteem, 2: OpenCBM, 3: Blok apparaat)"},
 /* pl */ {IDCLS_SET_DEVICE_TYPE_9_PL, "Okre¶l typ urz±dzenia #8 (0: Brak, 1: System plików, 2: OpenCBM, 3: Urz±dzenie blokowe)"},
 /* ru */ {IDCLS_SET_DEVICE_TYPE_9_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_DEVICE_TYPE_9_SV, ""},  /* fuzzy */
@@ -13804,7 +15792,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_DEVICE_TYPE_10_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_DEVICE_TYPE_10_IT, "Imposta il tipo di periferica #10 (0: Nessuna, 1: Filesystem, 2: OpenCBM, 3: Dispositivo a blocchi)"},
 /* ko */ {IDCLS_SET_DEVICE_TYPE_10_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_DEVICE_TYPE_10_NL, "Zet het apparaatsoort voor apparaat #10 (0: Geen, 1: Bestandssysteem, 2: OpenCBM, 3: Blok apparaat)"},
+/* nl */ {IDCLS_SET_DEVICE_TYPE_10_NL, "Stel het apparaatsoort in voor apparaat #10 (0: Geen, 1: Bestandssysteem, 2: OpenCBM, 3: Blok apparaat)"},
 /* pl */ {IDCLS_SET_DEVICE_TYPE_10_PL, "Okre¶l typ urz±dzenia #8 (0: Brak, 1: System plików, 2: OpenCBM, 3: Urz±dzenie blokowe)"},
 /* ru */ {IDCLS_SET_DEVICE_TYPE_10_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_DEVICE_TYPE_10_SV, ""},  /* fuzzy */
@@ -13821,7 +15809,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_DEVICE_TYPE_11_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_DEVICE_TYPE_11_IT, "Imposta il tipo di periferica #11 (0: Nessuna, 1: Filesystem, 2: OpenCBM, 3: Dispositivo a blocchi)"},
 /* ko */ {IDCLS_SET_DEVICE_TYPE_11_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_DEVICE_TYPE_11_NL, "Zet het apparaatsoort voor apparaat #11 (0: Geen, 1: Bestandssysteem, 2: OpenCBM, 3: Blok apparaat)"},
+/* nl */ {IDCLS_SET_DEVICE_TYPE_11_NL, "Stel het apparaatsoort in voor apparaat #11 (0: Geen, 1: Bestandssysteem, 2: OpenCBM, 3: Blok apparaat)"},
 /* pl */ {IDCLS_SET_DEVICE_TYPE_11_PL, "Okre¶l typ urz±dzenia #8 (0: Brak, 1: System plików, 2: OpenCBM, 3: Urz±dzenie blokowe)"},
 /* ru */ {IDCLS_SET_DEVICE_TYPE_11_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_DEVICE_TYPE_11_SV, ""},  /* fuzzy */
@@ -13965,6 +15953,40 @@ translate_t string_table[] = {
 #endif
 
 /* datasette.c */
+/* en */ {IDCLS_ENABLE_DATASETTE,    N_("Enable Datasette")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_DATASETTE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_DATASETTE_DE, "Datasette aktivieren"},
+/* es */ {IDCLS_ENABLE_DATASETTE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_DATASETTE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_DATASETTE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_DATASETTE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_DATASETTE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_DATASETTE_NL, "Datasette inschakelen"},
+/* pl */ {IDCLS_ENABLE_DATASETTE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_DATASETTE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_DATASETTE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_DATASETTE_TR, ""},  /* fuzzy */
+#endif
+
+/* datasette.c */
+/* en */ {IDCLS_DISABLE_DATASETTE,    N_("Disable Datasette")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_DATASETTE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_DATASETTE_DE, "Datasette deaktivieren"},
+/* es */ {IDCLS_DISABLE_DATASETTE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_DATASETTE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_DATASETTE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_DATASETTE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_DATASETTE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_DATASETTE_NL, "Datasette uitschakelen"},
+/* pl */ {IDCLS_DISABLE_DATASETTE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_DATASETTE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_DATASETTE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_DATASETTE_TR, ""},  /* fuzzy */
+#endif
+
+/* datasette.c */
 /* en */ {IDCLS_ENABLE_AUTO_DATASETTE_RESET,    N_("Enable automatic Datasette-Reset")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ENABLE_AUTO_DATASETTE_RESET_DA, "Aktivér automatisk Datasette-reset"},
@@ -13974,7 +15996,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_AUTO_DATASETTE_RESET_HU, "Automatikus magnó Reset engedélyezése"},
 /* it */ {IDCLS_ENABLE_AUTO_DATASETTE_RESET_IT, "Attiva reset automatico del registratore"},
 /* ko */ {IDCLS_ENABLE_AUTO_DATASETTE_RESET_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_AUTO_DATASETTE_RESET_NL, "Activeer automatische Datasette-Reset"},
+/* nl */ {IDCLS_ENABLE_AUTO_DATASETTE_RESET_NL, "Automatische Datasette-Reset inschakelen"},
 /* pl */ {IDCLS_ENABLE_AUTO_DATASETTE_RESET_PL, "W³±cz automatyczny reset magnetofonu"},
 /* ru */ {IDCLS_ENABLE_AUTO_DATASETTE_RESET_RU, "Enable automatic Datasette-Reset"},
 /* sv */ {IDCLS_ENABLE_AUTO_DATASETTE_RESET_SV, "Aktivera automatisk Datasetteåterställning"},
@@ -14008,7 +16030,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_ZERO_TAP_DELAY_HU, "Adja meg ciklusokban a legelsõ szalagrés hosszát"},
 /* it */ {IDCLS_SET_ZERO_TAP_DELAY_IT, "Imposta il ritardo in cicli per uno zero nel tap"},
 /* ko */ {IDCLS_SET_ZERO_TAP_DELAY_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_ZERO_TAP_DELAY_NL, "Zet de vertraging in cycli voor een nul in de tap"},
+/* nl */ {IDCLS_SET_ZERO_TAP_DELAY_NL, "Stel de vertraging in cycli in voor een nul in de tap"},
 /* pl */ {IDCLS_SET_ZERO_TAP_DELAY_PL, "Okre¶l opó¼nienie cyklów dla pocz±tku ta¶my"},
 /* ru */ {IDCLS_SET_ZERO_TAP_DELAY_RU, "Set delay in cycles for a zero in the tap"},
 /* sv */ {IDCLS_SET_ZERO_TAP_DELAY_SV, "Ange väntecykler för nolla i tap-filen"},
@@ -14025,7 +16047,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_CYCLES_ADDED_GAP_TAP_HU, "Adja meg ciklusokban a szalagfájlok közti üres rés hosszát"},
 /* it */ {IDCLS_SET_CYCLES_ADDED_GAP_TAP_IT, "Imposta il numero di cicli aggiunti ad ogni gap nel tap"},
 /* ko */ {IDCLS_SET_CYCLES_ADDED_GAP_TAP_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_CYCLES_ADDED_GAP_TAP_NL, "Zet aantal extra cycli voor elk gat in de tap"},
+/* nl */ {IDCLS_SET_CYCLES_ADDED_GAP_TAP_NL, "Stel aantal extra cycli in voor elk gat in de tap"},
 /* pl */ {IDCLS_SET_CYCLES_ADDED_GAP_TAP_PL, "Okre¶l liczbê cyklów dodanych do ka¿dej przerwy w ta¶mie"},
 /* ru */ {IDCLS_SET_CYCLES_ADDED_GAP_TAP_RU, "Set number of cycles added to each gap in the tap"},
 /* sv */ {IDCLS_SET_CYCLES_ADDED_GAP_TAP_SV, "Ange cykler som läggs till varje gap i tap-filen"},
@@ -14042,7 +16064,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_TAPE_WOBBLE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_TAPE_WOBBLE_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_TAPE_WOBBLE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_TAPE_WOBBLE_NL, "Zet maximaal willekeurige extra aantal cycli voor elk gat in de tap"},
+/* nl */ {IDCLS_SET_TAPE_WOBBLE_NL, "Stel maximaal willekeurige extra aantal cycli in voor elk gat in de tap"},
 /* pl */ {IDCLS_SET_TAPE_WOBBLE_PL, "Okre¶l maksymaln± losow± liczbê cyklów dodanych do ka¿dej przerwy w ta¶mie"},
 /* ru */ {IDCLS_SET_TAPE_WOBBLE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_TAPE_WOBBLE_SV, ""},  /* fuzzy */
@@ -14094,7 +16116,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_TRACE_DRIVE0_CPU_HU, "A 0-s lemezegység CPU-jának nyomkövetése"},
 /* it */ {IDCLS_TRACE_DRIVE0_CPU_IT, "Traccia la CPU del drive0"},
 /* ko */ {IDCLS_TRACE_DRIVE0_CPU_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_TRACE_DRIVE0_CPU_NL, "Traceer de CPU van drive 0/8"},
+/* nl */ {IDCLS_TRACE_DRIVE0_CPU_NL, "Traceer de CPU van drive 0"},
 /* pl */ {IDCLS_TRACE_DRIVE0_CPU_PL, "¦ledzenie CPU stacji0"},
 /* ru */ {IDCLS_TRACE_DRIVE0_CPU_RU, "Trace the drive0 CPU"},
 /* sv */ {IDCLS_TRACE_DRIVE0_CPU_SV, "Spåra processor i diskettstation 0"},
@@ -14111,7 +16133,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DONT_TRACE_DRIVE0_CPU_HU, "A 0-s lemezegység CPU-ja nyomkövetésének tiltása"},
 /* it */ {IDCLS_DONT_TRACE_DRIVE0_CPU_IT, "Non tracciare la CPU del drive0"},
 /* ko */ {IDCLS_DONT_TRACE_DRIVE0_CPU_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DONT_TRACE_DRIVE0_CPU_NL, "Traceer de CPU van drive 0/8 niet"},
+/* nl */ {IDCLS_DONT_TRACE_DRIVE0_CPU_NL, "Traceer de CPU van drive 0 niet"},
 /* pl */ {IDCLS_DONT_TRACE_DRIVE0_CPU_PL, "Bez ¶ledzenia CPU stacji0"},
 /* ru */ {IDCLS_DONT_TRACE_DRIVE0_CPU_RU, "Do not trace the drive0 CPU"},
 /* sv */ {IDCLS_DONT_TRACE_DRIVE0_CPU_SV, "Spåra inte processor i diskettstation 0"},
@@ -14128,7 +16150,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_TRACE_DRIVE1_CPU_HU, "Az 1-es lemezegység CPU-jának nyomkövetése"},
 /* it */ {IDCLS_TRACE_DRIVE1_CPU_IT, "Traccia la CPU del drive1"},
 /* ko */ {IDCLS_TRACE_DRIVE1_CPU_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_TRACE_DRIVE1_CPU_NL, "Traceer de CPU van drive 1/9"},
+/* nl */ {IDCLS_TRACE_DRIVE1_CPU_NL, "Traceer de CPU van drive 1"},
 /* pl */ {IDCLS_TRACE_DRIVE1_CPU_PL, "¦ledzenie CPU stacji1"},
 /* ru */ {IDCLS_TRACE_DRIVE1_CPU_RU, "Trace the drive1 CPU"},
 /* sv */ {IDCLS_TRACE_DRIVE1_CPU_SV, "Spåra processor i diskettstation 1"},
@@ -14145,7 +16167,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DONT_TRACE_DRIVE1_CPU_HU, "Az 1-es lemezegység CPU-ja nyomkövetésének tiltása"},
 /* it */ {IDCLS_DONT_TRACE_DRIVE1_CPU_IT, "Non tracciare la CPU del drive1"},
 /* ko */ {IDCLS_DONT_TRACE_DRIVE1_CPU_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DONT_TRACE_DRIVE1_CPU_NL, "Traceer de CPU van drive 1/9 niet"},
+/* nl */ {IDCLS_DONT_TRACE_DRIVE1_CPU_NL, "Traceer de CPU van drive 1 niet"},
 /* pl */ {IDCLS_DONT_TRACE_DRIVE1_CPU_PL, "Bez ¶ledzenia CPU stacji1"},
 /* ru */ {IDCLS_DONT_TRACE_DRIVE1_CPU_RU, "Do not trace the drive1 CPU"},
 /* sv */ {IDCLS_DONT_TRACE_DRIVE1_CPU_SV, "Spåra inte processor i diskettstation 1"},
@@ -14162,7 +16184,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_TRACE_DRIVE2_CPU_HU, "A 2-es lemezegység CPU-jának nyomkövetése"},
 /* it */ {IDCLS_TRACE_DRIVE2_CPU_IT, "Traccia la CPU del drive2"},
 /* ko */ {IDCLS_TRACE_DRIVE2_CPU_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_TRACE_DRIVE2_CPU_NL, "Traceer de CPU van drive 2/10"},
+/* nl */ {IDCLS_TRACE_DRIVE2_CPU_NL, "Traceer de CPU van drive 2"},
 /* pl */ {IDCLS_TRACE_DRIVE2_CPU_PL, "¦ledzenie CPU stacji2"},
 /* ru */ {IDCLS_TRACE_DRIVE2_CPU_RU, "Trace the drive2 CPU"},
 /* sv */ {IDCLS_TRACE_DRIVE2_CPU_SV, "Spåra processor i diskettstation 2"},
@@ -14179,7 +16201,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DONT_TRACE_DRIVE2_CPU_HU, "A 2-es lemezegység CPU-ja nyomkövetésének tiltása"},
 /* it */ {IDCLS_DONT_TRACE_DRIVE2_CPU_IT, "Non tracciare la CPU del drive2"},
 /* ko */ {IDCLS_DONT_TRACE_DRIVE2_CPU_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DONT_TRACE_DRIVE2_CPU_NL, "Traceer de CPU van drive 2/10 niet"},
+/* nl */ {IDCLS_DONT_TRACE_DRIVE2_CPU_NL, "Traceer de CPU van drive 2 niet"},
 /* pl */ {IDCLS_DONT_TRACE_DRIVE2_CPU_PL, "Bez ¶ledzenia CPU stacji2"},
 /* ru */ {IDCLS_DONT_TRACE_DRIVE2_CPU_RU, "Do not trace the drive2 CPU"},
 /* sv */ {IDCLS_DONT_TRACE_DRIVE2_CPU_SV, "Spåra inte processor i diskettstation 2"},
@@ -14196,7 +16218,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_TRACE_DRIVE3_CPU_HU, "A 3-as lemezegység CPU-jának nyomkövetése"},
 /* it */ {IDCLS_TRACE_DRIVE3_CPU_IT, "Traccia la CPU del drive3"},
 /* ko */ {IDCLS_TRACE_DRIVE3_CPU_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_TRACE_DRIVE3_CPU_NL, "Traceer de CPU van drive 3/11"},
+/* nl */ {IDCLS_TRACE_DRIVE3_CPU_NL, "Traceer de CPU van drive 3"},
 /* pl */ {IDCLS_TRACE_DRIVE3_CPU_PL, "¦ledzenie CPU stacji3"},
 /* ru */ {IDCLS_TRACE_DRIVE3_CPU_RU, "Trace the drive3 CPU"},
 /* sv */ {IDCLS_TRACE_DRIVE3_CPU_SV, "Spåra processor i diskettstation 3"},
@@ -14213,7 +16235,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DONT_TRACE_DRIVE3_CPU_HU, "A 3-as lemezegység CPU-ja nyomkövetésének tiltása"},
 /* it */ {IDCLS_DONT_TRACE_DRIVE3_CPU_IT, "Non tracciare la CPU del drive3"},
 /* ko */ {IDCLS_DONT_TRACE_DRIVE3_CPU_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DONT_TRACE_DRIVE3_CPU_NL, "Traceer de CPU van drive 3/11 niet"},
+/* nl */ {IDCLS_DONT_TRACE_DRIVE3_CPU_NL, "Traceer de CPU van drive 3 niet"},
 /* pl */ {IDCLS_DONT_TRACE_DRIVE3_CPU_PL, "Bez ¶ledzenia CPU stacji3"},
 /* ru */ {IDCLS_DONT_TRACE_DRIVE3_CPU_RU, "Do not trace the drive3 CPU"},
 /* sv */ {IDCLS_DONT_TRACE_DRIVE3_CPU_SV, "Spåra inte processor i diskettstation 3"},
@@ -14247,7 +16269,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_AUTO_PLAYBACK_FRAMES_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_AUTO_PLAYBACK_FRAMES_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_AUTO_PLAYBACK_FRAMES_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_AUTO_PLAYBACK_FRAMES_NL, "Zet het aantal automatische weergave frames"},
+/* nl */ {IDCLS_SET_AUTO_PLAYBACK_FRAMES_NL, "Stel het aantal automatische weergave frames in"},
 /* pl */ {IDCLS_SET_AUTO_PLAYBACK_FRAMES_PL, "Ustaw liczbê klatek do automatycznego odegrania"},
 /* ru */ {IDCLS_SET_AUTO_PLAYBACK_FRAMES_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_AUTO_PLAYBACK_FRAMES_SV, ""},  /* fuzzy */
@@ -14300,7 +16322,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_EVENT_SNAPSHOT_DIR_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_EVENT_SNAPSHOT_DIR_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_EVENT_SNAPSHOT_DIR_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_EVENT_SNAPSHOT_DIR_NL, "Selecteer gebeurtenis momentopname folder"},
+/* nl */ {IDCLS_SET_EVENT_SNAPSHOT_DIR_NL, "Stel gebeurtenis momentopname map in"},
 /* pl */ {IDCLS_SET_EVENT_SNAPSHOT_DIR_PL, "Ustaw katalog zrzutów zdarzeñ"},
 /* ru */ {IDCLS_SET_EVENT_SNAPSHOT_DIR_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_EVENT_SNAPSHOT_DIR_SV, ""},  /* fuzzy */
@@ -14317,7 +16339,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_EVENT_START_SNAPSHOT_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_EVENT_START_SNAPSHOT_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_EVENT_START_SNAPSHOT_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_EVENT_START_SNAPSHOT_NL, "Selecteer start gebeurtenis momentopname"},
+/* nl */ {IDCLS_SET_EVENT_START_SNAPSHOT_NL, "Stel start gebeurtenis momentopname in"},
 /* pl */ {IDCLS_SET_EVENT_START_SNAPSHOT_PL, "Ustaw zrzut pocz±tku zdarzenia"},
 /* ru */ {IDCLS_SET_EVENT_START_SNAPSHOT_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_EVENT_START_SNAPSHOT_SV, ""},  /* fuzzy */
@@ -14334,7 +16356,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_EVENT_END_SNAPSHOT_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_EVENT_END_SNAPSHOT_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_EVENT_END_SNAPSHOT_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_EVENT_END_SNAPSHOT_NL, "Selecteer eind gebeurtenis momentopname"},
+/* nl */ {IDCLS_SET_EVENT_END_SNAPSHOT_NL, "Stel eind gebeurtenis momentopname in"},
 /* pl */ {IDCLS_SET_EVENT_END_SNAPSHOT_PL, "Ustaw zrzut koñca zdarzenia"},
 /* ru */ {IDCLS_SET_EVENT_END_SNAPSHOT_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_EVENT_END_SNAPSHOT_SV, ""},  /* fuzzy */
@@ -14351,7 +16373,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_EVENT_START_MODE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_EVENT_START_MODE_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_EVENT_START_MODE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_EVENT_START_MODE_NL, "Zet gebeurtenis start modus (0: bestand opslaan, 1: bestand laden, 2: reset, 4: afspelen)"},
+/* nl */ {IDCLS_SET_EVENT_START_MODE_NL, "Stel gebeurtenis start modus in (0: bestand opslaan, 1: bestand laden, 2: reset, 4: afspelen)"},
 /* pl */ {IDCLS_SET_EVENT_START_MODE_PL, "Ustaw tryb rozpoczêcia zdarzenia (0: zapis pliku, 1: wczytanie pliku, 2: reset, 3: odegranie)"},
 /* ru */ {IDCLS_SET_EVENT_START_MODE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_EVENT_START_MODE_SV, ""},  /* fuzzy */
@@ -14368,7 +16390,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_EVENT_IMAGE_INCLUDE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_EVENT_IMAGE_INCLUDE_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_EVENT_IMAGE_INCLUDE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_EVENT_IMAGE_INCLUDE_NL, "Activeer het inbegrijpen van disk bestanden"},
+/* nl */ {IDCLS_ENABLE_EVENT_IMAGE_INCLUDE_NL, "Insluiten van disk bestanden inschakelen"},
 /* pl */ {IDCLS_ENABLE_EVENT_IMAGE_INCLUDE_PL, "W³±cz do³±czanie obrazów dyskietek"},
 /* ru */ {IDCLS_ENABLE_EVENT_IMAGE_INCLUDE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_EVENT_IMAGE_INCLUDE_SV, ""},  /* fuzzy */
@@ -14385,7 +16407,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_EVENT_IMAGE_INCLUDE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_EVENT_IMAGE_INCLUDE_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_DISABLE_EVENT_IMAGE_INCLUDE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_EVENT_IMAGE_INCLUDE_NL, "Het inbegrijpen van disk bestanden uitschakelen"},
+/* nl */ {IDCLS_DISABLE_EVENT_IMAGE_INCLUDE_NL, "Insluiten van disk bestanden uitschakelen"},
 /* pl */ {IDCLS_DISABLE_EVENT_IMAGE_INCLUDE_PL, "Wy³±cz do³±czanie obrazów dyskietek"},
 /* ru */ {IDCLS_DISABLE_EVENT_IMAGE_INCLUDE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_EVENT_IMAGE_INCLUDE_SV, ""},  /* fuzzy */
@@ -14402,7 +16424,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_EXECUTE_MONITOR_FROM_FILE_HU, "Monitorprogram parancsok futtatása fájlból"},
 /* it */ {IDCLS_EXECUTE_MONITOR_FROM_FILE_IT, "Esegui i comandi del monitor da un file"},
 /* ko */ {IDCLS_EXECUTE_MONITOR_FROM_FILE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_EXECUTE_MONITOR_FROM_FILE_NL, "Uitvoeren van commandos uit bestand"},
+/* nl */ {IDCLS_EXECUTE_MONITOR_FROM_FILE_NL, "Uitvoeren van monitor commando's uit bestand"},
 /* pl */ {IDCLS_EXECUTE_MONITOR_FROM_FILE_PL, "Wykonaj polecenia monitora z pliku"},
 /* ru */ {IDCLS_EXECUTE_MONITOR_FROM_FILE_RU, "Execute monitor commands from file"},
 /* sv */ {IDCLS_EXECUTE_MONITOR_FROM_FILE_SV, "Exekvera monitorkommandon från fil"},
@@ -14436,7 +16458,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_INITIAL_BREAKPOINT_HU, "Kezdeti töréspont megadása a monitorprogramnak"},
 /* it */ {IDCLS_SET_INITIAL_BREAKPOINT_IT, "Imposta un breakpoint iniziale per il monitor"},
 /* ko */ {IDCLS_SET_INITIAL_BREAKPOINT_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_INITIAL_BREAKPOINT_NL, "Zet een beginnende breakpunt voor de monitor"},
+/* nl */ {IDCLS_SET_INITIAL_BREAKPOINT_NL, "Stel een initieel breekpunt in voor de monitor"},
 /* pl */ {IDCLS_SET_INITIAL_BREAKPOINT_PL, "Okre¶l pocz±tkowy punkt wstrzymania w monitorze"},
 /* ru */ {IDCLS_SET_INITIAL_BREAKPOINT_RU, "Set an initial breakpoint for the monitor"},
 /* sv */ {IDCLS_SET_INITIAL_BREAKPOINT_SV, "Sätt en ursprunglig brytpunkt för monitorn"},
@@ -14453,7 +16475,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_KEEP_MONITOR_OPEN_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_KEEP_MONITOR_OPEN_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_KEEP_MONITOR_OPEN_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_KEEP_MONITOR_OPEN_NL, "Hou de monitor open"},
+/* nl */ {IDCLS_ENABLE_KEEP_MONITOR_OPEN_NL, "Laat de monitor geopend blijven"},
 /* pl */ {IDCLS_ENABLE_KEEP_MONITOR_OPEN_PL, "Nie zamykaj monitora"},
 /* ru */ {IDCLS_ENABLE_KEEP_MONITOR_OPEN_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_KEEP_MONITOR_OPEN_SV, ""},  /* fuzzy */
@@ -14470,7 +16492,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_KEEP_MONITOR_OPEN_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_KEEP_MONITOR_OPEN_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_DISABLE_KEEP_MONITOR_OPEN_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_KEEP_MONITOR_OPEN_NL, "Hou de monitor niet open"},
+/* nl */ {IDCLS_DISABLE_KEEP_MONITOR_OPEN_NL, "Laat de monitor niet geopend blijven"},
 /* pl */ {IDCLS_DISABLE_KEEP_MONITOR_OPEN_PL, "Zamykaj monitor"},
 /* ru */ {IDCLS_DISABLE_KEEP_MONITOR_OPEN_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_KEEP_MONITOR_OPEN_SV, ""},  /* fuzzy */
@@ -14487,7 +16509,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_REMOTE_MONITOR_HU, "Távoli monitor engedélyezése"},
 /* it */ {IDCLS_ENABLE_REMOTE_MONITOR_IT, "Attiva monitor remoto"},
 /* ko */ {IDCLS_ENABLE_REMOTE_MONITOR_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_REMOTE_MONITOR_NL, "Activeer monitor afstandsbediening"},
+/* nl */ {IDCLS_ENABLE_REMOTE_MONITOR_NL, "Monitor afstandsbediening inschakelen"},
 /* pl */ {IDCLS_ENABLE_REMOTE_MONITOR_PL, "W³±cz zdalny monitor"},
 /* ru */ {IDCLS_ENABLE_REMOTE_MONITOR_RU, "Enable remote monitor"},
 /* sv */ {IDCLS_ENABLE_REMOTE_MONITOR_SV, "Aktivera fjärrmonitor"},
@@ -14504,7 +16526,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_REMOTE_MONITOR_HU, "Távoli monitor tiltása"},
 /* it */ {IDCLS_DISABLE_REMOTE_MONITOR_IT, "Disattiva monitor remoto"},
 /* ko */ {IDCLS_DISABLE_REMOTE_MONITOR_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_REMOTE_MONITOR_NL, "afstandsbediening monitor uitschakelen"},
+/* nl */ {IDCLS_DISABLE_REMOTE_MONITOR_NL, "Monitor afstandsbediening uitschakelen"},
 /* pl */ {IDCLS_DISABLE_REMOTE_MONITOR_PL, "Wy³±cz zdalny monitor"},
 /* ru */ {IDCLS_DISABLE_REMOTE_MONITOR_RU, "Disable remote monitor"},
 /* sv */ {IDCLS_DISABLE_REMOTE_MONITOR_SV, "Inaktivera fjärrmonitor"},
@@ -14532,7 +16554,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_FLIP_LIST_NAME,    N_("Specify name of the flip list file image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_FLIP_LIST_NAME_DA, "Angiv navn på bladreliste"},
-/* de */ {IDCLS_SPECIFY_FLIP_LIST_NAME_DE, "Namen für Fliplist Datei definieren"},
+/* de */ {IDCLS_SPECIFY_FLIP_LIST_NAME_DE, "Namen für Fliplist Datei wählen"},
 /* es */ {IDCLS_SPECIFY_FLIP_LIST_NAME_ES, "Especificar nombre fichero lista de intercambio imagenes"},
 /* fr */ {IDCLS_SPECIFY_FLIP_LIST_NAME_FR, "Spécifier le nom de l'image du fichier de groupement de disques"},
 /* hu */ {IDCLS_SPECIFY_FLIP_LIST_NAME_HU, "Adja meg a lemezlista fájl nevét"},
@@ -14555,7 +16577,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SHOW_COMMAND_LINE_OPTIONS_HU, "Kilistázza a lehetséges opciókat és kilép"},
 /* it */ {IDCLS_SHOW_COMMAND_LINE_OPTIONS_IT, "Mostra un elenco delle opzioni disponibili ed esce"},
 /* ko */ {IDCLS_SHOW_COMMAND_LINE_OPTIONS_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SHOW_COMMAND_LINE_OPTIONS_NL, "Toon een lijst van de beschikbare opties en exit zoals normaal"},
+/* nl */ {IDCLS_SHOW_COMMAND_LINE_OPTIONS_NL, "Toon een lijst van de beschikbare opties en sluit normaal af"},
 /* pl */ {IDCLS_SHOW_COMMAND_LINE_OPTIONS_PL, "Poka¿ listê dostêpnych poleceñ i normalnie wyjd¼"},
 /* ru */ {IDCLS_SHOW_COMMAND_LINE_OPTIONS_RU, "Show a list of the available options and exit normally"},
 /* sv */ {IDCLS_SHOW_COMMAND_LINE_OPTIONS_SV, "Visa lista över tillgängliga flaggor och avsluta normalt"},
@@ -14572,7 +16594,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SHOW_COMPILETIME_FEATURES_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SHOW_COMPILETIME_FEATURES_IT, "Mostra un elenco delle opzioni di compilazione disponibili e la loro configurazione."},
 /* ko */ {IDCLS_SHOW_COMPILETIME_FEATURES_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SHOW_COMPILETIME_FEATURES_NL, "Toon een lijst van de beschikbare 'compile-time' opties en de bij behorende configuraties."},
+/* nl */ {IDCLS_SHOW_COMPILETIME_FEATURES_NL, "Toon een lijst van de beschikbare 'compile-time' opties en de bijbehorende configuratie."},
 /* pl */ {IDCLS_SHOW_COMPILETIME_FEATURES_PL, "Poka¿ listê dostêpnych opcji kompilacji i ich konfiguracjê."},
 /* ru */ {IDCLS_SHOW_COMPILETIME_FEATURES_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SHOW_COMPILETIME_FEATURES_SV, ""},  /* fuzzy */
@@ -14590,7 +16612,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_CONSOLE_MODE_HU, "Konzol mód (zene lejátszáshoz)"},
 /* it */ {IDCLS_CONSOLE_MODE_IT, "Modalità console (per la riproduzione musicale)"},
 /* ko */ {IDCLS_CONSOLE_MODE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_CONSOLE_MODE_NL, "Consolemodus (voor afspelen voor muziek)"},
+/* nl */ {IDCLS_CONSOLE_MODE_NL, "Consolemodus (voor afspelen van muziek)"},
 /* pl */ {IDCLS_CONSOLE_MODE_PL, "Tryb konsolowy (do odtwarzania muzyki)"},
 /* ru */ {IDCLS_CONSOLE_MODE_RU, "Console mode (for music playback)"},
 /* sv */ {IDCLS_CONSOLE_MODE_SV, "Konsolläge (för musikspelning)"},
@@ -14746,7 +16768,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_LIMIT_CYCLES_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_LIMIT_CYCLES_IT, "Specifica il numero di cicli da eseguire prima di uscire con un errore."},
 /* ko */ {IDCLS_LIMIT_CYCLES_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_LIMIT_CYCLES_NL, "Geef het aantal uit te voeren cycli voor het afsluiten met een fout"},
+/* nl */ {IDCLS_LIMIT_CYCLES_NL, "Geef het aantal uit te voeren cycli voor het afsluiten met een fout."},
 /* pl */ {IDCLS_LIMIT_CYCLES_PL, "Ustal, ile cykli pu¶ciæ przed zatrzymaniem i wyrzuceniem b³êdu."},
 /* ru */ {IDCLS_LIMIT_CYCLES_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_LIMIT_CYCLES_SV, ""},  /* fuzzy */
@@ -14757,13 +16779,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_ATTACH_AND_AUTOSTART,    N_("Attach and autostart tape/disk image <name>")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ATTACH_AND_AUTOSTART_DA, "Tilslut og autostart bånd-/disk-image <navn>"},
-/* de */ {IDCLS_ATTACH_AND_AUTOSTART_DE, "Einlegen und Autostart Disk/Band Image Datei <Name>"},
+/* de */ {IDCLS_ATTACH_AND_AUTOSTART_DE, "Einlegen und Autostart Disk/Band Imagedatei <Name>"},
 /* es */ {IDCLS_ATTACH_AND_AUTOSTART_ES, "Insertar y autoarrancar imagen de cinta/disco <nombre>"},
 /* fr */ {IDCLS_ATTACH_AND_AUTOSTART_FR, "Insérer et autocharger l'image de disque/datassette <nom>"},
 /* hu */ {IDCLS_ATTACH_AND_AUTOSTART_HU, "<név> lemez/szalag képmás csatolása és automatikus elindítása"},
 /* it */ {IDCLS_ATTACH_AND_AUTOSTART_IT, "Seleziona ed avvia l'immagine di una cassetta/disco <nome>"},
 /* ko */ {IDCLS_ATTACH_AND_AUTOSTART_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ATTACH_AND_AUTOSTART_NL, "Koppel en autostart een tape/diskbestand <naam>"},
+/* nl */ {IDCLS_ATTACH_AND_AUTOSTART_NL, "Koppel en autostart tape/diskbestand <naam>"},
 /* pl */ {IDCLS_ATTACH_AND_AUTOSTART_PL, "Zamontuj i automatycznie uruchom obraz ta¶my lub dysku <nazwa>"},
 /* ru */ {IDCLS_ATTACH_AND_AUTOSTART_RU, "Attach and autostart tape/disk image <name>"},
 /* sv */ {IDCLS_ATTACH_AND_AUTOSTART_SV, "Anslut och starta band-/diskettavbildning <namn>"},
@@ -14774,13 +16796,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_ATTACH_AND_AUTOLOAD,    N_("Attach and autoload tape/disk image <name>")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ATTACH_AND_AUTOLOAD_DA, "Tilslut og læs bånd-/disk-image <navn>"},
-/* de */ {IDCLS_ATTACH_AND_AUTOLOAD_DE, "Einlegen und Autoload Disk/Band Image Datei <Name>"},
+/* de */ {IDCLS_ATTACH_AND_AUTOLOAD_DE, "Einlegen und Autoload Disk/Band Imagedatei <Name>"},
 /* es */ {IDCLS_ATTACH_AND_AUTOLOAD_ES, "Insertar y autocargar imagen de cinta/disco <nombre>"},
 /* fr */ {IDCLS_ATTACH_AND_AUTOLOAD_FR, "Insérer et charger l'image de disque/datassette <nom>"},
 /* hu */ {IDCLS_ATTACH_AND_AUTOLOAD_HU, "<név> lemez/szalag képmás csatolása és automatikus betöltése"},
 /* it */ {IDCLS_ATTACH_AND_AUTOLOAD_IT, "Seleziona e carica l'immagine di una cassetta/disco <nome>"},
 /* ko */ {IDCLS_ATTACH_AND_AUTOLOAD_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ATTACH_AND_AUTOLOAD_NL, "Koppel en autolaad een tape-/diskbestand <naam>"},
+/* nl */ {IDCLS_ATTACH_AND_AUTOLOAD_NL, "Koppel en autolaad tape-/diskbestand <naam>"},
 /* pl */ {IDCLS_ATTACH_AND_AUTOLOAD_PL, "Zamontuj i automatycznie wczytaj obraz ta¶my lub dysku <nazwa>"},
 /* ru */ {IDCLS_ATTACH_AND_AUTOLOAD_RU, "Attach and autoload tape/disk image <name>"},
 /* sv */ {IDCLS_ATTACH_AND_AUTOLOAD_SV, "Anslut och läs in band-/diskettavbildning <namn>"},
@@ -14791,7 +16813,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_ATTACH_AS_TAPE,    N_("Attach <name> as a tape image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ATTACH_AS_TAPE_DA, "Tilslut <navn> som bånd-image"},
-/* de */ {IDCLS_ATTACH_AS_TAPE_DE, "Image Datei <Name> einlegen"},
+/* de */ {IDCLS_ATTACH_AS_TAPE_DE, "Imagedatei <Name> einlegen"},
 /* es */ {IDCLS_ATTACH_AS_TAPE_ES, "Insertar <nombre> como imagen de cinta"},
 /* fr */ {IDCLS_ATTACH_AS_TAPE_FR, "Insérer <nom> comme image de datassette"},
 /* hu */ {IDCLS_ATTACH_AS_TAPE_HU, "<név> szalag képmás csatolása"},
@@ -14808,7 +16830,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_ATTACH_AS_DISK_8,    N_("Attach <name> as a disk image in drive #8")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ATTACH_AS_DISK_8_DA, "Tilslut <navn> som disk-image i enhed #8"},
-/* de */ {IDCLS_ATTACH_AS_DISK_8_DE, "Image Datei <Name> im Laufwerk #8 einlegen"},
+/* de */ {IDCLS_ATTACH_AS_DISK_8_DE, "Imagedatei <Name> im Laufwerk #8 einlegen"},
 /* es */ {IDCLS_ATTACH_AS_DISK_8_ES, "Insertar <nombre> como imagen disco en unidad disco #8"},
 /* fr */ {IDCLS_ATTACH_AS_DISK_8_FR, "Insérer <nom> comme image de disque dans le lecteur #8"},
 /* hu */ {IDCLS_ATTACH_AS_DISK_8_HU, "<név> lemezképmás csatolása #8-as egységként"},
@@ -14825,7 +16847,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_ATTACH_AS_DISK_9,    N_("Attach <name> as a disk image in drive #9")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ATTACH_AS_DISK_9_DA, "Tilslut <navn> som disk-image i enhed #9"},
-/* de */ {IDCLS_ATTACH_AS_DISK_9_DE, "Image Datei <Name> im Laufwerk #9 einlegen"},
+/* de */ {IDCLS_ATTACH_AS_DISK_9_DE, "Imagedatei <Name> im Laufwerk #9 einlegen"},
 /* es */ {IDCLS_ATTACH_AS_DISK_9_ES, "Insertar <nombre> como imagen disco en unidad disco #9"},
 /* fr */ {IDCLS_ATTACH_AS_DISK_9_FR, "Insérer <nom> comme image de disque dans le lecteur #9"},
 /* hu */ {IDCLS_ATTACH_AS_DISK_9_HU, "<név> lemezképmás csatolása #9-es egységként"},
@@ -14842,7 +16864,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_ATTACH_AS_DISK_10,    N_("Attach <name> as a disk image in drive #10")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ATTACH_AS_DISK_10_DA, "Tilslut <navn> som disk-image i enhed #10"},
-/* de */ {IDCLS_ATTACH_AS_DISK_10_DE, "Image Datei <Name> im Laufwerk #10 einlegen"},
+/* de */ {IDCLS_ATTACH_AS_DISK_10_DE, "Imagedatei <Name> im Laufwerk #10 einlegen"},
 /* es */ {IDCLS_ATTACH_AS_DISK_10_ES, "Insertar <nombre> como imagen disco en unidad disco #10"},
 /* fr */ {IDCLS_ATTACH_AS_DISK_10_FR, "Insérer <nom> comme image de disque dans le lecteur #10"},
 /* hu */ {IDCLS_ATTACH_AS_DISK_10_HU, "<név> lemezképmás csatolása #10-es egységként"},
@@ -14859,7 +16881,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_ATTACH_AS_DISK_11,    N_("Attach <name> as a disk image in drive #11")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ATTACH_AS_DISK_11_DA, "Tilslut <navn> som disk-image i enhed #11"},
-/* de */ {IDCLS_ATTACH_AS_DISK_11_DE, "Image Datei <Name> im Laufwerk #11 einlegen"},
+/* de */ {IDCLS_ATTACH_AS_DISK_11_DE, "Imagedatei <Name> im Laufwerk #11 einlegen"},
 /* es */ {IDCLS_ATTACH_AS_DISK_11_ES, "Insertar <nombre> como imagen disco en unidad disco #11"},
 /* fr */ {IDCLS_ATTACH_AS_DISK_11_FR, "Insérer <nom> comme image de disque dans le lecteur #11"},
 /* hu */ {IDCLS_ATTACH_AS_DISK_11_HU, "<név> lemezképmás csatolása #11-es egységként"},
@@ -14882,7 +16904,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_P_STRING_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_P_STRING_IT, "<stringa>"},
 /* ko */ {IDCLS_P_STRING_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_P_STRING_NL, "<string>"},
+/* nl */ {IDCLS_P_STRING_NL, "<tekenreeks>"},
 /* pl */ {IDCLS_P_STRING_PL, "<string>"},
 /* ru */ {IDCLS_P_STRING_RU, "<string>"},
 /* sv */ {IDCLS_P_STRING_SV, "<sträng>"},
@@ -14899,7 +16921,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_PUT_STRING_INTO_KEYBUF_HU, "A megadott sztring elhelyezése a billentyûzet pufferben."},
 /* it */ {IDCLS_PUT_STRING_INTO_KEYBUF_IT, "Metti la stringa specificata nel buffer di tastiera."},
 /* ko */ {IDCLS_PUT_STRING_INTO_KEYBUF_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_PUT_STRING_INTO_KEYBUF_NL, "Plaats de opgegeven string in de toetsenbordbuffer."},
+/* nl */ {IDCLS_PUT_STRING_INTO_KEYBUF_NL, "Plaats de opgegeven tekenreeks in de toetsenbordbuffer."},
 /* pl */ {IDCLS_PUT_STRING_INTO_KEYBUF_PL, "Umie¶æ dany ci±g znaków w buforze klawiatury"},
 /* ru */ {IDCLS_PUT_STRING_INTO_KEYBUF_RU, "Put the specified string into the keyboard buffer."},
 /* sv */ {IDCLS_PUT_STRING_INTO_KEYBUF_SV, "Lägg den angivna strängen i tangentbordsbufferten."},
@@ -14916,7 +16938,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_KEYBUF_DELAY_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_KEYBUF_DELAY_IT, "Imposta il ritardo supplementare del buffer di tastiera (0: usa predefinito)"},
 /* ko */ {IDCLS_SET_KEYBUF_DELAY_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_KEYBUF_DELAY_NL, "Zet extra toetsenbord buffer vertraging (0: gebruik de standaard waarde)"},
+/* nl */ {IDCLS_SET_KEYBUF_DELAY_NL, "Stel extra toetsenbord buffer vertraging in (0: gebruik de standaard waarde)"},
 /* pl */ {IDCLS_SET_KEYBUF_DELAY_PL, "Okre¶l dodatkowe opó¼nienie bufora klawiatury (0: domy¶lne)"},
 /* ru */ {IDCLS_SET_KEYBUF_DELAY_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_KEYBUF_DELAY_SV, ""},  /* fuzzy */
@@ -14927,7 +16949,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_LOG_FILE_NAME,    N_("Specify log file name")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_LOG_FILE_NAME_DA, "Angiv navn på logfil"},
-/* de */ {IDCLS_SPECIFY_LOG_FILE_NAME_DE, "Logdateiname definieren"},
+/* de */ {IDCLS_SPECIFY_LOG_FILE_NAME_DE, "Logdateiname wählen"},
 /* es */ {IDCLS_SPECIFY_LOG_FILE_NAME_ES, "Especificar nombre fichero registro"},
 /* fr */ {IDCLS_SPECIFY_LOG_FILE_NAME_FR, "Spécifier le nom du fichier log"},
 /* hu */ {IDCLS_SPECIFY_LOG_FILE_NAME_HU, "Adja meg a naplófájl nevét"},
@@ -14950,7 +16972,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_VERBOSE_LOG_OUTPUT_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_VERBOSE_LOG_OUTPUT_IT, "Attiva output dei log verboso."},
 /* ko */ {IDCLS_ENABLE_VERBOSE_LOG_OUTPUT_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_VERBOSE_LOG_OUTPUT_NL, "Activeer verbose log uitvoer."},
+/* nl */ {IDCLS_ENABLE_VERBOSE_LOG_OUTPUT_NL, "Uitgebreide log uitvoer inschakelen."},
 /* pl */ {IDCLS_ENABLE_VERBOSE_LOG_OUTPUT_PL, "W³±cz szczegó³owy zapis do loga"},
 /* ru */ {IDCLS_ENABLE_VERBOSE_LOG_OUTPUT_RU, "Enable verbose log output."},
 /* sv */ {IDCLS_ENABLE_VERBOSE_LOG_OUTPUT_SV, "Aktivera pratsam loggutdata."},
@@ -15001,7 +17023,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_SMART_MOUSE_RTC_SAVE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_SMART_MOUSE_RTC_SAVE_IT, "Attiva il salvataggio dei dati RTC dello smart mouse alla modifica."},
 /* ko */ {IDCLS_ENABLE_SMART_MOUSE_RTC_SAVE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_SMART_MOUSE_RTC_SAVE_NL, "Activeer opslaan van de smart mouse RTC data indien gewijzigd"},
+/* nl */ {IDCLS_ENABLE_SMART_MOUSE_RTC_SAVE_NL, "Opslaan van de smart mouse RTC gegevens bij wijziging inschakelen."},
 /* pl */ {IDCLS_ENABLE_SMART_MOUSE_RTC_SAVE_PL, "Zapisuj dane zegara czasu rzeczywistego Smart Mouse przy zmianie"},
 /* ru */ {IDCLS_ENABLE_SMART_MOUSE_RTC_SAVE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_SMART_MOUSE_RTC_SAVE_SV, ""},  /* fuzzy */
@@ -15018,7 +17040,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_SMART_MOUSE_RTC_SAVE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_SMART_MOUSE_RTC_SAVE_IT, "Disattiva il salvataggio dei dati RTC dello smart mouse alla modifica."},
 /* ko */ {IDCLS_DISABLE_SMART_MOUSE_RTC_SAVE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_SMART_MOUSE_RTC_SAVE_NL, "Opslaan van de smart mouse RTC data indien gewijzigd uitschakelen"},
+/* nl */ {IDCLS_DISABLE_SMART_MOUSE_RTC_SAVE_NL, "Opslaan van de smart mouse RTC gegevens bij wijziging uitschakelen."},
 /* pl */ {IDCLS_DISABLE_SMART_MOUSE_RTC_SAVE_PL, "Nie zapisuj danych zegara czasu rzeczywistego Smart Mouse przy zmianie"},
 /* ru */ {IDCLS_DISABLE_SMART_MOUSE_RTC_SAVE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_SMART_MOUSE_RTC_SAVE_SV, ""},  /* fuzzy */
@@ -15035,7 +17057,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_PS2MOUSE_HU, "PS/2 egér engedélyezése a userporton"},
 /* it */ {IDCLS_ENABLE_PS2MOUSE_IT, "Attiva mouse PS/2 su userport"},
 /* ko */ {IDCLS_ENABLE_PS2MOUSE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_PS2MOUSE_NL, "Aktiveer emulatie van een PS/2 muis op de userport"},
+/* nl */ {IDCLS_ENABLE_PS2MOUSE_NL, "Emulatie van een PS/2 muis op de userport inschakelen"},
 /* pl */ {IDCLS_ENABLE_PS2MOUSE_PL, "W³±cz mysz PS/2 w userporcie"},
 /* ru */ {IDCLS_ENABLE_PS2MOUSE_RU, "Enable PS/2 mouse on userport"},
 /* sv */ {IDCLS_ENABLE_PS2MOUSE_SV, "Aktivera PS/2-mus på användarport"},
@@ -15069,7 +17091,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_FIRST_RAM_ADDRESS_VALUE_HU, "Adja meg a legelsõ RAM cím értékét bekapcsolás után"},
 /* it */ {IDCLS_SET_FIRST_RAM_ADDRESS_VALUE_IT, "Imposta il valore del primissimo indirizzo della RAM dopo l'accensione"},
 /* ko */ {IDCLS_SET_FIRST_RAM_ADDRESS_VALUE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_FIRST_RAM_ADDRESS_VALUE_NL, "Zet de waarde voor het allereerste RAM adres na koude start"},
+/* nl */ {IDCLS_SET_FIRST_RAM_ADDRESS_VALUE_NL, "Stel de waarde in voor het allereerste RAM adres na koude start"},
 /* pl */ {IDCLS_SET_FIRST_RAM_ADDRESS_VALUE_PL, "Okre¶l warto¶æ pierwszego adresu RAM po uruchomieniu"},
 /* ru */ {IDCLS_SET_FIRST_RAM_ADDRESS_VALUE_RU, "Set the value for the very first RAM address after powerup"},
 /* sv */ {IDCLS_SET_FIRST_RAM_ADDRESS_VALUE_SV, "Ange värdet på den allra första RAM-adressen efter strömpåslag"},
@@ -15222,7 +17244,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_SOUND_PLAYBACK_HU, "Hangok engedélyezése"},
 /* it */ {IDCLS_ENABLE_SOUND_PLAYBACK_IT, "Attiva riproduzione audio"},
 /* ko */ {IDCLS_ENABLE_SOUND_PLAYBACK_KO, "»ç¿îµå ÇÃ·¹ÀÌ¹é À» »ç¿ë°¡´ÉÇÏ°Ô ÇÏ±â"},
-/* nl */ {IDCLS_ENABLE_SOUND_PLAYBACK_NL, "Activeer geluidsweergave"},
+/* nl */ {IDCLS_ENABLE_SOUND_PLAYBACK_NL, "Geluidsuitvoer inschakelen"},
 /* pl */ {IDCLS_ENABLE_SOUND_PLAYBACK_PL, "W³±cz odtwarzanie d¼wiêku"},
 /* ru */ {IDCLS_ENABLE_SOUND_PLAYBACK_RU, "Enable sound playback"},
 /* sv */ {IDCLS_ENABLE_SOUND_PLAYBACK_SV, "Aktivera ljudåtergivning"},
@@ -15239,7 +17261,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_SOUND_PLAYBACK_HU, "Hangok tiltása"},
 /* it */ {IDCLS_DISABLE_SOUND_PLAYBACK_IT, "Disattiva riproduzione audio"},
 /* ko */ {IDCLS_DISABLE_SOUND_PLAYBACK_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_SOUND_PLAYBACK_NL, "Geluid uitschakelen"},
+/* nl */ {IDCLS_DISABLE_SOUND_PLAYBACK_NL, "Geluidsuitvoer uitschakelen"},
 /* pl */ {IDCLS_DISABLE_SOUND_PLAYBACK_PL, "Wy³±cz odtwarzanie d¼wiêku"},
 /* ru */ {IDCLS_DISABLE_SOUND_PLAYBACK_RU, "Disable sound playback"},
 /* sv */ {IDCLS_DISABLE_SOUND_PLAYBACK_SV, "Inaktivera ljudåtergivning"},
@@ -15256,7 +17278,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_SAMPLE_RATE_VALUE_HZ_HU, "Hang mintavételezési ráta beállítása <érték> Hz-re"},
 /* it */ {IDCLS_SET_SAMPLE_RATE_VALUE_HZ_IT, "Imposta la velocità di campionamento audio a <valore> Hz"},
 /* ko */ {IDCLS_SET_SAMPLE_RATE_VALUE_HZ_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_SAMPLE_RATE_VALUE_HZ_NL, "Zet de geluid sample rate naar <waarde> Hz"},
+/* nl */ {IDCLS_SET_SAMPLE_RATE_VALUE_HZ_NL, "Stel geluid sample rate in op <waarde> Hz"},
 /* pl */ {IDCLS_SET_SAMPLE_RATE_VALUE_HZ_PL, "Ustaw próbkowanie sampli na <warto¶æ> Hz"},
 /* ru */ {IDCLS_SET_SAMPLE_RATE_VALUE_HZ_RU, "Set sound sample rate to <value> Hz"},
 /* sv */ {IDCLS_SET_SAMPLE_RATE_VALUE_HZ_SV, "Sätt ljudsamplingshastighet till <värde> Hz"},
@@ -15273,7 +17295,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_SOUND_BUFFER_SIZE_MSEC_HU, "A hangpuffer méretét <érték> mp-re állítja"},
 /* it */ {IDCLS_SET_SOUND_BUFFER_SIZE_MSEC_IT, "Imposta la dimensione del buffer audio a <valore> msec"},
 /* ko */ {IDCLS_SET_SOUND_BUFFER_SIZE_MSEC_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_SOUND_BUFFER_SIZE_MSEC_NL, "Zet de geluidsbuffergrootte naar <waarde> msec"},
+/* nl */ {IDCLS_SET_SOUND_BUFFER_SIZE_MSEC_NL, "Stel geluidsbuffergrootte in op <waarde> msec"},
 /* pl */ {IDCLS_SET_SOUND_BUFFER_SIZE_MSEC_PL, "Ustaw rozmiar bufora d¼wiêku na <warto¶æ> ms"},
 /* ru */ {IDCLS_SET_SOUND_BUFFER_SIZE_MSEC_RU, "Set sound buffer size to <value> msec"},
 /* sv */ {IDCLS_SET_SOUND_BUFFER_SIZE_MSEC_SV, "Sätt ljudbuffertstorlek till <värde> ms"},
@@ -15290,7 +17312,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_SOUND_FRAGMENT_SIZE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_SOUND_FRAGMENT_SIZE_IT, "Imposta la dimensione dei frammenti audio (0: molto piccola, 1: piccola, 2: media, 3: grande, 4: molto grande)"},
 /* ko */ {IDCLS_SET_SOUND_FRAGMENT_SIZE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_SOUND_FRAGMENT_SIZE_NL, "Zet geluidsfragment grootte (0: heel klein, 1: klein, 2: matig, 3: groot, 4: heel groot)"},
+/* nl */ {IDCLS_SET_SOUND_FRAGMENT_SIZE_NL, "Stel geluidsfragment grootte in (0: heel klein, 1: klein, 2: matig, 3: groot, 4: heel groot)"},
 /* pl */ {IDCLS_SET_SOUND_FRAGMENT_SIZE_PL, "Ustaw rozmiar fragmentu d¼wiêku (0: bardzo ma³y, 1: ma³y, 2: ¶redni, 3: du¿y, 4: bardzo du¿y)"},
 /* ru */ {IDCLS_SET_SOUND_FRAGMENT_SIZE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_SOUND_FRAGMENT_SIZE_SV, ""},  /* fuzzy */
@@ -15329,6 +17351,40 @@ translate_t string_table[] = {
 /* ru */ {IDCLS_SPECIFY_SAMPLER_DEVICE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SPECIFY_SAMPLER_DEVICE_SV, ""},  /* fuzzy */
 /* tr */ {IDCLS_SPECIFY_SAMPLER_DEVICE_TR, ""},  /* fuzzy */
+#endif
+
+/* sampler/sampler.c */
+/* en */ {IDCLS_P_GAIN,    N_("<Sampler gain>")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_P_GAIN_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_P_GAIN_DE, "<Sampler Gain>"},
+/* es */ {IDCLS_P_GAIN_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_P_GAIN_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_P_GAIN_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_P_GAIN_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_P_GAIN_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_P_GAIN_NL, "<Sampler toename>"},
+/* pl */ {IDCLS_P_GAIN_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_P_GAIN_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_P_GAIN_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_P_GAIN_TR, ""},  /* fuzzy */
+#endif
+
+/* sampler/sampler.c */
+/* en */ {IDCLS_SAMPLER_GAIN_IN_PERCENT,    N_("Specify sampler gain in percent (1%-200%)")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_SAMPLER_GAIN_IN_PERCENT_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_SAMPLER_GAIN_IN_PERCENT_DE, "Sampler Gain in Prozent (1% - 200%)"},
+/* es */ {IDCLS_SAMPLER_GAIN_IN_PERCENT_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_SAMPLER_GAIN_IN_PERCENT_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_SAMPLER_GAIN_IN_PERCENT_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_SAMPLER_GAIN_IN_PERCENT_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_SAMPLER_GAIN_IN_PERCENT_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_SAMPLER_GAIN_IN_PERCENT_NL, "Geef sampler versterking in procent (1% - 200%)"},
+/* pl */ {IDCLS_SAMPLER_GAIN_IN_PERCENT_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_SAMPLER_GAIN_IN_PERCENT_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_SAMPLER_GAIN_IN_PERCENT_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_SAMPLER_GAIN_IN_PERCENT_TR, ""},  /* fuzzy */
 #endif
 
 /* sound.c */
@@ -15426,7 +17482,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_SOUND_SPEED_ADJUST_HU, "Adja meg a zene sebesség igazítását (0: rugalmas. 1: igazodó, 2: pontos)"},
 /* it */ {IDCLS_SET_SOUND_SPEED_ADJUST_IT, "Imposta il tipo di adattamento della velocità audio (0: flessibile, 1: adattabile, 2: esatta)"},
 /* ko */ {IDCLS_SET_SOUND_SPEED_ADJUST_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_SOUND_SPEED_ADJUST_NL, "Zet geluidssnelheid aanpassing (0: flexibel, 1: aanpassend, 2: exact)"},
+/* nl */ {IDCLS_SET_SOUND_SPEED_ADJUST_NL, "Stel geluidssnelheid aanpassing in (0: flexibel, 1: aanpassend, 2: exact)"},
 /* pl */ {IDCLS_SET_SOUND_SPEED_ADJUST_PL, "Ustaw dopasowanie prêdko¶ci d¼wiêku (0: elastyczne, 1: dopasowane, 2: dok³adne)"},
 /* ru */ {IDCLS_SET_SOUND_SPEED_ADJUST_RU, "Set sound speed adjustment (0: flexible, 1: adjusting, 2: exact)"},
 /* sv */ {IDCLS_SET_SOUND_SPEED_ADJUST_SV, "Ställ in ljudhastighetsjustering (0: flexibel, 1: justerande, 2: exakt)"},
@@ -15471,7 +17527,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SOUND_SUSPEND_TIME,    N_("Specify the pause interval when audio underflows (clicks) happen. 0 means no pause is done.")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SOUND_SUSPEND_TIME_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SOUND_SUSPEND_TIME_DE, "Pause Interval bei Audio unterlauf (Klicks) definineren. (0: keine Pause)"},
+/* de */ {IDCLS_SOUND_SUSPEND_TIME_DE, "Pause Interval bei Audio Unterlauf (Klicks) wählen. (0: keine Pause)"},
 /* es */ {IDCLS_SOUND_SUSPEND_TIME_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_SOUND_SUSPEND_TIME_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SOUND_SUSPEND_TIME_HU, ""},  /* fuzzy */
@@ -15522,7 +17578,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_DEFINE_SYSTEM_FILES_PATH,    N_("Define search path to locate system files")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_DEFINE_SYSTEM_FILES_PATH_DA, "Angiv sti til systemfiler"},
-/* de */ {IDCLS_DEFINE_SYSTEM_FILES_PATH_DE, "Suchpfad für Systemdateien definieren"},
+/* de */ {IDCLS_DEFINE_SYSTEM_FILES_PATH_DE, "Suchpfad für Systemdateien wählen"},
 /* es */ {IDCLS_DEFINE_SYSTEM_FILES_PATH_ES, "Definir camino de búsqueda para los ficheros locales de sistema"},
 /* fr */ {IDCLS_DEFINE_SYSTEM_FILES_PATH_FR, "Définir le chemin de recherche pour trouver les fichiers systèmes"},
 /* hu */ {IDCLS_DEFINE_SYSTEM_FILES_PATH_HU, "Keresési útvonal megadása a rendszerfájlok megtalálására"},
@@ -15545,7 +17601,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_TRAPS_FAST_EMULATION_HU, "A lemez/szalag emulációt gyorsító mechanizmusok engedélyezése"},
 /* it */ {IDCLS_ENABLE_TRAPS_FAST_EMULATION_IT, "Attiva meccanismo generale per l'emulazione veloce del disco/cassetta"},
 /* ko */ {IDCLS_ENABLE_TRAPS_FAST_EMULATION_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_TRAPS_FAST_EMULATION_NL, "Activeer algemene methoden voor snelle disk/tape emulatie"},
+/* nl */ {IDCLS_ENABLE_TRAPS_FAST_EMULATION_NL, "Algemene methoden voor snelle disk/tape emulatie inschakelen"},
 /* pl */ {IDCLS_ENABLE_TRAPS_FAST_EMULATION_PL, "W³±cz mechanizm szybkiej emulacji dysku i ta¶my"},
 /* ru */ {IDCLS_ENABLE_TRAPS_FAST_EMULATION_RU, "Enable general mechanisms for fast disk/tape emulation"},
 /* sv */ {IDCLS_ENABLE_TRAPS_FAST_EMULATION_SV, "Aktivera generella mekanismer för snabb disk-/bandemulering"},
@@ -15675,7 +17731,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_PLUS256K_NAME,    N_("Specify name of PLUS256K image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_PLUS256K_NAME_DA, "Angiv navn på PLUS256K-image"},
-/* de */ {IDCLS_SPECIFY_PLUS256K_NAME_DE, "Name der PLUS256K Image Datei definieren"},
+/* de */ {IDCLS_SPECIFY_PLUS256K_NAME_DE, "Name der PLUS256K Imagedatei wählen"},
 /* es */ {IDCLS_SPECIFY_PLUS256K_NAME_ES, "Especificar nombre imagen RAM PLUS256K"},
 /* fr */ {IDCLS_SPECIFY_PLUS256K_NAME_FR, "Spécifier le nom de l'image PLUS256K RAM"},
 /* hu */ {IDCLS_SPECIFY_PLUS256K_NAME_HU, "Adja meg a PLUS256K-s képmás nevét"},
@@ -15692,7 +17748,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_PLUS60K_NAME,    N_("Specify name of PLUS60K image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_PLUS60K_NAME_DA, "Angiv navn på PLUS60K-image"},
-/* de */ {IDCLS_SPECIFY_PLUS60K_NAME_DE, "Name der PLUS60K Image Datei definieren"},
+/* de */ {IDCLS_SPECIFY_PLUS60K_NAME_DE, "Name der PLUS60K Imagedatei wählen"},
 /* es */ {IDCLS_SPECIFY_PLUS60K_NAME_ES, "Especificar nombre imagen PLUS60K"},
 /* fr */ {IDCLS_SPECIFY_PLUS60K_NAME_FR, "Spécifier le nom de l'image PLUS60K RAM"},
 /* hu */ {IDCLS_SPECIFY_PLUS60K_NAME_HU, "Adja meg a nevét a PLUS60K képmásnak"},
@@ -15726,7 +17782,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_C64_256K_NAME,    N_("Specify name of 256K image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_C64_256K_NAME_DA, "Angiv navn på 256k-image"},
-/* de */ {IDCLS_SPECIFY_C64_256K_NAME_DE, "Name der 256K Image Datei definieren"},
+/* de */ {IDCLS_SPECIFY_C64_256K_NAME_DE, "Name der 256K Imagedatei wählen"},
 /* es */ {IDCLS_SPECIFY_C64_256K_NAME_ES, "Especificar nombre imagen 256K"},
 /* fr */ {IDCLS_SPECIFY_C64_256K_NAME_FR, "Spécifier le nom de l'image 256K"},
 /* hu */ {IDCLS_SPECIFY_C64_256K_NAME_HU, "Adja meg a 256K-s képmás nevét"},
@@ -15766,7 +17822,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_C64_MEMORY_HACK_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_C64_MEMORY_HACK_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_C64_MEMORY_HACK_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_C64_MEMORY_HACK_NL, "Zet de 'geheugen uitbreidingen hack' apparaat (0: Geen, 1: C64 256K, 2: +60K, 3: +256K)"},
+/* nl */ {IDCLS_SET_C64_MEMORY_HACK_NL, "Stel het 'geheugen uitbreidingen hack' apparaat in (0: Geen, 1: C64 256K, 2: +60K, 3: +256K)"},
 /* pl */ {IDCLS_SET_C64_MEMORY_HACK_PL, "Ustaw urz±dzenie 'hacka' rozszerzenia pamiêci (0: Brak, 1: 256K C64, 2: +60K, 3: +256K)"},
 /* ru */ {IDCLS_SET_C64_MEMORY_HACK_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_C64_MEMORY_HACK_SV, ""},  /* fuzzy */
@@ -15783,7 +17839,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_PLUS4_MEMORY_HACK_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_PLUS4_MEMORY_HACK_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_PLUS4_MEMORY_HACK_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_PLUS4_MEMORY_HACK_NL, "Zet de 'geheugen uitbreidingen hack' apparaat (0: Geen, 1: CSORY 256K, 2: HANNES 256K, 3: HANNES 1024K, 4: HANNES 4096K)"},
+/* nl */ {IDCLS_SET_PLUS4_MEMORY_HACK_NL, "Stel het 'geheugen uitbreidingen hack' apparaat in (0: Geen, 1: CSORY 256K, 2: HANNES 256K, 3: HANNES 1024K, 4: HANNES 4096K)"},
 /* pl */ {IDCLS_SET_PLUS4_MEMORY_HACK_PL, "Ustaw urz±dzenie 'hacka' rozszerzenia pamiêci (0: Brak, 1: 256K CSORY, 2: 256K HANNES, 3: 1024K HANNES, 4: 4096K HANNES)"},
 /* ru */ {IDCLS_SET_PLUS4_MEMORY_HACK_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_PLUS4_MEMORY_HACK_SV, ""},  /* fuzzy */
@@ -15800,7 +17856,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ATTACH_RAW_STB_CART_HU, "Structured Basic cartridge képmás csatolása"},
 /* it */ {IDCLS_ATTACH_RAW_STB_CART_IT, "Seleziona immagine cartuccia Structured Basic"},
 /* ko */ {IDCLS_ATTACH_RAW_STB_CART_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ATTACH_RAW_STB_CART_NL, "Koppel binair Structured Basic cartridge bestand aan"},
+/* nl */ {IDCLS_ATTACH_RAW_STB_CART_NL, "Koppel binair Structured Basic cartridge bestand"},
 /* pl */ {IDCLS_ATTACH_RAW_STB_CART_PL, "Zamontuj surowy obraz kartrid¿a Structured Basic"},
 /* ru */ {IDCLS_ATTACH_RAW_STB_CART_RU, "Attach raw Structured Basic cartridge image"},
 /* sv */ {IDCLS_ATTACH_RAW_STB_CART_SV, "Anslut rå Strucured Basic-insticksmodulfil"},
@@ -15879,7 +17935,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_DTV_REVISION,    N_("Specify DTV Revision (2: DTV2, 3: DTV3)")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_DTV_REVISION_DA, "Angiv DTV-revision (2: DTV2, 3: DTV3)"},
-/* de */ {IDCLS_SPECIFY_DTV_REVISION_DE, "DTV Revision definieren (2: DTV2, 3: DTV3)"},
+/* de */ {IDCLS_SPECIFY_DTV_REVISION_DE, "DTV Revision wählen (2: DTV2, 3: DTV3)"},
 /* es */ {IDCLS_SPECIFY_DTV_REVISION_ES, "Especificar revisión DTV (2: DTV2, 3: DTV3)"},
 /* fr */ {IDCLS_SPECIFY_DTV_REVISION_FR, "Spécifier la révision DTV (2: DTV2, 3: DTV3)"},
 /* hu */ {IDCLS_SPECIFY_DTV_REVISION_HU, "Adja meg a DTV verzióját (2: DTV2, 3: DTV3)"},
@@ -15902,7 +17958,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_DTV_BLITTER_LOG_HU, "DTV blit naplók engedélyezése."},
 /* it */ {IDCLS_ENABLE_DTV_BLITTER_LOG_IT, "Attiva log del blitter DTV."},
 /* ko */ {IDCLS_ENABLE_DTV_BLITTER_LOG_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_DTV_BLITTER_LOG_NL, "Aktiveer DTV blitter logs."},
+/* nl */ {IDCLS_ENABLE_DTV_BLITTER_LOG_NL, "DTV blitter logs inschakelen."},
 /* pl */ {IDCLS_ENABLE_DTV_BLITTER_LOG_PL, "W³±cz logi blittera DTV."},
 /* ru */ {IDCLS_ENABLE_DTV_BLITTER_LOG_RU, "Enable DTV blitter logs."},
 /* sv */ {IDCLS_ENABLE_DTV_BLITTER_LOG_SV, "Aktivera DTV-blitterloggar."},
@@ -15936,7 +17992,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_DTV_DMA_LOG_HU, "DTV DMA naplók engedélyezése."},
 /* it */ {IDCLS_ENABLE_DTV_DMA_LOG_IT, "Attiva log DMA DTV."},
 /* ko */ {IDCLS_ENABLE_DTV_DMA_LOG_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_DTV_DMA_LOG_NL, "Aktiveer DTV DMA logs."},
+/* nl */ {IDCLS_ENABLE_DTV_DMA_LOG_NL, "DTV DMA logs inschakelen."},
 /* pl */ {IDCLS_ENABLE_DTV_DMA_LOG_PL, "W³±cz logowanie DTV DMA"},
 /* ru */ {IDCLS_ENABLE_DTV_DMA_LOG_RU, "Enable DTV DMA logs."},
 /* sv */ {IDCLS_ENABLE_DTV_DMA_LOG_SV, "Aktivera DTV DMA-loggning."},
@@ -15964,7 +18020,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_C64DTVROM_NAME,    N_("Specify name of C64DTV ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_C64DTVROM_NAME_DA, "Angiv navn på C64DTV-ROM-image"},
-/* de */ {IDCLS_SPECIFY_C64DTVROM_NAME_DE, "Name von C64DTV ROM Datei definieren"},
+/* de */ {IDCLS_SPECIFY_C64DTVROM_NAME_DE, "Name von C64DTV ROM Datei wählen"},
 /* es */ {IDCLS_SPECIFY_C64DTVROM_NAME_ES, "Especificar nombre imagen ROM C64DTV"},
 /* fr */ {IDCLS_SPECIFY_C64DTVROM_NAME_FR, "Spécifier le nom de l'image ROM C64DTV"},
 /* hu */ {IDCLS_SPECIFY_C64DTVROM_NAME_HU, "Adja meg a C64DTV ROM képmás nevét"},
@@ -15987,7 +18043,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_C64DTVROM_RW_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_C64DTVROM_RW_IT, "Attiva scrittura su immagini ROM C64DTV"},
 /* ko */ {IDCLS_ENABLE_C64DTVROM_RW_KO, "C64DTV ROM ÀÌ¹ÌÁö¿¡ ¾²±â °¡´ÉÇÏ°Ô ÇÏ±â"},
-/* nl */ {IDCLS_ENABLE_C64DTVROM_RW_NL, "Aktiveer schrijven naar DTV ROM bestand"},
+/* nl */ {IDCLS_ENABLE_C64DTVROM_RW_NL, "Activeer schrijven naar C64DTV ROM bestand"},
 /* pl */ {IDCLS_ENABLE_C64DTVROM_RW_PL, "W³±cz zapis do obrazu ROM C64DTV"},
 /* ru */ {IDCLS_ENABLE_C64DTVROM_RW_RU, "Enable writes to C64DTV ROM image"},
 /* sv */ {IDCLS_ENABLE_C64DTVROM_RW_SV, "Aktivera skrivning till C64DTV-ROM-avbildning"},
@@ -16021,7 +18077,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_DTV_FLASH_LOG_HU, "DTV flash chip naplók engedélyezése."},
 /* it */ {IDCLS_ENABLE_DTV_FLASH_LOG_IT, "Attiva log del chip flash DTV."},
 /* ko */ {IDCLS_ENABLE_DTV_FLASH_LOG_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_DTV_FLASH_LOG_NL, "Aktiveer DTV flash chip logs."},
+/* nl */ {IDCLS_ENABLE_DTV_FLASH_LOG_NL, "DTV flash chip logs inschakelen."},
 /* pl */ {IDCLS_ENABLE_DTV_FLASH_LOG_PL, "W³±cz logi uk³adu flash DTV."},
 /* ru */ {IDCLS_ENABLE_DTV_FLASH_LOG_RU, "Enable DTV flash chip logs."},
 /* sv */ {IDCLS_ENABLE_DTV_FLASH_LOG_SV, "Aktivera loggar för DTV-flashkrets."},
@@ -16089,7 +18145,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_TRUE_FLASH_FS_HU, "Igazi hardver flash fájlrendszer tiltása"},
 /* it */ {IDCLS_DISABLE_TRUE_FLASH_FS_IT, "Disattiva emulazione hardware del file system flash"},
 /* ko */ {IDCLS_DISABLE_TRUE_FLASH_FS_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_TRUE_FLASH_FS_NL, "Hardwatematig flash bestandssysteem uitschakelen"},
+/* nl */ {IDCLS_DISABLE_TRUE_FLASH_FS_NL, "Hardwarematig flash bestandssysteem uitschakelen"},
 /* pl */ {IDCLS_DISABLE_TRUE_FLASH_FS_PL, "Wy³±cz prawdziwy system plików flash"},
 /* ru */ {IDCLS_DISABLE_TRUE_FLASH_FS_RU, "Disable true hardware flash file system"},
 /* sv */ {IDCLS_DISABLE_TRUE_FLASH_FS_SV, "Inaktivera maskinvaruemelring för flashfilsystem"},
@@ -16107,7 +18163,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_MIDI_EMU_HU, "MIDI emuláció engedélyezése"},
 /* it */ {IDCLS_ENABLE_MIDI_EMU_IT, "Attiva emulazione MIDI"},
 /* ko */ {IDCLS_ENABLE_MIDI_EMU_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_MIDI_EMU_NL, "Activeer MIDI emulatie"},
+/* nl */ {IDCLS_ENABLE_MIDI_EMU_NL, "MIDI emulatie inschakelen"},
 /* pl */ {IDCLS_ENABLE_MIDI_EMU_PL, "W³±cz emulacjê MIDI"},
 /* ru */ {IDCLS_ENABLE_MIDI_EMU_RU, "²ÚÛîçØâì íÜãÛïæØî MIDI"},
 /* sv */ {IDCLS_ENABLE_MIDI_EMU_SV, "Aktivera MIDI-emulering"},
@@ -16159,7 +18215,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_DIGIBLASTER_HU, "Digiblaster engedélyezése"},
 /* it */ {IDCLS_ENABLE_DIGIBLASTER_IT, "Attiva l'estensione digiblaster"},
 /* ko */ {IDCLS_ENABLE_DIGIBLASTER_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_DIGIBLASTER_NL, "Activeer de digiblaster add-on"},
+/* nl */ {IDCLS_ENABLE_DIGIBLASTER_NL, "Digiblaster add-on inschakelen"},
 /* pl */ {IDCLS_ENABLE_DIGIBLASTER_PL, "W³±cz dodatek digiblaster"},
 /* ru */ {IDCLS_ENABLE_DIGIBLASTER_RU, "Enable the digiblaster add-on"},
 /* sv */ {IDCLS_ENABLE_DIGIBLASTER_SV, "Aktivera digiblaster-tillägg"},
@@ -16176,7 +18232,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_DIGIBLASTER_HU, "Digiblaster tiltása"},
 /* it */ {IDCLS_DISABLE_DIGIBLASTER_IT, "Disattiva l'estensione digiblaster"},
 /* ko */ {IDCLS_DISABLE_DIGIBLASTER_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_DIGIBLASTER_NL, "De digiblaster add-on uitschakelen"},
+/* nl */ {IDCLS_DISABLE_DIGIBLASTER_NL, "Digiblaster add-on uitschakelen"},
 /* pl */ {IDCLS_DISABLE_DIGIBLASTER_PL, "Wy³±cz dodatek digiblaster"},
 /* ru */ {IDCLS_DISABLE_DIGIBLASTER_RU, "Disable the digiblaster add-on"},
 /* sv */ {IDCLS_DISABLE_DIGIBLASTER_SV, "Inaktivera digiblaster-tillägg"},
@@ -16193,7 +18249,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_PLUS4SPEECH_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_PLUS4SPEECH_IT, "Attiva l'estensione v364 speech"},
 /* ko */ {IDCLS_ENABLE_PLUS4SPEECH_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_PLUS4SPEECH_NL, "Activeer de v364 spraak add-on"},
+/* nl */ {IDCLS_ENABLE_PLUS4SPEECH_NL, "v364 spraak add-on inschakelen"},
 /* pl */ {IDCLS_ENABLE_PLUS4SPEECH_PL, "W³±cz rozszerzenie mowy v364"},
 /* ru */ {IDCLS_ENABLE_PLUS4SPEECH_RU, "Enable the v364 speech add-on"},
 /* sv */ {IDCLS_ENABLE_PLUS4SPEECH_SV, "Aktivera v364-rösttillägg"},
@@ -16210,7 +18266,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_PLUS4SPEECH_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_PLUS4SPEECH_IT, "Disattiva l'estensione v364 speech"},
 /* ko */ {IDCLS_DISABLE_PLUS4SPEECH_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_PLUS4SPEECH_NL, "De v364 spraak add-on uitschakelen"},
+/* nl */ {IDCLS_DISABLE_PLUS4SPEECH_NL, "v364 spraak add-on uitschakelen"},
 /* pl */ {IDCLS_DISABLE_PLUS4SPEECH_PL, "Wy³±cz rozszerzenie mowy v364"},
 /* ru */ {IDCLS_DISABLE_PLUS4SPEECH_RU, "Disable the v364 speech add-on"},
 /* sv */ {IDCLS_DISABLE_PLUS4SPEECH_SV, "Inaktivera v364-rösttillägg"},
@@ -16227,7 +18283,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ATTACH_SPEECH_ROM_IMAGE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ATTACH_SPEECH_ROM_IMAGE_IT, "Seleziona immagine Speech ROM"},
 /* ko */ {IDCLS_ATTACH_SPEECH_ROM_IMAGE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ATTACH_SPEECH_ROM_IMAGE_NL, "Koppel spraak ROM bestand aan"},
+/* nl */ {IDCLS_ATTACH_SPEECH_ROM_IMAGE_NL, "Koppel spraak ROM bestand"},
 /* pl */ {IDCLS_ATTACH_SPEECH_ROM_IMAGE_PL, "Zamontuj obraz ROM mowy"},
 /* ru */ {IDCLS_ATTACH_SPEECH_ROM_IMAGE_RU, "Attach Speech ROM image"},
 /* sv */ {IDCLS_ATTACH_SPEECH_ROM_IMAGE_SV, "Anslut röst-ROM-avbildning"},
@@ -16244,7 +18300,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_SIDCARTJOY_HU, "SID cartridge botkormány engedélyezése"},
 /* it */ {IDCLS_ENABLE_SIDCARTJOY_IT, "Attiva joystick su cartuccia SID"},
 /* ko */ {IDCLS_ENABLE_SIDCARTJOY_KO, "SID Ä«Æ®¸®Áö Á¶ÀÌ½ºÆ½ »ç¿ëÇÏ±â"},
-/* nl */ {IDCLS_ENABLE_SIDCARTJOY_NL, "Activeer SID cartridge joystick"},
+/* nl */ {IDCLS_ENABLE_SIDCARTJOY_NL, "SID cartridge joystick inschakelen"},
 /* pl */ {IDCLS_ENABLE_SIDCARTJOY_PL, "W³±cz joystick kartrid¿a SID"},
 /* ru */ {IDCLS_ENABLE_SIDCARTJOY_RU, "Enable SID cartridge joystick"},
 /* sv */ {IDCLS_ENABLE_SIDCARTJOY_SV, "Aktivera SID-insticksmodul-styrspak"},
@@ -16261,7 +18317,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_SIDCARTJOY_HU, "SID cartridge botkormány tiltása"},
 /* it */ {IDCLS_DISABLE_SIDCARTJOY_IT, "Disattiva joystick su cartuccia SID"},
 /* ko */ {IDCLS_DISABLE_SIDCARTJOY_KO, "SID Ä«Æ®¸®Áö Á¶ÀÌ½ºÆ½ »ç¿ëÇÏÁö ¾Ê±â"},
-/* nl */ {IDCLS_DISABLE_SIDCARTJOY_NL, "De SID cartridge joystick uitschakelen"},
+/* nl */ {IDCLS_DISABLE_SIDCARTJOY_NL, "SID cartridge joystick uitschakelen"},
 /* pl */ {IDCLS_DISABLE_SIDCARTJOY_PL, "Wy³±cz joystick kartrid¿a SID"},
 /* ru */ {IDCLS_DISABLE_SIDCARTJOY_RU, "Disable SID cartridge joystick"},
 /* sv */ {IDCLS_DISABLE_SIDCARTJOY_SV, "Inaktivera SID-insticksmodul-styrspak"},
@@ -16278,7 +18334,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_SFX_SE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_SFX_SE_IT, "Attiva cartuccia SFX Sound Expander"},
 /* ko */ {IDCLS_ENABLE_SFX_SE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_SFX_SE_NL, "Activeer de SFX Sound Expander cartridge"},
+/* nl */ {IDCLS_ENABLE_SFX_SE_NL, "SFX Sound Expander cartridge inschakelen"},
 /* pl */ {IDCLS_ENABLE_SFX_SE_PL, "W³±cz kartrid¿ SFX Sound Expander"},
 /* ru */ {IDCLS_ENABLE_SFX_SE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_SFX_SE_SV, "Aktivera SFX Sound Expander-insticksmodul"},
@@ -16295,7 +18351,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_SFX_SE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_SFX_SE_IT, "Disattiva cartuccia SFX SFX Sound Expander"},
 /* ko */ {IDCLS_DISABLE_SFX_SE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_SFX_SE_NL, "De SFX Sound Expander cartridge uitschakelen"},
+/* nl */ {IDCLS_DISABLE_SFX_SE_NL, "SFX Sound Expander cartridge uitschakelen"},
 /* pl */ {IDCLS_DISABLE_SFX_SE_PL, "Wy³±cz kartrid¿ SFX Sound Expander"},
 /* ru */ {IDCLS_DISABLE_SFX_SE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_SFX_SE_SV, "Inaktivera SFX Sound Expander-insticksmodul"},
@@ -16312,7 +18368,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_YM_CHIP_TYPE_HU, "YM csip típus megadása (3526 / 3812)"},
 /* it */ {IDCLS_SET_YM_CHIP_TYPE_IT, "Imposta tipo chip YM (3526 / 3812)"},
 /* ko */ {IDCLS_SET_YM_CHIP_TYPE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_YM_CHIP_TYPE_NL, "Kies de YM chip soort (3526 / 3812)"},
+/* nl */ {IDCLS_SET_YM_CHIP_TYPE_NL, "Stel de YM chip soort in (3526 / 3812)"},
 /* pl */ {IDCLS_SET_YM_CHIP_TYPE_PL, "Okre¶l typ uk³adu YM (3526 / 3812)"},
 /* ru */ {IDCLS_SET_YM_CHIP_TYPE_RU, "Set YM chip type (3526 / 3812)"},
 /* sv */ {IDCLS_SET_YM_CHIP_TYPE_SV, "Välj YM-kretstyp (3526 / 3812)"},
@@ -16329,7 +18385,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_SFX_SS_HU, "SFX Sound Sampler engedélyezése"},
 /* it */ {IDCLS_ENABLE_SFX_SS_IT, "Attiva cartuccia SFX Sound Sampler"},
 /* ko */ {IDCLS_ENABLE_SFX_SS_KO, "SFX Sound Sampler Ä«Æ®¸®Áö ¸¦ ÀÛµ¿½ÃÅ²´Ù"},
-/* nl */ {IDCLS_ENABLE_SFX_SS_NL, "Activeer de SFX Sound Sampler cartridge"},
+/* nl */ {IDCLS_ENABLE_SFX_SS_NL, "SFX Sound Sampler cartridge inschakelen"},
 /* pl */ {IDCLS_ENABLE_SFX_SS_PL, "W³±cz kartrid¿ SFX Sound Sampler"},
 /* ru */ {IDCLS_ENABLE_SFX_SS_RU, "Enable the SFX Sound Sampler cartridge"},
 /* sv */ {IDCLS_ENABLE_SFX_SS_SV, "Aktivera SFX Sound Sampler-insticksmodul"},
@@ -16346,7 +18402,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_SFX_SS_HU, "SFX Sound Sampler tiltása"},
 /* it */ {IDCLS_DISABLE_SFX_SS_IT, "Disattiva cartuccia SFX Sound Sampler"},
 /* ko */ {IDCLS_DISABLE_SFX_SS_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_SFX_SS_NL, "De SFX Sound Sampler cartridge uitschakelen"},
+/* nl */ {IDCLS_DISABLE_SFX_SS_NL, "SFX Sound Sampler cartridge uitschakelen"},
 /* pl */ {IDCLS_DISABLE_SFX_SS_PL, "Wy³±cz kartrid¿ SFX Sound Sampler"},
 /* ru */ {IDCLS_DISABLE_SFX_SS_RU, "Disable the SFX Sound Sampler cartridge"},
 /* sv */ {IDCLS_DISABLE_SFX_SS_SV, "Inaktivera SFX Sound Sampler-insticksmodul"},
@@ -16357,13 +18413,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_ENABLE_CPM_CART,    N_("Enable the CP/M cartridge")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ENABLE_CPM_CART_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_ENABLE_CPM_CART_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_CPM_CART_DE, "CP/M Modul aktivieren"},
 /* es */ {IDCLS_ENABLE_CPM_CART_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_ENABLE_CPM_CART_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_ENABLE_CPM_CART_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_CPM_CART_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_CPM_CART_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_CPM_CART_NL, "Activeer de CP/M cartridge"},
+/* nl */ {IDCLS_ENABLE_CPM_CART_NL, "CP/M cartridge inschakelen"},
 /* pl */ {IDCLS_ENABLE_CPM_CART_PL, ""},  /* fuzzy */
 /* ru */ {IDCLS_ENABLE_CPM_CART_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_CPM_CART_SV, ""},  /* fuzzy */
@@ -16374,13 +18430,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_DISABLE_CPM_CART,    N_("Disable the CP/M cartridge")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_DISABLE_CPM_CART_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_DISABLE_CPM_CART_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_CPM_CART_DE, "CP/M Modul deaktivieren"},
 /* es */ {IDCLS_DISABLE_CPM_CART_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_DISABLE_CPM_CART_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_DISABLE_CPM_CART_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_CPM_CART_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_DISABLE_CPM_CART_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_CPM_CART_NL, "De CP/M cartridge uitschakelen"},
+/* nl */ {IDCLS_DISABLE_CPM_CART_NL, "CP/M cartridge uitschakelen"},
 /* pl */ {IDCLS_DISABLE_CPM_CART_PL, ""},  /* fuzzy */
 /* ru */ {IDCLS_DISABLE_CPM_CART_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_CPM_CART_SV, ""},  /* fuzzy */
@@ -16391,13 +18447,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_ENABLE_TURBOMASTER,    N_("Enable the TurboMaster cartridge")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ENABLE_TURBOMASTER_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_ENABLE_TURBOMASTER_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_TURBOMASTER_DE, "TurboMaster Modul aktivieren"},
 /* es */ {IDCLS_ENABLE_TURBOMASTER_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_ENABLE_TURBOMASTER_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_ENABLE_TURBOMASTER_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_TURBOMASTER_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_TURBOMASTER_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_TURBOMASTER_NL, "Activeer de TurboMaster cartridge"},
+/* nl */ {IDCLS_ENABLE_TURBOMASTER_NL, "TurboMaster cartridge inschakelen"},
 /* pl */ {IDCLS_ENABLE_TURBOMASTER_PL, ""},  /* fuzzy */
 /* ru */ {IDCLS_ENABLE_TURBOMASTER_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_TURBOMASTER_SV, ""},  /* fuzzy */
@@ -16408,13 +18464,13 @@ translate_t string_table[] = {
 /* en */ {IDCLS_DISABLE_TURBOMASTER,    N_("Disable the TurboMaster cartridge")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_DISABLE_TURBOMASTER_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_DISABLE_TURBOMASTER_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_TURBOMASTER_DE, "TurboMaster Modul deaktivieren"},
 /* es */ {IDCLS_DISABLE_TURBOMASTER_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_DISABLE_TURBOMASTER_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_DISABLE_TURBOMASTER_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_TURBOMASTER_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_DISABLE_TURBOMASTER_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_TURBOMASTER_NL, "De TurboMaster cartridge uitschakelen"},
+/* nl */ {IDCLS_DISABLE_TURBOMASTER_NL, "TurboMaster cartridge uitschakelen"},
 /* pl */ {IDCLS_DISABLE_TURBOMASTER_PL, ""},  /* fuzzy */
 /* ru */ {IDCLS_DISABLE_TURBOMASTER_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_TURBOMASTER_SV, ""},  /* fuzzy */
@@ -16425,7 +18481,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_TURBOMASTER_SWITCH_ROM_1,    N_("Set TurboMaster ROM switch to ROM 1")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_TURBOMASTER_SWITCH_ROM_1_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_TURBOMASTER_SWITCH_ROM_1_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_TURBOMASTER_SWITCH_ROM_1_DE, "TurboMaster ROM Schalter auf ROM 1 setzen"},
 /* es */ {IDCLS_TURBOMASTER_SWITCH_ROM_1_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_TURBOMASTER_SWITCH_ROM_1_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_TURBOMASTER_SWITCH_ROM_1_HU, ""},  /* fuzzy */
@@ -16442,7 +18498,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_TURBOMASTER_SWITCH_ROM_2,    N_("Set TurboMaster ROM switch to ROM 2")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_TURBOMASTER_SWITCH_ROM_2_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_TURBOMASTER_SWITCH_ROM_2_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_TURBOMASTER_SWITCH_ROM_2_DE, "TurboMaster ROM Schalter auf ROM 2 setzen"},
 /* es */ {IDCLS_TURBOMASTER_SWITCH_ROM_2_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_TURBOMASTER_SWITCH_ROM_2_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_TURBOMASTER_SWITCH_ROM_2_HU, ""},  /* fuzzy */
@@ -16459,7 +18515,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_TURBOMASTER_SWITCH_SPEED_SOFT,    N_("Set TurboMaster speed control switch to software")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_TURBOMASTER_SWITCH_SPEED_SOFT_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_TURBOMASTER_SWITCH_SPEED_SOFT_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_TURBOMASTER_SWITCH_SPEED_SOFT_DE, "TurboMaster Geschwindigkeits Kontrollschalter auf Software setzen"},
 /* es */ {IDCLS_TURBOMASTER_SWITCH_SPEED_SOFT_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_TURBOMASTER_SWITCH_SPEED_SOFT_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_TURBOMASTER_SWITCH_SPEED_SOFT_HU, ""},  /* fuzzy */
@@ -16476,7 +18532,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_TURBOMASTER_SWITCH_SPEED_MANUAL,    N_("Set TurboMaster speed control switch to manual")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_TURBOMASTER_SWITCH_SPEED_MANUAL_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_TURBOMASTER_SWITCH_SPEED_MANUAL_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_TURBOMASTER_SWITCH_SPEED_MANUAL_DE, "TurboMaster Geschwindigkeits Kontrollschalter auf Manuell setzen"},
 /* es */ {IDCLS_TURBOMASTER_SWITCH_SPEED_MANUAL_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_TURBOMASTER_SWITCH_SPEED_MANUAL_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_TURBOMASTER_SWITCH_SPEED_MANUAL_HU, ""},  /* fuzzy */
@@ -16493,7 +18549,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_TURBOMASTER_SWITCH_4_MHZ,    N_("Set TurboMaster clock speed switch to 4 Mhz")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_TURBOMASTER_SWITCH_4_MHZ_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_TURBOMASTER_SWITCH_4_MHZ_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_TURBOMASTER_SWITCH_4_MHZ_DE, "TurboMaster Taktgeschwindigkeitsschalter auf 4Mhz setzen"},
 /* es */ {IDCLS_TURBOMASTER_SWITCH_4_MHZ_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_TURBOMASTER_SWITCH_4_MHZ_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_TURBOMASTER_SWITCH_4_MHZ_HU, ""},  /* fuzzy */
@@ -16510,7 +18566,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_TURBOMASTER_SWITCH_1_MHZ,    N_("Set TurboMaster clock speed switch to 1 Mhz")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_TURBOMASTER_SWITCH_1_MHZ_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_TURBOMASTER_SWITCH_1_MHZ_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_TURBOMASTER_SWITCH_1_MHZ_DE, "TurboMaster Taktgeschwindigkeitsschalter auf 1Mhz setzen"},
 /* es */ {IDCLS_TURBOMASTER_SWITCH_1_MHZ_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_TURBOMASTER_SWITCH_1_MHZ_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_TURBOMASTER_SWITCH_1_MHZ_HU, ""},  /* fuzzy */
@@ -16527,7 +18583,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_TURBOMASTER_ROM1_NAME,    N_("Specify TurboMaster ROM 1 filename")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_TURBOMASTER_ROM1_NAME_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_TURBOMASTER_ROM1_NAME_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_SPECIFY_TURBOMASTER_ROM1_NAME_DE, "TurboMaster ROM 1 wählen"},
 /* es */ {IDCLS_SPECIFY_TURBOMASTER_ROM1_NAME_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_SPECIFY_TURBOMASTER_ROM1_NAME_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_TURBOMASTER_ROM1_NAME_HU, ""},  /* fuzzy */
@@ -16544,7 +18600,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_TURBOMASTER_ROM2_NAME,    N_("Specify TurboMaster ROM 2 filename")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_TURBOMASTER_ROM2_NAME_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_TURBOMASTER_ROM2_NAME_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_SPECIFY_TURBOMASTER_ROM2_NAME_DE, "TurboMaster ROM 2 wählen"},
 /* es */ {IDCLS_SPECIFY_TURBOMASTER_ROM2_NAME_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_SPECIFY_TURBOMASTER_ROM2_NAME_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_TURBOMASTER_ROM2_NAME_HU, ""},  /* fuzzy */
@@ -16567,7 +18623,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_EASYFLASH_JUMPER_HU, "EasyFlash Jumper engedélyezése"},
 /* it */ {IDCLS_ENABLE_EASYFLASH_JUMPER_IT, "Attiva ponticello EasyFlash"},
 /* ko */ {IDCLS_ENABLE_EASYFLASH_JUMPER_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_EASYFLASH_JUMPER_NL, "Activeer de EasyFlash jumper"},
+/* nl */ {IDCLS_ENABLE_EASYFLASH_JUMPER_NL, "EasyFlash jumper inschakelen"},
 /* pl */ {IDCLS_ENABLE_EASYFLASH_JUMPER_PL, "W³±cz prze³±cznik EasyFlash"},
 /* ru */ {IDCLS_ENABLE_EASYFLASH_JUMPER_RU, "Enable EasyFlash jumper"},
 /* sv */ {IDCLS_ENABLE_EASYFLASH_JUMPER_SV, "Aktivera EasyFlash-bygel"},
@@ -16584,7 +18640,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_EASYFLASH_JUMPER_HU, "EasyFlash Jumper tiltása"},
 /* it */ {IDCLS_DISABLE_EASYFLASH_JUMPER_IT, "Disattiva ponticello EasyFlash"},
 /* ko */ {IDCLS_DISABLE_EASYFLASH_JUMPER_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_EASYFLASH_JUMPER_NL, "De EasyFlash jumper uitschakelen"},
+/* nl */ {IDCLS_DISABLE_EASYFLASH_JUMPER_NL, "EasyFlash jumper uitschakelen"},
 /* pl */ {IDCLS_DISABLE_EASYFLASH_JUMPER_PL, "Wy³±cz prze³±cznik EasyFlash"},
 /* ru */ {IDCLS_DISABLE_EASYFLASH_JUMPER_RU, "Disable EasyFlash jumper"},
 /* sv */ {IDCLS_DISABLE_EASYFLASH_JUMPER_SV, "Inaktivera EasyFlash-bygel"},
@@ -16601,7 +18657,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_EASYFLASH_CRT_WRITING_HU, "EasyFlash .crt képmásba írás engedélyezése"},
 /* it */ {IDCLS_ENABLE_EASYFLASH_CRT_WRITING_IT, "Attiva scrittura sull'immagine .crt EasyFlash"},
 /* ko */ {IDCLS_ENABLE_EASYFLASH_CRT_WRITING_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_EASYFLASH_CRT_WRITING_NL, "Activeer schrijven naar het EasyFlash .crt bestand"},
+/* nl */ {IDCLS_ENABLE_EASYFLASH_CRT_WRITING_NL, "Schrijven naar het EasyFlash .crt bestand inschakelen"},
 /* pl */ {IDCLS_ENABLE_EASYFLASH_CRT_WRITING_PL, "W³±cz zapis do obrazu .crt EasyFlash"},
 /* ru */ {IDCLS_ENABLE_EASYFLASH_CRT_WRITING_RU, "Enable writing to EasyFlash .crt image"},
 /* sv */ {IDCLS_ENABLE_EASYFLASH_CRT_WRITING_SV, "Aktivera skrivning till EasyFlash-.crt-avbildning."},
@@ -16618,7 +18674,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_EASYFLASH_CRT_WRITING_HU, "EasyFlash .crt képmásba írás tiltása"},
 /* it */ {IDCLS_DISABLE_EASYFLASH_CRT_WRITING_IT, "Disattiva scrittura sull'immagine .crt EasyFlash"},
 /* ko */ {IDCLS_DISABLE_EASYFLASH_CRT_WRITING_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_EASYFLASH_CRT_WRITING_NL, "Schrijven naar het EasyFlash .crt bestand uitschakelen"},
+/* nl */ {IDCLS_DISABLE_EASYFLASH_CRT_WRITING_NL, "Dchrijven naar het EasyFlash .crt bestand uitschakelen"},
 /* pl */ {IDCLS_DISABLE_EASYFLASH_CRT_WRITING_PL, "Wy³±cz zapis do obrazu .crt EasyFlash"},
 /* ru */ {IDCLS_DISABLE_EASYFLASH_CRT_WRITING_RU, "Disable writing to EasyFlash .crt image"},
 /* sv */ {IDCLS_DISABLE_EASYFLASH_CRT_WRITING_SV, "Inaktivera skrivning till EasyFlash-.crt-avbildning."},
@@ -16635,7 +18691,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_EASYFLASH_CRT_OPTIMIZE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_EASYFLASH_CRT_OPTIMIZE_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_ENABLE_EASYFLASH_CRT_OPTIMIZE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_EASYFLASH_CRT_OPTIMIZE_NL, "Activeer optimalizeren van het schrijven naar het EasyFlash .crt bestand"},
+/* nl */ {IDCLS_ENABLE_EASYFLASH_CRT_OPTIMIZE_NL, "Optimalizeren van het schrijven naar het EasyFlash .crt bestand inschakelen"},
 /* pl */ {IDCLS_ENABLE_EASYFLASH_CRT_OPTIMIZE_PL, "W³±cz optymalizacjê zapisu do obrazu .crt EasyFlash"},
 /* ru */ {IDCLS_ENABLE_EASYFLASH_CRT_OPTIMIZE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_EASYFLASH_CRT_OPTIMIZE_SV, ""},  /* fuzzy */
@@ -16652,11 +18708,113 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_EASYFLASH_CRT_OPTIMIZE_HU, "EasyFlash .crt képmásba írás tiltása"},
 /* it */ {IDCLS_DISABLE_EASYFLASH_CRT_OPTIMIZE_IT, "Disattiva scrittura sull'immagine .crt EasyFlash"},
 /* ko */ {IDCLS_DISABLE_EASYFLASH_CRT_OPTIMIZE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_EASYFLASH_CRT_OPTIMIZE_NL, "Schrijven naar het EasyFlash .crt bestand uitschakelen"},
+/* nl */ {IDCLS_DISABLE_EASYFLASH_CRT_OPTIMIZE_NL, "Dchrijven naar het EasyFlash .crt bestand uitschakelen"},
 /* pl */ {IDCLS_DISABLE_EASYFLASH_CRT_OPTIMIZE_PL, "Wy³±cz zapis do obrazu .crt EasyFlash"},
 /* ru */ {IDCLS_DISABLE_EASYFLASH_CRT_OPTIMIZE_RU, "Disable writing to EasyFlash .crt image"},
 /* sv */ {IDCLS_DISABLE_EASYFLASH_CRT_OPTIMIZE_SV, "Inaktivera skrivning till EasyFlash-.crt-avbildning."},
 /* tr */ {IDCLS_DISABLE_EASYFLASH_CRT_OPTIMIZE_TR, "EasyFlash .crt imajýna yazmayý pasifleþtir"},
+#endif
+
+/* userport/userport_digimax.c */
+/* en */ {IDCLS_ENABLE_USERPORT_DIGIMAX,    N_("Enable the userport DigiMAX device")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_USERPORT_DIGIMAX_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_USERPORT_DIGIMAX_DE, "Userport DigiMAX Gerät aktivieren"},
+/* es */ {IDCLS_ENABLE_USERPORT_DIGIMAX_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_USERPORT_DIGIMAX_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_USERPORT_DIGIMAX_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_USERPORT_DIGIMAX_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_USERPORT_DIGIMAX_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_USERPORT_DIGIMAX_NL, "Userport DigiMAX apparaat inschakelen"},
+/* pl */ {IDCLS_ENABLE_USERPORT_DIGIMAX_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_USERPORT_DIGIMAX_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_USERPORT_DIGIMAX_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_USERPORT_DIGIMAX_TR, ""},  /* fuzzy */
+#endif
+
+/* userport/userport_digimax.c */
+/* en */ {IDCLS_DISABLE_USERPORT_DIGIMAX,    N_("Disable the userport DigiMAX device")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_USERPORT_DIGIMAX_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_USERPORT_DIGIMAX_DE, "Userport DigiMAX Gerät deaktivieren"},
+/* es */ {IDCLS_DISABLE_USERPORT_DIGIMAX_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_USERPORT_DIGIMAX_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_USERPORT_DIGIMAX_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_USERPORT_DIGIMAX_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_USERPORT_DIGIMAX_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_USERPORT_DIGIMAX_NL, "Userport DigiMAX apparaat uitschakelen"},
+/* pl */ {IDCLS_DISABLE_USERPORT_DIGIMAX_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_USERPORT_DIGIMAX_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_USERPORT_DIGIMAX_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_USERPORT_DIGIMAX_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/shortbus_digimax.c */
+/* en */ {IDCLS_ENABLE_SHORTBUS_DIGIMAX,    N_("Enable the Short Bus DigiMAX expansion")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_SHORTBUS_DIGIMAX_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_SHORTBUS_DIGIMAX_DE, "Shortbus DigiMAX Erweiterung aktivieren"},
+/* es */ {IDCLS_ENABLE_SHORTBUS_DIGIMAX_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_SHORTBUS_DIGIMAX_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_SHORTBUS_DIGIMAX_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_SHORTBUS_DIGIMAX_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_SHORTBUS_DIGIMAX_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_SHORTBUS_DIGIMAX_NL, "Short Bus DigiMAX uitbreiding inschakelen"},
+/* pl */ {IDCLS_ENABLE_SHORTBUS_DIGIMAX_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_SHORTBUS_DIGIMAX_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_SHORTBUS_DIGIMAX_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_SHORTBUS_DIGIMAX_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/shortbus_digimax.c */
+/* en */ {IDCLS_DISABLE_SHORTBUS_DIGIMAX,    N_("Disable the Short Bus DigiMAX expansion")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_SHORTBUS_DIGIMAX_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_SHORTBUS_DIGIMAX_DE, "Shortbus DigiMAX Erweiterung deaktivieren"},
+/* es */ {IDCLS_DISABLE_SHORTBUS_DIGIMAX_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_SHORTBUS_DIGIMAX_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_SHORTBUS_DIGIMAX_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_SHORTBUS_DIGIMAX_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_SHORTBUS_DIGIMAX_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_SHORTBUS_DIGIMAX_NL, "Short Bus DigiMAX uitbreiding uitschakelen"},
+/* pl */ {IDCLS_DISABLE_SHORTBUS_DIGIMAX_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_SHORTBUS_DIGIMAX_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_SHORTBUS_DIGIMAX_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_SHORTBUS_DIGIMAX_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/shortbus_etfe.c */
+/* en */ {IDCLS_ENABLE_SHORTBUS_ETFE,    N_("Enable the Short Bus ETFE expansion")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_SHORTBUS_ETFE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_SHORTBUS_ETFE_DE, "Short Bus ETFE Erweiterung aktivieren"},
+/* es */ {IDCLS_ENABLE_SHORTBUS_ETFE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_SHORTBUS_ETFE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_SHORTBUS_ETFE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_SHORTBUS_ETFE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_SHORTBUS_ETFE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_SHORTBUS_ETFE_NL, "Short Bus ETFE uitbreiding inschakelen"},
+/* pl */ {IDCLS_ENABLE_SHORTBUS_ETFE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_SHORTBUS_ETFE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_SHORTBUS_ETFE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_SHORTBUS_ETFE_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/shortbus_etfe.c */
+/* en */ {IDCLS_DISABLE_SHORTBUS_ETFE,    N_("Disable the Short Bus ETFE expansion")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_SHORTBUS_ETFE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_SHORTBUS_ETFE_DE, "Short Bus ETFE Erweiterung deaktivieren"},
+/* es */ {IDCLS_DISABLE_SHORTBUS_ETFE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_SHORTBUS_ETFE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_SHORTBUS_ETFE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_SHORTBUS_ETFE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_SHORTBUS_ETFE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_SHORTBUS_ETFE_NL, "Short Bus ETFE uitbreiding uitschakelen"},
+/* pl */ {IDCLS_DISABLE_SHORTBUS_ETFE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_SHORTBUS_ETFE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_SHORTBUS_ETFE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_SHORTBUS_ETFE_TR, ""},  /* fuzzy */
 #endif
 
 /* c64/cart/digimax.c */
@@ -16669,7 +18827,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_DIGIMAX_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_DIGIMAX_IT, "Attiva la cartuccia DigiMAX"},
 /* ko */ {IDCLS_ENABLE_DIGIMAX_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_DIGIMAX_NL, "Activeer de DigiMAX cartridge"},
+/* nl */ {IDCLS_ENABLE_DIGIMAX_NL, "DigiMAX cartridge inschakelen"},
 /* pl */ {IDCLS_ENABLE_DIGIMAX_PL, "W³±cz kartrid¿ DigiMAX"},
 /* ru */ {IDCLS_ENABLE_DIGIMAX_RU, "Enable the DigiMAX cartridge"},
 /* sv */ {IDCLS_ENABLE_DIGIMAX_SV, "Aktivera DigiMAX-insticksmodul"},
@@ -16686,7 +18844,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_DIGIMAX_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_DIGIMAX_IT, "Disattiva la cartuccia DigiMAX"},
 /* ko */ {IDCLS_DISABLE_DIGIMAX_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_DIGIMAX_NL, "De DigiMAX cartridge uitschakelen"},
+/* nl */ {IDCLS_DISABLE_DIGIMAX_NL, "DigiMAX cartridge uitschakelen"},
 /* pl */ {IDCLS_DISABLE_DIGIMAX_PL, "Wy³±cz kartrid¿ DigiMAX"},
 /* ru */ {IDCLS_DISABLE_DIGIMAX_RU, "Disable the DigiMAX cartridge"},
 /* sv */ {IDCLS_DISABLE_DIGIMAX_SV, "Inaktivera DigiMAX-insticksmodul"},
@@ -16710,6 +18868,40 @@ translate_t string_table[] = {
 /* tr */ {IDCLS_DIGIMAX_BASE_TR, "DigiMAX kartuþunun taban adresi"},
 #endif
 
+/* c64/cart/shortbus_digimax.c */
+/* en */ {IDCLS_SHORTBUS_DIGIMAX_BASE,    N_("Base address of the Short Bus DigiMAX expansion")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_SHORTBUS_DIGIMAX_BASE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_SHORTBUS_DIGIMAX_BASE_DE, "Basis Adresse für Shortbus DigiMAX Erweiterung"},
+/* es */ {IDCLS_SHORTBUS_DIGIMAX_BASE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_SHORTBUS_DIGIMAX_BASE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_SHORTBUS_DIGIMAX_BASE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_SHORTBUS_DIGIMAX_BASE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_SHORTBUS_DIGIMAX_BASE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_SHORTBUS_DIGIMAX_BASE_NL, "Basisadres van de Short Bus DigiMAX uitbreiding"},
+/* pl */ {IDCLS_SHORTBUS_DIGIMAX_BASE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_SHORTBUS_DIGIMAX_BASE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_SHORTBUS_DIGIMAX_BASE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_SHORTBUS_DIGIMAX_BASE_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/shortbus_etfe.c */
+/* en */ {IDCLS_SHORTBUS_ETFE_BASE,    N_("Base address of the Short Bus ETFE expansion")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_SHORTBUS_ETFE_BASE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_SHORTBUS_ETFE_BASE_DE, "Basis Adresse für Short Bus ETFE Erweiterung"},
+/* es */ {IDCLS_SHORTBUS_ETFE_BASE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_SHORTBUS_ETFE_BASE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_SHORTBUS_ETFE_BASE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_SHORTBUS_ETFE_BASE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_SHORTBUS_ETFE_BASE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_SHORTBUS_ETFE_BASE_NL, "Basisadres van de Short Bus ETFE uitbreiding"},
+/* pl */ {IDCLS_SHORTBUS_ETFE_BASE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_SHORTBUS_ETFE_BASE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_SHORTBUS_ETFE_BASE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_SHORTBUS_ETFE_BASE_TR, ""},  /* fuzzy */
+#endif
+
 /* c64/cart/ds12c887rtc.c */
 /* en */ {IDCLS_ENABLE_DS12C887RTC,    N_("Enable the DS12C887 RTC cartridge")},
 #ifdef HAS_TRANSLATION
@@ -16720,7 +18912,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_DS12C887RTC_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_DS12C887RTC_IT, "Attiva la cartuccia DS12C887 RTC"},
 /* ko */ {IDCLS_ENABLE_DS12C887RTC_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_DS12C887RTC_NL, "Activeer de DS12C887 RTC cartridge"},
+/* nl */ {IDCLS_ENABLE_DS12C887RTC_NL, "DS12C887 RTC cartridge inschakelen"},
 /* pl */ {IDCLS_ENABLE_DS12C887RTC_PL, "W³±cz kartrid¿ DS12C887 RTC"},
 /* ru */ {IDCLS_ENABLE_DS12C887RTC_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_DS12C887RTC_SV, "Aktivera DS12C887 RTC-insticksmodul"},
@@ -16737,7 +18929,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_DS12C887RTC_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_DS12C887RTC_IT, "Disattiva la cartuccia DS12C887 RTC"},
 /* ko */ {IDCLS_DISABLE_DS12C887RTC_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_DS12C887RTC_NL, "De DS12C887 RTC cartridge uitschakelen"},
+/* nl */ {IDCLS_DISABLE_DS12C887RTC_NL, "DS12C887 RTC cartridge uitschakelen"},
 /* pl */ {IDCLS_DISABLE_DS12C887RTC_PL, "Wy³±cz kartrid¿ DS12C887 RTC"},
 /* ru */ {IDCLS_DISABLE_DS12C887RTC_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_DS12C887RTC_SV, "Inaktivera DS12C887 RTC-insticksmodul"},
@@ -16754,7 +18946,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DS12C887RTC_RUNMODE_HALTED_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DS12C887RTC_RUNMODE_HALTED_IT, "Imposta l'oscillatore RTC a 'halted'"},
 /* ko */ {IDCLS_DS12C887RTC_RUNMODE_HALTED_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DS12C887RTC_RUNMODE_HALTED_NL, "Zet de RTC oscillator als 'gestopt'"},
+/* nl */ {IDCLS_DS12C887RTC_RUNMODE_HALTED_NL, "Stel de RTC oscillator in als 'gestopt'"},
 /* pl */ {IDCLS_DS12C887RTC_RUNMODE_HALTED_PL, "Ustaw oscylator RTC jako 'zatrzymany'"},
 /* ru */ {IDCLS_DS12C887RTC_RUNMODE_HALTED_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DS12C887RTC_RUNMODE_HALTED_SV, ""},  /* fuzzy */
@@ -16771,7 +18963,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DS12C887RTC_RUNMODE_RUNNING_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DS12C887RTC_RUNMODE_RUNNING_IT, "Imposta l'oscillatore RTC a 'running'"},
 /* ko */ {IDCLS_DS12C887RTC_RUNMODE_RUNNING_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DS12C887RTC_RUNMODE_RUNNING_NL, "Zet de RTC oscillator als 'werkend'"},
+/* nl */ {IDCLS_DS12C887RTC_RUNMODE_RUNNING_NL, "Stel de RTC oscillator in als 'werkend'"},
 /* pl */ {IDCLS_DS12C887RTC_RUNMODE_RUNNING_PL, "Ustaw oscylator RTC jako 'uruchomiony'"},
 /* ru */ {IDCLS_DS12C887RTC_RUNMODE_RUNNING_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DS12C887RTC_RUNMODE_RUNNING_SV, ""},  /* fuzzy */
@@ -16805,7 +18997,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_DS12C887RTC_SAVE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_DS12C887RTC_SAVE_IT, "Attiva il salvataggio dei dati RTC del DS12C887 alla modifica."},
 /* ko */ {IDCLS_ENABLE_DS12C887RTC_SAVE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_DS12C887RTC_SAVE_NL, "Activeer opslaan van de DS12C887 RTC data indien gewijzigd."},
+/* nl */ {IDCLS_ENABLE_DS12C887RTC_SAVE_NL, "Opslaan van de DS12C887 RTC gegevens bij wijziging inschakelen."},
 /* pl */ {IDCLS_ENABLE_DS12C887RTC_SAVE_PL, "Zapisuj dane zegara czasu rzeczywistego DS12C887 przy zmianie"},
 /* ru */ {IDCLS_ENABLE_DS12C887RTC_SAVE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_DS12C887RTC_SAVE_SV, ""},  /* fuzzy */
@@ -16822,11 +19014,28 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_DISABLE_DS12C887RTC_SAVE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_DISABLE_DS12C887RTC_SAVE_IT, "Disattiva il salvataggio dei dati RTC del DS12C887 alla modifica."},
 /* ko */ {IDCLS_DISABLE_DS12C887RTC_SAVE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_DISABLE_DS12C887RTC_SAVE_NL, "Opslaan van de DS12C887 RTC data indien gewijzigd uitschakelen."},
+/* nl */ {IDCLS_DISABLE_DS12C887RTC_SAVE_NL, "Opslaan van de DS12C887 RTC gegevens bij wijziging uitschakelen."},
 /* pl */ {IDCLS_DISABLE_DS12C887RTC_SAVE_PL, "Nie zapisuj danych zegara czasu rzeczywistego DS12C887 przy zmianie"},
 /* ru */ {IDCLS_DISABLE_DS12C887RTC_SAVE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_DS12C887RTC_SAVE_SV, ""},  /* fuzzy */
 /* tr */ {IDCLS_DISABLE_DS12C887RTC_SAVE_TR, ""},  /* fuzzy */
+#endif
+
+/* c64/cart/rrnetmk3.c */
+/* en */ {IDCLS_CLOCKPORT_DEVICE,    N_("Clockport device")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_CLOCKPORT_DEVICE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_CLOCKPORT_DEVICE_DE, "Clockport Gerät"},
+/* es */ {IDCLS_CLOCKPORT_DEVICE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_CLOCKPORT_DEVICE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_CLOCKPORT_DEVICE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_CLOCKPORT_DEVICE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_CLOCKPORT_DEVICE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_CLOCKPORT_DEVICE_NL, "Clockport apparaat"},
+/* pl */ {IDCLS_CLOCKPORT_DEVICE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_CLOCKPORT_DEVICE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_CLOCKPORT_DEVICE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_CLOCKPORT_DEVICE_TR, ""},  /* fuzzy */
 #endif
 
 #ifdef HAVE_NETWORK
@@ -16874,7 +19083,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_NETPLAY_SERVER_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_NETPLAY_SERVER_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_NETPLAY_SERVER_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_NETPLAY_SERVER_NL, "Zet de netplay server hostnaam"},
+/* nl */ {IDCLS_SET_NETPLAY_SERVER_NL, "Stel de netplay server hostnaam in"},
 /* pl */ {IDCLS_SET_NETPLAY_SERVER_PL, "Wprowad¼ nazwê serwera gry sieciowej"},
 /* ru */ {IDCLS_SET_NETPLAY_SERVER_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_NETPLAY_SERVER_SV, ""},  /* fuzzy */
@@ -16891,7 +19100,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_NETPLAY_BIND_ADDRESS_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_NETPLAY_BIND_ADDRESS_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_NETPLAY_BIND_ADDRESS_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_NETPLAY_BIND_ADDRESS_NL, "Zet de netplay binding adres"},
+/* nl */ {IDCLS_SET_NETPLAY_BIND_ADDRESS_NL, "Stel het netplay binding adres in"},
 /* pl */ {IDCLS_SET_NETPLAY_BIND_ADDRESS_PL, "Wprowad¼ adres gry sieciowej"},
 /* ru */ {IDCLS_SET_NETPLAY_BIND_ADDRESS_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_NETPLAY_BIND_ADDRESS_SV, ""},  /* fuzzy */
@@ -16908,7 +19117,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_NETPLAY_PORT_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_NETPLAY_PORT_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_NETPLAY_PORT_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_NETPLAY_PORT_NL, "Zet de netplay poort (0..65535)"},
+/* nl */ {IDCLS_SET_NETPLAY_PORT_NL, "Stel de netplay poort in (0..65535)"},
 /* pl */ {IDCLS_SET_NETPLAY_PORT_PL, "Wybierz port TCP gry sieciowej (0..65535)"},
 /* ru */ {IDCLS_SET_NETPLAY_PORT_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_NETPLAY_PORT_SV, ""},  /* fuzzy */
@@ -16925,7 +19134,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_NETPLAY_CONTROL_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_NETPLAY_CONTROL_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_NETPLAY_CONTROL_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_NETPLAY_CONTROL_NL, "Zet de netplay controlle onderdelen (toetsenbord, joystick1, joystick2, apparaten en resources), elk onderdeel heeft een waarde (0: Geen, 1: Server, 2: Client, 3: Beiden)"},
+/* nl */ {IDCLS_SET_NETPLAY_CONTROL_NL, "Stel de netplay besturingsonderdelen in (toetsenbord, joystick1, joystick2, apparaten en bronnen), elk onderdeel heeft een waarde (0: Geen, 1: Server, 2: Client, 3: Beide)"},
 /* pl */ {IDCLS_SET_NETPLAY_CONTROL_PL, "Ustaw elementy kontrolne gry sieciowej (klawiatura, jostick1, joystick2, urz±dzenia i zasoby), ka¿dy element przyjmuje warto¶æ (0: Brak, 1: Serwer, 2: Klient, 3: Serwer+Klient)"},
 /* ru */ {IDCLS_SET_NETPLAY_CONTROL_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_NETPLAY_CONTROL_SV, ""},  /* fuzzy */
@@ -16960,7 +19169,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_JIFFY_SWITCH_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_JIFFY_SWITCH_IT, "Attiva pulsante Jiffy"},
 /* ko */ {IDCLS_ENABLE_JIFFY_SWITCH_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_JIFFY_SWITCH_NL, "Activeer Jiffy schakelaar"},
+/* nl */ {IDCLS_ENABLE_JIFFY_SWITCH_NL, "Jiffy schakelaar inschakelen"},
 /* pl */ {IDCLS_ENABLE_JIFFY_SWITCH_PL, "W³±cz prze³±cznik Jiffy"},
 /* ru */ {IDCLS_ENABLE_JIFFY_SWITCH_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_JIFFY_SWITCH_SV, "Slå på Jiffyomkopplare"},
@@ -16994,7 +19203,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_SPEED_SWITCH_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_SPEED_SWITCH_IT, "Attiva pulsante di velocità"},
 /* ko */ {IDCLS_ENABLE_SPEED_SWITCH_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_SPEED_SWITCH_NL, "Activeer snelheid schakelaar"},
+/* nl */ {IDCLS_ENABLE_SPEED_SWITCH_NL, "Snelheid schakelaar inschakelen"},
 /* pl */ {IDCLS_ENABLE_SPEED_SWITCH_PL, "W³±cz prze³±cznik Speed"},
 /* ru */ {IDCLS_ENABLE_SPEED_SWITCH_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_SPEED_SWITCH_SV, "Slå på hastighetsomkopplare"},
@@ -17028,7 +19237,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_HIRES_EMULATION_BOARD_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_HIRES_EMULATION_BOARD_IT, "Attiva scheda HiRes Emulation"},
 /* ko */ {IDCLS_ENABLE_HIRES_EMULATION_BOARD_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_HIRES_EMULATION_BOARD_NL, "Activeer PET High Res Emulation bord"},
+/* nl */ {IDCLS_ENABLE_HIRES_EMULATION_BOARD_NL, "PET High Res Emulation bord inschakelen"},
 /* pl */ {IDCLS_ENABLE_HIRES_EMULATION_BOARD_PL, "W³±cz kartê emulacji HiRes"},
 /* ru */ {IDCLS_ENABLE_HIRES_EMULATION_BOARD_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_ENABLE_HIRES_EMULATION_BOARD_SV, "Aktivera högupplösningsemuleringskort"},
@@ -17063,7 +19272,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_SET_RAW_DRIVE_DEVICE_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_SET_RAW_DRIVE_DEVICE_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_RAW_DRIVE_DEVICE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_RAW_DRIVE_DEVICE_NL, "Zet binair drive bestandsnaam"},
+/* nl */ {IDCLS_SET_RAW_DRIVE_DEVICE_NL, "Stel binair drive apparaatnaam in"},
 /* pl */ {IDCLS_SET_RAW_DRIVE_DEVICE_PL, "Wprowad¼ nazwê urz±dzenia surowego napêdu"},
 /* ru */ {IDCLS_SET_RAW_DRIVE_DEVICE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_RAW_DRIVE_DEVICE_SV, ""},  /* fuzzy */

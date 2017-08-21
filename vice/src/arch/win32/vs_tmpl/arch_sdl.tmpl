@@ -29,6 +29,7 @@ INCLUDEDIRS =
 	plus4
 	raster
 	rs232drv
+	samplerdrv
 	sid
 	userport
 	vdrive
@@ -38,11 +39,9 @@ INCLUDEDIRS =
 SOURCES =
 	arch\sdl\archdep.c
 	arch\sdl\blockdev.c
-	arch\sdl\catweaselmkiii.c
 	arch\sdl\console.c
 	arch\sdl\dynlib.c
 	arch\sdl\fullscreen.c
-	arch\sdl\hardsid.c
 	arch\sdl\joy.c
 	arch\sdl\kbd.c
 	arch\sdl\lightpendrv.c
@@ -59,12 +58,16 @@ SOURCES =
 	arch\sdl\menu_debug.c
 	arch\sdl\menu_drive.c
 	arch\sdl\menu_drive_rom.c
+	arch\sdl\menu_ethernet.c
+	arch\sdl\menu_ethernetcart.c
 	arch\sdl\menu_ffmpeg.c
 	arch\sdl\menu_help.c
 	arch\sdl\menu_jam.c
 	arch\sdl\menu_joystick.c
 	arch\sdl\menu_joyport.c
+	arch\sdl\menu_media.c
 	arch\sdl\menu_midi.c
+	arch\sdl\menu_monitor.c
 	arch\sdl\menu_mouse.c
 	arch\sdl\menu_network.c
 	arch\sdl\menu_petcart.c
@@ -76,6 +79,7 @@ SOURCES =
 	arch\sdl\menu_reset.c
 	arch\sdl\menu_rom.c
 	arch\sdl\menu_rs232.c
+	arch\sdl\menu_sampler.c
 	arch\sdl\menu_scpu64hw.c
 	arch\sdl\menu_screenshot.c
 	arch\sdl\menu_settings.c
@@ -84,7 +88,6 @@ SOURCES =
 	arch\sdl\menu_sound.c
 	arch\sdl\menu_speed.c
 	arch\sdl\menu_tape.c
-	arch\sdl\menu_tfe.c
 	arch\sdl\menu_vic20cart.c
 	arch\sdl\menu_vic20hw.c
 	arch\sdl\menu_video.c

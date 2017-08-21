@@ -2,7 +2,7 @@
  * archdep_amiga.c
  *
  * Written by
- *  Mathias Roslund <vice.emu@amidog.se>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -51,6 +51,7 @@
 #include "archdep.h"
 #include "findpath.h"
 #include "ioutil.h"
+#include "keyboard.h"
 #include "lib.h"
 #include "log.h"
 #include "machine.h"
@@ -101,30 +102,6 @@ int SDL_Init(Uint32 flags)
     return SDL_RealInit(flags);
 }
 #endif
-
-int archdep_network_init(void)
-{
-#ifndef AMIGA_OS4
-    if (SocketBase == NULL) {
-        SocketBase = OpenLibrary("bsdsocket.library", 3);
-        if (SocketBase == NULL) {
-            return -1;
-        }
-    }
-#endif
-
-    return 0;
-}
-
-void archdep_network_shutdown(void)
-{
-#ifndef AMIGA_OS4
-    if (SocketBase != NULL) {
-        CloseLibrary(SocketBase);
-        SocketBase = NULL;
-    }
-#endif
-}
 
 int archdep_init_extra(int *argc, char **argv)
 {
@@ -478,6 +455,8 @@ void archdep_set_current_drive(const char *drive)
     if (lck) {
         CurrentDir(lck);
         Unlock(lck);
+    } else {
+        ui_error("Failed to change to drive %s", drive);
     }
 }
 

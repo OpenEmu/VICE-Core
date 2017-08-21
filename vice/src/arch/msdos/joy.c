@@ -3,6 +3,7 @@
  *
  * Written by
  *  Ettore Perazzoli <ettore@comm2000.it>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -94,6 +95,9 @@ static int set_joystick_hw_type(int val, void *param)
                 if (joystick_port_map[3] == JOYDEV_HW2) {
                     joystick_set_value_absolute(4, 0);
                 }
+                if (joystick_port_map[4] == JOYDEV_HW2) {
+                    joystick_set_value_absolute(5, 0);
+                }
             }
         }
         if (joystick_hw_type == 0 && old_joystick_hw_type != 0) {
@@ -109,6 +113,9 @@ static int set_joystick_hw_type(int val, void *param)
             if (joystick_port_map[3] == JOYDEV_HW1 || joystick_port_map[3] == JOYDEV_HW2) {
                 joystick_set_value_absolute(4, 0);
             }
+            if (joystick_port_map[4] == JOYDEV_HW1 || joystick_port_map[4] == JOYDEV_HW2) {
+                joystick_set_value_absolute(5, 0);
+            }
         }
     }
     
@@ -118,7 +125,7 @@ static int set_joystick_hw_type(int val, void *param)
 static const resource_int_t hwtype_resources_int[] = {
     { "HwJoyType", 0, RES_EVENT_NO, NULL,
       &joystick_hw_type, set_joystick_hw_type, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int joy_arch_resources_init(void)
@@ -202,7 +209,7 @@ static const cmdline_option_t joyhwtypecmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<type>", "Set joystick hardware type (auto/none/standard/dual/4button/6button/8button/fspro/wingex/sidewinderag/sidewinderpp/sidewinder/gamepadpro/grip4/grip/sneslpt1/sneslpt2/sneslpt3/psxlpt1/psxlpt2/psxlpt3/n64lpt1/n64lpt2/n64lpt3/db9lpt1/db9lpt2/db9lpt3/tgxlpt1/tgxlpt2/tgxlpt3/wingwar/ifsegaisa/ifsegapcifast/ifsegapci)" },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev1cmdline_options[] = {
@@ -211,7 +218,7 @@ static const cmdline_option_t joydev1cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<number>", "Set input device for joystick #1 (0: None, 1: Numpad, 2: Keyset 1, 3: Keyset 2, 4: Joystick 1, 5: Joystick 2)" },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev2cmdline_options[] = {
@@ -220,7 +227,7 @@ static const cmdline_option_t joydev2cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<number>", "Set input device for joystick #2 (0: None, 1: Numpad, 2: Keyset 1, 3: Keyset 2, 4: Joystick 1, 5: Joystick 2)" },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev3cmdline_options[] = {
@@ -229,7 +236,7 @@ static const cmdline_option_t joydev3cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<number>", "Set input device for extra joystick #1 (0: None, 1: Numpad, 2: Keyset 1, 3: Keyset 2, 4: Joystick 1, 5: Joystick 2)" },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev4cmdline_options[] = {
@@ -238,7 +245,16 @@ static const cmdline_option_t joydev4cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<number>", "Set input device for extra joystick #2 (0: None, 1: Numpad, 2: Keyset 1, 3: Keyset 2, 4: Joystick 1, 5: Joystick 2)" },
-    { NULL }
+    CMDLINE_LIST_END
+};
+
+static const cmdline_option_t joydev5cmdline_options[] = {
+    { "-extrajoydev3", SET_RESOURCE, 1,
+      NULL, NULL, "JoyDevice5", NULL,
+      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
+      IDCLS_UNUSED, IDCLS_UNUSED,
+      "<number>", "Set input device for extra joystick #3 (0: None, 1: Numpad, 2: Keyset 1, 3: Keyset 2, 4: Joystick 1, 5: Joystick 2)" },
+    CMDLINE_LIST_END
 };
 
 int joy_arch_cmdline_options_init(void)
@@ -267,6 +283,11 @@ int joy_arch_cmdline_options_init(void)
             return -1;
         }
     }
+    if (joyport_get_port_name(JOYPORT_5)) {
+        if (cmdline_register_options(joydev5cmdline_options) < 0) {
+            return -1;
+        }
+    }
 
     return 0;
 }
@@ -289,7 +310,7 @@ void joystick_update(void)
 
     poll_joystick();
 
-    if (joystick_port_map[0] == JOYDEV_HW1 || joystick_port_map[1] == JOYDEV_HW1 || joystick_port_map[2] == JOYDEV_HW1 || joystick_port_map[3] == JOYDEV_HW1) {
+    if (joystick_port_map[0] == JOYDEV_HW1 || joystick_port_map[1] == JOYDEV_HW1 || joystick_port_map[2] == JOYDEV_HW1 || joystick_port_map[3] == JOYDEV_HW1 || joystick_port_map[4] == JOYDEV_HW1) {
         int value = 0;
 
         if (joy_left) {
@@ -319,9 +340,12 @@ void joystick_update(void)
         if (joystick_port_map[3] == JOYDEV_HW1) {
             joystick_set_value_absolute(4, value);
         }
+        if (joystick_port_map[4] == JOYDEV_HW1) {
+            joystick_set_value_absolute(5, value);
+        }
     }
 
-    if (num_joysticks >= 2 && (joystick_port_map[0] == JOYDEV_HW2 || joystick_port_map[1] == JOYDEV_HW2 || joystick_port_map[2] == JOYDEV_HW2 || joystick_port_map[3] == JOYDEV_HW2)) {
+    if (num_joysticks >= 2 && (joystick_port_map[0] == JOYDEV_HW2 || joystick_port_map[1] == JOYDEV_HW2 || joystick_port_map[2] == JOYDEV_HW2 || joystick_port_map[3] == JOYDEV_HW2 || joystick_port_map[4] == JOYDEV_HW2)) {
         int value = 0;
 
         if (joy2_left) {
@@ -350,6 +374,9 @@ void joystick_update(void)
         }
         if (joystick_port_map[3] == JOYDEV_HW2) {
             joystick_set_value_absolute(4, value);
+        }
+        if (joystick_port_map[4] == JOYDEV_HW2) {
+            joystick_set_value_absolute(5, value);
         }
     }
 }

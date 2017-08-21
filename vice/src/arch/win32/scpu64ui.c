@@ -46,13 +46,18 @@
 #include "uidrivec64.h"
 #include "uids12c887rtc.h"
 #include "uieasyflash.h"
+#include "uiethernet.h"
+#include "uiethernetcart.h"
 #include "uiexpert.h"
 #include "uigeoram.h"
+#include "uigmod2.h"
 #include "uiide64.h"
+#include "uiiocollisions.h"
 #include "uiisepic.h"
 #include "uijoyport.h"
 #include "uijoystick.h"
 #include "uikeyboard.h"
+#include "uikeymap.h"
 #include "uilib.h"
 #include "uimagicvoice.h"
 #include "uimidi.h"
@@ -63,13 +68,15 @@
 #include "uiretroreplay.h"
 #include "uireu.h"
 #include "uirom.h"
+#include "uirrnetmk3.h"
 #include "uirs232user.h"
+#include "uisampler.h"
 #include "uiscpu64.h"
 #include "uiscpu64model.h"
 #include "uisid.h"
 #include "uisoundexpander.h"
-#include "uitfe.h"
-#include "uiuserportrtc.h"
+#include "uiuserportrtc58321a.h"
+#include "uiuserportrtcds1307.h"
 #include "uivicii.h"
 #include "uivideo.h"
 #include "util.h"
@@ -93,6 +100,11 @@ static const ui_menu_toggle_t scpu64_ui_menu_toggles[] = {
     { "CartridgeReset", IDM_TOGGLE_CART_RESET },
     { "SFXSoundSampler", IDM_TOGGLE_SFX_SS },
     { "IECReset", IDM_TOGGLE_RESET_IEC_WITH_CPU },
+    { "SSRamExpansion", IDM_TOGGLE_SS5_32K },
+    { "UserportDAC", IDM_TOGGLE_PET_USERPORT_DAC },
+    { "UserportDIGIMAX", IDM_TOGGLE_USERPORT_DIGIMAX },
+    { "Userport4bitSampler", IDM_TOGGLE_USERPORT_4BIT_SAMPLER },
+    { "Userport8BSS", IDM_TOGGLE_USERPORT_8BSS },
     { NULL, 0 }
 };
 
@@ -134,88 +146,12 @@ static const uirom_settings_t uirom_settings[] = {
     { 0, NULL, NULL, 0, 0 }
 };
 
-/* FIXME: the keyboard selection dialog can be made generic */
-#define SCPU64UI_KBD_NUM_MAP 4
-
-static const uikeyboard_mapping_entry_t mapping_entry[SCPU64UI_KBD_NUM_MAP] = {
-    { IDC_C64KBD_MAPPING_SELECT_SYM, IDC_C64KBD_MAPPING_SYM,
-      IDC_C64KBD_MAPPING_SYM_BROWSE, "KeymapSymFile" },
-    { IDC_C64KBD_MAPPING_SELECT_POS, IDC_C64KBD_MAPPING_POS,
-      IDC_C64KBD_MAPPING_POS_BROWSE, "KeymapPosFile" },
-    { IDC_C64KBD_MAPPING_SELECT_USERSYM, IDC_C64KBD_MAPPING_USERSYM,
-      IDC_C64KBD_MAPPING_USERSYM_BROWSE, "KeymapUserSymFile" },
-    { IDC_C64KBD_MAPPING_SELECT_USERPOS, IDC_C64KBD_MAPPING_USERPOS,
-      IDC_C64KBD_MAPPING_USERPOS_BROWSE, "KeymapUserPosFile" },
-};
-
-static uilib_localize_dialog_param scpu64_kbd_trans[] = {
-    { IDC_C64KBD_MAPPING_SELECT_SYM, IDS_SYMBOLIC, 0 },
-    { IDC_C64KBD_MAPPING_SELECT_POS, IDS_POSITIONAL, 0 },
-    { IDC_C64KBD_MAPPING_SELECT_USERSYM, IDS_SYMBOLIC, 0 },
-    { IDC_C64KBD_MAPPING_SELECT_USERPOS, IDS_POSITIONAL, 0 },
-    { IDC_C64KBD_MAPPING_SYM_BROWSE, IDS_BROWSE, 0 },
-    { IDC_C64KBD_MAPPING_POS_BROWSE, IDS_BROWSE, 0 },
-    { IDC_C64KBD_MAPPING_USERSYM_BROWSE, IDS_BROWSE, 0 },
-    { IDC_C64KBD_MAPPING_USERPOS_BROWSE, IDS_BROWSE, 0 },
-    { IDC_C64KBD_MAPPING_DUMP, IDS_DUMP_KEYSET, 0 },
-    { IDC_KBD_SHORTCUT_DUMP, IDS_DUMP_SHORTCUTS, 0 },
-    { 0, 0, 0 }
-};
-
-static uilib_dialog_group scpu64_kbd_left_group[] = {
-    { IDC_C64KBD_MAPPING_SELECT_SYM, 1 },
-    { IDC_C64KBD_MAPPING_SELECT_POS, 1 },
-    { IDC_C64KBD_MAPPING_SELECT_USERSYM, 1 },
-    { IDC_C64KBD_MAPPING_SELECT_USERPOS, 1 },
-    { 0, 0 }
-};
-
-static uilib_dialog_group scpu64_kbd_middle_group[] = {
-    { IDC_C64KBD_MAPPING_SYM, 0 },
-    { IDC_C64KBD_MAPPING_POS, 0 },
-    { IDC_C64KBD_MAPPING_USERSYM, 0 },
-    { IDC_C64KBD_MAPPING_USERPOS, 0 },
-    { 0, 0 }
-};
-
-static uilib_dialog_group scpu64_kbd_right_group[] = {
-    { IDC_C64KBD_MAPPING_SYM_BROWSE, 0 },
-    { IDC_C64KBD_MAPPING_POS_BROWSE, 0 },
-    { IDC_C64KBD_MAPPING_USERSYM_BROWSE, 0 },
-    { IDC_C64KBD_MAPPING_USERPOS_BROWSE, 0 },
-    { 0, 0 }
-};
-
-static uilib_dialog_group scpu64_kbd_buttons_group[] = {
-    { IDC_C64KBD_MAPPING_DUMP, 1 },
-    { IDC_KBD_SHORTCUT_DUMP, 1 },
-    { 0, 0 }
-};
-
-static int scpu64_kbd_move_buttons_group[] = {
-    IDC_C64KBD_MAPPING_DUMP,
-    IDC_KBD_SHORTCUT_DUMP,
-    0
-};
-
-static uikeyboard_config_t uikeyboard_config = {
-    IDD_C64KBD_MAPPING_SETTINGS_DIALOG,
-    SCPU64UI_KBD_NUM_MAP,
-    mapping_entry,
-    IDC_C64KBD_MAPPING_DUMP,
-    scpu64_kbd_trans,
-    scpu64_kbd_left_group,
-    scpu64_kbd_middle_group,
-    scpu64_kbd_right_group,
-    scpu64_kbd_buttons_group,
-    scpu64_kbd_move_buttons_group
-};
-
 ui_menu_translation_table_t scpu64ui_menu_translation_table[] = {
     { IDM_EXIT, IDS_MI_EXIT },
     { IDM_ABOUT, IDS_MI_ABOUT },
     { IDM_HELP, IDS_MP_HELP },
     { IDM_PAUSE, IDS_MI_PAUSE },
+    { IDM_SINGLE_FRAME_ADVANCE, IDS_MI_SINGLE_FRAME_ADVANCE },
     { IDM_EDIT_COPY, IDS_MI_EDIT_COPY },
     { IDM_EDIT_PASTE, IDS_MI_EDIT_PASTE },
     { IDM_AUTOSTART, IDS_MI_AUTOSTART },
@@ -305,6 +241,7 @@ ui_menu_translation_table_t scpu64ui_menu_translation_table[] = {
     { IDM_EXTRA_JOY_SETTINGS, IDS_MI_USERPORT_JOY_SETTINGS },
     { IDM_KEYBOARD_SETTINGS, IDS_MI_KEYBOARD_SETTINGS },
     { IDM_SOUND_SETTINGS, IDS_MI_SOUND_SETTINGS },
+    { IDM_SAMPLER_SETTINGS, IDS_MI_SAMPLER_SETTINGS },
     { IDM_ROM_SETTINGS, IDS_MI_ROM_SETTINGS },
     { IDM_RAM_SETTINGS, IDS_MI_RAM_SETTINGS },
     { IDM_VICII_SETTINGS, IDS_MI_VICII_SETTINGS },
@@ -325,19 +262,23 @@ ui_menu_translation_table_t scpu64ui_menu_translation_table[] = {
     { IDM_MMC64_SETTINGS, IDS_MI_MMC64_SETTINGS },
     { IDM_MMCREPLAY_SETTINGS, IDS_MI_MMCREPLAY_SETTINGS },
     { IDM_RR_SETTINGS, IDS_MI_RR_SETTINGS },
+    { IDM_GMOD2_SETTINGS, IDS_MI_GMOD2_SETTINGS },
+    { IDM_RRNETMK3_SETTINGS, IDS_MI_RRNETMK3_SETTINGS },
     { IDM_MAGICVOICE_SETTINGS, IDS_MI_MAGICVOICE_SETTINGS },
     { IDM_DIGIMAX_SETTINGS, IDS_MI_DIGIMAX_SETTINGS },
     { IDM_DS12C887RTC_SETTINGS, IDS_MI_DS12C887RTC_SETTINGS },
     { IDM_C64BURSTMOD_SETTINGS, IDS_MI_C64BURSTMOD_SETTINGS },
     { IDM_IDE64_SETTINGS, IDS_MI_IDE64_SETTINGS },
-#ifdef HAVE_TFE
-    { IDM_TFE_SETTINGS, IDS_MI_TFE_SETTINGS },
+#ifdef HAVE_PCAP
+    { IDM_ETHERNET_SETTINGS, IDS_MI_ETHERNET_SETTINGS },
+    { IDM_ETHERNETCART_SETTINGS, IDS_MI_ETHERNETCART_SETTINGS },
 #endif
     { IDM_ACIA_SETTINGS, IDS_MI_ACIA_SETTINGS },
     { IDM_RS232USER_SETTINGS, IDS_MI_RS232USER_SETTINGS },
     { IDM_EASYFLASH_SETTINGS, IDS_MI_EASYFLASH_SETTINGS },
     { IDM_SFX_SE_SETTINGS, IDS_MI_SFX_SE_SETTINGS },
     { IDM_TOGGLE_SFX_SS, IDS_MI_TOGGLE_SFX_SS },
+    { IDM_TOGGLE_SS5_32K, IDS_MI_TOGGLE_SS5_32K },
     { IDM_SETTINGS_SAVE_FILE, IDS_MI_SETTINGS_SAVE_FILE },
     { IDM_SETTINGS_LOAD_FILE, IDS_MI_SETTINGS_LOAD_FILE },
     { IDM_SETTINGS_SAVE, IDS_MI_SETTINGS_SAVE },
@@ -367,7 +308,13 @@ ui_menu_translation_table_t scpu64ui_menu_translation_table[] = {
 #ifdef HAVE_D3D9_H
     { IDM_TOGGLE_FULLSCREEN, IDS_MI_TOGGLE_FULLSCREEN },
 #endif
-    { IDM_USERPORT_RTC_SETTINGS, IDS_MI_USERPORT_RTC_SETTINGS },
+    { IDM_USERPORT_RTC_58321A_SETTINGS, IDS_MI_USERPORT_RTC_58321A_SETTINGS },
+    { IDM_USERPORT_RTC_DS1307_SETTINGS, IDS_MI_USERPORT_RTC_DS1307_SETTINGS },
+    { IDM_TOGGLE_PET_USERPORT_DAC, IDS_MI_TOGGLE_PET_USERPORT_DAC },
+    { IDM_TOGGLE_USERPORT_DIGIMAX, IDS_MI_TOGGLE_USERPORT_DIGIMAX },
+    { IDM_TOGGLE_USERPORT_4BIT_SAMPLER, IDS_MI_TOGGLE_USERPORT_4BIT_SAMPLER },
+    { IDM_TOGGLE_USERPORT_8BSS, IDS_MI_TOGGLE_USERPORT_8BSS },
+    { IDM_IO_COLLISION_HANDLING, IDS_MI_IO_COLLISION_HANDLING },
     { 0, 0 }
 };
 
@@ -400,6 +347,7 @@ ui_popup_translation_table_t scpu64ui_popup_translation_table[] = {
     { 2, IDS_MP_JOYSTICK_SETTINGS, NULL },
     { 2, IDS_MP_MOUSE_SETTINGS, NULL },
     { 2, IDS_MP_CARTRIDGE_IO_SETTINGS, NULL },
+    { 3, IDS_MP_USERPORT_DEVICES, NULL },
     { 2, IDS_MP_RS232_SETTINGS, NULL },
     { 1, IDS_MP_LANGUAGE, NULL },
     { 1, IDS_MP_HELP, NULL },
@@ -509,21 +457,21 @@ static uilib_dialog_group scpu64_drive_right_group[] = {
 };
 
 static generic_trans_table_t scpu64_generic_trans[] = {
-    { IDC_1540, "1540" },
-    { IDC_1541, "1541" },
-    { IDC_1541_II, "1541-II" },
-    { IDC_1570, "1570" },
-    { IDC_1571, "1571" },
-    { IDC_1581, "1581" },
-    { IDC_2000, "2000" },
-    { IDC_4000, "4000" },
-    { IDC_2031, "2031" },
-    { IDC_2040, "2040" },
-    { IDC_3040, "3040" },
-    { IDC_4040, "4040" },
-    { IDC_1001, "1001" },
-    { IDC_PROFDOS, "Professional DOS" },
-    { IDC_SUPERCARD, "SuperCard+" },
+    { IDC_1540,      TEXT("1540") },
+    { IDC_1541,      TEXT("1541") },
+    { IDC_1541_II,   TEXT("1541-II") },
+    { IDC_1570,      TEXT("1570") },
+    { IDC_1571,      TEXT("1571") },
+    { IDC_1581,      TEXT("1581") },
+    { IDC_2000,      TEXT("2000") },
+    { IDC_4000,      TEXT("4000") },
+    { IDC_2031,      TEXT("2031") },
+    { IDC_2040,      TEXT("2040") },
+    { IDC_3040,      TEXT("3040") },
+    { IDC_4040,      TEXT("4040") },
+    { IDC_1001,      TEXT("1001") },
+    { IDC_PROFDOS,   TEXT("Professional DOS") },
+    { IDC_SUPERCARD, TEXT("SuperCard+") },
     { 0, NULL }
 };
 
@@ -536,7 +484,6 @@ static void cart_generic_dynmenu(HMENU menu)
 {
     cartridge_info_t *cart_info = cartridge_get_info_list();
     int i;
-    char *name;
 
     cart_min_id = current_dyn_id;
 
@@ -546,9 +493,7 @@ static void cart_generic_dynmenu(HMENU menu)
 
     for (i = 0; cart_info[i].name; ++i) {
         if (cart_info[i].flags == CARTRIDGE_GROUP_GENERIC) {
-            name = util_concat(cart_info[i].name, " ", translate_text(IDS_IMAGE), "...", NULL);
-            AppendMenu(menu, MF_STRING, current_dyn_id++, name);
-            lib_free(name);
+            uic64cart_add_menu_item(menu, cart_info[i].name, current_dyn_id++);
         }
     }
 }
@@ -557,15 +502,12 @@ static void cart_ramex_dynmenu(HMENU menu)
 {
     cartridge_info_t *cart_info = cartridge_get_info_list();
     int i;
-    char *name;
 
     DeleteMenu(menu, 0, MF_BYPOSITION);
 
     for (i = 0; cart_info[i].name; ++i) {
         if (cart_info[i].flags == CARTRIDGE_GROUP_RAMEX) {
-            name = util_concat(cart_info[i].name, " ", translate_text(IDS_IMAGE), "...", NULL);
-            AppendMenu(menu, MF_STRING, current_dyn_id++, name);
-            lib_free(name);
+            uic64cart_add_menu_item(menu, cart_info[i].name, current_dyn_id++);
         }
     }
 }
@@ -574,15 +516,12 @@ static void cart_freezer_dynmenu(HMENU menu)
 {
     cartridge_info_t *cart_info = cartridge_get_info_list();
     int i;
-    char *name;
 
     DeleteMenu(menu, 0, MF_BYPOSITION);
 
     for (i = 0; cart_info[i].name; ++i) {
         if (cart_info[i].flags == CARTRIDGE_GROUP_FREEZER) {
-            name = util_concat(cart_info[i].name, " ", translate_text(IDS_IMAGE), "...", NULL);
-            AppendMenu(menu, MF_STRING, current_dyn_id++, name);
-            lib_free(name);
+            uic64cart_add_menu_item(menu, cart_info[i].name, current_dyn_id++);
         }
     }
 }
@@ -591,15 +530,12 @@ static void cart_game_dynmenu(HMENU menu)
 {
     cartridge_info_t *cart_info = cartridge_get_info_list();
     int i;
-    char *name;
 
     DeleteMenu(menu, 0, MF_BYPOSITION);
 
     for (i = 0; cart_info[i].name; ++i) {
         if (cart_info[i].flags == CARTRIDGE_GROUP_GAME) {
-            name = util_concat(cart_info[i].name, " ", translate_text(IDS_IMAGE), "...", NULL);
-            AppendMenu(menu, MF_STRING, current_dyn_id++, name);
-            lib_free(name);
+            uic64cart_add_menu_item(menu, cart_info[i].name, current_dyn_id++);
         }
     }
 }
@@ -608,15 +544,12 @@ static void cart_util_dynmenu(HMENU menu)
 {
     cartridge_info_t *cart_info = cartridge_get_info_list();
     int i;
-    char *name;
 
     DeleteMenu(menu, 0, MF_BYPOSITION);
 
     for (i = 0; cart_info[i].name; ++i) {
         if (cart_info[i].flags == CARTRIDGE_GROUP_UTIL) {
-            name = util_concat(cart_info[i].name, " ", translate_text(IDS_IMAGE), "...", NULL);
-            AppendMenu(menu, MF_STRING, current_dyn_id++, name);
-            lib_free(name);
+            uic64cart_add_menu_item(menu, cart_info[i].name, current_dyn_id++);
         }
     }
     cart_max_id = current_dyn_id - 1;
@@ -679,6 +612,12 @@ static void scpu64_ui_specific(WPARAM wparam, HWND hwnd)
         case IDM_RR_SETTINGS:
             ui_rr_settings_dialog(hwnd);
             break;
+        case IDM_GMOD2_SETTINGS:
+            ui_gmod2_settings_dialog(hwnd);
+            break;
+        case IDM_RRNETMK3_SETTINGS:
+            ui_rrnetmk3_settings_dialog(hwnd);
+            break;
         case IDM_MAGICVOICE_SETTINGS:
             ui_magicvoice_settings_dialog(hwnd);
             break;
@@ -688,8 +627,11 @@ static void scpu64_ui_specific(WPARAM wparam, HWND hwnd)
         case IDM_DS12C887RTC_SETTINGS:
             ui_ds12c887rtc_settings_dialog(hwnd);
             break;
-        case IDM_USERPORT_RTC_SETTINGS:
-            ui_userport_rtc_settings_dialog(hwnd);
+        case IDM_USERPORT_RTC_58321A_SETTINGS:
+            ui_userport_rtc_58321a_settings_dialog(hwnd);
+            break;
+        case IDM_USERPORT_RTC_DS1307_SETTINGS:
+            ui_userport_rtc_ds1307_settings_dialog(hwnd);
             break;
         case IDM_EASYFLASH_SETTINGS:
             ui_easyflash_settings_dialog(hwnd);
@@ -701,7 +643,7 @@ static void scpu64_ui_specific(WPARAM wparam, HWND hwnd)
             uiide64_settings_dialog(hwnd);
             break;
         case IDM_JOYPORT_SETTINGS:
-            ui_joyport_settings_dialog(hwnd, 1, 1, 1, 1);
+            ui_joyport_settings_dialog(hwnd, 1, 1, 1, 1, 0);
             break;
         case IDM_JOY_SETTINGS:
             ui_joystick_settings_dialog(hwnd);
@@ -716,9 +658,12 @@ static void scpu64_ui_specific(WPARAM wparam, HWND hwnd)
                                   scpu64_main_left_group, scpu64_main_middle_group, scpu64_main_right_group,
                                   scpu64_drive_left_group, scpu64_drive_middle_group, scpu64_drive_right_group);
             break;
-#ifdef HAVE_TFE
-        case IDM_TFE_SETTINGS:
-           ui_tfe_settings_dialog(hwnd);
+#ifdef HAVE_PCAP
+        case IDM_ETHERNET_SETTINGS:
+           ui_ethernet_settings_dialog(hwnd);
+           break;
+        case IDM_ETHERNETCART_SETTINGS:
+           ui_ethernetcart_settings_dialog(hwnd);
            break;
 #endif
         case IDM_VIDEO_SETTINGS:
@@ -734,10 +679,16 @@ static void scpu64_ui_specific(WPARAM wparam, HWND hwnd)
             ui_rs232user_settings_dialog(hwnd);
             break;
         case IDM_KEYBOARD_SETTINGS:
-            uikeyboard_settings_dialog(hwnd, &uikeyboard_config);
+            ui_keymap_settings_dialog(hwnd);
             break;
         case IDM_MOUSE_SETTINGS:
             ui_mouse_settings_dialog(hwnd, 1);
+            break;
+        case IDM_SAMPLER_SETTINGS:
+            ui_sampler_settings_dialog(hwnd);
+            break;
+        case IDM_IO_COLLISION_HANDLING:
+            ui_iocollision_settings_dialog(hwnd);
             break;
     }
 }

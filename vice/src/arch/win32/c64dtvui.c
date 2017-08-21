@@ -5,6 +5,7 @@
  *  Andreas Boose <viceteam@t-online.de>
  *  Ettore Perazzoli <ettore@comm2000.it>
  *  Tibor Biczo <crown@axelero.hu>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -44,9 +45,11 @@
 #include "uijoyport.h"
 #include "uijoystick.h"
 #include "uikeyboard.h"
+#include "uikeymap.h"
 #include "uilib.h"
 #include "uirom.h"
 #include "uirs232user.h"
+#include "uisampler.h"
 #include "uisiddtv.h"
 #include "uivicii.h"
 #include "uivideo.h"
@@ -85,88 +88,12 @@ static const uirom_settings_t uirom_settings[] = {
     { 0, NULL, NULL, 0, 0 }
 };
 
-/* FIXME: the keyboard selection dialog can be made generic */
-#define C64DTVUI_KBD_NUM_MAP 4
-
-static const uikeyboard_mapping_entry_t mapping_entry[C64DTVUI_KBD_NUM_MAP] = {
-    { IDC_C64KBD_MAPPING_SELECT_SYM, IDC_C64KBD_MAPPING_SYM,
-      IDC_C64KBD_MAPPING_SYM_BROWSE, "KeymapSymFile" },
-    { IDC_C64KBD_MAPPING_SELECT_POS, IDC_C64KBD_MAPPING_POS,
-      IDC_C64KBD_MAPPING_POS_BROWSE, "KeymapPosFile" },
-    { IDC_C64KBD_MAPPING_SELECT_USERSYM, IDC_C64KBD_MAPPING_USERSYM,
-      IDC_C64KBD_MAPPING_USERSYM_BROWSE, "KeymapUserSymFile" },
-    { IDC_C64KBD_MAPPING_SELECT_USERPOS, IDC_C64KBD_MAPPING_USERPOS,
-      IDC_C64KBD_MAPPING_USERPOS_BROWSE, "KeymapUserPosFile" },
-};
-
-static uilib_localize_dialog_param c64dtv_kbd_trans[] = {
-    { IDC_C64KBD_MAPPING_SELECT_SYM, IDS_SYMBOLIC, 0 },
-    { IDC_C64KBD_MAPPING_SELECT_POS, IDS_POSITIONAL, 0 },
-    { IDC_C64KBD_MAPPING_SELECT_USERSYM, IDS_SYMBOLIC, 0 },
-    { IDC_C64KBD_MAPPING_SELECT_USERPOS, IDS_POSITIONAL, 0 },
-    { IDC_C64KBD_MAPPING_SYM_BROWSE, IDS_BROWSE, 0 },
-    { IDC_C64KBD_MAPPING_POS_BROWSE, IDS_BROWSE, 0 },
-    { IDC_C64KBD_MAPPING_USERSYM_BROWSE, IDS_BROWSE, 0 },
-    { IDC_C64KBD_MAPPING_USERPOS_BROWSE, IDS_BROWSE, 0 },
-    { IDC_C64KBD_MAPPING_DUMP, IDS_DUMP_KEYSET, 0 },
-    { IDC_KBD_SHORTCUT_DUMP, IDS_DUMP_SHORTCUTS, 0 },
-    { 0, 0, 0 }
-};
-
-static uilib_dialog_group c64dtv_kbd_left_group[] = {
-    { IDC_C64KBD_MAPPING_SELECT_SYM, 1 },
-    { IDC_C64KBD_MAPPING_SELECT_POS, 1 },
-    { IDC_C64KBD_MAPPING_SELECT_USERSYM, 1 },
-    { IDC_C64KBD_MAPPING_SELECT_USERPOS, 1 },
-    { 0, 0 }
-};
-
-static uilib_dialog_group c64dtv_kbd_middle_group[] = {
-    { IDC_C64KBD_MAPPING_SYM, 0 },
-    { IDC_C64KBD_MAPPING_POS, 0 },
-    { IDC_C64KBD_MAPPING_USERSYM, 0 },
-    { IDC_C64KBD_MAPPING_USERPOS, 0 },
-    { 0, 0 }
-};
-
-static uilib_dialog_group c64dtv_kbd_right_group[] = {
-    { IDC_C64KBD_MAPPING_SYM_BROWSE, 0 },
-    { IDC_C64KBD_MAPPING_POS_BROWSE, 0 },
-    { IDC_C64KBD_MAPPING_USERSYM_BROWSE, 0 },
-    { IDC_C64KBD_MAPPING_USERPOS_BROWSE, 0 },
-    { 0, 0 }
-};
-
-static uilib_dialog_group c64dtv_kbd_buttons_group[] = {
-    { IDC_C64KBD_MAPPING_DUMP, 1 },
-    { IDC_KBD_SHORTCUT_DUMP, 1 },
-    { 0, 0 }
-};
-
-static int c64dtv_kbd_move_buttons_group[] = {
-    IDC_C64KBD_MAPPING_DUMP,
-    IDC_KBD_SHORTCUT_DUMP,
-    0
-};
-
-static uikeyboard_config_t uikeyboard_config = {
-    IDD_C64KBD_MAPPING_SETTINGS_DIALOG,
-    C64DTVUI_KBD_NUM_MAP,
-    mapping_entry,
-    IDC_C64KBD_MAPPING_DUMP,
-    c64dtv_kbd_trans,
-    c64dtv_kbd_left_group,
-    c64dtv_kbd_middle_group,
-    c64dtv_kbd_right_group,
-    c64dtv_kbd_buttons_group,
-    c64dtv_kbd_move_buttons_group
-};
-
 ui_menu_translation_table_t c64dtvui_menu_translation_table[] = {
     { IDM_EXIT, IDS_MI_EXIT },
     { IDM_ABOUT, IDS_MI_ABOUT },
     { IDM_HELP, IDS_MP_HELP },
     { IDM_PAUSE, IDS_MI_PAUSE },
+    { IDM_SINGLE_FRAME_ADVANCE, IDS_MI_SINGLE_FRAME_ADVANCE },
     { IDM_EDIT_COPY, IDS_MI_EDIT_COPY },
     { IDM_EDIT_PASTE, IDS_MI_EDIT_PASTE },
     { IDM_AUTOSTART, IDS_MI_AUTOSTART_DISK },
@@ -241,7 +168,6 @@ ui_menu_translation_table_t c64dtvui_menu_translation_table[] = {
     { IDM_TOGGLE_ALWAYSONTOP, IDS_MI_TOGGLE_ALWAYSONTOP },
     { IDM_TOGGLE_CPU_AFFINITY, IDS_MI_TOGGLE_CPU_AFFINITY },
     { IDM_SWAP_JOYSTICK, IDS_MI_SWAP_JOYSTICK },
-    { IDM_SWAP_EXTRA_JOYSTICK, IDS_MI_SWAP_EXTRA_JOYSTICK },
     { IDM_ALLOW_JOY_OPPOSITE_TOGGLE, IDS_MI_ALLOW_JOY_OPPOSITE },
     { IDM_JOYKEYS_TOGGLE, IDS_MI_JOYKEYS_TOGGLE },
     { IDM_TOGGLE_VIRTUAL_DEVICES, IDS_MI_TOGGLE_VIRTUAL_DEVICES },
@@ -255,6 +181,7 @@ ui_menu_translation_table_t c64dtvui_menu_translation_table[] = {
     { IDM_EXTRA_JOY_SETTINGS, IDS_MI_USERPORT_JOY_SETTINGS },
     { IDM_KEYBOARD_SETTINGS, IDS_MI_KEYBOARD_SETTINGS },
     { IDM_SOUND_SETTINGS, IDS_MI_SOUND_SETTINGS },
+    { IDM_SAMPLER_SETTINGS, IDS_MI_SAMPLER_SETTINGS },
     { IDM_ROM_SETTINGS, IDS_MI_ROM_SETTINGS },
     { IDM_RAM_SETTINGS, IDS_MI_RAM_SETTINGS },
     { IDM_VICII_SETTINGS, IDS_MI_VICII_SETTINGS },
@@ -401,14 +328,14 @@ static uilib_dialog_group c64dtv_drive_right_group[] = {
 };
 
 static generic_trans_table_t c64dtv_generic_trans[] = {
-    { IDC_1540, "1540" },
-    { IDC_1541, "1541" },
-    { IDC_1541_II, "1541-II" },
-    { IDC_1570, "1570" },
-    { IDC_1571, "1571" },
-    { IDC_1581, "1581" },
-    { IDC_2000, "2000" },
-    { IDC_4000, "4000" },
+    { IDC_1540,    TEXT("1540") },
+    { IDC_1541,    TEXT("1541") },
+    { IDC_1541_II, TEXT("1541-II") },
+    { IDC_1570,    TEXT("1570") },
+    { IDC_1571,    TEXT("1571") },
+    { IDC_1581,    TEXT("1581") },
+    { IDC_2000,    TEXT("2000") },
+    { IDC_4000,    TEXT("4000") },
     { 0, NULL }
 };
 
@@ -438,7 +365,7 @@ static void c64dtv_ui_specific(WPARAM wparam, HWND hwnd)
             uidrivec64dtv_settings_dialog(hwnd);
             break;
         case IDM_KEYBOARD_SETTINGS:
-            uikeyboard_settings_dialog(hwnd, &uikeyboard_config);
+            ui_keymap_settings_dialog(hwnd);
             break;
         case IDM_ATTACH_DTV_FLASH:
             ui_c64dtv_attach_flash_dialog(hwnd);
@@ -450,7 +377,7 @@ static void c64dtv_ui_specific(WPARAM wparam, HWND hwnd)
             ui_c64dtv_create_flash_dialog(hwnd);
             break;
         case IDM_JOYPORT_SETTINGS:
-            ui_joyport_settings_dialog(hwnd, 1, 1, 1, 0);
+            ui_joyport_settings_dialog(hwnd, 1, 1, 1, 0, 0);
             break;
         case IDM_JOY_SETTINGS:
             ui_joystick_settings_dialog(hwnd);
@@ -460,6 +387,9 @@ static void c64dtv_ui_specific(WPARAM wparam, HWND hwnd)
             break;
         case IDM_C64DTV_SETTINGS:
             ui_c64dtv_settings_dialog(hwnd);
+            break;
+        case IDM_SAMPLER_SETTINGS:
+            ui_sampler_settings_dialog(hwnd);
             break;
     }
 }
