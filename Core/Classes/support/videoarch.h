@@ -28,6 +28,8 @@
 #ifndef videoarch_h
 #define videoarch_h
 
+#define MAX_CANVAS_NUM 2
+
 #include "video.h"
 
 /* custom canvas structure for MacVICE */
@@ -35,7 +37,17 @@ struct video_canvas_s
 {
     unsigned int initialized;
     unsigned int created;
+
+    /* Index of the canvas, needed for x128 and xcbm2 */
+    int index;
+
+     /* Size of the drawable canvas area, including the black borders */
     unsigned int width, height, depth;
+    /* Size of the canvas as requested by the emulator itself */
+    unsigned int real_width, real_height;
+    /* Actual size of the window; in most cases the same as width/height */
+    unsigned int actual_width, actual_height;
+
     struct video_render_config_s *videoconfig;
     struct draw_buffer_s *draw_buffer;
     struct viewport_s *viewport;
@@ -48,5 +60,6 @@ struct video_canvas_s
     int pitch;                  /* pitch width of scanline in byte */
 };
 typedef struct video_canvas_s video_canvas_t;
+
 
 #endif /* videoarch_h */

@@ -113,6 +113,11 @@ void ui_update_menus()
 {
 }
 
+void ui_check_mouse_cursor(void)
+{
+}
+
+
 // ----- Alerts & Dialogs -----
 
 void ui_error(const char *format, ...)
