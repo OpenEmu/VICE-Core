@@ -142,10 +142,19 @@ static void emu_pause_trap(uint16_t a, void * b)
     // This routine is called by the emulated CPU interrupt on the Emulated CPU thread
     //    it will pause the CPU until the core thread releases it
 
-    // There is a slight chance that vSync was called between the CPU interrupt
-    //    trap set and the interrupt trigger so check for vSync and return if it was set
-    if (!running || vSync_held) {
+    if (!running) {
         return;
+    }
+
+    // There is a slight chance that vSync was called between the CPU interrupt
+    //    trap set and the interrupt trigger so check for vSync
+    //    and release the hold before continuing
+    if (vSync_held) {
+        // If the CPU is in a vSyn hold, relases it now
+        dispatch_semaphore_signal(sem_vSync_hold);
+
+        // wait until vSync is released
+        dispatch_semaphore_wait(sem_CPU_pause, DISPATCH_TIME_FOREVER);
     }
 
     CPU_paused = true;
