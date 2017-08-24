@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Matthies <andreas.matthies@gmx.net>
+ *  Marcus Sutton <loggedoubt@gmail.com>
  *
  * FIXME: Due to some problems with Be's BJoystick implementation
  * the current implementation is quite ugly and should be rewritten
@@ -69,18 +70,6 @@ static int joystick_initialized = 0;
 /* array that holds all recognized hardware sticks */
 hardware_joystick_t hardware_joystick[MAX_HARDWARE_JOYSTICK];
 int hardware_joystick_count = 0;
-
-#if 0
-#define KEYSET_FIRE 0
-#define KEYSET_SW   1
-#define KEYSET_S    2
-#define KEYSET_SE   3
-#define KEYSET_W    4
-#define KEYSET_E    5
-#define KEYSET_NW   6
-#define KEYSET_N    7
-#define KEYSET_NE   8
-#endif
 
 static void joystick_close_device(int port_idx)
 {
@@ -170,7 +159,7 @@ static const cmdline_option_t joydev1cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<number>", "Set input device for joystick #1 (0: None, 1: Numpad, 2: Keyset 1, 3: Keyset 2, 4..19: Hardware joysticks)" },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev2cmdline_options[] = {
@@ -179,7 +168,7 @@ static const cmdline_option_t joydev2cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<number>", "Set input device for joystick #2 (0: None, 1: Numpad, 2: Keyset 1, 3: Keyset 2, 4..19: Hardware joysticks)" },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev3cmdline_options[] = {
@@ -188,7 +177,7 @@ static const cmdline_option_t joydev3cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<number>", "Set input device for extra joystick #1 (0: None, 1: Numpad, 2: Keyset 1, 3: Keyset 2, 4..19: Hardware joysticks)" },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev4cmdline_options[] = {
@@ -197,7 +186,16 @@ static const cmdline_option_t joydev4cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<number>", "Set input device for extra joystick #2 (0: None, 1: Numpad, 2: Keyset 1, 3: Keyset 2, 4..19: Hardware joysticks)" },
-    { NULL }
+    CMDLINE_LIST_END
+};
+
+static const cmdline_option_t joydev5cmdline_options[] = {
+    { "-extrajoydev3", SET_RESOURCE, 1,
+      NULL, NULL, "JoyDevice5", NULL,
+      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
+      IDCLS_UNUSED, IDCLS_UNUSED,
+      "<number>", "Set input device for extra joystick #3 (0: None, 1: Numpad, 2: Keyset 1, 3: Keyset 2, 4..19: Hardware joysticks)" },
+    CMDLINE_LIST_END
 };
 
 int joy_arch_cmdline_options_init(void)
@@ -219,6 +217,11 @@ int joy_arch_cmdline_options_init(void)
     }
     if (joyport_get_port_name(JOYPORT_4)) {
         if (cmdline_register_options(joydev4cmdline_options) < 0) {
+            return -1;
+        }
+    }
+    if (joyport_get_port_name(JOYPORT_5)) {
+        if (cmdline_register_options(joydev5cmdline_options) < 0) {
             return -1;
         }
     }
@@ -265,6 +268,7 @@ int joy_arch_init(void)
     joystick_open_device(1, joystick_port_map[1]);
     joystick_open_device(2, joystick_port_map[2]);
     joystick_open_device(3, joystick_port_map[3]);
+    joystick_open_device(4, joystick_port_map[4]);
 
     return 0;
 }
@@ -328,49 +332,6 @@ void joystick_update(void)
     }
 }
 
-#if 0
-/* Joystick-through-keyboard.
-   This code has done nothing since VICE 1.21, but was still executed as
-   recently as 2.3.12
-*/
-BYTE handle_keyset_mapping(int joyport, int *set, kbd_code_t kcode, int pressed)
-{
-    BYTE value = 0;
-
-    {
-        if (kcode == set[KEYSET_NW]) {    /* North-West */
-            value = 5;
-        } else if (kcode == set[KEYSET_N]) { /* North */
-            value = 1;
-        } else if (kcode == set[KEYSET_NE]) { /* North-East */
-            value = 9;
-        } else if (kcode == set[KEYSET_E]) { /* East */
-            value = 8;
-        } else if (kcode == set[KEYSET_SE]) { /* South-East */
-            value = 10;
-        } else if (kcode == set[KEYSET_S]) { /* South */
-            value = 2;
-        } else if (kcode == set[KEYSET_SW]) { /* South-West */
-            value = 6;
-        } else if (kcode == set[KEYSET_W]) { /* West */
-            value = 4;
-        } else if (kcode == set[KEYSET_FIRE]) { /* Fire */
-            value = 16;
-        } else {
-            return 0;
-        }
-
-        if (pressed) {
-            joystick_set_value_or(joyport, value);
-        } else {
-            joystick_set_value_and(joyport, (BYTE) ~value);
-        }
-    }
-
-    return value;
-}
-#endif
-
 /* FIXME: src/joystick.c has code which handles keysets and also numpad.
    The numpad code here functions slightly differently and overrides the
    common code. The two should be merged. */
@@ -426,17 +387,6 @@ int joystick_handle_key(kbd_code_t kcode, int pressed)
                 joystick_set_value_and(port_idx + 1, (BYTE) ~value);
             }
         }
-
-#if 0
-        /* Notice we have to handle all the keysets even when one key is used
-           more than once (the most intuitive behavior).  */
-        if (joy_dev == JOYDEV_KEYSET1) {
-            value |= handle_keyset_mapping(port_idx + 1, keyset1, kcode, pressed);
-        }
-        if (joy_dev == JOYDEV_KEYSET2) {
-            value |= handle_keyset_mapping(port_idx + 1, keyset2, kcode, pressed);
-        }
-#endif
     }
 
     return value;

@@ -43,7 +43,6 @@
 #include "network.h"
 #include "resources.h"
 #include "serial.h"
-#include "snapshot.h"
 #include "translate.h"
 #include "types.h"
 #include "uiapi.h"
@@ -113,7 +112,7 @@ static const resource_int_t resources_int[] = {
       RES_EVENT_STRICT, (resource_value_t)ATTACH_DEVICE_NONE,
       &file_system_device_enabled[3],
       set_file_system_device, (void *)11 },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int file_system_resources_init(void)
@@ -184,7 +183,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_ID,
       IDCLS_UNUSED, IDCLS_ATTACH_READ_WRITE_11,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int file_system_cmdline_options_init(void)
@@ -451,7 +450,6 @@ static int set_file_system_device(int val, void *param)
 static void detach_disk_image(disk_image_t *image, vdrive_t *floppy,
                               unsigned int unit)
 {
-/*    if (image != NULL) {; test moved to sub functions */
     switch (unit) {
         case 8:
             machine_drive_image_detach(image, 8);
@@ -475,8 +473,14 @@ static void detach_disk_image(disk_image_t *image, vdrive_t *floppy,
             break;
     }
     disk_image_close(image);
+
+#if 0
+    if (image != NULL) {
+        P64ImageDestroy((PP64Image)image->p64);
+        lib_free(image->p64);
+    }
+#endif
     disk_image_media_destroy(image);
-/*    } */
 }
 
 static void detach_disk_image_and_free(disk_image_t *image, vdrive_t *floppy,
@@ -531,7 +535,7 @@ static int attach_disk_image(disk_image_t **imgptr, vdrive_t *floppy,
         case ATTACH_DEVICE_NONE:
         case ATTACH_DEVICE_VIRT:
         case ATTACH_DEVICE_FS:
-            disk_image_fsimage_name_set(&new_image, lib_stralloc(filename));
+            disk_image_fsimage_name_set(&new_image, filename);
             break;
         case ATTACH_DEVICE_RAW:
             disk_image_rawimage_driver_name_set(&new_image);
@@ -564,6 +568,10 @@ static int attach_disk_image(disk_image_t **imgptr, vdrive_t *floppy,
     }
     if (err) {
         disk_image_close(image);
+#if 0
+        P64ImageDestroy((PP64Image)image->p64);
+        lib_free(image->p64);
+#endif
         disk_image_media_destroy(image);
         disk_image_destroy(image);
         *imgptr = NULL;

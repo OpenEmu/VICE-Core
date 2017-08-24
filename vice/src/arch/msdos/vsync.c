@@ -110,7 +110,7 @@ static const resource_int_t resources_int[] = {
       &refresh_rate, set_refresh_rate, NULL },
     { "WarpMode", 0, RES_EVENT_STRICT, (resource_value_t)0,
       &warp_mode_enabled, set_warp_mode, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 void vsyncarch_init(void)
@@ -160,7 +160,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       NULL, "Disable warp mode" },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int vsync_cmdline_options_init(void)

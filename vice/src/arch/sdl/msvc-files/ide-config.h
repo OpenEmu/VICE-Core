@@ -25,8 +25,13 @@
 #define HAVE_HWSCALE           1
 #endif
 
-#define HAVE_CATWEASELMKIII    1
-#define HAVE_HARDSID           1
+#ifndef _M_IA64
+#define HAVE_SSI2001            1
+#define HAVE_HARDSID            1
+#define HAVE_CATWEASELMKIII     1
+#define HAVE_PARSID             1
+#endif
+
 #define HAVE_OPENCBM           1
 #define HAVE_DYNLIB_SUPPORT    1
 #define HAVE_RS232DEV          1
@@ -53,7 +58,9 @@
 #define HAVE_SYS_STAT_H        1
 #define HAVE_SIGNAL_H          1
 #define HAVE_WINIOCTL_H        1
+#define HAVE_TIME_T_IN_TIME_H  1
 
+#define HAVE_STRTOUL            1
 #define HAVE_STRTOK_R			1
 #define HAVE_STRREV			1
 #define HAVE_STRLWR			1
@@ -69,7 +76,7 @@
 #define HAVE_HTONS             1
 #define HAVE_GETCWD            1
 
-#define HAVE_TFE                1
+#define HAVE_PCAP                1
 #define HAVE_FFMPEG             1
 #define HAVE_FFMPEG_SWSCALE     1
 #define HAVE_FFMPEG_HEADER_SUBDIRS 1
@@ -92,11 +99,9 @@
 #define strcasecmp(s1, s2)     _stricmp(s1, s2)
 #define HAVE_STRCASECMP        1
 
-#if defined _MSV_VER && _MSC_VER < 1900
+#if defined _MSC_VER && _MSC_VER < 1900
 #define snprintf _snprintf
 #endif
-
-#define snprintf               _snprintf
 
 #define int64_t_C(c)           (c ## i64)
 #define uint64_t_C(c)          (c ## u64)

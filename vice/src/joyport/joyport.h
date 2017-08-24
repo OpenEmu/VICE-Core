@@ -27,10 +27,14 @@
 #ifndef VICE_JOYPORT_H
 #define VICE_JOYPORT_H
 
+#include "snapshot.h"
 #include "types.h"
 
 #define JOYPORT_ID_JOY1               -1
 #define JOYPORT_ID_JOY2               -2
+#define JOYPORT_ID_JOY3               -3
+#define JOYPORT_ID_JOY4               -4
+#define JOYPORT_ID_JOY5               -5
 
 #define JOYPORT_ID_NONE                0
 #define JOYPORT_ID_JOYSTICK            1
@@ -50,39 +54,55 @@
 #define JOYPORT_ID_LIGHTGUN_L         15
 #define JOYPORT_ID_LIGHTPEN_INKWELL   16
 #define JOYPORT_ID_SAMPLER_2BIT       17
-#define JOYPORT_ID_COPLIN_KEYPAD      18
-#define JOYPORT_ID_CARDCO_KEYPAD      19
-#define JOYPORT_ID_CX85_KEYPAD        20
-#define JOYPORT_ID_BBRTC              21
+#define JOYPORT_ID_SAMPLER_4BIT       18
+#define JOYPORT_ID_BBRTC              19
+#define JOYPORT_ID_PAPERCLIP64        20
+#define JOYPORT_ID_COPLIN_KEYPAD      21
+#define JOYPORT_ID_CARDCO_KEYPAD      22
+#define JOYPORT_ID_CX85_KEYPAD        23
+#define JOYPORT_ID_RUSHWARE_KEYPAD    24
+#define JOYPORT_ID_CX21_KEYPAD        25
+#define JOYPORT_ID_SCRIPT64_DONGLE    26
+#define JOYPORT_ID_VIZAWRITE64_DONGLE 27
 
-#define JOYPORT_MAX_DEVICES           22
+#define JOYPORT_MAX_DEVICES           28
 
-#define JOYPORT_RES_ID_NONE      0
-#define JOYPORT_RES_ID_MOUSE     1
-#define JOYPORT_RES_ID_SAMPLER   2
-#define JOYPORT_RES_ID_KEYPAD    3
-#define JOYPORT_RES_ID_RTC       4
+#define JOYPORT_RES_ID_NONE        0
+#define JOYPORT_RES_ID_MOUSE       1
+#define JOYPORT_RES_ID_SAMPLER     2
+#define JOYPORT_RES_ID_KEYPAD      3
+#define JOYPORT_RES_ID_RTC         4
+#define JOYPORT_RES_ID_PAPERCLIP64 5
+#define JOYPORT_RES_ID_SCRIPT64    6
+#define JOYPORT_RES_ID_VIZAWRITE64 7
 
 #define JOYPORT_1    0	/* c64/c128/c64dtv/cbm5x0/plus4 control port 1, vic20 control port */
 #define JOYPORT_2    1	/* c64/c128/c64dtv/cbm5x0/plus4 control port 2 */
-#define JOYPORT_3    2	/* c64/c128/c64dtv/cbm2/pet/vic20 userport joy adapter port 1, plus4 sidcart control port */
-#define JOYPORT_4    3	/* c64/c128/cbm2/pet/vic20 userport joy adapter port 2 */
+#define JOYPORT_3    2	/* c64/c128/c64dtv/cbm2/pet/plus4/vic20 userport joy adapter port 1 */
+#define JOYPORT_4    3	/* c64/c128/cbm2/pet/plus4/vic20 userport joy adapter port 2 */
+#define JOYPORT_5    4	/* plus4 sidcart control port */
 
-#define JOYPORT_MAX_PORTS     4
+#define JOYPORT_MAX_PORTS     5
 
 #define JOYPORT_IS_NOT_LIGHTPEN   0
 #define JOYPORT_IS_LIGHTPEN       1
+
+#define JOYPORT_POT_REQUIRED   0
+#define JOYPORT_POT_OPTIONAL   1
 
 typedef struct joyport_s {
     char *name;
     int trans_name;
     int resource_id;
     int is_lp;
+    int pot_optional;
     int (*enable)(int port, int val);
     BYTE (*read_digital)(int port);
     void (*store_digital)(BYTE val);
     BYTE (*read_potx)(void);
     BYTE (*read_poty)(void);
+    int (*write_snapshot)(struct snapshot_s *s, int port);
+    int (*read_snapshot)(struct snapshot_s *s, int port);
 } joyport_t;
 
 typedef struct joyport_desc_s {
@@ -119,5 +139,10 @@ extern void joyport_display_joyport(int id, BYTE status);
 
 extern int joyport_get_port_trans_name(int port);
 extern char *joyport_get_port_name(int port);
+
+extern void joyport_clear_devices(void);
+
+extern int joyport_snapshot_write_module(struct snapshot_s *s, int port);
+extern int joyport_snapshot_read_module(struct snapshot_s *s, int port);
 
 #endif

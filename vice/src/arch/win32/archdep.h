@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -152,5 +153,9 @@ extern struct console_s *uimon_console_open_mdi(const char *id, void *,
 
 /* define if the platform supports the monitor in a seperate window */
 #define ARCHDEP_SEPERATE_MONITOR_WINDOW
+
+#ifdef IDE_COMPILE
+extern void usleep(__int64 waitTime);
+#endif
 
 #endif

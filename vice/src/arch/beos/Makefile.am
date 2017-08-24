@@ -10,6 +10,7 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/vdrive \
 	-I$(top_srcdir)/src/monitor \
 	-I$(top_srcdir)/src/c64 \
+	-I$(top_srcdir)/src/c64/cart \
 	-I$(top_srcdir)/src/c64dtv \
 	-I$(top_srcdir)/src/c128 \
 	-I$(top_srcdir)/src/vic20 \
@@ -22,7 +23,8 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/lib/p64 \
 	-I$(top_srcdir)/src/platform \
 	-I$(top_srcdir)/src/sid \
-	-I$(top_srcdir)/src/joyport
+	-I$(top_srcdir)/src/joyport \
+	-I$(top_srcdir)/src/samplerdrv
 
 noinst_LIBRARIES = libarch.a
 
@@ -46,16 +48,19 @@ libarch_a_SOURCES = \
 	plus4ui.cc \
 	scpu64ui.cc \
 	signals.c \
-	socketimpl.h \
 	statusbar.cc \
 	statusbar.h \
 	types.h \
 	ui.cc \
 	ui.h \
+	ui_autostart.cc \
+	ui_autostart.h \
 	ui_cbm2.cc \
 	ui_cbm2.h \
 	ui_cbm5x0.cc \
 	ui_cbm5x0.h \
+	ui_cia.cc \
+	ui_cia.h \
 	ui_datasette.cc \
 	ui_datasette.h \
 	ui_drive.cc \
@@ -66,8 +71,12 @@ libarch_a_SOURCES = \
 	ui_file.h \
 	ui_ide64.cc \
 	ui_ide64.h \
+	ui_ide64usb.cc \
+	ui_ide64usb.h \
 	ui_joystick.cc \
 	ui_joystick.h \
+	ui_keymap.cc \
+	ui_keymap.h \
 	ui_netplay.cc \
 	ui_netplay.h \
 	ui_pet.cc \

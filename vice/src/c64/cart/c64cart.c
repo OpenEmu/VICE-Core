@@ -42,10 +42,10 @@
 #define CARTRIDGE_INCLUDE_SLOTMAIN_API
 #include "c64cartsystem.h"
 #undef CARTRIDGE_INCLUDE_SLOTMAIN_API
-#include "c64export.h"
 #include "cartridge.h"
 #include "cmdline.h"
 #include "crt.h"
+#include "export.h"
 #include "interrupt.h"
 #include "lib.h"
 #include "log.h"
@@ -166,6 +166,7 @@ static cartridge_info_t cartlist[] = {
     { CARTRIDGE_NAME_DELA_EP7x8,          CARTRIDGE_DELA_EP7x8,          CARTRIDGE_GROUP_UTIL },
     { CARTRIDGE_NAME_DIASHOW_MAKER,       CARTRIDGE_DIASHOW_MAKER,       CARTRIDGE_GROUP_FREEZER },
     { CARTRIDGE_NAME_DINAMIC,             CARTRIDGE_DINAMIC,             CARTRIDGE_GROUP_GAME },
+    { CARTRIDGE_NAME_EASYCALC,            CARTRIDGE_EASYCALC,            CARTRIDGE_GROUP_UTIL },
     { CARTRIDGE_NAME_EASYFLASH,           CARTRIDGE_EASYFLASH,           CARTRIDGE_GROUP_UTIL },
     { CARTRIDGE_NAME_EPYX_FASTLOAD,       CARTRIDGE_EPYX_FASTLOAD,       CARTRIDGE_GROUP_UTIL },
     { CARTRIDGE_NAME_EXOS,                CARTRIDGE_EXOS,                CARTRIDGE_GROUP_UTIL },
@@ -178,6 +179,7 @@ static cartridge_info_t cartlist[] = {
     { CARTRIDGE_NAME_FREEZE_MACHINE,      CARTRIDGE_FREEZE_MACHINE,      CARTRIDGE_GROUP_FREEZER },
     { CARTRIDGE_NAME_FUNPLAY,             CARTRIDGE_FUNPLAY,             CARTRIDGE_GROUP_GAME },
     { CARTRIDGE_NAME_GAME_KILLER,         CARTRIDGE_GAME_KILLER,         CARTRIDGE_GROUP_FREEZER },
+    { CARTRIDGE_NAME_GMOD2,               CARTRIDGE_GMOD2,               CARTRIDGE_GROUP_GAME },
     { CARTRIDGE_NAME_GS,                  CARTRIDGE_GS,                  CARTRIDGE_GROUP_GAME },
     { CARTRIDGE_NAME_IDE64,               CARTRIDGE_IDE64,               CARTRIDGE_GROUP_UTIL },
     { CARTRIDGE_NAME_IEEE488,             CARTRIDGE_IEEE488,             CARTRIDGE_GROUP_UTIL },
@@ -197,6 +199,9 @@ static cartridge_info_t cartlist[] = {
     { CARTRIDGE_NAME_REX,                 CARTRIDGE_REX,                 CARTRIDGE_GROUP_UTIL },
     { CARTRIDGE_NAME_REX_EP256,           CARTRIDGE_REX_EP256,           CARTRIDGE_GROUP_UTIL },
     { CARTRIDGE_NAME_RGCD,                CARTRIDGE_RGCD,                CARTRIDGE_GROUP_GAME },
+#ifdef HAVE_PCAP
+    { CARTRIDGE_NAME_RRNETMK3,            CARTRIDGE_RRNETMK3,            CARTRIDGE_GROUP_UTIL },
+#endif
     { CARTRIDGE_NAME_ROSS,                CARTRIDGE_ROSS,                CARTRIDGE_GROUP_UTIL },
     { CARTRIDGE_NAME_SILVERROCK_128,      CARTRIDGE_SILVERROCK_128,      CARTRIDGE_GROUP_GAME },
     { CARTRIDGE_NAME_SIMONS_BASIC,        CARTRIDGE_SIMONS_BASIC,        CARTRIDGE_GROUP_UTIL },
@@ -267,63 +272,67 @@ static int set_cartridge_type(int val, void *param)
         case CARTRIDGE_GENERIC_16KB:
         case CARTRIDGE_NONE:
         case CARTRIDGE_CRT:
+
         case CARTRIDGE_ACTION_REPLAY:
-        case CARTRIDGE_KCS_POWER:
-        case CARTRIDGE_FINAL_III:
-        case CARTRIDGE_SIMONS_BASIC:
-        case CARTRIDGE_OCEAN:
-        case CARTRIDGE_EXPERT:
-        case CARTRIDGE_FUNPLAY:
-        case CARTRIDGE_SUPER_GAMES:
+        case CARTRIDGE_ACTION_REPLAY2:
+        case CARTRIDGE_ACTION_REPLAY3:
+        case CARTRIDGE_ACTION_REPLAY4:
         case CARTRIDGE_ATOMIC_POWER:
-        case CARTRIDGE_EPYX_FASTLOAD:
-        case CARTRIDGE_WESTERMANN:
-        case CARTRIDGE_REX:
-        case CARTRIDGE_FINAL_I:
-        case CARTRIDGE_MAGIC_FORMEL:
-        case CARTRIDGE_GS:
-        case CARTRIDGE_WARPSPEED:
-        case CARTRIDGE_DINAMIC:
-        case CARTRIDGE_ZAXXON:
-        case CARTRIDGE_MAGIC_DESK:
-        case CARTRIDGE_SUPER_SNAPSHOT_V5:
+        case CARTRIDGE_CAPTURE:
         case CARTRIDGE_COMAL80:
-        case CARTRIDGE_STRUCTURED_BASIC:
-        case CARTRIDGE_RGCD:
-        case CARTRIDGE_ROSS:
         case CARTRIDGE_DELA_EP64:
         case CARTRIDGE_DELA_EP7x8:
         case CARTRIDGE_DELA_EP256:
-        case CARTRIDGE_REX_EP256:
-        case CARTRIDGE_MIKRO_ASSEMBLER:
-        case CARTRIDGE_FINAL_PLUS:
-        case CARTRIDGE_ACTION_REPLAY4:
-        case CARTRIDGE_STARDOS:
+        case CARTRIDGE_DIASHOW_MAKER:
+        case CARTRIDGE_DINAMIC:
+        case CARTRIDGE_EASYCALC:
         case CARTRIDGE_EASYFLASH:
         case CARTRIDGE_EASYFLASH_XBANK:
-        case CARTRIDGE_CAPTURE:
-        case CARTRIDGE_ACTION_REPLAY3:
-        case CARTRIDGE_RETRO_REPLAY:
-        case CARTRIDGE_MMC64:
-        case CARTRIDGE_MMC_REPLAY:
-        case CARTRIDGE_IDE64:
-        case CARTRIDGE_SUPER_SNAPSHOT:
-        case CARTRIDGE_IEEE488:
-        case CARTRIDGE_GAME_KILLER:
-        case CARTRIDGE_P64:
+        case CARTRIDGE_EPYX_FASTLOAD:
+        case CARTRIDGE_EXPERT:
         case CARTRIDGE_EXOS:
+        case CARTRIDGE_FINAL_I:
+        case CARTRIDGE_FINAL_III:
+        case CARTRIDGE_FINAL_PLUS:
+        case CARTRIDGE_FORMEL64:
         case CARTRIDGE_FREEZE_FRAME:
         case CARTRIDGE_FREEZE_MACHINE:
-        case CARTRIDGE_SNAPSHOT64:
-        case CARTRIDGE_SUPER_EXPLODE_V5:
-        case CARTRIDGE_MAGIC_VOICE:
-        case CARTRIDGE_ACTION_REPLAY2:
-        case CARTRIDGE_MACH5:
-        case CARTRIDGE_DIASHOW_MAKER:
-        case CARTRIDGE_PAGEFOX:
+        case CARTRIDGE_FUNPLAY:
+        case CARTRIDGE_GAME_KILLER:
+        case CARTRIDGE_GMOD2:
+        case CARTRIDGE_GS:
+        case CARTRIDGE_IEEE488:
+        case CARTRIDGE_IDE64:
         case CARTRIDGE_KINGSOFT:
+        case CARTRIDGE_KCS_POWER:
+        case CARTRIDGE_MACH5:
+        case CARTRIDGE_MAGIC_DESK:
+        case CARTRIDGE_MAGIC_FORMEL:
+        case CARTRIDGE_MAGIC_VOICE:
+        case CARTRIDGE_MIKRO_ASSEMBLER:
+        case CARTRIDGE_MMC64:
+        case CARTRIDGE_MMC_REPLAY:
+        case CARTRIDGE_OCEAN:
+        case CARTRIDGE_P64:
+        case CARTRIDGE_PAGEFOX:
+        case CARTRIDGE_RETRO_REPLAY:
+        case CARTRIDGE_REX:
+        case CARTRIDGE_REX_EP256:
+        case CARTRIDGE_RGCD:
+        case CARTRIDGE_RRNETMK3:
+        case CARTRIDGE_ROSS:
+        case CARTRIDGE_SNAPSHOT64:
+        case CARTRIDGE_SIMONS_BASIC:
         case CARTRIDGE_SILVERROCK_128:
-        case CARTRIDGE_FORMEL64:
+        case CARTRIDGE_STARDOS:
+        case CARTRIDGE_STRUCTURED_BASIC:
+        case CARTRIDGE_SUPER_EXPLODE_V5:
+        case CARTRIDGE_SUPER_GAMES:
+        case CARTRIDGE_SUPER_SNAPSHOT:
+        case CARTRIDGE_SUPER_SNAPSHOT_V5:
+        case CARTRIDGE_WARPSPEED:
+        case CARTRIDGE_WESTERMANN:
+        case CARTRIDGE_ZAXXON:
             break;
         default:
             return -1;
@@ -394,13 +403,13 @@ static const resource_int_t resources_int[] = {
     { "CartridgeType", CARTRIDGE_NONE,
       RES_EVENT_STRICT, (resource_value_t)CARTRIDGE_NONE,
       &cartridge_type, set_cartridge_type, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 static const resource_string_t resources_string[] = {
     { "CartridgeFile", "", RES_EVENT_NO, NULL,
       &cartridge_file, set_cartridge_file, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 int cartridge_resources_init(void)
@@ -457,7 +466,7 @@ static const cmdline_option_t cmdline_options[] =
       USE_PARAM_STRING, USE_DESCRIPTION_ID,
       IDCLS_UNUSED, IDCLS_DISABLE_CART,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int cartridge_cmdline_options_init(void)
@@ -466,7 +475,7 @@ int cartridge_cmdline_options_init(void)
     mon_cart_cmd.cartridge_detach_image = cartridge_detach_image;
     mon_cart_cmd.cartridge_trigger_freeze = cartridge_trigger_freeze;
     mon_cart_cmd.cartridge_trigger_freeze_nmi_only = cartridge_trigger_freeze_nmi_only;
-    mon_cart_cmd.export_dump = c64export_dump;
+    mon_cart_cmd.export_dump = export_dump;
 
     if (cart_cmdline_options_init() < 0) {
         return -1;

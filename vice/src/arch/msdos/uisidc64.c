@@ -66,22 +66,25 @@ static TUI_MENU_CALLBACK(sid_engine_model_submenu_callback)
             break;
 #endif
 #ifdef HAVE_PARSID
-        case SID_PARSID_PORT1:
-            s = "ParSID in Port 1";
-            break;
-        case SID_PARSID_PORT2:
-            s = "ParSID in Port 2";
-            break;
-        case SID_PARSID_PORT3:
-            s = "ParSID in Port 3";
+        case SID_PARSID:
+            s = "ParSID";
             break;
 #endif
+#ifdef HAVE_CATWEASELMKIII
         case SID_CATWEASELMKIII:
             s = "Catweasel";
             break;
+#endif
+#ifdef HAVE_HARDSID
         case SID_HARDSID:
             s = "HardSID";
             break;
+#endif
+#ifdef HAVE_SSI2001
+        case SID_SSI2001:
+            s = "SSI2001";
+            break;
+#endif
     }
     return s;
 }
@@ -111,53 +114,7 @@ static TUI_MENU_CALLBACK(sid_radio_engine_model_callback)
     return NULL;
 }
 
-static tui_menu_item_def_t sid_engine_model_submenu[] = {
-    { "_6581 (Fast SID)",
-      "Fast SID 6581 emulation",
-      sid_radio_engine_model_callback, (void *)SID_FASTSID_6581, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { "_8580 (Fast SID)",
-      "Fast SID 8580 emulation",
-      sid_radio_engine_model_callback, (void *)SID_FASTSID_8580, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { "_Catweasel",
-      "Catweasel emulation",
-      sid_radio_engine_model_callback, (void *)SID_CATWEASELMKIII, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { "_HardSID",
-      "HardSID emulation",
-      sid_radio_engine_model_callback, (void *)SID_HARDSID, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-#ifdef HAVE_RESID
-    { "_6581 (ReSID)",
-      "ReSID 6581 emulation",
-      sid_radio_engine_model_callback, (void *)SID_RESID_6581, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { "_8580 (ReSID)",
-      "ReSID 8580 emulation",
-      sid_radio_engine_model_callback, (void *)SID_RESID_8580, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { "8580 + _digi boost (ReSID)",
-      "ReSID 8580 + digi boost emulation",
-      sid_radio_engine_model_callback, (void *)SID_RESID_8580D, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-#endif
-#ifdef HAVE_PARSID
-    { "ParSID in Port 1",
-      "ParSID emulation",
-      sid_radio_engine_model_callback, (void *)SID_PARSID_PORT1, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { "ParSID in Port 2",
-      "ParSID emulation",
-      sid_radio_engine_model_callback, (void *)SID_PARSID_PORT2, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { "ParSID in Port 3",
-      "ParSID emulation",
-      sid_radio_engine_model_callback, (void *)SID_PARSID_PORT3, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-#endif
-    { NULL }
-};
+static tui_menu_item_def_t *sid_engine_model_submenu = NULL;
 
 #ifdef HAVE_RESID
 static TUI_MENU_CALLBACK(toggle_ResidSampling_callback)
@@ -275,7 +232,7 @@ static tui_menu_item_def_t sid_amount_submenu[] = {
     { "2", "Two extra SID chips",
       radio_SidStereo_callback, (void *)2, 0,
       TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static TUI_MENU_CALLBACK(sid_stereo_address_submenu_callback)
@@ -338,7 +295,7 @@ static tui_menu_item_def_t sid_stereo_address_submenu[] = {
       "Stereo SID in the $DFxx range",
       sid_stereo_address_submenu_callback, NULL, 5,
       TUI_MENU_BEH_CONTINUE, sid_stereo_address_dfxx_submenu, "Stereo SID in the $DFxx range" },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t sid_triple_address_submenu[] = {
@@ -366,7 +323,7 @@ static tui_menu_item_def_t sid_triple_address_submenu[] = {
       "Triple SID in the $DFxx range",
       sid_triple_address_submenu_callback, NULL, 5,
       TUI_MENU_BEH_CONTINUE, sid_triple_address_dfxx_submenu, "Triple SID in the $DFxx range" },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 tui_menu_item_def_t sid_c64_ui_menu_items[] = {
@@ -374,7 +331,7 @@ tui_menu_item_def_t sid_c64_ui_menu_items[] = {
     { "SID _Engine/Model:",
       "Select the SID engine and model to emulate",
       sid_engine_model_submenu_callback, NULL, 16,
-      TUI_MENU_BEH_CONTINUE, sid_engine_model_submenu, "SID engine/model" },
+      TUI_MENU_BEH_CONTINUE, NULL, "SID engine/model" },
     { "SID _Filters:",
       "Enable/disable emulation of the SID built-in programmable filters",
       toggle_SidFilters_callback, NULL, 4,
@@ -411,5 +368,36 @@ tui_menu_item_def_t sid_c64_ui_menu_items[] = {
       ui_set_ResidBias_callback, NULL, 30,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
 #endif
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
+
+void sid_c64_build_menu(void)
+{
+    sid_engine_model_t **list = sid_get_engine_model_list();
+    int count;
+
+    for (count = 0; list[count]; ++count) {}
+
+    sid_engine_model_submenu = lib_malloc((count + 1) * sizeof(tui_menu_item_def_t));
+
+    for (count = 0; list[count]; ++count) {
+        sid_engine_model_submenu[count].label = list[count]->name;
+        sid_engine_model_submenu[count].help_string = list[count]->name;
+        sid_engine_model_submenu[count].callback = sid_radio_engine_model_callback;
+        sid_engine_model_submenu[count].callback_param = (void *)list[count]->value;
+        sid_engine_model_submenu[count].par_string_max_len = 0;
+        sid_engine_model_submenu[count].behavior = TUI_MENU_BEH_CLOSE;
+        sid_engine_model_submenu[count].submenu = NULL;
+        sid_engine_model_submenu[count].submenu_title = NULL;
+    }
+    sid_engine_model_submenu[count].label = NULL;
+    sid_engine_model_submenu[count].help_string = NULL;
+    sid_engine_model_submenu[count].callback = NULL;
+    sid_engine_model_submenu[count].callback_param = NULL;
+    sid_engine_model_submenu[count].par_string_max_len = 0;
+    sid_engine_model_submenu[count].behavior = 0;
+    sid_engine_model_submenu[count].submenu = NULL;
+    sid_engine_model_submenu[count].submenu_title = NULL;
+
+    sid_c64_ui_menu_items[1].submenu = sid_engine_model_submenu;
+}

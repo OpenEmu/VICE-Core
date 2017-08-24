@@ -186,7 +186,7 @@ inline static CLOCK myviatb(via_context_t *via_context)
         if (via_context->tbi) {
             BYTE t2hi = via_context->t2ch;
 
-            if (*(via_context->clk_ptr) == via_context->tbi) {
+            if (*(via_context->clk_ptr) == via_context->tbi + 1) {
                 t2hi--;
             }
 
@@ -236,6 +236,7 @@ void viacore_disable(via_context_t *via_context)
 {
     alarm_unset(via_context->t1_alarm);
     alarm_unset(via_context->t2_alarm);
+    alarm_unset(via_context->sr_alarm);
     via_context->enabled = 0;
 }
 
@@ -286,6 +287,7 @@ void viacore_reset(via_context_t *via_context)
     via_context->tbi = 0;
     alarm_unset(via_context->t1_alarm);
     alarm_unset(via_context->t2_alarm);
+    alarm_unset(via_context->sr_alarm);
     update_myviairq(via_context);
 
     via_context->oldpa = 0xff;
@@ -430,7 +432,6 @@ void viacore_store(via_context_t *via_context, WORD addr, BYTE byte)
 
         case VIA_SR:            /* Serial Port output buffer */
             via_context->via[addr] = byte;
-
             /* shift state can only be reset once 8 bits are complete */
             if (via_context->ifr & VIA_IM_SR) {
                 via_context->ifr &= ~VIA_IM_SR;
@@ -497,7 +498,7 @@ void viacore_store(via_context_t *via_context, WORD addr, BYTE byte)
                 /* set the next alarm to the low latch value as timer cascading mode change 
                 matters at each underflow of the T2 low counter */
                 via_context->tbu = rclk + via_context->t2cl + 3;
-                via_context->tbi = rclk + via_context->t2cl + 2;
+                via_context->tbi = rclk + via_context->t2cl + 1;
                 alarm_set(via_context->t2_alarm, via_context->tbi);
             }
 
@@ -583,12 +584,39 @@ void viacore_store(via_context_t *via_context, WORD addr, BYTE byte)
                     /* Timer mode; set the next alarm to the low latch value as timer cascading mode change 
                     matters at each underflow of the T2 low counter */
                     via_context->tbu = rclk + via_context->t2cl + 3;
-                    via_context->tbi = rclk + via_context->t2cl + 2;
+                    via_context->tbi = rclk + via_context->t2cl + 1;
+                    alarm_set(via_context->t2_alarm, via_context->tbi);
+                }
+            }
+
+            /* handle the t2 alarm for the serial shift register
+             * 
+             * FIXME: it is not clear what happens when pulse counting mode is 
+             *        selected for t2
+             */
+            if ((byte & 0x20) == 0) {
+                if (((byte & 0x0c) == 0x04) || /* FIXME: shift register under t2 control */
+                    ((byte & 0x1c) == 0x10)) {  /* FIXME: shift register free running at t2 rate */
+                    /* Timer mode; set the next alarm to the low latch value as timer cascading mode change 
+                    matters at each underflow of the T2 low counter */
+                    via_context->tbu = rclk + via_context->t2cl + 3;
+                    via_context->tbi = rclk + via_context->t2cl + 1;
                     alarm_set(via_context->t2_alarm, via_context->tbi);
                 }
             }
 
             /* bit 4, 3, 2 shift register control */
+            if ((byte & 0x0c) == 0x08) {
+                /* shift under control of phi2 */
+                if ((byte & 0x10) == 0x10) {
+                    alarm_set(via_context->sr_alarm, rclk + 3); /* FIXME */
+                } else {
+                    alarm_set(via_context->sr_alarm, rclk + 3); /* FIXME */
+                }
+            } else {
+                /* when disabled or external clock, stop the alarm */
+                alarm_unset(via_context->sr_alarm);
+            }
 
             via_context->via[addr] = byte;
             (via_context->store_acr)(via_context, byte);
@@ -925,6 +953,46 @@ static void viacore_intt1(CLOCK offset, void *data)
     /*(viaier & VIA_IM_T1) ? 1:0; */
 }
 
+/* WARNING: this is a hack, used to interface with c64fastiec.c, c128fastiec.c */
+void viacore_set_sr(via_context_t *via_context, BYTE data)
+{
+    if (!(via_context->via[VIA_ACR] & 0x10) && (via_context->via[VIA_ACR] & 0x0c)) {
+        via_context->via[VIA_SR] = data;
+        via_context->ifr |= VIA_IM_SR;
+        update_myviairq(via_context);
+        via_context->shift_state = 15;
+    }
+}
+
+static inline void do_shiftregister(CLOCK offset, void *data)
+{
+    CLOCK rclk;
+    via_context_t *via_context = (via_context_t *)data;
+    rclk = *(via_context->clk_ptr) - offset;
+
+    if (via_context->shift_state < 16) {
+        /* FIXME: CB1 should be toggled, and interrupt flag set according to edge detection in PCR */
+        if (via_context->shift_state & 1) {
+            if (via_context->via[VIA_ACR] & 0x10) {
+                /* FIXME: shift out */
+                via_context->via[VIA_SR] = ((via_context->via[VIA_SR] << 1 ) & 0xfe) | ((via_context->via[VIA_SR] >> 7) & 1);
+            } else {
+                /* shift in */
+                /* FIXME: we should read CB2 here instead of 1, but CB2 state must not be controlled by PCR
+                    until the signalling function is correct with shifter active, just use 1 instead */
+                via_context->via[VIA_SR] = (via_context->via[VIA_SR] << 1 ) | 1;
+            }
+        }
+        via_context->shift_state += 1;
+        /* next shifter bit; set SR interrupt if 8 bits are complete */
+        if (via_context->shift_state == 16) {
+            via_context->ifr |= VIA_IM_SR;
+            update_myviairq_rclk(via_context, rclk);
+            via_context->shift_state = 0;
+        }
+    }
+}
+
 /* T2 can be switched between 8 and 16 bit modes ad-hoc, any time, by setting
    the shifter to be controlled by T2 via selecting the relevant ACR shift
    register operating mode.
@@ -942,7 +1010,6 @@ static void viacore_intt2(CLOCK offset, void *data)
         log_message(via_context->log, "MYVIA timer B interrupt.");
     }
 #endif
-
     /* If the shifter is under T2 control, the T2 timer works differently, and have a period of T2 low.
        T2 high is still cascaded though and decreases at each T2 low underflow */
     if ((via_context->via[VIA_ACR] & 0x0c) == 0x04) {
@@ -953,26 +1020,17 @@ static void viacore_intt2(CLOCK offset, void *data)
         next_alarm = via_context->via[VIA_T2LL] + 2;
 
         /* T2 acts as a pulse generator for CB1
-           every second underflow is a pulse updating the shift register, until all 8 bits are complete */
-        if (via_context->shift_state < 16) {
-            /* FIXME: CB1 should be toggled, and interrupt flag set according to edge detection in PCR */
-            if (via_context->shift_state & 1) {
-                if (via_context->via[VIA_ACR] & 0x10) {
-                    /* FIXME: shift out */
-                } else {
-                    /* shift in */
-                    /* FIXME: we should read CB2 here instead of 1, but CB2 state must not be controlled by PCR
-                       until the signalling function is correct with shifter active, just use 1 instead */
-                    via_context->via[VIA_SR] = (via_context->via[VIA_SR] << 1 ) | 1;
-                }
-            }
+           every second underflow is a pulse updating the shift register, 
+           until all 8 bits are complete */
+        do_shiftregister(offset, data);
+    } else if ((via_context->via[VIA_ACR] & 0x1c) == 0x10) {
 
-            /* next shifter bit; set SR interrupt if 8 bits are complete */
-            if (++via_context->shift_state == 16) {
-                via_context->ifr |= VIA_IM_SR;
-                update_myviairq_rclk(via_context, rclk);
-            }
-        }
+        /* set next alarm to T2 low period */
+        next_alarm = via_context->via[VIA_T2LL] + 2;
+
+        /* same as above, except bits will we clocked out CB2 repeatedly without
+         * stopping after 8 bits */
+        do_shiftregister(offset, data);
     } else {
         /* 16 bit timer mode; it is guaranteed that T2 low is in underflow */
         via_context->t2cl = 0xff;
@@ -996,10 +1054,21 @@ static void viacore_intt2(CLOCK offset, void *data)
 
     /* 16 bit timer underflow generates an interrupt */
     /* FIXME: does 16 bit underflow generate an IRQ in 8 bit mode? 8 bit underflow does not */
+    /* FIXME: no IRQ when shift register is in free running mode? */
     if (via_context->t2ch == 0xff) {
         via_context->ifr |= VIA_IM_T2;
         update_myviairq_rclk(via_context, rclk);
     }
+}
+
+/* alarm callback for the case when the shift register is under phi2 control */
+static void viacore_intsr(CLOCK offset, void *data)
+{
+    CLOCK rclk;
+    via_context_t *via_context = (via_context_t *)data;
+    rclk = *(via_context->clk_ptr) - offset;
+    do_shiftregister(offset, data);
+    alarm_set(via_context->sr_alarm, rclk + 1);
 }
 
 static void viacore_clk_overflow_callback(CLOCK sub, void *data)
@@ -1057,6 +1126,11 @@ void viacore_setup_context(via_context_t *via_context)
     for (i = 0; i < 16; i++) {
         via_context->via[i] = 0;
     }
+    /* timers and timer latches apparently do not contain 0 at powerup */
+    via_context->via[4] = via_context->via[6] = 0xff;
+    via_context->via[5] = via_context->via[7] = 223;  /* my vic20 gives 223 here (gpz) */
+    via_context->via[8] = 0xff;
+    via_context->via[9] = 0xff;
 }
 
 void viacore_init(via_context_t *via_context, alarm_context_t *alarm_context,
@@ -1069,19 +1143,19 @@ void viacore_init(via_context_t *via_context, alarm_context_t *alarm_context,
     }
 
     buffer = lib_msprintf("%sT1", via_context->myname);
-    via_context->t1_alarm = alarm_new(alarm_context, buffer, viacore_intt1,
-                                      via_context);
+    via_context->t1_alarm = alarm_new(alarm_context, buffer, viacore_intt1, via_context);
     lib_free(buffer);
 
     buffer = lib_msprintf("%sT2", via_context->myname);
-    via_context->t2_alarm = alarm_new(alarm_context, buffer, viacore_intt2,
-                                      via_context);
+    via_context->t2_alarm = alarm_new(alarm_context, buffer, viacore_intt2, via_context);
     lib_free(buffer);
 
-    via_context->int_num = interrupt_cpu_status_int_new(int_status,
-                                                        via_context->myname);
-    clk_guard_add_callback(clk_guard, viacore_clk_overflow_callback,
-                           via_context);
+    buffer = lib_msprintf("%sSR", via_context->myname);
+    via_context->sr_alarm = alarm_new(alarm_context, buffer, viacore_intsr, via_context);
+    lib_free(buffer);
+
+    via_context->int_num = interrupt_cpu_status_int_new(int_status, via_context->myname);
+    clk_guard_add_callback(clk_guard, viacore_clk_overflow_callback, via_context);
 }
 
 void viacore_shutdown(via_context_t *via_context)
@@ -1094,25 +1168,10 @@ void viacore_shutdown(via_context_t *via_context)
     lib_free(via_context);
 }
 
-void viacore_set_sr(via_context_t *via_context, BYTE data)
-{
-    if (!(via_context->via[VIA_ACR] & 0x10) && (via_context->via[VIA_ACR] & 0x0c)) {
-        via_context->via[VIA_SR] = data;
-        via_context->ifr |= VIA_IM_SR;
-        update_myviairq(via_context);
-    }
-}
-
 /*------------------------------------------------------------------------*/
 
-/* The dump format has a module header and the data generated by the
- * chip...
- *
- * The version of this dump description is 0/0
- */
-
 /* The name of the modul must be defined before including this file.  */
-#define VIA_DUMP_VER_MAJOR      1
+#define VIA_DUMP_VER_MAJOR      2
 #define VIA_DUMP_VER_MINOR      1
 
 /*
@@ -1156,55 +1215,50 @@ int viacore_snapshot_write_module(via_context_t *via_context, snapshot_t *s)
                       (void *)via_context);
     }
 
-    m = snapshot_module_create(s, via_context->my_module_name,
-                               VIA_DUMP_VER_MAJOR, VIA_DUMP_VER_MINOR);
+    m = snapshot_module_create(s, via_context->my_module_name, VIA_DUMP_VER_MAJOR, VIA_DUMP_VER_MINOR);
+
     if (m == NULL) {
         return -1;
     }
 
-    SMW_B(m, via_context->via[VIA_PRA]);
-    SMW_B(m, via_context->via[VIA_DDRA]);
-    SMW_B(m, via_context->via[VIA_PRB]);
-    SMW_B(m, via_context->via[VIA_DDRB]);
+    if (0
+        || SMW_B(m, via_context->via[VIA_PRA]) < 0
+        || SMW_B(m, via_context->via[VIA_DDRA]) < 0
+        || SMW_B(m, via_context->via[VIA_PRB]) < 0
+        || SMW_B(m, via_context->via[VIA_DDRB]) < 0
+        || SMW_W(m, (WORD)(via_context->tal)) < 0
+        || SMW_W(m, (WORD)myviata(via_context)) < 0
+        || SMW_B(m, via_context->via[VIA_T2LL]) < 0
+        || SMW_B(m, via_context->via[VIA_T2LH]) < 0
+        || SMW_B(m, via_context->t2cl) < 0
+        || SMW_B(m, via_context->t2ch) < 0
+        || SMW_W(m, (WORD)myviatb(via_context)) < 0
+        || SMW_B(m, (BYTE)((via_context->tai ? 0x80 : 0) | (via_context->tbi ? 0x40 : 0))) < 0
+        || SMW_B(m, via_context->via[VIA_SR]) < 0
+        || SMW_B(m, via_context->via[VIA_ACR]) < 0
+        || SMW_B(m, via_context->via[VIA_PCR]) < 0
+        || SMW_B(m, (BYTE)(via_context->ifr)) < 0
+        || SMW_B(m, (BYTE)(via_context->ier)) < 0
+        /* FIXME! */
+        || SMW_B(m, (BYTE)((((via_context->pb7 ^ via_context->pb7x) | via_context->pb7o) ? 0x80 : 0))) < 0
+        /* SRHBITS */
+        || SMW_B(m, (BYTE)via_context->shift_state) < 0
+        || SMW_B(m, (BYTE)((via_context->ca2_state ? 0x80 : 0) | (via_context->cb2_state ? 0x40 : 0))) < 0
+        || SMW_B(m, via_context->ila) < 0
+        || SMW_B(m, via_context->ilb) < 0) {
+        snapshot_module_close(m);
+        return -1;
+    }
 
-    SMW_W(m, (WORD)(via_context->tal));
-    SMW_W(m, (WORD)myviata(via_context));
-    SMW_B(m, via_context->via[VIA_T2LL]);
-    SMW_B(m, via_context->via[VIA_T2LH]);
-    SMW_B(m, via_context->t2cl);
-    SMW_B(m, via_context->t2ch);
-    SMW_W(m, (WORD)myviatb(via_context));
-
-    SMW_B(m, (BYTE)((via_context->tai ? 0x80 : 0) | (via_context->tbi ? 0x40 : 0)));
-
-    SMW_B(m, via_context->via[VIA_SR]);
-    SMW_B(m, via_context->via[VIA_ACR]);
-    SMW_B(m, via_context->via[VIA_PCR]);
-
-    SMW_B(m, (BYTE)(via_context->ifr));
-    SMW_B(m, (BYTE)(via_context->ier));
-    /* FIXME! */
-    SMW_B(m, (BYTE)((((via_context->pb7 ^ via_context->pb7x)
-                      | via_context->pb7o) ? 0x80 : 0)));
-
-    SMW_B(m, (BYTE)via_context->shift_state);           /* SRHBITS */
-
-    SMW_B(m, (BYTE)((via_context->ca2_state ? 0x80 : 0)
-                    | (via_context->cb2_state ? 0x40 : 0)));
-
-    SMW_B(m, via_context->ila);
-    SMW_B(m, via_context->ilb);
-
-    snapshot_module_close(m);
-
-    return 0;
+    return snapshot_module_close(m);
 }
 
 int viacore_snapshot_read_module(via_context_t *via_context, snapshot_t *s)
 {
     BYTE vmajor, vminor;
     BYTE byte;
-    WORD word;
+    BYTE byte1, byte2, byte3, byte4, byte5, byte6;
+    WORD word1, word2, word3;
     WORD addr;
     CLOCK rclk = *(via_context->clk_ptr);
     snapshot_module_t *m;
@@ -1231,107 +1285,120 @@ int viacore_snapshot_read_module(via_context_t *via_context, snapshot_t *s)
         }
     }
 
+    /* if major version does not match, the snapshot is not compatible */
     if (vmajor != VIA_DUMP_VER_MAJOR) {
-        log_error(via_context->log,
-                  "Snapshot module version (%d.%d) newer than %d.%d.",
-                  vmajor, vminor, VIA_DUMP_VER_MAJOR, VIA_DUMP_VER_MINOR);
+        snapshot_set_error(SNAPSHOT_MODULE_INCOMPATIBLE);
+        snapshot_module_close(m);
+        return -1;
+    }
+    /* Do not accept versions higher than current */
+    if (vminor > VIA_DUMP_VER_MINOR) {
+        snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         snapshot_module_close(m);
         return -1;
     }
 
     alarm_unset(via_context->t1_alarm);
     alarm_unset(via_context->t2_alarm);
+    alarm_unset(via_context->sr_alarm);
 
     via_context->tai = 0;
     via_context->tbi = 0;
 
-    SMR_B(m, &(via_context->via[VIA_PRA]));
-    SMR_B(m, &(via_context->via[VIA_DDRA]));
-    SMR_B(m, &(via_context->via[VIA_PRB]));
-    SMR_B(m, &(via_context->via[VIA_DDRB]));
-    {
-        addr = VIA_DDRA;
-        byte = via_context->via[VIA_PRA] | ~(via_context->via[VIA_DDRA]);
-        (via_context->undump_pra)(via_context, byte);
-        via_context->oldpa = byte;
-
-        addr = VIA_DDRB;
-        byte = via_context->via[VIA_PRB] | ~(via_context->via[VIA_DDRB]);
-        (via_context->undump_prb)(via_context, byte);
-        via_context->oldpb = byte;
+    if (0
+        || SMR_B(m, &(via_context->via[VIA_PRA])) < 0
+        || SMR_B(m, &(via_context->via[VIA_DDRA])) < 0
+        || SMR_B(m, &(via_context->via[VIA_PRB])) < 0
+        || SMR_B(m, &(via_context->via[VIA_DDRB])) < 0
+        || SMR_W(m, &word1) < 0
+        || SMR_W(m, &word2) < 0
+        || SMR_B(m, &(via_context->via[VIA_T2LL])) < 0
+        || SMR_B(m, &(via_context->via[VIA_T2LH])) < 0
+        || SMR_B(m, &(via_context->t2cl)) < 0
+        || SMR_B(m, &(via_context->t2ch)) < 0
+        || SMR_W(m, &word3) < 0
+        || SMR_B(m, &byte1) < 0
+        || SMR_B(m, &(via_context->via[VIA_SR])) < 0
+        || SMR_B(m, &(via_context->via[VIA_ACR])) < 0
+        || SMR_B(m, &(via_context->via[VIA_PCR])) < 0
+        || SMR_B(m, &byte2) < 0
+        || SMR_B(m, &byte3) < 0
+        || SMR_B(m, &byte4) < 0
+        /* SRHBITS */
+        || SMR_B(m, &byte5) < 0
+        /* CABSTATE */
+        || SMR_B(m, &byte6) < 0
+        || SMR_B(m, &(via_context->ila)) < 0
+        || SMR_B(m, &(via_context->ilb)) < 0) {
+        snapshot_module_close(m);
+        return -1;
     }
 
-    SMR_W(m, &word);
-    via_context->tal = word;
+    addr = VIA_DDRA;
+    byte = via_context->via[VIA_PRA] | ~(via_context->via[VIA_DDRA]);
+    (via_context->undump_pra)(via_context, byte);
+    via_context->oldpa = byte;
+
+    addr = VIA_DDRB;
+    byte = via_context->via[VIA_PRB] | ~(via_context->via[VIA_DDRB]);
+    (via_context->undump_prb)(via_context, byte);
+    via_context->oldpb = byte;
+
+    via_context->tal = word1;
     via_context->via[VIA_T1LL] = via_context->tal & 0xff;
     via_context->via[VIA_T1LH] = (via_context->tal >> 8) & 0xff;
-    SMR_W(m, &word);
-    via_context->tau = rclk + word + 2 /* 3 */ + TAUOFFSET;
-    via_context->tai = rclk + word + 1;
 
-    SMR_B(m, &(via_context->via[VIA_T2LL]));
-    SMR_B(m, &(via_context->via[VIA_T2LH]));
-    SMR_B(m, &(via_context->t2cl));
-    SMR_B(m, &(via_context->t2ch));
-    SMR_W(m, &word);
-    via_context->tbu = rclk + word + 2 /* 3 */;
-    via_context->tbi = rclk + word + 1;
+    via_context->tau = rclk + word2 + 2 /* 3 */ + TAUOFFSET;
+    via_context->tai = rclk + word2 + 1;
 
-    SMR_B(m, &byte);
-    if (byte & 0x80) {
+    via_context->tbu = rclk + word3 + 2 /* 3 */;
+    via_context->tbi = rclk + word3 + 0;
+
+    if (byte1 & 0x80) {
         alarm_set(via_context->t1_alarm, via_context->tai);
     } else {
         via_context->tai = 0;
     }
-    if (byte & 0x40) {
+    if ((byte1 & 0x40) || 
+        ((via_context->via[VIA_ACR] & 0x1c) == 0x04) ||
+        ((via_context->via[VIA_ACR] & 0x1c) == 0x10) ||
+        ((via_context->via[VIA_ACR] & 0x1c) == 0x14)){
         alarm_set(via_context->t2_alarm, via_context->tbi);
     } else {
         via_context->tbi = 0;
     }
+    /* FIXME: SR alarm */
+    if ((via_context->via[VIA_ACR] & 0x0c) == 0x08) {
+        alarm_set(via_context->sr_alarm, rclk + 1);
+    }
 
-    SMR_B(m, &(via_context->via[VIA_SR]));
-    SMR_B(m, &(via_context->via[VIA_ACR]));
-    SMR_B(m, &(via_context->via[VIA_PCR]));
-
-    SMR_B(m, &byte);
-    via_context->ifr = byte;
-    SMR_B(m, &byte);
-    via_context->ier = byte;
+    via_context->ifr = byte2;
+    via_context->ier = byte3;
 
     via_restore_int(via_context, via_context->ifr & via_context->ier & 0x7f);
 
     /* FIXME! */
-    SMR_B(m, &byte);
-    via_context->pb7 = byte ? 1 : 0;
+    via_context->pb7 = byte4 ? 1 : 0;
     via_context->pb7x = 0;
     via_context->pb7o = 0;
-    SMR_B(m, &byte);        /* SRHBITS */
-    via_context->shift_state = byte;
+    via_context->shift_state = byte5;
 
-    SMR_B(m, &byte);        /* CABSTATE */
-    via_context->ca2_state = byte & 0x80;
-    via_context->cb2_state = byte & 0x40;
+    via_context->ca2_state = byte6 & 0x80;
+    via_context->cb2_state = byte6 & 0x40;
 
     /* undump_pcr also restores the ca2_state/cb2_state effects if necessary;
        i.e. calls set_c*2(c*2_state) if necessary */
-    {
-        addr = VIA_PCR;
-        byte = via_context->via[addr];
-        (via_context->undump_pcr)(via_context, byte);
-    }
-    {
-        addr = VIA_SR;
-        byte = via_context->via[addr];
-        (via_context->store_sr)(via_context, byte);
-    }
-    {
-        addr = VIA_ACR;
-        byte = via_context->via[addr];
-        (via_context->undump_acr)(via_context, byte);
-    }
+    addr = VIA_PCR;
+    byte = via_context->via[addr];
+    (via_context->undump_pcr)(via_context, byte);
 
-    SMR_B(m, &(via_context->ila));
-    SMR_B(m, &(via_context->ilb));
+    addr = VIA_SR;
+    byte = via_context->via[addr];
+    (via_context->store_sr)(via_context, byte);
+
+    addr = VIA_ACR;
+    byte = via_context->via[addr];
+    (via_context->undump_acr)(via_context, byte);
 
     return snapshot_module_close(m);
 }
@@ -1348,6 +1415,9 @@ int viacore_dump(via_context_t *via_context)
     mon_out("Per. control: %02x\n", viacore_peek(via_context, 0x0c));
     mon_out("IRQ flags: %02x\n", viacore_peek(via_context, 0x0d));
     mon_out("IRQ enable: %02x\n", viacore_peek(via_context, 0x0e));
-    mon_out("\nSynchronous Serial I/O Data Buffer: %02x\n", viacore_peek(via_context, 0x0a));
+    mon_out("\nSynchronous Serial I/O Data Buffer: %02x (%s, shifting %s)\n", 
+            viacore_peek(via_context, 0x0a), 
+            ((via_context->via[VIA_ACR] & 0x1c) == 0) ? "disabled" : "enabled",
+            (via_context->via[VIA_ACR] & 0x10) ? "out" : "in");
     return 0;
 }

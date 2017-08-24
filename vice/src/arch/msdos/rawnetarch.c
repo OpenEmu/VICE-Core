@@ -30,7 +30,7 @@
 
 #include "vice.h"
 
-#ifdef HAVE_TFE 
+#ifdef HAVE_PCAP 
 
 #define TRUE (1 == 1)
 #define FALSE (1 != 1)
@@ -538,4 +538,12 @@ int _dma_request(int ch, const char *dev_name)
     return (0);  /* to-do */
 }
 
-#endif /* #ifdef HAVE_TFE */
+char *rawnet_arch_get_standard_interface(void)
+{
+    char *dev, errbuf[PCAP_ERRBUF_SIZE];
+
+    dev = pcap_lookupdev(errbuf);
+
+    return dev;
+}
+#endif /* #ifdef HAVE_PCAP */

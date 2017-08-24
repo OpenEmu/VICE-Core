@@ -37,6 +37,7 @@
 #include "cartio.h"
 #include "cartridge.h"
 #include "cmdline.h"
+#include "export.h"
 #include "flash040.h"
 #include "lib.h"
 #include "log.h"
@@ -161,6 +162,9 @@ static io_source_t vfp_device = {
 
 static io_source_list_t *vfp_list_item = NULL;
 
+static const export_resource_t export_res = {
+    CARTRIDGE_VIC20_NAME_FP, 0, 0, &vfp_device, NULL, CARTRIDGE_VIC20_FP
+};
 
 /* ------------------------------------------------------------------------- */
 
@@ -335,6 +339,10 @@ int vic_fp_bin_attach(const char *filename)
         return -1;
     }
 
+    if (export_add(&export_res) < 0) {
+        return -1;
+    }
+
     flash040core_init(&flash_state, maincpu_alarm_context, FLASH040_TYPE_032B_A0_1_SWAP, cart_rom);
 
     mem_cart_blocks = VIC_CART_RAM123 |
@@ -385,6 +393,7 @@ void vic_fp_detach(void)
     cartfile = NULL;
 
     if (vfp_list_item != NULL) {
+        export_remove(&export_res);
         io_source_unregister(vfp_list_item);
         vfp_list_item = NULL;
     }
@@ -402,7 +411,7 @@ static int set_vic_fp_writeback(int val, void *param)
 static const resource_int_t resources_int[] = {
     { "VicFlashPluginWriteBack", 0, RES_EVENT_STRICT, (resource_value_t)0,
       &vic_fp_writeback, set_vic_fp_writeback, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int vic_fp_resources_init(void)
@@ -426,7 +435,7 @@ static const cmdline_option_t cmdline_options[] =
       USE_PARAM_STRING, USE_DESCRIPTION_ID,
       IDCLS_UNUSED, IDCLS_DISABLE_VICFP_ROM_WRITE,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int vic_fp_cmdline_options_init(void)

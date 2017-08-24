@@ -4,6 +4,7 @@
  * Written by
  *  Ettore Perazzoli <ettore@comm2000.it>
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -50,128 +51,162 @@ UI_CALLBACK(set_sound_device_arg)
 }
 
 ui_menu_entry_t set_sound_sample_rate_submenu[] = {
-    { "8000Hz", UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundSampleRate,
-      (ui_callback_data_t)8000, NULL },
-    { "11025Hz", UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundSampleRate,
-      (ui_callback_data_t)11025, NULL },
-    { "22050Hz", UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundSampleRate,
-      (ui_callback_data_t)22050, NULL },
-    { "44100Hz", UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundSampleRate,
-      (ui_callback_data_t)44100, NULL },
-    { "48000Hz", UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundSampleRate,
-      (ui_callback_data_t)48000, NULL },
-    { NULL }
+    { "8000Hz", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundSampleRate, (ui_callback_data_t)8000, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "11025Hz", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundSampleRate, (ui_callback_data_t)11025, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "22050Hz", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundSampleRate, (ui_callback_data_t)22050, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "44100Hz", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundSampleRate, (ui_callback_data_t)44100, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "48000Hz", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundSampleRate, (ui_callback_data_t)48000, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
 };
 
 static ui_menu_entry_t set_sound_buffer_size_submenu[] = {
-    { "0.35 s", UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundBufferSize,
-      (ui_callback_data_t)350, NULL },
-    { "0.25 s", UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundBufferSize,
-      (ui_callback_data_t)250, NULL },
-    { "0.15 s", UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundBufferSize,
-      (ui_callback_data_t)150, NULL },
-    { "0.10 s", UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundBufferSize,
-      (ui_callback_data_t)100, NULL },
-    { "0.075 s", UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundBufferSize,
-      (ui_callback_data_t)75, NULL },
-    { "0.05 s", UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundBufferSize,
-      (ui_callback_data_t)50, NULL },
-    { "0.04 s", UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundBufferSize,
-      (ui_callback_data_t)40, NULL },
-    { "0.03 s", UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundBufferSize,
-      (ui_callback_data_t)30, NULL },
-    { "0.025 s", UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundBufferSize,
-      (ui_callback_data_t)25, NULL },
-    { "0.02 s", UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundBufferSize,
-      (ui_callback_data_t)20, NULL },
-    { NULL }
+    { "0.35 s", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundBufferSize, (ui_callback_data_t)350, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "0.25 s", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundBufferSize, (ui_callback_data_t)250, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "0.15 s", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundBufferSize, (ui_callback_data_t)150, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "0.10 s", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundBufferSize, (ui_callback_data_t)100, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "0.075 s", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundBufferSize, (ui_callback_data_t)75, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "0.05 s", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundBufferSize, (ui_callback_data_t)50, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "0.04 s", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundBufferSize, (ui_callback_data_t)40, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "0.03 s", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundBufferSize, (ui_callback_data_t)30, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "0.025 s", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundBufferSize, (ui_callback_data_t)25, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "0.02 s", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundBufferSize, (ui_callback_data_t)20, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
 };
 
 static ui_menu_entry_t set_sound_fragment_size_submenu[] = {
-    { N_("Very small"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundFragmentSize,
-      (ui_callback_data_t)SOUND_FRAGMENT_VERY_SMALL, NULL },
-    { N_("Small"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundFragmentSize,
-      (ui_callback_data_t)SOUND_FRAGMENT_SMALL, NULL },
-    { N_("Medium"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundFragmentSize,
-      (ui_callback_data_t)SOUND_FRAGMENT_MEDIUM, NULL },
-    { N_("Large"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundFragmentSize,
-      (ui_callback_data_t)SOUND_FRAGMENT_LARGE, NULL },
-    { N_("Very large"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundFragmentSize,
-      (ui_callback_data_t)SOUND_FRAGMENT_VERY_LARGE, NULL },
-    { NULL }
+    { N_("Very small"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundFragmentSize, (ui_callback_data_t)SOUND_FRAGMENT_VERY_SMALL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("Small"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundFragmentSize, (ui_callback_data_t)SOUND_FRAGMENT_SMALL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("Medium"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundFragmentSize, (ui_callback_data_t)SOUND_FRAGMENT_MEDIUM, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("Large"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundFragmentSize, (ui_callback_data_t)SOUND_FRAGMENT_LARGE, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("Very large"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundFragmentSize, (ui_callback_data_t)SOUND_FRAGMENT_VERY_LARGE, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
 };
 
 static ui_menu_entry_t set_sound_suspend_time_submenu[] = {
-    { N_("Keep going"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundSuspendTime,
-      (ui_callback_data_t)0, NULL },
-    { N_("1 s suspend"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundSuspendTime,
-      (ui_callback_data_t)1, NULL },
-    { N_("2 s suspend"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundSuspendTime,
-      (ui_callback_data_t)2, NULL },
-    { N_("5 s suspend"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundSuspendTime,
-      (ui_callback_data_t)5, NULL },
-    { N_("10 s suspend"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_SoundSuspendTime,
-      (ui_callback_data_t)10, NULL },
-    { NULL }
+    { N_("Keep going"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundSuspendTime, (ui_callback_data_t)0, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("1 s suspend"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundSuspendTime, (ui_callback_data_t)1, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("2 s suspend"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundSuspendTime, (ui_callback_data_t)2, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("5 s suspend"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundSuspendTime, (ui_callback_data_t)5, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("10 s suspend"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SoundSuspendTime, (ui_callback_data_t)10, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
 };
 
 static ui_menu_entry_t set_sound_adjustment_submenu[] = {
     { N_("Flexible"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)radio_SoundSpeedAdjustment,
-      (ui_callback_data_t)SOUND_ADJUST_FLEXIBLE, NULL },
+      (ui_callback_t)radio_SoundSpeedAdjustment, (ui_callback_data_t)SOUND_ADJUST_FLEXIBLE, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Adjusting"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)radio_SoundSpeedAdjustment,
-      (ui_callback_data_t)SOUND_ADJUST_ADJUSTING, NULL },
+      (ui_callback_t)radio_SoundSpeedAdjustment, (ui_callback_data_t)SOUND_ADJUST_ADJUSTING, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Exact"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)radio_SoundSpeedAdjustment,
-      (ui_callback_data_t)SOUND_ADJUST_EXACT, NULL },
-    { NULL }
+      (ui_callback_t)radio_SoundSpeedAdjustment, (ui_callback_data_t)SOUND_ADJUST_EXACT, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
 };
 
 static ui_menu_entry_t set_sound_outmode_submenu[] = {
     { N_("System"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)radio_SoundOutput,
-      (ui_callback_data_t)SOUND_OUTPUT_SYSTEM, NULL },
+      (ui_callback_t)radio_SoundOutput, (ui_callback_data_t)SOUND_OUTPUT_SYSTEM, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Mono"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)radio_SoundOutput,
-      (ui_callback_data_t)SOUND_OUTPUT_MONO, NULL },
+      (ui_callback_t)radio_SoundOutput, (ui_callback_data_t)SOUND_OUTPUT_MONO, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Stereo"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)radio_SoundOutput,
-      (ui_callback_data_t)SOUND_OUTPUT_STEREO, NULL },
-    { NULL }
+      (ui_callback_t)radio_SoundOutput, (ui_callback_data_t)SOUND_OUTPUT_STEREO, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
 };
 
 ui_menu_entry_t sound_settings_submenu[] = {
     { N_("Enable sound playback"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_Sound, NULL, NULL },
-    { "--", UI_MENU_TYPE_SEPARATOR },
+      (ui_callback_t)toggle_Sound, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
       /* Do not change position as position 2 is hard coded. */
     { N_("Sound device name"), UI_MENU_TYPE_NORMAL,
-      NULL, NULL, NULL },
+      NULL, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Sound driver argument"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)set_sound_device_arg,
-      (ui_callback_data_t)"SoundDeviceArg", NULL },
-    { "--", UI_MENU_TYPE_SEPARATOR },
+      (ui_callback_t)set_sound_device_arg, (ui_callback_data_t)"SoundDeviceArg", NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
     { N_("Output mode"), UI_MENU_TYPE_NORMAL,
-      NULL, NULL, set_sound_outmode_submenu },
+      NULL, NULL, set_sound_outmode_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Sound synchronization"), UI_MENU_TYPE_NORMAL,
-      NULL, NULL, set_sound_adjustment_submenu },
-    { "--", UI_MENU_TYPE_SEPARATOR },
+      NULL, NULL, set_sound_adjustment_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
     { N_("Sample rate"), UI_MENU_TYPE_NORMAL,
-      NULL, NULL, set_sound_sample_rate_submenu },
+      NULL, NULL, set_sound_sample_rate_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Buffer size"), UI_MENU_TYPE_NORMAL,
-      NULL, NULL, set_sound_buffer_size_submenu },
+      NULL, NULL, set_sound_buffer_size_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Fragment size"), UI_MENU_TYPE_NORMAL,
-      NULL, NULL, set_sound_fragment_size_submenu },
+      NULL, NULL, set_sound_fragment_size_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Suspend time"), UI_MENU_TYPE_NORMAL,
-      NULL, NULL, set_sound_suspend_time_submenu },
-    { NULL },
+      NULL, NULL, set_sound_suspend_time_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
 };
 
 ui_menu_entry_t ui_sound_settings_menu[] = {
     { N_("Sound settings"), UI_MENU_TYPE_NORMAL,
-      NULL, NULL, sound_settings_submenu },
-    { NULL }
+      NULL, NULL, sound_settings_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
 };
 
 void uisound_menu_create(void)
@@ -188,10 +223,10 @@ void uisound_menu_create(void)
     devices_submenu = lib_calloc((size_t)(num + 1), sizeof(ui_menu_entry_t));
 
     for (i = 0; i < num ; i++) {
-        devices_submenu[i].string = (ui_callback_data_t)lib_msprintf("%s", sound_device_name(i));
+        devices_submenu[i].string = (ui_callback_data_t)sound_device_name(i);
         devices_submenu[i].type = UI_MENU_TYPE_TICK;
         devices_submenu[i].callback = (ui_callback_t)radio_SoundDeviceName;
-        devices_submenu[i].callback_data = (ui_callback_data_t)lib_stralloc(sound_device_name(i));
+        devices_submenu[i].callback_data = (ui_callback_data_t)sound_device_name(i);
     }
 
     sound_settings_submenu[2].sub_menu = devices_submenu;
@@ -199,24 +234,5 @@ void uisound_menu_create(void)
 
 void uisound_menu_shutdown(void)
 {
-    unsigned int i;
-    ui_menu_entry_t *devices_submenu = NULL;
-
-    devices_submenu = sound_settings_submenu[2].sub_menu;
-
-    if (devices_submenu == NULL) {
-        return;
-    }
-
-    sound_settings_submenu[2].sub_menu = NULL;
-
-    i = 0;
-
-    while (devices_submenu[i].string != NULL) {
-        lib_free(devices_submenu[i].string);
-        lib_free(devices_submenu[i].callback_data);
-        i++;
-    }
-
-    lib_free(devices_submenu);
+    lib_free(sound_settings_submenu[2].sub_menu);
 }

@@ -27,14 +27,15 @@
 
 #include <stdio.h>
 
+#include "lib.h"
+#include "machine.h"
+#include "snapshot.h"
 #include "uisnapshot.h"
 #include "ui.h"
 #include "uiarch.h"
 #include "uiapi.h"
-#include "machine.h"
 #include "uifileentry.h"
 #include "uilib.h"
-#include "lib.h"
 
 static GtkWidget *snapshot_dialog, *attach_disk, *attach_rom;
 
@@ -44,12 +45,12 @@ static GtkWidget *build_snapshot_dialog(void)
     uilib_file_filter_enum_t filter[] = { UILIB_FILTER_SNAPSHOT, UILIB_FILTER_ALL };
 
     d = vice_file_entry(_("Save snapshot image"), NULL, NULL, filter, sizeof(filter) / sizeof(*filter), UI_FC_SAVE);
-    box = gtk_hbox_new(0, FALSE);
+    box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 
     gtk_dialog_set_default_response(GTK_DIALOG(d), GTK_RESPONSE_ACCEPT);
 
     tmp = gtk_frame_new(_("Snapshot options"));
-    box = gtk_vbox_new(0, FALSE);
+    box = gtk_box_new(GTK_ORIENTATION_VERTICAL, FALSE);
 
     attach_disk = gtk_check_button_new_with_label(_("Save currently attached disk images"));
     gtk_box_pack_start(GTK_BOX(box), attach_disk, FALSE, FALSE, 0);
@@ -89,7 +90,7 @@ void ui_snapshot_dialog(void)
     if (res != GTK_RESPONSE_ACCEPT) {
         return;
     }
-    
+
     name = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(snapshot_dialog));
     if (!name) {
         ui_error(_("Invalid filename"));
@@ -98,9 +99,9 @@ void ui_snapshot_dialog(void)
 
     /* ok button pressed */
     if (machine_write_snapshot(name, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(attach_rom)), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(attach_disk)), 0) < 0) {
-        ui_error(_("Cannot write snapshot file\n`%s'\n"), name);
+        snapshot_display_error();
     } else {
         ui_message(_("Successfully wrote `%s'\n"), name);
     }
-    lib_free(name);
+    g_free(name);
 }

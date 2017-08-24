@@ -11,13 +11,16 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/tape \
 	-I$(top_srcdir)/src/lib/p64 \
 	-I$(top_srcdir)/src/joyport \
-	-I$(top_srcdir)/src/samplerdrv
+	-I$(top_srcdir)/src/samplerdrv \
+	-I$(top_srcdir)/src/tapeport
 
 noinst_LIBRARIES = libpet.a
 
 libpet_a_SOURCES = \
 	6809.c \
 	6809.h \
+	debugcart.c \
+	debugcart.h \
 	pet-cmdline-options.c \
 	pet-cmdline-options.h \
 	pet-resources.c \
@@ -42,6 +45,7 @@ libpet_a_SOURCES = \
 	pethre.h \
 	petiec.c \
 	petiec.h \
+	petio.c \
 	petmem.c \
 	petmem.h \
 	petmemsnapshot.c \

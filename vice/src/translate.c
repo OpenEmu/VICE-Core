@@ -136,6 +136,13 @@ static char *translate_and_build_sid_cmdline_option(int en_resource)
     old = new;
 #endif
 
+#ifdef HAVE_SSI2001
+    /* add ssi2001 options if available */
+    new = util_concat(old, ", ", translate_text(IDCLS_SSI2001_ENGINE_MODEL), NULL);
+    lib_free(old);
+    old = new;
+#endif
+
     /* add ending bracket */
     new = util_concat(old, ")", NULL);
     lib_free(old);
@@ -248,7 +255,7 @@ static int set_current_language(const char *lang, void *param)
 static const resource_string_t resources_string[] = {
     { "Language", "en", RES_EVENT_NO, NULL,
       &current_language, set_current_language, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 int translate_resources_init(void)
@@ -288,7 +295,7 @@ static cmdline_option_t cmdline_options[] =
       USE_PARAM_ID, USE_DESCRIPTION_COMBO,
       IDCLS_P_ISO_LANGUAGE_CODE, IDCLS_SPECIFY_ISO_LANG_CODE,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int translate_cmdline_options_init(void)

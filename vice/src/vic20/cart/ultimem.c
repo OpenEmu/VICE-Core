@@ -24,8 +24,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
- *  02111-1307  USA.
+ *  Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1335 USA.
  *
  */
 
@@ -39,6 +38,7 @@
 #include "cartio.h"
 #include "cartridge.h"
 #include "cmdline.h"
+#include "export.h"
 #include "flash040.h"
 #include "lib.h"
 #include "log.h"
@@ -78,6 +78,8 @@ static BYTE *cart_rom = NULL;
 
 #define ultimem_reg0_regs_disable 0x80
 #define ultimem_reg0_led 1
+#define ultimem_reg3_8m 0x11 /* UltiMem 8MiB */
+#define ultimem_reg3_512k 0x12 /* VicMidi+UltiMem 512KiB */
 
 #define CART_CFG_DISABLE (ultimem[0] & ultimem_reg0_regs_disable)
 
@@ -89,19 +91,19 @@ static const BYTE ultimem_mask[16] = {
     0x3f, /* 00:IO3 config:IO2 config:RAM123 config */
     0xff, /* BLK5:BLK3:BLK2:BLK1 */
     0,
-    0xff, 0x7, /* RAM bank lo/hi (A13..A23) */
-    0xff, 0x7, /* I/O bank lo/hi (A13..A23) */
-    0xff, 0x7, /* BLK1 bank lo/hi (A13..A23) */
-    0xff, 0x7, /* BLK2 bank lo/hi (A13..A23) */
-    0xff, 0x7, /* BLK3 bank lo/hi (A13..A23) */
-    0xff, 0x7  /* BLK5 bank lo/hi (A13..A23) */
+    0xff, (CART_ROM_SIZE_MAX >> 21) - 1, /* RAM bank lo/hi (A13..A23) */
+    0xff, (CART_ROM_SIZE_MAX >> 21) - 1, /* I/O bank lo/hi (A13..A23) */
+    0xff, (CART_ROM_SIZE_MAX >> 21) - 1, /* BLK1 bank lo/hi (A13..A23) */
+    0xff, (CART_ROM_SIZE_MAX >> 21) - 1, /* BLK2 bank lo/hi (A13..A23) */
+    0xff, (CART_ROM_SIZE_MAX >> 21) - 1, /* BLK3 bank lo/hi (A13..A23) */
+    0xff, (CART_ROM_SIZE_MAX >> 21) - 1  /* BLK5 bank lo/hi (A13..A23) */
 };
 
 /** Initial values for the registers at RESET */
 static const BYTE ultimem_reset[17] = {
     6 /* two switches, never asserted in VICE */,
     0, 64,
-    0x17, /* 0x17=UltiMem 8MiB, 0x18=VicMidi+UltiMem 512KiB */
+    ultimem_reg3_8m,
     1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 0, 0
 };
 
@@ -180,7 +182,13 @@ static io_source_t ultimem_io3 = {
     0
 };
 
-static io_source_list_t *io2_list_item, *io3_list_item;
+static io_source_list_t *io2_list_item = NULL;
+static io_source_list_t *io3_list_item = NULL;
+
+static const export_resource_t export_res = {
+    CARTRIDGE_VIC20_NAME_UM, 0, 0, &ultimem_io2, &ultimem_io2, CARTRIDGE_VIC20_UM
+};
+
 
 /* ------------------------------------------------------------------------- */
 
@@ -345,12 +353,12 @@ static BYTE vic_um_io2_read(WORD addr)
     case BLK_STATE_ROM:
         ultimem_io2.io_source_valid = 1;
         return flash040core_read(&flash_state,
-                                 ((addr & 0x1fff) + CART_IO_ADDR) &
+                                 ((addr | 0x1800) + CART_IO_ADDR) &
                                  (cart_rom_size - 1));
     case BLK_STATE_RAM_RO:
     case BLK_STATE_RAM_RW:
         ultimem_io2.io_source_valid = 1;
-        return cart_ram[((addr & 0x1fff) + CART_IO_ADDR) &
+        return cart_ram[((addr | 0x1800) + CART_IO_ADDR) &
                         (cart_ram_size - 1)];
     }
 
@@ -364,11 +372,11 @@ static BYTE vic_um_io2_peek(WORD addr)
     case BLK_STATE_DISABLED:
         break;
     case BLK_STATE_ROM:
-        return cart_rom[((addr & 0x1fff) + CART_IO_ADDR) &
+        return cart_rom[((addr | 0x1800) + CART_IO_ADDR) &
                         (cart_rom_size - 1)];
     case BLK_STATE_RAM_RO:
     case BLK_STATE_RAM_RW:
-        return cart_ram[((addr & 0x1fff) + CART_IO_ADDR) &
+        return cart_ram[((addr | 0x1800) + CART_IO_ADDR) &
                         (cart_ram_size - 1)];
     }
 
@@ -384,12 +392,12 @@ static void vic_um_io2_store(WORD addr, BYTE value)
         break;
     case BLK_STATE_ROM:
         flash040core_store(&flash_state,
-                           ((addr & 0x1fff) + CART_IO_ADDR) &
+                           ((addr | 0x1800) + CART_IO_ADDR) &
                            (cart_rom_size - 1),
                            value);
         break;
     case BLK_STATE_RAM_RW:
-        cart_ram[((addr & 0x1fff) + CART_IO_ADDR) & (cart_ram_size - 1)] =
+        cart_ram[((addr | 0x1800) + CART_IO_ADDR) & (cart_ram_size - 1)] =
             value;
     }
 }
@@ -436,12 +444,12 @@ static BYTE vic_um_io3_read(WORD addr)
     case BLK_STATE_ROM:
         ultimem_io3.io_source_valid = 1;
         return flash040core_read(&flash_state,
-                                 ((addr & 0x1fff) + CART_IO_ADDR) &
+                                 ((addr | 0x1c00) + CART_IO_ADDR) &
                                  (cart_rom_size - 1));
     case BLK_STATE_RAM_RO:
     case BLK_STATE_RAM_RW:
         ultimem_io3.io_source_valid = 1;
-        return cart_ram[((addr & 0x1fff) + CART_IO_ADDR) &
+        return cart_ram[((addr | 0x1c00) + CART_IO_ADDR) &
                         (cart_ram_size - 1)];
     }
 
@@ -459,11 +467,11 @@ static BYTE vic_um_io3_peek(WORD addr)
     case BLK_STATE_DISABLED:
         break;
     case BLK_STATE_ROM:
-        return cart_rom[((addr & 0x1fff) + CART_IO_ADDR) &
+        return cart_rom[((addr | 0x1c00) + CART_IO_ADDR) &
                         (cart_rom_size - 1)];
     case BLK_STATE_RAM_RO:
     case BLK_STATE_RAM_RW:
-        return cart_ram[((addr & 0x1fff) + CART_IO_ADDR) &
+        return cart_ram[((addr | 0x1c00) + CART_IO_ADDR) &
                         (cart_ram_size - 1)];
     }
 
@@ -507,6 +515,13 @@ static void vic_um_io3_store(WORD addr, BYTE value)
             break;
         case 3:
             return; /* not writable */
+        case 7: case 9: case 11: case 13: case 15:
+            if (ultimem[3] == ultimem_reg3_512k)
+                value = 0;
+            break;
+        case 6: case 8: case 10: case 12: case 14:
+            if (ultimem[3] == ultimem_reg3_512k)
+                value &= (CART_ROM_SIZE_512K >> 13) - 1;
         }
         ultimem[addr] = value;
         return;
@@ -518,12 +533,12 @@ static void vic_um_io3_store(WORD addr, BYTE value)
         break;
     case BLK_STATE_ROM:
         flash040core_store(&flash_state,
-                           ((addr & 0x1fff) + CART_IO_ADDR) &
+                           ((addr | 0x1c00) + CART_IO_ADDR) &
                            (cart_rom_size - 1),
                            value);
         break;
     case BLK_STATE_RAM_RW:
-        cart_ram[((addr & 0x1fff) + CART_IO_ADDR) & (cart_ram_size - 1)] =
+        cart_ram[((addr | 0x1c00) + CART_IO_ADDR) & (cart_ram_size - 1)] =
             value;
     }
 }
@@ -543,10 +558,10 @@ void vic_um_reset(void)
     memcpy(ultimem, ultimem_reset, sizeof ultimem);
     switch (cart_rom_size) {
     case CART_ROM_SIZE_8M:
-        ultimem[3] = 0x17; /* UltiMem 8MiB */
+        ultimem[3] = ultimem_reg3_8m;
         break;
     case CART_ROM_SIZE_512K:
-        ultimem[3] = 0x18; /* VicMidi+UltiMem 512KiB */
+        ultimem[3] = ultimem_reg3_512k;
         break;
     }
 }
@@ -594,12 +609,16 @@ int vic_um_bin_attach(const char *filename)
         return -1;
     }
 
+    if (export_add(&export_res) < 0) {
+        return -1;
+    }
+
     zfile_fclose(fd);
 
     flash040core_init(&flash_state, maincpu_alarm_context,
                       cart_rom_size == CART_ROM_SIZE_512K
                       ? FLASH040_TYPE_B
-                      : FLASH040_TYPE_010 /* FIXME: 29LV160 */,
+                      : FLASH040_TYPE_064,
                       cart_rom);
 
     mem_cart_blocks = VIC_CART_RAM123 |
@@ -650,6 +669,8 @@ void vic_um_detach(void)
     cart_rom = NULL;
     cartfile = NULL;
 
+    export_remove(&export_res);
+
     if (io2_list_item != NULL) {
         io_source_unregister(io2_list_item);
         io2_list_item = NULL;
@@ -672,7 +693,7 @@ static int set_vic_um_writeback(int val, void *param)
 static const resource_int_t resources_int[] = {
     { "UltiMemWriteBack", 0, RES_EVENT_STRICT, (resource_value_t)0,
       &vic_um_writeback, set_vic_um_writeback, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int vic_um_resources_init(void)
@@ -696,7 +717,7 @@ static const cmdline_option_t cmdline_options[] =
       USE_PARAM_STRING, USE_DESCRIPTION_ID,
       IDCLS_UNUSED, IDCLS_DISABLE_VIC_UM_ROM_WRITE,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int vic_um_cmdline_options_init(void)
@@ -772,11 +793,11 @@ int vic_um_snapshot_read_module(snapshot_t *s)
     }
 
     switch (ultimem[3]) {
-    case 0x17:
+    case ultimem_reg3_8m:
         cart_rom_size = CART_ROM_SIZE_8M;
         cart_ram_size = CART_RAM_SIZE_1M;
         break;
-    case 0x18:
+    case ultimem_reg3_512k:
         cart_rom_size = CART_ROM_SIZE_512K;
         cart_ram_size = CART_RAM_SIZE_512K;
         break;
@@ -792,7 +813,7 @@ int vic_um_snapshot_read_module(snapshot_t *s)
     flash040core_init(&flash_state, maincpu_alarm_context,
                       cart_rom_size == CART_ROM_SIZE_512K
                       ? FLASH040_TYPE_B
-                      : FLASH040_TYPE_010 /* FIXME: 29LV160 */,
+                      : FLASH040_TYPE_064,
                       cart_rom);
 
     snapshot_module_close(m);

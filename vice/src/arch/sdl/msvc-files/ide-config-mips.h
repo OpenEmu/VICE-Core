@@ -44,6 +44,7 @@
 #define HAVE_SYS_STAT_H        1
 #define HAVE_SIGNAL_H          1
 #define HAVE_WINIOCTL_H        1
+#define HAVE_TIME_T_IN_TIME_H  1
 
 #define DWORD_IS_LONG          1
 #define HAVE_CRTDBG            1
@@ -51,6 +52,7 @@
 #define HAVE_HTONS             1
 #define HAVE_GETCWD            1
 
+#define HAVE_STRTOUL            1
 #define HAVE_STRTOK_R			1
 #define HAVE_STRREV			1
 #define HAVE_STRLWR			1
@@ -62,7 +64,7 @@
 
 #define HAVE_FFMPEG_HEADER_SUBDIRS 1
 
-/* #define HAVE_TFE                1 */
+/* #define HAVE_PCAP                1 */
 
 #define HAVE_STRDUP            1
 #define HAVE_WORKING_VSNPRINTF 1
@@ -81,7 +83,9 @@
 #define strcasecmp(s1, s2)     _stricmp(s1, s2)
 #define HAVE_STRCASECMP        1
 
+#if defined _MSC_VER && _MSC_VER < 1900 
 #define snprintf               _snprintf
+#endif
 
 #define int64_t_C(c)           (c ## i64)
 #define uint64_t_C(c)          (c ## u64)

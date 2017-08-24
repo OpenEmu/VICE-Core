@@ -28,31 +28,37 @@
 
 #include <stdio.h>
 
+#include "behrbonz.h"
 #include "c64acia.h"
 #include "cartridge.h"
 #include "digimax.h"
 #include "ds12c887rtc.h"
 #include "finalexpansion.h"
 #include "georam.h"
+#include "ioramcart.h"
 #include "megacart.h"
 #include "machine.h"
 #include "mem.h"
 #include "resources.h"
 #include "sfx_soundexpander.h"
 #include "sfx_soundsampler.h"
-#ifdef HAVE_TFE
+#include "sidcart.h"
+#ifdef HAVE_PCAP
 #define CARTRIDGE_INCLUDE_PRIVATE_API
 #define CARTRIDGE_INCLUDE_PUBLIC_API
-#include "tfe.h"
+#include "ethernetcart.h"
 #undef CARTRIDGE_INCLUDE_PRIVATE_API
 #undef CARTRIDGE_INCLUDE_PUBLIC_API
 #endif
 #include "types.h"
+#include "ultimem.h"
 #include "vic20mem.h"
 #include "vic20cartmem.h"
 #include "vic20-generic.h"
-#include "ultimem.h"
+#include "vic20-ieee488.h"
+#include "vic20-midi.h"
 #include "vic-fp.h"
+
 
 /* ------------------------------------------------------------------------- */
 
@@ -132,6 +138,9 @@ void cartridge_store_ram123(WORD addr, BYTE value)
 BYTE cartridge_read_blk1(WORD addr)
 {
     switch (mem_cartridge_type) {
+        case CARTRIDGE_VIC20_BEHRBONZ:
+            vic20_cpu_last_data = behrbonz_blk13_read(addr);
+            break;
         case CARTRIDGE_VIC20_GENERIC:
             vic20_cpu_last_data = generic_blk1_read(addr);
             break;
@@ -154,6 +163,8 @@ BYTE cartridge_read_blk1(WORD addr)
 BYTE cartridge_peek_blk1(WORD addr)
 {
     switch (mem_cartridge_type) {
+        case CARTRIDGE_VIC20_BEHRBONZ:
+            return behrbonz_blk13_read(addr);
         case CARTRIDGE_VIC20_GENERIC:
             return generic_blk1_read(addr);
         case CARTRIDGE_VIC20_UM:
@@ -193,6 +204,9 @@ void cartridge_store_blk1(WORD addr, BYTE value)
 BYTE cartridge_read_blk2(WORD addr)
 {
     switch (mem_cartridge_type) {
+        case CARTRIDGE_VIC20_BEHRBONZ:
+            vic20_cpu_last_data = behrbonz_blk25_read(addr);
+            break;
         case CARTRIDGE_VIC20_GENERIC:
             vic20_cpu_last_data = generic_blk2_read(addr);
             break;
@@ -215,6 +229,8 @@ BYTE cartridge_read_blk2(WORD addr)
 BYTE cartridge_peek_blk2(WORD addr)
 {
     switch (mem_cartridge_type) {
+        case CARTRIDGE_VIC20_BEHRBONZ:
+            return behrbonz_blk25_read(addr);
         case CARTRIDGE_VIC20_GENERIC:
             return generic_blk2_read(addr);
         case CARTRIDGE_VIC20_UM:
@@ -254,6 +270,9 @@ void cartridge_store_blk2(WORD addr, BYTE value)
 BYTE cartridge_read_blk3(WORD addr)
 {
     switch (mem_cartridge_type) {
+        case CARTRIDGE_VIC20_BEHRBONZ:
+            vic20_cpu_last_data = behrbonz_blk13_read(addr);
+            break;
         case CARTRIDGE_VIC20_GENERIC:
             vic20_cpu_last_data = generic_blk3_read(addr);
             break;
@@ -276,6 +295,8 @@ BYTE cartridge_read_blk3(WORD addr)
 BYTE cartridge_peek_blk3(WORD addr)
 {
     switch (mem_cartridge_type) {
+        case CARTRIDGE_VIC20_BEHRBONZ:
+            return behrbonz_blk13_read(addr);
         case CARTRIDGE_VIC20_GENERIC:
             return generic_blk3_read(addr);
         case CARTRIDGE_VIC20_UM:
@@ -315,6 +336,9 @@ void cartridge_store_blk3(WORD addr, BYTE value)
 BYTE cartridge_read_blk5(WORD addr)
 {
     switch (mem_cartridge_type) {
+        case CARTRIDGE_VIC20_BEHRBONZ:
+            vic20_cpu_last_data = behrbonz_blk25_read(addr);
+            break;
         case CARTRIDGE_VIC20_GENERIC:
             vic20_cpu_last_data = generic_blk5_read(addr);
             break;
@@ -337,6 +361,8 @@ BYTE cartridge_read_blk5(WORD addr)
 BYTE cartridge_peek_blk5(WORD addr)
 {
     switch (mem_cartridge_type) {
+        case CARTRIDGE_VIC20_BEHRBONZ:
+            return behrbonz_blk25_read(addr);
         case CARTRIDGE_VIC20_GENERIC:
             return generic_blk5_read(addr);
         case CARTRIDGE_VIC20_UM:
@@ -377,12 +403,13 @@ void cartridge_store_blk5(WORD addr, BYTE value)
 
 void cartridge_init(void)
 {
+    behrbonz_init();
     generic_init();
     megacart_init();
     finalexpansion_init();
     vic_fp_init();
-#ifdef HAVE_TFE
-    tfe_init();
+#ifdef HAVE_PCAP
+    ethernetcart_init();
 #endif
     aciacart_init();
     georam_init();
@@ -391,6 +418,9 @@ void cartridge_init(void)
 void cartridge_reset(void)
 {
     switch (mem_cartridge_type) {
+        case CARTRIDGE_VIC20_BEHRBONZ:
+            behrbonz_reset();
+            break;
         case CARTRIDGE_VIC20_GENERIC:
             generic_reset();
             break;
@@ -407,9 +437,9 @@ void cartridge_reset(void)
             finalexpansion_reset();
             break;
     }
-#ifdef HAVE_TFE
-    if (tfe_cart_enabled()) {
-        tfe_reset();
+#ifdef HAVE_PCAP
+    if (ethernetcart_cart_enabled()) {
+        ethernetcart_reset();
     }
 #endif
     if (aciacart_cart_enabled()) {
@@ -467,11 +497,46 @@ void cartridge_attach(int type, BYTE *rawcart)
     }
 }
 
+static void cart_detach_all(void)
+{
+    /* vic20 carts */
+    behrbonz_detach();
+    generic_detach();
+    finalexpansion_detach();
+    ioramcart_io2_detach();
+    ioramcart_io3_detach();
+    megacart_detach();
+    vic_um_detach();
+    vic20_ieee488_detach();
+#ifdef HAVE_MIDI
+    vic20_midi_detach();
+#endif
+    sidcart_detach();
+    vic_fp_detach();
+
+    /* c64 through mascuerade carts */
+    aciacart_detach();
+    digimax_detach();
+    ds12c887rtc_detach();
+    georam_detach();
+    sfx_soundexpander_detach();
+    sfx_soundsampler_detach();
+#ifdef HAVE_PCAP
+    ethernetcart_detach();
+#endif
+}
+
 void cartridge_detach(int type)
 {
     int cartridge_reset;
 
     switch (type) {
+        case -1:
+            cart_detach_all();
+            break;
+        case CARTRIDGE_VIC20_BEHRBONZ:
+            behrbonz_detach();
+            break;
         case CARTRIDGE_VIC20_GENERIC:
             generic_detach();
             break;

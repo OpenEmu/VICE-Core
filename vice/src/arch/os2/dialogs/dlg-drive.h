@@ -45,7 +45,7 @@
 #define CBS_IMAGE      0x1033
 #define CBS_PATH       0x1034
 #define CBS_TYPE       0x1035
-#define CB_PARALLEL    0x1036
+#define CBS_PARALLEL   0x1036
 
 #define CB_ALLOWACCESS 0x1037
 #define CB_CONVERTP00  0x1038
@@ -69,6 +69,13 @@
 #define CB_MEM6000     0x104a
 #define CB_MEM8000     0x104b
 #define CB_MEMA000     0x104c
+#define CB_ROMPDOS     0x104d
+#define CB_ROMSCP      0x104e
+#define CB_RTCSAVE     0x104f
+
+#define SL_RPM         0x1050
+#define SL_WOBBLE      0x1051
+#define SL_DRIVE_VOL   0x1052
 
 #define WM_SWITCH      WM_USER + 0x1
 #define WM_SWITCHTT    WM_USER + 0x2

@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -33,7 +34,7 @@
 #include "plus4pio1.h"
 #include "ted.h"
 #include "types.h"
-
+#include "userport.h"
 
 /* FIXME: C16 doesn't have 6529, writes can't mask off the tape_sense line */
 /* FIXME: line 2 is used in RS232 IRQ as well at $EA62 in ROM */
@@ -45,17 +46,20 @@ static int tape_sense = 0;
 
 BYTE pio1_read(WORD addr)
 {
-    BYTE pio1_value;
+    BYTE pio1_value = 0xff;
 
     /*  Correct clock */
     ted_handle_pending_alarms(0);
 
+    /* The functions below will gradually be removed as the functionality is added to the new userport system. */
     if (drive_context[0]->drive->parallel_cable
         || drive_context[1]->drive->parallel_cable) {
-        pio1_value = parallel_cable_cpu_read(DRIVE_PC_STANDARD);
+        pio1_value = parallel_cable_cpu_read(DRIVE_PC_STANDARD, pio1_value);
     } else {
         pio1_value = pio1_data;
     }
+
+    pio1_value = read_userport_pbx(0xff, pio1_value);
 
     if (tape_sense) {
         pio1_value &= ~4;
@@ -79,6 +83,9 @@ void pio1_store(WORD addr, BYTE value)
         pio1_outline &= ~4;
     }
 
+    store_userport_pbx(pio1_outline);
+
+    /* The functions below will gradually be removed as the functionality is added to the new userport system. */
     if (drive_context[0]->drive->parallel_cable
         || drive_context[1]->drive->parallel_cable) {
         parallel_cable_cpu_write(DRIVE_PC_STANDARD, pio1_outline);

@@ -121,15 +121,15 @@ static void init_cia_dialog(HWND hwnd)
 
     resources_get_int("CIA1Model", &res_value);
     temp_hwnd = GetDlgItem(hwnd, IDC_C64CIA1_LIST);
-    SendMessage(temp_hwnd, CB_ADDSTRING, 0, (LPARAM)translate_text(IDS_6526_OLD));
-    SendMessage(temp_hwnd, CB_ADDSTRING, 0, (LPARAM)translate_text(IDS_6526A_NEW));
+    SendMessage(temp_hwnd, CB_ADDSTRING, 0, (LPARAM)intl_translate_tcs(IDS_6526_OLD));
+    SendMessage(temp_hwnd, CB_ADDSTRING, 0, (LPARAM)intl_translate_tcs(IDS_6526A_NEW));
     SendMessage(temp_hwnd, CB_SETCURSEL, (WPARAM)res_value, 0);
 
     if (amount == 2) {
         resources_get_int("CIA2Model", &res_value);
         temp_hwnd = GetDlgItem(hwnd, IDC_C64CIA2_LIST);
-        SendMessage(temp_hwnd, CB_ADDSTRING, 0, (LPARAM)translate_text(IDS_6526_OLD));
-        SendMessage(temp_hwnd, CB_ADDSTRING, 0, (LPARAM)translate_text(IDS_6526A_NEW));
+        SendMessage(temp_hwnd, CB_ADDSTRING, 0, (LPARAM)intl_translate_tcs(IDS_6526_OLD));
+        SendMessage(temp_hwnd, CB_ADDSTRING, 0, (LPARAM)intl_translate_tcs(IDS_6526A_NEW));
         SendMessage(temp_hwnd, CB_SETCURSEL, (WPARAM)res_value, 0);
     }
 }
@@ -139,7 +139,7 @@ static void end_cia_dialog(HWND hwnd)
     resources_set_int("CIA1Model", (int)SendMessage(GetDlgItem(hwnd, IDC_C64CIA1_LIST), CB_GETCURSEL, 0, 0));
 
     if (amount == 2) {
-        resources_set_int("CIA1Model", (int)SendMessage(GetDlgItem(hwnd, IDC_C64CIA2_LIST), CB_GETCURSEL, 0, 0));
+        resources_set_int("CIA2Model", (int)SendMessage(GetDlgItem(hwnd, IDC_C64CIA2_LIST), CB_GETCURSEL, 0, 0));
     }
 }
 

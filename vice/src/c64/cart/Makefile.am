@@ -42,12 +42,20 @@ libc64cart_a_SOURCES = \
 	c64tpi.h \
 	capture.c \
 	capture.h \
+	clockport.c \
+	clockport.h \
+	clockport-mp3at64.c \
+	clockport-mp3at64.h \
+	clockport-rrnet.c \
+	clockport-rrnet.h \
 	comal80.c \
 	comal80.h \
 	cpmcart.c \
 	cpmcart.h \
 	daa.c \
 	daa.h \
+	debugcart.c \
+	debugcart.h \
 	delaep256.c \
 	delaep256.h \
 	delaep64.c \
@@ -60,6 +68,8 @@ libc64cart_a_SOURCES = \
 	dinamic.h \
 	dqbb.c \
 	dqbb.h \
+	easycalc.c \
+	easycalc.h \
 	easyflash.c \
 	easyflash.h \
 	epyxfastload.c \
@@ -84,6 +94,8 @@ libc64cart_a_SOURCES = \
 	funplay.h \
 	gamekiller.c \
 	gamekiller.h \
+	gmod2.c \
+	gmod2.h \
 	gs.c \
 	gs.h \
 	ide64.c \
@@ -128,6 +140,14 @@ libc64cart_a_SOURCES = \
 	rgcd.h \
 	ross.c \
 	ross.h \
+	rrnetmk3.c \
+	rrnetmk3.h \
+	shortbus.c \
+	shortbus.h \
+	shortbus_digimax.c \
+	shortbus_digimax.h \
+	shortbus_etfe.c \
+	shortbus_etfe.h \
 	silverrock128.c \
 	silverrock128.h \
 	simonsbasic.c \
@@ -156,15 +176,17 @@ libc64cart_a_SOURCES = \
 libc64commoncart_a_SOURCES = \
 	c64acia.h \
 	c64acia1.c \
+	cs8900io.c \
+	cs8900io.h \
 	digimax.c \
 	digimax.h \
 	ds12c887rtc.c \
 	ds12c887rtc.h \
+	ethernetcart.c \
+	ethernetcart.h \
 	georam.c \
 	georam.h \
 	sfx_soundexpander.c \
 	sfx_soundexpander.h \
 	sfx_soundsampler.c \
-	sfx_soundsampler.h \
-	tfe.c \
-	tfe.h
+	sfx_soundsampler.h

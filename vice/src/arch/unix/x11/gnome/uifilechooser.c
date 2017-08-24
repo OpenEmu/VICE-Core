@@ -1,4 +1,3 @@
-
 /*
  * uifilechooser.c - GTK only, file chooser/requester
  *
@@ -45,6 +44,7 @@
 #include "uicontents.h"
 #include "uidrivestatus.h"
 #include "uifileentry.h"
+#include "uilib.h"
 #include "uimenu.h"
 #include "uitapestatus.h"
 #include "util.h"
@@ -66,6 +66,7 @@ extern int have_cbm_font;
 extern char *fixedfontname;
 
 static GtkWidget *image_preview_list, *auto_start_button, *last_file_selection;
+static GtkWidget *scrollw = NULL;
 
 static char *filesel_dir = NULL;
 
@@ -87,11 +88,32 @@ static void sh_checkbox_cb(GtkWidget *w, gpointer data)
     }
 }
 
+/** \brief  Event handler for the "toggled" event of the "Show preview" cb
+ *
+ * \param[in,out]   widget  event source
+ * \param[in]       data    event data
+ *
+ * \todo    Perhaps resize the file chooser widget
+ */
+static void sp_checkbox_cb(GtkWidget *widget, gpointer data)
+{
+    if (scrollw != NULL) {
+        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))) {
+            gtk_widget_show(scrollw);
+        } else {
+            gtk_widget_hide(scrollw);
+        }
+    }
+}
+
+
+
 /* These functions build all the widgets. */
 GtkWidget *build_file_selector(const char *title, GtkWidget **attach_write_protect, int allow_autostart, int show_preview,
                                       uilib_file_filter_enum_t* patterns, int num_patterns, const char *default_dir, ui_filechooser_t action, read_contents_func_type read_contents_func)
 {
-    GtkWidget *fileselect, *scrollw, *wp_checkbox, *sh_checkbox, *extra;
+    GtkWidget *fileselect, *wp_checkbox, *sh_checkbox, *extra;
+    GtkWidget *sp_checkbox = NULL;
     GtkCellRenderer *renderer;
     GtkTreeViewColumn *column;
     GtkListStore *store;
@@ -110,7 +132,9 @@ GtkWidget *build_file_selector(const char *title, GtkWidget **attach_write_prote
 
         gtk_tree_view_append_column(GTK_TREE_VIEW(image_preview_list), column);
 
+        /* ignored on Gtk3:
         gtk_widget_set_size_request(image_preview_list, 350, 180);
+        */
         gtk_tree_view_set_headers_clickable(GTK_TREE_VIEW(image_preview_list), FALSE);
 
         gtk_container_set_border_width(GTK_CONTAINER(image_preview_list), 1);
@@ -118,6 +142,11 @@ GtkWidget *build_file_selector(const char *title, GtkWidget **attach_write_prote
         gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(image_preview_list)), GTK_SELECTION_SINGLE);
 
         scrollw = gtk_scrolled_window_new(NULL, NULL);
+
+        /* this works though, both on Gtk2 and Gtk3: 410 pixels makes the
+         * horizontal scrollbar disappear */
+        gtk_widget_set_size_request(scrollw, 410, 180);
+
         gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrollw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
         gtk_container_set_border_width(GTK_CONTAINER(scrollw), 1);
         gtk_container_add(GTK_CONTAINER(scrollw), image_preview_list);
@@ -132,7 +161,7 @@ GtkWidget *build_file_selector(const char *title, GtkWidget **attach_write_prote
         }
     }
 
-    extra = gtk_hbox_new(FALSE, 5);
+    extra = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
 
     /* Write protect checkbox */
     if (attach_write_protect) {
@@ -148,6 +177,16 @@ GtkWidget *build_file_selector(const char *title, GtkWidget **attach_write_prote
     g_signal_connect(G_OBJECT(sh_checkbox), "toggled", G_CALLBACK(sh_checkbox_cb), (gpointer)fileselect);
     gtk_box_pack_start(GTK_BOX(extra), sh_checkbox, FALSE, FALSE, 5);
     gtk_widget_show(sh_checkbox);
+
+    /* add a toggle button for the image contents preview */
+    if (show_preview) {
+        sp_checkbox = gtk_check_button_new_with_label(_("Show image contents"));
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(sp_checkbox), TRUE);
+        g_signal_connect(G_OBJECT(sp_checkbox), "toggled",
+                G_CALLBACK(sp_checkbox_cb), (gpointer)fileselect);
+        gtk_box_pack_start(GTK_BOX(extra), sp_checkbox, FALSE, FALSE, 5);
+        gtk_widget_show(sp_checkbox);
+    }
 
     gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(fileselect), extra);
     gtk_widget_show(extra);

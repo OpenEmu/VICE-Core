@@ -37,7 +37,7 @@
 #include "util.h"
 
 static joyport_t joyport_device[JOYPORT_MAX_DEVICES];
-static BYTE joyport_display[3] = { 0, 0, 0};
+static BYTE joyport_display[6] = { 0, 0, 0, 0, 0, 0};
 
 static int joy_port[JOYPORT_MAX_PORTS];
 static joyport_port_props_t port_props[JOYPORT_MAX_PORTS];
@@ -141,6 +141,17 @@ static int joyport_set_device(int port, int id)
     return 0;
 }
 
+void joyport_clear_devices(void)
+{
+    int i;
+
+    for (i = 0; i < JOYPORT_MAX_PORTS; ++i) {
+        if (port_props[i].name) {
+            joyport_set_device(i, JOYPORT_ID_NONE);
+        }
+    }
+}
+
 BYTE read_joyport_dig(int port)
 {
     int id = joy_port[port];
@@ -170,7 +181,7 @@ void store_joyport_dig(int port, BYTE val, BYTE mask)
 
     store_val = joyport_dig_stored[port];
 
-    store_val &= ~mask;
+    store_val &= (BYTE)~mask;
     store_val |= val;
 
     joyport_device[id].store_digital(store_val);
@@ -245,9 +256,9 @@ BYTE read_joyport_potx(void)
             return ret2;
         case 3:
             return ret1 & ret2;
+        default:
+            return 0xff;
     }
-
-    return 0xff;
 }
 
 BYTE read_joyport_poty(void)
@@ -293,9 +304,9 @@ BYTE read_joyport_poty(void)
             return ret2;
         case 3:
             return ret1 & ret2;
+        default:
+            return 0xff;
     }
-
-    return 0xff;
 }
 
 static int pot_present = -1;
@@ -321,7 +332,7 @@ int joyport_device_register(int id, joyport_t *device)
     }
 
     /* skip pot devices if no pot is present */
-    if ((device->read_potx || device->read_poty) && !pot_present) {
+    if ((device->read_potx || device->read_poty) && !pot_present && !device->pot_optional) {
         return 0;
     }
 
@@ -329,11 +340,14 @@ int joyport_device_register(int id, joyport_t *device)
     joyport_device[id].trans_name = device->trans_name;
     joyport_device[id].resource_id = device->resource_id;
     joyport_device[id].is_lp = device->is_lp;
+    joyport_device[id].pot_optional = device->pot_optional;
     joyport_device[id].enable = device->enable;
     joyport_device[id].read_digital = device->read_digital;
     joyport_device[id].store_digital = device->store_digital;
     joyport_device[id].read_potx = device->read_potx;
     joyport_device[id].read_poty = device->read_poty;
+    joyport_device[id].write_snapshot = device->write_snapshot;
+    joyport_device[id].read_snapshot = device->read_snapshot;
     return 0;
 }
 
@@ -372,7 +386,7 @@ static int check_valid_pot(int port, int index)
     if (!joyport_device[index].read_potx && !joyport_device[index].read_poty) {
         return 1;
     }
-    if (port_props[port].has_pot) {
+    if (port_props[port].has_pot || joyport_device[index].pot_optional) {
         return 1;
     }
     return 0;
@@ -393,7 +407,7 @@ joyport_desc_t *joyport_get_valid_devices(int port)
         }
     }
 
-    retval = lib_malloc((valid + 1) * sizeof(joyport_desc_t));
+    retval = lib_malloc(((size_t)valid + 1) * sizeof(joyport_desc_t));
     for (i = 0; i < JOYPORT_MAX_DEVICES; ++i) {
         if (joyport_device[i].name) {
             if (check_valid_lightpen(port, i) && check_valid_pot(port, i)) {
@@ -411,15 +425,24 @@ joyport_desc_t *joyport_get_valid_devices(int port)
 
 void joyport_display_joyport(int id, BYTE status)
 {
-    if (id == JOYPORT_ID_JOY1 || id == JOYPORT_ID_JOY2) {
+    if (id == JOYPORT_ID_JOY1 || id == JOYPORT_ID_JOY2 || id == JOYPORT_ID_JOY3 || id == JOYPORT_ID_JOY4 || id == JOYPORT_ID_JOY5) {
         if (id == JOYPORT_ID_JOY1 && joy_port[0] == JOYPORT_ID_JOYSTICK) {
             joyport_display[1] = status;
         }
         if (id == JOYPORT_ID_JOY2 && joy_port[1] == JOYPORT_ID_JOYSTICK) {
             joyport_display[2] = status;
         }
+        if (id == JOYPORT_ID_JOY3 && joy_port[2] == JOYPORT_ID_JOYSTICK) {
+            joyport_display[3] = status;
+        }
+        if (id == JOYPORT_ID_JOY4 && joy_port[3] == JOYPORT_ID_JOYSTICK) {
+            joyport_display[4] = status;
+        }
+        if (id == JOYPORT_ID_JOY5 && joy_port[4] == JOYPORT_ID_JOYSTICK) {
+            joyport_display[5] = status;
+        }
     } else {
-        if (id != joy_port[0] && id != joy_port[1]) {
+        if (id != joy_port[0] && id != joy_port[1] && id != joy_port[2] && id != joy_port[3] && id != joy_port[4]) {
             return;
         }
 
@@ -429,6 +452,18 @@ void joyport_display_joyport(int id, BYTE status)
 
         if (id == joy_port[1]) {
             joyport_display[2] = status;
+        }
+
+        if (id == joy_port[2]) {
+            joyport_display[3] = status;
+        }
+
+        if (id == joy_port[3]) {
+            joyport_display[4] = status;
+        }
+
+        if (id == joy_port[4]) {
+            joyport_display[5] = status;
         }
     }
     ui_display_joyport(joyport_display);
@@ -456,25 +491,31 @@ static int set_joyport_device(int val, void *param)
 static const resource_int_t resources_int_port1[] = {
     { "JoyPort1Device", JOYPORT_ID_JOYSTICK, RES_EVENT_NO, NULL,
       &joy_port[JOYPORT_1], set_joyport_device, (void *)JOYPORT_1 },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 static const resource_int_t resources_int_port2[] = {
     { "JoyPort2Device", JOYPORT_ID_JOYSTICK, RES_EVENT_NO, NULL,
       &joy_port[JOYPORT_2], set_joyport_device, (void *)JOYPORT_2 },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 static const resource_int_t resources_int_port3[] = {
     { "JoyPort3Device", JOYPORT_ID_JOYSTICK, RES_EVENT_NO, NULL,
       &joy_port[JOYPORT_3], set_joyport_device, (void *)JOYPORT_3 },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 static const resource_int_t resources_int_port4[] = {
     { "JoyPort4Device", JOYPORT_ID_JOYSTICK, RES_EVENT_NO, NULL,
       &joy_port[JOYPORT_4], set_joyport_device, (void *)JOYPORT_4 },
-    { NULL }
+    RESOURCE_INT_LIST_END
+};
+
+static const resource_int_t resources_int_port5[] = {
+    { "JoyPort5Device", JOYPORT_ID_JOYSTICK, RES_EVENT_NO, NULL,
+      &joy_port[JOYPORT_5], set_joyport_device, (void *)JOYPORT_5 },
+    RESOURCE_INT_LIST_END
 };
 
 int joyport_resources_init(void)
@@ -487,6 +528,12 @@ int joyport_resources_init(void)
     joyport_device[0].is_lp = JOYPORT_IS_NOT_LIGHTPEN;
     for (i = 0; i < JOYPORT_MAX_PORTS; ++i) {
         joy_port[i] = JOYPORT_ID_NONE;
+    }
+
+    if (port_props[JOYPORT_5].name) {
+        if (resources_register_int(resources_int_port5) < 0) {
+            return -1;
+        }
     }
 
     if (port_props[JOYPORT_4].name) {
@@ -575,6 +622,16 @@ static struct joyport_opt_s id_match[] = {
     { "lpinkwell",       JOYPORT_ID_LIGHTPEN_INKWELL },
     { "lightpeninkwell", JOYPORT_ID_LIGHTPEN_INKWELL },
     { "inkwelllightpen", JOYPORT_ID_LIGHTPEN_INKWELL },
+    { "17",              JOYPORT_ID_SAMPLER_2BIT },
+    { "2bitsampler",     JOYPORT_ID_SAMPLER_2BIT },
+    { "18",              JOYPORT_ID_SAMPLER_4BIT },
+    { "4bitsampler",     JOYPORT_ID_SAMPLER_4BIT },
+    { "19",              JOYPORT_ID_BBRTC },
+    { "bbrtc",           JOYPORT_ID_BBRTC },
+    { "20",              JOYPORT_ID_PAPERCLIP64 },
+    { "paperclip64",     JOYPORT_ID_PAPERCLIP64 },
+    { "paperclip",       JOYPORT_ID_PAPERCLIP64 },
+    { "pc64",            JOYPORT_ID_PAPERCLIP64 },
     { NULL, -1 }
 };
 
@@ -633,7 +690,7 @@ static cmdline_option_t cmdline_options_port1[] =
       USE_PARAM_ID, USE_DESCRIPTION_DYN,
       IDGS_DEVICE, JOYPORT_1,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static cmdline_option_t cmdline_options_port2[] =
@@ -643,7 +700,7 @@ static cmdline_option_t cmdline_options_port2[] =
       USE_PARAM_ID, USE_DESCRIPTION_DYN,
       IDGS_DEVICE, JOYPORT_2,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static cmdline_option_t cmdline_options_port3[] =
@@ -653,7 +710,7 @@ static cmdline_option_t cmdline_options_port3[] =
       USE_PARAM_ID, USE_DESCRIPTION_DYN,
       IDGS_DEVICE, JOYPORT_3,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static cmdline_option_t cmdline_options_port4[] =
@@ -663,7 +720,17 @@ static cmdline_option_t cmdline_options_port4[] =
       USE_PARAM_ID, USE_DESCRIPTION_DYN,
       IDGS_DEVICE, JOYPORT_4,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
+};
+
+static cmdline_option_t cmdline_options_port5[] =
+{
+    { "-controlport5device", CALL_FUNCTION, 1,
+      set_joyport_cmdline_device, (void *)JOYPORT_5, NULL, NULL,
+      USE_PARAM_ID, USE_DESCRIPTION_DYN,
+      IDGS_DEVICE, JOYPORT_5,
+      NULL, NULL },
+    CMDLINE_LIST_END
 };
 
 int joyport_cmdline_options_init(void)
@@ -701,5 +768,101 @@ int joyport_cmdline_options_init(void)
             return -1;
         }
     }
+
+    if (port_props[JOYPORT_5].name) {
+        cf.f = build_joyport_string;
+        cmdline_options_port5[0].description = cf.c;
+        if (cmdline_register_options(cmdline_options_port5) < 0) {
+            return -1;
+        }
+    }
+    return 0;
+}
+
+/* ------------------------------------------------------------------------- */
+
+#define DUMP_VER_MAJOR   0
+#define DUMP_VER_MINOR   0
+
+int joyport_snapshot_write_module(struct snapshot_s *s, int port)
+{
+    snapshot_module_t *m;
+    char snapshot_name[16];
+
+    sprintf(snapshot_name, "JOYPORT%d", port);
+
+    m = snapshot_module_create(s, snapshot_name, DUMP_VER_MAJOR, DUMP_VER_MINOR);
+ 
+    if (m == NULL) {
+        return -1;
+    }
+
+    /* save device id */
+    if (SMW_B(m, (BYTE)joy_port[port]) < 0) {
+        snapshot_module_close(m);
+        return -1;
+    }
+
+    snapshot_module_close(m);
+
+    /* save seperate joyport device module */
+    switch (joy_port[port]) {
+        case JOYPORT_ID_NONE:
+            break;
+        default:
+            if (joyport_device[joy_port[port]].write_snapshot) {
+                if (joyport_device[joy_port[port]].write_snapshot(s, port) < 0) {
+                    return -1;
+                }
+            }
+            break;
+    }
+
+    return 0;
+}
+
+int joyport_snapshot_read_module(struct snapshot_s *s, int port)
+{
+    BYTE major_version, minor_version;
+    snapshot_module_t *m;
+    int temp_joy_port;
+    char snapshot_name[16];
+
+    sprintf(snapshot_name, "JOYPORT%d", port);
+
+    m = snapshot_module_open(s, snapshot_name, &major_version, &minor_version);
+    if (m == NULL) {
+        return -1;
+    }
+
+    if (major_version != DUMP_VER_MAJOR || minor_version != DUMP_VER_MINOR) {
+        snapshot_module_close(m);
+        return -1;
+    }
+
+    /* load device id */
+    if (SMR_B_INT(m, &temp_joy_port) < 0) {
+        snapshot_module_close(m);
+        return -1;
+    }
+
+    snapshot_module_close(m);
+
+    /* enable device */
+    joyport_set_device(port, temp_joy_port);
+
+    /* load device snapshot */
+    switch (joy_port[port]) {
+        case JOYPORT_ID_NONE:
+            break;
+        default:
+            if (joyport_device[joy_port[port]].read_snapshot) {
+                if (joyport_device[joy_port[port]].read_snapshot(s, port) < 0) {
+                    return -1;
+                }
+            }
+            break;
+    }
+
     return 0;
 }

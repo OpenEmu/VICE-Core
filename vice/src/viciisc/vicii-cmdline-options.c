@@ -59,7 +59,7 @@ int border_set_func(const char *value, void *extra_param)
         vicii_resources.border_mode = VICII_NORMAL_BORDERS;
     }
 
-    machine_change_timing(video ^ VICII_BORDER_MODE(vicii_resources.border_mode));
+    machine_change_timing(video, vicii_resources.border_mode);
 
     return 0;
 }
@@ -163,16 +163,6 @@ static const cmdline_option_t cmdline_options[] =
       NULL, NULL, "VICIIVSPBug", (void *)0,
       USE_PARAM_STRING, USE_DESCRIPTION_ID,
       IDCLS_UNUSED, IDCLS_ENABLE_VSPBUG,
-      NULL, NULL },
-    { "-VICIInewluminance", SET_RESOURCE, 0,
-      NULL, NULL, "VICIINewLuminances", (void *)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_USE_NEW_LUMINANCES,
-      NULL, NULL },
-    { "+VICIInewluminance", SET_RESOURCE, 0,
-      NULL, NULL, "VICIINewLuminances", (void *)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_USE_OLD_LUMINANCES,
       NULL, NULL },
     { "-VICIImodel", CALL_FUNCTION, 1,
       set_vicii_model, NULL, NULL, NULL,

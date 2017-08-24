@@ -49,19 +49,20 @@ LIBRARIES = $(noinst_LIBRARIES)
 ARFLAGS = cru
 libplus4_a_AR = $(AR) $(ARFLAGS)
 libplus4_a_LIBADD =
-am_libplus4_a_OBJECTS = digiblaster.$(OBJEXT) \
+am_libplus4_a_OBJECTS = debugcart.$(OBJEXT) digiblaster.$(OBJEXT) \
 	plus4-cmdline-options.$(OBJEXT) plus4-resources.$(OBJEXT) \
 	plus4-sidcart.$(OBJEXT) plus4-snapshot.$(OBJEXT) \
 	plus4.$(OBJEXT) plus4acia.$(OBJEXT) plus4bus.$(OBJEXT) \
 	plus4cart.$(OBJEXT) plus4cpu.$(OBJEXT) \
 	plus4datasette.$(OBJEXT) plus4drive.$(OBJEXT) \
-	plus4embedded.$(OBJEXT) plus4iec.$(OBJEXT) plus4mem.$(OBJEXT) \
-	plus4memcsory256k.$(OBJEXT) plus4memhacks.$(OBJEXT) \
-	plus4memhannes256k.$(OBJEXT) plus4memlimit.$(OBJEXT) \
-	plus4memrom.$(OBJEXT) plus4memsnapshot.$(OBJEXT) \
-	plus4model.$(OBJEXT) plus4parallel.$(OBJEXT) \
-	plus4pio1.$(OBJEXT) plus4pio2.$(OBJEXT) plus4printer.$(OBJEXT) \
-	plus4rom.$(OBJEXT) plus4romset.$(OBJEXT) plus4speech.$(OBJEXT) \
+	plus4embedded.$(OBJEXT) plus4iec.$(OBJEXT) plus4io.$(OBJEXT) \
+	plus4mem.$(OBJEXT) plus4memcsory256k.$(OBJEXT) \
+	plus4memhacks.$(OBJEXT) plus4memhannes256k.$(OBJEXT) \
+	plus4memlimit.$(OBJEXT) plus4memrom.$(OBJEXT) \
+	plus4memsnapshot.$(OBJEXT) plus4model.$(OBJEXT) \
+	plus4parallel.$(OBJEXT) plus4pio1.$(OBJEXT) \
+	plus4pio2.$(OBJEXT) plus4printer.$(OBJEXT) plus4rom.$(OBJEXT) \
+	plus4romset.$(OBJEXT) plus4speech.$(OBJEXT) \
 	plus4tcbm.$(OBJEXT) plus4video.$(OBJEXT) ted-badline.$(OBJEXT) \
 	ted-cmdline-options.$(OBJEXT) ted-color.$(OBJEXT) \
 	ted-draw.$(OBJEXT) ted-fetch.$(OBJEXT) ted-irq.$(OBJEXT) \
@@ -128,6 +129,7 @@ EGREP = @EGREP@
 ENABLE_ARCH = @ENABLE_ARCH@
 EXEEXT = @EXEEXT@
 FCCACHE = @FCCACHE@
+FFMPEGSUB = @FFMPEGSUB@
 FFMPEG_AVRESAMPLE_CFLAGS = @FFMPEG_AVRESAMPLE_CFLAGS@
 FFMPEG_AVRESAMPLE_LIBS = @FFMPEG_AVRESAMPLE_LIBS@
 FFMPEG_AV_CFLAGS = @FFMPEG_AV_CFLAGS@
@@ -144,6 +146,8 @@ FULLSCREEN_DRIVERS = @FULLSCREEN_DRIVERS@
 GENCAT = @GENCAT@
 GFXOUTPUT_DRIVERS = @GFXOUTPUT_DRIVERS@
 GFXOUTPUT_LIBS = @GFXOUTPUT_LIBS@
+GLIB_CFLAGS = @GLIB_CFLAGS@
+GLIB_LIBS = @GLIB_LIBS@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
 GREP = @GREP@
@@ -171,8 +175,10 @@ LDFLAGS = @LDFLAGS@
 LEX = @LEX@
 LEXLIB = @LEXLIB@
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
+LIBFFMPEGSUB = @LIBFFMPEGSUB@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
+LIBX264SUB = @LIBX264SUB@
 LINKCC = @LINKCC@
 LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
@@ -181,6 +187,7 @@ MAKEINFO = @MAKEINFO@
 MAKERTF = @MAKERTF@
 MAX_INLINE_INSN_SINGLE = @MAX_INLINE_INSN_SINGLE@
 MKDIR_P = @MKDIR_P@
+MKFONTDIR_BIN = @MKFONTDIR_BIN@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MSGFMT = @MSGFMT@
 NATIVE_TOOLS_COMPILER = @NATIVE_TOOLS_COMPILER@
@@ -204,6 +211,8 @@ PDFTEX = @PDFTEX@
 PERL = @PERL@
 PKG_CONFIG = @PKG_CONFIG@
 PLATFORM_DOX_FLAGS = @PLATFORM_DOX_FLAGS@
+PNG_CFLAGS = @PNG_CFLAGS@
+PNG_LIBS = @PNG_LIBS@
 POFILES = @POFILES@
 POSUB = @POSUB@
 QUICKTIME_INCLUDES = @QUICKTIME_INCLUDES@
@@ -222,6 +231,7 @@ RESID_DTV_LIBS = @RESID_DTV_LIBS@
 RESID_INCLUDES = @RESID_INCLUDES@
 RESID_LIBS = @RESID_LIBS@
 SDL_EXTRA_LIBS = @SDL_EXTRA_LIBS@
+SDL_VERSION = @SDL_VERSION@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 SOUND_AIX_OBJ = @SOUND_AIX_OBJ@
@@ -300,6 +310,7 @@ datarootdir = @datarootdir@
 docdir = @docdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
+ffmpeg_have_bash = @ffmpeg_have_bash@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
@@ -352,10 +363,14 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/samplerdrv \
 	-I$(top_srcdir)/src/lib/p64 \
 	-I$(top_srcdir)/src/joyport \
-	-I$(top_srcdir)/src/raster
+	-I$(top_srcdir)/src/userport \
+	-I$(top_srcdir)/src/raster \
+	-I$(top_srcdir)/src/tapeport
 
 noinst_LIBRARIES = libplus4.a
 libplus4_a_SOURCES = \
+	debugcart.c \
+	debugcart.h \
 	digiblaster.c \
 	digiblaster.h \
 	plus4-cmdline-options.c \
@@ -378,6 +393,7 @@ libplus4_a_SOURCES = \
 	plus4embedded.c \
 	plus4iec.c \
 	plus4iec.h \
+	plus4io.c \
 	plus4mem.c \
 	plus4mem.h \
 	plus4memcsory256k.c \
@@ -485,6 +501,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/debugcart.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/digiblaster.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plus4-cmdline-options.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plus4-resources.Po@am__quote@
@@ -499,6 +516,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plus4drive.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plus4embedded.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plus4iec.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plus4io.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plus4mem.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plus4memcsory256k.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plus4memhacks.Po@am__quote@

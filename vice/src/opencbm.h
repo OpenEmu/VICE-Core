@@ -112,14 +112,23 @@ typedef int intptr_t;
 #define UNREFERENCED_PARAMETER(x)
 #endif
 
-/* On Macs we need to define the __u_char */
-#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__NetBSD__) || defined (__DragonflyBSD__)
+/* On Macs and *BSD we need to define the __u_char */
+#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__NetBSD__) || defined (__DragonflyBSD__) || defined (__DragonFly__)
 typedef unsigned char __u_char;
 #endif
 
 #if defined(__CYGWIN32__) || defined(__CYGWIN__) || defined(__INTERIX) || defined(SKYOS) || defined(__svr4__) || defined(__sortix__)
 typedef unsigned char __u_char;
 #endif
+
+#if defined(__minix) || defined(OPENSERVER5_COMPILE) || defined(__QNXNTO__)
+typedef unsigned char __u_char;
+#endif
+
+#if (defined(sun) || defined(__sun)) && !(defined(__SVR4) || defined(__svr4__))
+typedef unsigned char __u_char;
+#endif
+
 #endif
 
 /* specifiers for the IEC bus lines */

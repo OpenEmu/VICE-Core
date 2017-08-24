@@ -33,18 +33,20 @@
 #define CARTRIDGE_INCLUDE_SLOTMAIN_API
 #include "c64cartsystem.h"
 #undef CARTRIDGE_INCLUDE_SLOTMAIN_API
-#include "c64export.h"
 #include "c64mem.h"
 #include "c64pla.h"
 #include "cartio.h"
 #include "cartridge.h"
+#include "clockport.h"
 #include "cmdline.h"
 #include "crt.h"
+#include "export.h"
 #include "flash040.h"
 #include "lib.h"
 #include "log.h"
 #include "machine.h"
 #include "maincpu.h"
+#include "monitor.h"
 #include "resources.h"
 #include "ser-eeprom.h"
 #include "snapshot.h"
@@ -57,9 +59,6 @@
 #define CARTRIDGE_INCLUDE_PRIVATE_API
 #include "mmcreplay.h"
 #include "reu.h"
-#ifdef HAVE_TFE
-#include "tfe.h"
-#endif
 #undef CARTRIDGE_INCLUDE_PRIVATE_API
 
 
@@ -271,6 +270,12 @@ static unsigned int enable_16k_mapping = 0;
 static unsigned int enable_rr_regs = 1;
 /* ^ bit 7:     ** ALWAYS 0 ** */
 
+/* Current clockport device */
+static int clockport_device_id = CLOCKPORT_DEVICE_NONE;
+static clockport_device_t *clockport_device = NULL;
+
+static char *clockport_device_names = NULL;
+
 /********************************************************************************************************************/
 
 /* some prototypes are needed */
@@ -278,6 +283,11 @@ static BYTE mmcreplay_io1_read(WORD addr);
 static void mmcreplay_io1_store(WORD addr, BYTE value);
 static BYTE mmcreplay_io2_read(WORD addr);
 static void mmcreplay_io2_store(WORD addr, BYTE value);
+static int mmcreplay_dump(void);
+
+static BYTE mmcreplay_clockport_read(WORD io_address);
+static BYTE mmcreplay_clockport_peek(WORD io_address);
+static void mmcreplay_clockport_store(WORD io_address, BYTE byte);
 
 static io_source_t mmcreplay_io1_device = {
     CARTRIDGE_NAME_MMC_REPLAY,
@@ -288,7 +298,7 @@ static io_source_t mmcreplay_io1_device = {
     mmcreplay_io1_store,
     mmcreplay_io1_read,
     NULL, /* TODO: peek */
-    NULL, /* TODO: dump */
+    mmcreplay_dump,
     CARTRIDGE_MMC_REPLAY,
     0,
     0
@@ -303,7 +313,22 @@ static io_source_t mmcreplay_io2_device = {
     mmcreplay_io2_store,
     mmcreplay_io2_read,
     NULL, /* TODO: peek */
-    NULL, /* TODO: dump */
+    mmcreplay_dump,
+    CARTRIDGE_MMC_REPLAY,
+    0,
+    0
+};
+
+static io_source_t mmcreplay_clockport_device = {
+    CARTRIDGE_NAME_MMC_REPLAY " Clockport",
+    IO_DETACH_RESOURCE,
+    "MMCRClockPort",
+    0xde02, 0xde0f, 0x0f,
+    0,
+    mmcreplay_clockport_store,
+    mmcreplay_clockport_read,
+    mmcreplay_clockport_peek,
+    mmcreplay_dump,
     CARTRIDGE_MMC_REPLAY,
     0,
     0
@@ -311,8 +336,9 @@ static io_source_t mmcreplay_io2_device = {
 
 static io_source_list_t *mmcreplay_io1_list_item = NULL;
 static io_source_list_t *mmcreplay_io2_list_item = NULL;
+static io_source_list_t *mmcreplay_clockport_list_item = NULL;
 
-static const c64export_resource_t export_res = {
+static const export_resource_t export_res = {
     CARTRIDGE_NAME_MMC_REPLAY, 1, 1, &mmcreplay_io1_device, &mmcreplay_io2_device, CARTRIDGE_MMC_REPLAY
 };
 
@@ -1277,20 +1303,17 @@ BYTE mmcreplay_io1_read(WORD addr)
                 return value;
 
             default:
-#ifdef HAVE_TFE
                 /*
                  * $DE02 - $DE0F: Clockport memory area (when enabled)
                  */
                 if (mmcr_clockport_enabled) {
-                    if (tfe_cart_enabled() && tfe_as_rr_net && (addr & 0xff) < 0x10) {
+                    if ((addr & 0xff) < 0x10) {
 #ifdef LOG_CLOCKPORT
                         LOG(("MMCREPLAY: Clockport RD %04x", addr));
 #endif
-                        mmcreplay_io1_device.io_source_valid = 1;
                         return 0;
                     }
                 }
-#endif
                 break;
         }
 
@@ -1403,7 +1426,9 @@ void mmcreplay_io1_store(WORD addr, BYTE value)
 
                 /* Every bit in $de01 can always be altered in Super Mapper mode+MMC Bios Mode. */
                 bank_address_13_15 = (((value >> 3) & 3) | ((value >> 5) & 4)); /* bit 3,4,7 */
-                mmcr_clockport_enabled = value & 1;     /* bit 0 */
+                if (mmcr_clockport_enabled != (value & 1)) {
+                    mmcr_clockport_enabled = value & 1; /* bit 0 */
+                }
 
                 /* bits 1,2,5,6 are "write once" if not in mmc bios mode */
                 if ((write_once == 0) || (disable_mmc_bios == 0)) {
@@ -1430,19 +1455,17 @@ void mmcreplay_io1_store(WORD addr, BYTE value)
                 return;
 
             default:
-#ifdef HAVE_TFE
                 /*
                  * $DE02 - $DE0F: Clockport memory area (when enabled)
                  */
                 if (mmcr_clockport_enabled) {
-                    if (tfe_cart_enabled() && tfe_as_rr_net && (addr & 0xff) < 0x10) {
+                    if ((addr & 0xff) < 0x10) {
 #ifdef LOG_CLOCKPORT
                         LOG(("MMCREPLAY: Clockport ST %04x %02x", addr, value));
 #endif
                         return;
                     }
                 }
-#endif
                 break;
         }
 
@@ -1493,7 +1516,7 @@ void mmcreplay_io1_store(WORD addr, BYTE value)
 }
 
 /********************************************************************************************************************
-  IO1 - $dfXX
+  IO2 - $dfXX
 ********************************************************************************************************************/
 
 BYTE mmcreplay_io2_read(WORD addr)
@@ -1825,6 +1848,59 @@ void mmcreplay_io2_store(WORD addr, BYTE value)
              io2_bank, (addr & 0x1fff)));
 #endif
     }
+}
+
+/********************************************************************************************************************
+  ClockPort
+********************************************************************************************************************/
+
+static BYTE mmcreplay_clockport_read(WORD address)
+{
+    if (clockport_device) {
+        if (address < 0x02) {
+            mmcreplay_clockport_device.io_source_valid = 0;
+            return 0;
+        }
+        return clockport_device->read(address, &mmcreplay_clockport_device.io_source_valid, clockport_device->device_context);
+    }
+    return 0;
+}
+
+static BYTE mmcreplay_clockport_peek(WORD address)
+{
+    if (clockport_device) {
+        if (address < 0x02) {
+            return 0;
+        }
+        return clockport_device->peek(address, clockport_device->device_context);
+    }
+    return 0;
+}
+
+static void mmcreplay_clockport_store(WORD address, BYTE byte)
+{
+    if (clockport_device) {
+        if (address < 0x02) {
+            return;
+        }
+
+        clockport_device->store(address, byte, clockport_device->device_context);
+    }
+}
+
+
+/********************************************************************************************************************
+  Dump
+********************************************************************************************************************/
+
+static int mmcreplay_dump(void)
+{
+    /* FIXME: incomplete */
+    /* mon_out("MMC Replay registers are %s.\n", mmcr_active ? "enabled" : "disabled"); */
+    mon_out("Clockport is %s.\n", mmcr_clockport_enabled ? "enabled" : "disabled");
+    mon_out("Clockport device: %s.\n", clockport_device_id_to_name(clockport_device_id));
+
+    return 0;
 }
 
 /********************************************************************************************************************
@@ -2391,6 +2467,10 @@ void mmcreplay_reset(void)
 
     mmcreplay_update_mapper(CMODE_READ, 0);
     flash040core_reset(flashrom_state);
+
+    if (mmcr_enabled && clockport_device) {
+        clockport_device->reset(clockport_device->device_context);
+    }
 }
 
 
@@ -2441,14 +2521,81 @@ void mmcreplay_config_setup(BYTE *rawcart)
 
 /* ------------------------------------------------------------------------- */
 
+static int set_mmcr_clockport_device(int val, void *param)
+{
+    if (val == clockport_device_id) {
+        return 0;
+    }
+
+    if (!mmcr_enabled) {
+        clockport_device_id = val;
+        return 0;
+    }
+
+    if (clockport_device_id != CLOCKPORT_DEVICE_NONE) {
+        clockport_device->close(clockport_device);
+        clockport_device_id = CLOCKPORT_DEVICE_NONE;
+        clockport_device = NULL;
+    }
+
+    if (val != CLOCKPORT_DEVICE_NONE) {
+        clockport_device = clockport_open_device(val, (char *)STRING_MMC_REPLAY);
+        if (!clockport_device) {
+            return -1;
+        }
+        clockport_device_id = val;
+    }
+    return 0;
+}
+
+static int clockport_activate(void)
+{
+    if (mmcr_enabled) {
+        return 0;
+    }
+
+    if (clockport_device_id == CLOCKPORT_DEVICE_NONE) {
+        return 0;
+    }
+
+    clockport_device = clockport_open_device(clockport_device_id, (char *)STRING_MMC_REPLAY);
+    if (!clockport_device) {
+        return -1;
+    }
+    return 0;
+}
+
+static int clockport_deactivate(void)
+{
+    if (!mmcr_enabled) {
+        return 0;
+    }
+
+    if (clockport_device_id == CLOCKPORT_DEVICE_NONE) {
+        return 0;
+    }
+
+    clockport_device->close(clockport_device);
+    clockport_device = NULL;
+
+    return 0;
+}
+
+/* ------------------------------------------------------------------------- */
+
 static int mmcreplay_common_attach(const char *filename)
 {
-    if (c64export_add(&export_res) < 0) {
+    if (export_add(&export_res) < 0) {
+        return -1;
+    }
+
+    if (clockport_activate() < 0) {
         return -1;
     }
 
     mmcreplay_io1_list_item = io_source_register(&mmcreplay_io1_device);
     mmcreplay_io2_list_item = io_source_register(&mmcreplay_io2_device);
+    mmcreplay_clockport_list_item = io_source_register(&mmcreplay_clockport_device);
 
     mmcr_enabled = 1;
 
@@ -2649,11 +2796,14 @@ void mmcreplay_detach(void)
     mmcr_filename = NULL;
     mmc_close_card_image();
     eeprom_close_image(mmcr_eeprom_rw);
-    c64export_remove(&export_res);
+    export_remove(&export_res);
+    clockport_deactivate();
     io_source_unregister(mmcreplay_io1_list_item);
     io_source_unregister(mmcreplay_io2_list_item);
+    io_source_unregister(mmcreplay_clockport_list_item);
     mmcreplay_io1_list_item = NULL;
     mmcreplay_io2_list_item = NULL;
+    mmcreplay_clockport_list_item = NULL;
     mmcr_enabled = 0;
 }
 
@@ -2757,7 +2907,7 @@ static const resource_string_t resources_string[] = {
       &mmcr_card_filename, set_mmcr_card_filename, NULL },
     { "MMCREEPROMImage", "", RES_EVENT_NO, NULL,
       &mmcr_eeprom_filename, set_mmcr_eeprom_filename, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_int_t resources_int[] = {
@@ -2771,7 +2921,9 @@ static const resource_int_t resources_int[] = {
       &mmcr_sd_type, set_mmcr_sd_type, NULL },
     { "MMCREEPROMRW", 1, RES_EVENT_NO, NULL,
       &mmcr_eeprom_rw, set_mmcr_eeprom_rw, NULL },
-    { NULL }
+    { "MMCRClockPort", 0, RES_EVENT_NO, NULL,
+      &clockport_device_id, set_mmcr_clockport_device, NULL },
+    RESOURCE_INT_LIST_END
 };
 
 int mmcreplay_resources_init(void)
@@ -2786,6 +2938,8 @@ void mmcreplay_resources_shutdown(void)
 {
     lib_free(mmcr_card_filename);
     lib_free(mmcr_eeprom_filename);
+    lib_free(clockport_device_names);
+    clockport_device_names = NULL;
 }
 
 static const cmdline_option_t cmdline_options[] = {
@@ -2844,12 +2998,45 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_TYPE, IDCLS_SELECT_MMC_REPLAY_SD_TYPE,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
+};
+
+static cmdline_option_t clockport_cmdline_options[] =
+{
+    { "-mmcrclockportdevice", SET_RESOURCE, 1,
+      NULL, NULL, "MMCRClockPort", NULL,
+      USE_PARAM_ID, USE_DESCRIPTION_COMBO,
+      IDCLS_P_DEVICE, IDCLS_CLOCKPORT_DEVICE,
+      NULL, NULL },
+    CMDLINE_LIST_END
 };
 
 int mmcreplay_cmdline_options_init(void)
 {
-    return cmdline_register_options(cmdline_options);
+    int i;
+    char *tmp;
+    char number[10];
+
+    if (cmdline_register_options(cmdline_options) < 0) {
+        return -1;
+    }
+
+    sprintf(number, "%d", clockport_supported_devices[0].id);
+
+    clockport_device_names = util_concat(". (", number, ": ", clockport_supported_devices[0].name, NULL);
+
+    for (i = 1; clockport_supported_devices[i].name; ++i) {
+        tmp = clockport_device_names;
+        sprintf(number, "%d", clockport_supported_devices[i].id);
+        clockport_device_names = util_concat(tmp, ", ", number, ": ", clockport_supported_devices[i].name, NULL);
+        lib_free(tmp);
+    }
+    tmp = clockport_device_names;
+    clockport_device_names = util_concat(tmp, ")", NULL);
+    lib_free(tmp);
+    clockport_cmdline_options[0].description = clockport_device_names;
+
+    return cmdline_register_options(clockport_cmdline_options);
 }
 
 /* ---------------------------------------------------------------------*/

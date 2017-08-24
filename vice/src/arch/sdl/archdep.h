@@ -51,6 +51,7 @@ extern void archdep_set_current_drive(const char *drive);
 /* Virtual keyboard handling */
 extern int archdep_require_vkbd(void);
 
+#ifndef BEOS_COMPILE
 /* Video chip scaling.  */
 #define ARCHDEP_VICII_DSIZE   1
 #define ARCHDEP_VICII_DSCAN   1
@@ -67,6 +68,7 @@ extern int archdep_require_vkbd(void);
 #define ARCHDEP_TED_DSIZE     1
 #define ARCHDEP_TED_DSCAN     1
 #define ARCHDEP_TED_HWSCALE   1
+#endif
 
 /* Video chip double buffering.  */
 #define ARCHDEP_VICII_DBUF 0
@@ -84,6 +86,10 @@ extern int archdep_require_vkbd(void);
 /* define if the platform supports the monitor in a seperate window */
 /* #define ARCHDEP_SEPERATE_MONITOR_WINDOW */
 
+#ifdef USE_SDLUI2
+extern char *archdep_sdl2_default_renderers[];
+#endif
+
 #ifdef AMIGA_SUPPORT
 #include "archdep_amiga.h"
 #endif
@@ -96,20 +102,8 @@ extern int archdep_require_vkbd(void);
 #include "archdep_unix.h"
 #endif
 
-#if defined(WIN32_COMPILE) && !defined(__XBOX__)
+#ifdef WIN32_COMPILE
 #include "archdep_win32.h"
-#endif
-
-#ifdef __XBOX__
-#include "archdep_xbox.h"
-#endif
-
-#ifdef CEGCC_COMPILE
-#include "archdep_cegcc.h"
-#endif
-
-#ifdef DINGOO_NATIVE
-#include "archdep_dingoo.h"
 #endif
 
 #endif

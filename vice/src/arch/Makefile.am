@@ -1,6 +1,18 @@
+if DUMMY_COMPILE
+
+SUBDIRS = android
+
+endif
+
+if NATIVE_GTK3_COMPILE
+
+SUBDIRS = gtk3
+
+else
+
 if SDL_COMPILE
 
-SUBDIRS = android sdl
+SUBDIRS = sdl
 
 else
 
@@ -12,7 +24,7 @@ endif
 
 if WIN32_COMPILE
 
-SUBDIRS = watcom-source-wrappers win32
+SUBDIRS = win32
 
 endif
 
@@ -40,3 +52,5 @@ SUBDIRS = amigaos
 
 endif
 endif
+endif
+

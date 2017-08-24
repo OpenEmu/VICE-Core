@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -29,6 +30,7 @@
 #include "c64pla.h"
 #include "datasette.h"
 #include "mem.h"
+#include "tapeport.h"
 
 /* Processor port.  */
 pport_t pport;
@@ -39,7 +41,10 @@ static BYTE old_port_data_out = 0xff;
 /* Tape write line status.  */
 static BYTE old_port_write_bit = 0xff;
 
-void c64pla_config_changed(int tape_sense, int caps_sense, BYTE pullup)
+/* Tape sense line out status. */
+static BYTE old_port_sense_out = 0xff;
+
+void c64pla_config_changed(int tape_sense, int write_in, int motor_in, int caps_sense, BYTE pullup)
 {
     pport.data_out = (pport.data_out & ~pport.dir) | (pport.data & pport.dir);
 
@@ -57,14 +62,27 @@ void c64pla_config_changed(int tape_sense, int caps_sense, BYTE pullup)
         pport.data_read &= 0xef;
     }
 
+    if (write_in && !(pport.dir & 0x08)) {
+        pport.data_read &= 0xf7;
+    }
+
+    if (motor_in && !(pport.dir & 0x20)) {
+        pport.data_read &= 0xdf;
+    }
+
     if (((pport.dir & pport.data) & 0x20) != old_port_data_out) {
         old_port_data_out = (pport.dir & pport.data) & 0x20;
-        datasette_set_motor(!old_port_data_out);
+        tapeport_set_motor(!old_port_data_out);
     }
 
     if (((~pport.dir | pport.data) & 0x8) != old_port_write_bit) {
         old_port_write_bit = (~pport.dir | pport.data) & 0x8;
-        datasette_toggle_write_bit((~pport.dir | pport.data) & 0x8);
+        tapeport_toggle_write_bit((~pport.dir | pport.data) & 0x8);
+    }
+
+    if (((pport.dir & pport.data) & 0x10) != old_port_sense_out) {
+        old_port_sense_out = (pport.dir & pport.data) & 0x10;
+        tapeport_set_sense_out(!old_port_sense_out);
     }
 
     pport.dir_read = pport.dir;

@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -52,6 +53,8 @@
 #include "vicii-resources.h"
 #include "vicii.h"
 #include "c64fastiec.h"
+
+/* force  commit */
 
 #define KBD_INDEX_C64_SYM   0
 #define KBD_INDEX_C64_POS   1
@@ -123,7 +126,6 @@ static int set_kernal_revision(int val, void *param)
 static int set_sync_factor(int val, void *param)
 {
     int change_timing = 0;
-    int border_mode = 0;
 
     if (sync_factor != val) {
         change_timing = 1;
@@ -133,25 +135,25 @@ static int set_sync_factor(int val, void *param)
         case MACHINE_SYNC_PAL:
             sync_factor = val;
             if (change_timing) {
-                machine_change_timing(MACHINE_SYNC_PAL ^ border_mode);
+                machine_change_timing(MACHINE_SYNC_PAL, 0);
             }
             break;
         case MACHINE_SYNC_NTSC:
             sync_factor = val;
             if (change_timing) {
-                machine_change_timing(MACHINE_SYNC_NTSC ^ border_mode);
+                machine_change_timing(MACHINE_SYNC_NTSC, 0);
             }
             break;
         case MACHINE_SYNC_NTSCOLD:
             sync_factor = val;
             if (change_timing) {
-                machine_change_timing(MACHINE_SYNC_NTSCOLD ^ border_mode);
+                machine_change_timing(MACHINE_SYNC_NTSCOLD, 0);
             }
             break;
         case MACHINE_SYNC_PALN:
             sync_factor = val;
             if (change_timing) {
-                machine_change_timing(MACHINE_SYNC_PALN ^ border_mode);
+                machine_change_timing(MACHINE_SYNC_PALN, 0);
             }
             break;
         default:
@@ -171,7 +173,7 @@ static const resource_string_t resources_string[] = {
     { "BasicName", "basic", RES_EVENT_NO, NULL,
       /* FIXME: should be same but names may differ */
       &basic_rom_name, set_basic_rom_name, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_int_t resources_int[] = {
@@ -183,7 +185,7 @@ static const resource_int_t resources_int[] = {
       (int *)&sid_stereo_address_start, sid_set_sid_stereo_address, NULL },
     { "SidTripleAddressStart", 0xdf00, RES_EVENT_SAME, NULL,
       (int *)&sid_triple_address_start, sid_set_sid_triple_address, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int c64_resources_init(void)

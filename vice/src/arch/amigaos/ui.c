@@ -64,7 +64,6 @@
 #include "mui/filereq.h"
 #include "mui/mui.h"
 #include "mui/uiautostart.h"
-#include "mui/uidatasette.h"
 #include "mui/uidrivesound.h"
 #include "mui/uifliplist.h"
 #include "mui/uijamaction.h"
@@ -493,13 +492,18 @@ static void pause_trap(WORD addr, void *data)
     }
 }
 
-void ui_pause_emulation(void)
+void ui_pause_emulation(int flag)
 {
-    is_paused = is_paused ? 0 : 1;
-    if (is_paused) {
+    if (network_connected()) {
+        return;
+    }
+
+    if (flag && !is_paused) {
+        is_paused = 1;
         interrupt_maincpu_trigger_trap(pause_trap, 0);
     } else {
         ui_display_paused(0);
+        is_paused = 0;
     }
 }
 
@@ -695,7 +699,12 @@ int ui_menu_handle(video_canvas_t *canvas, int idm)
             ui_joystick_swap_extra_joystick();
             break;
         case IDM_PAUSE:
-            ui_pause_emulation();
+            ui_pause_emulation(!ui_emulation_is_paused());
+            break;
+        case IDM_SINGLE_FRAME_ADVANCE:
+            if (ui_emulation_is_paused()) {
+                vsyncarch_advance_frame();
+            }
             break;
         case IDM_EXIT:
             do_quit_vice = 1;
@@ -861,8 +870,8 @@ int ui_menu_handle(video_canvas_t *canvas, int idm)
         case IDM_MEDIAFILE:
             ui_screenshot_dialog(canvas);
             break;
-        case IDM_DATASETTE_SETTINGS:
-            ui_datasette_settings_dialog();
+        case IDM_NATIVE_SCREENSHOT_SETTINGS:
+            ui_screenshot_settings_dialog();
             break;
         case IDM_RAM_SETTINGS:
             ui_ram_settings_dialog();

@@ -74,22 +74,25 @@ static TUI_MENU_CALLBACK(sid_engine_model_submenu_callback)
             break;
 #endif
 #ifdef HAVE_PARSID
-        case SID_PARSID_PORT1:
-            s = "ParSID in Port 1";
-            break;
-        case SID_PARSID_PORT2:
-            s = "ParSID in Port 2";
-            break;
-        case SID_PARSID_PORT3:
-            s = "ParSID in Port 3";
+        case SID_PARSID:
+            s = "ParSID";
             break;
 #endif
+#ifdef HAVE_CATWEASELMKIII
         case SID_CATWEASELMKIII:
             s = "Catweasel";
             break;
+#endif
+#ifdef HAVE_HARDSID
         case SID_HARDSID:
             s = "HardSID";
             break;
+#endif
+#ifdef HAVE_SSI2001
+        case SID_SSI2001:
+            s = "SSI2001";
+            break;
+#endif
     }
     return s;
 }
@@ -119,53 +122,7 @@ static TUI_MENU_CALLBACK(sid_radio_engine_model_callback)
     return NULL;
 }
 
-static tui_menu_item_def_t sid_engine_model_submenu[] = {
-    { "_6581 (Fast SID)",
-      "Fast SID 6581 emulation",
-      sid_radio_engine_model_callback, (void *)SID_FASTSID_6581, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { "_8580 (Fast SID)",
-      "Fast SID 8580 emulation",
-      sid_radio_engine_model_callback, (void *)SID_FASTSID_8580, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { "_Catweasel",
-      "Catweasel emulation",
-      sid_radio_engine_model_callback, (void *)SID_CATWEASELMKIII, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { "_HardSID",
-      "HardSID emulation",
-      sid_radio_engine_model_callback, (void *)SID_HARDSID, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-#ifdef HAVE_RESID
-    { "_6581 (ReSID)",
-      "ReSID 6581 emulation",
-      sid_radio_engine_model_callback, (void *)SID_RESID_6581, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { "_8580 (ReSID)",
-      "ReSID 8580 emulation",
-      sid_radio_engine_model_callback, (void *)SID_RESID_8580, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { "8580 + _digi boost (ReSID)",
-      "ReSID 8580 + digi boost emulation",
-      sid_radio_engine_model_callback, (void *)SID_RESID_8580D, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-#endif
-#ifdef HAVE_PARSID
-    { "ParSID in Port 1",
-      "ParSID emulation",
-      sid_radio_engine_model_callback, (void *)SID_PARSID_PORT1, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { "ParSID in Port 2",
-      "ParSID emulation",
-      sid_radio_engine_model_callback, (void *)SID_PARSID_PORT2, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { "ParSID in Port 3",
-      "ParSID emulation",
-      sid_radio_engine_model_callback, (void *)SID_PARSID_PORT3, 0,
-      TUI_MENU_BEH_CLOSE, NULL, NULL },
-#endif
-    { NULL }
-};
+static tui_menu_item_def_t *sid_engine_model_submenu = NULL;
 
 #ifdef HAVE_RESID
 static TUI_MENU_CALLBACK(toggle_ResidSampling_callback)
@@ -277,7 +234,7 @@ static tui_menu_item_def_t sid_address_submenu[] = {
       "Secondary SID address",
       radio_SidAddress_callback, (void *)1, 0,
       TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static TUI_MENU_CALLBACK(sid_clock_submenu_callback)
@@ -300,7 +257,7 @@ static tui_menu_item_def_t sid_clock_submenu[] = {
       "Native Clock",
       radio_SidClock_callback, (void *)1, 0,
       TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 tui_menu_item_def_t sidcart_ui_menu_items[] = {
@@ -311,7 +268,7 @@ tui_menu_item_def_t sidcart_ui_menu_items[] = {
     { "SID _Engine/Model:",
       "Select the SID engine and model",
       sid_engine_model_submenu_callback, NULL, 20,
-      TUI_MENU_BEH_CONTINUE, sid_engine_model_submenu, "SID engine/model" },
+      TUI_MENU_BEH_CONTINUE, NULL, "SID engine/model" },
     { "SID _Filters:",
       "Enable/disable emulation of the SID built-in programmable filters",
       toggle_SidFilters_callback, NULL, 4,
@@ -343,7 +300,7 @@ tui_menu_item_def_t sidcart_ui_menu_items[] = {
       ui_set_ResidBias_callback, NULL, 30,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
 #endif
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 TUI_MENU_DEFINE_TOGGLE(DIGIBLASTER)
@@ -356,7 +313,7 @@ tui_menu_item_def_t sidcart_plus4_ui_menu_items[] = {
     { "SID _Engine/Model:",
       "Select the SID engine and model",
       sid_engine_model_submenu_callback, NULL, 20,
-      TUI_MENU_BEH_CONTINUE, sid_engine_model_submenu, "SID engine/model" },
+      TUI_MENU_BEH_CONTINUE, NULL, "SID engine/model" },
     { "SID _Filters:",
       "Enable/disable emulation of the SID built-in programmable filters",
       toggle_SidFilters_callback, NULL, 4,
@@ -392,8 +349,37 @@ tui_menu_item_def_t sidcart_plus4_ui_menu_items[] = {
       "Enable/disable emulation of the digiblaster add-on",
       toggle_DIGIBLASTER_callback, NULL, 3,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
+
+static void sid_build_menu(void)
+{
+    sid_engine_model_t **list = sid_get_engine_model_list();
+    int count;
+
+    for (count = 0; list[count]; ++count) {}
+
+    sid_engine_model_submenu = lib_malloc((count + 1) * sizeof(tui_menu_item_def_t));
+
+    for (count = 0; list[count]; ++count) {
+        sid_engine_model_submenu[count].label = list[count]->name;
+        sid_engine_model_submenu[count].help_string = list[count]->name;
+        sid_engine_model_submenu[count].callback = sid_radio_engine_model_callback;
+        sid_engine_model_submenu[count].callback_param = (void *)list[count]->value;
+        sid_engine_model_submenu[count].par_string_max_len = 0;
+        sid_engine_model_submenu[count].behavior = TUI_MENU_BEH_CLOSE;
+        sid_engine_model_submenu[count].submenu = NULL;
+        sid_engine_model_submenu[count].submenu_title = NULL;
+    }
+    sid_engine_model_submenu[count].label = NULL;
+    sid_engine_model_submenu[count].help_string = NULL;
+    sid_engine_model_submenu[count].callback = NULL;
+    sid_engine_model_submenu[count].callback_param = NULL;
+    sid_engine_model_submenu[count].par_string_max_len = 0;
+    sid_engine_model_submenu[count].behavior = 0;
+    sid_engine_model_submenu[count].submenu = NULL;
+    sid_engine_model_submenu[count].submenu_title = NULL;
+}
 
 void uisidcart_init(struct tui_menu *parent_submenu, char *addr_txt_1, char *addr_txt_2, char *clock, int addr_int_1, int addr_int_2)
 {
@@ -411,6 +397,10 @@ void uisidcart_init(struct tui_menu *parent_submenu, char *addr_txt_1, char *add
 
     sidcart_clock = clock;
     sid_clock_submenu[1].label = clock;
+
+    sid_build_menu();
+
+    sidcart_ui_menu_items[1].submenu = sid_engine_model_submenu;
 
     ui_sidcart_submenu = tui_menu_create("SID cart settings", 1);
 
@@ -439,6 +429,10 @@ void uisidcart_plus4_init(struct tui_menu *parent_submenu, char *addr_txt_1, cha
 
     sidcart_clock = clock;
     sid_clock_submenu[1].label = clock;
+
+    sid_build_menu();
+
+    sidcart_plus4_ui_menu_items[1].submenu = sid_engine_model_submenu;
 
     ui_sidcart_plus4_submenu = tui_menu_create("SID cart settings", 1);
 

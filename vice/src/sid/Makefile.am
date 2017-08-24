@@ -16,8 +16,11 @@ AM_CPPFLAGS = \
 noinst_LIBRARIES = libsid.a
 
 libsid_a_SOURCES = \
+	catweaselmkiii.c \
 	fastsid.c \
 	fastsid.h \
+	hardsid.c \
+	parsid.c \
 	sid-cmdline-options.c \
 	sid-cmdline-options.h \
 	sid-resources.c \
@@ -26,6 +29,7 @@ libsid_a_SOURCES = \
 	sid-snapshot.h \
 	sid.c \
 	sid.h \
+	ssi2001.c \
 	wave6581.h \
 	wave8580.h
 

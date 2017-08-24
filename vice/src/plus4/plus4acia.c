@@ -5,6 +5,7 @@
  *  Andreas Boose <viceteam@t-online.de>
  *  Andre Fachat <fachat@physik.tu-chemnitz.de>
  *  Groepaz <groepaz@gmx.net>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -63,6 +64,7 @@
 #define mycpu_set_int_noclk maincpu_set_int
 
 #include "acia.h"
+#include "cartio.h"
 
 #define ACIA_MODE_HIGHEST   ACIA_MODE_NORMAL
 
@@ -73,6 +75,23 @@ static int _acia_enabled = 0;
 
 /* ------------------------------------------------------------------------- */
 
+static io_source_t acia_device = {
+    "ACIA",
+    IO_DETACH_CART, /* dummy */
+    NULL,           /* dummy */
+    0xfd00, 0xfd0f, 3,
+    1, /* read is always valid */
+    acia_store,
+    acia_read,
+    acia_peek,
+    NULL, /* TODO: dump */
+    0, /* dummy (not a cartridge) */
+    IO_PRIO_NORMAL,
+    0
+};
+
+static io_source_list_t *acia_list_item = NULL;
+
 int acia_enabled(void)
 {
     return _acia_enabled;
@@ -80,13 +99,18 @@ int acia_enabled(void)
 
 static int acia_enable(void)
 {
-    /* FIXME: register i/o device */
+    if (!_acia_enabled) {
+        acia_list_item = io_source_register(&acia_device);
+    }
     return 0;
 }
 
 static void acia_disable(void)
 {
-    /* FIXME: unregister i/o device */
+    if (_acia_enabled) {
+        io_source_unregister(acia_list_item);
+        acia_list_item = NULL;
+    }
 }
 
 static int set_acia_enabled(int value, void *param)
@@ -110,7 +134,7 @@ static int set_acia_enabled(int value, void *param)
 static const resource_int_t resources_i[] = {
     { "Acia1Enable", 1, RES_EVENT_STRICT, NULL,
       &_acia_enabled, set_acia_enabled, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int acia_resources_init(void)
@@ -135,7 +159,7 @@ static const cmdline_option_t acia_cmdline_options[] =
       USE_PARAM_STRING, USE_DESCRIPTION_ID,
       IDCLS_UNUSED, IDCLS_DISABLE_ACIA_EMU,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int acia_cmdline_options_init(void)

@@ -32,6 +32,7 @@ EXTRA_DIST = \
 	core.tgt \
 	crtc.tgt \
 	debug.h \
+	diag.tgt \
 	diskimage.tgt \
 	drive.tgt \
 	fileio.tgt \
@@ -42,6 +43,7 @@ EXTRA_DIST = \
 	gentranslate32.tgt \
 	genwt.bat \
 	gfxoutputdrv.tgt \
+	hwsiddrv.tgt \
 	iec.tgt \
 	iec128dcr.tgt \
 	iecbus.tgt \
@@ -51,6 +53,7 @@ EXTRA_DIST = \
 	joyport.tgt \
 	maincpu.tgt \
 	make-watcom-bindist.bat \
+	mididrv.tgt \
 	monitor.tgt \
 	p64.tgt \
 	parallel.tgt \
@@ -69,8 +72,10 @@ EXTRA_DIST = \
 	scpu64.tgt \
 	serial.tgt \
 	sid.tgt \
+	socketdrv.tgt \
 	sounddrv.tgt \
 	tape.tgt \
+	tapeport.tgt \
 	tcbm.tgt \
 	userport.tgt \
 	vdc.tgt \

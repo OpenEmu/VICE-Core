@@ -737,6 +737,24 @@
         INC_PC(pc_inc);                           \
     } while (0)
 
+/*
+The result of the ANE opcode is A = ((A | CONST) & X & IMM), with CONST apparently
+being both chip- and temperature dependent.
+
+The commonly used value for CONST in various documents is 0xee, which is however
+not to be taken for granted (as it is unstable). see here:
+http://visual6502.org/wiki/index.php?title=6502_Opcode_8B_(XAA,_ANE)
+
+as seen in the list, there are several possible values, and its origin is still
+kinda unknown. instead of the commonly used 0xee we use 0xff here, since this
+will make the only known occurance of this opcode in actual code work. see here:
+https://sourceforge.net/tracker/?func=detail&aid=2110948&group_id=223021&atid=1057617
+
+FIXME: in the unlikely event that other code surfaces that depends on another
+CONST value, it probably has to be made configureable somehow if no value can
+be found that works for both.
+*/
+
 #define ANE()                                                       \
     do {                                                            \
         /* Set by main-cpu to signal steal after first fetch */     \
@@ -744,9 +762,9 @@
             /* Remove the signal */                                 \
             LAST_OPCODE_INFO &= ~OPINFO_ENABLES_IRQ_MSK;            \
             /* TODO emulate the different behaviour */              \
-            reg_a_write = (BYTE)((reg_a_read | 0xee) & reg_x & p1); \
+            reg_a_write = (BYTE)((reg_a_read | 0xff) & reg_x & p1); \
         } else {                                                    \
-            reg_a_write = (BYTE)((reg_a_read | 0xee) & reg_x & p1); \
+            reg_a_write = (BYTE)((reg_a_read | 0xff) & reg_x & p1); \
         }                                                           \
         LOCAL_SET_NZ(reg_a_read);                                   \
         INC_PC(2);                                                  \
@@ -1064,21 +1082,31 @@
         JUMP(dest_addr);                                             \
     } while (0)
 
-#define JSR()                                  \
-    do {                                       \
-        unsigned int tmp_addr;                 \
-        if (!SKIP_CYCLE) {                     \
-            STACK_PEEK();                      \
-            CLK_INC();                         \
-        }                                      \
-        INC_PC(2);                             \
-        PUSH(((reg_pc) >> 8) & 0xff);          \
-        CLK_INC();                             \
-        PUSH((reg_pc) & 0xff);                 \
-        CLK_INC();                             \
-        tmp_addr = (p1 | (LOAD(reg_pc) << 8)); \
-        CLK_INC();                             \
-        JUMP(tmp_addr);                        \
+/* HACK: fix JSR MSB in monitor CPU history */
+#ifdef FEATURE_CPUMEMHISTORY
+#define JSR_FIXUP_MSB(x)    monitor_cpuhistory_fix_p2(x)
+#else
+#define JSR_FIXUP_MSB(x)
+#endif
+
+#define JSR()                                     \
+    do {                                          \
+        BYTE addr_msb;                            \
+        WORD dest_addr;                           \
+        if (!SKIP_CYCLE) {                        \
+            STACK_PEEK();                         \
+            CLK_INC();                            \
+        }                                         \
+        INC_PC(2);                                \
+        PUSH(((reg_pc) >> 8) & 0xff);             \
+        CLK_INC();                                \
+        PUSH((reg_pc) & 0xff);                    \
+        CLK_INC();                                \
+        addr_msb = LOAD(reg_pc);                  \
+        JSR_FIXUP_MSB(addr_msb);                  \
+        dest_addr = (WORD)(p1 | (addr_msb << 8)); \
+        CLK_INC();                                \
+        JUMP(dest_addr);                          \
     } while (0)
 
 #define LAS()                                          \
@@ -1549,8 +1577,9 @@ static const BYTE fetch_tab[] = {
         FETCH_OPCODE(opcode);
 
 #ifdef FEATURE_CPUMEMHISTORY
-        memmap_mark_read(reg_pc);
-        /* FIXME JSR (0x20) hasn't load p2 yet. The earlier LOAD(reg_pc+2) hack can break stealing badly on x64sc. */
+        /* If reg_pc >= bank_limit  then JSR (0x20) hasn't load p2 yet.
+           The earlier LOAD(reg_pc+2) hack can break stealing badly on x64sc.
+           The fixing is now handled in JSR(). */
         monitor_cpuhistory_store(reg_pc, p0, p1, p2 >> 8, reg_a_read, reg_x, reg_y, reg_sp, LOCAL_STATUS());
         memmap_state &= ~(MEMMAP_STATE_INSTR | MEMMAP_STATE_OPCODE);
 #endif

@@ -3,6 +3,7 @@
  *
  * Written by
  *  Thomas Bretz <tbretz@gsi.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -35,9 +36,6 @@
 
 #define SPB_COUNT    0x17
 #define SS_SPIN      0x18
-#define CB_RESETWCPU 0x19
-#define SPB_DELAY    0x1a
-#define SPB_GAP      0x1b
 #define PB_TATTACH   0x1c
 #define PB_TDETACH   0x1d
 

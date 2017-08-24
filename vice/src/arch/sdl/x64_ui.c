@@ -32,26 +32,32 @@
 
 #include "debug.h"
 #include "c64mem.h"
+#include "menu_c64_common_expansions.h"
 #include "menu_c64cart.h"
 #include "menu_c64hw.h"
 #include "menu_common.h"
 #include "menu_debug.h"
 #include "menu_drive.h"
+#include "menu_ethernet.h"
+#include "menu_ethernetcart.h"
 #include "menu_ffmpeg.h"
 #include "menu_help.h"
 #include "menu_jam.h"
 #include "menu_joyport.h"
+#include "menu_media.h"
 #include "menu_midi.h"
+#include "menu_monitor.h"
 #include "menu_network.h"
 #include "menu_printer.h"
 #include "menu_reset.h"
+#include "menu_sampler.h"
 #include "menu_screenshot.h"
 #include "menu_settings.h"
+#include "menu_sid.h"
 #include "menu_snapshot.h"
 #include "menu_sound.h"
 #include "menu_speed.h"
 #include "menu_tape.h"
-#include "menu_tfe.h"
 #include "menu_video.h"
 #include "ui.h"
 #include "uimenu.h"
@@ -90,14 +96,18 @@ static const ui_menu_entry_t x64_main_menu[] = {
       MENU_ENTRY_SUBMENU,
       submenu_callback,
       (ui_callback_data_t)sound_output_menu },
+    { "Sampler settings",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)sampler_menu },
     { "Snapshot",
       MENU_ENTRY_SUBMENU,
       submenu_callback,
       (ui_callback_data_t)snapshot_menu },
-    { "Screenshot",
+    { "Save media file",
       MENU_ENTRY_SUBMENU,
       submenu_callback,
-      (ui_callback_data_t)screenshot_menu },
+      (ui_callback_data_t)media_menu },
     { "Speed settings",
       MENU_ENTRY_SUBMENU,
       submenu_callback,
@@ -121,9 +131,9 @@ static const ui_menu_entry_t x64_main_menu[] = {
       pause_callback,
       NULL },
     { "Monitor",
-      MENU_ENTRY_OTHER,
-      monitor_callback,
-      NULL },
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)monitor_menu },
     { "Virtual keyboard",
       MENU_ENTRY_OTHER,
       vkbd_callback,
@@ -161,10 +171,17 @@ int c64ui_init(void)
 
     sdl_ui_set_menu_params = NULL;
 
-    uijoyport_menu_create(1, 1, 1, 1);
+    uijoyport_menu_create(1, 1, 1, 1, 0);
+    uisampler_menu_create();
     uicart_menu_create();
     uidrive_menu_create();
     uikeyboard_menu_create();
+    uipalette_menu_create("VICII", NULL);
+    uisid_menu_create();
+    uiclockport_rr_mmc_menu_create();
+    uiclockport_ide64_menu_create();
+
+    uimedia_menu_create();
 
     sdl_ui_set_main_menu(x64_main_menu);
     sdl_ui_set_menu_font(mem_chargen_rom + 0x800, 8, 8);
@@ -179,16 +196,23 @@ int c64ui_init(void)
 
 void c64ui_shutdown(void)
 {
+    uikeyboard_menu_shutdown();
+    uisid_menu_shutdown();
+    uicart_menu_shutdown();
+    uipalette_menu_shutdown();
+    uijoyport_menu_shutdown();
+
 #ifdef HAVE_MIDI
     sdl_menu_midi_in_free();
     sdl_menu_midi_out_free();
 #endif
 
-#ifdef HAVE_TFE
+#ifdef HAVE_PCAP
     sdl_menu_ethernet_interface_free();
 #endif
 
 #ifdef HAVE_FFMPEG
     sdl_menu_ffmpeg_shutdown();
 #endif
+    uimedia_menu_shutdown();
 }

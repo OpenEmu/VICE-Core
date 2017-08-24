@@ -2,10 +2,8 @@
  * types.h - Type definitions for VICE.
  *
  * Written by
- *  Ettore Perazzoli <ettore@comm2000.it>
- *  Andre Fachat <a.fachat@physik.tu-chemnitz.de>
- *  Teemu Rantanen <tvr@cs.hut.fi>
- *  Andreas Boose <viceteam@t-online.de>
+ *  Hannu Nuotio <hannu.nuotio@tut.fi>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -37,7 +35,7 @@
 #ifdef WIN32_COMPILE
 typedef unsigned char BYTE;
 typedef unsigned short WORD;
-#if !(defined(__CYGWIN__) && defined(__x86_64__))
+#ifndef _MINWINDEF_
 typedef unsigned long DWORD;
 #endif
 typedef signed char SIGNED_CHAR;
@@ -53,7 +51,9 @@ typedef signed long SDWORD;
 #endif
 
 typedef DWORD CLOCK;
+
 /* Maximum value of a CLOCK.  */
+#undef CLOCK_MAX
 #define CLOCK_MAX (~((CLOCK)0))
 
 #ifdef _WIN64

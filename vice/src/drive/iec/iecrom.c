@@ -52,15 +52,14 @@ static BYTE drive_rom1541ii[DRIVE_ROM1541II_SIZE_EXPANDED];
 #include "drivedos1570.h"
 #include "drivedos1571.h"
 #include "drivedos1581.h"
-#include "drivedos2000.h"
-#include "drivedos4000.h"
 #else
 static BYTE drive_rom1570[DRIVE_ROM1570_SIZE];
 static BYTE drive_rom1571[DRIVE_ROM1571_SIZE];
 static BYTE drive_rom1581[DRIVE_ROM1581_SIZE];
+#endif
+
 static BYTE drive_rom2000[DRIVE_ROM2000_SIZE];
 static BYTE drive_rom4000[DRIVE_ROM4000_SIZE];
-#endif
 
 /* If nonzero, the ROM image has been loaded.  */
 static unsigned int rom1540_loaded = 0;
@@ -79,7 +78,7 @@ static unsigned int drive_rom1541ii_size;
 
 static int iecrom_do_1541_checksum(void)
 {
-    int i;
+    unsigned int i;
     unsigned long s;
 
     /* Calculate ROM checksum.  */
@@ -201,6 +200,9 @@ void iecrom_setup_image(drive_t *drive)
                 break;
             case DRIVE_TYPE_4000:
                 memcpy(drive->rom, drive_rom4000, DRIVE_ROM4000_SIZE);
+                break;
+            default:
+                /* NOP */
                 break;
         }
     }

@@ -41,8 +41,10 @@
 #include "mui/uijoyport.h"
 #include "mui/uijoystick.h"
 #include "mui/uijoystickll.h"
+#include "mui/uikeymap.h"
 #include "mui/uiprinter.h"
 #include "mui/uiromc64settings.h"
+#include "mui/uisampler.h"
 #include "mui/uisiddtv.h"
 #include "mui/uivicii.h"
 #include "mui/uivideo.h"
@@ -91,7 +93,7 @@ static int c64dtv_ui_specific(video_canvas_t *canvas, int idm)
             ui_c64dtv_settings_dialog(canvas);
             break;
         case IDM_VICII_SETTINGS:
-            ui_vicii_settings_dialog();
+            ui_viciidtv_settings_dialog();
             break;
         case IDM_SID_SETTINGS:
             ui_siddtv_settings_dialog();
@@ -109,7 +111,7 @@ static int c64dtv_ui_specific(video_canvas_t *canvas, int idm)
             ui_printer_settings_dialog(canvas, 0, 0);
             break;
         case IDM_JOYPORT_SETTINGS:
-            ui_joyport_settings_dialog(1, 1, 1, 0);
+            ui_joyport_settings_dialog(1, 1, 1, 0, 0);
             break;
 #ifdef AMIGA_OS4
         case IDM_JOY_SETTINGS:
@@ -123,8 +125,11 @@ static int c64dtv_ui_specific(video_canvas_t *canvas, int idm)
             ui_joystick_fire_c64_dialog();
             break;
 #endif
+        case IDM_SAMPLER_SETTINGS:
+            ui_sampler_settings_dialog(canvas);
+            break;
         case IDM_KEYBOARD_SETTINGS:
-//          uikeyboard_settings_dialog(hwnd, &uikeyboard_config);
+            ui_keymap_settings_dialog(canvas);
             break;
     }
 

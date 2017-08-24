@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Matthies <andreas.matthies@gmx.net>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -30,6 +31,7 @@
 const uint32 MESSAGE_DATASETTE_RESET   = 'MDA1';
 const uint32 MESSAGE_DATASETTE_SPEED   = 'MDA2';
 const uint32 MESSAGE_DATASETTE_ZEROGAP = 'MDA3';
+const uint32 MESSAGE_DATASETTE_WOBBLE  = 'MDA4';
 
 extern void ui_datasette(void);
 

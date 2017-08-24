@@ -2,7 +2,7 @@
  * archdep_beos.c - Miscellaneous system-specific stuff.
  *
  * Written by
- *  Andreas Matthies <andreas.matthies@gmx.net>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -63,6 +63,7 @@
 #endif
 
 #include "archdep.h"
+#include "keyboard.h"
 #include "lib.h"
 #include "log.h"
 #include "machine.h"
@@ -71,15 +72,6 @@
 
 static char *orig_workdir;
 static char *argv0 = NULL;
-
-int archdep_network_init(void)
-{
-    return 0;
-}
-
-void archdep_network_shutdown(void)
-{
-}
 
 int archdep_init_extra(int *argc, char **argv)
 {
@@ -444,3 +436,11 @@ int kbd_arch_get_host_mapping(void)
 {
     return KBD_MAPPING_US;
 }
+
+
+#ifdef USE_SDLUI2
+char *archdep_sdl2_default_renderers[] = {
+    "software", "opengl", NULL
+};
+#endif
+

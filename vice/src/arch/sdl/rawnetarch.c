@@ -26,13 +26,13 @@
 
 #include "vice.h"
 
-#ifdef HAVE_TFE
+#ifdef HAVE_PCAP
 
 #ifdef UNIX_COMPILE
 #include "../unix/rawnetarch.c"
 #endif
 
-#if defined(WIN32_COMPILE) && !defined(__XBOX__)
+#ifdef WIN32_COMPILE
 #include "../win32/rawnetarch.c"
 #endif
 

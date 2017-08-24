@@ -40,12 +40,14 @@
 #include "cmdline.h"
 #include "cpmcart.h"
 #include "daa.h"
+#include "export.h"
 #include "interrupt.h"
 #include "log.h"
 #include "maincpu.h"
 #include "mem.h"
 #include "monitor.h"
 #include "resources.h"
+#include "snapshot.h"
 #include "translate.h"
 #include "types.h"
 #include "z80regs.h"
@@ -95,7 +97,6 @@ static store_func_ptr_t cpmcart_mem_write_tab[0x101];
 static BYTE cpmcart_wrap_read(WORD addr)
 {
     DWORD address = ((DWORD)addr + 0x1000) & 0xffff;
-
     return cpmcart_mem_read_tab[addr >> 8]((WORD)address);
 }
 
@@ -145,7 +146,7 @@ static void cpmcart_mem_init(void)
     set_write_item(0xc7, c64io_d700_store);
 
     /* z80 $c800-$cbff -> c64 $d800-$dbff (VICII colorram) */
-    for (i = 0xd8; i <= 0xdb; ++i) {
+    for (i = 0xc8; i <= 0xcb; ++i) {
         set_read_item(i, colorram_read);
         set_write_item(i, colorram_store);
     }
@@ -195,6 +196,12 @@ int cpmcart_cart_enabled(void)
     return cpmcart_enabled;
 }
 
+static int cpmcart_dump(void)
+{
+    mon_out("Active CPU: %s\n", z80_started ? "Z80" : "6510");
+    return 0;
+}
+
 static io_source_t cpmcart_device = {
     "CP/M Cartridge",
     IO_DETACH_RESOURCE,
@@ -204,7 +211,7 @@ static io_source_t cpmcart_device = {
     cpmcart_io_store,
     NULL, /* no read */
     NULL, /* no peek */
-    NULL, /* no dump */
+    cpmcart_dump,
     CARTRIDGE_CPM,
     0,
     0
@@ -212,15 +219,23 @@ static io_source_t cpmcart_device = {
 
 static io_source_list_t *cpmcart_list_item = NULL;
 
+static const export_resource_t export_res = {
+    CARTRIDGE_NAME_CPM, 0, 0, &cpmcart_device, NULL, CARTRIDGE_CPM
+};
+
 static int set_cpmcart_enabled(int value, void *param)
 {
     int val = value ? 1 : 0;
 
     if (cpmcart_enabled != val) {
         if (val) {
+            if (export_add(&export_res) < 0) {
+                return -1;
+            }
             cpmcart_list_item = io_source_register(&cpmcart_device);
             cpmcart_enabled = 1;
         } else {
+            export_remove(&export_res);
             io_source_unregister(cpmcart_list_item);
             cpmcart_list_item = NULL;
             cpmcart_enabled = 0;
@@ -233,7 +248,7 @@ static int set_cpmcart_enabled(int value, void *param)
 static const resource_int_t resources_int[] = {
     { "CPMCart", 0, RES_EVENT_STRICT, (resource_value_t)0,
       &cpmcart_enabled, set_cpmcart_enabled, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int cpmcart_resources_init(void)
@@ -255,7 +270,7 @@ static const cmdline_option_t cmdline_options[] =
       USE_PARAM_STRING, USE_DESCRIPTION_ID,
       IDCLS_UNUSED, IDCLS_DISABLE_CPM_CART,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int cpmcart_cmdline_options_init(void)
@@ -6513,4 +6528,161 @@ void cpmcart_check_and_run_z80(void)
     if (z80_started) {
         cpmcart_mainloop(maincpu_int_status, maincpu_alarm_context);
     }
+}
+
+/* ------------------------------------------------------------------------- */
+
+/* CPMCART snapshot module format:
+
+   type  | name           | description
+   ------------------------------------
+   DWORD | CLK            | main CPU clock
+   BYTE  | A              | A register
+   BYTE  | B              | B register
+   BYTE  | C              | C register
+   BYTE  | D              | D register
+   BYTE  | E              | E register
+   BYTE  | F              | F register
+   BYTE  | H              | H register
+   BYTE  | L              | L register
+   BYTE  | IXH            | IXH register
+   BYTE  | IXL            | IXL register
+   BYTE  | IYH            | IYH register
+   BYTE  | IYL            | IYL register
+   WORD  | SP             | stack pointer register
+   DWORD | PC             | program counter register
+   BYTE  | I              | I register
+   BYTE  | R              | R register
+   BYTE  | IFF1           | IFF1 register
+   BYTE  | IFF2           | IFF2 register
+   BYTE  | im mode        | im mode flag
+   BYTE  | A2             | A2 register
+   BYTE  | B2             | B2 register
+   BYTE  | C2             | C2 register
+   BYTE  | D2             | D2 register
+   BYTE  | E2             | E2 register
+   BYTE  | F2             | F2 register
+   BYTE  | H2             | H2 register
+   BYTE  | L2             | L2 register
+   DWORD | opcode info    | last opcode info
+   DWORD | opcode address | last opcode address
+ */
+
+static char snap_module_name[] = "CPMCART";
+#define SNAP_MAJOR 0
+#define SNAP_MINOR 0
+
+int cpmcart_snapshot_write_module(snapshot_t *s)
+{
+    snapshot_module_t *m;
+
+    m = snapshot_module_create(s, snap_module_name, SNAP_MAJOR, SNAP_MINOR);
+
+    if (m == NULL) {
+        return -1;
+    }
+
+    if (0
+        || SMW_DW(m, maincpu_clk) < 0
+        || SMW_B(m, reg_a) < 0
+        || SMW_B(m, reg_b) < 0
+        || SMW_B(m, reg_c) < 0
+        || SMW_B(m, reg_d) < 0
+        || SMW_B(m, reg_e) < 0
+        || SMW_B(m, reg_f) < 0
+        || SMW_B(m, reg_h) < 0
+        || SMW_B(m, reg_l) < 0
+        || SMW_B(m, reg_ixh) < 0
+        || SMW_B(m, reg_ixl) < 0
+        || SMW_B(m, reg_iyh) < 0
+        || SMW_B(m, reg_iyl) < 0
+        || SMW_W(m, reg_sp) < 0
+        || SMW_DW(m, z80_reg_pc) < 0
+        || SMW_B(m, reg_i) < 0
+        || SMW_B(m, reg_r) < 0
+        || SMW_B(m, iff1) < 0
+        || SMW_B(m, iff2) < 0
+        || SMW_B(m, im_mode) < 0
+        || SMW_B(m, reg_a2) < 0
+        || SMW_B(m, reg_b2) < 0
+        || SMW_B(m, reg_c2) < 0
+        || SMW_B(m, reg_d2) < 0
+        || SMW_B(m, reg_e2) < 0
+        || SMW_B(m, reg_f2) < 0
+        || SMW_B(m, reg_h2) < 0
+        || SMW_B(m, reg_l2) < 0
+        || SMW_B(m, (BYTE)z80_started) < 0
+        || SMW_DW(m, (DWORD)z80_last_opcode_info) < 0
+        || SMW_DW(m, (DWORD)z80_last_opcode_addr) < 0) {
+        snapshot_module_close(m);
+        return -1;
+    }
+
+    return snapshot_module_close(m);
+}
+
+int cpmcart_snapshot_read_module(snapshot_t *s)
+{
+    BYTE major, minor;
+    snapshot_module_t *m;
+
+    m = snapshot_module_open(s, snap_module_name, &major, &minor);
+
+    if (m == NULL) {
+        return -1;
+    }
+
+    /* Do not accept versions higher than current */
+    if (major > SNAP_MAJOR || minor > SNAP_MINOR) {
+        snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
+        goto fail;
+    } 
+
+    /* FIXME: This is a mighty kludge to prevent VIC-II from stealing the
+       wrong number of cycles.  */
+    maincpu_rmw_flag = 0;
+
+    /* XXX: Assumes `CLOCK' is the same size as a `DWORD'.  */
+    if (0
+        || SMR_DW(m, &maincpu_clk) < 0
+        || SMR_B(m, &reg_a) < 0
+        || SMR_B(m, &reg_b) < 0
+        || SMR_B(m, &reg_c) < 0
+        || SMR_B(m, &reg_d) < 0
+        || SMR_B(m, &reg_e) < 0
+        || SMR_B(m, &reg_f) < 0
+        || SMR_B(m, &reg_h) < 0
+        || SMR_B(m, &reg_l) < 0
+        || SMR_B(m, &reg_ixh) < 0
+        || SMR_B(m, &reg_ixl) < 0
+        || SMR_B(m, &reg_iyh) < 0
+        || SMR_B(m, &reg_iyl) < 0
+        || SMR_W(m, &reg_sp) < 0
+        || SMR_DW(m, &z80_reg_pc) < 0
+        || SMR_B(m, &reg_i) < 0
+        || SMR_B(m, &reg_r) < 0
+        || SMR_B(m, &iff1) < 0
+        || SMR_B(m, &iff2) < 0
+        || SMR_B(m, &im_mode) < 0
+        || SMR_B(m, &reg_a2) < 0
+        || SMR_B(m, &reg_b2) < 0
+        || SMR_B(m, &reg_c2) < 0
+        || SMR_B(m, &reg_d2) < 0
+        || SMR_B(m, &reg_e2) < 0
+        || SMR_B(m, &reg_f2) < 0
+        || SMR_B(m, &reg_h2) < 0
+        || SMR_B(m, &reg_l2) < 0
+        || SMR_B_INT(m, &z80_started) < 0
+        || SMR_DW_UINT(m, &z80_last_opcode_info) < 0
+        || SMR_DW_UINT(m, &z80_last_opcode_addr) < 0) {
+        goto fail;
+    }
+
+    set_cpmcart_enabled(1, NULL);
+
+    return snapshot_module_close(m);
+
+fail:
+    snapshot_module_close(m);
+    return -1;
 }

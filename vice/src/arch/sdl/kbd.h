@@ -2,7 +2,8 @@
  * kbd.h - SDL specfic keyboard driver.
  *
  * Written by
- *  Andreas Boose <viceteam@t-online.de>
+ *  Hannu Nuotio <hannu.nuotio@tut.fi>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README file for copyright notice.
@@ -56,7 +57,23 @@ extern void kbd_initialize_numpad_joykeys(int *joykeys);
 #define KMOD_META KMOD_GUI
 #define SDLK_LMETA SDLK_LGUI
 #define SDLK_RMETA SDLK_RGUI
+#define SDLK_COMPOSE	SDLK_APPLICATION
+#define SDLK_PRINT SDLK_PRINTSCREEN
+#define SDLK_NUMLOCK SDLK_NUMLOCKCLEAR
+#define SDLK_SCROLLOCK SDLK_SCROLLLOCK
 #endif
+
+#define VICE_SDLK_RIGHT     275
+#define VICE_SDLK_LEFT      276
+#define VICE_SDLK_HOME      278
+#define VICE_SDLK_END       279
+#define VICE_SDLK_F10       291
+
+#define VICE_SDLK_BACKSPACE   SDLK_BACKSPACE
+#define VICE_SDLK_ESCAPE      SDLK_ESCAPE
+#define VICE_SDLK_RETURN      SDLK_RETURN
+
+extern SDLKey SDL2x_to_SDL1x_Keys(SDLKey key);
 
 extern ui_menu_action_t sdlkbd_press(SDLKey key, SDLMod mod);
 extern ui_menu_action_t sdlkbd_release(SDLKey key, SDLMod mod);

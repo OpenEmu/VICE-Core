@@ -47,7 +47,7 @@ static int set_serial_file(const char *val, void *param)
 static const resource_string_t resources_string[] = {
     { "SerialFile", "SerialFile", RES_EVENT_NO, NULL,
       &SerialFile, set_serial_file, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 int rs232_resources_init(void)
@@ -62,7 +62,7 @@ static const cmdline_option_t cmdline_options[] =
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<filename>", "Set the serial filename" },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int rs232_cmdline_options_init(void)
@@ -128,7 +128,7 @@ int rs232_getc(int fi, BYTE *b)
     if (fd[fi] == NULL) {
         return -1;
     }
-    *b = fgetc(fd[fi]);
+    *b = (BYTE)fgetc(fd[fi]);
     return 0;
 }
 

@@ -67,8 +67,8 @@ static resource_int_t resources_int[] =
        &scale_x, set_scale_x, NULL },
     { "MouseScaleY", 1, RES_EVENT_NO, NULL,
        &scale_y, set_scale_y, NULL },
-    { NULL }
- };
+    RESOURCE_INT_LIST_END
+};
 
 int mousedrv_resources_init(mouse_func_t *funcs)
 {
@@ -91,7 +91,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<1-8>", N_("Set scaling factor for mouse movement along Y") },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int mousedrv_cmdline_options_init(void)

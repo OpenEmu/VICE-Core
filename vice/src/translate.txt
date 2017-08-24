@@ -613,6 +613,36 @@ IDGS_KOALAPAD
 /* joyport/sampler2bit.c */
 IDGS_SAMPLER_2BIT
 
+/* joyport/sampler4bit.c */
+IDGS_SAMPLER_4BIT
+
+/* joyport/bbrtc.c */
+IDGS_BBRTC
+
+/* joyport/paperclip64.c */
+IDGS_PAPERCLIP64_DONGLE
+
+/* joyport/coplin_keypad.c */
+IDGS_COPLIN_KEYPAD
+
+/* joyport/script64_dongle.c */
+IDGS_SCRIPT64_DONGLE
+
+/* joyport/vizawrite64_dongle.c */
+IDGS_VIZAWRITE64_DONGLE
+
+/* joyport/cx21.c */
+IDGS_CX21
+
+/* joyport/cx85.c */
+IDGS_CX85
+
+/* joyport/rushware_keypad.c */
+IDGS_RUSHWARE_KEYPAD
+
+/* joyport/cardkey.c */
+IDGS_CARDKEY
+
 /* lightpen.c */
 IDGS_LIGHTPEN_UP
 
@@ -633,6 +663,198 @@ IDGS_INKWELL_LIGHTPEN
 
 /* joyport.c */
 IDGS_SET_JOYPORT_S_DEVICE
+
+/* samplerdrv/sampler.c */
+IDGS_SAMPLER_USED_BY
+
+/* userport/userport_joystick.c */
+IDGS_CGA_JOY_ADAPTER
+
+/* userport/userport_joystick.c */
+IDGS_PET_JOY_ADAPTER
+
+/* userport/userport_joystick.c */
+IDGS_HUMMER_JOY_ADAPTER
+
+/* userport/userport_joystick.c */
+IDGS_OEM_JOY_ADAPTER
+
+/* userport/userport_joystick.c */
+IDGS_HIT_JOY_ADAPTER
+
+/* userport/userport_joystick.c */
+IDGS_KINGSOFT_JOY_ADAPTER
+
+/* userport/userport_joystick.c */
+IDGS_STARBYTE_JOY_ADAPTER
+
+/* userport/userport_rtc_58321a.c */
+IDGS_USERPORT_RTC58321A
+
+/* userport/userport_rtc_ds1307.c */
+IDGS_USERPORT_DS1307
+
+/* userport/userport_diag_586220_harness.c */
+IDGS_USERPORT_DIAG_586220_HARNESS
+
+/* tapeport/tapertc.c */
+IDGS_TAPE_RTC
+
+/* tapeport/sense-dongle.c */
+IDGS_SENSE_DONGLE
+
+/* userport/userport_dac.c */
+IDGS_USERPORT_DAC
+
+/* userport/userport_digimax.c */
+IDGS_USERPORT_DIGIMAX
+
+/* snapshot.c */
+IDGS_EOF_WRITING_MODULE_S_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_EOF_WRITING_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_ERROR_WRITING_ARRAY_MODULE_S_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_ERROR_WRITING_ARRAY_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_EOF_READING_MODULE_S_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_EOF_READING_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_ERROR_READING_ARRAY_MODULE_S_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_ERROR_READING_ARRAY_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_ERROR_WRITING_STRING_MODULE_S_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_ERROR_WRITING_STRING_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_OUT_OF_BOUNDS_READING_MODULE_S_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_OUT_OF_BOUNDS_READING_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_ILLEGAL_OFFSET_CREATE_MODULE_S_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_CANNOT_FIND_1ST_MODULE_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_ERROR_MODULE_HEADER_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_CANNOT_FIND_MODULE_S_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_ERROR_CLOSING_MODULE_S_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_ERROR_SKIPPING_MODULE_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_CANNOT_CREATE_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_CANNOT_WRITE_MAGIC_STRING_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_CANNOT_WRITE_VERSION_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_CANNOT_WRITE_MACHINE_NAME_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_CANNOT_OPEN_SNAPSHOT_S_READING
+
+/* snapshot.c */
+IDGS_MAGIC_STRING_MISMATCH_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_CANNOT_READ_VERSION_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_CANNOT_READ_MACHINE_NAME_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_WRONG_MACHINE_TYPE_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_EOF_CLOSING_SNAPSHOT_S
+
+/* snapshot.c */
+IDGS_SNAPSHOT_HIGHER_VERSION
+
+/* snapshot.c */
+IDGS_INCOMPATIBLE_SNAPSHOT
+
+/* snapshot.c */
+IDGS_SNAPSHOT_VICE_VERSION
+
+/* snapshot.c */
+IDGS_SNAPSHOT_OLD_VICE_VERSION
+
+/* c64/cart/clockport-rrnet.c */
+IDGS_CLOCKPORT_RRNET_IN_USE_BY_S
+
+/* c64/cart/clockport-mp3at64.c */
+IDGS_CLOCKPORT_MP3AT64_IN_USE_BY_S
+
+/* c64/cart/cs8900io.c */
+IDGS_CS8900_IN_USE_BY_S
+
+/* tapeport/tapertc.c */
+IDCLS_ENABLE_TAPERTC
+
+/* tapeport/tapertc.c */
+IDCLS_DISABLE_TAPERTC
+
+/* tapeport/tapertc.c */
+IDCLS_ENABLE_TAPERTC_SAVE
+
+/* tapeport/tapertc.c */
+IDCLS_DISABLE_TAPERTC_SAVE
+
+/* tapeport/sense-dongle.c */
+IDCLS_ENABLE_TAPE_SENSE_DONGLE
+
+/* tapeport/sense-dongle.c */
+IDCLS_DISABLE_TAPE_SENSE_DONGLE
+
+/* tapeport/dtl-basic-dongle.c */
+IDCLS_ENABLE_DTL_BASIC_DONGLE
+
+/* tapeport/dtl-basic-dongle.c */
+IDCLS_DISABLE_DTL_BASIC_DONGLE
+
+/* userport/userport_4bit_sampler.c */
+IDGS_USERPORT_4BIT_SAMPLER
+
+/* userport/userport_8bss.c */
+IDGS_USERPORT_8BSS
+
+/* printerdrv/interface_userport.c */
+IDGS_USERPORT_PRINTER
+
+/* datasette.c */
+IDGS_DATASETTE
+
+/* tapeport/tapelog.c */
+IDGS_TAPE_LOG
+
+/* tapeport/tape_diag_586220_harness.c */
+IDGS_TAPE_DIAG_586220_HARNESS
 
 /* COMMAND-LINE STRING ID DEFINITIONS */
 
@@ -656,6 +878,9 @@ IDCLS_DISABLE_DTV_FLASH_LOG
 
 /* machine.c */
 IDCLS_SET_MACHINE_JAM_ACTION
+
+/* machine.c */
+IDCLS_SET_EXIT_SCREENSHOT
 
 /* autostart.c */
 IDCLS_AUTOSTART_LOAD_TO_BASIC_START
@@ -695,6 +920,12 @@ IDCLS_ENABLE_AUTOSTART_RANDOM_DELAY
 
 /* autostart.c */
 IDCLS_DISABLE_AUTOSTART_RANDOM_DELAY
+
+/* vic20/vic20-cmdline-options.c */
+IDCLS_ENABLE_VFLI_MOD
+
+/* vic20/vic20-cmdline-options.c */
+IDCLS_DISABLE_VFLI_MOD
 
 /* c128/c128-cmdline-options.c, c64/c64-cmdline-options.c,
    c64/psid.c, plus4/plus4-cmdline-options.c,
@@ -967,6 +1198,9 @@ IDCLS_DISABLE_HUMMER_ADC
 /* c64/c64io.c, vic20/vic20io.c */
 IDCLS_SELECT_CONFLICT_HANDLING
 
+/* userport/userport.c */
+IDCLS_SELECT_USERPORT_CONFLICT_HANDLING
+
 /* c64/cart/c64tpi.c */
 IDCLS_ENABLE_IEEE488_INTERFACE
 
@@ -978,6 +1212,27 @@ IDCLS_SPECIFY_IEEE488_INTERFACE_NAME
 
 /* samplerdrv/file_drv.c */
 IDCLS_SPECIFY_SAMPLE_NAME
+
+/* tapeport/tapelog.c */
+IDCLS_ENABLE_TAPELOG
+
+/* tapeport/tapelog.c */
+IDCLS_DISABLE_TAPELOG
+
+/* tapeport/tapelog.c */
+IDCLS_ENABLE_TAPELOG_LOG_TO_FILE
+
+/* tapeport/tapelog.c */
+IDCLS_ENABLE_TAPELOG_LOG_TO_LOG
+
+/* tapeport/tapelog.c */
+IDCLS_SPECIFY_TAPELOG_NAME
+
+/* tapeport/tape_diag_586220_harness.c */
+IDCLS_ENABLE_TAPE_DIAG_586220_HARNESS
+
+/* tapeport/tape_diag_586220_harness.c */
+IDCLS_DISABLE_TAPE_DIAG_586220_HARNESS
 
 /* c64/cart/georam.c */
 IDCLS_ENABLE_GEORAM
@@ -1015,12 +1270,10 @@ IDCLS_SWAP_CART_IO
 /* c64/cart/georam.c */
 IDCLS_DONT_SWAP_CART_IO
 
-/* c64/cart/sfx_soundexpander.c, c64/cart/sfx_soundsampler.c,
-   c64/cart/tfe.c */
+/* c64/cart/sfx_soundexpander.c, c64/cart/sfx_soundsampler.c */
 IDCLS_MAP_CART_IO_2
 
-/* c64/cart/sfx_soundexpander.c, c64/cart/sfx_soundsampler.c,
-   c64/cart/tfe.c */
+/* c64/cart/sfx_soundexpander.c, c64/cart/sfx_soundsampler.c */
 IDCLS_MAP_CART_IO_3
 
 /* c64/psid.c */
@@ -1052,6 +1305,12 @@ IDCLS_RAMCART_READ_WRITE
 
 /* c64/cart/ramcart.c */
 IDCLS_RAMCART_SIZE
+
+/* c64/cart/debugcart.c */
+IDCLS_ENABLE_DEBUGCART
+
+/* c64/cart/debugcart.c */
+IDCLS_DISABLE_DEBUGCART
 
 /* c64/cart/dqbb.c */
 IDCLS_ENABLE_DQBB
@@ -1134,6 +1393,18 @@ IDCLS_MMC64_SET_FLASH_JUMPER
 /* c64/cart/mmc64.c */
 IDCLS_MMC64_UNSET_FLASH_JUMPER
 
+/* c64/cart/mmc64.c */
+IDCLS_RRNETMK3_BIOS_WRITE
+
+/* c64/cart/mmc64.c */
+IDCLS_RRNETMK3_BIOS_READ_ONLY
+
+/* c64/cart/mmc64.c */
+IDCLS_RRNETMK3_SET_FLASH_JUMPER
+
+/* c64/cart/mmc64.c */
+IDCLS_RRNETMK3_UNSET_FLASH_JUMPER
+
 /* c64/cart/mmcreplay.c */
 IDCLS_SELECT_MMC_REPLAY_CARD_IMAGE_FILENAME
 
@@ -1166,6 +1437,21 @@ IDCLS_ALLOW_WRITING_TO_MMC_REPLAY_IMAGE
 
 /* c64/cart/mmcreplay.c */
 IDCLS_DO_NOT_WRITE_TO_MMC_REPLAY_IMAGE
+
+/* c64/cart/gmod2.c */
+IDCLS_SELECT_GMOD2_EEPROM_IMAGE
+
+/* c64/cart/gmod2.c */
+IDCLS_GMOD2_EEPROM_WRITE_ENABLE
+
+/* c64/cart/gmod2.c */
+IDCLS_GMOD2_EEPROM_WRITE_DISABLE
+
+/* c64/cart/gmod2.c */
+IDCLS_ENABLE_SAVE_GMOD2_ROM_AT_EXIT
+
+/* c64/cart/gmod2.c */
+IDCLS_DISABLE_SAVE_GMOD2_ROM_AT_EXIT
 
 /* c64/cart/retroplay.c */
 IDCLS_ENABLE_SAVE_RR_ROM_AT_EXIT
@@ -1212,22 +1498,28 @@ IDCLS_DO_NOT_WRITE_TO_REU_IMAGE
 /* c64/cart/reu.c */
 IDCLS_REU_SIZE
 
-#ifdef HAVE_TFE
-/* c64/cart/tfe.c */
+#ifdef HAVE_PCAP
+/* c64/cart/ethernetcart.c */
 IDCLS_ENABLE_TFE
 
-/* c64/cart/tfe.c */
-IDCLS_DISABLE_TFE
+/* c64/cart/ethernetcart.c */
+IDCLS_ENABLE_RRNET
 
-/* c64/cart/tfe.c */
-IDCLS_TFE_INTERFACE
+/* c64/cart/ethernetcart.c */
+IDCLS_ENABLE_ETHERNETCART
 
-/* c64/cart/tfe.c */
-IDCLS_ENABLE_TFE_AS_RRNET
+/* c64/cart/ethernetcart.c */
+IDCLS_DISABLE_ETHERNETCART
 
-/* c64/cart/tfe.c */
-IDCLS_DISABLE_TFE_AS_RRNET
-#endif   /* HAVE_TFE */
+/* c64/cart/ethernetcart.c */
+IDCLS_ETHERNETCART_BASE
+
+/* c64/cart/ethernetcart.c */
+IDCLS_ETHERNETCART_MODE
+
+/* c64/cart/cs8900io.c */
+IDCLS_ETHERNET_INTERFACE
+#endif   /* HAVE_PCAP */
 
 /* c64/cart/c64cart.c */
 IDCLS_CART_ATTACH_DETACH_RESET
@@ -1385,6 +1677,9 @@ IDCLS_ATTACH_RAW_WARPSPEED_CART
 /* c64/cart/c64cart.c */
 IDCLS_ATTACH_RAW_ZAXXON_CART
 
+/* c64/cart/c64cart.c */
+IDCLS_ATTACH_RAW_EASYCALC_CART
+
 /* c64/cart/c64cart.c, c64/cart/expert.c */
 IDCLS_ENABLE_EXPERT_CART
 
@@ -1420,6 +1715,9 @@ IDCLS_ATTACH_RAW_REX_EP256_CART
 
 /* c64/cart/c64cart.c */
 IDCLS_ATTACH_RAW_RGCD_CART
+
+/* c64/cart/c64cart.c */
+IDCLS_ATTACH_RAW_RRNETMK3_CART
 
 /* c64/cart/c64cart.c */
 IDCLS_ATTACH_RAW_ROSS_CART
@@ -1595,7 +1893,7 @@ IDCLS_DISABLE_DRIVE_SOUND
 /* drive/drive-cmdline-options.c */
 IDCLS_SET_DRIVE_SOUND_VOLUME
 
-/* drive/drive-cmdline-options.c */
+/* drive/drive-cmdline-options.c, sound.c */
 IDCLS_P_VOLUME
 
 /* drive/drive-cmdline-options.c */
@@ -1726,6 +2024,15 @@ IDCLS_DISABLE_SUPERCARD
 
 /* drive/iec/c64exp/c64exp-cmdline-options.c */
 IDCLS_SPECIFY_SUPERCARD_ROM_NAME
+
+/* drive/iec/c64exp/c64exp-cmdline-options.c */
+IDCLS_ENABLE_STARDOS
+
+/* drive/iec/c64exp/c64exp-cmdline-options.c */
+IDCLS_DISABLE_STARDOS
+
+/* drive/iec/c64exp/c64exp-cmdline-options.c */
+IDCLS_SPECIFY_STARDOS_ROM_NAME
 
 /* drive/iec/plus4exp/plus4exp-cmdline-options.c */
 IDCLS_PAR_CABLE_PLUS4EXP_TYPE
@@ -2178,6 +2485,11 @@ IDCLS_HARDSID_ENGINE_MODEL
 IDCLS_PARSID_ENGINE_MODEL
 #endif
 
+#ifdef HAVE_SSI2001
+/* sid/sid-cmdline-options.c */
+IDCLS_SSI2001_ENGINE_MODEL
+#endif
+
 /* sid/sid-cmdline-options.c */
 IDCLS_ENABLE_SIDCART
 
@@ -2280,6 +2592,9 @@ IDCLS_SPECIFY_EXT_ROM_A000_NAME
 
 /* vic20/cart/vic20cart.c */
 IDCLS_SPECIFY_EXT_ROM_B000_NAME
+
+/* vic20/cart/behrbonz.c */
+IDCLS_SPECIFY_BEHRBONZ_ROM_NAME
 
 /* vic20/cart/vic20cart.c */
 IDCLS_SPECIFY_GENERIC_ROM_NAME
@@ -2459,6 +2774,12 @@ IDCLS_ATTACH_READ_ONLY_11
 IDCLS_ATTACH_READ_WRITE_11
 
 /* datasette.c */
+IDCLS_ENABLE_DATASETTE
+
+/* datasette.c */
+IDCLS_DISABLE_DATASETTE
+
+/* datasette.c */
 IDCLS_ENABLE_AUTO_DATASETTE_RESET
 
 /* datasette.c */
@@ -2636,6 +2957,9 @@ IDCLS_SPECIFY_LOG_FILE_NAME
 /* log.c */
 IDCLS_ENABLE_VERBOSE_LOG_OUTPUT
 
+/* log.c */
+IDCLS_DISABLE_LOG_OUTPUT
+
 /* mouse.c */
 IDCLS_ENABLE_MOUSE_GRAB
 
@@ -2701,6 +3025,12 @@ IDCLS_SPECIFY_SOUND_DRIVER
 
 /* sampler/sampler.c */
 IDCLS_SPECIFY_SAMPLER_DEVICE
+
+/* sampler/sampler.c */
+IDCLS_P_GAIN
+
+/* sampler/sampler.c */
+IDCLS_SAMPLER_GAIN_IN_PERCENT
 
 /* sound.c */
 IDCLS_P_ARGS
@@ -2836,17 +3166,53 @@ IDCLS_DISABLE_USERPORT_JOY
 /* userport/userport_joystick.c */
 IDCLS_SET_USERPORT_JOY_TYPE
 
-/* userport/userport_rtc.c */
-IDCLS_ENABLE_USERPORT_RTC
+/* userport/userport_rtc_58321a.c */
+IDCLS_ENABLE_USERPORT_RTC_58321A
 
-/* userport/userport_rtc.c */
-IDCLS_DISABLE_USERPORT_RTC
+/* userport/userport_rtc_58321a.c */
+IDCLS_DISABLE_USERPORT_RTC_58321A
 
-/* userport/userport_rtc.c */
-IDCLS_ENABLE_USERPORT_RTC_SAVE
+/* userport/userport_rtc_58321a.c */
+IDCLS_ENABLE_USERPORT_RTC_58321A_SAVE
 
-/* userport/userport_rtc.c */
-IDCLS_DISABLE_USERPORT_RTC_SAVE
+/* userport/userport_rtc_58321a.c */
+IDCLS_DISABLE_USERPORT_RTC_58321A_SAVE
+
+/* userport/userport_rtc_ds1307.c */
+IDCLS_ENABLE_USERPORT_RTC_DS1307
+
+/* userport/userport_rtc_ds1307.c */
+IDCLS_DISABLE_USERPORT_RTC_DS1307
+
+/* userport/userport_rtc_ds1307.c */
+IDCLS_ENABLE_USERPORT_RTC_DS1307_SAVE
+
+/* userport/userport_rtc_ds1307.c */
+IDCLS_DISABLE_USERPORT_RTC_DS1307_SAVE
+
+/* userport/userport_diag_586220_harness.c */
+IDCLS_ENABLE_USERPORT_DIAG_586220_HARNESS
+
+/* userport/userport_diag_586220_harness.c */
+IDCLS_DISABLE_USERPORT_DIAG_586220_HARNESS
+
+/* joyport/bbrtc.c */
+IDCLS_ENABLE_BBRTC_SAVE
+
+/* joyport/bbrtc.c */
+IDCLS_DISABLE_BBRTC_SAVE
+
+/* userport/userport_4bit_sampler.c */
+IDCLS_ENABLE_USERPORT_4BIT_SAMPLER
+
+/* userport/userport_4bit_sampler.c */
+IDCLS_DISABLE_USERPORT_4BIT_SAMPLER
+
+/* userport/userport_8bss.c */
+IDCLS_ENABLE_USERPORT_8BSS
+
+/* userport/userport_8bss.c */
+IDCLS_DISABLE_USERPORT_8BSS
 
 /* c64/plus256k.c */
 IDCLS_SPECIFY_PLUS256K_NAME
@@ -2872,6 +3238,24 @@ IDCLS_DISABLE_PLUS4SPEECH
 /* plus4/plus4speech.c */
 IDCLS_ATTACH_SPEECH_ROM_IMAGE
 
+/* userport/userport_digimax.c */
+IDCLS_ENABLE_USERPORT_DIGIMAX
+
+/* userport/userport_digimax.c */
+IDCLS_DISABLE_USERPORT_DIGIMAX
+
+/* c64/cart/shortbus_digimax.c */
+IDCLS_ENABLE_SHORTBUS_DIGIMAX
+
+/* c64/cart/shortbus_digimax.c */
+IDCLS_DISABLE_SHORTBUS_DIGIMAX
+
+/* c64/cart/shortbus_etfe.c */
+IDCLS_ENABLE_SHORTBUS_ETFE
+
+/* c64/cart/shortbus_etfe.c */
+IDCLS_DISABLE_SHORTBUS_ETFE
+
 /* c64/cart/digimax.c */
 IDCLS_ENABLE_DIGIMAX
 
@@ -2880,6 +3264,12 @@ IDCLS_DISABLE_DIGIMAX
 
 /* c64/cart/digimax.c */
 IDCLS_DIGIMAX_BASE
+
+/* c64/cart/shortbus_digimax.c */
+IDCLS_SHORTBUS_DIGIMAX_BASE
+
+/* c64/cart/shortbus_etfe.c */
+IDCLS_SHORTBUS_ETFE_BASE
 
 /* c64/cart/ds12c887rtc.c */
 IDCLS_ENABLE_DS12C887RTC
@@ -2901,6 +3291,9 @@ IDCLS_ENABLE_DS12C887RTC_SAVE
 
 /* c64/cart/ds12c887rtc.c */
 IDCLS_DISABLE_DS12C887RTC_SAVE
+
+/* c64/cart/rrnetmk3.c */
+IDCLS_CLOCKPORT_DEVICE
 
 /* c64/cart/sfx_soundexpander.c */
 IDCLS_ENABLE_SFX_SE

@@ -3,6 +3,7 @@
  *
  * Written by
  *  Hannu Nuotio <hannu.nuotio@tut.fi>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -37,8 +38,43 @@
 #include "maincpu.h"
 #include "lightpen.h"
 #include "resources.h"
+#include "snapshot.h"
 #include "translate.h"
 
+
+/* Control port <--> lightpen connections:
+
+   cport | lightpen up | I/O
+   -------------------------
+     1   | button      |  I
+     6   | trigger     |  I
+
+   cport | lightpen left | I/O
+   ---------------------------
+     3   | button        |  I
+     6   | trigger       |  I
+
+   cport | datel pen | I/O
+   -----------------------
+     3   | button    |  I
+     6   | trigger   |  I
+
+   cport | magnum light phaser | I/O
+   ---------------------------------
+     6   | trigger             |  I
+     9   | button              |  I
+
+   cport | stack light rifle | I/O
+   -------------------------------
+     3   | button            |  I
+     6   | trigger           |  I
+
+   cport | inkwell lightpen | I/O
+   ------------------------------
+     3   | button 1         |  I
+     6   | trigger          |  I
+     9   | button 2         |  I
+ */
 
 /* --------------------------------------------------------- */
 /* extern variables */
@@ -179,6 +215,10 @@ static inline void lightpen_update_buttons(int buttons)
 
 /* --------------------------------------------------------- */
 
+/* Some prototypes are needed */
+static int lightpen_write_snapshot(struct snapshot_s *s, int port);
+static int lightpen_read_snapshot(struct snapshot_s *s, int port);
+
 static int joyport_lightpen_enable(int port, int val)
 {
     lightpen_enabled = val ? 1 : 0;
@@ -199,7 +239,7 @@ static int joyport_lightpen_enable(int port, int val)
 
 static BYTE lightpen_digital_val(int port)
 {
-    return ~lightpen_value;
+    return (BYTE)~lightpen_value;
 }
 
 static BYTE lightpen_read_button_y(void)
@@ -217,11 +257,14 @@ static joyport_t lightpen_u_joyport_device = {
     IDGS_LIGHTPEN_UP,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_LIGHTPEN,
+    JOYPORT_POT_OPTIONAL,
     joyport_lightpen_enable,
     lightpen_digital_val,
-    NULL,				/* no store digital */
+    NULL,                       /* no store digital */
     lightpen_read_button_x,
-    lightpen_read_button_y
+    lightpen_read_button_y,
+    lightpen_write_snapshot,
+    lightpen_read_snapshot
 };
 
 static joyport_t lightpen_l_joyport_device = {
@@ -229,11 +272,14 @@ static joyport_t lightpen_l_joyport_device = {
     IDGS_LIGHTPEN_LEFT,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_LIGHTPEN,
+    JOYPORT_POT_OPTIONAL,
     joyport_lightpen_enable,
     lightpen_digital_val,
-    NULL,				/* no store digital */
+    NULL,                       /* no store digital */
     lightpen_read_button_x,
-    lightpen_read_button_y
+    lightpen_read_button_y,
+    lightpen_write_snapshot,
+    lightpen_read_snapshot
 };
 
 static joyport_t lightpen_datel_joyport_device = {
@@ -241,11 +287,14 @@ static joyport_t lightpen_datel_joyport_device = {
     IDGS_DATEL_LIGHTPEN,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_LIGHTPEN,
+    JOYPORT_POT_OPTIONAL,
     joyport_lightpen_enable,
     lightpen_digital_val,
-    NULL,				/* no store digital */
+    NULL,                       /* no store digital */
     lightpen_read_button_x,
-    lightpen_read_button_y
+    lightpen_read_button_y,
+    lightpen_write_snapshot,
+    lightpen_read_snapshot
 };
 
 static joyport_t magnum_light_phaser_joyport_device = {
@@ -253,11 +302,14 @@ static joyport_t magnum_light_phaser_joyport_device = {
     IDGS_MAGNUM_LIGHT_PHASER,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_LIGHTPEN,
+    JOYPORT_POT_OPTIONAL,
     joyport_lightpen_enable,
     lightpen_digital_val,
-    NULL,				/* no store digital */
+    NULL,                       /* no store digital */
     lightpen_read_button_x,
-    lightpen_read_button_y
+    lightpen_read_button_y,
+    lightpen_write_snapshot,
+    lightpen_read_snapshot
 };
 
 static joyport_t stack_light_rifle_joyport_device = {
@@ -265,11 +317,14 @@ static joyport_t stack_light_rifle_joyport_device = {
     IDGS_STACK_LIGHT_RIFLE,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_LIGHTPEN,
+    JOYPORT_POT_OPTIONAL,
     joyport_lightpen_enable,
     lightpen_digital_val,
-    NULL,				/* no store digital */
+    NULL,                       /* no store digital */
     lightpen_read_button_x,
-    lightpen_read_button_y
+    lightpen_read_button_y,
+    lightpen_write_snapshot,
+    lightpen_read_snapshot
 };
 
 static joyport_t inkwell_lightpen_joyport_device = {
@@ -277,11 +332,14 @@ static joyport_t inkwell_lightpen_joyport_device = {
     IDGS_INKWELL_LIGHTPEN,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_LIGHTPEN,
+    JOYPORT_POT_OPTIONAL,
     joyport_lightpen_enable,
     lightpen_digital_val,
-    NULL,				/* no store digital */
+    NULL,                       /* no store digital */
     lightpen_read_button_x,
-    lightpen_read_button_y
+    lightpen_read_button_y,
+    lightpen_write_snapshot,
+    lightpen_read_snapshot
 };
 
 static int lightpen_joyport_register(void)
@@ -382,5 +440,78 @@ void lightpen_update(int window, int x, int y, int buttons)
     if (pulse_time > 0) {
         chip_trigger_callback(pulse_time);
     }
+}
+
+/* --------------------------------------------------------- */
+
+/* LIGHTPEN snapshot module format:
+
+   type  | name     | description
+   ------------------------------
+   BYTE  | value    | lightpen return value
+   BYTE  | type     | lightpen type
+   DWORD | buttons  | buttons state
+   DWORD | button y | button Y state
+   DWORD | button x | button X state
+ */
+
+static char snap_module_name[] = "LIGHTPEN";
+#define SNAP_MAJOR   0
+#define SNAP_MINOR   0
+
+static int lightpen_write_snapshot(struct snapshot_s *s, int port)
+{
+    snapshot_module_t *m;
+
+    m = snapshot_module_create(s, snap_module_name, SNAP_MAJOR, SNAP_MINOR);
+
+    if (m == NULL) {
+        return -1;
+    }
+
+    if (0
+        || SMW_B(m, lightpen_value) < 0
+        || SMW_B(m, (BYTE)lightpen_type) < 0
+        || SMW_DW(m, (DWORD)lightpen_buttons) < 0
+        || SMW_DW(m, (DWORD)lightpen_button_y) < 0
+        || SMW_DW(m, (DWORD)lightpen_button_x) < 0) {
+        snapshot_module_close(m);
+        return -1;
+    }
+
+    return snapshot_module_close(m);
+}
+
+static int lightpen_read_snapshot(struct snapshot_s *s, int port)
+{
+    BYTE major_version, minor_version;
+    snapshot_module_t *m;
+
+    m = snapshot_module_open(s, snap_module_name, &major_version, &minor_version);
+
+    if (m == NULL) {
+        return -1;
+    }
+
+    /* Do not accept versions higher than current */
+    if (major_version > SNAP_MAJOR || minor_version > SNAP_MINOR) {
+        snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
+        goto fail;
+    }
+
+    if (0
+        || SMR_B(m, &lightpen_value) < 0
+        || SMR_B_INT(m, &lightpen_type) < 0
+        || SMR_DW_INT(m, &lightpen_buttons) < 0
+        || SMR_DW_INT(m, &lightpen_button_y) < 0
+        || SMR_DW_INT(m, &lightpen_button_x) < 0) {
+        goto fail;
+    }
+
+    return snapshot_module_close(m);
+
+fail:
+    snapshot_module_close(m);
+    return -1;
 }
 #endif

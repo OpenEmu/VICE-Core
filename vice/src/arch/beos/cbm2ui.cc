@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Matthies <andreas.matthies@gmx.net>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -34,14 +35,18 @@
 #include "vicemenu.h"
 
 extern "C" {
+#include "cartio.h"
 #include "cartridge.h"
 #include "cbm2model.h"
 #include "cbm2ui.h"
 #include "constants.h"
+#include "gfxoutput.h"
 #include "joyport.h"
 #include "ui.h"
 #include "ui_cbm2.h"
+#include "ui_cia.h"
 #include "ui_drive.h"
+#include "ui_joystick.h"
 #include "ui_printer.h"
 #include "ui_sid.h"
 #include "ui_video.h"
@@ -67,6 +72,14 @@ ui_menu_toggle cbm2_ui_menu_toggles[] = {
     { "CrtcVideoCache", MENU_TOGGLE_VIDEOCACHE },
     { "CartridgeReset", MENU_CART_CBM2_RESET_ON_CHANGE },
     { "Mouse", MENU_TOGGLE_MOUSE },
+    { "UserportDAC", MENU_TOGGLE_USERPORT_DAC },
+    { "UserportRTC58321a", MENU_TOGGLE_USERPORT_58321A },
+    { "UserportRTC58321aSave", MENU_TOGGLE_USERPORT_58321A_SAVE },
+    { "UserportRTCDS1307", MENU_TOGGLE_USERPORT_DS1307 },
+    { "UserportRTCDS1307Save", MENU_TOGGLE_USERPORT_DS1307_SAVE },
+    { "UserportDIGIMAX", MENU_TOGGLE_USERPORT_DIGIMAX },
+    { "Userport4bitSampler", MENU_TOGGLE_USERPORT_4BIT_SAMPLER },
+    { "Userport8BSS", MENU_TOGGLE_USERPORT_8BSS },
     { NULL, 0 }
 };
 
@@ -87,18 +100,35 @@ ui_res_possible_values cbm2RenderFilters[] = {
     { -1, 0 }
 };
 
-ui_res_possible_values cbm2_cia1models[] = {
-    { 0, MENU_CIA1_MODEL_6526_OLD },
-    { 1, MENU_CIA1_MODEL_6526A_NEW },
+static ui_res_possible_values DoodleCRTCTextColor[] = {
+    { NATIVE_SS_CRTC_WHITE, MENU_SCREENSHOT_DOODLE_CRTC_TEXT_COLOR_WHITE },
+    { NATIVE_SS_CRTC_AMBER, MENU_SCREENSHOT_DOODLE_CRTC_TEXT_COLOR_AMBER },
+    { NATIVE_SS_CRTC_GREEN, MENU_SCREENSHOT_DOODLE_CRTC_TEXT_COLOR_GREEN },
+    { -1, 0 }
+};
+
+static ui_res_possible_values KoalaCRTCTextColor[] = {
+    { NATIVE_SS_CRTC_WHITE, MENU_SCREENSHOT_KOALA_CRTC_TEXT_COLOR_WHITE },
+    { NATIVE_SS_CRTC_AMBER, MENU_SCREENSHOT_KOALA_CRTC_TEXT_COLOR_AMBER },
+    { NATIVE_SS_CRTC_GREEN, MENU_SCREENSHOT_KOALA_CRTC_TEXT_COLOR_GREEN },
+    { -1, 0 }
+};
+
+static ui_res_possible_values IOCollisions[] = {
+    { IO_COLLISION_METHOD_DETACH_ALL, MENU_IO_COLLISION_DETACH_ALL },
+    { IO_COLLISION_METHOD_DETACH_LAST, MENU_IO_COLLISION_DETACH_LAST },
+    { IO_COLLISION_METHOD_AND_WIRES, MENU_IO_COLLISION_AND_WIRES },
     { -1, 0 }
 };
 
 ui_res_value_list cbm2_ui_res_values[] = {
     { "Acia1Dev", cbm2AciaDevice },
     { "CrtcFilter", cbm2RenderFilters },
-    { "CIA1Model", cbm2_cia1models },
     { "JoyPort3Device", cbm2_JoyPort3Device },
     { "JoyPort4Device", cbm2_JoyPort4Device },
+    { "DoodleCRTCTextColor", DoodleCRTCTextColor },
+    { "KoalaCRTCTextColor", KoalaCRTCTextColor },
+    { "IOCollisionHandling", IOCollisions },
     { NULL, NULL }
 };
 
@@ -183,6 +213,12 @@ void cbm2_ui_specific(void *msg, void *window)
         case MENU_SID_SETTINGS:
             ui_sid(NULL);
             break;
+        case MENU_CIA_SETTINGS:
+            ui_cia(1);
+            break;
+        case MENU_USERPORT_JOY_SETTINGS:
+            ui_joystick(3, 4);
+            break;
         case MENU_DRIVE_SETTINGS:
             ui_drive(cbm2_drive_types, HAS_NO_CAPS);
             break;
@@ -219,7 +255,7 @@ void cbm2_ui_specific(void *msg, void *window)
 
 int cbm2ui_init_early(void)
 {
-    vicemenu_set_joyport_func(joyport_get_valid_devices, joyport_get_port_name, 0, 0, 1, 1);
+    vicemenu_set_joyport_func(joyport_get_valid_devices, joyport_get_port_name, 0, 0, 1, 1, 0);
     return 0;
 }
 
@@ -229,9 +265,9 @@ static void build_joyport_values(void)
 
     for (i = 0; i < JOYPORT_MAX_DEVICES; ++i) {
         cbm2_JoyPort3Device[i].value = i;
-        cbm2_JoyPort3Device[i].item_id = MENU_JOYPORT3_00 + i;
+        cbm2_JoyPort3Device[i].item_id = MENU_JOYPORT3 + i;
         cbm2_JoyPort4Device[i].value = i;
-        cbm2_JoyPort4Device[i].item_id = MENU_JOYPORT4_00 + i;
+        cbm2_JoyPort4Device[i].item_id = MENU_JOYPORT4 + i;
     }
     cbm2_JoyPort3Device[i].value = -1;
     cbm2_JoyPort3Device[i].item_id = 0;

@@ -40,19 +40,25 @@
  * VICE Fragment = CoreAudio Slice
  */
 
-//#include "config.h"
 #include "vice.h"
+
+#ifdef USE_COREAUDIO
 
 #include <AudioToolbox/AudioToolbox.h>
 #include <CoreAudio/CoreAudio.h>
-#include <libkern/OSAtomic.h>
 
 #include "lib.h"
 #include "log.h"
 #include "sound.h"
 
+/* Requested audio device name */
+static const char* requested_device_name;
+
+/* resolved device id */
+static AudioDeviceID device = kAudioDeviceUnknown;
+
 /* type for atomic increments */
-typedef volatile int32_t atomic_int_t;
+typedef volatile int atomic_int_t;
 
 /* the cyclic buffer containing m fragments */
 static SWORD *soundbuffer;
@@ -90,6 +96,53 @@ static unsigned int frames_left_in_fragment;
 /* bytes per input frame */
 static unsigned int in_frame_byte_size;
 
+/* ----- Atomic Increment/Decrement for Thread-Safe Audio Buffers -------- */
+
+#if defined(__x86_64__) || defined(__i386__)
+/* Intel Mac Implementation */
+
+static inline void atomic_increment(atomic_int_t * addr)
+{
+    __asm__ __volatile__ ("lock ; incl %0"
+                          :"=m" (*addr)
+                          :"m" (*addr));
+}
+
+static inline void atomic_decrement(atomic_int_t * addr)
+{
+    __asm__ __volatile__ ("lock ; decl %0"
+                          :"=m" (*addr)
+                          :"m" (*addr));
+}
+
+#else
+/* PowerPC Mac Implementation */
+
+static inline void atomic_add(atomic_int_t * addr, int val)
+{
+    register int tmp;
+    asm volatile("    lwarx  %0,0,%2  \n\t"  /* load value & reserve */
+                 "    addc   %0,%0,%3 \n\t"  /* add <val> */
+                 "    stwcx. %0,0,%2  \n\n"  /* store new value */
+                 "    bne-   $-12"           /* check if store was successful */
+                 : "=&r"(tmp), "=m"(addr)
+                 : "r"(addr), "r"(val), "m"(addr)
+                 : "cr0"
+                );
+}
+
+static inline void atomic_increment(atomic_int_t * addr)
+{
+    atomic_add(addr, 1);
+}
+
+static inline void atomic_decrement(atomic_int_t * addr)
+{
+    atomic_add(addr, -1);
+}
+
+#endif
+
 /* ----- Audio Converter ------------------------------------------------ */
 
 static AudioConverterRef converter = 0;
@@ -119,7 +172,7 @@ static OSStatus converter_input(AudioConverterRef inAudioConverter,
         /* fetch next fragment */
         if (frames_left_in_fragment == 0) {
             read_position = (read_position + 1) % fragment_count;
-            OSAtomicDecrement32(&fragments_in_queue);
+            atomic_decrement(&fragments_in_queue);
             frames_left_in_fragment = frames_in_fragment;
         }
     } else {
@@ -184,17 +237,145 @@ static void converter_close(void)
     }
 }
 
+#if defined(MAC_OS_X_VERSION_10_6) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_6)
+static int determine_output_device_id()
+{
+    OSStatus err;
+    UInt32 size;
+    AudioDeviceID default_device;
+
+    /* get default audio device id */
+    size = sizeof(default_device);
+    err = AudioHardwareGetProperty(kAudioHardwarePropertyDefaultOutputDevice,
+                                   &size, (void*)&default_device);
+    if (err != kAudioHardwareNoError) {
+        log_error(LOG_DEFAULT, "sound (coreaudio_init): Failed to get default output device");
+        return -1;
+    }
+
+    /* use the default audio device unless overridden */
+    device = default_device;
+
+    if (requested_device_name) {
+        log_message(LOG_DEFAULT, "sound (coreaudio_init): Searching for audio output device: %s", requested_device_name);
+    }
+
+    /* list audio devices */
+    AudioObjectPropertyAddress property_address = { 
+        kAudioHardwarePropertyDevices, 
+        kAudioObjectPropertyScopeGlobal, 
+        kAudioObjectPropertyElementMaster 
+    };
+    size = 0;
+    err = AudioObjectGetPropertyDataSize(kAudioObjectSystemObject, &property_address, 0, NULL, &size);
+    if (err != kAudioHardwareNoError) {
+        log_error(LOG_DEFAULT, "sound (coreaudio_init): AudioObjectGetPropertyDataSize (kAudioHardwarePropertyDevices) failed: %d", (int)err);
+        return -1;
+    }
+
+    UInt32 device_count = size / sizeof(AudioDeviceID);
+
+    AudioDeviceID *audio_devices = (AudioDeviceID *)(malloc(size));
+    if (audio_devices == NULL) {
+        log_error(LOG_DEFAULT, "sound (coreaudio_init): Unable to allocate memory");
+        return -1;
+    }
+
+    err = AudioObjectGetPropertyData(kAudioObjectSystemObject, &property_address, 0, NULL, &size, audio_devices);
+    if (err != kAudioHardwareNoError) {
+        log_error(LOG_DEFAULT, "sound (coreaudio_init): AudioObjectGetPropertyData (kAudioHardwarePropertyDevices) failed: %d", (int)err);
+        free(audio_devices);
+        audio_devices = NULL;
+        return -1;
+    }
+
+    CFStringRef device_name_ref = NULL;
+    const char * device_name = NULL;
+
+    /* search list of output devices for matching name */
+    for(UInt32 i = 0; i < device_count; ++i) {
+        property_address.mSelector = kAudioDevicePropertyStreams;
+        property_address.mScope = kAudioDevicePropertyScopeOutput;
+
+        size = 0;
+        err = AudioObjectGetPropertyDataSize(audio_devices[i], &property_address, 0, NULL, &size);
+        if (err != kAudioHardwareNoError) {
+            log_error(LOG_DEFAULT, "sound (coreaudio_init): AudioObjectGetPropertyDataSize (kAudioDevicePropertyStreamConfiguration) failed: %d", (int)err);
+            free(audio_devices);
+            audio_devices = NULL;
+            return -1;
+        }
+
+        if (size <= 0) {
+            /* this device has no outputs */
+            continue;
+        }
+
+        /* get device name */
+        size = sizeof(device_name_ref);
+        property_address.mSelector = kAudioDevicePropertyDeviceNameCFString;
+        err = AudioObjectGetPropertyData(audio_devices[i], &property_address, 0, NULL, &size, &device_name_ref);
+        if (err != kAudioHardwareNoError) {
+            log_error(LOG_DEFAULT, "sound (coreaudio_init): AudioObjectGetPropertyData (kAudioDevicePropertyDeviceNameCFString) failed: %d", (int)err);
+            free(audio_devices);
+            audio_devices = NULL;
+            return -1;
+        }
+
+        device_name = CFStringGetCStringPtr(device_name_ref, kCFStringEncodingMacRoman);
+        if (device_name == NULL) {
+            continue;
+        }
+
+        if (audio_devices[i] == default_device) {
+            log_message(LOG_DEFAULT, "sound (coreaudio_init): Found output audio device: %s (Default)", device_name);
+        } else {
+            log_message(LOG_DEFAULT, "sound (coreaudio_init): Found output audio device: %s", device_name);
+        }
+
+        if (requested_device_name == NULL) {
+            continue;
+        }
+
+        if (0 == strcmp(requested_device_name, device_name)) {
+            /* matches the requested audio device */
+            device = audio_devices[i];
+        }
+    }
+
+    free(audio_devices);
+    audio_devices = NULL;
+
+    /* get final device name */
+    device_name_ref = NULL;
+    size = sizeof(device_name_ref);
+    property_address.mSelector = kAudioDevicePropertyDeviceNameCFString;
+    err = AudioObjectGetPropertyData(device, &property_address, 0, NULL, &size, &device_name_ref);
+    if (err != kAudioHardwareNoError) {
+        log_error(LOG_DEFAULT, "sound (coreaudio_init): AudioObjectGetPropertyData (kAudioDevicePropertyDeviceNameCFString) failed: %d", (int)err);
+        return -1;
+    }
+
+    device_name = CFStringGetCStringPtr(device_name_ref, kCFStringEncodingMacRoman);
+    if (device_name != NULL) {
+        log_message(LOG_DEFAULT, "sound (coreaudio_init): Using output audio device: %s", device_name);
+    }
+
+    return 0;
+}
+#endif
+
 /* ----- Audio API before AudioUnits ------------------------------------- */
 
-static AudioDeviceID device = kAudioDeviceUnknown;
+/* bytes per output frame */
+static unsigned int out_frame_byte_size;
+
+#ifndef HAVE_AUDIO_UNIT
 
 /* proc id */
 #if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
 static AudioDeviceIOProcID procID;
 #endif
-
-/* bytes per output frame */
-static unsigned int out_frame_byte_size;
 
 static OSStatus audio_render(AudioDeviceID device,
                              const AudioTimeStamp  * now,
@@ -204,7 +385,7 @@ static OSStatus audio_render(AudioDeviceID device,
                              const AudioTimeStamp  * output_time,
                              void                  * client_data)
 {
-    // get the number of frames(=packets) in the output buffer
+    /* get the number of frames(=packets) in the output buffer */
     UInt32 bufferPacketSize = output_data->mBuffers[0].mDataByteSize / out_frame_byte_size;
 
     OSStatus result = AudioConverterFillComplexBuffer(converter,
@@ -220,27 +401,18 @@ static OSStatus audio_render(AudioDeviceID device,
 static int audio_open(AudioStreamBasicDescription *in)
 {
     OSStatus err;
-    UInt32 size = 0 ;
-    AudioStreamBasicDescription out;
-    
-    AudioObjectPropertyAddress propertyAddress = {
-        kAudioHardwarePropertyDefaultOutputDevice,
-        kAudioObjectPropertyScopeGlobal,
-        kAudioObjectPropertyElementMaster
-    };
+    UInt32 size;
 
-    /* get default audio device */
-    size = sizeof(device);
-    err = AudioObjectGetPropertyData(kAudioObjectSystemObject, &propertyAddress, 0, NULL, &size, &device);
-    if (err != kAudioHardwareNoError) {
-        log_error(LOG_DEFAULT, "sound (coreaudio_init): Failed to get default output device");
+    if (0 != determine_output_device_id()) {
         return -1;
     }
 
+    AudioStreamBasicDescription out;
     /* get default output format */
-    propertyAddress.mSelector = kAudioDevicePropertyStreamFormat;
     size = sizeof(out);
-    err = AudioObjectGetPropertyData(device, &propertyAddress, 0, NULL, &size, &out);
+    err = AudioDeviceGetProperty(device, 0, false,
+                                 kAudioDevicePropertyStreamFormat,
+                                 &size, (void*)&out);
     if (err != kAudioHardwareNoError) {
         log_error(LOG_DEFAULT, "sound (coreaudio_init): stream format not support");
         return -1;
@@ -295,6 +467,212 @@ static int audio_stop(void)
     }
 }
 
+#else /* HAVE_AUDIO_UNIT */
+/* ------ Audio Unit API ------------------------------------------------- */
+
+#include <AudioUnit/AudioUnit.h>
+#include <CoreServices/CoreServices.h>
+
+static AudioUnit outputUnit;
+
+static OSStatus audio_render(void *inRefCon,
+                             AudioUnitRenderActionFlags  *ioActionFlags,
+                             const AudioTimeStamp        *inTimeStamp,
+                             UInt32 inBusNumber,
+                             UInt32 inNumberFrames,
+                             AudioBufferList             *ioData)
+{
+    UInt32 numFrames = inNumberFrames;
+    return AudioConverterFillComplexBuffer(converter,
+                                           converter_input,
+                                           NULL,
+                                           &numFrames,
+                                           ioData,
+                                           NULL);
+}
+
+#if defined(MAC_OS_X_VERSION_10_6) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_6)
+static int audio_open(AudioStreamBasicDescription *in)
+{
+    OSStatus err;
+    AudioComponentDescription desc;
+    AudioStreamBasicDescription out;
+    UInt32 size;
+    AudioComponent output_component;
+
+    /* find the default audio component */
+    desc.componentType = kAudioUnitType_Output;
+    desc.componentSubType = kAudioUnitSubType_HALOutput;
+    desc.componentManufacturer = kAudioUnitManufacturer_Apple;
+    desc.componentFlags = 0;
+    desc.componentFlagsMask = 0;
+
+    output_component = AudioComponentFindNext(NULL, &desc);
+    if (output_component == NULL) {
+        log_error(LOG_DEFAULT, "sound (coreaudio_init): can't find HAL output component");
+        return -1;
+    }
+
+    /* open audio component and enable output IO */
+    err = AudioComponentInstanceNew(output_component, &outputUnit);
+    if (err) {
+        log_error(LOG_DEFAULT, "sound (coreaudio_init): error opening output unit");
+        return -1;
+    }
+
+    /* select output device */
+    if(0 != determine_output_device_id()) {
+        return -1;
+    }
+
+    err = AudioUnitSetProperty(outputUnit,
+                               kAudioOutputUnitProperty_CurrentDevice,
+                               kAudioUnitScope_Global,
+                               0,
+                               &device,
+                               sizeof(device));
+
+    if (err) {
+        log_error(LOG_DEFAULT,
+                  "sound (coreaudio_init): error setting device id");
+        return -1;
+    }
+
+    /* Set up a callback function to generate output to the output unit */
+    AURenderCallbackStruct input;
+    input.inputProc = audio_render;
+    input.inputProcRefCon = NULL;
+    err = AudioUnitSetProperty(outputUnit,
+                               kAudioUnitProperty_SetRenderCallback,
+                               kAudioUnitScope_Input,
+                               0,
+                               &input,
+                               sizeof(input));
+    if (err) {
+        log_error(LOG_DEFAULT,
+                  "sound (coreaudio_init): error setting render callback");
+        return -1;
+    }
+
+    /* Get output properties */
+    size = sizeof(AudioStreamBasicDescription);
+    err = AudioUnitGetProperty(outputUnit,
+                               kAudioUnitProperty_StreamFormat,
+                               kAudioUnitScope_Input,
+                               0,
+                               &out,
+                               &size);
+    if (err) {
+        log_error(LOG_DEFAULT,
+                  "sound (coreaudio_init): error setting desired input format");
+        return -1;
+    }
+
+    /* Init unit */
+    err = AudioUnitInitialize(outputUnit);
+    if (err) {
+        log_error(LOG_DEFAULT,
+                  "sound (coreaudio_init): error initializing audio unit");
+        return -1;
+    }
+
+    /* open converter */
+    return converter_open(in, &out);
+}
+
+static void audio_close(void)
+{
+    OSStatus err;
+
+    converter_close();
+
+    /* Uninit unit */
+    err = AudioUnitUninitialize(outputUnit);
+    if (err) {
+        log_error(LOG_DEFAULT, "sound (coreaudio_close): error uninitializing audio unit");
+    }
+
+    /* Close component */
+    AudioComponentInstanceDispose(outputUnit);
+}
+#else
+static int audio_open(AudioStreamBasicDescription *in)
+{
+    OSStatus err;
+    UInt32 size;
+    AudioStreamBasicDescription out;
+
+    /* get default audio device */
+    size = sizeof(device);
+    err = AudioHardwareGetProperty(kAudioHardwarePropertyDefaultOutputDevice,
+                                   &size, (void*)&device);
+    if (err != kAudioHardwareNoError) {
+        log_error(LOG_DEFAULT, "sound (coreaudio_init): Failed to get default output device");
+        return -1;
+    }
+
+    /* get default output format */
+    size = sizeof(out);
+    err = AudioDeviceGetProperty(device, 0, false,
+                                 kAudioDevicePropertyStreamFormat,
+                                 &size, (void*)&out);
+    if (err != kAudioHardwareNoError) {
+        log_error(LOG_DEFAULT, "sound (coreaudio_init): stream format not support");
+        return -1;
+    }
+    /* store size of output frame */
+    out_frame_byte_size = out.mBytesPerPacket;
+
+    /* setup audio renderer callback */
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+    err = AudioDeviceCreateIOProcID( device, audio_render, NULL, &procID );
+#else
+    err = AudioDeviceAddIOProc( device, audio_render, NULL );
+#endif
+    if (err != kAudioHardwareNoError) {
+        log_error(LOG_DEFAULT,
+                  "sound (coreaudio_init): could not add IO proc: err=%d", (int)err);
+        return -1;
+    }
+
+    /* open audio converter */
+    return converter_open(in, &out);
+}
+
+static void audio_close(void)
+{
+#if defined(MAC_OS_X_VERSION_10_5) && (MAC_OS_X_VERSION_MIN_REQUIRED>=MAC_OS_X_VERSION_10_5)
+    AudioDeviceDestroyIOProcID(device, procID);
+#else
+    AudioDeviceRemoveIOProc(device, audio_render);
+#endif
+
+    converter_close();
+}
+#endif
+
+static int audio_start(void)
+{
+    OSStatus err = AudioOutputUnitStart(outputUnit);
+    if (err) {
+        return -1;
+    } else {
+        return 0;
+    }
+}
+
+static int audio_stop(void)
+{
+    OSStatus err = AudioOutputUnitStop(outputUnit);
+    if (err) {
+        return -1;
+    } else {
+        return 0;
+    }
+}
+
+#endif /* HAVE_AUDIO_UNIT */
+
 /* ---------- coreaudio VICE API ------------------------------------------ */
 
 static int coreaudio_resume(void);
@@ -306,6 +684,7 @@ static int coreaudio_init(const char *param, int *speed,
     int result;
 
     /* store fragment parameters */
+    requested_device_name = param;
     fragment_count = *fragnr;
     frames_in_fragment = *fragsize;
     in_channels = *channels;
@@ -367,7 +746,7 @@ static int coreaudio_write(SWORD *pbuf, size_t nr)
 
         write_position = (write_position + 1) % fragment_count;
 
-        OSAtomicIncrement32(&fragments_in_queue);
+        atomic_increment(&fragments_in_queue);
     }
 
     return 0;
@@ -431,3 +810,4 @@ int sound_init_coreaudio_device(void)
 {
     return sound_register_device(&coreaudio_device);
 }
+#endif

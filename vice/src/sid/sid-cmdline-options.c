@@ -5,6 +5,7 @@
  *  Teemu Rantanen <tvr@cs.hut.fi>
  *  Ettore Perazzoli <ettore@comm2000.it>
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -92,19 +93,15 @@ static struct engine_s engine_match[] = {
     { "hs", SID_HARDSID },
 #endif
 #ifdef HAVE_PARSID
-    { "1024", SID_PARSID_PORT1 },
-    { "parsid", SID_PARSID_PORT1 },
-    { "parsid1", SID_PARSID_PORT1 },
-    { "par1", SID_PARSID_PORT1 },
-    { "lpt1", SID_PARSID_PORT1 },
-    { "1280", SID_PARSID_PORT2 },
-    { "parsid2", SID_PARSID_PORT2 },
-    { "par2", SID_PARSID_PORT2 },
-    { "lpt2", SID_PARSID_PORT2 },
-    { "1536", SID_PARSID_PORT3 },
-    { "parsid3", SID_PARSID_PORT3 },
-    { "par3", SID_PARSID_PORT3 },
-    { "lpt3", SID_PARSID_PORT3 },
+    { "1024", SID_PARSID },
+    { "parsid", SID_PARSID },
+    { "par", SID_PARSID },
+    { "lpt", SID_PARSID },
+#endif
+#ifdef HAVE_SSI2001
+    { "1280", SID_SSI2001 },
+    { "ssi2001", SID_SSI2001 },
+    { "ssi", SID_SSI2001 },
 #endif
     { NULL, -1 }
 };
@@ -143,7 +140,7 @@ static const cmdline_option_t sidengine_cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_ENGINE_MODEL, IDCLS_SPECIFY_SID_ENGINE_MODEL,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 #ifdef HAVE_RESID
@@ -153,7 +150,7 @@ static const cmdline_option_t siddtvengine_cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_ENGINE_MODEL, IDCLS_SPECIFY_SIDDTV_ENGINE_MODEL,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t resid_cmdline_options[] = {
@@ -177,7 +174,7 @@ static const cmdline_option_t resid_cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_NUMBER, IDCLS_RESID_FILTER_BIAS,
       NULL, NULL, },
-    { NULL }
+    CMDLINE_LIST_END
 };
 #endif
 
@@ -193,7 +190,7 @@ static const cmdline_option_t hardsid_cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_DEVICE, IDCLS_HARDSID_RIGHT,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 #endif
 
@@ -213,7 +210,7 @@ static cmdline_option_t stereo_cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_COMBO,
       IDCLS_P_BASE_ADDRESS, IDCLS_SPECIFY_SID_3_ADDRESS,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t common_cmdline_options[] = {
@@ -227,7 +224,7 @@ static const cmdline_option_t common_cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_ID,
       IDCLS_UNUSED, IDCLS_DISABLE_SID_FILTERS,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static char *generate_sid_address_range(void)

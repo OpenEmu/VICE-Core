@@ -3,6 +3,7 @@
  *
  * Written by
  *  Thomas Bretz <tbretz@gsi.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -27,10 +28,8 @@
 #include "dialogs.h"
 #include "dlg-joystick.h" 
 
-#ifdef WATCOM_COMPILE
 #include <pmwin.h>
 #include <pmstddlg.h>
-#endif
 
 DLGTEMPLATE DLG_JOYSTICK 850 MOVEABLE DISCARDABLE
 BEGIN

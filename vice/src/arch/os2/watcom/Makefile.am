@@ -6,6 +6,7 @@ EXTRA_DIST = \
 	c64commonall.tgt \
 	c64commoncart.tgt \
 	c64commonsc.tgt \
+	c64commonsc128.tgt \
 	c64commonsc128scpu.tgt \
 	c64commonscdtv128scpu.tgt \
 	c64commonscdtvscpu.tgt \
@@ -26,6 +27,8 @@ EXTRA_DIST = \
 	cbm5x0.tgt \
 	core.tgt \
 	crtc.tgt \
+	debug.h \
+	diag.tgt \
 	dialogs.tgt \
 	diskimage.tgt \
 	drive.tgt \
@@ -33,9 +36,12 @@ EXTRA_DIST = \
 	fsdevice.tgt \
 	genic.tgt \
 	geninfocontrib32.tgt \
+	geninfocontribos2.tgt \
 	gentr.tgt \
 	gentranslate32.tgt \
+	gentranslateos2.tgt \
 	genwt.bat \
+	genwt.cmd \
 	gfxoutputdrv.tgt \
 	ide-config.h \
 	iec.tgt \
@@ -45,9 +51,11 @@ EXTRA_DIST = \
 	iecplus4exp.tgt \
 	ieee.tgt \
 	imagecontents.tgt \
+	joyport.tgt \
 	kbd.tgt \
 	mainsrc.tgt \
 	makebindist.bat \
+	makebindist.cmd \
 	monitor.tgt \
 	nonresid-sid-cmdline-options.c \
 	nonresid-sid-resources.c \
@@ -78,10 +86,13 @@ EXTRA_DIST = \
 	resid-specific.tgt \
 	resid.tgt \
 	rs232drv.tgt \
+	rtc.tgt \
+	samplerdrv.tgt \
 	scpu64.tgt \
 	serial.tgt \
 	sounddrv.tgt \
 	tape.tgt \
+	tapeport.tgt \
 	tcbm.tgt \
 	userport.tgt \
 	vdc.tgt \
@@ -141,6 +152,7 @@ EXTRA_DIST = \
 	xscpu64.tgt \
 	xscpu64-dlg-fileio.c \
 	xscpu64-dragndrop.c \
+	xscpu64-menubar.c \
 	xscpu64-specific.tgt \
 	xscpu64-video.c \
 	xscpu64-vsyncarch.c \

@@ -31,6 +31,7 @@
 
 #include "alarm.h"
 #include "archdep.h"
+#include "cartio.h"
 #include "cmdline.h"
 #include "interrupt.h"
 #include "lib.h"
@@ -394,7 +395,7 @@ $FD22 : speech data register
     store: speech data
 */
 
-BYTE speech_read(WORD addr)
+static BYTE speech_read(WORD addr)
 {
     BYTE value = 0;
     /* DBG(("SPEECH: rd %04x\n", addr)); */
@@ -421,7 +422,7 @@ BYTE speech_read(WORD addr)
     return value;
 }
 
-void speech_store(WORD addr, BYTE value)
+static void speech_store(WORD addr, BYTE value)
 {
     /* DBG(("SPEECH: wr %04x %02x\n", addr, value)); */
     switch (addr & 3) {
@@ -450,12 +451,12 @@ void speech_store(WORD addr, BYTE value)
     }
 }
 
-BYTE speech_peek(WORD addr)
+static BYTE speech_peek(WORD addr)
 {
     return regs[addr & 3];
 }
 
-int speech_dump(void *ctx)
+static int speech_dump(void)
 {
     mon_out("MOS8706:\n");
     mon_out("0 Command:     %02x\n", regs[0]);
@@ -527,12 +528,31 @@ int speech_cart_enabled(void)
 
 char *speech_filename = NULL;
 
+static io_source_t speech_device = {
+    "V364SPEECH",
+    IO_DETACH_CART, /* dummy */
+    NULL,           /* dummy */
+    0xfd20, 0xfd22, 3,
+    1, /* read is always valid */
+    speech_store,
+    speech_read,
+    speech_peek,
+    speech_dump,
+    0, /* dummy (not a cartridge) */
+    IO_PRIO_NORMAL,
+    0
+};
+
+static io_source_list_t *speech_list_item = NULL;
+
+
 static int set_speech_enabled(int value, void *param)
 {
     int val = value ? 1 : 0;
 
-    speech_sound_chip.chip_enabled = 0;
-    memset(extromlo3, 0, PLUS4_CART16K_SIZE);
+    if (val == speech_sound_chip.chip_enabled) {
+        return 0;
+    }
 
     if (val) {
         if (speech_filename) {
@@ -541,8 +561,15 @@ static int set_speech_enabled(int value, void *param)
                     return -1;
                 }
                 speech_sound_chip.chip_enabled = 1;
+                speech_list_item = io_source_register(&speech_device);
             }
         }
+    } else {
+        speech_sound_chip.chip_enabled = 0;
+        memset(extromlo3, 0, PLUS4_CART16K_SIZE);
+        speech_sound_chip.chip_enabled = 0;
+        io_source_unregister(speech_list_item);
+        speech_list_item = NULL;
     }
 
     DBG(("speech_set_enabled: '%s' %d : %d\n", speech_filename, val, speech_enabled));
@@ -576,13 +603,13 @@ static int set_speech_filename(const char *name, void *param)
 static const resource_string_t resources_string[] = {
     { "SpeechImage", "", RES_EVENT_NO, NULL,
       &speech_filename, set_speech_filename, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_int_t resources_int[] = {
     { "SpeechEnabled", 0, RES_EVENT_STRICT, (resource_value_t)0,
       &speech_sound_chip.chip_enabled, set_speech_enabled, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int speech_resources_init(void)
@@ -631,7 +658,7 @@ static const cmdline_option_t cmdline_options[] =
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_NAME, IDCLS_ATTACH_SPEECH_ROM_IMAGE,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int speech_cmdline_options_init(void)

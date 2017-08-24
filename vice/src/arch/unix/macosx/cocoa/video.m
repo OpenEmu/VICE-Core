@@ -45,6 +45,7 @@ static video_param_t video_param;
 // dummy
 int video_arch_cmdline_options_init(void)
 {
+    return 0;
 }
 
 // ---------- VICE Video Resources ----------
@@ -134,6 +135,7 @@ static int set_show_key_codes(int value, void *param)
         video_param.show_key_codes = val;
         video_reconfigure(0);
     }
+    return 0;
 }
 
 static resource_int_t resources_int[] =
@@ -148,7 +150,7 @@ static resource_int_t resources_int[] =
        &video_param.true_pixel_aspect, set_true_pixel_aspect, NULL },
     { "ShowKeyCodes", 0, RES_EVENT_NO, NULL,
        &video_param.show_key_codes, set_show_key_codes, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int video_arch_resources_init(void)
@@ -193,7 +195,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       NULL, N_("Disable true aspect ratio") },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int video_init_cmdline_options(void)
@@ -205,14 +207,17 @@ int video_init_cmdline_options(void)
 
 int video_init(void)
 {
-    if (video_log == LOG_ERR)
-  	    video_log = log_open("MacVideo");
+    if (video_log == LOG_ERR) {
+        video_log = log_open("MacVideo");
+    }
+    return 0;
 }
 
 void video_shutdown(void)
 {
-    if (video_log != LOG_ERR)
+    if (video_log != LOG_ERR) {
         log_close(video_log);
+    }
 }
 
 void video_arch_canvas_init(struct video_canvas_s *canvas)

@@ -3,6 +3,7 @@
  *
  * Written by
  *  Mathias Roslund <vice.emu@amidog.se>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -41,14 +42,22 @@
 #include "mui/uiacia.h"
 #include "mui/uicbm2settings.h"
 #include "mui/uiciamodel.h"
+#include "mui/uicpclockf83.h"
+#include "mui/uidatasette.h"
 #include "mui/uidrivepetcbm2.h"
+#include "mui/uiiocollisions.h"
 #include "mui/uijoyport.h"
 #include "mui/uijoystick.h"
 #include "mui/uijoystickll.h"
+#include "mui/uikeymap.h"
 #include "mui/uimouse.h"
 #include "mui/uiprinter.h"
 #include "mui/uiromcbm2settings.h"
+#include "mui/uisampler.h"
 #include "mui/uisid.h"
+#include "mui/uitapelog.h"
+#include "mui/uiuserportds1307rtc.h"
+#include "mui/uiuserportrtc58321a.h"
 #include "mui/uivideo.h"
 
 static const ui_menu_toggle_t cbm2_ui_menu_toggles[] = {
@@ -59,6 +68,12 @@ static const ui_menu_toggle_t cbm2_ui_menu_toggles[] = {
     { "CrtcStretchVertical", IDM_TOGGLE_VERTICAL_STRETCH },
     { "CartridgeReset", IDM_TOGGLE_CART_RESET },
     { "Mouse", IDM_MOUSE },
+    { "UserportDAC", IDM_TOGGLE_USERPORT_DAC },
+    { "UserportDIGIMAX", IDM_TOGGLE_USERPORT_DIGIMAX },
+    { "Userport4bitSampler", IDM_TOGGLE_USERPORT_4BIT_SAMPLER },
+    { "Userport8BSS", IDM_TOGGLE_USERPORT_8BSS },
+    { "TapeSenseDongle", IDM_TOGGLE_TAPE_SENSE_DONGLE },
+    { "DTLBasicDongle", IDM_TOGGLE_DTL_BASIC_DONGLE },
     { NULL, 0 }
 };
 
@@ -162,11 +177,17 @@ static int cbm2_ui_specific(video_canvas_t *canvas, int idm)
         case IDM_PRINTER_SETTINGS:
             ui_printer_settings_dialog(canvas, 1, 1);
             break;
+        case IDM_USERPORT_RTC58321A_SETTINGS:
+            ui_userport_rtc58321a_settings_dialog();
+            break;
+        case IDM_USERPORT_DS1307_RTC_SETTINGS:
+            ui_userport_ds1307_rtc_settings_dialog();
+            break;
         case IDM_ACIA_SETTINGS:
             ui_acia_settings_dialog();
             break;
         case IDM_JOYPORT_SETTINGS:
-            ui_joyport_settings_dialog(0, 0, 1, 1);
+            ui_joyport_settings_dialog(0, 0, 1, 1, 0);
             break;
 #ifdef AMIGA_OS4
         case IDM_JOY_SETTINGS:
@@ -180,8 +201,23 @@ static int cbm2_ui_specific(video_canvas_t *canvas, int idm)
             ui_joystick_fire_pet_dialog();
             break;
 #endif
+        case IDM_SAMPLER_SETTINGS:
+            ui_sampler_settings_dialog(canvas);
+            break;
+        case IDM_IO_COLLISION_SETTINGS:
+            ui_iocollisions_settings_dialog();
+            break;
         case IDM_KEYBOARD_SETTINGS:
-//          uikeyboard_settings_dialog(hwnd, &uikeyboard_config);
+            ui_keymap_settings_dialog(canvas);
+            break;
+        case IDM_DATASETTE_SETTINGS:
+            ui_datasette_settings_dialog();
+            break;
+        case IDM_TAPELOG_SETTINGS:
+            ui_tapelog_settings_dialog(canvas);
+            break;
+        case IDM_CPCLOCKF83_SETTINGS:
+            ui_cpclockf83_settings_dialog();
             break;
     }
 

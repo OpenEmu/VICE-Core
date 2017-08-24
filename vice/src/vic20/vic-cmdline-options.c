@@ -56,7 +56,7 @@ int border_set_func(const char *value, void *extra_param)
         vic_resources.border_mode = VIC_NORMAL_BORDERS;
     }
 
-    machine_change_timing(video ^ VIC_BORDER_MODE(vic_resources.border_mode));
+    machine_change_timing(video, vic_resources.border_mode);
 
     return 0;
 }
@@ -69,7 +69,7 @@ static const cmdline_option_t cmdline_options[] =
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_MODE, IDCLS_SET_BORDER_MODE,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int vic_cmdline_options_init(void)

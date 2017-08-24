@@ -39,11 +39,11 @@
 #include "c64cartsystem.h"
 #undef CARTRIDGE_INCLUDE_SLOT0_API
 #undef CARTRIDGE_INCLUDE_SLOTMAIN_API
-#include "c64export.h"
 #include "c64mem.h"
 #include "cartio.h"
 #include "cartridge.h"
 #include "cmdline.h"
+#include "export.h"
 #include "interrupt.h"
 #include "lib.h"
 #include "log.h"
@@ -836,7 +836,7 @@ static io_source_t magicvoice_io2_device = {
 
 static io_source_list_t *magicvoice_io2_list_item = NULL;
 
-static const c64export_resource_t export_res = {
+static const export_resource_t export_res = {
     CARTRIDGE_NAME_MAGIC_VOICE, 1, 1, NULL, &magicvoice_io2_device, CARTRIDGE_MAGIC_VOICE
 };
 
@@ -1084,7 +1084,7 @@ static int set_magicvoice_enabled(int value, void *param)
             DBG(("MV: BUG: magicvoice_sound_chip.chip_enabled == 1 and magicvoice_io2_list_item == NULL ?!\n"));
         }
 #endif
-        c64export_remove(&export_res);
+        export_remove(&export_res);
         io_source_unregister(magicvoice_io2_list_item);
         magicvoice_io2_list_item = NULL;
         magicvoice_sound_chip.chip_enabled = 0;
@@ -1105,7 +1105,7 @@ static int set_magicvoice_enabled(int value, void *param)
         } else {
             cart_power_off();
             /* if the param is == NULL, then we should actually set the resource */
-            if (c64export_add(&export_res) < 0) {
+            if (export_add(&export_res) < 0) {
                 DBG(("MV: set_enabled did not register\n"));
                 return -1;
             } else {
@@ -1147,13 +1147,13 @@ static int set_magicvoice_filename(const char *name, void *param)
 static const resource_string_t resources_string[] = {
     { "MagicVoiceImage", "", RES_EVENT_NO, NULL,
       &magicvoice_filename, set_magicvoice_filename, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_int_t resources_int[] = {
     { "MagicVoiceCartridgeEnabled", 0, RES_EVENT_STRICT, (resource_value_t)0,
       &magicvoice_sound_chip.chip_enabled, set_magicvoice_enabled, (void *)1 },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int magicvoice_resources_init(void)
@@ -1189,7 +1189,7 @@ static const cmdline_option_t cmdline_options[] =
       USE_PARAM_STRING, USE_DESCRIPTION_ID,
       IDCLS_UNUSED, IDCLS_DISABLE_MAGICVOICE,
       NULL, NULL },
-  { NULL }
+    CMDLINE_LIST_END
 };
 
 int magicvoice_cmdline_options_init(void)
@@ -1270,7 +1270,7 @@ int magicvoice_mmu_translate(unsigned int addr, BYTE **base, int *start, int *li
                 return CART_READ_THROUGH; /* "passthrough" */
             } else {
                 if (mv_romE000_enabled) {
-                    *base = mv_rom - 0xc000;
+                    *base = (BYTE *)(mv_rom - (BYTE *)0xc000);
                     *start = 0xe000;
                     *limit = 0xfffd;
                     return CART_READ_VALID;
@@ -1290,7 +1290,7 @@ int magicvoice_mmu_translate(unsigned int addr, BYTE **base, int *start, int *li
                 return CART_READ_THROUGH_NO_ULTIMAX; /* "passthrough" */
             } else {
                 if (mv_romA000_enabled) {
-                    *base = mv_rom - 0xa000;
+                    *base = (BYTE *)(mv_rom - (BYTE *)0xa000);
                     *start = 0xa000;
                     *limit = 0xbffd;
                     return CART_READ_VALID;

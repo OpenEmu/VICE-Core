@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -43,6 +44,7 @@
 #include "resources.h"
 #include "util.h"
 #include "vsync.h"
+#include "ted-resources.h"
 
 /* What sync factor between the CPU and the drive?  If equal to
    `MACHINE_SYNC_PAL', the same as PAL machines.  If equal to
@@ -183,13 +185,13 @@ static int set_sync_factor(int val, void *param)
         case MACHINE_SYNC_PAL:
             sync_factor = val;
             if (change_timing) {
-                machine_change_timing(MACHINE_SYNC_PAL);
+                machine_change_timing(MACHINE_SYNC_PAL, ted_resources.border_mode);
             }
             break;
         case MACHINE_SYNC_NTSC:
             sync_factor = val;
             if (change_timing) {
-                machine_change_timing(MACHINE_SYNC_NTSC);
+                machine_change_timing(MACHINE_SYNC_NTSC, ted_resources.border_mode);
             }
             break;
         default:
@@ -215,7 +217,7 @@ static const resource_string_t resources_string[] = {
       &c2lo_rom_name, set_c2lo_rom_name, NULL },
     { "c2hiName", "", RES_EVENT_NO, NULL,
       &c2hi_rom_name, set_c2hi_rom_name, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_int_t resources_int[] = {
@@ -223,7 +225,7 @@ static const resource_int_t resources_int[] = {
       &sync_factor, set_sync_factor, NULL },
     { "RamSize", 64, RES_EVENT_SAME, NULL,
       &ram_size_plus4, set_ram_size_plus4, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int plus4_resources_init(void)

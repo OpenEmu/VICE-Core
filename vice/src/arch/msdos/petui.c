@@ -4,6 +4,7 @@
  * Written by
  *  Ettore Perazzoli <ettore@comm2000.it>
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -41,11 +42,14 @@
 #include "tuimenu.h"
 #include "ui.h"
 #include "uidrive.h"
+#include "uiiocollisions.h"
 #include "uipetdww.h"
 #include "uipethre.h"
 #include "uipetmodel.h"
 #include "uipetreu.h"
 #include "uisidcart.h"
+#include "uitapeport.h"
+#include "uiuserport.h"
 #include "uivideo.h"
 
 static TUI_MENU_CALLBACK(video_size_callback)
@@ -81,7 +85,7 @@ static tui_menu_item_def_t video_size_items[] = {
       "Set screen width to 80 column",
       radio_VideoSize_callback, (void *) 80, 0,
       TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static TUI_MENU_CALLBACK(ram_size_callback)
@@ -121,7 +125,7 @@ static tui_menu_item_def_t ram_size_items[] = {
       "Set RAM size to 128 KBytes",
       radio_RamSize_callback, (void *) 128, 0,
       TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static TUI_MENU_CALLBACK(iosize_callback)
@@ -151,7 +155,7 @@ static tui_menu_item_def_t iosize_items[] = {
       "Set I/O size to 256 Bytes",
       radio_IOSize_callback, (void *) 0x100, 0,
       TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 TUI_MENU_DEFINE_TOGGLE(Crtc)
@@ -159,27 +163,6 @@ TUI_MENU_DEFINE_TOGGLE(SuperPET)
 
 TUI_MENU_DEFINE_TOGGLE(Ram9)
 TUI_MENU_DEFINE_TOGGLE(RamA)
-
-static TUI_MENU_CALLBACK(set_keyboard_callback)
-{
-    int value;
-
-    resources_get_int("KeymapIndex", &value);
-
-    if (been_activated) {
-        value = (value == 2) ? 0 : 2;
-        resources_set_int("KeymapIndex", value);
-    }
-
-    switch (value) {
-        case 0:
-            return "Business (UK)";
-        case 2:
-            return "Graphics";
-        default:
-            return "Unknown";
-    }
-}
 
 static tui_menu_item_def_t special_menu_items[] = {
     { "  _Video Width:",
@@ -210,11 +193,7 @@ static tui_menu_item_def_t special_menu_items[] = {
       "Enable RAM at $A000-$AFFF (only available on 8296)",
       toggle_RamA_callback, NULL, 3,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { "  _Keyboard Type:",
-      "Specify keyboard type (graphics or business)",
-      set_keyboard_callback, NULL, 13,
-      TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 /* ------------------------------------------------------------------------- */
@@ -287,19 +266,17 @@ static tui_menu_item_def_t rom_menu_items[] = {
       "Load new 1001 ROM",
       load_rom_file_callback, "DosName1001", 0,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 
 /* ------------------------------------------------------------------------- */
 
-TUI_MENU_DEFINE_TOGGLE(UserportDAC)
-
 int petui_init(void)
 {
     tui_menu_t ui_ioextensions_submenu;
 
-    ui_create_main_menu(1, 1, 0, 3, 1, driveieee_settings_submenu);
+    ui_create_main_menu(1, 1, 0, 6, 1, driveieee_settings_submenu);
 
     tui_menu_add_separator(ui_video_submenu);
 
@@ -319,6 +296,8 @@ int petui_init(void)
 
     tui_menu_add(ui_rom_submenu, rom_menu_items);
 
+    uiiocollisions_init(ui_ioextensions_submenu);
+
     uipetdww_init(ui_ioextensions_submenu);
 
     uipethre_init(ui_ioextensions_submenu);
@@ -327,11 +306,9 @@ int petui_init(void)
 
     uisidcart_init(ui_ioextensions_submenu, "$8F00", "$E900", "PET", 0x8f00, 0xe900);
 
-    tui_menu_add_item(ui_ioextensions_submenu, "Enable Userport DAC",
-                      "Enable Userport DAC",
-                      toggle_UserportDAC_callback,
-                      NULL, 3,
-                      TUI_MENU_BEH_CONTINUE);
+    uiuserport_pet_vic20_init(ui_ioextensions_submenu);
+
+    uitapeport_init(ui_ioextensions_submenu);
 
     return 0;
 }

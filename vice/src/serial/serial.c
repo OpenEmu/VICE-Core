@@ -63,12 +63,10 @@ int serial_init(const trap_t *trap_list)
     serial_traps = trap_list;
     serial_install_traps();
 
-#ifdef HAVE_PRINTER
     if (printer_serial_late_init() < 0) {
         return -1;
     }
-#endif
-    
+
     return 0;
 }
 

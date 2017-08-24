@@ -51,8 +51,6 @@ static TUI_MENU_CALLBACK(digimax_base_submenu_callback)
 }
 
 static tui_menu_item_def_t digimax_c64_base_submenu[] = {
-    { "Userport", NULL, radio_DIGIMAXbase_callback,
-      (void *)0xdd00, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "$DE00", NULL, radio_DIGIMAXbase_callback,
       (void *)0xde00, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "$DE20", NULL, radio_DIGIMAXbase_callback,
@@ -85,7 +83,7 @@ static tui_menu_item_def_t digimax_c64_base_submenu[] = {
       (void *)0xdfc0, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "$DFE0", NULL, radio_DIGIMAXbase_callback,
       (void *)0xdfe0, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t digimax_vic20_base_submenu[] = {
@@ -121,7 +119,7 @@ static tui_menu_item_def_t digimax_vic20_base_submenu[] = {
       (void *)0x9cc0, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "$9CE0", NULL, radio_DIGIMAXbase_callback,
       (void *)0x9ce0, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t digimax_c64_menu_items[] = {
@@ -132,7 +130,7 @@ static tui_menu_item_def_t digimax_c64_menu_items[] = {
       digimax_base_submenu_callback, NULL, 11,
       TUI_MENU_BEH_CONTINUE, digimax_c64_base_submenu,
       "DigiMAX base" },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t digimax_vic20_menu_items[] = {
@@ -143,7 +141,7 @@ static tui_menu_item_def_t digimax_vic20_menu_items[] = {
       digimax_base_submenu_callback, NULL, 11,
       TUI_MENU_BEH_CONTINUE, digimax_vic20_base_submenu,
       "DigiMAX base" },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 void uidigimax_c64_init(struct tui_menu *parent_submenu)

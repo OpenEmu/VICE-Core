@@ -4,6 +4,7 @@
  * Written by
  *  Ettore Perazzoli <ettore@comm2000.it>
  *  Tibor Biczo <crown@mail.matav.hu>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -273,19 +274,19 @@ static const resource_string_t monitor_resources_string[] = {
       &ui_resources.monitor_dimensions, set_monitor_dimensions, NULL },
     { "InitialDefaultDir", "", RES_EVENT_NO, NULL,
       &ui_resources.initialdir[0], set_initial_dir, (void *)0 },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_string_t cart_resources_string[] = {
     { "InitialCartDir", "", RES_EVENT_NO, NULL,
       &ui_resources.initialdir[4], set_initial_dir, (void *)4 },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_string_t tape_resources_string[] = {
     { "InitialTapeDir", "", RES_EVENT_NO, NULL,
       &ui_resources.initialdir[1], set_initial_dir, (void *)1 },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_string_t resources_string[] = {
@@ -295,7 +296,7 @@ static const resource_string_t resources_string[] = {
       &ui_resources.initialdir[3], set_initial_dir, (void *)3 },
     { "InitialSnapshotDir", "", RES_EVENT_NO, NULL,
       &ui_resources.initialdir[5], set_initial_dir, (void *)5 },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_int_t common_resources_int[] = {
@@ -305,7 +306,7 @@ static const resource_int_t common_resources_int[] = {
       &ui_resources.confirm_on_exit, set_confirm_on_exit, NULL },
     { "AlwaysOnTop", 0, RES_EVENT_NO, NULL,
       &ui_resources.alwaysontop, set_alwaysontop, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 #ifdef HAVE_D3D9_H
@@ -328,7 +329,7 @@ static const resource_int_t resources_int[] = {
       &ui_resources.aspect_ratio, set_aspect_ratio, NULL },
     { "VBLANKSync", 0, RES_EVENT_NO, NULL,
       &ui_resources.vblank_sync, set_vblank_sync, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 #endif
 
@@ -341,7 +342,7 @@ static const resource_int_t window0_resources_int[] = {
       &ui_resources.window_width[0], set_window_width, (void *)0 },
     { "Window0Height", CW_USEDEFAULT, RES_EVENT_NO, NULL,
       &ui_resources.window_height[0], set_window_height, (void *)0 },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 static const resource_int_t window1_resources_int[] = {
@@ -353,13 +354,13 @@ static const resource_int_t window1_resources_int[] = {
       &ui_resources.window_width[1], set_window_width, (void *)1 },
     { "Window1Height", CW_USEDEFAULT, RES_EVENT_NO, NULL,
       &ui_resources.window_height[1], set_window_height, (void *)1 },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 static const resource_int_t resources_int_cpu[] = {
     { "SingleCPU", 0, RES_EVENT_NO, NULL,
       &ui_resources.single_cpu, set_single_cpu, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int ui_resources_init(void)
@@ -476,7 +477,7 @@ static const cmdline_option_t dx9_cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDS_P_ASPECT_RATIO, IDS_SET_ASPECT_RATIO,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 #endif
 
@@ -516,7 +517,7 @@ static const cmdline_option_t common_cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_NAME, IDS_SPECIFY_INITIAL_DEFAULT_DIR,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t cmdline_options[] = {
@@ -535,7 +536,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_NAME, IDS_SPECIFY_INITIAL_SNAPSHOT_DIR,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t tape_cmdline_options[] = {
@@ -544,7 +545,7 @@ static const cmdline_option_t tape_cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_NAME, IDS_SPECIFY_INITIAL_TAPE_DIR,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t cart_cmdline_options[] = {
@@ -553,7 +554,7 @@ static const cmdline_option_t cart_cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_NAME, IDS_SPECIFY_INITIAL_CART_DIR,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t cmdline_options_cpu[] = {
@@ -567,7 +568,7 @@ static const cmdline_option_t cmdline_options_cpu[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_ID,
       IDCLS_UNUSED, IDS_USE_FIRST_CPU_SMP,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int ui_cmdline_options_init(void)

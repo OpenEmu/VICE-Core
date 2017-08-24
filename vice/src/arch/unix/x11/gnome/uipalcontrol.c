@@ -202,6 +202,32 @@ static gboolean pal_ctrl_reset(GtkWidget *w, gpointer data)
     return 0;
 }
 
+/* set all sliders to value of associated resource */
+static gboolean pal_ctrl_refresh(pal_res_t *p)
+{
+    unsigned int i;
+    int tmp;
+
+    for (i = 0; i < NUMSLIDERS; i++) {
+        if ((ctrls[i].vsid == 0) && (machine_class == VICE_MACHINE_VSID)) {
+            tmp = 0;
+        } else {
+            resources_get_int(p[i].res, (void *)&tmp);
+        }
+        tmp = (tmp - p[i].offset) * p[i].scale;
+        if (tmp < 0) {
+            tmp = 0;
+        } else if (tmp > 40100) {
+            tmp = 40100;
+        }
+
+        if (p[i].adj) {
+            gtk_adjustment_set_value(GTK_ADJUSTMENT(p[i].adj), (gfloat)tmp);
+        }
+    }
+    return 0;
+}
+
 void ui_update_palctrl(void)
 {
     int i;
@@ -209,6 +235,7 @@ void ui_update_palctrl(void)
 
     for (i = 0; i < num_app_shells; i++) {
         pal_res_t *p = (pal_res_t *)app_shells[i].pal_ctrl_data;
+        pal_ctrl_refresh(p);
         pal_ctrl_update_internal(p);
         ui_trigger_window_resize(p->canvas);
     }
@@ -240,14 +267,14 @@ GtkWidget *build_pal_ctrl_widget(video_canvas_t *canvas, void *data)
     gtk_frame_set_label_align(GTK_FRAME(f), 0.025f, 0);
     gtk_frame_set_shadow_type(GTK_FRAME(f), GTK_SHADOW_IN);
 
-    b = gtk_vbox_new(FALSE, 5);
+    b = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 
     for (i = 0; i < NUMSLIDERS; ++i) {
 
         resname = util_concat(ctrls[i].perchip ? chip : "", ctrls[i].res, NULL);
-        hb = gtk_hbox_new(FALSE, 0);
+        hb = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 
-        c = gtk_hbox_new(FALSE, 0);
+        c = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
         gtk_widget_set_size_request(GTK_WIDGET(c), 10 * getmaxlen(), 10);
 
         ctrldata[i].label = ctrls[i].label;
@@ -289,7 +316,7 @@ GtkWidget *build_pal_ctrl_widget(video_canvas_t *canvas, void *data)
     }
 
     /* "Reset" button */
-    box = gtk_hbox_new(FALSE, 0);
+    box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 
     rb = gtk_button_new_with_label(_("Reset"));
     gtk_box_pack_start(GTK_BOX(box), rb, FALSE, FALSE, 5);

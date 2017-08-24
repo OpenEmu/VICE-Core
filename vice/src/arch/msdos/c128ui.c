@@ -4,6 +4,7 @@
  * Written by
  *  Ettore Perazzoli <ettore@comm2000.it>
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -48,19 +49,26 @@
 #include "uidrive.h"
 #include "uids12c887rtc.h"
 #include "uieasyflash.h"
+#ifdef HAVE_PCAP
+#include "uiethernetcart.h"
+#endif
 #include "uiexpert.h"
 #include "uigeoram.h"
+#include "uigmod2.h"
 #include "uiide64.h"
+#include "uiiocollisions.h"
 #include "uimagicvoice.h"
 #include "uimmc64.h"
 #include "uimmcreplay.h"
 #include "uiramcart.h"
+#include "uiretroreplay.h"
 #include "uireu.h"
+#include "uirrnetmk3.h"
 #include "uisidc128.h"
 #include "uisoundexpander.h"
-#ifdef HAVE_TFE
-#include "uitfe.h"
-#endif
+#include "uiss5.h"
+#include "uitapeport.h"
+#include "uiuserport.h"
 #include "uivideo.h"
 
 TUI_MENU_DEFINE_TOGGLE(C128FullBanks)
@@ -98,7 +106,7 @@ static tui_menu_item_def_t int_function_rom_submenu[] = {
       (void *)2, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "RAM+RTC", NULL, radio_InternalFunctionROM_callback,
       (void *)3, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 TUI_MENU_DEFINE_RADIO(ExternalFunctionROM)
@@ -132,7 +140,7 @@ static tui_menu_item_def_t ext_function_rom_submenu[] = {
       (void *)2, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "RAM+RTC", NULL, radio_ExternalFunctionROM_callback,
       (void *)3, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t ioextenstions_menu_items[] = {
@@ -159,7 +167,7 @@ static tui_menu_item_def_t ioextenstions_menu_items[] = {
       "Enable saving the External function RTC when changed",
       toggle_ExternalFunctionROMRTCSave_callback, NULL, 3,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 /* ------------------------------------------------------------------------- */
@@ -316,20 +324,18 @@ static tui_menu_item_def_t rom_menu_items[] = {
       "Load new SuperCard+ ROM",
       load_rom_file_callback, "DriveSuperCardName", 0,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 /* ------------------------------------------------------------------------- */
 
 TUI_MENU_DEFINE_TOGGLE(SFXSoundSampler)
-TUI_MENU_DEFINE_TOGGLE(UserportRTC)
-TUI_MENU_DEFINE_TOGGLE(UserportRTCSave)
 
 int c128ui_init(void)
 {
     tui_menu_t ui_ioextensions_submenu;
 
-    ui_create_main_menu(1, 1, 1, 0xcf, 1, drivec128_settings_submenu);
+    ui_create_main_menu(1, 1, 1, 0x1e, 1, drivec128_settings_submenu);
 
     tui_menu_add_separator(ui_special_submenu);
 
@@ -348,8 +354,12 @@ int c128ui_init(void)
 
     uivideo_init(ui_video_submenu, VID_VICII, VID_VDC);
 
+    sid_c128_build_menu();
+
     tui_menu_add(ui_sound_submenu, sid_c128_ui_menu_items);
     tui_menu_add(ui_rom_submenu, rom_menu_items);
+
+    uiiocollisions_init(ui_ioextensions_submenu);
 
     uiciamodel_double_init(ui_ioextensions_submenu);
 
@@ -367,14 +377,22 @@ int c128ui_init(void)
 
     uids12c887rtc_c128_init(ui_ioextensions_submenu);
 
+    uiss5_init(ui_ioextensions_submenu);
+
     uimmc64_init(ui_ioextensions_submenu);
 
     uimmcreplay_init(ui_ioextensions_submenu);
 
+    uiretroreplay_init(ui_ioextensions_submenu);
+
+    uigmod2_init(ui_ioextensions_submenu);
+
+    uirrnetmk3_init(ui_ioextensions_submenu);
+
     uimagicvoice_init(ui_ioextensions_submenu);
 
-#ifdef HAVE_TFE
-    uitfe_c64_init(ui_ioextensions_submenu);
+#ifdef HAVE_PCAP
+    uiethernetcart_c64_init(ui_ioextensions_submenu);
 #endif
 
     uieasyflash_init(ui_ioextensions_submenu);
@@ -387,17 +405,9 @@ int c128ui_init(void)
                       NULL, 3,
                       TUI_MENU_BEH_CONTINUE);
 
-    tui_menu_add_item(ui_ioextensions_submenu, "Enable Userport RTC",
-                      "Enable Userport RTC",
-                      toggle_UserportRTC_callback,
-                      NULL, 3,
-                      TUI_MENU_BEH_CONTINUE);
+    uiuserport_c64_cbm2_init(ui_ioextensions_submenu);
 
-    tui_menu_add_item(ui_ioextensions_submenu, "Save Userport RTC data when changed",
-                      "Save Userport RTC data when changed",
-                      toggle_UserportRTCSave_callback,
-                      NULL, 3,
-                      TUI_MENU_BEH_CONTINUE);
+    uitapeport_init(ui_ioextensions_submenu);
 
     return 0;
 }

@@ -3,6 +3,7 @@
  *
  * Written by
  *  Teemu Rantanen <tvr@cs.hut.fi>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * Resource and cmdline code by
  *  Ettore Perazzoli <ettore@comm2000.it>
@@ -48,6 +49,7 @@
 #include "log.h"
 #include "machine.h"
 #include "maincpu.h"
+#include "monitor.h"
 #include "platform.h"
 #include "resources.h"
 #include "sound.h"
@@ -96,9 +98,6 @@ static sound_register_devices_t sound_register_devices[] = {
 #endif
 #ifdef USE_COREAUDIO
     { "coreaudio", sound_init_coreaudio_device, SOUND_PLAYBACK_DEVICE },
-#endif
-#ifdef USE_AUDIOUNIT
-    { "audiounit", sound_init_audiounit_device, SOUND_PLAYBACK_DEVICE },
 #endif
 #ifdef USE_OSS
 
@@ -161,25 +160,19 @@ static sound_register_devices_t sound_register_devices[] = {
 #ifdef USE_SDL_AUDIO
     { "sdl", sound_init_sdl_device, SOUND_PLAYBACK_DEVICE },
 #endif
-    
-#ifdef USE_OPENEMU_AUDIO
-    { "openemu", sound_init_openemu_device, SOUND_PLAYBACK_DEVICE },
-#endif
 
     /* the dummy device acts as a "guard" against the drivers that create files,
        since the list will be searched top-down, and the dummy driver always
        works, no files will be created accidently */
     { "dummy", sound_init_dummy_device, SOUND_PLAYBACK_DEVICE },
 
-#ifdef USE_FILE_AUDIO
     { "fs", sound_init_fs_device, SOUND_RECORD_DEVICE },
     { "dump", sound_init_dump_device, SOUND_RECORD_DEVICE },
     { "wav", sound_init_wav_device, SOUND_RECORD_DEVICE },
     { "voc", sound_init_voc_device, SOUND_RECORD_DEVICE },
     { "iff", sound_init_iff_device, SOUND_RECORD_DEVICE },
     { "aiff", sound_init_aiff_device, SOUND_RECORD_DEVICE },
-#endif
-    
+
 #ifdef USE_LAMEMP3
     { "mp3", sound_init_mp3_device, SOUND_RECORD_DEVICE },
 #endif
@@ -499,11 +492,7 @@ static int set_suspend_time(int val, void *param)
 static int set_speed_adjustment_setting(int val, void *param)
 {
     if (val == SOUND_ADJUST_DEFAULT) {
-        if (machine_class == VICE_MACHINE_VSID) {
-            speed_adjustment_setting = SOUND_ADJUST_EXACT;
-        } else {
-            speed_adjustment_setting = SOUND_ADJUST_FLEXIBLE;
-        }
+        speed_adjustment_setting = SOUND_ADJUST_EXACT;
     } else {
         switch (val) {
             case SOUND_ADJUST_FLEXIBLE:
@@ -547,7 +536,7 @@ static const resource_string_t resources_string[] = {
       &recorddevice_name, set_recorddevice_name, NULL },
     { "SoundRecordDeviceArg", "", RES_EVENT_NO, NULL,
       &recorddevice_arg, set_recorddevice_arg, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_int_t resources_int[] = {
@@ -567,7 +556,7 @@ static const resource_int_t resources_int[] = {
       (void *)&volume, set_volume, NULL },
     { "SoundOutput", ARCHDEP_SOUND_OUTPUT_MODE, RES_EVENT_NO, NULL,
       (void *)&output_option, set_output_option, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int sound_resources_init(void)
@@ -637,7 +626,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_VOLUME, IDCLS_SOUND_VOLUME,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static cmdline_option_t devs_cmdline_options[] = {
@@ -661,7 +650,7 @@ static cmdline_option_t devs_cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_ARGS, IDCLS_SPECIFY_REC_SOUND_DRIVER_PARAM,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int sound_cmdline_options_init(void)
@@ -1644,6 +1633,15 @@ long sound_sample_position(void)
     return (snddata.clkstep == 0)
            ? 0 : (long)((SOUNDCLK_CONSTANT(maincpu_clk) - snddata.fclk)
                         / snddata.clkstep);
+}
+
+int sound_dump(int chipno)
+{
+    if (chipno >= snddata.sound_chip_channels) {
+        return -1;
+    }
+    mon_out("%s\n", sound_machine_dump_state(snddata.psid[chipno]));
+    return 0;
 }
 
 int sound_read(WORD addr, int chipno)

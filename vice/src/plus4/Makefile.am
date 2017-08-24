@@ -11,11 +11,15 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/samplerdrv \
 	-I$(top_srcdir)/src/lib/p64 \
 	-I$(top_srcdir)/src/joyport \
-	-I$(top_srcdir)/src/raster
+	-I$(top_srcdir)/src/userport \
+	-I$(top_srcdir)/src/raster \
+	-I$(top_srcdir)/src/tapeport
 
 noinst_LIBRARIES = libplus4.a
 
 libplus4_a_SOURCES = \
+	debugcart.c \
+	debugcart.h \
 	digiblaster.c \
 	digiblaster.h \
 	plus4-cmdline-options.c \
@@ -38,6 +42,7 @@ libplus4_a_SOURCES = \
 	plus4embedded.c \
 	plus4iec.c \
 	plus4iec.h \
+	plus4io.c \
 	plus4mem.c \
 	plus4mem.h \
 	plus4memcsory256k.c \

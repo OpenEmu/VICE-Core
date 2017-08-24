@@ -29,10 +29,25 @@
 
 /* Tested and confirmed working on:
  * - ppc MacOSX 10.4
- * - i386 MacOSX 10.6
- * - i386 MacOSX 10.7
- * - x86_64 MacOSX 10.8
-*/
+ * - x86 MacOSX 10.4
+ * - x86 MacOSX 10.5
+ * - x86 MacOSX 10.6
+ * - x86 MacOSX 10.7
+ * - x86 MacOSX 10.8
+ * - x86 MacOSX 10.9
+ * - x86 MacOSX 10.10
+ * - x86 MacOSX 10.11
+ */
+
+/* Binary compatibility table:
+
+   running on |       | compiled for ->
+              v       | PPC OSX 10.1-10.4 | x86 OSX 10.4-10.6 | x86 OSX 10.7-10.11
+   -------------------------------------------------------------------------------
+   PPC OSX 10.1-10.4  | yes                | NO               | NO
+   x86 OSX 10.4-10.6  | yes (Rosetta)      | yes              | NO
+   x86 OSX 10.7-10.11 | NO                 | yes              | yes
+ */
 
 #include "vice.h"
 
@@ -42,6 +57,13 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/sysctl.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#ifdef __ppc__
+#include <sys/stat.h>
+#endif
+
 #include "CoreServices/CoreServices.h"
 #include "platform_macosx.h"
 
@@ -51,16 +73,36 @@
 static char os_cpu_str[MAX_OS_CPU_STR];
 static char os_version_str[MAX_OS_VERSION_STR];
 
+#ifdef MAC_OS_X_VERSION_10_12
+#define NO_GESTALT
+#endif
+
+#ifdef MAC_OS_X_VERSION_10_11
+#define NO_GESTALT
+#endif
+
+#if !defined(PLATFORM_OS) && defined(MAC_OS_X_VERSION_10_10)
+#define NO_GESTALT
+#endif
+
+#if !defined(PLATFORM_OS) && defined(MAC_OS_X_VERSION_10_9)
+#define NO_GESTALT
+#endif
+
 /* this code was taken from: http://www.cocoadev.com/index.pl?DeterminingOSVersion
    and ported to C
 */
 static void get_os_version(unsigned *major, unsigned *minor, unsigned *bugFix)
 {
+#ifndef NO_GESTALT
     OSErr err;
     SInt32 systemVersion, versionMajor, versionMinor, versionBugFix;
+
     if ((err = Gestalt(gestaltSystemVersion, &systemVersion)) != noErr) {
         goto fail;
     }
+
+
     if (systemVersion < 0x1040) {
         if (major) {
             *major = ((systemVersion & 0xF000) >> 12) * 10 +
@@ -94,6 +136,39 @@ static void get_os_version(unsigned *major, unsigned *minor, unsigned *bugFix)
     }
 
     return;
+#else
+    FILE *fp;
+    char num[15];
+    const char d[2] = ".";
+    char *token;
+
+    fp = popen("/usr/bin/defaults read /System/Library/CoreServices/SystemVersion.plist |/usr/bin/grep ProductVersion |/usr/bin/cut -c23-", "r");
+
+    if (fp == NULL) {
+        goto fail;
+    }
+
+    while (fgets(num, 15, fp) != NULL) {
+        num[(int)strlen(num)-3] = '\0';
+    }
+
+    pclose(fp);
+    token = strtok(num, d);
+
+    if (token != NULL) {
+        *major = strtoul(token, NULL, 0);
+        token = strtok(NULL, d);
+        if (token != NULL) {
+            *minor = strtoul(token, NULL, 0);
+            token = strtok(NULL, d);
+            if (token != NULL) {
+                *bugFix = strtoul(token, NULL, 0);
+            }
+        }
+    }
+
+    return;
+#endif
 
 fail:
     if (major) {
@@ -173,6 +248,10 @@ static int64_t get_sysctl_hw_int64(int sect)
 
 char *platform_get_macosx_runtime_cpu(void)
 {
+#ifdef __ppc__
+    struct stat st;
+#endif
+
     if (os_cpu_str[0] == 0) {
         char *machine = get_sysctl_hw_string(HW_MACHINE);
         char *model = get_sysctl_hw_string(HW_MODEL);
@@ -180,6 +259,11 @@ char *platform_get_macosx_runtime_cpu(void)
         int64_t memsize = get_sysctl_hw_int64(HW_MEMSIZE);
         int mem_mb = (int)(memsize >> 20);
 
+#ifdef __ppc__
+        if (!stat("/usr/libexec/oah/translate", &st)) {
+            snprintf(os_cpu_str, MAX_OS_CPU_STR, "%s [%s] [%d CPUs] [%d MiB RAM] [Rosetta]", machine, model, num_cpus, mem_mb);
+        } else
+#endif
         snprintf(os_cpu_str, MAX_OS_CPU_STR, "%s [%s] [%d CPUs] [%d MiB RAM]", machine, model, num_cpus, mem_mb);
 
         if (machine != NULL) {

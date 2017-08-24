@@ -135,32 +135,43 @@ public class PreConfig extends PreferenceActivity implements OnSharedPreferenceC
     public static final String CBM5X0_KERNAL_NAME = "kernal.500";
     public static final String CBM5X0_BASIC_NAME = "basic.500";
     public static final String CBM5X0_CHARGEN_NAME = "chargen.500";
-    public static final String CBM5X0_SDL_SYM_NAME = "sdl_buks.vkm";
+    public static final String CBM5X0_SDL_SYM_NAME = "sdl_sym.vkm";
 
     public static final String CBM2_KERNAL_NAME = "kernal";
     public static final String CBM2_BASIC_NAME = "basic.128";
     public static final String CBM2_CHARGEN_NAME = "chargen.600";
-    public static final String CBM2_SDL_SYM_NAME = "sdl_buks.vkm";
+    public static final String CBM2_SDL_SYM_NAME = "sdl_sym.vkm";
 
     public static final String C128_KERNAL_NAME = "kernal";
+    public static final String C128_KERNALCH_NAME = "kernalch";
+    public static final String C128_KERNALDE_NAME = "kernalde";
+    public static final String C128_KERNALFI_NAME = "kernalfi";
+    public static final String C128_KERNALFR_NAME = "kernalfr";
+    public static final String C128_KERNALIT_NAME = "kernalit";
+    public static final String C128_KERNALNO_NAME = "kernalno";
+    public static final String C128_KERNALSE_NAME = "kernalse";
+    public static final String C128_CHARGCH_NAME = "chargch";
+    public static final String C128_CHARGDE_NAME = "chargde";
     public static final String C128_CHARGEN_NAME = "chargen";
+    public static final String C128_CHARGFR_NAME = "chargfr";
+    public static final String C128_CHARGSE_NAME = "chargse";
     public static final String C128_BASICLO_NAME = "basiclo";
     public static final String C128_BASICHI_NAME = "basichi";
     public static final String C128_BASIC64_NAME = "basic64";
     public static final String C128_KERNAL64_NAME = "kernal64";
-    public static final String C128_SDL_SYM_NAME = "sdl_sym.vkm";
+    public static final String C128_SDL_SYM_NAME = "sdl_pos.vkm";
 
     public static final String PET_KERNAL_NAME = "kernal4";
     public static final String PET_BASIC_NAME = "basic4";
     public static final String PET_CHARGEN_NAME = "chargen";
     public static final String PET_EDITOR_NAME = "edit4b80";
-    public static final String PET_SDL_SYM_NAME = "sdl_buks.vkm";
+    public static final String PET_SDL_SYM_NAME = "sdl_sym.vkm";
 
     public static final String PLUS4_KERNAL_NAME = "kernal";
     public static final String PLUS4_BASIC_NAME = "basic";
     public static final String PLUS4_3PLUS1LO_NAME = "3plus1lo";
     public static final String PLUS4_3PLUS1HI_NAME = "3plus1hi";
-    public static final String PLUS4_SDL_SYM_NAME = "sdl_sym.vkm";
+    public static final String PLUS4_SDL_SYM_NAME = "sdl_pos.vkm";
 
     public static final String VIC20_KERNAL_NAME = "kernal";
     public static final String VIC20_BASIC_NAME = "basic";
@@ -1070,8 +1081,19 @@ public class PreConfig extends PreferenceActivity implements OnSharedPreferenceC
     boolean checkC128ROMS() {
         int present = 0;
 
+        present += checkFileExistanceInPath(C128_PATH, C128_CHARGCH_NAME);
+        present += checkFileExistanceInPath(C128_PATH, C128_CHARGDE_NAME);
         present += checkFileExistanceInPath(C128_PATH, C128_CHARGEN_NAME);
+        present += checkFileExistanceInPath(C128_PATH, C128_CHARGFR_NAME);
+        present += checkFileExistanceInPath(C128_PATH, C128_CHARGSE_NAME);
         present += checkFileExistanceInPath(C128_PATH, C128_KERNAL_NAME);
+        present += checkFileExistanceInPath(C128_PATH, C128_KERNALCH_NAME);
+        present += checkFileExistanceInPath(C128_PATH, C128_KERNALDE_NAME);
+        present += checkFileExistanceInPath(C128_PATH, C128_KERNALFI_NAME);
+        present += checkFileExistanceInPath(C128_PATH, C128_KERNALFR_NAME);
+        present += checkFileExistanceInPath(C128_PATH, C128_KERNALIT_NAME);
+        present += checkFileExistanceInPath(C128_PATH, C128_KERNALNO_NAME);
+        present += checkFileExistanceInPath(C128_PATH, C128_KERNALSE_NAME);
         present += checkFileExistanceInPath(C128_PATH, C128_BASICLO_NAME);
         present += checkFileExistanceInPath(C128_PATH, C128_BASICHI_NAME);
         present += checkFileExistanceInPath(C128_PATH, C128_BASIC64_NAME);
@@ -1218,12 +1240,45 @@ public class PreConfig extends PreferenceActivity implements OnSharedPreferenceC
     }
 
     boolean copyC128ROMS() {
+        if (!copyAssetFileToPath(C128_PATH, C128_CHARGCH_NAME)) {
+            return false;
+        }
+        if (!copyAssetFileToPath(C128_PATH, C128_CHARGDE_NAME)) {
+            return false;
+        }
         if (!copyAssetFileToPath(C128_PATH, C128_CHARGEN_NAME)) {
+            return false;
+        }
+        if (!copyAssetFileToPath(C128_PATH, C128_CHARGFR_NAME)) {
+            return false;
+        }
+        if (!copyAssetFileToPath(C128_PATH, C128_CHARGSE_NAME)) {
             return false;
         }
         if (!copyAssetFileToPath(C128_PATH, C128_KERNAL_NAME)) {
             return false;
         }
+        if (!copyAssetFileToPath(C128_PATH, C128_KERNALCH_NAME)) {
+            return false;
+        }
+        if (!copyAssetFileToPath(C128_PATH, C128_KERNALDE_NAME)) {
+            return false;
+        }
+        if (!copyAssetFileToPath(C128_PATH, C128_KERNALFI_NAME)) {
+            return false;
+        }
+        if (!copyAssetFileToPath(C128_PATH, C128_KERNALFR_NAME)) {
+            return false;
+        }
+        if (!copyAssetFileToPath(C128_PATH, C128_KERNALIT_NAME)) {
+            return false;
+        }
+        if (!copyAssetFileToPath(C128_PATH, C128_KERNALNO_NAME)) {
+            return false;
+        }
+        if (!copyAssetFileToPath(C128_PATH, C128_KERNALSE_NAME)) {
+            return false;
+        }        
         if (!copyAssetFileToPath(C128_PATH, C128_BASICLO_NAME)) {
             return false;
         }

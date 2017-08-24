@@ -19,6 +19,7 @@ INCLUDEDIRS =
 	samplerdrv
 	sid
 	tape
+	tapeport
 	userport
 	video
 
@@ -29,6 +30,7 @@ CPUSOURCES =
 # source files for normal compile, relative to the top src dir, one per line, preceeded by a tab
 SOURCES =
 	pet\6809.c
+	pet\debugcart.c
 	pet\pet-cmdline-options.c
 	pet\pet-resources.c
 	pet\pet-sidcart.c
@@ -43,6 +45,7 @@ SOURCES =
 	pet\petembedded.c
 	pet\pethre.c
 	pet\petiec.c
+	pet\petio.c
 	pet\petmem.c
 	pet\petmemsnapshot.c
 	pet\petmodel.c

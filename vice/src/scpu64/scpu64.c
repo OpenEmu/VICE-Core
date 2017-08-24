@@ -6,6 +6,7 @@
  *  Andreas Boose <viceteam@t-online.de>
  *  Ettore Perazzoli <ettore@comm2000.it>
  *  Teemu Rantanen <tvr@cs.hut.fi>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -34,34 +35,40 @@
 
 #include "attach.h"
 #include "autostart.h"
+#include "bbrtc.h"
 #include "c64cart.h"
 #define CARTRIDGE_INCLUDE_SLOTMAIN_API
 #include "c64cartsystem.h"
 #undef CARTRIDGE_INCLUDE_SLOTMAIN_API
 #include "c64cia.h"
-#include "c64export.h"
 #include "c64fastiec.h"
 #include "scpu64gluelogic.h"
 #include "c64iec.h"
 #include "c64keyboard.h"
 #include "scpu64mem.h"
 #include "c64rsuser.h"
+#include "cardkey.h"
 #include "cartio.h"
 #include "cartridge.h"
 #include "cia.h"
 #include "clkguard.h"
+#include "coplin_keypad.h"
+#include "cx21.h"
+#include "cx85.h"
 #include "debug.h"
 #include "diskimage.h"
 #include "drive-cmdline-options.h"
 #include "drive-resources.h"
 #include "drive-sound.h"
 #include "drive.h"
+#include "export.h"
 #include "fliplist.h"
 #include "fsdevice.h"
 #include "gfxoutput.h"
 #include "imagecontents.h"
 #include "init.h"
 #include "joyport.h"
+#include "joystick.h"
 #include "kbdbuf.h"
 #include "keyboard.h"
 #include "log.h"
@@ -73,14 +80,17 @@
 #include "mem.h"
 #include "monitor.h"
 #include "network.h"
+#include "paperclip64.h"
 #include "parallel.h"
 #include "patchrom.h"
 #include "printer.h"
 #include "resources.h"
 #include "rs232drv.h"
 #include "rsuser.h"
+#include "rushware_keypad.h"
 #include "sampler.h"
 #include "sampler2bit.h"
+#include "sampler4bit.h"
 #include "scpu64-cmdline-options.h"
 #include "scpu64-resources.h"
 #include "scpu64-snapshot.h"
@@ -88,6 +98,7 @@
 #include "scpu64cpu.h"
 #include "scpu64ui.h"
 #include "screenshot.h"
+#include "script64_dongle.h"
 #include "serial.h"
 #include "sid-cmdline-options.h"
 #include "sid-resources.h"
@@ -96,13 +107,20 @@
 #include "translate.h"
 #include "traps.h"
 #include "types.h"
+#include "userport.h"
+#include "userport_4bit_sampler.h"
+#include "userport_8bss.h"
+#include "userport_dac.h"
+#include "userport_digimax.h"
 #include "userport_joystick.h"
-#include "userport_rtc.h"
+#include "userport_rtc_58321a.h"
+#include "userport_rtc_ds1307.h"
 #include "vice-event.h"
 #include "vicii.h"
 #include "vicii-mem.h"
 #include "video.h"
 #include "video-sound.h"
+#include "vizawrite64_dongle.h"
 #include "vsync.h"
 
 #ifdef HAVE_MOUSE
@@ -371,8 +389,8 @@ int machine_resources_init(void)
         init_resource_fail("scpu64");
         return -1;
     }
-    if (c64export_resources_init() < 0) {
-        init_resource_fail("c64export");
+    if (export_resources_init() < 0) {
+        init_resource_fail("scpu64export");
         return -1;
     }
     if (vicii_resources_init() < 0) {
@@ -415,8 +433,52 @@ int machine_resources_init(void)
         init_resource_fail("joyport 2bit sampler");
         return -1;
     }
+    if (joyport_sampler4bit_resources_init() < 0) {
+        init_resource_fail("joyport 4bit sampler");
+        return -1;
+    }
+    if (joyport_bbrtc_resources_init() < 0) {
+        init_resource_fail("joyport bbrtc");
+        return -1;
+    }
+    if (joyport_paperclip64_resources_init() < 0) {
+        init_resource_fail("joyport paperclip64 dongle");
+        return -1;
+    }
+    if (joyport_coplin_keypad_resources_init() < 0) {
+        init_resource_fail("joyport coplin keypad");
+        return -1;
+    }
+    if (joyport_rushware_keypad_resources_init() < 0) {
+        init_resource_fail("joyport rushware keypad");
+        return -1;
+    }
+    if (joyport_script64_dongle_resources_init() < 0) {
+        init_resource_fail("joyport script64 dongle");
+        return -1;
+    }
+    if (joyport_vizawrite64_dongle_resources_init() < 0) {
+        init_resource_fail("joyport vizawrite64 dongle");
+        return -1;
+    }
+    if (joyport_cx21_resources_init() < 0) {
+        init_resource_fail("joyport cx21 keypad");
+        return -1;
+    }
+    if (joyport_cx85_resources_init() < 0) {
+        init_resource_fail("joyport cx85 keypad");
+        return -1;
+    }
+    if (joyport_cardkey_resources_init() < 0) {
+        init_resource_fail("joyport cardkey keypad");
+        return -1;
+    }
     if (joystick_resources_init() < 0) {
         init_resource_fail("joystick");
+        return -1;
+    }
+    if (userport_resources_init() < 0) {
+        init_resource_fail("userport devices");
         return -1;
     }
     if (gfxoutput_resources_init() < 0) {
@@ -498,8 +560,28 @@ int machine_resources_init(void)
         init_resource_fail("userport joystick");
         return -1;
     }
-    if (userport_rtc_resources_init() < 0) {
-        init_resource_fail("userport rtc");
+    if (userport_dac_resources_init() < 0) {
+        init_resource_fail("userport dac");
+        return -1;
+    }
+    if (userport_digimax_resources_init() < 0) {
+        init_resource_fail("userport digimax");
+        return -1;
+    }
+    if (userport_rtc_58321a_resources_init() < 0) {
+        init_resource_fail("userport rtc (58321a)");
+        return -1;
+    }
+    if (userport_rtc_ds1307_resources_init() < 0) {
+        init_resource_fail("userport rtc (ds1307)");
+        return -1;
+    }
+    if (userport_4bit_sampler_resources_init() < 0) {
+        init_resource_fail("userport 4bit sampler");
+        return -1;
+    }
+    if (userport_8bss_resources_init() < 0) {
+        init_resource_fail("userport 8bit stereo sampler");
         return -1;
     }
     if (cartio_resources_init() < 0) {
@@ -522,11 +604,14 @@ void machine_resources_shutdown(void)
     drive_resources_shutdown();
     cartridge_resources_shutdown();
     rombanks_resources_shutdown();
-    userport_rtc_resources_shutdown();
+    userport_rtc_58321a_resources_shutdown();
+    userport_rtc_ds1307_resources_shutdown();
     cartio_shutdown();
     fsdevice_resources_shutdown();
     disk_image_resources_shutdown();
     sampler_resources_shutdown();
+    userport_resources_shutdown();
+    joyport_bbrtc_resources_shutdown();
 }
 
 /* C64-specific command-line option initialization.  */
@@ -572,8 +657,16 @@ int machine_cmdline_options_init(void)
         init_cmdline_options_fail("joyport");
         return -1;
     }
+    if (joyport_bbrtc_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("bbrtc");
+        return -1;
+    }
     if (joystick_cmdline_options_init() < 0) {
         init_cmdline_options_fail("joystick");
+        return -1;
+    }
+    if (userport_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("userport");
         return -1;
     }
     if (gfxoutput_cmdline_options_init() < 0) {
@@ -648,8 +741,28 @@ int machine_cmdline_options_init(void)
         init_cmdline_options_fail("userport joystick");
         return -1;
     }
-    if (userport_rtc_cmdline_options_init() < 0) {
-        init_cmdline_options_fail("userport rtc");
+    if (userport_dac_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("userport dac");
+        return -1;
+    }
+    if (userport_digimax_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("userport digimax");
+        return -1;
+    }
+    if (userport_rtc_58321a_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("userport rtc (58321a)");
+        return -1;
+    }
+    if (userport_rtc_ds1307_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("userport rtc (ds1307)");
+        return -1;
+    }
+    if (userport_4bit_sampler_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("userport 4bit sampler");
+        return -1;
+    }
+    if (userport_8bss_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("userport 8bit stereo sampler");
         return -1;
     }
     if (cartio_cmdline_options_init() < 0) {
@@ -710,10 +823,6 @@ int machine_specific_init(void)
 
     /* Setup trap handling.  */
     traps_init();
-
-    if (!video_disabled_mode) {
-        joystick_init();
-    }
 
     gfxoutput_init();
 
@@ -783,6 +892,9 @@ int machine_specific_init(void)
     /* Initialize cartridge based sound chips */
     cartridge_sound_chip_init();
 
+    /* Initialize userport based sound chips */
+    userport_dac_sound_chip_init();
+
     drive_sound_init();
     video_sound_init();
 
@@ -799,6 +911,10 @@ int machine_specific_init(void)
     /* Initialize the C64-specific part of the UI.  */
     if (!console_mode) {
         scpu64ui_init();
+    }
+
+    if (!video_disabled_mode) {
+        joystick_init();
     }
 
     /* Initialize glue logic.  */
@@ -866,6 +982,8 @@ void machine_specific_reset(void)
     }
     scpu64_hardware_reset();
 
+    sampler_reset();
+
     reset_poweron = 0;
 }
 
@@ -896,7 +1014,9 @@ void machine_specific_shutdown(void)
 
     sid_cmdline_options_shutdown();
 
-    scpu64ui_shutdown();
+    if (!console_mode) {
+        scpu64ui_shutdown();
+    }
 }
 
 void machine_handle_pending_alarms(int num_write_cycles)
@@ -955,42 +1075,8 @@ void machine_get_line_cycle(unsigned int *line, unsigned int *cycle, int *half_c
     *half_cycle = (int)scpu64_get_half_cycle();
 }
 
-void machine_change_timing(int timeval)
+void machine_change_timing(int timeval, int border_mode)
 {
-    int border_mode;
-
-    switch (timeval) {
-        default:
-        case MACHINE_SYNC_PAL ^ VICII_BORDER_MODE(VICII_NORMAL_BORDERS):
-        case MACHINE_SYNC_NTSC ^ VICII_BORDER_MODE(VICII_NORMAL_BORDERS):
-        case MACHINE_SYNC_NTSCOLD ^ VICII_BORDER_MODE(VICII_NORMAL_BORDERS):
-        case MACHINE_SYNC_PALN ^ VICII_BORDER_MODE(VICII_NORMAL_BORDERS):
-            timeval ^= VICII_BORDER_MODE(VICII_NORMAL_BORDERS);
-            border_mode = VICII_NORMAL_BORDERS;
-            break;
-        case MACHINE_SYNC_PAL ^ VICII_BORDER_MODE(VICII_FULL_BORDERS):
-        case MACHINE_SYNC_NTSC ^ VICII_BORDER_MODE(VICII_FULL_BORDERS):
-        case MACHINE_SYNC_NTSCOLD ^ VICII_BORDER_MODE(VICII_FULL_BORDERS):
-        case MACHINE_SYNC_PALN ^ VICII_BORDER_MODE(VICII_FULL_BORDERS):
-            timeval ^= VICII_BORDER_MODE(VICII_FULL_BORDERS);
-            border_mode = VICII_FULL_BORDERS;
-            break;
-        case MACHINE_SYNC_PAL ^ VICII_BORDER_MODE(VICII_DEBUG_BORDERS):
-        case MACHINE_SYNC_NTSC ^ VICII_BORDER_MODE(VICII_DEBUG_BORDERS):
-        case MACHINE_SYNC_NTSCOLD ^ VICII_BORDER_MODE(VICII_DEBUG_BORDERS):
-        case MACHINE_SYNC_PALN ^ VICII_BORDER_MODE(VICII_DEBUG_BORDERS):
-            timeval ^= VICII_BORDER_MODE(VICII_DEBUG_BORDERS);
-            border_mode = VICII_DEBUG_BORDERS;
-            break;
-        case MACHINE_SYNC_PAL ^ VICII_BORDER_MODE(VICII_NO_BORDERS):
-        case MACHINE_SYNC_NTSC ^ VICII_BORDER_MODE(VICII_NO_BORDERS):
-        case MACHINE_SYNC_NTSCOLD ^ VICII_BORDER_MODE(VICII_NO_BORDERS):
-        case MACHINE_SYNC_PALN ^ VICII_BORDER_MODE(VICII_NO_BORDERS):
-            timeval ^= VICII_BORDER_MODE(VICII_NO_BORDERS);
-            border_mode = VICII_NO_BORDERS;
-            break;
-    }
-
     switch (timeval) {
         case MACHINE_SYNC_PAL:
             machine_timing.cycles_per_sec = SCPU64_PAL_CYCLES_PER_SEC;
@@ -1134,4 +1220,28 @@ int machine_addr_in_ram(unsigned int addr)
 const char *machine_get_name(void)
 {
     return machine_name;
+}
+
+/* ------------------------------------------------------------------------- */
+
+static void scpu64_userport_set_flag(BYTE b)
+{
+    if (b != 0) {
+        ciacore_set_flag(machine_context.cia2);
+    }
+}
+
+static userport_port_props_t userport_props = {
+    1, /* has pa2 pin */
+    1, /* has pa3 pin */
+    scpu64_userport_set_flag, /* has flag pin */
+    1, /* has pc pin */
+    1  /* has cnt1, cnt2 and sp pins */
+};
+
+int machine_register_userport(void)
+{
+    userport_port_register(&userport_props);
+
+    return 0;
 }

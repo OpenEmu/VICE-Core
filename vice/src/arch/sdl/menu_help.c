@@ -124,7 +124,7 @@ static char *convert_cmdline_to_n_cols(const char *text, int cols)
     return new_text;
 }
 
-static char *contrib_convert(char *text, int cols)
+static char *contrib_convert(const char *text, int cols)
 {
     char *new_text;
     char *pos;
@@ -358,7 +358,11 @@ static UI_MENU_CALLBACK(about_callback)
         sdl_ui_print_center("Version " VERSION, i);
 #endif
         i++;
+#ifdef USE_SDLUI2
+        sdl_ui_print_center("SDL2 " PLATFORM_CPU " " PLATFORM_OS " " PLATFORM_COMPILER, i++);
+#else
         sdl_ui_print_center("SDL " PLATFORM_CPU " " PLATFORM_OS " " PLATFORM_COMPILER, i++);
+#endif
         i++;
         sdl_ui_print_center("The VICE Team", i++);
         for (j = 0; core_team[j].name; j++) {
@@ -452,7 +456,7 @@ static UI_MENU_CALLBACK(contributors_callback)
         info_contrib_text_n = contrib_convert(new_text, menu_draw->max_text_x);
         lib_free(new_text);
 #else
-        info_contrib_text_n = contrib_convert((char *)info_contrib_text, menu_draw->max_text_x);
+        info_contrib_text_n = contrib_convert(info_contrib_text, menu_draw->max_text_x);
 #endif
         show_text((const char *)info_contrib_text_n);
         lib_free(info_contrib_text_n);

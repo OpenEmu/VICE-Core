@@ -70,8 +70,8 @@
 
 /* Separator item.  */
 ui_menu_entry_t ui_menu_separator[] = {
-    { "--", UI_MENU_TYPE_SEPARATOR },
-    { NULL },
+    UI_MENU_ENTRY_SEPERATOR,
+    UI_MENU_ENTRY_LIST_END
 };
 
 /* Bitmaps for the menus: "tick" and right arrow (for submenus).  */
@@ -734,6 +734,7 @@ int ui_menu_init(XtAppContext app_context, Display *d, int s)
 
     if (registered_hotkeys != NULL) {
         lib_free(registered_hotkeys);
+        registered_hotkeys = NULL;
         num_registered_hotkeys = num_allocated_hotkeys = 0;
     }
 
@@ -947,7 +948,10 @@ static void ui_add_items_to_shell(Widget w, int menulevel, ui_menu_entry_t *list
                 num_checkmark_menu_items_max += 100;
                 checkmark_menu_items = lib_realloc(checkmark_menu_items, num_checkmark_menu_items_max * sizeof(Widget));
             }
-            XtAddCallback(new_item, XtNdestroyCallback, tick_destroy, (XtPointer)num_checkmark_menu_items);
+            /* cast num_checkmark_menu_items to long and then to void *, so
+             * casting to XtPointer (void*) is safe. (BW) */
+            XtAddCallback(new_item, XtNdestroyCallback, tick_destroy,
+                    (XtPointer)int_to_void_ptr(num_checkmark_menu_items));
             checkmark_menu_items[num_checkmark_menu_items++] = new_item;
         }
 
@@ -1084,6 +1088,8 @@ void _ui_menu_string_radio_helper(Widget w, ui_callback_data_t client_data, ui_c
 void uimenu_shutdown(void)
 {
     lib_free(registered_hotkeys);
+    registered_hotkeys = NULL;
     lib_free(checkmark_menu_items);
+    checkmark_menu_items = NULL;
     ui_about_shutdown();
 }

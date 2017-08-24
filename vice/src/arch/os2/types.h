@@ -3,6 +3,7 @@
  *
  * Written by
  *  Thomas Bretz <tbretz@gsi.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -57,7 +58,7 @@ typedef signed char SIGNED_CHAR;
 
 /* Definitions see os2mdef.h */
 #ifndef BYTE
-typedef char BYTE;
+typedef unsigned char BYTE;
 #endif
 
 typedef unsigned short WORD;
@@ -72,7 +73,7 @@ typedef DWORD CLOCK;
 
 #define vice_ptr_to_int(x) ((int)(long)(x))
 #define vice_ptr_to_uint(x) ((unsigned int)(unsigned long)(x))
-#define int_to_void_ptr(x) (x)
-#define uint_to_void_ptr(x) (x)
+#define int_to_void_ptr(x) ((void *)(long)(x))
+#define uint_to_void_ptr(x) ((void *)(unsigned long)(x))
 
 #endif  /* _VICE_TYPES_H */

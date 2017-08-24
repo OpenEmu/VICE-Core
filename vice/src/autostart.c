@@ -51,6 +51,7 @@
 #include "imagecontents.h"
 #include "tapecontents.h"
 #include "diskcontents.h"
+#include "initcmdline.h"
 #include "interrupt.h"
 #include "ioutil.h"
 #include "kbdbuf.h"
@@ -158,7 +159,7 @@ static int c128_column4080_key;
 
 /* ------------------------------------------------------------------------- */
 
-static int autostart_basic_load = 0;
+int autostart_basic_load = 0;
 
 static int AutostartRunWithColon = 0;
 
@@ -287,7 +288,7 @@ static int set_autostart_prg_disk_image(const char *val, void *param)
 static resource_string_t resources_string[] = {
     { "AutostartPrgDiskImage", NULL, RES_EVENT_NO, NULL,
       &AutostartPrgDiskImage, set_autostart_prg_disk_image, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 /*! \brief integer resources used by autostart */
@@ -306,7 +307,7 @@ static const resource_int_t resources_int[] = {
       &AutostartDelay, set_autostart_delay, NULL },
     { "AutostartDelayRandom", 1, RES_EVENT_NO, (resource_value_t)0,
       &AutostartDelayRandom, set_autostart_delayrandom, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 /*! \brief initialize the resources
@@ -402,7 +403,7 @@ static const cmdline_option_t cmdline_options[] =
       USE_PARAM_STRING, USE_DESCRIPTION_ID,
       IDCLS_UNUSED, IDCLS_DISABLE_AUTOSTART_RANDOM_DELAY,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 /*! \brief initialize the command-line options
@@ -436,7 +437,8 @@ static enum { YES, NO, NOT_YET } check(const char *s, unsigned int blink_mode)
 
     line_length = (int)(lnmx < 0 ? -lnmx : mem_read((WORD)(lnmx)) + 1);
 
-    DBG(("check(%s) addr:%04x column:%d, linelen:%d blnsw:%04x(%d)", s, screen_addr, cursor_column, line_length, blnsw, mem_read(blnsw)));
+    DBG(("check(%s) pnt:%04x pntr:%04x addr:%04x column:%d, linelen:%d blnsw:%04x(%d)",
+         s, pnt, pntr, screen_addr, cursor_column, line_length, blnsw, mem_read(blnsw)));
 
     if (!kbdbuf_is_empty()) {
         return NOT_YET;
@@ -536,7 +538,17 @@ static void check_rom_area(void)
         /* special case for auto-starters: ROM left. We also consider
          * BASIC area to be ROM, because it's responsible for writing "READY."
          */
-        if (machine_addr_in_ram(reg_pc)) {
+        /* FIXME: C128 is a special beast, as it would execute some stuff in system
+                  RAM - which this special case hack checks. a better check might
+                  be to look at the current bank too.
+                  without this check eg autostarting a prg file with autostartmode=
+                  "disk image" will fail. (exit from ROM at $some RAM address)
+        */
+        if (((machine_class == VICE_MACHINE_C128) && 
+             !((reg_pc >= 0x2a0) && (reg_pc <= 0x3af)) && 
+             !((reg_pc >= 0x4300) && (reg_pc <= 0x4fff)) && 
+             machine_addr_in_ram(reg_pc)) ||
+            ((machine_class != VICE_MACHINE_C128) && (machine_addr_in_ram(reg_pc)))) {
             log_message(autostart_log, "Left ROM for $%04x", reg_pc);
             disable_warp_if_was_requested();
             autostart_done();
@@ -550,7 +562,7 @@ static void load_snapshot_trap(WORD unused_addr, void *unused_data)
 {
     if (autostart_program_name
         && machine_read_snapshot((char *)autostart_program_name, 0) < 0) {
-        ui_error(translate_text(IDGS_CANNOT_LOAD_SNAPSHOT_FILE));
+        snapshot_display_error();
     }
 
     ui_update_menus();
@@ -625,6 +637,7 @@ static void autostart_finish(void)
         if ((machine_class == VICE_MACHINE_C128) && (c128_column4080_key == 0)) {
             kbdbuf_feed("GRAPHIC5:");
         }
+        /* log_message(autostart_log, "Run command is: '%s' (%s)", AutostartRunCommand, AutostartDelayRandom ? "delayed" : "no delay"); */
         if (AutostartDelayRandom) {
             kbdbuf_feed_runcmd(AutostartRunCommand);
         } else {
@@ -635,6 +648,11 @@ static void autostart_finish(void)
         if ((machine_class == VICE_MACHINE_C128) && (c128_column4080_key == 0)) {
             kbdbuf_feed("GRAPHIC5\x0d");
         }
+    }
+    /* printf("autostart_finish cmdline_get_autostart_mode(): %d\n", cmdline_get_autostart_mode()); */
+    /* inject string given to -keybuf option on commandline into keyboard buffer */
+    if (cmdline_get_autostart_mode() != AUTOSTART_MODE_NONE) {
+        kbdbuf_feed_cmdline();
     }
 }
 
@@ -1052,7 +1070,7 @@ static void reboot_for_autostart(const char *program_name, unsigned int mode,
     }
     DBG(("autostart_initial_delay_cycles: %d", autostart_initial_delay_cycles));
 
-    machine_trigger_reset(MACHINE_RESET_MODE_SOFT);
+    machine_trigger_reset(MACHINE_RESET_MODE_HARD);
 
     /* The autostartmode must be set AFTER the shutdown to make the autostart
        threadsafe for OS/2 */
@@ -1125,7 +1143,9 @@ int autostart_tape(const char *file_name, const char *program_name,
                 tape_seek_start(tape_image_dev1);
             }
         }
-        resources_set_int("VirtualDevices", 1); /* Kludge: for t64 images we need devtraps ON */
+        if (!tape_tap_attached()) {
+            resources_set_int("VirtualDevices", 1); /* Kludge: for t64 images we need devtraps ON */
+        }
         reboot_for_autostart(program_name, AUTOSTART_HASTAPE, runmode);
 
         return 0;
@@ -1173,7 +1193,11 @@ int autostart_disk(const char *file_name, const char *program_name,
     /* Get program name first to avoid more than one file handle open on
        image.  */
     if (!program_name && program_number > 0) {
-        name = image_contents_filename_by_number(diskcontents_filesystem_read(file_name), program_number);
+        image_contents_t *contents = diskcontents_filesystem_read(file_name);
+        if (contents) {
+            name = image_contents_filename_by_number(contents, program_number);
+            image_contents_destroy(contents);
+        }
     } else {
         name = lib_stralloc(program_name ? program_name : "*");
     }
@@ -1290,17 +1314,14 @@ int autostart_autodetect_opt_prgname(const char *file_prog_name,
 
             charset_petconvstring((BYTE *)autostart_prg_name, 0);
             name = charset_replace_hexcodes(autostart_prg_name);
-            result = autostart_autodetect(autostart_file, name, 0,
-                                          runmode);
+            result = autostart_autodetect(autostart_file, name, 0, runmode);
             lib_free(name);
         } else {
-            result = autostart_autodetect(file_prog_name, NULL, alt_prg_number,
-                                          runmode);
+            result = autostart_autodetect(file_prog_name, NULL, alt_prg_number, runmode);
         }
         lib_free(autostart_file);
     } else {
-        result = autostart_autodetect(file_prog_name, NULL, alt_prg_number,
-                                      runmode);
+        result = autostart_autodetect(file_prog_name, NULL, alt_prg_number, runmode);
     }
     return result;
 }
@@ -1380,7 +1401,7 @@ int autostart_device(int num)
 
 int autostart_in_progress(void)
 {
-    return (autostartmode != AUTOSTART_NONE && autostartmode != AUTOSTART_DONE);
+    return ((autostartmode != AUTOSTART_NONE) && (autostartmode != AUTOSTART_DONE));
 }
 
 /* Disable autostart on reset.  */

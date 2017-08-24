@@ -4,6 +4,7 @@
  * Written by
  *  Ettore Perazzoli <ettore@comm2000.it>
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -42,7 +43,10 @@
 #include "uicbm2model.h"
 #include "uiciamodel.h"
 #include "uidrive.h"
+#include "uiiocollisions.h"
 #include "uisidcbm2.h"
+#include "uitapeport.h"
+#include "uiuserport.h"
 #include "uivideo.h"
 
 static TUI_MENU_CALLBACK(load_rom_file_callback)
@@ -97,22 +101,40 @@ static tui_menu_item_def_t rom_menu_items[] = {
       "Load new 1001 ROM",
       load_rom_file_callback, "DosName1001", 0,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 /* ------------------------------------------------------------------------- */
 
 int cbm2ui_init(void)
 {
-    ui_create_main_menu(0, 1, 0, 3, 1, driveieee_settings_submenu);
+    tui_menu_t ui_ioextensions_submenu;
+
+    ui_create_main_menu(0, 1, 0, 6, 1, driveieee_settings_submenu);
 
     tui_menu_add_separator(ui_video_submenu);
+
+    sid_cbm2_build_menu();
+
     tui_menu_add(ui_sound_submenu, sid_cbm2_ui_menu_items);
 
     uivideo_init(ui_video_submenu, VID_CRTC, VID_NONE);
 
     uicbm2model_init(ui_special_submenu);
     uiciamodel_single_init(ui_special_submenu);
+
+    ui_ioextensions_submenu = tui_menu_create("I/O extensions", 1);
+    tui_menu_add_submenu(ui_special_submenu, "_I/O extensions",
+                         "Configure I/O extensions",
+                         ui_ioextensions_submenu,
+                         NULL, 0,
+                         TUI_MENU_BEH_CONTINUE);
+
+    uiuserport_c64_cbm2_init(ui_ioextensions_submenu);
+
+    uitapeport_init(ui_ioextensions_submenu);
+
+    uiiocollisions_init(ui_ioextensions_submenu);
 
     tui_menu_add(ui_rom_submenu, rom_menu_items);
 

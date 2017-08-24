@@ -4,6 +4,7 @@
  *
  * Written by
  *  groepaz <groepaz@gmx.net>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -99,15 +100,7 @@ static feature_list_t featurelist[] = {
         1 },
 #endif
 #endif
-#ifdef __MSDOS__ /* (dos) */
-    { "HAVE_ALLEGRO_H", "Define to 1 if you have the <allegro.h> header file.",
-#ifndef HAVE_ALLEGRO_H
-        0 },
-#else
-        1 },
-#endif
-#endif
-#if defined(MACOSX_SUPPORT) /* (osx ???) */
+#if defined(MACOSX_SUPPORT) /* (osx) */
     { "HAVE_AUDIO_UNIT", "Enable AudioUnit support.",
 #ifndef HAVE_AUDIO_UNIT
         0 },
@@ -123,7 +116,7 @@ static feature_list_t featurelist[] = {
         1 },
 #endif
 #endif
-#if defined(AMIGA_SUPPORT) || defined(__MSDOS__) || defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(UNIX) || defined(WIN32) /* (amiga/dos/sdl/unix/windows) */
+#if defined(AMIGA_SUPPORT) || defined(BEOS_COMPILE) || defined(__MSDOS__) || defined(UNIX) || defined(WIN32) /* (amiga/beos/dos/unix/windows) */
     { "HAVE_CATWEASELMKIII", "Support for Catweasel MKIII.",
 #ifndef HAVE_CATWEASELMKIII
         0 },
@@ -132,7 +125,7 @@ static feature_list_t featurelist[] = {
 #endif
 #endif
 #ifdef WIN32  /* (windows) */
-        { "HAVE_D3D9_H", "Support for DirectX9.",
+    { "HAVE_D3D9_H", "Support for DirectX9.",
 #ifndef HAVE_D3D9_H
         0 },
 #else
@@ -163,45 +156,54 @@ static feature_list_t featurelist[] = {
         1 },
 #endif
 #endif
-#if defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(UNIX) || defined(WIN32) /* (sdl/unix/windows) */
+ /* (all) */
     { "HAVE_FFMPEG", "Have FFMPEG av* libs available",
 #ifndef HAVE_FFMPEG
         0 },
 #else
         1 },
 #endif
-#endif
-#if defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(UNIX) || defined(WIN32) /* (sdl/unix/windows) */
+ /* (all) */
     { "HAVE_FFMPEG_HEADER_SUBDIRS", "FFMPEG uses subdirs for headers",
 #ifndef HAVE_FFMPEG_HEADER_SUBDIRS
         0 },
 #else
         1 },
 #endif
-#endif
-#if defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(UNIX) || defined(WIN32) /* (sdl/unix/windows) */
+ /* (all) */
     { "HAVE_FFMPEG_SWSCALE", "Have FFMPEG swscale lib available",
 #ifndef HAVE_FFMPEG_SWSCALE
         0 },
 #else
         1 },
 #endif
+ /* (all) */
+    { "HAVE_FFMPEG_SWRESAMPLE", "Have FFMPEG swresample lib available",
+#ifndef HAVE_FFMPEG_SWRESAMPLE
+        0 },
+#else
+        1 },
 #endif
-#if defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(UNIX) || defined(WIN32) /* (sdl/unix/windows) */
+ /* (all) */
+    { "HAVE_FFMPEG_AVRESAMPLE", "Have FFMPEG avresample lib available",
+#ifndef HAVE_FFMPEG_AVRESAMPLE
+        0 },
+#else
+        1 },
+#endif
+ /* (all) */
     { "SHARED_FFMPEG", "FFMPEG libraries are shared",
 #ifndef SHARED_FFMPEG
         0 },
 #else
         1 },
 #endif
-#endif
-#if defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(UNIX) || defined(WIN32) /* (sdl/unix/windows) */
+ /* (all) */
     { "STATIC_FFMPEG", "FFMPEG libraries are static",
 #ifndef STATIC_FFMPEG
         0 },
 #else
         1 },
-#endif
 #endif
  /* (all) */
     { "HAVE_FULLSCREEN", "Enable Fullscreen support.",
@@ -217,7 +219,7 @@ static feature_list_t featurelist[] = {
 #else
         1 },
 #endif
-#if defined(AMIGA_SUPPORT) || defined(__MSDOS__) || defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(UNIX) || defined(WIN32) /* (amiga/dos/sdl/unix/windows) */
+#if defined(AMIGA_SUPPORT) || defined(BEOS_COMPILE) || defined(__MSDOS__) || defined(UNIX) || defined(WIN32) /* (amiga/beos/dos/unix/windows) */
     { "HAVE_HARDSID", "Support for HardSID.",
 #ifndef HAVE_HARDSID
         0 },
@@ -247,12 +249,13 @@ static feature_list_t featurelist[] = {
 #else
         1 },
 #endif
-/* (all) */
+#if defined(UNIX) || defined(WIN32) /* (unix/windows) */
     { "HAVE_LIBIEEE1284", "Define to 1 if you have the `ieee1284' library", /* (-lieee1284) */
 #ifndef HAVE_LIBIEEE1284
         0 },
 #else
         1 },
+#endif
 #endif
 #ifdef UNIX /* (unix) */
     { "HAVE_LIBXPM", "Is libXpm available?",
@@ -262,7 +265,7 @@ static feature_list_t featurelist[] = {
         1 },
 #endif
 #endif
-#if defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(UNIX) || defined(MACOSX_SUPPORT) || defined(WIN32) /* (sdl/unix/osx/windows) */
+#if defined(UNIX) || defined(MACOSX_SUPPORT) || defined(WIN32) /* (unix/osx/windows) */
     { "HAVE_MIDI", "Enable MIDI emulation.",
 #ifndef HAVE_MIDI
         0 },
@@ -291,7 +294,7 @@ static feature_list_t featurelist[] = {
 #else
         1 },
 #endif
-#if defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(UNIX) || defined(WIN32) /* (sdl/unix/windows) */
+#if defined(UNIX) || defined(WIN32) /* (unix/windows) */
     { "HAVE_OPENCBM", "Support for OpenCBM", /* (former CBM4Linux). */
 #ifndef HAVE_OPENCBM
         0 },
@@ -315,7 +318,7 @@ static feature_list_t featurelist[] = {
         1 },
 #endif
 #endif
-#if defined(__MSDOS__) || defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(UNIX) || defined(WIN32) /* (dos/sdl/unix/windows) */
+#if defined(BEOS_COMPILE) || defined(__MSDOS__) || defined(UNIX) || defined(WIN32) /* (beos/dos/unix/windows) */
     { "HAVE_PARSID", "Support for ParSID.",
 #ifndef HAVE_PARSID
         0 },
@@ -413,7 +416,15 @@ static feature_list_t featurelist[] = {
         1 },
 #endif
 #endif
-#if defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(UNIX) /* (sdl/unix) */
+#if defined(AMIGA_SUPPORT) || defined(BEOS_COMPILE) || defined(__MSDOS__) || defined(UNIX) || defined(WIN32) /* (amiga/beos/dos/unix/windows) */
+    { "HAVE_SSI2001", "Support for SSI-2001.",
+#ifndef HAVE_SSI2001
+        0 },
+#else
+        1 },
+#endif
+#endif
+#if defined(UNIX) /* (unix) */
     { "HAVE_SYS_AUDIO_H", "Define to 1 if you have the <sys/audio.h> header file.",
 #ifndef HAVE_SYS_AUDIO_H
         0 },
@@ -421,7 +432,7 @@ static feature_list_t featurelist[] = {
         1 },
 #endif
 #endif
-#if defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(UNIX) /* (sdl/unix) */
+#if defined(UNIX) /* (unix) */
     { "HAVE_SYS_AUDIOIO_H", "Define to 1 if you have the <sys/audioio.h> header file.",
 #ifndef HAVE_SYS_AUDIOIO_H
         0 },
@@ -430,8 +441,8 @@ static feature_list_t featurelist[] = {
 #endif
 #endif
 /* (all) */
-    { "HAVE_TFE", "Support for The Final Ethernet",
-#ifndef HAVE_TFE
+    { "HAVE_PCAP", "Support for The Final Ethernet",
+#ifndef HAVE_PCAP
         0 },
 #else
         1 },
@@ -483,7 +494,7 @@ static feature_list_t featurelist[] = {
         1 },
 #endif
 #endif
-#if defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(UNIX) /* (sdl/unix) */
+#if defined(UNIX) /* (unix) */
     { "USE_AIX_AUDIO", "Enable aix sound support.",
 #ifndef USE_AIX_AUDIO
         0 },
@@ -491,7 +502,7 @@ static feature_list_t featurelist[] = {
         1 },
 #endif
 #endif
-#if defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(UNIX) /* (sdl/unix) */
+#if defined(UNIX) /* (unix) */
     { "USE_ALSA", "Enable alsa support.",
 #ifndef USE_ALSA
         0 },
@@ -499,7 +510,7 @@ static feature_list_t featurelist[] = {
         1 },
 #endif
 #endif
-#if defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(UNIX) /* (sdl/unix) */
+#if defined(UNIX) /* (unix) */
     { "USE_ARTS", "Enable aRts support.",
 #ifndef USE_ARTS
         0 },
@@ -507,7 +518,7 @@ static feature_list_t featurelist[] = {
         1 },
 #endif
 #endif
-#if defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(MACOSX_SUPPORT) /* (sdl/osx) */
+#if defined(MACOSX_SUPPORT) /* (osx) */
     { "USE_COREAUDIO", "Enable CoreAudio support.",
 #ifndef USE_COREAUDIO
         0 },
@@ -515,7 +526,7 @@ static feature_list_t featurelist[] = {
         1 },
 #endif
 #endif
-#if defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(UNIX) /* (sdl/unix) */
+#if defined(UNIX) /* (unix) */
     { "USE_DMEDIA", "Enable sgi sound support.",
 #ifndef USE_DMEDIA
         0 },
@@ -523,7 +534,7 @@ static feature_list_t featurelist[] = {
         1 },
 #endif
 #endif
-#if defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(WIN32) /* (sdl/windows) */
+#if defined(WIN32) /* (windows) */
     { "USE_DXSOUND", "Enable directx sound support.",
 #ifndef USE_DXSOUND
         0 },
@@ -589,7 +600,7 @@ static feature_list_t featurelist[] = {
         1 },
 #endif
 #endif
-#if defined(USE_SDLUI) || defined(USE_SDLUI2) || defined(UNIX) /* (sdl/unix) */
+#if defined(UNIX) /* (unix) */
     { "USE_OSS", "Enable oss support.",
 #ifndef USE_OSS
         0 },

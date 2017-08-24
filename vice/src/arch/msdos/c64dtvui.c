@@ -53,7 +53,7 @@ static tui_menu_item_def_t ioextenstions_menu_items[] = {
       "Emulate a PS/2 mouse",
       toggle_ps2mouse_callback, NULL, 3,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 /* ------------------------------------------------------------------------- */
@@ -122,7 +122,7 @@ static tui_menu_item_def_t rom_menu_items[] = {
       "Load new 4000 ROM",
       load_rom_file_callback, "DosName4000", 0,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 /* ------------------------------------------------------------------------- */
@@ -131,7 +131,7 @@ int c64dtvui_init(void)
 {
     tui_menu_t ui_ioextensions_submenu;
 
-    ui_create_main_menu(1, 1, 1, 0xe, 1, drivec64dtv_settings_submenu);
+    ui_create_main_menu(1, 1, 1, 0x1c, 1, drivec64dtv_settings_submenu);
 
     tui_menu_add_separator(ui_special_submenu);
 
@@ -151,6 +151,8 @@ int c64dtvui_init(void)
     tui_menu_add_separator(ui_video_submenu);
 
     uivideo_init(ui_video_submenu, VID_VICII, VID_NONE);
+
+    siddtv_build_menu();
 
     tui_menu_add(ui_sound_submenu, siddtv_ui_menu_items);
     tui_menu_add(ui_rom_submenu, rom_menu_items);

@@ -175,7 +175,7 @@ static const resource_int_t resources_int[] = {
       &devbaud[2], set_devbaud, (void *)2 },
     { "RsDevice4Baud", 9600, RES_EVENT_NO, NULL,
       &devbaud[3], set_devbaud, (void *)3 },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int rs232dev_resources_init(void)
@@ -208,7 +208,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       N_("<baudrate>"), N_("Specify baudrate of fourth RS232 device") },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int rs232dev_cmdline_options_init(void)

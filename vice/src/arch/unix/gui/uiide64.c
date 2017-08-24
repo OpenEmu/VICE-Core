@@ -33,6 +33,7 @@
 #include "lib.h"
 #include "resources.h"
 #include "uiapi.h"
+#include "uiclockport-device.h"
 #include "uiide64.h"
 #include "uilib.h"
 #include "uimenu.h"
@@ -43,6 +44,8 @@ UI_MENU_DEFINE_TOGGLE(IDE64AutodetectSize2)
 UI_MENU_DEFINE_TOGGLE(IDE64AutodetectSize3)
 UI_MENU_DEFINE_TOGGLE(IDE64AutodetectSize4)
 UI_MENU_DEFINE_RADIO(IDE64version)
+UI_MENU_DEFINE_RADIO(IDE64ClockPort)
+
 
 static UI_CALLBACK(set_ide64_image_name)
 {
@@ -175,89 +178,148 @@ static UI_CALLBACK(usbserver_select_addr)
 }
 
 static ui_menu_entry_t ide64_revision_submenu[] = {
-    { N_("Version 3"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_IDE64version,
-      (ui_callback_data_t)IDE64_VERSION_3, NULL },
-    { N_("Version 4.1"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_IDE64version,
-      (ui_callback_data_t)IDE64_VERSION_4_1, NULL },
-    { N_("Version 4.2"), UI_MENU_TYPE_TICK, (ui_callback_t)radio_IDE64version,
-      (ui_callback_data_t)IDE64_VERSION_4_2, NULL },
-    { NULL }
+    { N_("Version 3"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_IDE64version, (ui_callback_data_t)IDE64_VERSION_3, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("Version 4.1"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_IDE64version, (ui_callback_data_t)IDE64_VERSION_4_1, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("Version 4.2"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_IDE64version, (ui_callback_data_t)IDE64_VERSION_4_2, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
 };
 
 static ui_menu_entry_t ide64_hd1_submenu[] = {
     { N_("Device 1 image name"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)set_ide64_image_name,
-      (ui_callback_data_t)"IDE64Image1", NULL },
-    { "--", UI_MENU_TYPE_SEPARATOR },
+      (ui_callback_t)set_ide64_image_name, (ui_callback_data_t)"IDE64Image1", NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
     { N_("Autodetect image size"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_IDE64AutodetectSize1, NULL, NULL },
+      (ui_callback_t)toggle_IDE64AutodetectSize1, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Cylinders"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)set_cylinders,
-      (ui_callback_data_t)1, NULL },
+      (ui_callback_t)set_cylinders, (ui_callback_data_t)1, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Heads"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)set_heads,
-      (ui_callback_data_t)1, NULL },
+      (ui_callback_t)set_heads, (ui_callback_data_t)1, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Sectors"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)set_sectors,
-      (ui_callback_data_t)1, NULL },
-    { NULL }
+      (ui_callback_t)set_sectors, (ui_callback_data_t)1, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
 };
 
 static ui_menu_entry_t ide64_hd2_submenu[] = {
     { N_("Device 2 image name"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)set_ide64_image_name,
-      (ui_callback_data_t)"IDE64Image2", NULL },
-    { "--", UI_MENU_TYPE_SEPARATOR },
+      (ui_callback_t)set_ide64_image_name, (ui_callback_data_t)"IDE64Image2", NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
     { N_("Autodetect image size"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_IDE64AutodetectSize2, NULL, NULL },
+      (ui_callback_t)toggle_IDE64AutodetectSize2, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Cylinders"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)set_cylinders,
-      (ui_callback_data_t)2, NULL },
+      (ui_callback_t)set_cylinders, (ui_callback_data_t)2, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Heads"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)set_heads,
-      (ui_callback_data_t)2, NULL },
+      (ui_callback_t)set_heads, (ui_callback_data_t)2, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Sectors"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)set_sectors,
-      (ui_callback_data_t)2, NULL },
-    { NULL }
+      (ui_callback_t)set_sectors, (ui_callback_data_t)2, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
 };
 
 static ui_menu_entry_t ide64_hd3_submenu[] = {
     { N_("Device 3 image name"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)set_ide64_image_name,
-      (ui_callback_data_t)"IDE64Image3", NULL },
-    { "--", UI_MENU_TYPE_SEPARATOR },
+      (ui_callback_t)set_ide64_image_name, (ui_callback_data_t)"IDE64Image3", NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
     { N_("Autodetect image size"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_IDE64AutodetectSize3, NULL, NULL },
+      (ui_callback_t)toggle_IDE64AutodetectSize3, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Cylinders"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)set_cylinders,
-      (ui_callback_data_t)3, NULL },
+      (ui_callback_t)set_cylinders, (ui_callback_data_t)3, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Heads"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)set_heads,
-      (ui_callback_data_t)3, NULL },
+      (ui_callback_t)set_heads, (ui_callback_data_t)3, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Sectors"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)set_sectors,
-      (ui_callback_data_t)3, NULL },
-    { NULL }
+      (ui_callback_t)set_sectors, (ui_callback_data_t)3, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
 };
 
 static ui_menu_entry_t ide64_hd4_submenu[] = {
     { N_("Device 4 image name"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)set_ide64_image_name,
-      (ui_callback_data_t)"IDE64Image4", NULL },
-    { "--", UI_MENU_TYPE_SEPARATOR },
+      (ui_callback_t)set_ide64_image_name, (ui_callback_data_t)"IDE64Image4", NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
     { N_("Autodetect image size"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_IDE64AutodetectSize4, NULL, NULL },
+      (ui_callback_t)toggle_IDE64AutodetectSize4, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Cylinders"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)set_cylinders,
-      (ui_callback_data_t)4, NULL },
+      (ui_callback_t)set_cylinders, (ui_callback_data_t)4, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Heads"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)set_heads,
-      (ui_callback_data_t)4, NULL },
+      (ui_callback_t)set_heads, (ui_callback_data_t)4, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Sectors"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)set_sectors,
-      (ui_callback_data_t)4, NULL },
-    { NULL }
+      (ui_callback_t)set_sectors, (ui_callback_data_t)4, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
+};
+
+UI_MENU_DEFINE_RADIO(SBDIGIMAXbase)
+
+static ui_menu_entry_t ide64_shortbus_digimax_address_submenu[] = {
+    { "$DE40", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SBDIGIMAXbase, (ui_callback_data_t)0xde40, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "$DE48", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SBDIGIMAXbase, (ui_callback_data_t)0xde48, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
+};
+
+#ifdef HAVE_PCAP
+UI_MENU_DEFINE_RADIO(SBETFEbase)
+
+static ui_menu_entry_t ide64_shortbus_etfe_address_submenu[] = {
+    { "$DE00", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SBETFEbase, (ui_callback_data_t)0xde00, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "$DE10", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SBETFEbase, (ui_callback_data_t)0xde10, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "$DF00", UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SBETFEbase, (ui_callback_data_t)0xdf00, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
+};
+
+UI_MENU_DEFINE_TOGGLE(SBETFE)
+#endif
+
+UI_MENU_DEFINE_TOGGLE(SBDIGIMAX)
+
+static ui_menu_entry_t ide64_shortbus_submenu[] = {
+    { "DigiMAX", UI_MENU_TYPE_TICK,
+      (ui_callback_t)toggle_SBDIGIMAX, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("DigiMAX address"), UI_MENU_TYPE_NORMAL,
+      NULL, NULL, ide64_shortbus_digimax_address_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+#ifdef HAVE_PCAP
+    UI_MENU_ENTRY_SEPERATOR,
+    { "ETFE", UI_MENU_TYPE_TICK,
+      (ui_callback_t)toggle_SBETFE, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("ETFE address"), UI_MENU_TYPE_NORMAL,
+      NULL, NULL, ide64_shortbus_etfe_address_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+#endif
+    UI_MENU_ENTRY_LIST_END
 };
 
 UI_MENU_DEFINE_TOGGLE(IDE64USBServer)
@@ -265,22 +327,54 @@ UI_MENU_DEFINE_TOGGLE(IDE64RTCSave)
 
 ui_menu_entry_t ide64_submenu[] = {
     { N_("Revision"), UI_MENU_TYPE_NORMAL,
-      NULL, NULL, ide64_revision_submenu },
+      NULL, NULL, ide64_revision_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Enable USB server"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_IDE64USBServer, NULL, NULL },
+      (ui_callback_t)toggle_IDE64USBServer, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Set USB server address"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)usbserver_select_addr,
-      (ui_callback_data_t)"IDE64USBServerAddress", NULL },
+      (ui_callback_t)usbserver_select_addr, (ui_callback_data_t)"IDE64USBServerAddress", NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Enable RTC saving"), UI_MENU_TYPE_TICK,
-      (ui_callback_t)toggle_IDE64RTCSave, NULL, NULL },
-    { "--", UI_MENU_TYPE_SEPARATOR },
+      (ui_callback_t)toggle_IDE64RTCSave, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("Clockport device"), UI_MENU_TYPE_NORMAL,
+      NULL, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
     { N_("Device 1 settings"), UI_MENU_TYPE_NORMAL,
-      NULL, NULL, ide64_hd1_submenu },
+      NULL, NULL, ide64_hd1_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Device 2 settings"), UI_MENU_TYPE_NORMAL,
-      NULL, NULL, ide64_hd2_submenu },
+      NULL, NULL, ide64_hd2_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Device 3 settings"), UI_MENU_TYPE_NORMAL,
-      NULL, NULL, ide64_hd3_submenu },
+      NULL, NULL, ide64_hd3_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Device 4 settings"), UI_MENU_TYPE_NORMAL,
-      NULL, NULL, ide64_hd4_submenu },
-    { NULL }
+      NULL, NULL, ide64_hd4_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
+    { N_("Short bus device settings"), UI_MENU_TYPE_NORMAL,
+      NULL, NULL, ide64_shortbus_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
 };
+
+
+/** \brief  Handle dynamic menu creation for the IDE64 submenu
+ */
+void uiide64_menu_create(void)
+{
+    ui_menu_entry_t *cp_dev_submenu = uiclockport_device_menu_create(
+            (ui_callback_t)radio_IDE64ClockPort);
+    ide64_submenu[4].sub_menu = cp_dev_submenu;
+}
+
+
+/** \brief  Clean up memory used by dynamic submenus
+ */
+void uiide64_menu_shutdown(void)
+{
+    uiclockport_device_menu_shutdown(ide64_submenu[4].sub_menu);
+}

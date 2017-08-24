@@ -3,6 +3,7 @@
  *
  * Written by
  *  Mathias Roslund <vice.emu@amidog.se>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -43,11 +44,6 @@
 
 int joystick_inited = 0;
 
-#if 0
-/* Joystick devices. Use joystick_port_map in the common code instead. */
-static int joystick_device[4];
-#endif
-
 int joy_arch_init(void)
 {
     if (joystick_inited == 0) {
@@ -82,43 +78,8 @@ int joy_arch_set_device(int port_idx, int joy_dev)
     return 0;
 }
 
-#if 0
-static const resource_int_t joy1_resources_int[] = {
-    { "JoyDevice1", JOYDEV_NONE, RES_EVENT_NO, NULL,
-      &joystick_device[0], set_joystick_device, (void *)0 },
-    { NULL }
-};
-
-static const resource_int_t joy2_resources_int[] = {
-    { "JoyDevice2", JOYDEV_NONE, RES_EVENT_NO, NULL,
-      &joystick_device[1], set_joystick_device, (void *)1 },
-    { NULL }
-};
-
-static const resource_int_t joy3_resources_int[] = {
-    { "JoyDevice3", JOYDEV_NONE, RES_EVENT_NO, NULL,
-      &joystick_device[2], set_joystick_device, (void *)2 },
-    { NULL }
-};
-
-static const resource_int_t joy4_resources_int[] = {
-    { "JoyDevice4", JOYDEV_NONE, RES_EVENT_NO, NULL,
-      &joystick_device[3], set_joystick_device, (void *)3 },
-    { NULL }
-};
-
-static const resource_int_t resources_int[] = {
-    { NULL }
-};
-#endif
-
 int joy_arch_resources_init(void)
 {
-#if 0
-    if (resources_register_int(resources_int) < 0) {
-        return -1;
-    }
-#endif
     return joyai_init_resources();
 }
 
@@ -131,7 +92,7 @@ static const cmdline_option_t joydev1cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_NUMBER, IDS_SET_INPUT_JOYSTICK_1,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev2cmdline_options[] = {
@@ -140,7 +101,7 @@ static const cmdline_option_t joydev2cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_NUMBER, IDS_SET_INPUT_JOYSTICK_2,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev3cmdline_options[] = {
@@ -149,7 +110,7 @@ static const cmdline_option_t joydev3cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_NUMBER, IDS_SET_INPUT_EXTRA_JOYSTICK_1,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev4cmdline_options[] = {
@@ -158,7 +119,16 @@ static const cmdline_option_t joydev4cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_NUMBER, IDS_SET_INPUT_EXTRA_JOYSTICK_2,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
+};
+
+static const cmdline_option_t joydev5cmdline_options[] = {
+    { "-extrajoydev3", SET_RESOURCE, 1,
+      NULL, NULL, "JoyDevice5", NULL,
+      USE_PARAM_ID, USE_DESCRIPTION_ID,
+      IDCLS_P_NUMBER, IDS_SET_INPUT_EXTRA_JOYSTICK_3,
+      NULL, NULL },
+    CMDLINE_LIST_END
 };
 
 int joy_arch_cmdline_options_init(void)
@@ -180,6 +150,11 @@ int joy_arch_cmdline_options_init(void)
     }
     if (joyport_get_port_name(JOYPORT_4)) {
         if (cmdline_register_options(joydev4cmdline_options) < 0) {
+            return -1;
+        }
+    }
+    if (joyport_get_port_name(JOYPORT_5)) {
+        if (cmdline_register_options(joydev5cmdline_options) < 0) {
             return -1;
         }
     }

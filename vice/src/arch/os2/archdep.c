@@ -4,6 +4,7 @@
  * Written by
  *  Ettore Perazzoli <ettore@comm2000.it>
  *  Thomas Bretz <tbretz@gsi.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -47,12 +48,10 @@
 #include <ctype.h>
 #include <process.h>
 
-#if defined(__IBMC__) || defined(WATCOM_COMPILE)
 #include <io.h>
 #include <fcntl.h>
 #include <direct.h>
 #include <sys/stat.h>
-#endif
 
 #ifndef HAVE_GETTIMEOFDAY
 #include <sys/timeb.h>
@@ -246,7 +245,7 @@ int archdep_default_logger(const char *lvl, const char *txt)
     // This is used if archdep_open_default_log_file returns NULL
     //
 
-#ifndef __X1541__
+#if !defined(__X1541__) && !defined(__PETCAT__)
     char *text = util_concat(lvl, txt, NULL);
 
     WinSendMsg(hwndLog, WM_INSERT, text, FALSE);
@@ -274,7 +273,7 @@ FILE *archdep_open_default_log_file()
         setbuf(fLog, NULL);
     }
 
-#ifndef __X1541__
+#if !defined(__X1541__) && !defined(__PETCAT__)
     resources_get_int("Logwin", &val);
     log_dialog(val);
 #endif

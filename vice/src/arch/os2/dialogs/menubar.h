@@ -3,6 +3,7 @@
  *
  * Written by
  *  Thomas Bretz <tbretz@gsi.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -36,6 +37,7 @@
 #define IDM_ATTACH                   0x104
 #define IDM_DETACH                   0x105
 #define IDM_SNAPSHOT                 0x106
+#define IDM_JAM_ACTION               0x353
 #define IDM_RESET                    0x107
 #define IDM_VIEW                     0x108
 #define IDM_EMULATOR                 0x109
@@ -70,6 +72,24 @@
 #define IDM_LOGWIN                   0x10d
 #define IDM_COLOR                    0x10e
 #define IDM_COLOR2                   0x2bf
+
+#define IDM_SCREENSHOTS              0x372
+#define IDM_SCREENSHOT_BMP           0x12b
+#define IDM_SCREENSHOT_DOODLE        0x373
+#define IDM_SCREENSHOT_DOODLE_CMPR   0x374
+#define IDM_SCREENSHOT_GODOT         0x375
+#define IDM_SCREENSHOT_IFF           0x376
+#define IDM_SCREENSHOT_KOALA         0x377
+#define IDM_SCREENSHOT_KOALA_CMPR    0x378
+#define IDM_SCREENSHOT_PCX           0x379
+#define IDM_SCREENSHOT_PPM           0x37a
+
+#define IDM_JAM_ACTION_DIALOG        0x354
+#define IDM_JAM_ACTION_CONTINUE      0x355
+#define IDM_JAM_ACTION_MONITOR       0x356
+#define IDM_JAM_ACTION_RESET         0x357
+#define IDM_JAM_ACTION_HARD_RESET    0x358
+#define IDM_JAM_ACTION_QUIT          0x359
 
 #define IDM_BURSTMOD                 0x2e2
 #define IDM_BURST_NONE               0x2e3
@@ -110,6 +130,7 @@
 #define IDM_CMDLINE                  0x11e
 #define IDM_FSMODES                  0x11f
 #define IDM_ABOUT                    0x13c
+#define IDM_VICE_FEATURES            0x492
 
 #define IDM_ATTACHTAPE               0x120
 #define IDM_ATTACH8                  0x121
@@ -131,14 +152,16 @@
 #define IDM_READCONFIG               0x128
 #define IDM_WRITECONFIG              0x129
 #define IDM_DEFAULTCONFIG            0x12a
-#define IDM_PRINTSCRN                0x12b
 #define IDM_SOFTRESET                0x12c
 #define IDM_HARDRESET                0x12d
 #define IDM_EXIT                     0x12f
 
+#define IDM_VICII_VSP_BUG            0x369
+
 #define IDM_DSIZE                    0x131
 #define IDM_DSCAN                    0x132
 #define IDM_EXTERNALPAL              0x135
+#define IDM_PALETTES                 0x470
 #define IDM_EXTERNALPAL_FILE         0x2bb
 #define IDM_AUDIO_LEAK               0x2bd
 #define IDM_CRT                      0x2c4
@@ -148,6 +171,34 @@
 #define IDM_RENDER_SCALE2X           0x2cf
 #define IDM_VIDEO_SETTINGS           0x133
 #define IDM_VDC_VIDEO_SETTINGS       0x134
+
+#define IDM_PALETTE_C64HQ            0x471
+#define IDM_PALETTE_C64S             0x472
+#define IDM_PALETTE_CCS64            0x473
+#define IDM_PALETTE_COMMUNITY_COLORS 0x474
+#define IDM_PALETTE_DEEKAY           0x475
+#define IDM_PALETTE_FRODO            0x477
+#define IDM_PALETTE_GODOT            0x478
+#define IDM_PALETTE_PC64             0x479
+#define IDM_PALETTE_PEPTO_NTSC       0x47a
+#define IDM_PALETTE_PEPTO_NTSC_SONY  0x47b
+#define IDM_PALETTE_PEPTO_PAL        0x47c
+#define IDM_PALETTE_PEPTO_PAL_OLD    0x47d
+#define IDM_PALETTE_PTOING           0x47e
+#define IDM_PALETTE_RGB              0x47f
+#define IDM_PALETTE_SPIFF            0x482
+#define IDM_PALETTE_VICE             0x483
+#define IDM_PALETTE_AMBER            0x484
+#define IDM_PALETTE_GREEN            0x485
+#define IDM_PALETTE_WHITE            0x486
+#define IDM_PALETTE_MIKE_NTSC        0x487
+#define IDM_PALETTE_MIKE_PAL         0x488
+#define IDM_VDC_PALETTES             0x489
+#define IDM_PALETTE_VDC_COMP         0x48a
+#define IDM_PALETTE_VDC_DEFT         0x48b
+#define IDM_PALETTE_YAPE_NTSC        0x4a6
+#define IDM_PALETTE_YAPE_PAL         0x4a7
+
 
 #define IDM_BORDER_MODE              0x2eb
 #define IDM_BORDER_NORMAL            0x2ec
@@ -194,6 +245,7 @@
 #define IDM_AUTOSTART_WARP           0x1ab
 #define IDM_RUN_WITH_COLON           0x1ac
 #define IDM_LOAD_TO_BASIC_START      0x21a
+#define IDM_AUTOSTART_DELAY          0x4a8
 #define IDM_AUTOSTART_RANDOM_DELAY   0x2b4
 #define IDM_AUTOSTART_PRG_MODE       0x1ad
 #define IDM_AUTOSTART_PRG_VIRTUAL_FS 0x1ae
@@ -210,6 +262,22 @@
 #define IDM_DTV3                     0x1a9
 
 #define IDM_C64DTV_HUMMER_ADC        0x1cb
+
+#define IDM_SAMPLER_SETTINGS         0x382
+#define IDM_SAMPLER_GAIN             0x383
+#define IDM_SAMPLER_GAIN_5           0x384
+#define IDM_SAMPLER_GAIN_10          0x385
+#define IDM_SAMPLER_GAIN_25          0x386
+#define IDM_SAMPLER_GAIN_50          0x387
+#define IDM_SAMPLER_GAIN_75          0x388
+#define IDM_SAMPLER_GAIN_100         0x389
+#define IDM_SAMPLER_GAIN_105         0x38a
+#define IDM_SAMPLER_GAIN_110         0x38b
+#define IDM_SAMPLER_GAIN_125         0x38c
+#define IDM_SAMPLER_GAIN_150         0x38d
+#define IDM_SAMPLER_GAIN_175         0x38e
+#define IDM_SAMPLER_GAIN_200         0x38f
+#define IDM_SAMPLER_FILE             0x390
 
 #define IDM_REU_SETTINGS             0x1eb
 #define IDM_REU                      0x149
@@ -277,6 +345,22 @@
 #define IDM_IDE64_AUTO4              0x2c2
 #define IDM_IDE64_GEO4               0x2b3
 #define IDM_IDE64_RTC_SAVE           0x34c
+#define IDM_IDE64_SB_DIGIMAX         0x393
+#define IDM_IDE64_SB_DIGIMAX_BASE    0x394
+#define IDM_IDE64_SB_DIGIMAX_DE40    0x395
+#define IDM_IDE64_SB_DIGIMAX_DE48    0x396
+#define IDM_IDE64_SB_ETFE            0x45f
+#define IDM_IDE64_SB_ETFE_BASE       0x460
+#define IDM_IDE64_SB_ETFE_DE00       0x461
+#define IDM_IDE64_SB_ETFE_DE10       0x462
+#define IDM_IDE64_SB_ETFE_DF00       0x463
+#define IDM_IDE64_CLOCKPORT_DEVICE   0x48c
+#define IDM_IDE64_CLOCKPORT_NONE     0x48d
+#define IDM_IDE64_CLOCKPORT_RRNET    0x48e
+#define IDM_IDE64_CLOCKPORT_MP3AT64  0x48f
+#define IDM_IDE64_USB_SRVR_SETTINGS  0x4a4
+#define IDM_IDE64_USB_SERVER_ENABLE  0x4a5
+#define IDM_IDE64_USB_SERVER_ADDR    0x4a6
 
 #define IDM_MMC64_SETTINGS           0x229
 #define IDM_MMC64                    0x22a
@@ -293,6 +377,10 @@
 #define IDM_MMC64_SD_TYPE_MMC        0x249
 #define IDM_MMC64_SD_TYPE_SD         0x24a
 #define IDM_MMC64_SD_TYPE_SDHC       0x24b
+#define IDM_MMC64_CLOCKPORT_DEVICE   0x464
+#define IDM_MMC64_CLOCKPORT_NONE     0x465
+#define IDM_MMC64_CLOCKPORT_RRNET    0x466
+#define IDM_MMC64_CLOCKPORT_MP3AT64  0x467
 
 #define IDM_MMCR_SETTINGS            0x24c
 #define IDM_MMCR_RESCUE_MODE         0x24d
@@ -306,6 +394,15 @@
 #define IDM_MMCR_SD_TYPE_MMC         0x25c
 #define IDM_MMCR_SD_TYPE_SD          0x25d
 #define IDM_MMCR_SD_TYPE_SDHC        0x25e
+#define IDM_MMCR_CLOCKPORT_DEVICE    0x468
+#define IDM_MMCR_CLOCKPORT_NONE      0x469
+#define IDM_MMCR_CLOCKPORT_RRNET     0x46a
+#define IDM_MMCR_CLOCKPORT_MP3AT64   0x46b
+
+#define IDM_GMOD2_SETTINGS           0x16d
+#define IDM_GMOD2_EEPROM_WRITE       0x17c
+#define IDM_GMOD2_EEPROM_FILE        0x18b
+#define IDM_GMOD2_FLASH_READWRITE    0x2a2
 
 #define IDM_RR_SETTINGS              0x2f3
 #define IDM_RR_FLASH_WRITE           0x2f4
@@ -314,11 +411,14 @@
 #define IDM_RR_REVISION              0x2f7
 #define IDM_RR_REV_RR                0x2f8
 #define IDM_RR_REV_NR                0x2f9
+#define IDM_RR_CLOCKPORT_DEVICE      0x46c
+#define IDM_RR_CLOCKPORT_NONE        0x46d
+#define IDM_RR_CLOCKPORT_RRNET       0x46e
+#define IDM_RR_CLOCKPORT_MP3AT64     0x46f
 
 #define IDM_DIGIMAX_SETTINGS         0x1ee
 #define IDM_DIGIMAX                  0x1a1
 #define IDM_DIGIMAXBASE              0x1a2
-#define IDM_DIGIMAXDD00              0x1a3
 #define IDM_DIGIMAXDE00              0x950
 #define IDM_DIGIMAXDE20              0x951
 #define IDM_DIGIMAXDE40              0x952
@@ -347,6 +447,9 @@
 #define IDM_DS12C887RTC9800          0x324
 #define IDM_DS12C887RTC9C00          0x325
 #define IDM_DS12C887RTC_SAVE         0x34b
+#define IDM_DS12C887RTCRUNMODE       0x366
+#define IDM_DS12C887RTC_HALTED       0x367
+#define IDM_DS12C887RTC_RUNNING      0x368
 
 #define IDM_SFX_SE_SETTINGS          0x1f0
 #define IDM_SFX_SE                   0x192
@@ -359,8 +462,17 @@
 #define IDM_SFX_SS                   0x112
 #define IDM_SFX_SS_IO_SWAP           0x2c9
 
+#define IDM_SS5_32K_ADDON            0x37b
+
+#define IDM_C64_CPM                  0x381
+
+#define IDM_RRNETMK3_SETTINGS        0x392
+#define IDM_RRNETMK3_FLASH_JUMPER    0x1a3
+#define IDM_RRNETMK3_BIOS_WRITE      0x391
+
 #define IDM_EASYFLASH_SETTINGS       0x1ef
 #define IDM_EASYFLASH_JUMPER         0x1c2
+#define IDM_EASYFLASH_OPTIMIZE_CRT   0x371
 #define IDM_EASYFLASH_AUTOSAVE       0x1c3
 #define IDM_EASYFLASH_SAVE_NOW       0x1c4
 
@@ -368,6 +480,12 @@
 #define IDM_VIC20_VFP_WRITEBACK      0x21c
 #define IDM_VIC20_MC_WRITEBACK       0x21d
 #define IDM_VIC20_MC_FILE            0x21e
+#define IDM_VIC20_UM_WRITEBACK       0x37d
+
+#define IDM_VIC20_IO2_RAM            0x37e
+#define IDM_VIC20_IO3_RAM            0x37f
+
+#define IDM_VIC20_VFLI_MOD           0x3fe
 
 #define IDM_MEMORY_HACKS_SETTINGS    0x1f3
 
@@ -377,6 +495,14 @@
 #define IDM_PLUS60KFILE              0x14d
 
 #define IDM_PLUS256KFILE             0x14e
+
+#define IDM_MEMPLUS4_HACKS_SETTINGS  0x36a
+#define IDM_PLUS4_MEMORY_HACK_DEVICE 0x36b
+#define IDM_MEMORY_PLUS4HACK_NONE    0x36c
+#define IDM_MEMORY_PLUS4HACK_C256K   0x36d
+#define IDM_MEMORY_PLUS4HACK_H256K   0x36e
+#define IDM_MEMORY_PLUS4HACK_H1024K  0x36f
+#define IDM_MEMORY_PLUS4HACK_H4096K  0x370
 
 #define IDM_DQBB_SETTINGS            0x1f1
 #define IDM_DQBB                     0x1b1
@@ -427,32 +553,47 @@
 
 #define IDM_PETHRE                   0x335
 
-#define IDM_PET_USERPORT_DAC         0x1cc
-
-#define IDM_USERPORT_RTC_SETTINGS    0x34d
-#define IDM_USERPORT_RTC             0x326
-#define IDM_USERPORT_RTC_SAVE        0x34e
-
-#define IDM_TFE_SETTINGS             0x2ca
-#define IDM_TFE                      0x158
-#define IDM_TFE_IO_SWAP              0x2cb
+#define IDM_ETHERNETCART_SETTINGS    0x2ca
+#define IDM_ETHERNETCART             0x158
+#define IDM_ETHERNETCART_MODE        0x2cb
+#define IDM_ETHERNETCART_MODE_TFE    0x140
+#define IDM_ETHERNETCART_MODE_RRNET  0x15a
+#define IDM_ETHERNETCART_ADDRESS     0x15b
+#define IDM_ETHERNETCART_ADDR_000    0x15c
+#define IDM_ETHERNETCART_ADDR_010    0x15d
+#define IDM_ETHERNETCART_ADDR_020    0x15e
+#define IDM_ETHERNETCART_ADDR_030    0x15f
+#define IDM_ETHERNETCART_ADDR_040    0x18a
+#define IDM_ETHERNETCART_ADDR_050    0x2ae
+#define IDM_ETHERNETCART_ADDR_060    0x2af
+#define IDM_ETHERNETCART_ADDR_070    0x30e
+#define IDM_ETHERNETCART_ADDR_080    0x32b
+#define IDM_ETHERNETCART_ADDR_090    0x341
+#define IDM_ETHERNETCART_ADDR_0A0    0x449
+#define IDM_ETHERNETCART_ADDR_0B0    0x44a
+#define IDM_ETHERNETCART_ADDR_0C0    0x44b
+#define IDM_ETHERNETCART_ADDR_0D0    0x44c
+#define IDM_ETHERNETCART_ADDR_0E0    0x44d
+#define IDM_ETHERNETCART_ADDR_0F0    0x44e
+#define IDM_ETHERNETCART_ADDR_100    0x44f
+#define IDM_ETHERNETCART_ADDR_110    0x450
+#define IDM_ETHERNETCART_ADDR_120    0x451
+#define IDM_ETHERNETCART_ADDR_130    0x452
+#define IDM_ETHERNETCART_ADDR_140    0x453
+#define IDM_ETHERNETCART_ADDR_150    0x454
+#define IDM_ETHERNETCART_ADDR_160    0x455
+#define IDM_ETHERNETCART_ADDR_170    0x456
+#define IDM_ETHERNETCART_ADDR_180    0x457
+#define IDM_ETHERNETCART_ADDR_190    0x458
+#define IDM_ETHERNETCART_ADDR_1A0    0x459
+#define IDM_ETHERNETCART_ADDR_1B0    0x45a
+#define IDM_ETHERNETCART_ADDR_1C0    0x45b
+#define IDM_ETHERNETCART_ADDR_1D0    0x45c
+#define IDM_ETHERNETCART_ADDR_1E0    0x45d
+#define IDM_ETHERNETCART_ADDR_1F0    0x45e
 
 #define IDM_MOUSE                    0x151
 #define IDM_HIDEMOUSE                0x152
-#define IDM_MOUSE_TYPE               0x140
-#define IDM_MOUSE_TYPE_1351          0x15a
-#define IDM_MOUSE_TYPE_NEOS          0x15b
-#define IDM_MOUSE_TYPE_AMIGA         0x15c
-#define IDM_MOUSE_TYPE_PADDLE        0x15d
-#define IDM_MOUSE_TYPE_CX22          0x2ae
-#define IDM_MOUSE_TYPE_ST            0x2af
-#define IDM_MOUSE_TYPE_SMART         0x30e
-#define IDM_MOUSE_TYPE_MICROMYS      0x32b
-#define IDM_MOUSE_TYPE_KOALAPAD      0x341
-
-#define IDM_MOUSE_PORT               0x15e
-#define IDM_MOUSE_PORT_1             0x15f
-#define IDM_MOUSE_PORT_2             0x18a
 
 #define IDM_SMART_MOUSE_RTC_SAVE     0x34f
 
@@ -650,6 +791,11 @@
 #define IDM_8562_NTSC                0x1db
 #define IDM_6567R56A_OLD_NTSC        0x1dc
 #define IDM_6572_PAL_N               0x1dd
+#define IDM_PALG                     0x35a
+#define IDM_OLD_PALG                 0x35b
+#define IDM_NTSCM                    0x35c
+#define IDM_OLD_NTSCM                0x35d
+#define IDM_PALN                     0x35e
 #define IDM_VICII_NEW_LUMINANCES     0x1de
 #define IDM_CIA1_MODEL               0x1df
 #define IDM_CIA1_6526_OLD            0x1e0
@@ -660,6 +806,13 @@
 #define IDM_GLUE_LOGIC               0x1e5
 #define IDM_DISCRETE                 0x1e6
 #define IDM_CUSTOM_IC                0x1e7
+
+#define IDM_KERNAL_REVISION          0x35f
+#define IDM_KERNAL_REV_1             0x361
+#define IDM_KERNAL_REV_2             0x362
+#define IDM_KERNAL_REV_3             0x363
+#define IDM_KERNAL_SX64              0x364
+#define IDM_KERNAL_4064              0x365
 
 #define IDM_C128_MODEL               0x2fa
 #define IDM_C128PAL                  0x2fb
@@ -730,26 +883,90 @@
 #define IDM_KERNALREV4064            0x294
 
 #define IDM_CARTRIDGE                0x500
+#define IDM_CARTRIDGE_GENERIC_GROUP  0x40b
 #define IDM_CRTGEN                   0x501
 #define IDM_CRTGEN8KB                0x502
 #define IDM_CRTGEN16KB               0x503
+#define IDM_CRTGENULTI               0x40c
+#define IDM_CARTRIDGE_FREEZER_GROUP  0x40d
 #define IDM_CRTACTREPL               0x504
+#define IDM_CRTACTREPL2              0x40e
+#define IDM_CRTACTREPL3              0x40f
+#define IDM_CRTACTREPL4              0x410
 #define IDM_CRTATOMPOW               0x505
-#define IDM_CRTEPYX                  0x506
+#define IDM_CRTCAPTURE               0x411
+#define IDM_CRTDIASHOWMAKER          0x412
+#define IDM_CRTEXPERT                0x413
+#define IDM_CRTFC1                   0x414
+#define IDM_CRTFC3                   0x415
+#define IDM_CRTFCPLUS                0x416
+#define IDM_CRTFORMEL64              0x417
+#define IDM_CRTFREEZEFRAME           0x418
+#define IDM_CRTFREEZEMACHINE         0x419
+#define IDM_CRTGAMEKILLER            0x41a
+#define IDM_CRTKCSPOWER              0x41b
+#define IDM_CRTMAGICFORMEL           0x41c
+#define IDM_CRTMMCR                  0x41d
+#define IDM_CRTRR                    0x41e
+#define IDM_SS64                     0x41f
 #define IDM_CRTSSSHOT                0x507
 #define IDM_CRTSSSHOT5               0x508
-#define IDM_CRTWEST                  0x509
-#define IDM_CRTIEEE                  0x50a
+#define IDM_CARTRIDGE_UTIL_GROUP     0x420
+#define IDM_CRTCOMAL80               0x421
+#define IDM_CRTDELAEP256             0x422
+#define IDM_CRTDELAEP64              0x423
+#define IDM_CRTDELAEP7x8             0x424
+#define IDM_CRTEASYCALC              0x425
+#define IDM_CRTEASYFLASH             0x426
+#define IDM_CRTEPYX                  0x506
+#define IDM_CRTEXOS                  0x427
 #define IDM_CRTIDE64                 0x50b
+#define IDM_CRTIEEE                  0x50a
+#define IDM_CRTKINGSOFT              0x428
+#define IDM_CRTMACH5                 0x429
+#define IDM_CRTMAGICDESK             0x42a
+#define IDM_CRTMAGICVOICE            0x42b
+#define IDM_CRTMIKROASS              0x42c
+#define IDM_CRTMMC64                 0x42d
+#define IDM_CRTP64                   0x42e
+#define IDM_CRTPAGEFOX               0x42f
+#define IDM_CRTREX                   0x430
+#define IDM_CRTREXEP256              0x431
+#define IDM_CRTRRNETMK3              0x432
+#define IDM_CRTROSS                  0x433
+#define IDM_CRTSIMON                 0x434
+#define IDM_CRTSTARDOS               0x435
+#define IDM_CRTSBASIC                0x436
+#define IDM_CRTSE5                   0x437
+#define IDM_CRTWARPSPEED             0x438
+#define IDM_CRTWEST                  0x509
+#define IDM_CARTRIDGE_GAME_GROUP     0x439
+#define IDM_CRTDINAMIC               0x43a
+#define IDM_CRTFUNPLAY               0x43b
+#define IDM_CRTGMOD2                 0x43c
+#define IDM_CRTGS                    0x43d
+#define IDM_CRTOCEAN                 0x43e
+#define IDM_CRTRGCD                  0x43f
+#define IDM_CRTSILVERROCK128         0x440
+#define IDM_CRTSUPERGAMES            0x441
+#define IDM_CRTZAXXON                0x442
+#define IDM_CARTRIDGE_RAMEX_GROUP    0x443
+#define IDM_CRTDQBB                  0x444
+#define IDM_CRTGEORAM                0x445
+#define IDM_CRTISEPIC                0x446
+#define IDM_CRTRAMCART               0x447
+#define IDM_CRTREU                   0x448
 #define IDM_CRTFREEZE                0x50d
 #define IDM_CRTSAVEIMG               0x50e
 #define IDM_CARTRIDGEDET             0x50f
 
 #define IDM_VIC20_ATTACH_CARTRIDGE   0x348
 #define IDM_VIC20_CART_GENERIC       0x200
+#define IDM_VIC20_CART_BEHR_BONZ     0x2a3
 #define IDM_VIC20_CART_MEGACART      0x201
 #define IDM_VIC20_CART_FINAL_EXP     0x203
 #define IDM_VIC20_CART_VFP           0x204
+#define IDM_VIC20_CART_UM            0x37c
 #define IDM_VIC20_CART_ADD_GENERIC   0x206
 #define IDM_VIC20_CART_SMART_ATTACH  0x207
 #define IDM_VIC20_CART_4_8_16KB_2000 0x209
@@ -835,6 +1052,145 @@
 #define IDM_C128IT                   0x804
 #define IDM_C128NO                   0x805
 #define IDM_C128SW                   0x806
+
+#define IDM_USERPORT_DEVICE_SETTINGS     0x397
+#define IDM_USERPORT_DAC                 0x1cc
+#define IDM_USERPORT_DIGIMAX             0x398
+#define IDM_USERPORT_4BIT_SAMPLER        0x399
+#define IDM_USERPORT_8BSS                0x39a
+#define IDM_USERPORT_RTC58321A_SETTINGS  0x39b
+#define IDM_USERPORT_RTC58321A           0x39c
+#define IDM_USERPORT_RTC58321A_SAVE      0x39d
+#define IDM_USERPORT_DS1307_RTC_SETTINGS 0x39e
+#define IDM_USERPORT_DS1307_RTC          0x39f
+#define IDM_USERPORT_DS1307_RTC_SAVE     0x3a0
+
+#define IDM_JOYPORT_DEVICES            0x326
+
+#define IDM_JOYPORT_1_DEVICE           0x34d
+#define IDM_JOYPORT_1_NONE             0x34e
+#define IDM_JOYPORT_1_JOYSTICK         0x3a1
+#define IDM_JOYPORT_1_PADDLES          0x3a2
+#define IDM_JOYPORT_1_MOUSE_1351       0x3a3
+#define IDM_JOYPORT_1_MOUSE_NEOS       0x3a4
+#define IDM_JOYPORT_1_MOUSE_AMIGA      0x3a5
+#define IDM_JOYPORT_1_MOUSE_CX22       0x3a6
+#define IDM_JOYPORT_1_MOUSE_ST         0x3a7
+#define IDM_JOYPORT_1_MOUSE_SMART      0x3a8
+#define IDM_JOYPORT_1_MOUSE_MICROMYS   0x3a9
+#define IDM_JOYPORT_1_KOALAPAD         0x3aa
+#define IDM_JOYPORT_1_LIGHTPEN_U       0x3ab
+#define IDM_JOYPORT_1_LIGHTPEN_L       0x3ac
+#define IDM_JOYPORT_1_LIGHTPEN_DATEL   0x3ad
+#define IDM_JOYPORT_1_LIGHTGUN_Y       0x3ae
+#define IDM_JOYPORT_1_LIGHTGUN_L       0x3af
+#define IDM_JOYPORT_1_LIGHTPEN_INKWELL 0x3b0
+#define IDM_JOYPORT_1_SAMPLER_2BIT     0x3b1
+#define IDM_JOYPORT_1_SAMPLER_4BIT     0x3b2
+#define IDM_JOYPORT_1_BBRTC            0x3b3
+#define IDM_JOYPORT_1_PAPERCLIP64      0x3b4
+#define IDM_JOYPORT_1_COPLIN_KEYPAD    0x3b5
+#define IDM_JOYPORT_1_CARDCO_KEYPAD    0x3b6
+#define IDM_JOYPORT_1_CX85_KEYPAD      0x3b7
+#define IDM_JOYPORT_1_RUSHWARE_KEYPAD  0x3b8
+#define IDM_JOYPORT_1_CX21_KEYPAD      0x3b9
+
+#define IDM_JOYPORT_2_DEVICE           0x3ba
+#define IDM_JOYPORT_2_NONE             0x3bb
+#define IDM_JOYPORT_2_JOYSTICK         0x3bc
+#define IDM_JOYPORT_2_PADDLES          0x3bd
+#define IDM_JOYPORT_2_MOUSE_1351       0x3be
+#define IDM_JOYPORT_2_MOUSE_NEOS       0x3bf
+#define IDM_JOYPORT_2_MOUSE_AMIGA      0x3c0
+#define IDM_JOYPORT_2_MOUSE_CX22       0x3c1
+#define IDM_JOYPORT_2_MOUSE_ST         0x3c2
+#define IDM_JOYPORT_2_MOUSE_SMART      0x3c3
+#define IDM_JOYPORT_2_MOUSE_MICROMYS   0x3c4
+#define IDM_JOYPORT_2_KOALAPAD         0x3c5
+#define IDM_JOYPORT_2_SAMPLER_2BIT     0x3c6
+#define IDM_JOYPORT_2_SAMPLER_4BIT     0x3c7
+#define IDM_JOYPORT_2_BBRTC            0x3c8
+#define IDM_JOYPORT_2_PAPERCLIP64      0x3c9
+#define IDM_JOYPORT_2_COPLIN_KEYPAD    0x3ca
+#define IDM_JOYPORT_2_CARDCO_KEYPAD    0x3cb
+#define IDM_JOYPORT_2_CX85_KEYPAD      0x3cc
+#define IDM_JOYPORT_2_RUSHWARE_KEYPAD  0x3cd
+#define IDM_JOYPORT_2_CX21_KEYPAD      0x3ce
+
+#define IDM_JOYPORT_3_DEVICE           0x3cf
+#define IDM_JOYPORT_3_NONE             0x3d0
+#define IDM_JOYPORT_3_JOYSTICK         0x3d1
+#define IDM_JOYPORT_3_MOUSE_NEOS       0x3d2
+#define IDM_JOYPORT_3_MOUSE_AMIGA      0x3d3
+#define IDM_JOYPORT_3_MOUSE_CX22       0x3d4
+#define IDM_JOYPORT_3_MOUSE_ST         0x3d5
+#define IDM_JOYPORT_3_SAMPLER_2BIT     0x3d6
+#define IDM_JOYPORT_3_SAMPLER_4BIT     0x3d7
+#define IDM_JOYPORT_3_BBRTC            0x3d8
+#define IDM_JOYPORT_3_PAPERCLIP64      0x3d9
+#define IDM_JOYPORT_3_COPLIN_KEYPAD    0x3da
+#define IDM_JOYPORT_3_RUSHWARE_KEYPAD  0x3db
+
+#define IDM_JOYPORT_4_DEVICE           0x3dc
+#define IDM_JOYPORT_4_NONE             0x3dd
+#define IDM_JOYPORT_4_JOYSTICK         0x3de
+#define IDM_JOYPORT_4_MOUSE_NEOS       0x3df
+#define IDM_JOYPORT_4_MOUSE_AMIGA      0x3e0
+#define IDM_JOYPORT_4_MOUSE_CX22       0x3e1
+#define IDM_JOYPORT_4_MOUSE_ST         0x3e2
+#define IDM_JOYPORT_4_SAMPLER_2BIT     0x3e3
+#define IDM_JOYPORT_4_SAMPLER_4BIT     0x3e4
+#define IDM_JOYPORT_4_BBRTC            0x3e5
+#define IDM_JOYPORT_4_PAPERCLIP64      0x3e6
+#define IDM_JOYPORT_4_COPLIN_KEYPAD    0x3e7
+#define IDM_JOYPORT_4_RUSHWARE_KEYPAD  0x3e8
+
+#define IDM_JOYPORT_5_DEVICE           0x3e9
+#define IDM_JOYPORT_5_NONE             0x3ea
+#define IDM_JOYPORT_5_JOYSTICK         0x3eb
+#define IDM_JOYPORT_5_PADDLES          0x3ec
+#define IDM_JOYPORT_5_MOUSE_1351       0x3ed
+#define IDM_JOYPORT_5_MOUSE_NEOS       0x3ee
+#define IDM_JOYPORT_5_MOUSE_AMIGA      0x3ef
+#define IDM_JOYPORT_5_MOUSE_CX22       0x3f0
+#define IDM_JOYPORT_5_MOUSE_ST         0x3f1
+#define IDM_JOYPORT_5_MOUSE_SMART      0x3f2
+#define IDM_JOYPORT_5_MOUSE_MICROMYS   0x3f3
+#define IDM_JOYPORT_5_KOALAPAD         0x3f4
+#define IDM_JOYPORT_5_SAMPLER_2BIT     0x3f5
+#define IDM_JOYPORT_5_SAMPLER_4BIT     0x3f6
+#define IDM_JOYPORT_5_BBRTC            0x3f7
+#define IDM_JOYPORT_5_PAPERCLIP64      0x3f8
+#define IDM_JOYPORT_5_COPLIN_KEYPAD    0x3f9
+#define IDM_JOYPORT_5_CARDCO_KEYPAD    0x3fa
+#define IDM_JOYPORT_5_CX85_KEYPAD      0x3fb
+#define IDM_JOYPORT_5_RUSHWARE_KEYPAD  0x3fc
+#define IDM_JOYPORT_5_CX21_KEYPAD      0x3fd
+
+#define IDM_JOYPORT_BBRTC_SAVE         0x3ff
+
+#define IDM_TAPEPORT_DEVICES           0x476
+#define IDM_TAPE_SENSE_DONGLE_ENABLE   0x4a2
+#define IDM_DTL_BASIC_DONGLE_ENABLE    0x4a3
+
+#define IDM_DATASETTE_SETTINGS         0x493
+#define IDM_DATASETTE_ENABLE           0x494
+#define IDM_DATASETTE_RESET_WITH_CPU   0x495
+#define IDM_DATASETTE_ZERO_GAP_DELAY   0x496
+#define IDM_DATASETTE_SPEED_TUNING     0x497
+#define IDM_DATASETTE_TAPE_WOBBLE      0x498
+
+#define IDM_TAPELOG_SETTINGS           0x499
+#define IDM_TAPELOG_ENABLE             0x49a
+#define IDM_TAPELOG_DESTINATION        0x49b
+#define IDM_TAPELOG_EMULOG             0x49c
+#define IDM_TAPELOG_USERLOG            0x49d
+#define IDM_TAPELOG_FILENAME           0x49e
+
+#define IDM_CP_CLOCK_F83_SETTINGS      0x49f
+#define IDM_CP_CLOCK_F83_ENABLE        0x4a0
+#define IDM_CP_CLOCK_F83_SAVE          0x4a1
+
 
 void menu_action(HWND hwnd, USHORT item); //, MPARAM mp2);
 void menu_select(HWND hwnd, USHORT item);

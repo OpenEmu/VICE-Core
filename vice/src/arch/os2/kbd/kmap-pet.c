@@ -93,7 +93,7 @@ static const resource_string_t resources_string[] = {
       &keymap_file_list[4], set_keymap_file, (void *)4 },
     { "KeymapBusinessDEPosFile", "bde_pos.vkm", RES_EVENT_NO, NULL,
       &keymap_file_list[5], set_keymap_file, (void *)5 },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 int pet_kbd_resources_init(void)
@@ -142,7 +142,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_STRING,
       IDCLS_UNUSED, IDCLS_UNUSED,
       "<name>", "Specify the name of the German business keyboard positional keymap file" },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int pet_kbd_cmdline_options_init(void)

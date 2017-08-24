@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Matthies <andreas.matthies@gmx.net>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -84,5 +85,6 @@ extern void ui_update_menus(void);
 extern void ui_enable_joyport(void);
 extern void ui_statusbar_update(void);
 extern int ui_set_window_mode(int use_direct_window);
+extern void ui_pause_emulation(int flag);
 
 #endif

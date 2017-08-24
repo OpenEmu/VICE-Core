@@ -4,6 +4,7 @@
  * Written by
  *  Ettore Perazzoli <ettore@comm2000.it>
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -61,6 +62,10 @@
 #define ARCHDEP_RS232_DEV3 "rs232.dump"
 #define ARCHDEP_RS232_DEV4 "|lpr"
 
+/* Default MIDI devices.  */
+#define ARCHDEP_MIDI_IN_DEV  "/dev/midi"
+#define ARCHDEP_MIDI_OUT_DEV "/dev/midi"
+
 /* Default location of raw disk images.  */
 #define ARCHDEP_RAWDRIVE_DEFAULT "/dev/fd0"
 
@@ -103,7 +108,7 @@ extern void archdep_signals_pipe_set(void);
 extern void archdep_signals_pipe_unset(void);
 
 #ifdef MACOSX_SUPPORT
-#define MAKE_SO_NAME_VERSION_PROTO(name, version)  "/opt/local/lib/lib" #name "." #version ".dylib"
+#define MAKE_SO_NAME_VERSION_PROTO(name, version)  "lib" #name "." #version ".dylib"
 #else
 #define MAKE_SO_NAME_VERSION_PROTO(name, version)  "lib" #name ".so." #version
 #endif
@@ -112,8 +117,8 @@ extern void archdep_signals_pipe_unset(void);
 #define ARCHDEP_MAKE_SO_NAME_VERSION(n, v) MAKE_SO_NAME_VERSION_PROTO(n, v)
 
 #ifdef MACOSX_SUPPORT
-#define ARCHDEP_OPENCBM_SO_NAME  "/opt/opencbm/lib/libopencbm.dylib"
-#define ARCHDEP_LAME_SO_NAME     "/opt/local/lib/libmp3lame.dylib"
+#define ARCHDEP_OPENCBM_SO_NAME  "libopencbm.dylib"
+#define ARCHDEP_LAME_SO_NAME     "libmp3lame.dylib"
 #else
 #define ARCHDEP_OPENCBM_SO_NAME  "libopencbm.so"
 #define ARCHDEP_LAME_SO_NAME     "libmp3lame.so"

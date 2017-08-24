@@ -71,6 +71,7 @@
 #include "uilib.h"
 #include "uisnapshot.h"
 #include "util.h"
+#include "snapshot.h"
 
 static Widget snapshot_dialog;
 static Widget snapshot_dialog_pane;
@@ -130,7 +131,7 @@ static UI_CALLBACK(save_callback)
     util_add_extension(&filename, "vsf");
     
     if (machine_write_snapshot(filename, save_roms, save_disks, 0) < 0) {
-        ui_error(_("Cannot write snapshot file\n`%s'\n"), filename);
+        snapshot_display_error();
     }
 
     lib_free(filename);
@@ -167,22 +168,18 @@ static void build_snapshot_dialog(void)
                                               NULL);
     lib_free(filename);
 
-#ifndef ENABLE_TEXTFIELD
     file_name_field = XtVaCreateManagedWidget("fileNameField",
+#ifndef ENABLE_TEXTFIELD
                                               asciiTextWidgetClass, file_name_form,
-                                              XtNfromHoriz, file_name_label,
-                                              XtNwidth, 200,
                                               XtNtype, XawAsciiString,
                                               XtNeditType, XawtextEdit,
-                                              NULL);
 #else
-    file_name_field = XtVaCreateManagedWidget("fileNameField",
                                               textfieldWidgetClass, file_name_form,
+                                              XtNstring, "",         /* Otherwise, it does not work correctly.  */
+#endif
                                               XtNfromHoriz, file_name_label,
                                               XtNwidth, 200,
-                                              XtNstring, "",         /* Otherwise, it does not work correctly.  */
                                               NULL);
-#endif
 
     button_title = util_concat(_("Browse"), "...", NULL);
     browse_button = XtVaCreateManagedWidget("browseButton",

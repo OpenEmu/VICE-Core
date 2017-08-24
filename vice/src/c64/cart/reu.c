@@ -44,10 +44,10 @@
 #include <string.h>
 
 #include "archdep.h"
-#include "c64export.h"
 #include "cartio.h"
 #include "cartridge.h"
 #include "cmdline.h"
+#include "export.h"
 #include "interrupt.h"
 #include "lib.h"
 #include "log.h"
@@ -245,6 +245,7 @@ struct reu_ba_s {
     int *cpu_ba;
     int cpu_ba_mask;
     int enabled;
+    int delay, last_cycle;
 };
 
 static struct reu_ba_s reu_ba = {
@@ -277,7 +278,7 @@ static io_source_t reu_io2_device = {
 
 static io_source_list_t *reu_list_item = NULL;
 
-static const c64export_resource_t export_res_reu = {
+static const export_resource_t export_res_reu = {
     CARTRIDGE_NAME_REU, 0, 0, NULL, &reu_io2_device, CARTRIDGE_REU
 };
 
@@ -319,7 +320,7 @@ static int set_reu_enabled(int value, void *param)
         if (reu_deactivate() < 0) {
             return -1;
         }
-        c64export_remove(&export_res_reu);
+        export_remove(&export_res_reu);
         io_source_unregister(reu_list_item);
         reu_list_item = NULL;
         reu_enabled = 0;
@@ -327,7 +328,7 @@ static int set_reu_enabled(int value, void *param)
         if (reu_activate() < 0) {
             return -1;
         }
-        if (c64export_add(&export_res_reu) < 0) {
+        if (export_add(&export_res_reu) < 0) {
             return -1;
         }
         reu_list_item = io_source_register(&reu_io2_device);
@@ -479,7 +480,7 @@ static int set_reu_image_write(int val, void *param)
 static const resource_string_t resources_string[] = {
     { "REUfilename", "", RES_EVENT_NO, NULL,
       &reu_filename, set_reu_filename, NULL },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 /*! \brief integer resources used by the REU module */
@@ -491,7 +492,7 @@ static const resource_int_t resources_int[] = {
     /* keeping "enable" resource last prevents unnecessary (re)init when loading config file */
     { "REU", 0, RES_EVENT_STRICT, (resource_value_t)0,
       &reu_enabled, set_reu_enabled, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 /*! \brief initialize the reu resources
@@ -551,7 +552,7 @@ static const cmdline_option_t cmdline_options[] =
       USE_PARAM_STRING, USE_DESCRIPTION_ID,
       IDCLS_UNUSED, IDCLS_DO_NOT_WRITE_TO_REU_IMAGE,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 /*! \brief initialize the command-line options'
@@ -752,8 +753,22 @@ inline static void reu_clk_inc_pre(void)
     }
 }
 
-/*! \brief clock handling for x64sc */
+/*! \brief clock handling for x64sc reu write */
 inline static void reu_clk_inc_post(void)
+{
+    if (reu_ba.enabled) {
+        maincpu_clk++;
+        if (reu_ba.check()) reu_ba.delay++; else reu_ba.delay = 0;
+        reu_ba.last_cycle = (reu_ba.delay > 1);
+        if (reu_ba.last_cycle) {
+            reu_ba.steal();
+            reu_ba.delay = 0;
+        }
+    }
+}
+
+/*! \brief clock handling for x64sc reu read */
+inline static void reu_clk_inc_post2(void)
 {
     if (reu_ba.enabled) {
         maincpu_clk++;
@@ -911,13 +926,17 @@ static BYTE reu_io2_read(WORD addr)
 
                 maincpu_set_irq(reu_int_num, 0);
                 break;
+            case REU_REG_RW_BANK:
+                /* on actual REUs that were modded to contain more memory the upper
+                   bits can not be read from the latch. */
+                retval |= 0xf8;
+                break;
             default:
                 break;
         }
 
         DEBUG_LOG(DEBUG_LEVEL_REGISTER, (reu_log, "read [$%02X] => $%02X.", addr, retval));
     }
-
     return retval;
 }
 
@@ -1162,7 +1181,7 @@ static void reu_dma_host_to_reu(WORD host_addr, unsigned int reu_addr, int host_
         reu_clk_inc_pre();
         machine_handle_pending_alarms(0);
         value = mem_read(host_addr);
-        reu_clk_inc_post();
+        reu_clk_inc_post2();
         DEBUG_LOG(DEBUG_LEVEL_TRANSFER_LOW_LEVEL, (reu_log, "Transferring byte: %x from main $%04X to ext $%05X.", value, host_addr, reu_addr));
 
         store_to_reu(reu_addr, value);
@@ -1212,6 +1231,10 @@ static void reu_dma_reu_to_host(WORD host_addr, unsigned int reu_addr, int host_
         reu_addr = increment_reu_with_wrap_around(reu_addr, reu_step);
         len--;
     }
+    if (reu_ba.enabled && reu_ba.last_cycle) { /* extra cycle if ended while BA set */
+       machine_handle_pending_alarms(0);
+       reu_clk_inc_post2();
+    }
     DEBUG_LOG(DEBUG_LEVEL_REGISTER2, (reu_log, "END OF BLOCK"));
     reu_dma_update_regs(host_addr, reu_addr, ++len, REU_REG_R_STATUS_END_OF_BLOCK);
 }
@@ -1249,7 +1272,7 @@ static void reu_dma_swap(WORD host_addr, unsigned int reu_addr, int host_step, i
         reu_clk_inc_pre();
         machine_handle_pending_alarms(0);
         value_from_c64 = mem_read(host_addr);
-        reu_clk_inc_post();
+        reu_clk_inc_post2();
         DEBUG_LOG(DEBUG_LEVEL_TRANSFER_LOW_LEVEL, (reu_log, "Exchanging bytes: %x from main $%04X with %x from ext $%05X.", value_from_c64, host_addr, value_from_reu, reu_addr));
         store_to_reu(reu_addr, value_from_c64);
         mem_store(host_addr, value_from_reu);
@@ -1259,6 +1282,10 @@ static void reu_dma_swap(WORD host_addr, unsigned int reu_addr, int host_step, i
         host_addr = (host_addr + host_step) & 0xffff;
         reu_addr = increment_reu_with_wrap_around(reu_addr, reu_step);
         len--;
+    }
+    if (reu_ba.enabled && reu_ba.last_cycle) { /* extra cycle if ended while BA set */
+       machine_handle_pending_alarms(0);       /* likely needed, but not confirmed yet */
+       reu_clk_inc_post2();
     }
     DEBUG_LOG(DEBUG_LEVEL_REGISTER2, (reu_log, "END OF BLOCK"));
     reu_dma_update_regs(host_addr, reu_addr, ++len, REU_REG_R_STATUS_END_OF_BLOCK);
@@ -1305,7 +1332,7 @@ static void reu_dma_compare(WORD host_addr, unsigned int reu_addr, int host_step
         machine_handle_pending_alarms(0);
         value_from_reu = read_from_reu(reu_addr);
         value_from_c64 = mem_read(host_addr);
-        reu_clk_inc_post();
+        reu_clk_inc_post2();
         DEBUG_LOG(DEBUG_LEVEL_TRANSFER_LOW_LEVEL, (reu_log, "Comparing bytes: %x from main $%04X with %x from ext $%05X.", value_from_c64, host_addr, value_from_reu, reu_addr));
         reu_addr = increment_reu_with_wrap_around(reu_addr, reu_step);
         host_addr = (host_addr + host_step) & 0xffff;
@@ -1322,7 +1349,7 @@ static void reu_dma_compare(WORD host_addr, unsigned int reu_addr, int host_step
             if (len >= 1) {
                 reu_clk_inc_pre();
                 machine_handle_pending_alarms(0);
-                reu_clk_inc_post();
+                reu_clk_inc_post2();
             }
             break;
         }
@@ -1401,6 +1428,7 @@ void reu_dma(int immediate)
     if (reu_ba.enabled) {
         /* signal CPU that BA is pulled low */
         *(reu_ba.cpu_ba) |= reu_ba.cpu_ba_mask;
+        reu_ba.delay = 0; reu_ba.last_cycle = 0;
     } else {
         /* start the operation right away */
         reu_dma_start();
@@ -1446,6 +1474,15 @@ void reu_dma_start(void)
 
 /* ------------------------------------------------------------------------- */
 
+/* REU1764 snapshot module format:
+
+   type  | name      | description
+   -------------------------------
+   DWORD | size      | size of REU in KB
+   ARRAY | registers | 16 BYTES of register data
+   ARRAY | RAM       | 131072, 262144, 524288, 1048576, 2097152, 4194304, 8388608 or 16777216 BYTES of RAM data
+ */
+
 static char snap_module_name[] = "REU1764"; /*!< the name of the module for the snapshot */
 #define SNAP_MAJOR 0 /*!< version number for this module, major number */
 #define SNAP_MINOR 0 /*!< version number for this module, minor number */
@@ -1479,17 +1516,20 @@ int reu_write_snapshot_module(snapshot_t *s)
     }
 
     m = snapshot_module_create(s, snap_module_name, SNAP_MAJOR, SNAP_MINOR);
+
     if (m == NULL) {
         return -1;
     }
 
-    if (SMW_DW(m, (reu_size >> 10)) < 0 || SMW_BA(m, reu, sizeof(reu)) < 0 || SMW_BA(m, reu_ram, reu_size) < 0) {
+    if (0
+        || SMW_DW(m, (reu_size >> 10)) < 0
+        || SMW_BA(m, reu, sizeof(reu)) < 0
+        || SMW_BA(m, reu_ram, reu_size) < 0) {
         snapshot_module_close(m);
         return -1;
     }
 
-    snapshot_module_close(m);
-    return 0;
+    return snapshot_module_close(m);
 }
 
 /*! \brief read the REU module data from the snapshot
@@ -1515,8 +1555,9 @@ int reu_read_snapshot_module(snapshot_t *s)
         return -1;
     }
 
-    if (major_version != SNAP_MAJOR) {
-        log_error(reu_log, "Major version %d not valid; should be %d.", major_version, SNAP_MAJOR);
+    /* Do not accept versions higher than current */
+    if (major_version > SNAP_MAJOR || minor_version > SNAP_MINOR) {
+        snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
 
@@ -1549,7 +1590,6 @@ int reu_read_snapshot_module(snapshot_t *s)
     for (reu_address = 0; reu_address < sizeof(reu); reu_address++) {
         reu_store_without_sideeffects(reu_address, reu[reu_address]);
     }
-
 
     snapshot_module_close(m);
     reu_enabled = 1;

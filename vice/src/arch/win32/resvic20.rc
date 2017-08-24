@@ -77,6 +77,7 @@ BEGIN
         POPUP "Attach cartridge image..."
         BEGIN
             MENUITEM "", IDM_CART_VIC20_GENERIC
+            MENUITEM "", IDM_CART_VIC20_BEHR_BONZ
             MENUITEM "", IDM_CART_VIC20_MEGACART
             MENUITEM "", IDM_CART_VIC20_FINAL_EXPANSION
             MENUITEM "", IDM_CART_VIC20_UM
@@ -95,6 +96,7 @@ BEGIN
             MENUITEM "", IDM_CART_SET_DEFAULT
         END
         MENUITEM "", IDM_CART_DETACH
+        MENUITEM "", IDM_IO_COLLISION_HANDLING
         MENUITEM SEPARATOR
         MENUITEM "", IDM_MONITOR
         MENUITEM SEPARATOR
@@ -195,6 +197,7 @@ BEGIN
             MENUITEM "", IDM_MAXIMUM_SPEED_CUSTOM
         END
         MENUITEM "", IDM_PAUSE, CHECKED
+        MENUITEM "", IDM_SINGLE_FRAME_ADVANCE
         MENUITEM "", IDM_TOGGLE_WARP_MODE, CHECKED
         MENUITEM SEPARATOR
         MENUITEM "", IDM_KEYBOARD_SETTINGS
@@ -204,6 +207,7 @@ BEGIN
             MENUITEM SEPARATOR
             MENUITEM "", IDM_SOUND_SETTINGS
         END
+        MENUITEM "", IDM_SAMPLER_SETTINGS
         MENUITEM SEPARATOR
         MENUITEM "", IDM_AUTOSTART_SETTINGS
         MENUITEM "", IDM_DATASETTE_SETTINGS
@@ -250,6 +254,9 @@ BEGIN
         MENUITEM "", IDM_RAM_SETTINGS
         MENUITEM "", IDM_ROM_SETTINGS
         MENUITEM "", IDM_VIC_SETTINGS
+#ifdef HAVE_PCAP
+        MENUITEM "", IDM_ETHERNET_SETTINGS
+#endif
         MENUITEM SEPARATOR
         POPUP "Cartridge/IO settings"
         BEGIN
@@ -260,6 +267,7 @@ BEGIN
             MENUITEM "", IDM_ULTIMEM_WRITEBACK
             MENUITEM "", IDM_IO2_RAM_ENABLE
             MENUITEM "", IDM_IO3_RAM_ENABLE
+            MENUITEM "", IDM_VFLIMOD_ENABLE
             MENUITEM "", IDM_SIDCART_SETTINGS
             MENUITEM "", IDM_IEEE488
             MENUITEM SEPARATOR
@@ -268,12 +276,26 @@ BEGIN
             MENUITEM "", IDM_GEORAM_SETTINGS
             MENUITEM "", IDM_SFX_SE_SETTINGS
             MENUITEM "", IDM_SFX_SS_SETTINGS
-#ifdef HAVE_TFE
-            MENUITEM "", IDM_TFE_SETTINGS
+#ifdef HAVE_PCAP
+            MENUITEM "", IDM_ETHERNETCART_SETTINGS
 #endif
 #ifdef HAVE_MIDI
             MENUITEM "", IDM_MIDI_SETTINGS
 #endif
+            POPUP "Userport devices"
+            BEGIN
+                MENUITEM "", IDM_USERPORT_RTC_58321A_SETTINGS
+                MENUITEM "", IDM_USERPORT_RTC_DS1307_SETTINGS
+                MENUITEM "", IDM_TOGGLE_PET_USERPORT_DAC
+            END
+            POPUP "Tape port devices"
+            BEGIN
+                MENUITEM "", IDM_TAPELOG_SETTINGS
+                MENUITEM "", IDM_CP_CLOCK_F83_SETTINGS
+                MENUITEM "", IDM_TOGGLE_DATASETTE
+                MENUITEM "", IDM_TOGGLE_TAPE_SENSE_DONGLE
+                MENUITEM "", IDM_TOGGLE_DTL_BASIC_DONGLE
+            END
             MENUITEM SEPARATOR
             MENUITEM "", IDM_TOGGLE_CART_RESET
         END
@@ -504,53 +526,6 @@ END
 
 // dialog template for all languages
 
-// FIXME: keyboard dialog can be made generic
-
-IDD_VIC20KBD_MAPPING_SETTINGS_DIALOG DIALOG DISCARDABLE 0, 0, 240, 140
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-FONT 8, "MS Sans Serif"
-BEGIN
-    AUTORADIOBUTTON "", IDC_VIC20KBD_MAPPING_SELECT_SYM,
-                    10, 10, 54, 10, BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP
-    AUTORADIOBUTTON "", IDC_VIC20KBD_MAPPING_SELECT_POS,
-                    10, 30, 54, 10, BS_AUTORADIOBUTTON
-    AUTORADIOBUTTON "", IDC_VIC20KBD_MAPPING_SELECT_USERSYM,
-                    10, 50, 54, 10, BS_AUTORADIOBUTTON
-    AUTORADIOBUTTON "", IDC_VIC20KBD_MAPPING_SELECT_USERPOS,
-                    10, 70, 54, 10, BS_AUTORADIOBUTTON
-
-    EDITTEXT        IDC_VIC20KBD_MAPPING_SYM,
-                    65, 9, 110, 12, WS_TABSTOP
-    PUSHBUTTON      "", IDC_VIC20KBD_MAPPING_SYM_BROWSE,
-                    185, 9, 50, 14, 0
-    EDITTEXT        IDC_VIC20KBD_MAPPING_POS,
-                    65, 29, 110, 12, WS_TABSTOP
-    PUSHBUTTON      "", IDC_VIC20KBD_MAPPING_POS_BROWSE,
-                    185, 29, 50, 14, 0
-    EDITTEXT        IDC_VIC20KBD_MAPPING_USERSYM,
-                    65, 49, 110, 12, WS_TABSTOP
-    PUSHBUTTON      "", IDC_VIC20KBD_MAPPING_USERSYM_BROWSE,
-                    185, 49, 50, 14, 0
-    EDITTEXT        IDC_VIC20KBD_MAPPING_USERPOS,
-                    65, 69, 110, 12, WS_TABSTOP
-    PUSHBUTTON      "", IDC_VIC20KBD_MAPPING_USERPOS_BROWSE,
-                    185, 69, 50, 14, 0
-
-    PUSHBUTTON      "", IDC_VIC20KBD_MAPPING_DUMP,
-                    10, 94, 60, 14, 0
-    PUSHBUTTON      "", IDC_KBD_SHORTCUT_DUMP,
-                    80, 94, 60, 14, 0
-
-    DEFPUSHBUTTON   "", IDOK,
-                    20, 120, 50, 14, WS_TABSTOP
-    PUSHBUTTON      "", IDCANCEL,
-                    80, 120, 50, 14, WS_TABSTOP
-END
-
-// -----------------------------------------------------------------------------
-
-// dialog template for all languages
-
 IDD_VIC20MODEL_SETTINGS_DIALOG DIALOG DISCARDABLE 0, 0, 150, 80
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION ""
@@ -589,6 +564,7 @@ BEGIN
     IDS_VIC_BLOCK3                           "Block 3 (8K at $6000-$7FFF)"
     IDS_VIC_BLOCK5                           "Block 5 (8K at $A000-$BFFF)"
     IDS_SELECT_GENERIC                       "Select generic cartridge image"
+    IDS_SELECT_BEHR_BONZ                     "Select Behr Bonz image"
     IDS_SELECT_MEGACART                      "Select Mega-Cart image"
     IDS_SELECT_FINAL_EXPANSION               "Select Final Expansion image"
     IDS_SELECT_UM                            "Select UltiMem image"
@@ -602,6 +578,7 @@ BEGIN
     IDS_VIC20MODEL                           "VIC20 model"
     IDS_MI_IEEE488                           "VIC-1112 IEEE-488 module"
     IDS_MI_CART_VIC20_GENERIC                "Generic image..."
+    IDS_MI_CART_VIC20_BEHR_BONZ              "Behr Bonz image..."
     IDS_MI_CART_VIC20_MEGACART               "Mega-Cart image..."
     IDS_MI_CART_VIC20_FINAL_EXPANSION        "Final Expansion image..."
     IDS_MI_CART_VIC20_UM                     "UltiMem image..."
@@ -620,12 +597,13 @@ BEGIN
     IDS_MI_MEGACART_WRITEBACK_FILE           "Select Mega-Cart non-volatile RAM file"
     IDS_MI_IO2_RAM_ENABLE                    "Enable I/O-2 RAM"
     IDS_MI_IO3_RAM_ENABLE                    "Enable I/O-3 RAM"
+    IDS_MI_VFLIMOD_ENABLE                    "Enable VFLI modification"
     IDS_MI_ACIA_SETTINGS_MASCUERADE          "ACIA settings (MasC=uerade)..."
     IDS_MI_GEORAM_SETTINGS_MASCUERADE        "GEO-RAM settings (MasC=uerade)..."
     IDS_MI_DIGIMAX_SETTINGS_MASCUERADE       "DigiMAX settings (MasC=uerade)..."
     IDS_MI_DS12C887RTC_SETTINGS_MASCUERADE   "DS12C887 RTC settings (MasC=uerade)..."
-#ifdef HAVE_TFE
-    IDS_MI_TFE_SETTINGS_MASCUERADE           "Ethernet settings (MasC=uerade)..."
+#ifdef HAVE_PCAP
+    IDS_MI_ETHERNETCART_SETTINGS_MASCUERADE  "Ethernet Cart settings (MasC=uerade)..."
 #endif
     IDS_MI_SFX_SE_SETTINGS_MASCUERADE        "SFX Sound Expander settings (MasC=uerade)..."
     IDS_MI_SFX_SS_SETTINGS_MASCUERADE        "SFX Sound Sampler settings (MasC=uerade)..."
@@ -653,6 +631,7 @@ BEGIN
     IDS_VIC_BLOCK3                           "Block 3 (8k på $6000-$7FFF)"
     IDS_VIC_BLOCK5                           "Block 5 (8k på $A000-$BFFF)"
     IDS_SELECT_GENERIC                       "Vælg standardcartridgeimage"
+    IDS_SELECT_BEHR_BONZ                     "Select Behr Bonz image"
     IDS_SELECT_MEGACART                      "Vælg MegaCart-imagefil"
     IDS_SELECT_FINAL_EXPANSION               "Vælg Final Expansion-imagefil"
     IDS_SELECT_UM                            "Select UltiMem image"
@@ -666,6 +645,7 @@ BEGIN
     IDS_VIC20MODEL                           "VIC20 model"
     IDS_MI_IEEE488                           "VIC-1112 IEEE-488-modul"
     IDS_MI_CART_VIC20_GENERIC                "Standard-image..."
+    IDS_MI_CART_VIC20_BEHR_BONZ              "Behr Bonz image..."
     IDS_MI_CART_VIC20_MEGACART               "Mega-Cart image..."
     IDS_MI_CART_VIC20_FINAL_EXPANSION        "Final Expansion-image..."
     IDS_MI_CART_VIC20_UM                     "UltiMem image..."
@@ -684,12 +664,13 @@ BEGIN
     IDS_MI_MEGACART_WRITEBACK_FILE           "Vælg Mega-Cart NVRAM-fil"
     IDS_MI_IO2_RAM_ENABLE                    "Enable I/O-2 RAM"
     IDS_MI_IO3_RAM_ENABLE                    "Enable I/O-3 RAM"
+    IDS_MI_VFLIMOD_ENABLE                    "Enable VFLI modification"
     IDS_MI_ACIA_SETTINGS_MASCUERADE          "ACIA-indstillinger (MasC=uerade)..."
     IDS_MI_GEORAM_SETTINGS_MASCUERADE        "GEO-RAM-indstillinger (MasC=uerade)..."
     IDS_MI_DIGIMAX_SETTINGS_MASCUERADE       "DigiMAX-indstillinger (MasC=uerade)..."
     IDS_MI_DS12C887RTC_SETTINGS_MASCUERADE   "DS12C887 RTC-indstillinger (MasC=uerade)..."
-#ifdef HAVE_TFE
-    IDS_MI_TFE_SETTINGS_MASCUERADE           "Ethernetindstillinger (MasC=uerade)..."
+#ifdef HAVE_PCAP
+    IDS_MI_ETHERNETCART_SETTINGS_MASCUERADE  "Ethernet Cart settings (MasC=uerade)..."
 #endif
     IDS_MI_SFX_SE_SETTINGS_MASCUERADE        "SFX Sound Expander-indstillinger (MasC=uerade)..."
     IDS_MI_SFX_SS_SETTINGS_MASCUERADE        "SFX Sound Sampler-indstillinger (MasC=uerade)..."
@@ -716,10 +697,11 @@ BEGIN
     IDS_VIC_BLOCK2                           "Block 2 (8K bei $4000-$5FFF)"
     IDS_VIC_BLOCK3                           "Block 3 (8K bei $6000-$7FFF)"
     IDS_VIC_BLOCK5                           "Block 5 (8K bei $A000-$BFFF)"
-    IDS_SELECT_GENERIC                       "Unverselles Erweiterungsmodul Image Datei wählen"
+    IDS_SELECT_GENERIC                       "Unverselles Erweiterungsmodul Imagedatei wählen"
+    IDS_SELECT_BEHR_BONZ                     "Behr Bonz Imagedatei wählen"
     IDS_SELECT_MEGACART                      "Mega-Cart Image Date wählen"
-    IDS_SELECT_FINAL_EXPANSION               "Final Expansion Image Datei auswählen"
-    IDS_SELECT_UM                            "Select UltiMem image"
+    IDS_SELECT_FINAL_EXPANSION               "Final Expansion Imagedatei auswählen"
+    IDS_SELECT_UM                            "UltiMem Image wählen"
     IDS_SELECT_FP                            "Vic Flash Plugin Image auswählen"
     IDS_ATTACH_4_8_16_CART_2000              "4/8/16KB Modul Image bei $2000 einlegen"
     IDS_ATTACH_4_8_16_CART_4000              "4/8/16KB Modul Image bei $4000 einlegen"
@@ -730,9 +712,10 @@ BEGIN
     IDS_VIC20MODEL                           "VIC20 Modell"
     IDS_MI_IEEE488                           "VIC-1112 IEEE-488 Modul"
     IDS_MI_CART_VIC20_GENERIC                "Generisches Image..."
+    IDS_MI_CART_VIC20_BEHR_BONZ              "Behr Bonz Image..."
     IDS_MI_CART_VIC20_MEGACART               "Mega-Cart Image..."
     IDS_MI_CART_VIC20_FINAL_EXPANSION        "Final Expansion Image..."
-    IDS_MI_CART_VIC20_UM                     "UltiMem image..."
+    IDS_MI_CART_VIC20_UM                     "UltiMem Image..."
     IDS_MI_CART_VIC20_FP                     "Vic Flash Plugin Image..."
     IDS_MP_ADD_TO_GENERIC                    "Zu universellem Erweiterungsmodul hinzufügen..."
     IDS_MI_CART_VIC20_8KB_2000               "4/8/16KB Image bei $2000..."
@@ -743,17 +726,18 @@ BEGIN
     IDS_MI_VIC20_SETTINGS                    "VIC20 Einstellungen..."
     IDS_MI_FINAL_EXPANSION_WRITEBACK         "Final Expansion ROM Schreibzugriff aktivieren"
     IDS_MI_VIC_FLASH_PLUGIN_WRITEBACK        "Vic Flash Plugin Rückschreiben auf ROM Datei aktivieren"
-    IDS_MI_ULTIMEM_WRITEBACK                 "Enable UltiMem write back to ROM file"
+    IDS_MI_ULTIMEM_WRITEBACK                 "UltiMem ROM Schreibzugriff aktivieren"
     IDS_MI_MEGACART_WRITEBACK                "Mega-Cart NvRAM Rückschreiben aktivieren"
     IDS_MI_MEGACART_WRITEBACK_FILE           "Mega-Cart nicht-flüchtiges RAM Datei wählen"
-    IDS_MI_IO2_RAM_ENABLE                    "Enable I/O-2 RAM"
-    IDS_MI_IO3_RAM_ENABLE                    "Enable I/O-3 RAM"
+    IDS_MI_IO2_RAM_ENABLE                    "I/O-2 RAM aktivieren"
+    IDS_MI_IO3_RAM_ENABLE                    "I/O-3 RAM aktivieren"
+    IDS_MI_VFLIMOD_ENABLE                    "VFLI Emulation aktivieren"
     IDS_MI_ACIA_SETTINGS_MASCUERADE          "ACIA Einstellungen (MasC=uerade)..."
     IDS_MI_GEORAM_SETTINGS_MASCUERADE        "GEO-RAM Einstellungen (MasC=uerade)..."
     IDS_MI_DIGIMAX_SETTINGS_MASCUERADE       "DigiMAX Einstellungen (MasC=uerade)..."
     IDS_MI_DS12C887RTC_SETTINGS_MASCUERADE   "DS12C887 RTC Einstellungen (MasC=uerade)..."
-#ifdef HAVE_TFE
-    IDS_MI_TFE_SETTINGS_MASCUERADE           "Ethernet Einstellungen (MasC=uerade)..."
+#ifdef HAVE_PCAP
+    IDS_MI_ETHERNETCART_SETTINGS_MASCUERADE  "Ethernet Modul Einstellungen (MasC=uerade)..."
 #endif
     IDS_MI_SFX_SE_SETTINGS_MASCUERADE        "SFX Sound Expander Einstellungen (MasC=uerade)..."
     IDS_MI_SFX_SS_SETTINGS_MASCUERADE        "SFX Sound Sampler Einstellungen (MasC=uerade)..."
@@ -781,6 +765,7 @@ BEGIN
     IDS_VIC_BLOCK3                           "Bloque 3 (8K at $6000-$7FFF)"
     IDS_VIC_BLOCK5                           "Bloque 5 (8K at $A000-$BFFF)"
     IDS_SELECT_GENERIC                       "Seleccionar imagen cartucho generico"
+    IDS_SELECT_BEHR_BONZ                     "Select Behr Bonz image"
     IDS_SELECT_MEGACART                      "Seleccionar imagen Mega-Cart"
     IDS_SELECT_FINAL_EXPANSION               "Seleccionar imagen Final Expansion"
     IDS_SELECT_UM                            "Select UltiMem image"
@@ -794,6 +779,7 @@ BEGIN
     IDS_VIC20MODEL                           "Modelo VIC20"
     IDS_MI_IEEE488                           "Módulo VIC-1112 IEEE-488"
     IDS_MI_CART_VIC20_GENERIC                "Imagen generica..."
+    IDS_MI_CART_VIC20_BEHR_BONZ              "Behr Bonz image..."
     IDS_MI_CART_VIC20_MEGACART               "Imagen Mega-Cart..."
     IDS_MI_CART_VIC20_FINAL_EXPANSION        "Imagen Final Expansion..."
     IDS_MI_CART_VIC20_UM                     "UltiMem image..."
@@ -812,12 +798,13 @@ BEGIN
     IDS_MI_MEGACART_WRITEBACK_FILE           "Seleccionar fichero RAM Mega-Cart no volatil"
     IDS_MI_IO2_RAM_ENABLE                    "Enable I/O-2 RAM"
     IDS_MI_IO3_RAM_ENABLE                    "Enable I/O-3 RAM"
+    IDS_MI_VFLIMOD_ENABLE                    "Enable VFLI modification"
     IDS_MI_ACIA_SETTINGS_MASCUERADE          "Ajustes ACIA (MasC=uerade)..."
     IDS_MI_GEORAM_SETTINGS_MASCUERADE        "Ajustes GEO-RAM (MasC=uerade)..."
     IDS_MI_DIGIMAX_SETTINGS_MASCUERADE       "Ajustes DigiMAX (MasC=uerade)..."
     IDS_MI_DS12C887RTC_SETTINGS_MASCUERADE   "Ajustes DS12C887 RTC (MasC=uerade)..."
-#ifdef HAVE_TFE
-    IDS_MI_TFE_SETTINGS_MASCUERADE           "Ajustes Ethernet (MasC=uerade)..."
+#ifdef HAVE_PCAP
+    IDS_MI_ETHERNETCART_SETTINGS_MASCUERADE  "Ethernet Cart settings (MasC=uerade)..."
 #endif
     IDS_MI_SFX_SE_SETTINGS_MASCUERADE        "Ajustes SFX Sound Expander (MasC=uerade)..."
     IDS_MI_SFX_SS_SETTINGS_MASCUERADE        "Ajustes SFX Sound Sampler (MasC=uerade)..."
@@ -845,6 +832,7 @@ BEGIN
     IDS_VIC_BLOCK3                           "Bloc 3 (8 ko à $6000-$7FFF)"
     IDS_VIC_BLOCK5                           "Bloc 5 (8 ko à $A000-$BFFF)"
     IDS_SELECT_GENERIC                       "Sélectionner l'image de cartouche générique"
+    IDS_SELECT_BEHR_BONZ                     "Select Behr Bonz image"
     IDS_SELECT_MEGACART                      "Sélectionner l'image Mega-Cart"
     IDS_SELECT_FINAL_EXPANSION               "Sélectionner l'image ROM Final Expansion"
     IDS_SELECT_UM                            "Select UltiMem image"
@@ -858,6 +846,7 @@ BEGIN
     IDS_VIC20MODEL                           "VIC20 model"
     IDS_MI_IEEE488                           "Module VIC-1112 IEEE 488"
     IDS_MI_CART_VIC20_GENERIC                "Image générique..."
+    IDS_MI_CART_VIC20_BEHR_BONZ              "Behr Bonz image..."
     IDS_MI_CART_VIC20_MEGACART               "Image Mega-Cart..."
     IDS_MI_CART_VIC20_FINAL_EXPANSION        "Image Final Expansion..."
     IDS_MI_CART_VIC20_UM                     "UltiMem image..."
@@ -876,12 +865,13 @@ BEGIN
     IDS_MI_MEGACART_WRITEBACK_FILE           "Sélectionner le fichier de RAM non-volatile Mega-Cart"
     IDS_MI_IO2_RAM_ENABLE                    "Enable I/O-2 RAM"
     IDS_MI_IO3_RAM_ENABLE                    "Enable I/O-3 RAM"
+    IDS_MI_VFLIMOD_ENABLE                    "Enable VFLI modification"
     IDS_MI_ACIA_SETTINGS_MASCUERADE          "Paramètres ACIA (MasC=uerade)..."
     IDS_MI_GEORAM_SETTINGS_MASCUERADE        "Paramètres GEO-RAM (MasC=uerade)..."
     IDS_MI_DIGIMAX_SETTINGS_MASCUERADE       "Paramètres DigiMAX (MasC=uerade)..."
     IDS_MI_DS12C887RTC_SETTINGS_MASCUERADE   "Paramètres DS12C887 RTC (MasC=uerade)..."
-#ifdef HAVE_TFE
-    IDS_MI_TFE_SETTINGS_MASCUERADE           "Paramètres Ethernet (MasC=uerade)..."
+#ifdef HAVE_PCAP
+    IDS_MI_ETHERNETCART_SETTINGS_MASCUERADE  "Ethernet Cart settings (MasC=uerade)..."
 #endif
     IDS_MI_SFX_SE_SETTINGS_MASCUERADE        "Paramètres du SFX Sound Expander (MasC=uerade)..."
     IDS_MI_SFX_SS_SETTINGS_MASCUERADE        "Paramètres du SFX Sound Sampler (MasC=uerade)..."
@@ -912,6 +902,7 @@ BEGIN
     IDS_VIC_BLOCK3                           "Block 3 (8K at $6000-$7FFF)"
     IDS_VIC_BLOCK5                           "Block 5 (8K at $A000-$BFFF)"
     IDS_SELECT_GENERIC                       "Select generic cartridge image"
+    IDS_SELECT_BEHR_BONZ                     "Select Behr Bonz image"
     IDS_SELECT_MEGACART                      "Válassza ki a Mega-Cart képmást"
     IDS_SELECT_FINAL_EXPANSION               "Válassza ki a Final Expansion képmást"
     IDS_SELECT_UM                            "Select UltiMem image"
@@ -925,6 +916,7 @@ BEGIN
     IDS_VIC20MODEL                           "VIC20 model"
     IDS_MI_IEEE488                           "VIC-1112 IEEE-488 module"
     IDS_MI_CART_VIC20_GENERIC                "Generic image..."
+    IDS_MI_CART_VIC20_BEHR_BONZ              "Behr Bonz image..."
     IDS_MI_CART_VIC20_MEGACART               "Mega-Cart image..."
     IDS_MI_CART_VIC20_FINAL_EXPANSION        "Final Expansion image..."
     IDS_MI_CART_VIC20_UM                     "UltiMem image..."
@@ -943,12 +935,13 @@ BEGIN
     IDS_MI_MEGACART_WRITEBACK_FILE           "Válassza ki az NvRAM képfájlt"
     IDS_MI_IO2_RAM_ENABLE                    "Enable I/O-2 RAM"
     IDS_MI_IO3_RAM_ENABLE                    "Enable I/O-3 RAM"
+    IDS_MI_VFLIMOD_ENABLE                    "Enable VFLI modification"
     IDS_MI_ACIA_SETTINGS_MASCUERADE          "ACIA settings (MasC=uerade)..."
     IDS_MI_GEORAM_SETTINGS_MASCUERADE        "GEO-RAM settings (MasC=uerade)..."
     IDS_MI_DIGIMAX_SETTINGS_MASCUERADE       "DigiMAX settings (MasC=uerade)..."
     IDS_MI_DS12C887RTC_SETTINGS_MASCUERADE   "DS12C887 RTC settings (MasC=uerade)..."
-#ifdef HAVE_TFE
-    IDS_MI_TFE_SETTINGS_MASCUERADE           "Ethernet settings (MasC=uerade)..."
+#ifdef HAVE_PCAP
+    IDS_MI_ETHERNETCART_SETTINGS_MASCUERADE  "Ethernet Cart settings (MasC=uerade)..."
 #endif
     IDS_MI_SFX_SE_SETTINGS_MASCUERADE        "SFX Sound Expander settings (MasC=uerade)..."
     IDS_MI_SFX_SS_SETTINGS_MASCUERADE        "SFX Sound Sampler settings (MasC=uerade)..."
@@ -979,6 +972,7 @@ BEGIN
     IDS_VIC_BLOCK3                           "Blocco 3 (8K a $6000-$7FFF)"
     IDS_VIC_BLOCK5                           "Blocco 5 (8K a $A000-$BFFF)"
     IDS_SELECT_GENERIC                       "Seleziona immagine cartuccia generica"
+    IDS_SELECT_BEHR_BONZ                     "Select Behr Bonz image"
     IDS_SELECT_MEGACART                      "Seleziona immagine Mega-Cart"
     IDS_SELECT_FINAL_EXPANSION               "Seleziona immagine Final Expansion"
     IDS_SELECT_UM                            "Select UltiMem image"
@@ -992,6 +986,7 @@ BEGIN
     IDS_VIC20MODEL                           "Modello VIC20"
     IDS_MI_IEEE488                           "Modulo VIC-1112 IEEE-488"
     IDS_MI_CART_VIC20_GENERIC                "Immagine generica..."
+    IDS_MI_CART_VIC20_BEHR_BONZ              "Behr Bonz image..."
     IDS_MI_CART_VIC20_MEGACART               "Immagine Mega-Cart..."
     IDS_MI_CART_VIC20_FINAL_EXPANSION        "Immagine Final Expansion..."
     IDS_MI_CART_VIC20_UM                     "UltiMem image..."
@@ -1010,12 +1005,13 @@ BEGIN
     IDS_MI_MEGACART_WRITEBACK_FILE           "Seleziona file non-volatile RAM Mega-Cart"
     IDS_MI_IO2_RAM_ENABLE                    "Enable I/O-2 RAM"
     IDS_MI_IO3_RAM_ENABLE                    "Enable I/O-3 RAM"
+    IDS_MI_VFLIMOD_ENABLE                    "Enable VFLI modification"
     IDS_MI_ACIA_SETTINGS_MASCUERADE          "Impostazioni ACIA (MasC=uerade)..."
     IDS_MI_GEORAM_SETTINGS_MASCUERADE        "Impostazioni GEO-RAM (MasC=uerade)..."
     IDS_MI_DIGIMAX_SETTINGS_MASCUERADE       "Impostazioni DigiMAX (MasC=uerade)..."
     IDS_MI_DS12C887RTC_SETTINGS_MASCUERADE   "Impostazioni RTC DS12C887 (MasC=uerade)..."
-#ifdef HAVE_TFE
-    IDS_MI_TFE_SETTINGS_MASCUERADE           "Impostazioni Ethernet (MasC=uerade)..."
+#ifdef HAVE_PCAP
+    IDS_MI_ETHERNETCART_SETTINGS_MASCUERADE  "Ethernet Cart settings (MasC=uerade)..."
 #endif
     IDS_MI_SFX_SE_SETTINGS_MASCUERADE        "Impostazioni SFX Sound Expander (MasC=uerade)..."
     IDS_MI_SFX_SS_SETTINGS_MASCUERADE        "Impostazioni SFX Sound Sampler (MasC=uerade)..."
@@ -1046,6 +1042,7 @@ BEGIN
     IDS_VIC_BLOCK3                           "block 3 (8k $6000-$7FFF À¸·Î)"
     IDS_VIC_BLOCK5                           "block 5 (8k $A000-$BFFF À¸·Î)"
     IDS_SELECT_GENERIC                       "Select generic cartridge image"
+    IDS_SELECT_BEHR_BONZ                     "Select Behr Bonz image"
     IDS_SELECT_MEGACART                      "Select Mega-Cart image"
     IDS_SELECT_FINAL_EXPANSION               "Select Final Expansion image"
     IDS_SELECT_UM                            "Select UltiMem image"
@@ -1059,6 +1056,7 @@ BEGIN
     IDS_VIC20MODEL                           "VIC20 model"
     IDS_MI_IEEE488                           "VIC-1112 IEEE-488 module"
     IDS_MI_CART_VIC20_GENERIC                "Generic image..."
+    IDS_MI_CART_VIC20_BEHR_BONZ              "Behr Bonz image..."
     IDS_MI_CART_VIC20_MEGACART               "Mega-Cart image..."
     IDS_MI_CART_VIC20_FINAL_EXPANSION        "Final Expansion image..."
     IDS_MI_CART_VIC20_UM                     "UltiMem image..."
@@ -1077,12 +1075,13 @@ BEGIN
     IDS_MI_MEGACART_WRITEBACK_FILE           "Select Mega-Cart non-volatile RAM file"
     IDS_MI_IO2_RAM_ENABLE                    "Enable I/O-2 RAM"
     IDS_MI_IO3_RAM_ENABLE                    "Enable I/O-3 RAM"
+    IDS_MI_VFLIMOD_ENABLE                    "Enable VFLI modification"
     IDS_MI_ACIA_SETTINGS_MASCUERADE          "ACIA ¼³Á¤ (MasC=uerade)..."
     IDS_MI_GEORAM_SETTINGS_MASCUERADE        "GEO-RAM ¼ÂÆÃ (MasC=uerade)..."
     IDS_MI_DIGIMAX_SETTINGS_MASCUERADE       "DigiMAX ¼³Á¤ (MasC=uerade)..."
     IDS_MI_DS12C887RTC_SETTINGS_MASCUERADE   "DS12C887 RTC settings (MasC=uerade)..."
-#ifdef HAVE_TFE
-    IDS_MI_TFE_SETTINGS_MASCUERADE           "ÀÌ´õ³Ý ¼³Á¤ (MasC=uerade)..."
+#ifdef HAVE_PCAP
+    IDS_MI_ETHERNETCART_SETTINGS_MASCUERADE  "Ethernet Cart settings (MasC=uerade)..."
 #endif
     IDS_MI_SFX_SE_SETTINGS_MASCUERADE        "SFX Sound Expander ¼³Á¤ (MasC=uerade)..."
     IDS_MI_SFX_SS_SETTINGS_MASCUERADE        "SFX Sound Sampler settings (MasC=uerade)..."
@@ -1113,6 +1112,7 @@ BEGIN
     IDS_VIC_BLOCK3                           "Blok 3 (8K in $6000-$7FFF)"
     IDS_VIC_BLOCK5                           "Blok 5 (8K in $A000-$BFFF)"
     IDS_SELECT_GENERIC                       "Selecteer algemeen cartridge bestand"
+    IDS_SELECT_BEHR_BONZ                     "Selecteer Behr Bonz bestand"
     IDS_SELECT_MEGACART                      "Selecteer Mega-Cart bestand"
     IDS_SELECT_FINAL_EXPANSION               "Selecteer Final Expansion bestand"
     IDS_SELECT_UM                            "Selecteer UltiMem bestand"
@@ -1122,34 +1122,36 @@ BEGIN
     IDS_ATTACH_4_8_16_CART_6000              "Koppel 4/8/16KB bestand op $6000"
     IDS_ATTACH_4_8_CART_A000                 "Koppel 4/8KB bestand op $A000"
     IDS_ATTACH_4_CART_B000                   "Koppel 4KB bestand op $B000"
-    IDS_IO_SWAP                              "Activeer MasC=uerade I/O verwisseling"
+    IDS_IO_SWAP                              "MasC=uerade I/O verwisseling inschakelen"
     IDS_VIC20MODEL                           "VIC20 model"
     IDS_MI_IEEE488                           "VIC-1112 IEEE-488 module"
     IDS_MI_CART_VIC20_GENERIC                "Algemeen bestand..."
+    IDS_MI_CART_VIC20_BEHR_BONZ              "Behr Bonz bestand..."
     IDS_MI_CART_VIC20_MEGACART               "Mega-Cart bestand..."
     IDS_MI_CART_VIC20_FINAL_EXPANSION        "Final Expansion bestand..."
     IDS_MI_CART_VIC20_UM                     "UltiMem bestand..."
     IDS_MI_CART_VIC20_FP                     "Vic Flash Plugin bestand..."
-    IDS_MP_ADD_TO_GENERIC                    "Voeg toe aan algemeen cartridge..."
+    IDS_MP_ADD_TO_GENERIC                    "Voeg toe aan algemene cartridge..."
     IDS_MI_CART_VIC20_8KB_2000               "4/8/16KB bestand in $2000..."
     IDS_MI_CART_VIC20_16KB_4000              "4/8/16KB bestand in $4000..."
     IDS_MI_CART_VIC20_8KB_6000               "4/8/16KB bestand in $6000..."
     IDS_MI_CART_VIC20_8KB_A000               "4/8KB bestand in $A000..."
     IDS_MI_CART_VIC20_4KB_B000               "4KB bestand in $B000..."
     IDS_MI_VIC20_SETTINGS                    "VIC20 instellingen..."
-    IDS_MI_FINAL_EXPANSION_WRITEBACK         "Activeer terug schrijven naar ROM bestand voor Final Expansion"
-    IDS_MI_VIC_FLASH_PLUGIN_WRITEBACK        "Activeer terug schrijven naar ROM bestand voor Vic Flash Plugin"
-    IDS_MI_ULTIMEM_WRITEBACK                 "Activeer terug schrijven naar ROM bestand voor UltiMem"
-    IDS_MI_MEGACART_WRITEBACK                "Activeer Mega-Cart NvRAM terug schrijven"
-    IDS_MI_MEGACART_WRITEBACK_FILE           "Selecteer Mega-Cart non-volatile RAM bestand"
-    IDS_MI_IO2_RAM_ENABLE                    "Activeer I/O-2 RAM"
-    IDS_MI_IO3_RAM_ENABLE                    "Activeer I/O-3 RAM"
+    IDS_MI_FINAL_EXPANSION_WRITEBACK         "Terugschrijven naar ROM bestand voor Final Expansion inschakelen"
+    IDS_MI_VIC_FLASH_PLUGIN_WRITEBACK        "Terugschrijven naar ROM bestand voor Vic Flash Plugin inschakelen"
+    IDS_MI_ULTIMEM_WRITEBACK                 "Terugschrijven naar ROM bestand voor UltiMem inschakelen"
+    IDS_MI_MEGACART_WRITEBACK                "Mega-Cart NvRAM terugschrijven inschakelem"
+    IDS_MI_MEGACART_WRITEBACK_FILE           "Selecteer Mega-Cart niet-vluchtig RAM bestand"
+    IDS_MI_IO2_RAM_ENABLE                    "I/O-2 RAM inschakelen"
+    IDS_MI_IO3_RAM_ENABLE                    "I/O-3 RAM inschakelen"
+    IDS_MI_VFLIMOD_ENABLE                    "VFLI modificatie inschakelen"
     IDS_MI_ACIA_SETTINGS_MASCUERADE          "ACIA instellingen (MasC=uerade)..."
     IDS_MI_GEORAM_SETTINGS_MASCUERADE        "GEO-RAM instellingen (MasC=uerade)..."
     IDS_MI_DIGIMAX_SETTINGS_MASCUERADE       "DigiMAX instellingen (MasC=uerade)..."
     IDS_MI_DS12C887RTC_SETTINGS_MASCUERADE   "DS12C887 RTC instellingen (MasC=uerade)..."
-#ifdef HAVE_TFE
-    IDS_MI_TFE_SETTINGS_MASCUERADE           "Ethernet instellingen (MasC=uerade)..."
+#ifdef HAVE_PCAP
+    IDS_MI_ETHERNETCART_SETTINGS_MASCUERADE  "Ethernet Cart instellingen (MasC=uerade)..."
 #endif
     IDS_MI_SFX_SE_SETTINGS_MASCUERADE        "SFX Sound Expander instellingen (MasC=uerade)..."
     IDS_MI_SFX_SS_SETTINGS_MASCUERADE        "SFX Sound Sampler instellingen (MasC=uerade)..."
@@ -1180,6 +1182,7 @@ BEGIN
     IDS_VIC_BLOCK3                           "Blok 3 (8K w $6000-$7FFF)"
     IDS_VIC_BLOCK5                           "Blok 5 (8K w $A000-$BFFF)"
     IDS_SELECT_GENERIC                       "Wybierz typowy obraz kartrid¿a"
+    IDS_SELECT_BEHR_BONZ                     "Select Behr Bonz image"
     IDS_SELECT_MEGACART                      "Wybierz obraz Mega-Cart"
     IDS_SELECT_FINAL_EXPANSION               "Wybierz obraz Final Expansion"
     IDS_SELECT_UM                            "Select UltiMem image"
@@ -1193,6 +1196,7 @@ BEGIN
     IDS_VIC20MODEL                           "Model VIC20"
     IDS_MI_IEEE488                           "Modu³ IEEE-488 VIC-1112"
     IDS_MI_CART_VIC20_GENERIC                "Standardowy obraz..."
+    IDS_MI_CART_VIC20_BEHR_BONZ              "Behr Bonz image..."
     IDS_MI_CART_VIC20_MEGACART               "Obraz Mega-Cart..."
     IDS_MI_CART_VIC20_FINAL_EXPANSION        "Obraz Final Expansion..."
     IDS_MI_CART_VIC20_UM                     "UltiMem image..."
@@ -1211,12 +1215,13 @@ BEGIN
     IDS_MI_MEGACART_WRITEBACK_FILE           "Wybierz sta³y plik RAM Mega-Cart"
     IDS_MI_IO2_RAM_ENABLE                    "Enable I/O-2 RAM"
     IDS_MI_IO3_RAM_ENABLE                    "Enable I/O-3 RAM"
+    IDS_MI_VFLIMOD_ENABLE                    "Enable VFLI modification"
     IDS_MI_ACIA_SETTINGS_MASCUERADE          "Ustawienia ACIA (MasC=uerade)..."
     IDS_MI_GEORAM_SETTINGS_MASCUERADE        "Ustawienia GEO-RAM (MasC=uerade)..."
     IDS_MI_DIGIMAX_SETTINGS_MASCUERADE       "Ustawienia DigiMAX (MasC=uerade)..."
     IDS_MI_DS12C887RTC_SETTINGS_MASCUERADE   "Ustawienia DS12C887 RTC (MasC=uerade)..."
-#ifdef HAVE_TFE
-    IDS_MI_TFE_SETTINGS_MASCUERADE           "Ustawienia Ethernet (MasC=uerade)..."
+#ifdef HAVE_PCAP
+    IDS_MI_ETHERNETCART_SETTINGS_MASCUERADE  "Ethernet Cart settings (MasC=uerade)..."
 #endif
     IDS_MI_SFX_SE_SETTINGS_MASCUERADE        "Ustawienia SFX Sound Expander (MasC=uerade)..."
     IDS_MI_SFX_SS_SETTINGS_MASCUERADE        "Ustawienia samplera d¼wiêku SFX (MasC=uerade)..."
@@ -1250,6 +1255,7 @@ BEGIN
     IDS_VIC_BLOCK3                           "Block 3 (8K at $6000-$7FFF)"
     IDS_VIC_BLOCK5                           "Block 5 (8K at $A000-$BFFF)"
     IDS_SELECT_GENERIC                       "Select generic cartridge image"
+    IDS_SELECT_BEHR_BONZ                     "Select Behr Bonz image"
     IDS_SELECT_MEGACART                      "Select Mega-Cart image"
     IDS_SELECT_FINAL_EXPANSION               "Select Final Expansion image"
     IDS_SELECT_UM                            "Select UltiMem image"
@@ -1263,6 +1269,7 @@ BEGIN
     IDS_VIC20MODEL                           "VIC20 model"
     IDS_MI_IEEE488                           "VIC-1112 IEEE-488 module"
     IDS_MI_CART_VIC20_GENERIC                "Generic image..."
+    IDS_MI_CART_VIC20_BEHR_BONZ              "Behr Bonz image..."
     IDS_MI_CART_VIC20_MEGACART               "Mega-Cart image..."
     IDS_MI_CART_VIC20_FINAL_EXPANSION        "Final Expansion image..."
     IDS_MI_CART_VIC20_UM                     "UltiMem image..."
@@ -1281,12 +1288,13 @@ BEGIN
     IDS_MI_MEGACART_WRITEBACK_FILE           "Select Mega-Cart non-volatile RAM file"
     IDS_MI_IO2_RAM_ENABLE                    "Enable I/O-2 RAM"
     IDS_MI_IO3_RAM_ENABLE                    "Enable I/O-3 RAM"
+    IDS_MI_VFLIMOD_ENABLE                    "Enable VFLI modification"
     IDS_MI_ACIA_SETTINGS_MASCUERADE          "ACIA settings (MasC=uerade)..."
     IDS_MI_GEORAM_SETTINGS_MASCUERADE        "GEO-RAM settings (MasC=uerade)..."
     IDS_MI_DIGIMAX_SETTINGS_MASCUERADE       "DigiMAX settings (MasC=uerade)..."
     IDS_MI_DS12C887RTC_SETTINGS_MASCUERADE   "DS12C887 RTC settings (MasC=uerade)..."
-#ifdef HAVE_TFE
-    IDS_MI_TFE_SETTINGS_MASCUERADE           "Ethernet settings (MasC=uerade)..."
+#ifdef HAVE_PCAP
+    IDS_MI_ETHERNETCART_SETTINGS_MASCUERADE  "Ethernet Cart settings (MasC=uerade)..."
 #endif
     IDS_MI_SFX_SE_SETTINGS_MASCUERADE        "SFX Sound Expander settings (MasC=uerade)..."
     IDS_MI_SFX_SS_SETTINGS_MASCUERADE        "SFX Sound Sampler settings (MasC=uerade)..."
@@ -1317,6 +1325,7 @@ BEGIN
     IDS_VIC_BLOCK3                           "Block 3 (8K på $6000-$7FFF)"
     IDS_VIC_BLOCK5                           "Block 5 (8K på $A000-$BFFF)"
     IDS_SELECT_GENERIC                       "Välj generisk insticksmodulavbildning"
+    IDS_SELECT_BEHR_BONZ                     "Select Behr Bonz image"
     IDS_SELECT_MEGACART                      "Välj Mega-Cart-modulfil"
     IDS_SELECT_FINAL_EXPANSION               "Välj avbildning för Final Expansion"
     IDS_SELECT_UM                            "Select UltiMem image"
@@ -1330,6 +1339,7 @@ BEGIN
     IDS_VIC20MODEL                           "VIC20-modell"
     IDS_MI_IEEE488                           "VIC-1112 IEEE-488-modul"
     IDS_MI_CART_VIC20_GENERIC                "Generisk avbild..."
+    IDS_MI_CART_VIC20_BEHR_BONZ              "Behr Bonz image..."
     IDS_MI_CART_VIC20_MEGACART               "Mega-Cart-avbildning..."
     IDS_MI_CART_VIC20_FINAL_EXPANSION        "Final Expansion-fil..."
     IDS_MI_CART_VIC20_UM                     "UltiMem image..."
@@ -1348,12 +1358,13 @@ BEGIN
     IDS_MI_MEGACART_WRITEBACK_FILE           "Välj NvRAM-fil för Mega-Cart"
     IDS_MI_IO2_RAM_ENABLE                    "Enable I/O-2 RAM"
     IDS_MI_IO3_RAM_ENABLE                    "Enable I/O-3 RAM"
+    IDS_MI_VFLIMOD_ENABLE                    "Enable VFLI modification"
     IDS_MI_ACIA_SETTINGS_MASCUERADE          "ACIA-inställningar (MasC=uerade)..."
     IDS_MI_GEORAM_SETTINGS_MASCUERADE        "GEO-RAM-inställningar (MasC=uerade)..."
     IDS_MI_DIGIMAX_SETTINGS_MASCUERADE       "DigiMAX-inställningar (MasC=uerade)..."
     IDS_MI_DS12C887RTC_SETTINGS_MASCUERADE   "DS12C887 RTC-inställningar (MasC=uerade)..."
-#ifdef HAVE_TFE
-    IDS_MI_TFE_SETTINGS_MASCUERADE           "Ethernetinställningar (MasC=uerade)..."
+#ifdef HAVE_PCAP
+    IDS_MI_ETHERNETCART_SETTINGS_MASCUERADE  "Ethernet Cart settings (MasC=uerade)..."
 #endif
     IDS_MI_SFX_SE_SETTINGS_MASCUERADE        "Inställningar för SFX Sound Expander (MasC=uerade)..."
     IDS_MI_SFX_SS_SETTINGS_MASCUERADE        "Inställningar för SFX Sound Sampler (MasC=uerade)..."
@@ -1384,6 +1395,7 @@ BEGIN
     IDS_VIC_BLOCK3                           "Blok 3 ($6000-$7FFF arasýnda 8K)"
     IDS_VIC_BLOCK5                           "Blok 5 ($A000-$BFFF arasýnda 8K)"
     IDS_SELECT_GENERIC                       "Jenerik kartuþ imajý seç"
+    IDS_SELECT_BEHR_BONZ                     "Select Behr Bonz image"
     IDS_SELECT_MEGACART                      "Mega-Cart imajý seç"
     IDS_SELECT_FINAL_EXPANSION               "Final Expansion imajý seç"
     IDS_SELECT_UM                            "Select UltiMem image"
@@ -1397,6 +1409,7 @@ BEGIN
     IDS_VIC20MODEL                           "VIC20 model"
     IDS_MI_IEEE488                           "VIC-1112 IEEE-488 modülü"
     IDS_MI_CART_VIC20_GENERIC                "Jenerik imaj..."
+    IDS_MI_CART_VIC20_BEHR_BONZ              "Behr Bonz image..."
     IDS_MI_CART_VIC20_MEGACART               "Mega-Cart imajý..."
     IDS_MI_CART_VIC20_FINAL_EXPANSION        "Final Expansion imajý..."
     IDS_MI_CART_VIC20_UM                     "UltiMem image..."
@@ -1415,12 +1428,13 @@ BEGIN
     IDS_MI_MEGACART_WRITEBACK_FILE           "Mega-Cart non-volatile RAM dosyasýný seç"
     IDS_MI_IO2_RAM_ENABLE                    "Enable I/O-2 RAM"
     IDS_MI_IO3_RAM_ENABLE                    "Enable I/O-3 RAM"
+    IDS_MI_VFLIMOD_ENABLE                    "Enable VFLI modification"
     IDS_MI_ACIA_SETTINGS_MASCUERADE          "ACIA Ayarlarý (MasC=uerade)..."
     IDS_MI_GEORAM_SETTINGS_MASCUERADE        "GEO-RAM ayarlarý (MasC=uerade)..."
     IDS_MI_DIGIMAX_SETTINGS_MASCUERADE       "DigiMAX ayarlarý (MasC=uerade)..."
     IDS_MI_DS12C887RTC_SETTINGS_MASCUERADE   "DS12C887 RTC ayarlarý (MasC=uerade)..."
-#ifdef HAVE_TFE
-    IDS_MI_TFE_SETTINGS_MASCUERADE           "Ethernet Ayarlarý (MasC=uerade)..."
+#ifdef HAVE_PCAP
+    IDS_MI_ETHERNETCART_SETTINGS_MASCUERADE  "Ethernet Cart settings (MasC=uerade)..."
 #endif
     IDS_MI_SFX_SE_SETTINGS_MASCUERADE        "SFX Sound Expander Ayarlarý (MasC=uerade)..."
     IDS_MI_SFX_SS_SETTINGS_MASCUERADE        "SFX Sound Sampler ayarlarý (MasC=uerade)..."

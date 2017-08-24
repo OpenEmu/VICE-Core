@@ -4,6 +4,7 @@
  * Written by
  *  Bernhard Kuhn <kuhn@eikon.e-technik.tu-muenchen.de>
  *  Ulmer Lionel <ulmer@poly.polytechnique.fr>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * Patches by
  *  Daniel Sladic <sladic@eecg.toronto.edu>
@@ -90,7 +91,7 @@ static const cmdline_option_t joydev1cmdline_options[] = {
 #else
       "<0-3>", N_("Set device for joystick port 1 (0: None, 1: Numpad, 2: Keyset 1, 3: Keyset 2)") },
 #endif
-    { NULL },
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev2cmdline_options[] = {
@@ -111,7 +112,7 @@ static const cmdline_option_t joydev2cmdline_options[] = {
 #else
       "<0-3>", N_("Set device for joystick port 2 (0: None, 1: Numpad, 2: Keyset 1, 3: Keyset 2)") },
 #endif
-    { NULL },
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev3cmdline_options[] = {
@@ -132,7 +133,7 @@ static const cmdline_option_t joydev3cmdline_options[] = {
 #else
       "<0-3>", N_("Set device for extra joystick port 1 (0: None, 1: Numpad, 2: Keyset 1, 3: Keyset 2)") },
 #endif
-    { NULL },
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev4cmdline_options[] = {
@@ -153,7 +154,28 @@ static const cmdline_option_t joydev4cmdline_options[] = {
 #else
       "<0-3>", N_("Set device for extra joystick port 2 (0: None, 1: Numpad, 2: Keyset 1, 3: Keyset 2)") },
 #endif
-    { NULL },
+    CMDLINE_LIST_END
+};
+
+static const cmdline_option_t joydev5cmdline_options[] = {
+    { "-extrajoydev3", SET_RESOURCE, 1,
+      NULL, NULL, "JoyDevice5", NULL,
+      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
+      IDCLS_UNUSED, IDCLS_UNUSED,
+#ifdef HAS_JOYSTICK
+#  ifdef HAS_USB_JOYSTICK
+      "<0-13>", N_("Set device for extra joystick port 3 (0: None, 1: Numpad, 2: Keyset 1, 3: Keyset 2, 4: Analog joystick 0, 5: Analog joystick 1, 6: Analog joystick 2, 7: Analog joystick 3, 8: Analog joystick 4, 9: Analog joystick 5, 10: Digital joystick 0, 11: Digital joystick 1, 12: USB joystick 0, 13: USB joystick 1)") },
+#  else
+#    ifdef HAS_DIGITAL_JOYSTICK
+      "<0-11>", N_("Set device for extra joystick port 3 (0: None, 1: Numpad, 2: Keyset 1, 3: Keyset 2, 4: Analog joystick 0, 5: Analog joystick 1, 6: Analog joystick 2, 7: Analog joystick 3, 8: Analog joystick 4, 9: Analog joystick 5, 10: Digital joystick 0, 11: Digital joystick 1)") },
+#    else
+      "<0-9>", N_("Set device for extra joystick port 3 (0: None, 1: Numpad, 2: Keyset 1, 3: Keyset 2, 4: Analog joystick 0, 5: Analog joystick 1, 6: Analog joystick 2, 7: Analog joystick 3, 8: Analog joystick 4, 9: Analog joystick 5)") },
+#    endif
+#  endif
+#else
+      "<0-3>", N_("Set device for extra joystick port 3 (0: None, 1: Numpad, 2: Keyset 1, 3: Keyset 2)") },
+#endif
+    CMDLINE_LIST_END
 };
 
 int joy_arch_cmdline_options_init(void)
@@ -175,6 +197,11 @@ int joy_arch_cmdline_options_init(void)
     }
     if (joyport_get_port_name(JOYPORT_4)) {
         if (cmdline_register_options(joydev4cmdline_options) < 0) {
+            return -1;
+        }
+    }
+    if (joyport_get_port_name(JOYPORT_5)) {
+        if (cmdline_register_options(joydev5cmdline_options) < 0) {
             return -1;
         }
     }
@@ -370,7 +397,7 @@ void old_joystick(void)
 {
     int i;
 
-    for (i = 1; i <= 4; i++) {
+    for (i = 1; i <= 5; i++) {
         int joyport = joystick_port_map[i - 1];
 
 #    ifdef HAS_DIGITAL_JOYSTICK
@@ -533,7 +560,7 @@ void new_joystick(void)
     struct js_event e;
     int ajoyport;
 
-    for (i = 1; i <= 4; i++) {
+    for (i = 1; i <= 5; i++) {
         int joyport = joystick_port_map[i - 1];
 
         if ((joyport < JOYDEV_ANALOG_0) || (joyport > JOYDEV_ANALOG_5)) {

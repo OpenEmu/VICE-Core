@@ -3,6 +3,7 @@
  *
  * Written by
  *  Hannu Nuotio <hannu.nuotio@tut.fi>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * Based on code by
  *  Ettore Perazzoli <ettore@comm2000.it>
@@ -404,7 +405,7 @@ static void sdl_ui_trap(WORD addr, void *data)
 /* ------------------------------------------------------------------ */
 /* Readline static functions/variables */
 
-#define PC_VKBD_ACTIVATE SDLK_F10
+#define PC_VKBD_ACTIVATE VICE_SDLK_F10
 #define PC_VKBD_W 17
 #define PC_VKBD_H 4
 
@@ -429,14 +430,15 @@ static const BYTE keytable_pc_shift[] =
     "   \x87ZXCVBNM<>?\x87\x85\x86";
 
 static const SDLKey keytable_pc_special[] = {
-    SDLK_BACKSPACE,
-    SDLK_ESCAPE,
-    SDLK_RETURN,
-    SDLK_LEFT,
-    SDLK_RIGHT,
-    SDLK_HOME,
-    SDLK_END,
-    PC_VKBD_ACTIVATE
+    VICE_SDLK_BACKSPACE,
+    VICE_SDLK_ESCAPE,
+    VICE_SDLK_RETURN,
+    VICE_SDLK_LEFT,
+    VICE_SDLK_RIGHT,
+    VICE_SDLK_HOME,
+    VICE_SDLK_END,
+    PC_VKBD_ACTIVATE,
+    -1
 };
 
 static int pc_vkbd_pos_x, pc_vkbd_pos_y, pc_vkbd_x, pc_vkbd_y;
@@ -530,7 +532,7 @@ static int sdl_ui_readline_vkbd_input(SDLKey *key, SDLMod *mod, Uint16 *c_uni)
                 break;
             case MENU_ACTION_MAP:
             case MENU_ACTION_EXIT:
-                *key = PC_VKBD_ACTIVATE;
+                *key = SDL2x_to_SDL1x_Keys(PC_VKBD_ACTIVATE);
                 done = 1;
                 break;
             default:
@@ -546,9 +548,16 @@ static int sdl_ui_readline_input(SDLKey *key, SDLMod *mod, Uint16 *c_uni)
     SDL_Event e;
     int got_key = 0;
     ui_menu_action_t action = MENU_ACTION_NONE;
+#ifdef USE_SDLUI2
+    int i;
+#endif
 
     *mod = KMOD_NONE;
     *c_uni = 0;
+
+#ifdef USE_SDLUI2
+    SDL_StartTextInput();
+#endif
 
     do {
 #ifdef ANDROID_COMPILE
@@ -614,14 +623,35 @@ static int sdl_ui_readline_input(SDLKey *key, SDLMod *mod, Uint16 *c_uni)
 
         switch (e.type) {
             case SDL_KEYDOWN:
-                *key = e.key.keysym.sym;
+                *key = SDL2x_to_SDL1x_Keys(e.key.keysym.sym);
                 *mod = e.key.keysym.mod;
-/* FIXME: fix for SDL2 */
-#ifndef USE_SDLUI2
+#ifdef USE_SDLUI2
+                /* For SDL2x only get 'special' keys from keydown event. */
+                for (i = 0; keytable_pc_special[i] != -1; ++i) {
+                    SDLKey special = SDL2x_to_SDL1x_Keys(e.key.keysym.sym);
+                    if (special == keytable_pc_special[i]) {
+                        *c_uni = special;
+                        got_key = 1;
+                    }
+                }
+#else
                 *c_uni = e.key.keysym.unicode;
-#endif
                 got_key = 1;
+#endif
                 break;
+
+#ifdef USE_SDLUI2
+            case SDL_TEXTINPUT:
+                if (e.text.text[0] != 0) {
+                    *key = e.text.text[0];
+                    *c_uni = (Uint16)e.text.text[0];
+                    SDL_StopTextInput();
+                    SDL_StartTextInput();
+                    got_key = 1;
+                }
+                break;
+#endif
+
 #ifdef HAVE_SDL_NUMJOYSTICKS
             case SDL_JOYAXISMOTION:
                 action = sdljoy_axis_event(e.jaxis.which, e.jaxis.axis, e.jaxis.value);
@@ -641,15 +671,15 @@ static int sdl_ui_readline_input(SDLKey *key, SDLMod *mod, Uint16 *c_uni)
 
         switch (action) {
             case MENU_ACTION_LEFT:
-                *key = SDLK_LEFT;
+                *key = VICE_SDLK_LEFT;
                 got_key = 1;
                 break;
             case MENU_ACTION_RIGHT:
-                *key = SDLK_RIGHT;
+                *key = VICE_SDLK_RIGHT;
                 got_key = 1;
                 break;
             case MENU_ACTION_SELECT:
-                *key = SDLK_RETURN;
+                *key = VICE_SDLK_RETURN;
                 got_key = 1;
                 break;
             case MENU_ACTION_CANCEL:
@@ -662,8 +692,12 @@ static int sdl_ui_readline_input(SDLKey *key, SDLMod *mod, Uint16 *c_uni)
             default:
                 break;
         }
-        SDL_Delay(20);
+
     } while (!got_key);
+
+#ifdef USE_SDLUI2
+    SDL_StopTextInput();
+#endif
 
     return got_key;
 }
@@ -1148,20 +1182,20 @@ char* sdl_ui_readline(const char* previous, int pos_x, int pos_y)
         }
 
         switch (key) {
-            case SDLK_LEFT:
+            case VICE_SDLK_LEFT:
                 if (i > 0) {
                     --i;
                 }
                 break;
-            case SDLK_RIGHT:
+            case VICE_SDLK_RIGHT:
                 if (i < (int)size) {
                     ++i;
                 }
                 break;
-            case SDLK_HOME:
+            case VICE_SDLK_HOME:
                 i = 0;
                 break;
-            case SDLK_END:
+            case VICE_SDLK_END:
                 i = size;
                 break;
             case PC_VKBD_ACTIVATE:
@@ -1177,7 +1211,7 @@ char* sdl_ui_readline(const char* previous, int pos_x, int pos_y)
                     }
                 }
                 break;
-            case SDLK_BACKSPACE:
+            case VICE_SDLK_BACKSPACE:
                 if (i > 0) {
                     memmove(new_string + i - 1, new_string + i, size - i + 1);
                     --size;
@@ -1191,11 +1225,11 @@ char* sdl_ui_readline(const char* previous, int pos_x, int pos_y)
                     string_changed = 1;
                 }
                 break;
-            case SDLK_ESCAPE:
+            case VICE_SDLK_ESCAPE:
                 string_changed = 0;
                 escaped = 1;
             /* fall through */
-            case SDLK_RETURN:
+            case VICE_SDLK_RETURN:
                 if (pc_vkbd_state) {
                     sdl_ui_readline_vkbd_erase();
                 }

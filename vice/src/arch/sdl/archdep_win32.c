@@ -4,6 +4,7 @@
  * Written by
  *  Tibor Biczo <crown@mail.matav.hu>
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -219,21 +220,6 @@ static void system_wcstombs_free(char *mbs)
     lib_free(mbs);
 }
 
-int archdep_network_init(void)
-{
-    WORD wVersionRequested = MAKEWORD(1, 1);
-    WSADATA wsaData;
-
-    WSAStartup(wVersionRequested, &wsaData);
-
-    return 0;
-}
-
-void archdep_network_shutdown(void)
-{
-    WSACleanup();
-}
-
 static int archdep_init_extra(int *argc, char **argv)
 {
     _fmode = O_BINARY;
@@ -354,8 +340,16 @@ char *archdep_default_joymap_file_name(void)
     return util_concat(archdep_boot_path(), "\\sdl-joymap-", machine_get_name(), ".vjm", NULL);
 }
 
+/* windows programs will start with the console detached when SUBSYSTEM:WINDOWS
+   is used (which is the default). SUBSYSTEM:CONSOLE will provide a console
+   output and thus stdout. yes its ugly. */
 FILE *archdep_open_default_log_file(void)
 {
+/* older versions of MSVC used to define _CONSOLE - define manually if you need
+   it */
+#ifdef _CONSOLE
+    return stdout;
+#else
     char *fname;
     FILE *f;
 
@@ -364,6 +358,7 @@ FILE *archdep_open_default_log_file(void)
     lib_free(fname);
 
     return f;
+#endif
 }
 
 int archdep_default_logger(const char *level_string, const char *txt)
@@ -646,7 +641,9 @@ char *archdep_get_current_drive(void)
 
 void archdep_set_current_drive(const char *drive)
 {
-    _chdir(drive);
+    if (_chdir(drive)) {
+        ui_error("Failed to change drive to %s", drive);
+    }
 }
 #endif
 
@@ -793,3 +790,28 @@ int kbd_arch_get_host_mapping(void)
     }
     return KBD_MAPPING_US;
 }
+
+#ifdef IDE_COMPILE
+/* Provide a usleep replacement */
+void usleep(__int64 waitTime)
+{ 
+    __int64 time1 = 0, time2 = 0, freq = 0;
+
+    QueryPerformanceCounter((LARGE_INTEGER *) &time1);
+    QueryPerformanceFrequency((LARGE_INTEGER *)&freq);
+
+    do {
+        QueryPerformanceCounter((LARGE_INTEGER *) &time2);
+    } while((time2-time1) < waitTime);
+}
+#endif
+
+#ifdef USE_SDLUI2
+char *archdep_sdl2_default_renderers[] = {
+    "direct3d11",
+    "direct3d",
+    "opengles",
+    "opengl",
+    NULL
+};
+#endif

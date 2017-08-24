@@ -7,6 +7,7 @@
  * Written by
  *  Ettore Perazzoli <ettore@comm2000.it>
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -36,6 +37,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
+#include <limits.h>
 
 #ifdef HAVE_STRINGS_H
 #include <strings.h>
@@ -47,6 +50,13 @@
 #include "log.h"
 #include "util.h"
 
+/* #define DBGUTIL */
+
+#ifdef DBGUTIL
+#define DBG(x)  printf x
+#else
+#define DBG(x)
+#endif
 
 /* Malloc a new string whose contents concatenate the arguments until the
    first NULL pointer (max `_CONCAT_MAX_ARGS' arguments).  */
@@ -102,7 +112,7 @@ char *util_concat(const char *s, ...)
     }
 
 #endif
-
+    DBG(("util_concat %p - %s\n", newp, newp));
     return newp;
 }
 
@@ -187,6 +197,7 @@ int util_string_set(char **str, const char *new_value)
             strcpy(*str, new_value);
         }
     }
+    DBG(("util_string_set %p - %s\n", *str, *str));
     return 0;
 }
 
@@ -861,6 +872,76 @@ cont:
             }
         } while (sc != 0);
     }
+}
+#endif
+
+#ifndef HAVE_STRTOUL
+unsigned long strtoul(const char *nptr, char **endptr, int base)
+{
+    const char *s = nptr;
+    unsigned long acc;
+    int c;
+    unsigned long cutoff;
+    int neg = 0;
+    int any;
+    int cutlim;
+
+
+    do {
+        c = *s++;
+    } while (isspace(c));
+
+    if (c == '-') {
+        neg = 1;
+        c = *s++;
+    } else if (c == '+') {
+        c = *s++;
+    }
+    if ((base == 0 || base == 16) && c == '0' && (*s == 'x' || *s == 'X')) {
+        c = s[1];
+        s += 2;
+        base = 16;
+    }
+    if (base == 0) {
+        base = c == '0' ? 8 : 10;
+    }
+
+    cutoff = (unsigned long)ULONG_MAX / (unsigned long)base;
+    cutlim = (unsigned long)ULONG_MAX % (unsigned long)base;
+
+    for (acc = 0, any = 0;; c = *s++) {
+        if (isdigit(c)) {
+            c -= '0';
+        } else if (isalpha(c)) {
+            c -= isupper(c) ? 'A' - 10 : 'a' - 10;
+        } else {
+            break;
+        }
+
+        if (c >= base) {
+            break;
+        }
+        if (any < 0 || acc > cutoff || (acc == cutoff && c > cutlim)) {
+            any = -1;
+        } else {
+            any = 1;
+            acc *= base;
+            acc += c;
+        }
+    }
+
+    if (endptr != 0) {
+        *endptr = (char *)(any ? s - 1 : nptr);
+    }
+
+    if (any < 0) {
+        acc = ULONG_MAX;
+        errno = ERANGE;
+    } else if (neg) {
+        return -acc;
+    }
+
+    return (acc);
 }
 #endif
 

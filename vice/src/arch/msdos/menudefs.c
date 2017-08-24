@@ -4,6 +4,7 @@
  * Written by
  *  Ettore Perazzoli <ettore@comm2000.it>
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -41,6 +42,7 @@
 #include "autostart.h"
 #include "datasette.h"
 #include "drive.h"
+#include "gfxoutput.h"
 #include "imagecontents.h"
 #include "tapecontents.h"
 #include "info.h"
@@ -64,6 +66,7 @@
 #include "uidrive.h"
 #include "uijoyport.h"
 #include "uijoystick.h"
+#include "uikeymap.h"
 
 #ifdef HAVE_NETWORK
 #include "uinetplay.h"
@@ -71,11 +74,13 @@
 
 #include "uiperipherial.h"
 #include "uiprinter.h"
+#include "uisampler.h"
 #include "uiscreenshot.h"
 #include "uisnapshot.h"
 #include "uisound.h"
 #include "util.h"
 #include "version.h"
+#include "vicefeatures.h"
 #include "video.h"
 #include "videoarch.h"
 
@@ -318,7 +323,7 @@ static tui_menu_item_def_t datasette_speedtuning_submenu[] = {
       NULL,
       radio_DatasetteSpeedTuning_callback, (void *)7, 5,
       TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t datasette_zerogapdelay_submenu[] = {
@@ -350,8 +355,27 @@ static tui_menu_item_def_t datasette_zerogapdelay_submenu[] = {
       NULL,
       radio_DatasetteZeroGapDelay_callback, (void *)100000, 8,
       TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
+
+static TUI_MENU_CALLBACK(ui_set_tape_wobble_callback)
+{
+    if (been_activated) {
+        int current_wobble, value;
+        char buf[10];
+
+        resources_get_int("DatasetteTapeWobble", &current_wobble);
+        sprintf(buf, "%d", current_wobble);
+
+        if (tui_input_string("Random tape wobble", "Enter the random tape wobble:", buf, 10) == 0) {
+            value = atoi(buf);
+            resources_set_int("DatasetteTapeWobble", value);
+        } else {
+            return NULL;
+        }
+    }
+    return NULL;
+}
 
 static tui_menu_item_def_t datasette_settings_submenu[] = {
     { "_Reset Datasette with CPU:",
@@ -368,7 +392,11 @@ static tui_menu_item_def_t datasette_settings_submenu[] = {
       datasette_zerogapdelay_submenu_callback, NULL, 8,
       TUI_MENU_BEH_CONTINUE, datasette_zerogapdelay_submenu,
       "A zero in tap is..." },
-    { NULL }
+    { "Random tape wobble",
+      "Set random tape wobble",
+      ui_set_tape_wobble_callback, NULL, 30,
+      TUI_MENU_BEH_CONTINUE, NULL, NULL },
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 /* ------------------------------------------------------------------------- */
@@ -390,7 +418,7 @@ static tui_menu_item_def_t cpu_jam_actions_submenu[] = {
       (void *)MACHINE_JAM_ACTION_HARD_RESET, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "_Quit emulator", NULL, radio_JAMAction_callback,
       (void *)MACHINE_JAM_ACTION_QUIT, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 /* ------------------------------------------------------------------------- */
@@ -451,7 +479,7 @@ static tui_menu_item_def_t rom_submenu[] = {
       "Save ROM set definition to a *.vrs file",
       dump_romset_callback, NULL, 0,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 /* ------------------------------------------------------------------------- */
@@ -516,7 +544,7 @@ static tui_menu_item_def_t quit_submenu[] = {
       "Leave the emulator completely",
       quit_callback, NULL, 0,
       TUI_MENU_BEH_RESUME, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 /* ------------------------------------------------------------------------ */
@@ -588,7 +616,7 @@ static tui_menu_item_def_t reset_submenu[] = {
     { "Reset drive #_11", "Reset drive #11 separately",
       reset_drive_callback, (void *)3, 0,
       TUI_MENU_BEH_RESUME, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 /* ------------------------------------------------------------------------- */
@@ -695,6 +723,32 @@ static TUI_MENU_CALLBACK(show_copyright_callback)
     return NULL;
 }
 
+static TUI_MENU_CALLBACK(show_features_callback)
+{
+    if (been_activated) {
+        feature_list_t *list;
+        char *str, *lstr;
+        unsigned int len = 0;
+
+        list = vice_get_feature_list();
+        while (list->symbol) {
+            len += strlen(list->descr) + strlen(list->symbol) + (15);
+            ++list;
+        }
+        str = lib_malloc(len);
+        lstr = str;
+        list = vice_get_feature_list();
+        while (list->symbol) {
+            sprintf(lstr, "%s\n%s\n%s\n\n", list->isdefined ? "yes " : "no  ", list->descr, list->symbol);
+            lstr += strlen(lstr);
+            ++list;
+        }
+        tui_view_text(70, 20, NULL, str);
+        lib_free(str);
+    }
+    return NULL;
+}
+
 static TUI_MENU_CALLBACK(show_info_callback)
 {
     if (been_activated) {
@@ -720,7 +774,11 @@ static tui_menu_item_def_t info_submenu[] = {
       "VICE is distributed WITHOUT ANY WARRANTY!",
       show_info_callback, (void *)info_warranty_text, 0,
       TUI_MENU_BEH_CONTINUE },
-    { NULL }
+    { "Compile time features",
+      "VICE compile time features",
+      show_features_callback, NULL, 0,
+      TUI_MENU_BEH_CONTINUE, NULL, NULL },
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 /* ------------------------------------------------------------------------- */
@@ -804,7 +862,18 @@ static void create_ui_video_submenu(void)
     tui_menu_add_separator(ui_video_submenu);
 
     ui_screenshot_submenu = tui_menu_create("Screenshot Commands", 1);
-    tui_menu_add(ui_screenshot_submenu, ui_screenshot_menu_def);
+    switch (machine_class) {
+        default:
+            tui_menu_add(ui_screenshot_submenu, ui_screenshot_menu_def_vic_vicii_vdc);
+            break;
+        case VICE_MACHINE_PET:
+        case VICE_MACHINE_CBM6x0:
+            tui_menu_add(ui_screenshot_submenu, ui_screenshot_menu_def_crtc);
+            break;
+        case VICE_MACHINE_PLUS4:
+            tui_menu_add(ui_screenshot_submenu, ui_screenshot_menu_def_ted);
+            break;
+    }
 
     tui_menu_add_submenu(ui_video_submenu, "_Screenshot Commands...",
                          "Commands for saving screenshots",
@@ -982,10 +1051,11 @@ static void create_special_submenu(int has_serial_traps)
 
 void ui_create_main_menu(int has_tape, int has_drive, int has_serial_traps, int number_joysticks, int has_datasette, const tui_menu_item_def_t *d)
 {
-    int port1 = ((number_joysticks & 8) >> 3) << ((number_joysticks & 0x80) >> 7);
-    int port2 = ((number_joysticks & 4) >> 2) << ((number_joysticks & 0x40) >> 6);
-    int port3 = ((number_joysticks & 2) >> 1) << ((number_joysticks & 0x20) >> 5);
-    int port4 = (number_joysticks & 1) << ((number_joysticks & 0x10) >> 3);
+    int port1 = (number_joysticks & 16) >> 4;
+    int port2 = (number_joysticks & 8) >> 3;
+    int port3 = (number_joysticks & 4) >> 2;
+    int port4 = (number_joysticks & 2) >> 1;
+    int port5 = number_joysticks & 1;
 
     /* Main menu. */
     ui_main_menu = tui_menu_create(NULL, 1);
@@ -1117,13 +1187,12 @@ void ui_create_main_menu(int has_tape, int has_drive, int has_serial_traps, int 
                              TUI_MENU_BEH_CONTINUE);
     }
 
-    uisound_init(ui_main_menu);
+    uikeymap_init(ui_main_menu);
 
-    if (number_joysticks) {
-        uijoyport_init(ui_main_menu, port1, port2, port3, port4);
-    } else {
-        uijoystick_init(ui_main_menu);
-    }
+    uisound_init(ui_main_menu);
+    uisampler_init(ui_main_menu);
+
+    uijoyport_init(ui_main_menu, port1, port2, port3, port4, port5);
 
     ui_rom_submenu = tui_menu_create("Firmware ROM Settings", 1);
     tui_menu_add(ui_rom_submenu, rom_submenu);

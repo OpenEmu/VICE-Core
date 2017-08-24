@@ -36,6 +36,7 @@
 #include "menu_common.h"
 #include "menu_snapshot.h"
 #include "resources.h"
+#include "snapshot.h"
 #include "ui.h"
 #include "uifilereq.h"
 #include "uimenu.h"
@@ -80,7 +81,7 @@ static UI_MENU_CALLBACK(save_snapshot_callback)
         if (name != NULL) {
             util_add_extension(&name, "vsf");
             if (machine_write_snapshot(name, save_roms, save_disks, 0) < 0) {
-                ui_error("Cannot save snapshot image.");
+                snapshot_display_error();
             }
             lib_free(name);
         }
@@ -98,7 +99,7 @@ static UI_MENU_CALLBACK(save_snapshot_slot_callback)
         if (name != NULL) {
             util_add_extension(&name, "vsf");
             if (machine_write_snapshot(name, save_roms, save_disks, 0) < 0) {
-                ui_error("Cannot save snapshot image.");
+                snapshot_display_error();
             }
             lib_free(name);
         }
@@ -111,7 +112,7 @@ static UI_MENU_CALLBACK(quickload_snapshot_callback)
 {
     if (activated) {
         if (machine_read_snapshot("snapshot.vsf", 0) < 0) {
-            ui_error("Cannot read snapshot image.");
+           snapshot_display_error();
         }
     }
     return NULL;
@@ -121,7 +122,7 @@ static UI_MENU_CALLBACK(quicksave_snapshot_callback)
 {
     if (activated) {
         if (machine_write_snapshot("snapshot.vsf", save_roms, save_disks, 0) < 0) {
-            ui_error("Cannot save snapshot image.");
+            snapshot_display_error();
         }
     }
     return NULL;
@@ -175,7 +176,7 @@ static UI_MENU_CALLBACK(load_snapshot_callback)
         name = sdl_ui_file_selection_dialog("Choose snapshot file to load", FILEREQ_MODE_CHOOSE_FILE);
         if (name != NULL) {
             if (machine_read_snapshot(name, 0) < 0) {
-                ui_error("Cannot read snapshot image.");
+                snapshot_display_error();
             }
             lib_free(name);
         }
@@ -192,7 +193,7 @@ static UI_MENU_CALLBACK(load_snapshot_slot_callback)
         name = sdl_ui_slot_selection_dialog("Choose snapshot slot to load", SLOTREQ_MODE_CHOOSE_SLOT);
         if (name != NULL) {
             if (machine_read_snapshot(name, 0) < 0) {
-                ui_error("Cannot read snapshot image.");
+                snapshot_display_error();
             }
             lib_free(name);
         }
@@ -258,16 +259,6 @@ const ui_menu_entry_t snapshot_menu[] = {
       MENU_ENTRY_SUBMENU,
       submenu_callback,
       (ui_callback_data_t)save_snapshot_menu },
-#ifdef DINGOO_NATIVE
-    { "Load snapshot slot",
-      MENU_ENTRY_DIALOG,
-      load_snapshot_slot_callback,
-      NULL },
-    { "Save snapshot slot",
-      MENU_ENTRY_DIALOG,
-      save_snapshot_slot_callback,
-      NULL },
-#else
     { "Quickload snapshot.vsf",
       MENU_ENTRY_DIALOG,
       quickload_snapshot_callback,
@@ -276,7 +267,6 @@ const ui_menu_entry_t snapshot_menu[] = {
       MENU_ENTRY_DIALOG,
       quicksave_snapshot_callback,
       NULL },
-#endif
     SDL_MENU_ITEM_SEPARATOR,
     { "Start/stop recording history",
       MENU_ENTRY_OTHER,
@@ -324,14 +314,14 @@ const ui_menu_entry_t snapshot_menu[] = {
 void loader_load_snapshot(char *name)
 {
     if (machine_read_snapshot(name, 0) < 0) {
-        ui_error("Cannot read snapshot image.");
+        snapshot_display_error();
     }
 }
 
 void loader_save_snapshot(char *name)
 {
     if (machine_write_snapshot(name, save_roms, save_disks, 0) < 0) {
-        ui_error("Cannot save snapshot image.");
+        snapshot_display_error();
     }
 }
 #endif

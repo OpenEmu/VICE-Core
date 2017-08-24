@@ -4,6 +4,7 @@
  * Written by
  *  Andreas Boose <viceteam@t-online.de>
  *  Ettore Perazzoli <ettore@comm2000.it>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * Based on the original work in VICE 0.11.0 by
  *  Jouko Valta <jopi@stekt.oulu.fi>
@@ -127,6 +128,9 @@ static int vbank = 0;
 /* Tape sense status: 1 = some button pressed, 0 = no buttons pressed.  */
 static int tape_sense = 0;
 
+static int tape_write_in = 0;
+static int tape_motor_in = 0;
+
 /* Current memory configuration.  */
 static int mem_config;
 
@@ -175,6 +179,11 @@ static void mem_update_chargen(unsigned int chargen_high)
     BYTE *old_chargen_rom_ptr;
 
     old_chargen_rom_ptr = mem_chargen_rom_ptr;
+
+    /* invert line on international version, fixes bug #781 */
+    if (mem_machine_type == C128_MACHINE_INT) {
+        chargen_high = chargen_high ? 0 : 1;
+    }
 
     if (chargen_high) {
         mem_chargen_rom_ptr = mem_chargen_rom;
@@ -235,6 +244,8 @@ void mem_update_config(int config)
 void mem_set_machine_type(unsigned type)
 {
     mem_machine_type = type;
+    caps_sense = 1;
+    mem_pla_config_changed();
 }
 
 /* Change the current video bank.  Call this routine only when the vbank
@@ -284,10 +295,14 @@ void mem_set_ram_config(BYTE value)
 
 void mem_pla_config_changed(void)
 {
-    c64pla_config_changed(tape_sense, caps_sense, 0x57);
+    /* NOTE: on the international/US version of the hardware, there is no DIN/ASCII key -
+             instead this key is caps lock */
+    c64pla_config_changed(tape_sense, tape_write_in, tape_motor_in, caps_sense, 0x57);
 
     mmu_set_config64(((~pport.dir | pport.data) & 0x7) | (export.exrom << 3) | (export.game << 4));
 
+    /* on the international version, A8 of the chargen comes from the c64/c128 mode, not
+       from the status of the DIN/ASCII (capslock) key */
     if (mem_machine_type != C128_MACHINE_INT) {
         mem_update_chargen(pport.data_read & 0x40);
     }
@@ -855,6 +870,20 @@ void mem_set_tape_sense(int sense)
     mem_pla_config_changed();
 }
 
+/* Set the tape write in. */
+void mem_set_tape_write_in(int val)
+{
+    tape_write_in = val;
+    mem_pla_config_changed();
+}
+
+/* Set the tape motor in. */
+void mem_set_tape_motor_in(int val)
+{
+    tape_motor_in = val;
+    mem_pla_config_changed();
+}
+
 /* ------------------------------------------------------------------------- */
 
 void mem_get_basic_text(WORD *start, WORD *end)
@@ -1226,7 +1255,7 @@ void mem_bank_write(int bank, WORD addr, BYTE byte, void *context)
     mem_ram[addr] = byte;
 }
 
-static int mem_dump_io(WORD addr)
+static int mem_dump_io(void *context, WORD addr)
 {
     if ((addr >= 0xdc00) && (addr <= 0xdc3f)) {
         return ciacore_dump(machine_context.cia1);
@@ -1240,10 +1269,10 @@ mem_ioreg_list_t *mem_ioreg_list_get(void *context)
 {
     mem_ioreg_list_t *mem_ioreg_list = NULL;
 
-    mon_ioreg_add_list(&mem_ioreg_list, "MMU", 0xd500, 0xd50b, mmu_dump);
-    mon_ioreg_add_list(&mem_ioreg_list, "VDC", 0xd600, 0xd601, vdc_dump);
-    mon_ioreg_add_list(&mem_ioreg_list, "CIA1", 0xdc00, 0xdc0f, mem_dump_io);
-    mon_ioreg_add_list(&mem_ioreg_list, "CIA2", 0xdd00, 0xdd0f, mem_dump_io);
+    mon_ioreg_add_list(&mem_ioreg_list, "MMU", 0xd500, 0xd50b, mmu_dump, NULL);
+    mon_ioreg_add_list(&mem_ioreg_list, "VDC", 0xd600, 0xd601, vdc_dump, NULL);
+    mon_ioreg_add_list(&mem_ioreg_list, "CIA1", 0xdc00, 0xdc0f, mem_dump_io, NULL);
+    mon_ioreg_add_list(&mem_ioreg_list, "CIA2", 0xdd00, 0xdd0f, mem_dump_io, NULL);
 
     io_source_ioreg_add_list(&mem_ioreg_list);
 

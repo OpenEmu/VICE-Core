@@ -40,12 +40,13 @@
 #include "util.h"
 #include "vsync.h"
 
+static char *last_dir = NULL;
+
 static UI_CALLBACK(attach_cartridge)
 {
     int type = vice_ptr_to_int(UI_MENU_CB_PARAM);
     char *filename;
     ui_button_t button;
-    static char *last_dir;
     uilib_file_filter_enum_t filter[] = { UILIB_FILTER_CARTRIDGE, UILIB_FILTER_ALL };
 
     vsync_suspend_speed_eval();
@@ -98,52 +99,64 @@ static UI_CALLBACK(freeze_cartridge)
 static ui_menu_entry_t attach_cartridge_image_submenu[] = {
 /*
     { N_("Smart-attach cartridge image"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)attach_cartridge, (ui_callback_data_t)CARTRIDGE_CBM2_DETECT, NULL },
-    { "--", UI_MENU_TYPE_SEPARATOR },
+      (ui_callback_t)attach_cartridge, (ui_callback_data_t)CARTRIDGE_CBM2_DETECT, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
 */
     { N_("Load new Cart $1***"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)attach_cartridge,
-      (ui_callback_data_t)CARTRIDGE_CBM2_8KB_1000, NULL },
+      (ui_callback_t)attach_cartridge, (ui_callback_data_t)CARTRIDGE_CBM2_8KB_1000, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Unload Cart $1***"), UI_MENU_TYPE_NORMAL,
-      (ui_callback_t)detach_cartridge,
-      (ui_callback_data_t)CARTRIDGE_CBM2_8KB_1000, NULL },
-    { "--", UI_MENU_TYPE_SEPARATOR },
+      (ui_callback_t)detach_cartridge, (ui_callback_data_t)CARTRIDGE_CBM2_8KB_1000, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
     { N_("Load new Cart $2-3***"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)attach_cartridge,
-      (ui_callback_data_t)CARTRIDGE_CBM2_8KB_2000, NULL },
+      (ui_callback_t)attach_cartridge, (ui_callback_data_t)CARTRIDGE_CBM2_8KB_2000, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Unload Cart $2-3***"), UI_MENU_TYPE_NORMAL,
-      (ui_callback_t)detach_cartridge,
-      (ui_callback_data_t)CARTRIDGE_CBM2_8KB_2000, NULL },
-    { "--", UI_MENU_TYPE_SEPARATOR },
+      (ui_callback_t)detach_cartridge, (ui_callback_data_t)CARTRIDGE_CBM2_8KB_2000, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
     { N_("Load new Cart $4-5***"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)attach_cartridge,
-      (ui_callback_data_t)CARTRIDGE_CBM2_16KB_4000, NULL },
+      (ui_callback_t)attach_cartridge, (ui_callback_data_t)CARTRIDGE_CBM2_16KB_4000, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Unload Cart $4-5***"), UI_MENU_TYPE_NORMAL,
-      (ui_callback_t)detach_cartridge,
-      (ui_callback_data_t)CARTRIDGE_CBM2_16KB_4000, NULL },
-    { "--", UI_MENU_TYPE_SEPARATOR },
+      (ui_callback_t)detach_cartridge, (ui_callback_data_t)CARTRIDGE_CBM2_16KB_4000, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_SEPERATOR,
     { N_("Load new Cart $6-7***"), UI_MENU_TYPE_DOTS,
-      (ui_callback_t)attach_cartridge,
-      (ui_callback_data_t)CARTRIDGE_CBM2_16KB_6000, NULL },
+      (ui_callback_t)attach_cartridge, (ui_callback_data_t)CARTRIDGE_CBM2_16KB_6000, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Unload Cart $6-7***"), UI_MENU_TYPE_NORMAL,
-      (ui_callback_t)detach_cartridge,
-      (ui_callback_data_t)CARTRIDGE_CBM2_16KB_6000, NULL },
-/*
-    { "--", UI_MENU_TYPE_SEPARATOR },
-    { N_("Set cartridge as default"), UI_MENU_TYPE_NORMAL,
-      (ui_callback_t)default_cartridge, NULL, NULL },
-*/
-    { NULL }
+      (ui_callback_t)detach_cartridge, (ui_callback_data_t)CARTRIDGE_CBM2_16KB_6000, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
 };
 
 ui_menu_entry_t ui_cbm2cart_commands_menu[] = {
     { N_("Attach cartridge image"), UI_MENU_TYPE_NORMAL,
-      NULL, NULL, attach_cartridge_image_submenu },
+      NULL, NULL, attach_cartridge_image_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Detach cartridge image(s)"), UI_MENU_TYPE_NORMAL,
-      (ui_callback_t)detach_cartridge, NULL, NULL },
-/*
-    { N_("Cartridge freeze"), UI_MENU_TYPE_NORMAL,
-      (ui_callback_t)freeze_cartridge, NULL, NULL, KEYSYM_z, UI_HOTMOD_META },
-*/
-    { NULL }
+      (ui_callback_t)detach_cartridge, NULL, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
 };
+
+
+/** \brief  For symmetry, doesn't do anything (yet)
+ */
+void uicbm2cart_menu_create(void)
+{
+    /* NOP */
+}
+
+/** \brief  Clean up memory used by the UI
+ */
+void uicbm2cart_menu_shutdown(void)
+{
+    if (last_dir != NULL) {
+        lib_free(last_dir);
+    }
+}
+

@@ -12,6 +12,7 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/vdrive \
 	-I$(top_srcdir)/src/raster \
 	-I$(top_srcdir)/src/c64 \
+	-I$(top_srcdir)/src/c64/cart \
 	-I$(top_srcdir)/src/c64dtv \
 	-I$(top_srcdir)/src/c128 \
 	-I$(top_srcdir)/src/cbm2 \
@@ -23,6 +24,7 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/lib/p64 \
 	-I$(top_srcdir)/src/platform \
 	-I$(top_srcdir)/src/joyport \
+	-I$(top_srcdir)/src/samplerdrv \
 	-I$(top_srcdir)/src/imagecontents
 
 libarch_a_DEPENDENCIES = @DOS_TFE_PCAP_LIB@
@@ -38,7 +40,6 @@ libarch_a_SOURCES = \
 	c128ui.c \
 	c64ui.c \
 	c64dtvui.c \
-	catweaselmkiii.c \
 	cbm2ui.c \
 	cbm5x0ui.c \
 	cbmcharsets.c \
@@ -46,7 +47,6 @@ libarch_a_SOURCES = \
 	console.c \
 	grabkey.c \
 	grabkey.h \
-	hardsid.c \
 	joy.c \
 	joy.h \
 	kbd.c \
@@ -58,15 +58,13 @@ libarch_a_SOURCES = \
 	mousedrv.c \
 	mousedrv.h \
 	msdosmain.c \
-	parsid.c \
 	petui.c \
 	plus4ui.c \
+	rawnetarch.c \
 	scpu64ui.c \
 	signals.c \
-	socketimpl.h \
 	statusbar.c \
 	statusbar.h \
-	rawnetarch.c \
 	tui.c \
 	tui.h \
 	tui_backend.c \
@@ -98,6 +96,8 @@ libarch_a_SOURCES = \
 	uic64memoryhacks.h \
 	uic64model.c \
 	uic64model.h \
+	uic64scmodel.c \
+	uic64scmodel.h \
 	uic128model.c \
 	uic128model.h \
 	uicbm2model.c \
@@ -123,18 +123,26 @@ libarch_a_SOURCES = \
 	uids12c887rtc.h \
 	uieasyflash.c \
 	uieasyflash.h \
+	uiethernetcart.c \
+	uiethernetcart.h \
 	uiexpert.c \
 	uiexpert.h \
 	uigeoram.c \
 	uigeoram.h \
+	uigmod2.c \
+	uigmod2.h \
 	uiide64.c \
 	uiide64.h \
+	uiiocollisions.c \
+	uiiocollisions.h \
 	uiisepic.c \
 	uiisepic.h \
 	uijoyport.c \
 	uijoyport.h \
 	uijoystick.c \
 	uijoystick.h \
+	uikeymap.c \
+	uikeymap.h \
 	uimagicvoice.c \
 	uimagicvoice.h \
 	uimon.c \
@@ -156,6 +164,8 @@ libarch_a_SOURCES = \
 	uipetreu.h \
 	uiplus4cart.c \
 	uiplus4cart.h \
+	uiplus4memoryhacks.c \
+	uiplus4memoryhacks.h \
 	uiplus4model.c \
 	uiplus4model.h \
 	uiprinter.c \
@@ -166,6 +176,10 @@ libarch_a_SOURCES = \
 	uiretroreplay.h \
 	uireu.c \
 	uireu.h \
+	uirrnetmk3.c \
+	uirrnetmk3.h \
+	uisampler.c \
+	uisampler.h \
 	uiscpu64.c \
 	uiscpu64.h \
 	uiscpu64model.c \
@@ -191,8 +205,12 @@ libarch_a_SOURCES = \
 	uisoundexpander.h \
 	uisoundsampler.c \
 	uisoundsampler.h \
-	uitfe.c \
-	uitfe.h \
+	uiss5.c \
+	uiss5.h \
+	uitapeport.c \
+	uitapeport.h \
+	uiuserport.c \
+	uiuserport.h \
 	uiv364speech.c \
 	uiv364speech.h \
 	uivic20model.c \

@@ -92,7 +92,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_ITEM_NUMBER, IDCLS_SELECT_ITEM_FROM_ROMSET_ARCHIVE,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int romset_cmdline_options_init()
@@ -166,17 +166,18 @@ int romset_file_load(const char *filename)
     line_num = 0;
     do {
         retval = resources_read_item_from_file(fp);
-        if (retval == -1) {
-            log_error(romset_log,
-                      "%s: Invalid resource specification at line %d.",
-                      filename, line_num);
-            err = 1;
-        } else {
-            if (retval == -2) {
+        switch (retval) {
+            case RESERR_TYPE_INVALID:
+                log_error(romset_log,
+                        "%s: Invalid resource specification at line %d.",
+                        filename, line_num);
+                err = 1;
+                break;
+            case RESERR_UNKNOWN_RESOURCE:
                 log_warning(romset_log,
                             "%s: Unknown resource specification at line %d.",
                             filename, line_num);
-            }
+                break;
         }
         line_num++;
     } while (retval != 0);

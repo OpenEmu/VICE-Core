@@ -102,6 +102,7 @@ BEGIN
         END
         MENUITEM "", IDM_CART_DETACH
         MENUITEM "", IDM_CART_FREEZE
+        MENUITEM "", IDM_IO_COLLISION_HANDLING
         MENUITEM SEPARATOR
         MENUITEM "", IDM_MONITOR
         MENUITEM SEPARATOR
@@ -202,6 +203,7 @@ BEGIN
             MENUITEM "", IDM_MAXIMUM_SPEED_CUSTOM
         END
         MENUITEM "", IDM_PAUSE, CHECKED
+        MENUITEM "", IDM_SINGLE_FRAME_ADVANCE
         MENUITEM "", IDM_TOGGLE_WARP_MODE,            CHECKED
         MENUITEM SEPARATOR
         MENUITEM "", IDM_KEYBOARD_SETTINGS
@@ -211,6 +213,7 @@ BEGIN
             MENUITEM SEPARATOR
             MENUITEM "", IDM_SOUND_SETTINGS
         END
+        MENUITEM "", IDM_SAMPLER_SETTINGS
         MENUITEM SEPARATOR
         MENUITEM "", IDM_AUTOSTART_SETTINGS
         MENUITEM "", IDM_DATASETTE_SETTINGS
@@ -255,6 +258,9 @@ BEGIN
         MENUITEM "", IDM_VICII_SETTINGS
         MENUITEM "", IDM_SID_SETTINGS
         MENUITEM "", IDM_CIA_SETTINGS
+#ifdef HAVE_PCAP
+        MENUITEM "", IDM_ETHERNET_SETTINGS
+#endif
         MENUITEM SEPARATOR
         POPUP "Cartridge/IO settings"
         BEGIN
@@ -273,9 +279,12 @@ BEGIN
             MENUITEM "", IDM_MMC64_SETTINGS
             MENUITEM "", IDM_MMCREPLAY_SETTINGS
             MENUITEM "", IDM_RR_SETTINGS
+            MENUITEM "", IDM_GMOD2_SETTINGS
+            MENUITEM "", IDM_RRNETMK3_SETTINGS
+            MENUITEM "", IDM_TOGGLE_SS5_32K
             MENUITEM SEPARATOR
-#ifdef HAVE_TFE
-            MENUITEM "", IDM_TFE_SETTINGS
+#ifdef HAVE_PCAP
+            MENUITEM "", IDM_ETHERNETCART_SETTINGS
 #endif
 //IEEE488 missing
             MENUITEM "", IDM_C64BURSTMOD_SETTINGS
@@ -290,7 +299,23 @@ BEGIN
             MENUITEM "", IDM_TOGGLE_CPM_CART
             MENUITEM SEPARATOR
             MENUITEM "", IDM_DS12C887RTC_SETTINGS
-            MENUITEM "", IDM_USERPORT_RTC_SETTINGS
+            POPUP "Userport devices"
+            BEGIN
+                MENUITEM "", IDM_USERPORT_RTC_58321A_SETTINGS
+                MENUITEM "", IDM_USERPORT_RTC_DS1307_SETTINGS
+                MENUITEM "", IDM_TOGGLE_PET_USERPORT_DAC
+                MENUITEM "", IDM_TOGGLE_USERPORT_DIGIMAX
+                MENUITEM "", IDM_TOGGLE_USERPORT_4BIT_SAMPLER
+                MENUITEM "", IDM_TOGGLE_USERPORT_8BSS
+            END
+            POPUP "Tape port devices"
+            BEGIN
+                MENUITEM "", IDM_TAPELOG_SETTINGS
+                MENUITEM "", IDM_CP_CLOCK_F83_SETTINGS
+                MENUITEM "", IDM_TOGGLE_DATASETTE
+                MENUITEM "", IDM_TOGGLE_TAPE_SENSE_DONGLE
+                MENUITEM "", IDM_TOGGLE_DTL_BASIC_DONGLE
+            END
             MENUITEM SEPARATOR
             MENUITEM "", IDM_TOGGLE_CART_RESET
         END
@@ -487,53 +512,6 @@ END
 
 // dialog template for all languages
 
-// FIXME: keyboard dialog can be made generic
-
-IDD_C64KBD_MAPPING_SETTINGS_DIALOG DIALOG DISCARDABLE 0, 0, 240, 140
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-FONT 8, "MS Sans Serif"
-BEGIN
-    AUTORADIOBUTTON "", IDC_C64KBD_MAPPING_SELECT_SYM,
-                    10, 10, 54, 10, BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP
-    AUTORADIOBUTTON "", IDC_C64KBD_MAPPING_SELECT_POS,
-                    10, 30, 54, 10, BS_AUTORADIOBUTTON
-    AUTORADIOBUTTON "", IDC_C64KBD_MAPPING_SELECT_USERSYM,
-                    10, 50, 54, 10, BS_AUTORADIOBUTTON
-    AUTORADIOBUTTON "", IDC_C64KBD_MAPPING_SELECT_USERPOS,
-                    10, 70, 54, 10, BS_AUTORADIOBUTTON
-
-    EDITTEXT        IDC_C64KBD_MAPPING_SYM,
-                    65, 9, 110, 12, WS_TABSTOP
-    PUSHBUTTON      "", IDC_C64KBD_MAPPING_SYM_BROWSE,
-                    185, 9, 50, 14, 0
-    EDITTEXT        IDC_C64KBD_MAPPING_POS,
-                    65, 29, 110, 12, WS_TABSTOP
-    PUSHBUTTON      "", IDC_C64KBD_MAPPING_POS_BROWSE,
-                    185, 29, 50, 14, 0
-    EDITTEXT        IDC_C64KBD_MAPPING_USERSYM,
-                    65, 49, 110, 12, WS_TABSTOP
-    PUSHBUTTON      "", IDC_C64KBD_MAPPING_USERSYM_BROWSE,
-                    185, 49, 50, 14, 0
-    EDITTEXT        IDC_C64KBD_MAPPING_USERPOS,
-                    65, 69, 110, 12, WS_TABSTOP
-    PUSHBUTTON      "", IDC_C64KBD_MAPPING_USERPOS_BROWSE,
-                    185, 69, 50, 14, 0
-
-    PUSHBUTTON      "", IDC_C64KBD_MAPPING_DUMP,
-                    10, 94, 60, 14, 0
-    PUSHBUTTON      "", IDC_KBD_SHORTCUT_DUMP,
-                    80, 94, 60, 14, 0
-
-    DEFPUSHBUTTON   "", IDOK,
-                    20, 120, 50, 14, WS_TABSTOP
-    PUSHBUTTON      "", IDCANCEL,
-                    80, 120, 50, 14, WS_TABSTOP
-END
-
-// -----------------------------------------------------------------------------
-
-// dialog template for all languages
-
 IDD_C64MODEL_SETTINGS_DIALOG DIALOG DISCARDABLE 0, 0, 150, 80
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION ""
@@ -680,7 +658,7 @@ BEGIN
   IDS_MAX_MACHINE                  "MAX Machine"
   IDS_MI_C64_MEMORY_HACKS_SETTINGS "Speicher Erweiterungshack Einstellungen..."
   IDS_MI_C64BURSTMOD_SETTINGS      "C64 Laufwerk Burstmodifkation Einstellungen..."
-  IDS_MI_TOGGLE_CPM_CART           "Enable the CP/M Cartridge"
+  IDS_MI_TOGGLE_CPM_CART           "CP/M Modul aktivieren"
 END
 
 
@@ -849,10 +827,10 @@ BEGIN
   IDS_C64_MODEL                    "C64 모델"
   IDS_6569_PAL                     "6569 (PAL)"
   IDS_8565_PAL                     "8565 (PAL)"
-  IDS_6569R1_OLD_PAL               "6569R1 (올드 PAL)"
+  IDS_6569R1_OLD_PAL               "6569R1 (구형 PAL)"
   IDS_6567_NTSC                    "6567 (NTSC)"
   IDS_8562_NTSC                    "8562 (NTSC)"
-  IDS_6567R56A_OLD_NTSC            "6567R56A (올드 NTSC)"
+  IDS_6567R56A_OLD_NTSC            "6567R56A (구형 NTSC)"
   IDS_6572_PAL_N                   "6572 (PAL-N)"
   IDS_C64_MODEL_CAPTION            "C64 모델 셋팅"
   IDS_C64BURSTMOD_CAPTION          "C64 drive burst modification settings"
@@ -860,10 +838,10 @@ BEGIN
   IDS_C64BURSTMOD_CIA              "C64 drive burst modification CIA"
   IDS_C64_PAL                      "C64 PAL"
   IDS_C64C_PAL                     "C64C PAL"
-  IDS_C64_OLD_PAL                  "C64 올드 PAL"
+  IDS_C64_OLD_PAL                  "C64 구형 PAL"
   IDS_C64_NTSC                     "C64 NTSC"
   IDS_C64C_NTSC                    "C64C NTSC"
-  IDS_C64_OLD_NTSC                 "C64 올드 NTSC"
+  IDS_C64_OLD_NTSC                 "C64 구형 NTSC"
   IDS_DREAN                        "드린"
   IDS_C64_SX_PAL                   "C64 SX PAL"
   IDS_C64_SX_NTSC                  "C64 SX NTSC"
@@ -896,7 +874,7 @@ BEGIN
   IDS_6572_PAL_N                   "6572 (PAL-N)"
   IDS_C64_MODEL_CAPTION            "C64 model instellingen"
   IDS_C64BURSTMOD_CAPTION          "C64 drive burst modificatie instellingen"
-  IDS_C64BURSTMOD_ENABLE           "Activeer de C64 drive burst modificatie"
+  IDS_C64BURSTMOD_ENABLE           "C64 drive burst modificatie inschakelen"
   IDS_C64BURSTMOD_CIA              "C64 drive burst modificatie CIA"
   IDS_C64_PAL                      "C64 PAL"
   IDS_C64C_PAL                     "C64C PAL"
@@ -914,7 +892,7 @@ BEGIN
   IDS_MAX_MACHINE                  "MAX Machine"
   IDS_MI_C64_MEMORY_HACKS_SETTINGS "Geheugen uitbreiding hacks instellingen..."
   IDS_MI_C64BURSTMOD_SETTINGS      "C64 drive burst modificatie instellingen..."
-  IDS_MI_TOGGLE_CPM_CART           "Activeer de CP/M cartridge"
+  IDS_MI_TOGGLE_CPM_CART           "Activeer de CP/M Cartridge"
 END
 
 

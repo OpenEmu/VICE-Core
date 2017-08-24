@@ -72,7 +72,7 @@ static tui_menu_item_def_t write_snapshot_menu_def[] = {
       "Save snapshot with the specified parameters",
       write_snapshot_callback, NULL, 0,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 tui_menu_item_def_t ui_snapshot_menu_def[] = {
@@ -84,7 +84,7 @@ tui_menu_item_def_t ui_snapshot_menu_def[] = {
       "Load a snapshot file",
       load_snapshot_callback, NULL, 0,
       TUI_MENU_BEH_CONTINUE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static char *snapshot_selector(const char *title)
@@ -180,7 +180,7 @@ static TUI_MENU_CALLBACK(write_snapshot_callback)
 
         if (!util_file_exists(file_name) || tui_ask_confirmation("The specified file already exists.  Replace?  (Y/N)")) {
             if (machine_write_snapshot(file_name, save_roms_flag, save_disks_flag, 0) < 0) {
-                tui_error("Cannot save snapshot.");
+                snapshot_display_error();
             } else {
                 tui_message("Snapshot saved successfully.");
             }
@@ -197,7 +197,7 @@ static TUI_MENU_CALLBACK(load_snapshot_callback)
 
         if (name != NULL) {
             if (machine_read_snapshot(name, 0) < 0) {
-                tui_error("Cannot load snapshot.");
+                snapshot_display_error();
             } else {
                 *behavior = TUI_MENU_BEH_RESUME;
             }

@@ -39,13 +39,17 @@
 #include "menu_help.h"
 #include "menu_jam.h"
 #include "menu_joyport.h"
+#include "menu_media.h"
+#include "menu_monitor.h"
 #include "menu_network.h"
 #include "menu_plus4cart.h"
 #include "menu_plus4hw.h"
 #include "menu_printer.h"
 #include "menu_reset.h"
+#include "menu_sampler.h"
 #include "menu_screenshot.h"
 #include "menu_settings.h"
+#include "menu_sid.h"
 #include "menu_snapshot.h"
 #include "menu_sound.h"
 #include "menu_speed.h"
@@ -90,14 +94,18 @@ static const ui_menu_entry_t xplus4_main_menu[] = {
       MENU_ENTRY_SUBMENU,
       submenu_callback,
       (ui_callback_data_t)sound_output_menu },
+    { "Sampler settings",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)sampler_menu },
     { "Snapshot",
       MENU_ENTRY_SUBMENU,
       submenu_callback,
       (ui_callback_data_t)snapshot_menu },
-    { "Screenshot",
+    { "Save media file",
       MENU_ENTRY_SUBMENU,
       submenu_callback,
-      (ui_callback_data_t)screenshot_menu },
+      (ui_callback_data_t)media_menu },
     { "Speed settings",
       MENU_ENTRY_SUBMENU,
       submenu_callback,
@@ -121,9 +129,9 @@ static const ui_menu_entry_t xplus4_main_menu[] = {
       pause_callback,
       NULL },
     { "Monitor",
-      MENU_ENTRY_OTHER,
-      monitor_callback,
-      NULL },
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)monitor_menu },
     { "Virtual keyboard",
       MENU_ENTRY_OTHER,
       vkbd_callback,
@@ -171,9 +179,13 @@ int plus4ui_init(void)
 #endif
 
     sdl_ui_set_menu_params = plus4ui_set_menu_params;
-    uijoyport_menu_create(1, 1, 1, 0);
+    uisampler_menu_create();
+    uijoyport_menu_create(1, 1, 1, 1, 1);
     uidrive_menu_create();
     uikeyboard_menu_create();
+    uipalette_menu_create("TED", NULL);
+    uisid_menu_create();
+    uimedia_menu_create();
 
     sdl_ui_set_main_menu(xplus4_main_menu);
 
@@ -197,6 +209,11 @@ int plus4ui_init(void)
 
 void plus4ui_shutdown(void)
 {
+    uikeyboard_menu_shutdown();
+    uisid_menu_shutdown();
+    uipalette_menu_shutdown();
+    uijoyport_menu_shutdown();
+    uimedia_menu_shutdown();
 #ifdef SDL_DEBUG
     fprintf(stderr, "%s\n", __func__);
 #endif

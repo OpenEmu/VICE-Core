@@ -34,11 +34,15 @@
 #include "log.h"
 #include "machine.h"
 #include "render1x1.h"
+#include "render1x1crt.h"
+#include "render1x1pal.h"
 #include "render1x1ntsc.h"
 #include "render1x2.h"
 #include "render1x2crt.h"
 #include "render2x2.h"
 #include "render2x2crt.h"
+#include "render2x2pal.h"
+#include "render2x2ntsc.h"
 #include "render2x4.h"
 #include "render2x4crt.h"
 #include "renderscale2x.h"
@@ -47,9 +51,6 @@
 #include "video-render.h"
 #include "video.h"
 
-#ifdef DINGOO_NATIVE
-#include "render1x1_dingoo.h"
-#endif
 
 static int rendermode_error = -1;
 
@@ -59,9 +60,6 @@ static void video_render_crt_main(video_render_config_t *config,
                                   int yt, int pitchs, int pitcht, int depth,
                                   viewport_t *viewport)
 {
-#ifdef DINGOO_NATIVE
-    render_16_1x1_04_dingoo(&config->color_tables, src, trg, width, height, xs, ys, xt, yt, pitchs, pitcht);
-#else
     video_render_color_tables_t *colortab;
     int doublescan, delayloop, rendermode, scale2x;
 
@@ -87,18 +85,17 @@ static void video_render_crt_main(video_render_config_t *config,
 
         case VIDEO_RENDER_CRT_1X1:
             if (delayloop && depth != 8) {
-                /* FIXME: write 1x1 CRT renderer */
                 switch (depth) {
                     case 16:
-                        render_16_1x1_ntsc(colortab, src, trg, width, height,
+                        render_16_1x1_crt(colortab, src, trg, width, height,
                                            xs, ys, xt, yt, pitchs, pitcht);
                         return;
                     case 24:
-                        render_24_1x1_ntsc(colortab, src, trg, width, height,
+                        render_24_1x1_crt(colortab, src, trg, width, height,
                                            xs, ys, xt, yt, pitchs, pitcht);
                         return;
                     case 32:
-                        render_32_1x1_ntsc(colortab, src, trg, width, height,
+                        render_32_1x1_crt(colortab, src, trg, width, height,
                                            xs, ys, xt, yt, pitchs, pitcht);
                         return;
                 }
@@ -261,7 +258,6 @@ static void video_render_crt_main(video_render_config_t *config,
         log_error(LOG_DEFAULT, "video_render_crt_main: unsupported rendermode (%d)", rendermode);
     }
     rendermode_error = rendermode;
-#endif
 }
 
 void video_render_crt_init(void)

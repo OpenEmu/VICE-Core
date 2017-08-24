@@ -18,6 +18,7 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/imagecontents \
 	-I$(top_srcdir)/src/lib/p64 \
 	-I$(top_srcdir)/src/joyport \
+	-I$(top_srcdir)/src/samplerdrv \
 	-I$(top_srcdir)/src
 
 noinst_LIBRARIES = libarchgui.a
@@ -47,11 +48,15 @@ libarchgui_a_SOURCES = \
 	uicartridge.h \
 	uicbm2cart.c \
 	uicbm2cart.h \
+	uiclockport-device.c \
+	uiclockport-device.h \
 	uicmdline.c \
 	uicommands.c \
 	uicommands.h \
 	uicrtc.c \
 	uicrtc.h \
+	uics8900.c \
+	uics8900.h \
 	uidatasette.c \
 	uidatasette.h \
 	uidigimax.c \
@@ -84,6 +89,8 @@ libarchgui_a_SOURCES = \
 	uieasyflash.h \
 	uiedisk.h \
 	uiedit.h \
+	uiethernetcart.c \
+	uiethernetcart.h \
 	uiexpert.c \
 	uiexpert.h \
 	uifliplist.c \
@@ -91,6 +98,8 @@ libarchgui_a_SOURCES = \
 	uifullscreen-menu.h \
 	uigeoram.c \
 	uigeoram.h \
+	uigmod2.c \
+	uigmod2.h \
 	uihotkey.h \
 	uiide64.c \
 	uiide64.h \
@@ -153,6 +162,8 @@ libarchgui_a_SOURCES = \
 	uiretroreplay.h \
 	uireu.c \
 	uireu.h \
+	uirrnetmk3.c \
+	uirrnetmk3.h \
 	uiromset.c \
 	uiromset.h \
 	uirs232.c \
@@ -163,6 +174,8 @@ libarchgui_a_SOURCES = \
 	uirs232petplus4cbm2.h \
 	uirs232user.c \
 	uirs232user.h \
+	uisampler.c \
+	uisampler.h \
 	uiscpu64.c \
 	uiscpu64.h \
 	uiscreenshot.h \
@@ -179,14 +192,14 @@ libarchgui_a_SOURCES = \
 	uisoundsampler.h \
 	uisupersnapshot.c \
 	uisupersnapshot.h \
+	uitapeport.c \
+	uitapeport.h \
 	uited.c \
 	uited.h \
-	uitfe.c \
-	uitfe.h \
 	uitpi.c \
 	uitpi.h \
-	uiuserportrtc.c \
-	uiuserportrtc.h \
+	uiuserport.c \
+	uiuserport.h \
 	uiv364speech.c \
 	uiv364speech.h \
 	uivdc.c \
@@ -197,4 +210,3 @@ libarchgui_a_SOURCES = \
 	uivicii.h \
 	vic20ui.c \
 	vsidui.c
-

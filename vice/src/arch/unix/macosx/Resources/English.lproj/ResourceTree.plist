@@ -4,6 +4,32 @@
 <dict>
 	<key>Peripherals</key>
 	<dict>
+		<key>_C128_C64_CBM-II_</key>
+		<dict>
+			<key>Userport</key>
+			<dict>
+				<key>8bit Stereo Sampler</key>
+				<string>Userport8BSS,b</string>
+				<key>4bit Sampler</key>
+				<string>Userport4bitSampler,b</string>
+				<key>Digimax</key>
+				<string>UserportDIGIMAX,b</string>
+			</dict>
+		</dict>
+		<key>_C128_C64_CBM-II_PET_VIC20_</key>
+		<dict>
+			<key>Userport</key>
+			<dict>
+				<key>RTC 58321A save when changed</key>
+				<string>UserportRTCSave,b</string>
+				<key>RTC 58321A enable</key>
+				<string>UserportRTC,b</string>
+				<key>RTC DS1307 enable</key>
+				<string>UserportRTCDS1307,b</string>
+				<key>RTC DS1307 save when changed</key>
+				<string>Userport4bitSampler,b</string>
+			</dict>
+		</dict>
 		<key>Joystick</key>
 		<dict>
 			<key>Allow opposite directions</key>
@@ -30,6 +56,65 @@
 		</dict>
 		<key>_C128_C64_CBM-II_PET_PLUS4_VIC20_</key>
 		<dict>
+			<key>Joystick</key>
+			<dict>
+				<key>BBRTC save when changed</key>
+				<string>BBRTCSave,b</string>
+			</dict>
+			<key>Userport</key>
+			<dict>
+				<key>DAC</key>
+				<string>UserportDAC,b</string>
+			</dict>
+			<key>Drives</key>
+			<dict>
+				<key>Drive 8</key>
+				<dict>
+					<key>Supercard</key>
+					<string>Drive8Supercard,b</string>
+					<key>RTC Save</key>
+					<string>Drive8RTCSave,b</string>
+					<key>Drive RPM</key>
+					<string>Drive8RPM,i</string>
+					<key>Drive Wobble</key>
+					<string>Drive8Wobble,i</string>
+				</dict>
+				<key>Drive 9</key>
+				<dict>
+					<key>Drive Wobble</key>
+					<string>Drive9Wobble,i</string>
+					<key>Supercard</key>
+					<string>Drive9Supercard,b</string>
+					<key>RTC Save</key>
+					<string>Drive9RTCSave,b</string>
+					<key>Drive RPM</key>
+					<string>Drive9RPM,i</string>
+				</dict>
+				<key>Drive 10</key>
+				<dict>
+					<key>Drive Wobble</key>
+					<string>Drive10Wobble,i</string>
+					<key>Drive RPM</key>
+					<string>Drive10RPM,i</string>
+					<key>Supercard</key>
+					<string>Drive10Supercard,b</string>
+					<key>RTC Save</key>
+					<string>Drive10RTCSave,b</string>
+				</dict>
+				<key>Drive 11</key>
+				<dict>
+					<key>Drive Wobble</key>
+					<string>Drive11Wobble,i</string>
+					<key>Drive RPM</key>
+					<string>Drive11RPM,i</string>
+					<key>Supercard</key>
+					<string>Drive11Supercard,b</string>
+					<key>RTC Save</key>
+					<string>Drive11RTCSave,b</string>
+				</dict>
+				<key>Supercard ROM</key>
+				<string>DriveSupercardName,fo</string>
+			</dict>
 			<key>Cartridges</key>
 			<dict>
 				<key>ACIA</key>
@@ -42,16 +127,47 @@
 					<string>Acia1Mode,e,Normal,Swiftlink,Turbo232</string>
 				</dict>
 			</dict>
-			<key>Datasette</key>
+			<key>Tape</key>
 			<dict>
-				<key>Reset with CPU</key>
-				<string>DatasetteResetWithCPU,b</string>
-				<key>Speed Tuning</key>
-				<string>DatasetteSpeedTuning,E,0,1,2,3,4,5,6,7</string>
-				<key>Zero Gap Delay</key>
-				<string>DatasetteZeroGapDelay,E,1000,2000,5000,10000,20000,50000,100000</string>
-				<key>Tape Wobble</key>
-				<string>DatasetteTapeWobble,i</string>
+				<key>Dongle (Tape Sense)</key>
+				<dict>
+					<key>enable</key>
+					<string>TapeSenseDongle,b</string>
+				</dict>
+				<key>Dongle (DTL Basic)</key>
+				<dict>
+					<key>enable</key>
+					<string>DTLBasicDongle,b</string>
+				</dict>
+				<key>PCF8583 RTC</key>
+				<dict>
+					<key>enable</key>
+					<string>CPClockF83,b</string>
+					<key>save when changed</key>
+					<string>CpClockF83Save,b</string>
+				</dict>
+				<key>Tape Logger</key>
+				<dict>
+					<key>enable</key>
+					<string>TapeLog,b</string>
+					<key>destination file</key>
+					<string>TapeLogDestination,E,generic,specific</string>
+					<key>custom file</key>
+					<string>TapeLogFilename,s</string>
+				</dict>
+				<key>Datasette</key>
+				<dict>
+					<key>enable</key>
+					<string>Datasette,b</string>
+					<key>Reset with CPU</key>
+					<string>DatasetteResetWithCPU,b</string>
+					<key>Speed Tuning</key>
+					<string>DatasetteSpeedTuning,E,0,1,2,3,4,5,6,7</string>
+					<key>Zero Gap Delay</key>
+					<string>DatasetteZeroGapDelay,E,1000,2000,5000,10000,20000,50000,100000</string>
+					<key>Tape Wobble</key>
+					<string>DatasetteTapeWobble,i</string>
+				</dict>
 			</dict>
 		</dict>
 		<key>_C128_</key>
@@ -77,6 +193,18 @@
 		<dict>
 			<key>Cartridges</key>
 			<dict>
+				<key>RRNET MK3</key>
+				<dict>
+					<key>Enable BIOS Flash Jumper</key>
+					<string>RRNETMK3_flashjumper,b</string>
+					<key>Save BIOS when changed</key>
+					<string>RRNETMK3_bios_write,b</string>
+				</dict>
+				<key>Super Snapshot V5</key>
+				<dict>
+					<key>32K RAM</key>
+					<string>SSRamExpansion,b</string>
+				</dict>
 				<key>Retro Replay</key>
 				<dict>
 					<key>Revision</key>
@@ -104,6 +232,17 @@
 				</dict>
 				<key>IDE64</key>
 				<dict>
+					<key>Shortbus</key>
+					<dict>
+						<key>DIGIMAX enable</key>
+						<string>SBDigimax,b</string>
+						<key>DIGIMAX base</key>
+						<string>SBDigimaxBase,i</string>
+						<key>ETFE enable</key>
+						<string>SBETFE,b</string>
+						<key>ETFE base</key>
+						<string>SBETFEBase,i</string>
+					</dict>
 					<key>Drive 1</key>
 					<dict>
 						<key>Sectors</key>
@@ -156,8 +295,8 @@
 						<key>ATA Image File</key>
 						<string>IDE64Image4,fs</string>
 					</dict>
-					<key>Version 4</key>
-					<string>IDE64Version4,b</string>
+					<key>Version</key>
+					<string>IDE64Version,e,V3,V4.1,V4.2</string>
 					<key>USB Server enabled</key>
 					<string>IDE64USBServer,b</string>
 					<key>USB Server Address</key>
@@ -195,6 +334,15 @@
 					<string>MMC64_bios_write,b</string>
 					<key>Card Type</key>
 					<string>MMC64_sd_type,e,Auto,MMC,SD,SDHC</string>
+				</dict>
+				<key>GMod2</key>
+				<dict>
+					<key>Flash Write</key>
+					<string>GMOD2FlashWrite,b</string>
+					<key>EEPROM Image</key>
+					<string>GMOD2EEPROMImage,fs</string>
+					<key>EEPROM R/W</key>
+					<string>GMOD2EEPROMRW,b</string>
 				</dict>
 				<key>MMCReplay</key>
 				<dict>
@@ -240,6 +388,10 @@
 			</dict>
 			<key>Joystick</key>
 			<dict>
+				<key>Joystick Port 1</key>
+				<string>JoyPort1Devicec,i</string>
+				<key>Joystick Port 2</key>
+				<string>JoyPort2Devicec,i</string>
 				<key>Extra Joystick Enable</key>
 				<string>ExtraJoy,b</string>
 				<key>Extra Joystick Hardware</key>
@@ -251,6 +403,8 @@
 				<string>Mouseport,m,Joy1=1,Joy2=2</string>
 				<key>Mouse Type</key>
 				<string>Mousetype,e,1351,NEOS,AMIGA,Paddles,CX-22,ST,Smart,Micromys,Koalapad</string>
+				<key>Smart Mouse RTC save</key>
+				<string>SmartMouseRTCSave,b</string>
 			</dict>
 		</dict>
 		<key>_C128_C64_PLUS4_</key>
@@ -266,6 +420,17 @@
 		</dict>
 		<key>_C128_C64_VIC20_</key>
 		<dict>
+			<key>RTC</key>
+			<dict>
+				<key>DS12C887 enable</key>
+				<string>DS12C887RTC,b</string>
+				<key>DS12C887 start with OSC running</key>
+				<string>DS12C887RTCRunMode,b</string>
+				<key>DS12C887 save</key>
+				<string>DS12C887RTCSave,b</string>
+				<key>DS12C887 Base Address</key>
+				<string>DS12C887RTCbase,i</string>
+			</dict>
 			<key>Lightpen</key>
 			<dict>
 				<key>Type</key>
@@ -273,14 +438,19 @@
 			</dict>
 			<key>Cartridges</key>
 			<dict>
-				<key>TFE/RRNet</key>
+				<key>Ethernet Cartridge</key>
 				<dict>
-					<key>Enable</key>
-					<string>ETHERNET_ACTIVE,b</string>
+					<key>enabled</key>
+					<string>ETHERNETCART_ACTIVE,b</string>
+					<key>mode</key>
+					<string>ETHERNETCARTMode,e,TFE,RR-Net</string>
+					<key>base address</key>
+					<string>ETHERNETCARTBase,i</string>
+				</dict>
+				<key>Ethernet Interface</key>
+				<dict>
 					<key>Interface</key>
 					<string>ETHERNET_INTERFACE,s</string>
-					<key>RRNet</key>
-					<string>ETHERNET_AS_RR,b</string>
 				</dict>
 				<key>SFX Sound Expander</key>
 				<dict>
@@ -402,6 +572,11 @@
 					<key>Write Image</key>
 					<string>IsepicImageWrite,b</string>
 				</dict>
+				<key>CPM Cartridge</key>
+				<dict>
+					<key>Enable</key>
+					<string>CPMCart,b</string>
+				</dict>
 			</dict>
 		</dict>
 		<key>_C64DTV_</key>
@@ -414,11 +589,6 @@
 		</dict>
 		<key>_PET_</key>
 		<dict>
-			<key>DAC</key>
-			<dict>
-				<key>Enable</key>
-				<string>UserportDAC,b</string>
-			</dict>
 			<key>REU</key>
 			<dict>
 				<key>Enable</key>
@@ -431,6 +601,25 @@
 		</dict>
 		<key>_PLUS4_</key>
 		<dict>
+			<key>Joystick</key>
+			<dict>
+				<key>Joystick Port 1</key>
+				<string>JoyPort1Devicec,i</string>
+				<key>Joystick Port 2</key>
+				<string>JoyPort2Devicec,i</string>
+			</dict>
+			<key>SID-Card control port</key>
+			<dict>
+				<key>Joystick Port 5</key>
+				<string>JoyPort5Device,i</string>
+			</dict>
+			<key>Userport</key>
+			<dict>
+				<key>Joystick Port 3</key>
+				<string>JoyPort3Device,i</string>
+				<key>Joystick Port 4</key>
+				<string>JoyPort4Device,i</string>
+			</dict>
 			<key>Memory Hacks</key>
 			<string>MemoryHack,m,none,CS256K,H256K,H1024K,H4096K</string>
 			<key>Cartridges</key>
@@ -445,17 +634,22 @@
 		</dict>
 		<key>_VIC20_</key>
 		<dict>
+			<key>Joystick</key>
+			<dict>
+				<key>Joystick Port 1</key>
+				<string>JoyPort1Devicec,i</string>
+			</dict>
 			<key>Cartridges</key>
 			<dict>
+				<key>Ultimem</key>
+				<dict>
+					<key>Write Back</key>
+					<string>UltimemWriteBack,b</string>
+				</dict>
 				<key>ACIA</key>
 				<dict>
 					<key>Base</key>
 					<string>Acia1Base,E,$9800,$9c00</string>
-				</dict>
-				<key>MIDI</key>
-				<dict>
-					<key>Type</key>
-					<string>MIDIMode,e,Maplin</string>
 				</dict>
 				<key>Mega Cart</key>
 				<dict>
@@ -479,6 +673,21 @@
 	</dict>
 	<key>Machine</key>
 	<dict>
+		<key>Keymap</key>
+		<dict>
+			<key>Keymap</key>
+			<string>KeymapIndex,e,Symbolic,Positional,custom Symbolic,custom Positional </string>
+			<key>Host Mapping</key>
+			<string>KeyboardMapping,e,American,British,German,Danish,Norwegian,Finnish,Italian</string>
+			<key>Symbolic</key>
+			<string>KeymapSymFile,fo</string>
+			<key>Positional</key>
+			<string>KeymapPosFile,fo</string>
+			<key>custom Symbolic</key>
+			<string>KeymapUserSymFile,fo</string>
+			<key>custom Positional</key>
+			<string>KeymapUserPosFile,fo</string>
+		</dict>
 		<key>CPU</key>
 		<dict>
 			<key>action on CPU JAM</key>
@@ -495,12 +704,17 @@
 		</dict>
 		<key>_C128_</key>
 		<dict>
+			<key>Keymap</key>
+			<dict>
+				<key>C128 Keyboard Type</key>
+				<string>KeyboardType,e,International,Finnish,French,German,Italian,Norwegian,Swedish</string>
+			</dict>
 			<key>Model</key>
 			<dict>
 				<key>CIA 1 Model</key>
-				<string>CIA1Model,e,6526 (old),6526A (new)</string>
+				<string>CIA1Model,e,6526 (old),6526 (new)</string>
 				<key>CIA 2 Model</key>
-				<string>CIA2Model,e,6526 (old),6526A (new)</string>
+				<string>CIA2Model,e,6526 (old),6526 (new)</string>
 			</dict>
 			<key>C128</key>
 			<dict>
@@ -582,14 +796,6 @@
 				<string>VDCAudioLeak,e,Disabled,Enabled</string>
 			</dict>
 		</dict>
-		<key>_C128_PLUS4_VIC20_</key>
-		<dict>
-			<key>Keymap</key>
-			<dict>
-				<key>Index</key>
-				<string>KeymapIndex,e,Symbolic,Positional</string>
-			</dict>
-		</dict>
 		<key>_C128_C64_C64DTV_5_</key>
 		<dict>
 			<key>VIC II</key>
@@ -600,21 +806,12 @@
 				<string>VICIICheckSbColl,b</string>
 				<key>Check Sprite Sprite Collision</key>
 				<string>VICIICheckSsColl,b</string>
-				<key>New Luminances</key>
-				<string>VICIINewLuminances,b</string>
 				<key>Audio Leak</key>
 				<string>VICIIAudioLeak,e,Disabled,Enabled</string>
 			</dict>
 		</dict>
 		<key>_C128_C64_C64DTV_PLUS4_VIC20_</key>
 		<dict>
-			<key>Keymap</key>
-			<dict>
-				<key>Positional</key>
-				<string>KeymapPosFile,fo</string>
-				<key>Symbolic</key>
-				<string>KeymapSymFile,fo</string>
-			</dict>
 			<key>Drive ROM</key>
 			<dict>
 				<key>1540</key>
@@ -653,13 +850,6 @@
 		</dict>
 		<key>_C64_C64DTV_</key>
 		<dict>
-			<key>Keymap</key>
-			<dict>
-				<key>Index</key>
-				<string>KeymapIndex,e,Symbolic,Positional,Symbolic DE</string>
-				<key>Symbolic DE</key>
-				<string>KeymapSymDeFile,fo</string>
-			</dict>
 			<key>ROM</key>
 			<dict>
 				<key>Basic</key>
@@ -677,9 +867,9 @@
 			<key>Model</key>
 			<dict>
 				<key>CIA 1 Model</key>
-				<string>CIA1Model,e,6526 (old),6526A (new)</string>
+				<string>CIA1Model,e,6526 (old),6526 (new)</string>
 				<key>CIA 2 Model</key>
-				<string>CIA2Model,e,6526 (old),6526A (new)</string>
+				<string>CIA2Model,e,6526 (old),6526 (new)</string>
 				<key>glue logic</key>
 				<string>GlueLogic,e,Discrete,Integrated</string>
 				<key>Reset goes to IEC</key>
@@ -730,6 +920,8 @@
 				<string>DtvRevision,m,DTV2=2,DTV3=3</string>
 				<key>True Flash Filesystem</key>
 				<string>FlashTrueFS,b</string>
+				<key>Luminance Fix</key>
+				<string>VICIINewLuminances,b</string>
 			</dict>
 		</dict>
 		<key>_CBM-II_</key>
@@ -743,7 +935,7 @@
 					<key>Model</key>
 					<dict>
 						<key>CIA 1 Model</key>
-						<string>CIA1Model,e,6526 (old),6526A (new)</string>
+						<string>CIA1Model,e,6526 (old),6526 (new)</string>
 					</dict>
 					<key>Model Line</key>
 					<string>ModelLine,e,7x0 (50 Hz),6x0 60 Hz,6x0 50 Hz</string>
@@ -753,7 +945,7 @@
 					<key>Model</key>
 					<dict>
 						<key>CIA 1 Model</key>
-						<string>CIA1Model,e,6526 (old),6526A (new)</string>
+						<string>CIA1Model,e,6526 (old),6526 (new)</string>
 					</dict>
 					<key>Model Line</key>
 					<string>ModelLine,m,6x0 60 Hz=1,6x0 50 Hz=2</string>
@@ -797,20 +989,8 @@
 			</dict>
 			<key>Keymap</key>
 			<dict>
-				<key>Index</key>
-				<string>KeyMapIndex,e,Business UK Symbolic,Business UK Positional,Graphics Symbolic,Graphics Positional,Business DE Symbolic,Business DE Positional</string>
-				<key>Business DE Positional</key>
-				<string>KeymapBusinessDEPosFile,fo</string>
-				<key>Business DE Symbolic</key>
-				<string>KeymapBusinessDESymFile,fo</string>
-				<key>Business UK Positional</key>
-				<string>KeymapBusinessUKPosFile,fo</string>
-				<key>Business UK Symbolic</key>
-				<string>KeymapBusinessUKPosFile,fo</string>
-				<key>Graphics Positional</key>
-				<string>KeymapGraphicsPosFile,fo</string>
-				<key>Graphics Symbolic</key>
-				<string>KeymapGraphicsSymFile,fo</string>
+				<key>CBM2 Keyboard Type</key>
+				<string>KeyboardType,i</string>
 			</dict>
 		</dict>
 		<key>_6_PET_</key>
@@ -827,20 +1007,8 @@
 		<dict>
 			<key>Keymap</key>
 			<dict>
-				<key>Index</key>
-				<string>KeyMapIndex,e,Business UK Symbolic,Business UK Positional,Graphics Symbolic,Graphics Positional,Business DE Symbolic,Business DE Positional</string>
-				<key>Business UK Symbolic</key>
-				<string>KeymapBusinessUKSymFile,fo</string>
-				<key>Business UK Positional</key>
-				<string>KeymapBusinessUKPosFile,fo</string>
-				<key>Graphics Symbolic</key>
-				<string>KeymapGraphicsSymFile,fo</string>
-				<key>Graphics Positional</key>
-				<string>KeymapGraphicsPosFile,fo</string>
-				<key>Business DE Symbolic</key>
-				<string>KeymapBusinessDESymFile,fo</string>
-				<key>Business DE Positional</key>
-				<string>KeymapBusinessDEPosFile,fo</string>
+				<key>Pet Keyboard Type</key>
+				<string>KeyboardType,e,Business US,Business UK,Business DE,Business JP,Graphics US</string>
 			</dict>
 			<key>PET</key>
 			<dict>
@@ -952,6 +1120,8 @@
 		</dict>
 		<key>_VIC20_</key>
 		<dict>
+			<key>Mike&apos;s VFLI modification</key>
+			<string>VFLImod,b</string>
 			<key>VIC</key>
 			<dict>
 				<key>Border Mode</key>
@@ -971,6 +1141,10 @@
 				<string>RamBlock3,b</string>
 				<key>Block 5</key>
 				<string>RamBlock5,b</string>
+				<key>IO2</key>
+				<string>IO2RAM,b</string>
+				<key>IO3</key>
+				<string>IO3RAM,b</string>
 			</dict>
 			<key>SID Cart</key>
 			<dict>
@@ -987,7 +1161,9 @@
 	<dict>
 		<key>Autostart</key>
 		<dict>
-			<key>Random Delay</key>
+			<key>Fixed Delay</key>
+			<string>AutostartDelay,i</string>
+			<key>Additional random Delay</key>
 			<string>AutostartDelayRandom,b</string>
 			<key>Handle True Drive Emulation</key>
 			<string>AutostartHandleTrueDriveEmulation,b</string>
@@ -1028,6 +1204,17 @@
 			<string>SoundOutput,e,System,Mono,Stereo</string>
 			<key>Drive Sound Emulation</key>
 			<string>DriveSoundEmulation,e,Disabled,Enabled</string>
+			<key>Drive Sound Volume</key>
+			<string>DriveSoundEmulationVolume,i</string>
+		</dict>
+		<key>Sound input</key>
+		<dict>
+			<key>Device</key>
+			<string>SamplerDevice,e,Media file,Portaudio</string>
+			<key>Gain</key>
+			<string>SamplerGain,i</string>
+			<key>Filename</key>
+			<string>SampleName,s</string>
 		</dict>
 		<key>SID Engine</key>
 		<dict>

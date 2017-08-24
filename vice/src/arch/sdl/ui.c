@@ -3,6 +3,7 @@
  *
  * Written by
  *  Hannu Nuotio <hannu.nuotio@tut.fi>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * Based on code by
  *  Andreas Boose <viceteam@t-online.de>
@@ -70,6 +71,11 @@
 #define DBG(x)
 #endif
 
+#ifdef ANDROID_COMPILE 
+extern void keyboard_key_pressed(signed long key);
+#endif  
+
+
 static int sdl_ui_ready = 0;
 
 /* ----------------------------------------------------------------- */
@@ -78,12 +84,30 @@ static int sdl_ui_ready = 0;
 /* Misc. SDL event handling */
 void ui_handle_misc_sdl_event(SDL_Event e)
 {
+#ifdef USE_SDLUI2
+    if (e.type == SDL_WINDOWEVENT) {
+        switch (e.window.event) {
+            case SDL_WINDOWEVENT_RESIZED:
+                DBG(("ui_handle_misc_sdl_event: SDL_WINDOWEVENT_RESIZED (%d,%d)", (unsigned int)e.window.data1, (unsigned int)e.window.data2));
+                sdl_video_resize_event((unsigned int)e.window.data1, (unsigned int)e.window.data2);
+                video_canvas_refresh_all(sdl_active_canvas);
+                break;
+            case SDL_WINDOWEVENT_FOCUS_GAINED:
+                DBG(("ui_handle_misc_sdl_event: SDL_WINDOWEVENT_FOCUS_GAINED"));
+                video_canvas_refresh_all(sdl_active_canvas);
+                break;
+            case SDL_WINDOWEVENT_EXPOSED:
+                DBG(("ui_handle_misc_sdl_event: SDL_WINDOWEVENT_EXPOSED"));
+                video_canvas_refresh_all(sdl_active_canvas);
+                break;
+        }
+    }
+#endif
     switch (e.type) {
         case SDL_QUIT:
             DBG(("ui_handle_misc_sdl_event: SDL_QUIT"));
             ui_sdl_quit();
             break;
-/* FIXME: fix for SDL2 */
 #ifndef USE_SDLUI2
         case SDL_VIDEORESIZE:
             DBG(("ui_handle_misc_sdl_event: SDL_VIDEORESIZE (%d,%d)", (unsigned int)e.resize.w, (unsigned int)e.resize.h));
@@ -117,6 +141,7 @@ void ui_handle_misc_sdl_event(SDL_Event e)
 
 #ifdef ANDROID_COMPILE
 #include "loader.h"
+#include "keyboard.h"
 
 extern int loader_loadstate;
 extern int loader_savestate;
@@ -187,7 +212,7 @@ ui_menu_action_t ui_dispatch_events(void)
         int value = loadf->frameskip;
 
         loadf->frameskip = 0;
-        resources_set_int("RefreshRate", ((value > 0) && (value <= 10)) ? (value + 1) : 1);
+        resources_set_int("RefreshRate", ((value > 0) && (value <= 10)) ? value : 1);
     }
     if (loadf->abort) {
         loadf->abort = 0;
@@ -215,14 +240,14 @@ ui_menu_action_t ui_dispatch_events(void)
         switch (event->eventType) {
             case SDL_MOUSEMOTION:
                 {
-                    //locnet, 2011-06-16, detect auto calibrate
+                    /* locnet, 2011-06-16, detect auto calibrate */
                     if ((event->x == -2048) && (event->y == -2048)) {
                         down_x = -1;
                         down_y = -1;
                         oldx = 0;
                         oldy = 0;
                         stopPoll = 1;
-                    //locnet, 2011-07-01, detect pure relative move
+                    /* locnet, 2011-07-01, detect pure relative move */
                     } else if ((event->down_x == -1024) && (event->down_y == -1024)) {
                         down_x = 0;
                         down_y = 0;
@@ -306,7 +331,7 @@ ui_menu_action_t ui_dispatch_events(void)
                 {
                     retval = sdljoy_button_event(0, event->keycode, 1);
 
-                    //2011-09-20, buffer overflow when autofire if stopPoll
+                    /* 2011-09-20, buffer overflow when autofire if stopPoll */
                     if (!Android_HasRepeatEvent(SDL_JOYBUTTONDOWN, event->keycode)) {
                         stopPoll = 1;
                     }
@@ -316,7 +341,7 @@ ui_menu_action_t ui_dispatch_events(void)
                 {
                     retval = sdljoy_button_event(0, event->keycode, 0);
 
-                    //2011-09-20, buffer overflow when autofire if stopPoll
+                    /* 2011-09-20, buffer overflow when autofire if stopPoll */
                     if (!Android_HasRepeatEvent(SDL_JOYBUTTONUP, event->keycode)) {
                         stopPoll = 1;
                     }
@@ -413,10 +438,10 @@ ui_menu_action_t ui_dispatch_events(void)
     while (SDL_PollEvent(&e)) {
         switch (e.type) {
             case SDL_KEYDOWN:
-                retval = sdlkbd_press(e.key.keysym.sym, e.key.keysym.mod);
+                retval = sdlkbd_press(SDL2x_to_SDL1x_Keys(e.key.keysym.sym), e.key.keysym.mod);
                 break;
             case SDL_KEYUP:
-                retval = sdlkbd_release(e.key.keysym.sym, e.key.keysym.mod);
+                retval = sdlkbd_release(SDL2x_to_SDL1x_Keys(e.key.keysym.sym), e.key.keysym.mod);
                 break;
 #ifdef HAVE_SDL_NUMJOYSTICKS
             case SDL_JOYAXISMOTION:
@@ -502,7 +527,7 @@ static int confirm_on_exit;
 
 static int set_ui_menukey(int val, void *param)
 {
-    sdl_ui_menukeys[(int)param] = val;
+    sdl_ui_menukeys[vice_ptr_to_int(param)] = SDL2x_to_SDL1x_Keys(val);
     return 0;
 }
 
@@ -519,6 +544,16 @@ static int set_confirm_on_exit(int val, void *param)
 
     return 0;
 }
+
+#ifdef ALLOW_NATIVE_MONITOR
+int native_monitor;
+
+static int set_native_monitor(int val, void *param)
+{
+    native_monitor = val;
+    return 0;
+}
+#endif
 
 #ifdef __sortix__
 #define DEFAULT_MENU_KEY SDLK_END
@@ -551,13 +586,17 @@ static const resource_int_t resources_int[] = {
       &save_resources_on_exit, set_save_resources_on_exit, NULL },
     { "ConfirmOnExit", 0, RES_EVENT_NO, NULL,
       &confirm_on_exit, set_confirm_on_exit, NULL },
+#ifdef ALLOW_NATIVE_MONITOR
+    { "NativeMonitor", 0, RES_EVENT_NO, NULL,
+      &native_monitor, set_native_monitor, NULL },
+#endif
     RESOURCE_INT_LIST_END
 };
 
 void ui_sdl_quit(void)
 {
     if (confirm_on_exit) {
-        if (message_box("VICE QUESTION", "Do you really want to exit?", MESSAGE_YESNO) == 1) {
+        if (message_box("VICE QUESTION", "Do you really want to exit?", MESSAGE_YESNO) != 0) {
             return;
         }
     }
@@ -567,9 +606,6 @@ void ui_sdl_quit(void)
             ui_error("Cannot save current settings.");
         }
     }
-#ifdef DINGOO_NATIVE
-    dingoo_reboot(); /* FIXME: why isn't this in archdep code? */
-#endif
     exit(0);
 }
 
@@ -634,6 +670,14 @@ static const cmdline_option_t cmdline_options[] = {
     { "+confirmonexit", SET_RESOURCE, 0, NULL, NULL, "ConfirmOnExit", (resource_value_t)0,
       USE_PARAM_STRING, USE_DESCRIPTION_STRING, IDCLS_UNUSED, IDCLS_UNUSED,
       NULL, "Disable confirm on exit" },
+#ifdef ALLOW_NATIVE_MONITOR
+    { "-nativemonitor", SET_RESOURCE, 0, NULL, NULL, "NativeMonitor", (resource_value_t)1,
+      USE_PARAM_STRING, USE_DESCRIPTION_STRING, IDCLS_UNUSED, IDCLS_UNUSED,
+      NULL, "Enable native monitor" },
+    { "+nativemonitor", SET_RESOURCE, 0, NULL, NULL, "NativeMonitor", (resource_value_t)0,
+      USE_PARAM_STRING, USE_DESCRIPTION_STRING, IDCLS_UNUSED, IDCLS_UNUSED,
+      NULL, "Disable native monitor" },
+#endif
     CMDLINE_LIST_END
 };
 
@@ -676,11 +720,13 @@ int ui_init_finalize(void)
 {
     DBG(("%s", __func__));
 
-    sdl_ui_init_finalize();
+    if (!console_mode) {
+        sdl_ui_init_finalize();
 #ifndef USE_SDLUI2
-    SDL_WM_SetCaption(sdl_active_canvas->viewport->title, "VICE");
+        SDL_WM_SetCaption(sdl_active_canvas->viewport->title, "VICE");
 #endif
-    sdl_ui_ready = 1;
+        sdl_ui_ready = 1;
+    }
     return 0;
 }
 

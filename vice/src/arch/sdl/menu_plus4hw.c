@@ -47,6 +47,7 @@
 #endif
 
 #include "menu_sid.h"
+#include "menu_tape.h"
 #include "uimenu.h"
 
 /* PLUS4 MODEL SELECTION */
@@ -113,6 +114,17 @@ static const ui_menu_entry_t v364speech_menu[] = {
     SDL_MENU_LIST_END
 };
 
+UI_MENU_DEFINE_TOGGLE(UserportDAC)
+
+static const ui_menu_entry_t userport_menu[] = {
+    SDL_MENU_ITEM_TITLE("Userport devices"),
+    { "8 bit DAC enable",
+      MENU_ENTRY_RESOURCE_TOGGLE,
+      toggle_UserportDAC_callback,
+      NULL },
+    SDL_MENU_LIST_END
+};
+
 UI_MENU_DEFINE_RADIO(MemoryHack)
 UI_MENU_DEFINE_RADIO(RamSize)
 UI_MENU_DEFINE_TOGGLE(Acia1Enable)
@@ -162,6 +174,14 @@ const ui_menu_entry_t plus4_hardware_menu[] = {
       submenu_callback,
       (ui_callback_data_t)rs232_nouser_menu },
 #endif
+    { "Userport devices",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)userport_menu },
+    { "Tape port devices",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)tapeport_devices_menu },
     SDL_MENU_ITEM_SEPARATOR,
     SDL_MENU_ITEM_TITLE("Memory"),
     { "16kB",

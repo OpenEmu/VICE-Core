@@ -41,6 +41,7 @@
 #include "vic20-resources.h"
 #include "vic20mem.h"
 #include "vic20rom.h"
+#include "vic-resources.h"
 
 /* What sync factor between the CPU and the drive?  If equal to
    `MACHINE_SYNC_PAL', the same as PAL machines.  If equal to
@@ -63,6 +64,7 @@ int ram_block_1_enabled;
 int ram_block_2_enabled;
 int ram_block_3_enabled;
 int ram_block_5_enabled;
+int vflimod_enabled;
 
 /* ------------------------------------------------------------------------- */
 
@@ -138,6 +140,15 @@ static int set_ram_block_5_enabled(int value, void *param)
     return 0;
 }
 
+static int set_vflimod_enabled(int value, void *param)
+{
+    vflimod_enabled = value ? 1 : 0;
+
+    mem_initialize_memory();
+
+    return 0;
+}
+
 static int set_sync_factor(int val, void *param)
 {
     int change_timing = 0;
@@ -150,13 +161,13 @@ static int set_sync_factor(int val, void *param)
         case MACHINE_SYNC_PAL:
             sync_factor = val;
             if (change_timing) {
-                machine_change_timing(MACHINE_SYNC_PAL);
+                machine_change_timing(MACHINE_SYNC_PAL, vic_resources.border_mode);
             }
             break;
         case MACHINE_SYNC_NTSC:
             sync_factor = val;
             if (change_timing) {
-                machine_change_timing(MACHINE_SYNC_NTSC);
+                machine_change_timing(MACHINE_SYNC_NTSC, vic_resources.border_mode);
             }
             break;
         default:
@@ -173,7 +184,7 @@ static const resource_string_t resources_string[] =
       &kernal_rom_name, set_kernal_rom_name, NULL },
     { "BasicName", "basic", RES_EVENT_NO, NULL,
       &basic_rom_name, set_basic_rom_name, NULL },
-    {NULL}
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_int_t resources_int[] =
@@ -190,7 +201,9 @@ static const resource_int_t resources_int[] =
       &ram_block_3_enabled, set_ram_block_3_enabled, NULL },
     { "RAMBlock5", 0, RES_EVENT_SAME, NULL,
       &ram_block_5_enabled, set_ram_block_5_enabled, NULL },
-    {NULL}
+    { "VFLImod", 0, RES_EVENT_SAME, NULL,
+      &vflimod_enabled, set_vflimod_enabled, NULL },
+    RESOURCE_INT_LIST_END
 };
 
 int vic20_resources_init(void)

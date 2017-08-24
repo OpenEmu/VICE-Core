@@ -3,6 +3,7 @@
  *
  * Written by
  *  Tibor Biczo <crown@mail.matav.hu>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -29,6 +30,7 @@
 
 extern void ui_joystick_settings_dialog(HWND hwnd);
 extern void ui_extra_joystick_settings_dialog(HWND hwnd);
+extern void ui_sidcart_joystick_settings_dialog(HWND hwnd);
 extern void ui_joystick_swap_joystick(void);
 extern void ui_joystick_swap_extra_joystick(void);
 

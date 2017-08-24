@@ -51,8 +51,13 @@ LIBRARIES = $(noinst_LIBRARIES)
 ARFLAGS = cru
 libjoyport_a_AR = $(AR) $(ARFLAGS)
 libjoyport_a_LIBADD =
-am_libjoyport_a_OBJECTS = joyport.$(OBJEXT) joystick.$(OBJEXT) \
-	lightpen.$(OBJEXT) mouse.$(OBJEXT) sampler2bit.$(OBJEXT)
+am_libjoyport_a_OBJECTS = bbrtc.$(OBJEXT) cardkey.$(OBJEXT) \
+	coplin_keypad.$(OBJEXT) cx21.$(OBJEXT) cx85.$(OBJEXT) \
+	joyport.$(OBJEXT) joystick.$(OBJEXT) lightpen.$(OBJEXT) \
+	mouse.$(OBJEXT) paperclip64.$(OBJEXT) \
+	rushware_keypad.$(OBJEXT) sampler2bit.$(OBJEXT) \
+	sampler4bit.$(OBJEXT) script64_dongle.$(OBJEXT) \
+	vizawrite64_dongle.$(OBJEXT)
 libjoyport_a_OBJECTS = $(am_libjoyport_a_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/src
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -113,6 +118,7 @@ EGREP = @EGREP@
 ENABLE_ARCH = @ENABLE_ARCH@
 EXEEXT = @EXEEXT@
 FCCACHE = @FCCACHE@
+FFMPEGSUB = @FFMPEGSUB@
 FFMPEG_AVRESAMPLE_CFLAGS = @FFMPEG_AVRESAMPLE_CFLAGS@
 FFMPEG_AVRESAMPLE_LIBS = @FFMPEG_AVRESAMPLE_LIBS@
 FFMPEG_AV_CFLAGS = @FFMPEG_AV_CFLAGS@
@@ -129,6 +135,8 @@ FULLSCREEN_DRIVERS = @FULLSCREEN_DRIVERS@
 GENCAT = @GENCAT@
 GFXOUTPUT_DRIVERS = @GFXOUTPUT_DRIVERS@
 GFXOUTPUT_LIBS = @GFXOUTPUT_LIBS@
+GLIB_CFLAGS = @GLIB_CFLAGS@
+GLIB_LIBS = @GLIB_LIBS@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
 GREP = @GREP@
@@ -156,8 +164,10 @@ LDFLAGS = @LDFLAGS@
 LEX = @LEX@
 LEXLIB = @LEXLIB@
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
+LIBFFMPEGSUB = @LIBFFMPEGSUB@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
+LIBX264SUB = @LIBX264SUB@
 LINKCC = @LINKCC@
 LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
@@ -166,6 +176,7 @@ MAKEINFO = @MAKEINFO@
 MAKERTF = @MAKERTF@
 MAX_INLINE_INSN_SINGLE = @MAX_INLINE_INSN_SINGLE@
 MKDIR_P = @MKDIR_P@
+MKFONTDIR_BIN = @MKFONTDIR_BIN@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MSGFMT = @MSGFMT@
 NATIVE_TOOLS_COMPILER = @NATIVE_TOOLS_COMPILER@
@@ -189,6 +200,8 @@ PDFTEX = @PDFTEX@
 PERL = @PERL@
 PKG_CONFIG = @PKG_CONFIG@
 PLATFORM_DOX_FLAGS = @PLATFORM_DOX_FLAGS@
+PNG_CFLAGS = @PNG_CFLAGS@
+PNG_LIBS = @PNG_LIBS@
 POFILES = @POFILES@
 POSUB = @POSUB@
 QUICKTIME_INCLUDES = @QUICKTIME_INCLUDES@
@@ -207,6 +220,7 @@ RESID_DTV_LIBS = @RESID_DTV_LIBS@
 RESID_INCLUDES = @RESID_INCLUDES@
 RESID_LIBS = @RESID_LIBS@
 SDL_EXTRA_LIBS = @SDL_EXTRA_LIBS@
+SDL_VERSION = @SDL_VERSION@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 SOUND_AIX_OBJ = @SOUND_AIX_OBJ@
@@ -285,6 +299,7 @@ datarootdir = @datarootdir@
 docdir = @docdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
+ffmpeg_have_bash = @ffmpeg_have_bash@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
@@ -336,6 +351,16 @@ noinst_LIBRARIES = libjoyport.a
 
 # These sources are always built.
 libjoyport_a_SOURCES = \
+	bbrtc.c \
+	bbrtc.h \
+	cardkey.c \
+	cardkey.h \
+	coplin_keypad.c \
+	coplin_keypad.h \
+	cx21.c \
+	cx21.h \
+	cx85.c \
+	cx85.h \
 	joyport.c \
 	joyport.h \
 	joystick.c \
@@ -344,8 +369,18 @@ libjoyport_a_SOURCES = \
 	lightpen.h \
 	mouse.c \
 	mouse.h \
+	paperclip64.c \
+	paperclip64.h \
+	rushware_keypad.c \
+	rushware_keypad.h \
 	sampler2bit.c \
-	sampler2bit.h
+	sampler2bit.h \
+	sampler4bit.c \
+	sampler4bit.h \
+	script64_dongle.c \
+	script64_dongle.h \
+	vizawrite64_dongle.c \
+	vizawrite64_dongle.h
 
 all: all-am
 
@@ -395,11 +430,21 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bbrtc.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cardkey.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/coplin_keypad.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cx21.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cx85.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/joyport.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/joystick.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lightpen.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mouse.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/paperclip64.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rushware_keypad.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sampler2bit.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sampler4bit.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/script64_dongle.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vizawrite64_dongle.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

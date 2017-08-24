@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -93,7 +94,7 @@ static const resource_int_t resources_int[] = {
       &mmu_column4080_key, set_column4080_key, NULL },
     { "Go64Mode", 0, RES_EVENT_SAME, NULL,
       &force_c64_mode_res, set_force_c64_mode, NULL },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 int mmu_resources_init(void)
@@ -122,7 +123,7 @@ static const cmdline_option_t cmdline_options[] = {
       USE_PARAM_STRING, USE_DESCRIPTION_ID,
       IDCLS_UNUSED, IDCLS_GO128_MODE,
       NULL, NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int mmu_cmdline_options_init(void)
@@ -376,7 +377,7 @@ void mmu_ffxx_store(WORD addr, BYTE value)
     }
 }
 
-int mmu_dump(void)
+int mmu_dump(void *context, WORD addr)
 {
     mon_out("CR: bank: %d, $4000-$7FFF: %s, $8000-$BFFF: %s, $C000-$CFFF: %s, $D000-$DFFF: %s, $E000-$FFFF: %s\n",
             (mmu[0] & 0xc0) >> 6,

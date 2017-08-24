@@ -3,6 +3,7 @@
  *
  * Written by
  *  Andreas Matthies <andreas.matthies@gmx.net>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -43,15 +44,19 @@
 #include "vicemenu.h"
 
 extern "C" {
+#include "cartio.h"
 #include "cartridge.h"
 #include "constants.h"
+#include "gfxoutput.h"
 #include "joyport.h"
+#include "plus4memhacks.h"
 #include "plus4cart.h"
 #include "plus4model.h"
 #include "plus4ui.h"
 #include "resources.h"
 #include "ui.h"
 #include "ui_drive.h"
+#include "ui_joystick.h"
 #include "ui_printer.h"
 #include "ui_sidcart.h"
 #include "ui_ted.h"
@@ -83,12 +88,15 @@ ui_menu_toggle  plus4_ui_menu_toggles[] = {
     { "CartridgeReset", MENU_CART_PLUS4_RESET_ON_CHANGE },
     { "Mouse", MENU_TOGGLE_MOUSE },
     { "SmartMouseRTCSave", MENU_TOGGLE_SMART_MOUSE_RTC_SAVE },
+    { "UserportDAC", MENU_TOGGLE_USERPORT_DAC },
     { NULL, 0 }
 };
 
 ui_res_possible_values plus4_JoyPort1Device[JOYPORT_MAX_DEVICES + 1];
 ui_res_possible_values plus4_JoyPort2Device[JOYPORT_MAX_DEVICES + 1];
 ui_res_possible_values plus4_JoyPort3Device[JOYPORT_MAX_DEVICES + 1];
+ui_res_possible_values plus4_JoyPort4Device[JOYPORT_MAX_DEVICES + 1];
+ui_res_possible_values plus4_JoyPort5Device[JOYPORT_MAX_DEVICES + 1];
 
 ui_res_possible_values plus4AciaDevice[] = {
     { 1, MENU_ACIA_RS323_DEVICE_1 },
@@ -105,12 +113,56 @@ ui_res_possible_values plus4_RenderFilters[] = {
     { -1, 0 }
 };
 
+ui_res_possible_values plus4MemoryHacks[] = {
+    { MEMORY_HACK_NONE, MENU_PLUS4_MEMORY_HACK_NONE },
+    { MEMORY_HACK_C256K, MENU_PLUS4_MEMORY_HACK_C256K },
+    { MEMORY_HACK_H256K, MENU_PLUS4_MEMORY_HACK_H256K },
+    { MEMORY_HACK_H1024K, MENU_PLUS4_MEMORY_HACK_H1024K },
+    { MEMORY_HACK_H4096K, MENU_PLUS4_MEMORY_HACK_H4096K },
+    { -1, 0 }
+};
+
+static ui_res_possible_values DoodleMultiColor[] = {
+    { NATIVE_SS_MC2HR_BLACK_WHITE, MENU_SCREENSHOT_DOODLE_MULTICOLOR_BLACK_WHITE },
+    { NATIVE_SS_MC2HR_2_COLORS, MENU_SCREENSHOT_DOODLE_MULTICOLOR_2_COLORS },
+    { NATIVE_SS_MC2HR_4_COLORS, MENU_SCREENSHOT_DOODLE_MULTICOLOR_4_COLORS },
+    { NATIVE_SS_MC2HR_GRAY, MENU_SCREENSHOT_DOODLE_MULTICOLOR_GRAY_SCALE },
+    { NATIVE_SS_MC2HR_DITHER, MENU_SCREENSHOT_DOODLE_MULTICOLOR_DITHER },
+    { -1, 0 }
+};
+
+ui_res_possible_values DoodleTEDLum[] = {
+    { NATIVE_SS_TED_LUM_IGNORE, MENU_SCREENSHOT_DOODLE_TED_LUM_IGNORE },
+    { NATIVE_SS_TED_LUM_DITHER, MENU_SCREENSHOT_DOODLE_TED_LUM_DITHER },
+    { -1, 0 }
+};
+
+ui_res_possible_values KoalaTEDLum[] = {
+    { NATIVE_SS_TED_LUM_IGNORE, MENU_SCREENSHOT_KOALA_TED_LUM_IGNORE },
+    { NATIVE_SS_TED_LUM_DITHER, MENU_SCREENSHOT_KOALA_TED_LUM_DITHER },
+    { -1, 0 }
+};
+
+static ui_res_possible_values IOCollisions[] = {
+    { IO_COLLISION_METHOD_DETACH_ALL, MENU_IO_COLLISION_DETACH_ALL },
+    { IO_COLLISION_METHOD_DETACH_LAST, MENU_IO_COLLISION_DETACH_LAST },
+    { IO_COLLISION_METHOD_AND_WIRES, MENU_IO_COLLISION_AND_WIRES },
+    { -1, 0 }
+};
+
 ui_res_value_list plus4_ui_res_values[] = {
     { "Acia1Dev", plus4AciaDevice },
     { "TEDFilter", plus4_RenderFilters },
     { "JoyPort1Device", plus4_JoyPort1Device },
     { "JoyPort2Device", plus4_JoyPort2Device },
     { "JoyPort3Device", plus4_JoyPort3Device },
+    { "JoyPort4Device", plus4_JoyPort4Device },
+    { "JoyPort5Device", plus4_JoyPort5Device },
+    { "MemoryHack", plus4MemoryHacks },
+    { "DoodleMultiColorHandling", DoodleMultiColor },
+    { "DoodleTEDLumHandling", DoodleTEDLum },
+    { "KoalaTEDLumHandling", DoodleTEDLum },
+    { "IOCollisionHandling", IOCollisions },
     { NULL, NULL }
 };
 
@@ -165,6 +217,15 @@ static void plus4_ui_specific(void *msg, void *window)
             break;
         case MENU_TED_SETTINGS:
             ui_ted();
+            break;
+        case MENU_JOYSTICK_SETTINGS:
+            ui_joystick(1, 2);
+            break;
+        case MENU_USERPORT_JOY_SETTINGS:
+            ui_joystick(3, 4);
+            break;
+        case MENU_SIDCART_JOY_SETTINGS:
+            ui_joystick(5, 0);
             break;
         case MENU_DRIVE_SETTINGS:
             ui_drive(plus4_drive_types, HAS_PARA_CABLE);
@@ -243,7 +304,7 @@ static void plus4_ui_specific(void *msg, void *window)
 
 int plus4ui_init_early(void)
 {
-    vicemenu_set_joyport_func(joyport_get_valid_devices, joyport_get_port_name, 1, 1, 1, 0);
+    vicemenu_set_joyport_func(joyport_get_valid_devices, joyport_get_port_name, 1, 1, 1, 1, 1);
     return 0;
 }
 
@@ -253,11 +314,15 @@ static void build_joyport_values(void)
 
     for (i = 0; i < JOYPORT_MAX_DEVICES; ++i) {
         plus4_JoyPort1Device[i].value = i;
-        plus4_JoyPort1Device[i].item_id = MENU_JOYPORT1_00 + i;
+        plus4_JoyPort1Device[i].item_id = MENU_JOYPORT1 + i;
         plus4_JoyPort2Device[i].value = i;
-        plus4_JoyPort2Device[i].item_id = MENU_JOYPORT2_00 + i;
+        plus4_JoyPort2Device[i].item_id = MENU_JOYPORT2 + i;
         plus4_JoyPort3Device[i].value = i;
-        plus4_JoyPort3Device[i].item_id = MENU_JOYPORT3_00 + i;
+        plus4_JoyPort3Device[i].item_id = MENU_JOYPORT3 + i;
+        plus4_JoyPort4Device[i].value = i;
+        plus4_JoyPort4Device[i].item_id = MENU_JOYPORT4 + i;
+        plus4_JoyPort5Device[i].value = i;
+        plus4_JoyPort5Device[i].item_id = MENU_JOYPORT5 + i;
     }
     plus4_JoyPort1Device[i].value = -1;
     plus4_JoyPort1Device[i].item_id = 0;
@@ -265,6 +330,10 @@ static void build_joyport_values(void)
     plus4_JoyPort2Device[i].item_id = 0;
     plus4_JoyPort3Device[i].value = -1;
     plus4_JoyPort3Device[i].item_id = 0;
+    plus4_JoyPort4Device[i].value = -1;
+    plus4_JoyPort4Device[i].item_id = 0;
+    plus4_JoyPort5Device[i].value = -1;
+    plus4_JoyPort5Device[i].item_id = 0;
 }
 
 int plus4ui_init(void)

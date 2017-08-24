@@ -1,9 +1,33 @@
 #!/bin/bash
-# make-bindist.sh for Mac OSX
-# written by Christian Vogelgsang <chris@vogelgsang.org>
+
 #
-# make-bindist.sh <top_srcdir> <strip> <vice-version> <--enable-arch> <zip|nozip> <x64sc-included> <ui_type> [bin_format]
-#                 $1           $2      $3             $4              $5          $6               $7        $8
+# make-bindist.sh - make binary distribution for the Mac OSX port
+#
+# Written by
+#  Christian Vogelgsang <chris@vogelgsang.org>
+#
+# This file is part of VICE, the Versatile Commodore Emulator.
+# See README for copyright notice.
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+#  02111-1307  USA.
+#
+# Usage: make-bindist.sh <top_srcdir> <strip> <vice-version> <--enable-arch> <zip|nozip> <x64sc-included> <ui_type> [bin_format]
+#                         $1           $2      $3             $4              $5          $6               $7        $8
+#
+
 RUN_PATH=`dirname $0`
 
 echo "Generating Mac OSX binary distribution."
@@ -187,6 +211,7 @@ for bundle in $BUNDLES ; do
   APP_NAME=$BUILD_DIR/$bundle.app
   APP_CONTENTS=$APP_NAME/Contents
   APP_MACOS=$APP_CONTENTS/MacOS
+  APP_FRAMEWORKS=$APP_CONTENTS/Frameworks
   APP_RESOURCES=$APP_CONTENTS/Resources
   APP_ROMS=$APP_RESOURCES/ROM
   APP_DOCS=$APP_RESOURCES/doc
@@ -231,6 +256,7 @@ for bundle in $BUNDLES ; do
     echo -n "[app dirs] "
     mkdir -p $APP_CONTENTS
     mkdir -p $APP_MACOS
+    mkdir -p $APP_FRAMEWORKS
     mkdir -p $APP_RESOURCES
 
     # copy icons
@@ -404,6 +430,21 @@ for bundle in $BUNDLES ; do
       echo -n "[strip] "
       /usr/bin/strip $APP_BIN/$emu
     fi
+
+    # copy any needed "local" libs
+    LOCAL_LIBS=`otool -L $APP_BIN/$emu | egrep '^\s+/(opt|usr)/local/'  | awk '{print $1}'`
+    for lib in $LOCAL_LIBS; do
+        cp $lib $APP_FRAMEWORKS
+        lib_base=`basename $lib`
+        LOCAL_LIBS_LIBS=`otool -L $APP_FRAMEWORKS/$lib_base | egrep '^\s+/(opt|usr)/local/' | grep -v $lib_base | awk '{print $1}'`
+        for lib_lib in $LOCAL_LIBS_LIBS; do
+            lib_lib_base=`basename $lib_lib`
+            chmod 644 $APP_FRAMEWORKS/$lib_base
+            install_name_tool -change $lib_lib @executable_path/../Frameworks/$lib_lib_base $APP_FRAMEWORKS/$lib_base
+        done
+        install_name_tool -change $lib @executable_path/../Frameworks/$lib_base $APP_BIN/$emu
+        install_name_tool -change $lib @executable_path/../Frameworks/$lib_base $APP_BIN/c1541
+    done
 
     # copy emulator ROM
     eval "ROM=\${ROM_$emu}"

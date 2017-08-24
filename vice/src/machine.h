@@ -49,11 +49,11 @@ extern const char machine_name[];
 #define VICE_MACHINE_VSID      10
 #define VICE_MACHINE_SCPU64    11
 
-/* Sync factors.  */
-#define MACHINE_SYNC_PAL     -1
-#define MACHINE_SYNC_NTSC    -2
-#define MACHINE_SYNC_NTSCOLD -3
-#define MACHINE_SYNC_PALN    -4
+/* Sync factors (changed to positive 2016-11-07, BW)  */
+#define MACHINE_SYNC_PAL     1
+#define MACHINE_SYNC_NTSC    2
+#define MACHINE_SYNC_NTSCOLD 3
+#define MACHINE_SYNC_PALN    4
 
 struct machine_timing_s {
     unsigned int cycles_per_line;
@@ -84,6 +84,7 @@ extern int video_disabled_mode;
 /* Initialize the machine's resources.  */
 extern int machine_common_resources_init(void);
 extern int machine_resources_init(void);
+extern void machine_common_resources_shutdown(void);
 extern void machine_resources_shutdown(void);
 
 /* Initialize the machine's command-line options.  */
@@ -153,7 +154,7 @@ extern int machine_sid2_check_range(unsigned int sid2_adr);
 extern int machine_sid3_check_range(unsigned int sid3_adr);
 
 /* Change the timing parameters of the maching (for example PAL/NTSC).  */
-extern void machine_change_timing(int timeval);
+extern void machine_change_timing(int timeval, int border_mode);
 
 /* Get screenshot data.  */
 struct screenshot_s;
@@ -211,5 +212,7 @@ extern kbdtype_info_t *machine_get_keyboard_info_list(void);
 
 extern int machine_get_keyboard_type(void);
 extern char *machine_get_keyboard_type_name(int type);
+
+extern int machine_register_userport(void);
 
 #endif

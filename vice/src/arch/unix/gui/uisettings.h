@@ -38,4 +38,10 @@ extern struct ui_menu_entry_s ui_debug_settings_menu[];
 #define UI_DEBUG_SETTINGS_SUBMENU_EXTRA_IDX 8
 extern struct ui_menu_entry_s debug_settings_submenu[];
 
+/* VSID debug menu doesn't have the drive CPU items */
+extern struct ui_menu_entry_s ui_debug_settings_menu_vsid[];
+extern struct ui_menu_entry_s debug_settings_submenu_vsid[];
+
+
+extern struct ui_menu_entry_s set_maximum_speed_submenu[];
 #endif

@@ -82,7 +82,7 @@ static const resource_string_t resources_string[] = {
     { "PrinterTextDevice3", ARCHDEP_PRINTER_DEFAULT_DEV3,
       RES_EVENT_NO, NULL,
       &PrinterDev[2], set_printer_device_name, (void *)2 },
-    { NULL }
+    RESOURCE_STRING_LIST_END
 };
 
 static const resource_int_t resources_int[] = {
@@ -92,13 +92,13 @@ static const resource_int_t resources_int[] = {
       &printer_device[1], set_printer_device, (void *)1 },
     { "Printer6TextDevice", 0, RES_EVENT_NO, NULL,
       &printer_device[2], set_printer_device, (void *)2 },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 static const resource_int_t resources_int_userport[] = {
     { "PrinterUserportTextDevice", 0, RES_EVENT_NO, NULL,
       &printer_device[3], set_printer_device, (void *)3 },
-    { NULL }
+    RESOURCE_INT_LIST_END
 };
 
 static const cmdline_option_t cmdline_options[] =
@@ -133,7 +133,7 @@ static const cmdline_option_t cmdline_options[] =
       USE_PARAM_STRING, USE_DESCRIPTION_ID,
       IDCLS_UNUSED, IDCLS_SPECIFY_TEXT_DEVICE_6,
       "<0-2>", NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 static const cmdline_option_t cmdline_options_userport[] =
@@ -143,7 +143,7 @@ static const cmdline_option_t cmdline_options_userport[] =
       USE_PARAM_STRING, USE_DESCRIPTION_ID,
       IDCLS_UNUSED, IDCLS_SPECIFY_TEXT_USERPORT,
       "<0-2>", NULL },
-    { NULL }
+    CMDLINE_LIST_END
 };
 
 int output_text_init_cmdline_options(void)
@@ -169,7 +169,7 @@ FILE *fopen_or_pipe(char *name)
 #if COPROC_SUPPORT
         int fd_rd, fd_wr;
         if (fork_coproc(&fd_wr, &fd_rd, name + 1) < 0) {
-            // error
+            /* error */
             return NULL;
         }
         close(fd_rd);   /* We only want to write to the process */
@@ -233,7 +233,7 @@ static int output_text_getc(unsigned int prnr, BYTE *b)
     if (output_fd[printer_device[prnr]] == NULL) {
         return -1;
     }
-    *b = fgetc(output_fd[printer_device[prnr]]);
+    *b = (BYTE)fgetc(output_fd[printer_device[prnr]]);
     return 0;
 }
 

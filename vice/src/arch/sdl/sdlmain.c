@@ -2,7 +2,8 @@
  * sdlmain.c - SDL startup.
  *
  * Written by
- *  Andreas Boose <viceteam@t-online.de>
+ *  Hannu Nuotio <hannu.nuotio@tut.fi>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -34,34 +35,10 @@
 
 #include "vice_sdl.h"
 
-#ifdef __XBOX__
-void XBoxStartup(void)
-{
-    int argc = 1;
-    char *argv[2];
-
-    argv[0] = "vice";
-    argv[1] = NULL;
-
-    main_program(argc, argv);
-}
-#else
 int main(int argc, char **argv)
 {
-#ifdef DINGOO_NATIVE
-    int argc_local = 1;
-    char *argv_local[2];
-    set_dingoo_pwd(argv[0]);
-
-    argv_local[0] = "vice";
-    argv_local[1] = NULL;
-
-    return main_program(argc_local, argv_local);
-#else
     return main_program(argc, argv);
-#endif
 }
-#endif
 
 void main_exit(void)
 {

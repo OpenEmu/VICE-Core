@@ -18,13 +18,13 @@ static char line_buffer[512];
 
 int vice_getline(FILE *file)
 {
-    char c = 0;
+    int c = 0;
     int counter = 0;
 
     while (c != '\n' && !feof(file) && counter < 511) {
         c = fgetc(file);
         if (c != 0xd) {
-            line_buffer[counter++] = c;
+            line_buffer[counter++] = (char)c;
         }
     }
     line_buffer[counter] = 0;
@@ -60,7 +60,6 @@ int main(int argc, char *argv[])
     FILE *infile, *outfile;
     int found = UNKNOWN;
     int counter = 0;
-    int i;
 
     if (argc < 2) {
         printf("too few arguments\n");
@@ -127,13 +126,37 @@ int main(int argc, char *argv[])
     fprintf(outfile, "const uint32 ATTACH_VIC20_CART                    = 'MA02';\n");
     fprintf(outfile, "\n");
 
-    /* Generate MJ00-MJxx, MK00-MKxx, ML00-MLxx & MM00-MMxx for joyport usage */
-    for (i = 0; i < JOYPORT_MAX_DEVICES; ++i) {
-        fprintf(outfile, "const uint32 MENU_JOYPORT1_%02d = 'MJ%02d';\n", i, i);
-        fprintf(outfile, "const uint32 MENU_JOYPORT2_%02d = 'MK%02d';\n", i, i);
-        fprintf(outfile, "const uint32 MENU_JOYPORT3_%02d = 'ML%02d';\n", i, i);
-        fprintf(outfile, "const uint32 MENU_JOYPORT4_%02d = 'MM%02d';\n", i, i);
-    }
+    /* Use MJ00 as base for joyport 1 */
+    fprintf(outfile, "const uint32 MENU_JOYPORT1 = 'MJ00';\n");
+
+    /* Use MK00 as base for joyport 2 */
+    fprintf(outfile, "const uint32 MENU_JOYPORT2 = 'MK00';\n");
+
+    /* Use ML00 as base for joyport 3 */
+    fprintf(outfile, "const uint32 MENU_JOYPORT3 = 'ML00';\n");
+
+    /* Use MM00 as base for joyport 4 */
+    fprintf(outfile, "const uint32 MENU_JOYPORT4 = 'MM00';\n");
+
+    /* Use MN00 as base for joyport 5 */
+    fprintf(outfile, "const uint32 MENU_JOYPORT5 = 'MN00';\n");
+    fprintf(outfile, "\n");
+
+    /* Use MO00 as base for generic carts */
+    fprintf(outfile, "const uint32 MENU_GENERIC_CARTS = 'MO00';\n");
+
+    /* Use MP00 as base for ram expansion carts */
+    fprintf(outfile, "const uint32 MENU_RAMEX_CARTS = 'MP00';\n");
+
+    /* Use MQ00 as base for freezer carts */
+    fprintf(outfile, "const uint32 MENU_FREEZER_CARTS = 'MQ00';\n");
+
+    /* Use MR00 as base for game carts */
+    fprintf(outfile, "const uint32 MENU_GAME_CARTS = 'MR00';\n");
+
+    /* Use MS00 as base for util carts */
+    fprintf(outfile, "const uint32 MENU_UTIL_CARTS = 'MS00';\n");
+    fprintf(outfile, "const uint32 MENU_END_CARTS = 'MT00';\n");
     fprintf(outfile, "\n");
 
     while (!feof(infile)) {

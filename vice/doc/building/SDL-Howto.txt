@@ -1,0 +1,77 @@
+Building the SDL port of VICE:
+
+Building in *nix compile enviroments
+------------------------------------
+
+If you have checked out the unstable svn version of VICE you need to generate
+the configure script first by doing:
+./autogen.sh
+
+The stable tarball already has the configure script, so continue with:
+
+./configure --enable-sdlui
+make
+make install
+
+You'll need the SDL libs and headers. For free scaling, the OpenGL is
+also needed (libGL, opengl32.dll, ...). Movie recording needs the
+FFMPEG libraries and headers.
+
+Steps to set up the needed external SDL libs for building using with minGW
+--------------------------------------------------------------------------
+1. You will need to download the current version of SDL headers and libs for minGW. 
+   They can be found here https://www.libsdl.org/release/SDL-devel-1.2.15-mingw32.tar.gz
+2. Locate your minGW install include directory (ex. C:\MinGW\include), and
+   create a directory called SDL there (ex. C:\MinGW\include\SDL). Inside this
+   directory, copy all your SDL header (.h) files extracted in the SDL 'include' 
+   directory from step #1
+3. Locate your minGW library directory (ex. C:\MinGW\lib). Inside this directory, 
+   copy all your SDL libs (.a) files extracted into the SDL 'lib' directory from step #1
+4. Follow the standard build instructions for *nix environment now
+5. After making, type 'make bindist' to create the binary distribution files. They 
+   will appear in a newly created SDLVICE directory. 
+
+NOTE: The default SDL build does not statically link the mingw and sdl runtime libs, 
+so you will need to locate and copy the SDL.dll from found in step #1 and the minGW 
+libstdc++.dll & libgcc.dll files from the minGW (ex. C:\MinGW\bin) directory to a global
+windows path (ex. \WINDOWS\system32) or you can just drop them in the local SDLVICE 
+binary dir so they can be found during runtime.
+
+Building in Visual Studio
+-------------------------
+
+To build SDL VICE in Windows with Visual C/C++, you will need to get the VC SDL
+headers and libraries (http://www.libsdl.org/).
+
+Once you have downloaded the VC SDL headers and libraries you need to make a
+directory for them to reside in, you can do this in the following way:
+
+- Make an SDL_dev directory and inside that directory make two new directories, one
+  called SDL (for the headers) and one called SDL_libs (for the libraries).
+- Move the files from the include directory of the downloaded SDL VC file to the
+  SDL_dev/SDL directory.
+- Move the files from the lib directory of the downloaded SDL VC file to the
+  SDL_dev/libs directory.
+
+Now you need to configure your VC to use those directories to find the
+headers and libraries, you can do this in the following way:
+
+- Start your Visual C/C++.
+- Go to the menu 'tools' and click on the item 'options'.
+- In the dialog window click on the tab 'directories'.
+- For 'Include files' add the path to SDL_dev to the list.
+- For 'Library files' add the path to SDL_dev/libs to the list.
+
+From now on your VC will be set up to search through these directories for
+the headers and libraries.
+
+Now you can open the vice.dsw file and compile VICE.
+
+To make a binary distribution directory after a compile of VICE you can
+use the 'make-bindist.bat' file.
+
+
+Building in OpenWatcom
+----------------------
+
+TODO

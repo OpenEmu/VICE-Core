@@ -34,14 +34,18 @@
 #include "vicemenu.h"
 
 extern "C" {
+#include "cartio.h"
 #include "cartridge.h"
 #include "cbm2model.h"
 #include "cbm2ui.h"
 #include "constants.h"
+#include "gfxoutput.h"
 #include "joyport.h"
 #include "ui.h"
 #include "ui_cbm5x0.h"
+#include "ui_cia.h"
 #include "ui_drive.h"
+#include "ui_joystick.h"
 #include "ui_printer.h"
 #include "ui_sid.h"
 #include "ui_vicii.h"
@@ -89,18 +93,29 @@ ui_res_possible_values cbm5x0RenderFilters[] = {
     { -1, 0 }
 };
 
-ui_res_possible_values cbm5x0_cia1models[] = {
-    { 0, MENU_CIA1_MODEL_6526_OLD },
-    { 1, MENU_CIA1_MODEL_6526A_NEW },
+static ui_res_possible_values DoodleMultiColor[] = {
+    { NATIVE_SS_MC2HR_BLACK_WHITE, MENU_SCREENSHOT_DOODLE_MULTICOLOR_BLACK_WHITE },
+    { NATIVE_SS_MC2HR_2_COLORS, MENU_SCREENSHOT_DOODLE_MULTICOLOR_2_COLORS },
+    { NATIVE_SS_MC2HR_4_COLORS, MENU_SCREENSHOT_DOODLE_MULTICOLOR_4_COLORS },
+    { NATIVE_SS_MC2HR_GRAY, MENU_SCREENSHOT_DOODLE_MULTICOLOR_GRAY_SCALE },
+    { NATIVE_SS_MC2HR_DITHER, MENU_SCREENSHOT_DOODLE_MULTICOLOR_DITHER },
+    { -1, 0 }
+};
+
+static ui_res_possible_values IOCollisions[] = {
+    { IO_COLLISION_METHOD_DETACH_ALL, MENU_IO_COLLISION_DETACH_ALL },
+    { IO_COLLISION_METHOD_DETACH_LAST, MENU_IO_COLLISION_DETACH_LAST },
+    { IO_COLLISION_METHOD_AND_WIRES, MENU_IO_COLLISION_AND_WIRES },
     { -1, 0 }
 };
 
 ui_res_value_list cbm5x0_ui_res_values[] = {
     { "Acia1Dev", cbm5x0AciaDevice },
     { "VICIIFilter", cbm5x0RenderFilters },
-    { "CIA1Model", cbm5x0_cia1models },
     { "JoyPort1Device", cbm5x0_JoyPort1Device },
     { "JoyPort2Device", cbm5x0_JoyPort2Device },
+    { "DoodleMultiColorHandling", DoodleMultiColor },
+    { "IOCollisionHandling", IOCollisions },
     { NULL, NULL }
 };
 
@@ -167,6 +182,12 @@ void cbm5x0_ui_specific(void *msg, void *window)
         case MENU_SID_SETTINGS:
             ui_sid(NULL);
             break;
+        case MENU_CIA_SETTINGS:
+            ui_cia(1);
+            break;
+        case MENU_JOYSTICK_SETTINGS:
+            ui_joystick(1, 2);
+            break;
         case MENU_DRIVE_SETTINGS:
             ui_drive(cbm5x0_drive_types, HAS_NO_CAPS);
             break;
@@ -203,7 +224,7 @@ void cbm5x0_ui_specific(void *msg, void *window)
 
 int cbm5x0ui_init_early(void)
 {
-    vicemenu_set_joyport_func(joyport_get_valid_devices, joyport_get_port_name, 1, 1, 0, 0);
+    vicemenu_set_joyport_func(joyport_get_valid_devices, joyport_get_port_name, 1, 1, 0, 0, 0);
     return 0;
 }
 
@@ -213,9 +234,9 @@ static void build_joyport_values(void)
 
     for (i = 0; i < JOYPORT_MAX_DEVICES; ++i) {
         cbm5x0_JoyPort1Device[i].value = i;
-        cbm5x0_JoyPort1Device[i].item_id = MENU_JOYPORT1_00 + i;
+        cbm5x0_JoyPort1Device[i].item_id = MENU_JOYPORT1 + i;
         cbm5x0_JoyPort2Device[i].value = i;
-        cbm5x0_JoyPort2Device[i].item_id = MENU_JOYPORT2_00 + i;
+        cbm5x0_JoyPort2Device[i].item_id = MENU_JOYPORT2 + i;
     }
     cbm5x0_JoyPort1Device[i].value = -1;
     cbm5x0_JoyPort1Device[i].item_id = 0;

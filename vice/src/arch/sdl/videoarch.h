@@ -1,6 +1,10 @@
 /*
  * videoarch.h - SDL graphics routines.
  *
+ * Written by:
+ *  Hannu Nuotio <hannu.nuotio@tut.fi>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
+ *
  * based on the X11 version written by
  *  Ettore Perazzoli
  *  Teemu Rantanen <tvr@cs.hut.fi>
@@ -109,11 +113,15 @@ extern BYTE *draw_buffer_vsid;
 #define SDL_LIMIT_MODE_MAX   1
 #define SDL_LIMIT_MODE_FIXED 2
 
-#ifdef HAVE_HWSCALE
+#if defined(HAVE_HWSCALE) || defined(USE_SDLUI2)
 /* Modes of fixed aspect ratio */
 #define SDL_ASPECT_MODE_OFF    0
 #define SDL_ASPECT_MODE_CUSTOM 1
 #define SDL_ASPECT_MODE_TRUE   2
+
+/* Filtering modes */
+#define SDL_FILTER_NEAREST     0
+#define SDL_FILTER_LINEAR      1
 #endif
 
 #endif

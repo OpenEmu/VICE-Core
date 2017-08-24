@@ -1,8 +1,10 @@
 AM_CPPFLAGS = \
 	@ARCH_INCLUDES@ \
 	-I$(top_builddir)/src \
+	-I$(top_builddir)/src/arch/amigaos \
 	-I$(top_srcdir)/src/drive \
 	-I$(top_srcdir)/src/c64 \
+	-I$(top_srcdir)/src/c64/cart \
 	-I$(top_srcdir)/src/c64dtv \
 	-I$(top_srcdir)/src/c128 \
 	-I$(top_srcdir)/src/vic20 \
@@ -15,6 +17,8 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/imagecontents \
 	-I$(top_srcdir)/src/lib/p64 \
 	-I$(top_srcdir)/src/platform \
+	-I$(top_srcdir)/src/samplerdrv \
+	-I$(top_srcdir)/src/joyport \
 	-I$(top_srcdir)/src
 
 noinst_LIBRARIES = libarchmui.a
@@ -30,12 +34,16 @@ libarchmui_a_SOURCES = \
 	uiautostart.h \
 	uiburstmod.c \
 	uiburstmod.h \
+	uic64cart.c \
+	uic64cart.h \
 	uic64dtv.c \
 	uic64dtv.h \
 	uic64memoryhacks.c \
 	uic64memoryhacks.h \
 	uic64model.c \
 	uic64model.h \
+	uic64scmodel.c \
+	uic64scmodel.h \
 	uic128settings.c \
 	uic128settings.h \
 	uicbm2settings.c \
@@ -44,6 +52,8 @@ libarchmui_a_SOURCES = \
 	uicbm5x0settings.h \
 	uiciamodel.c \
 	uiciamodel.h \
+	uicpclockf83.c \
+	uicpclockf83.h \
 	uidatasette.c \
 	uidatasette.h \
 	uidigimax.c \
@@ -74,8 +84,12 @@ libarchmui_a_SOURCES = \
 	uifliplist.h \
 	uigeoram.c \
 	uigeoram.h \
+	uigmod2.c \
+	uigmod2.h \
 	uiide64.c \
 	uiide64.h \
+	uiiocollisions.c \
+	uiiocollisions.h \
 	uiisepic.c \
 	uiisepic.h \
 	uijamaction.c \
@@ -86,6 +100,8 @@ libarchmui_a_SOURCES = \
 	uijoystick.h \
 	uijoystickll.c \
 	uijoystickll.h \
+	uikeymap.c \
+	uikeymap.h \
 	uimagicvoice.c \
 	uimagicvoice.h \
 	uimmc64.c \
@@ -132,8 +148,14 @@ libarchmui_a_SOURCES = \
 	uiromvic20settings.h \
 	uirs232user.c \
 	uirs232user.h \
+	uisampler.c \
+	uisampler.h \
 	uiscpu64.c \
 	uiscpu64.h \
+	uiscpu64model.c \
+	uiscpu64model.h \
+	uiscreenshot.c \
+	uiscreenshot.h \
 	uisid.c \
 	uisid.h \
 	uisidcart.c \
@@ -148,8 +170,14 @@ libarchmui_a_SOURCES = \
 	uisoundexpander.h \
 	uisoundsampler.c \
 	uisoundsampler.h \
+	uitapelog.c \
+	uitapelog.h \
 	uited.c \
 	uited.h \
+	uiuserportds1307rtc.c \
+	uiuserportds1307rtc.h \
+	uiuserportrtc58321a.c \
+	uiuserportrtc58321a.h \
 	uiv364speech.c \
 	uiv364speech.h \
 	uivic.c \

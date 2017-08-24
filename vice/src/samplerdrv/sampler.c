@@ -34,6 +34,7 @@
 #include "resources.h"
 #include "sampler.h"
 #include "translate.h"
+#include "uiapi.h"
 #include "util.h"
 
 #ifdef USE_PORTAUDIO
@@ -46,11 +47,22 @@
 #define DEFAULT_DEVICE SAMPLER_DEVICE_FILE
 #endif
 
-/* stays at 'DEFAULT_DEVICE' for now, but will become configurable in the future */
+/* used to build a resource string via lib_stralloc() and util_concat() calls,
+ * gets free'd in sampler_resources_shutdown() */
+static char *cmdline_devices = NULL;
+
 static int current_sampler = DEFAULT_DEVICE;
 static int sampler_status = SAMPLER_CLOSED;
 
+/* sampler gain in % */
+static int sampler_gain = 100;
+
 static sampler_device_t devices[SAMPLER_MAX_DEVICES];
+
+sampler_device_t *sampler_get_devices(void)
+{
+    return devices;
+}
 
 static void sampler_init(void)
 {
@@ -65,11 +77,44 @@ static void sampler_init(void)
 
 /* ------------------------------------------------------------------------- */
 
-void sampler_start(int channels)
+static inline BYTE calc_gain(BYTE val)
 {
-    if (devices[current_sampler].open) {
-        devices[current_sampler].open(channels);
-        sampler_status = SAMPLER_STARTED | (channels << 1);
+    int tmp = (val - 0x80);
+
+    tmp = tmp * sampler_gain / 100;
+
+    if (tmp > 127) {
+        tmp = 127;
+    }
+
+    if (tmp < -128) {
+        tmp = -128;
+    }
+
+    return (BYTE)(tmp + 0x80);
+}
+
+/* ------------------------------------------------------------------------- */
+
+static char *current_sampler_device = NULL;
+
+void sampler_reset(void)
+{
+    if (devices[current_sampler].reset) {
+        devices[current_sampler].reset();
+    }
+}
+
+void sampler_start(int channels, char *devname)
+{
+    if (current_sampler_device) {
+        ui_error(translate_text(IDGS_SAMPLER_USED_BY), current_sampler_device);
+    } else {
+        if (devices[current_sampler].open) {
+            devices[current_sampler].open(channels);
+            sampler_status = SAMPLER_STARTED | (channels << 1);
+            current_sampler_device = devname;
+        }
     }
 }
 
@@ -78,13 +123,17 @@ void sampler_stop(void)
     if (devices[current_sampler].close) {
         devices[current_sampler].close();
         sampler_status = SAMPLER_CLOSED;
+        current_sampler_device = NULL;
     }
 }
 
 BYTE sampler_get_sample(int channel)
 {
     if (devices[current_sampler].get_sample) {
-        return devices[current_sampler].get_sample(channel);
+        if (sampler_gain == 100) {
+            return devices[current_sampler].get_sample(channel);
+        }
+        return calc_gain(devices[current_sampler].get_sample(channel));
     }
     return 0x80;
 }
@@ -104,6 +153,7 @@ void sampler_device_register(sampler_device_t *device, int id)
     devices[id].shutdown = device->shutdown;
     devices[id].resources_init = device->resources_init;
     devices[id].cmdline_options_init = device->cmdline_options_init;
+    devices[id].reset = device->reset;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -131,7 +181,7 @@ static int set_sampler_device(int id, void *param)
         channels = sampler_status >> 1;
         sampler_stop();
         current_sampler = id;
-        sampler_start(channels);
+        sampler_start(channels, current_sampler_device);
     } else {
         current_sampler = id;
     }
@@ -139,10 +189,23 @@ static int set_sampler_device(int id, void *param)
     return 0;
 }
 
+static int set_sampler_gain(int gain, void *param)
+{
+    if (gain < 1 || gain > 200) {
+        return -1;
+    }
+
+    sampler_gain = gain;
+
+    return 0;
+}
+
 static const resource_int_t resources_int[] = {
-    { "SamplerDevice", 0, RES_EVENT_NO, (resource_value_t)DEFAULT_DEVICE,
+    { "SamplerDevice", DEFAULT_DEVICE, RES_EVENT_NO, NULL,
       &current_sampler, set_sampler_device, NULL },
-    { NULL }
+    { "SamplerGain", 100, RES_EVENT_NO, NULL,
+      &sampler_gain, set_sampler_gain, NULL },
+    RESOURCE_INT_LIST_END
 };
 
 int sampler_resources_init(void)
@@ -170,11 +233,14 @@ void sampler_resources_shutdown(void)
             devices[i].shutdown();
         }
     }
+    if (cmdline_devices != NULL) {
+        lib_free(cmdline_devices);
+        cmdline_devices = NULL;
+    }
+    fileaudio_shutdown();
 }
 
 /* ------------------------------------------------------------------------- */
-
-static char *cmdline_devices = NULL;
 
 
 static cmdline_option_t cmdline_options[] =
@@ -184,7 +250,12 @@ static cmdline_option_t cmdline_options[] =
       USE_PARAM_ID, USE_DESCRIPTION_COMBO,
       IDGS_DEVICE, IDCLS_SPECIFY_SAMPLER_DEVICE,
       NULL, NULL },
-    { NULL }
+    { "-samplergain", SET_RESOURCE, 1,
+      NULL, NULL, "SamplerGain", NULL,
+      USE_PARAM_ID, USE_DESCRIPTION_ID,
+      IDCLS_P_GAIN, IDCLS_SAMPLER_GAIN_IN_PERCENT,
+      NULL, NULL },
+    CMDLINE_LIST_END
 };
 
 int sampler_cmdline_options_init(void)

@@ -48,7 +48,7 @@ static char *get_cia_model(int value)
             retval = "6526 (old)";
             break;
         case 1:
-            retval = "6526A (new)";
+            retval = "6526 (new)";
             break;
     }
     return retval;
@@ -66,9 +66,9 @@ static TUI_MENU_CALLBACK(cia1_model_submenu_callback)
 static tui_menu_item_def_t cia1_model_submenu[] = {
     { "6526 (old)", NULL, radio_CIA1Model_callback,
       (void *)0, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { "6526A (new)", NULL, radio_CIA1Model_callback,
+    { "6526 (new)", NULL, radio_CIA1Model_callback,
       (void *)1, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static TUI_MENU_CALLBACK(cia2_model_submenu_callback)
@@ -83,9 +83,9 @@ static TUI_MENU_CALLBACK(cia2_model_submenu_callback)
 static tui_menu_item_def_t cia2_model_submenu[] = {
     { "6526 (old)", NULL, radio_CIA2Model_callback,
       (void *)0, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { "6526A (new)", NULL, radio_CIA2Model_callback,
+    { "6526 (new)", NULL, radio_CIA2Model_callback,
       (void *)1, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t cia_double_model_menu_items[] = {
@@ -97,7 +97,7 @@ static tui_menu_item_def_t cia_double_model_menu_items[] = {
       cia2_model_submenu_callback, NULL, 20,
       TUI_MENU_BEH_CONTINUE, cia2_model_submenu,
       "CIA 2 model" },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t cia_single_model_menu_items[] = {
@@ -105,7 +105,7 @@ static tui_menu_item_def_t cia_single_model_menu_items[] = {
       cia1_model_submenu_callback, NULL, 20,
       TUI_MENU_BEH_CONTINUE, cia1_model_submenu,
       "CIA model" },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 void uiciamodel_double_init(struct tui_menu *parent_submenu)

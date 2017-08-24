@@ -1,6 +1,8 @@
 # Makefile.am for the AMIGAOS version of `libarch.a'.
 
+if DUMMY_COMPILE
 SUBDIRS = info-files mui
+endif
 
 bin_PROGRAMS = x64ns x64dtvns x64scns x128ns xvicns xplus4ns xcbm2ns xcbm5x0ns xpetns xscpu64ns
 
@@ -27,6 +29,7 @@ xpetns_SOURCES = xpetns.c
 AM_CPPFLAGS = \
 	@ARCH_INCLUDES@ \
 	-I$(top_builddir)/src \
+	-I$(top_builddir)/src/arch/amigaos \
 	-I$(top_srcdir)/src/drive \
 	-I$(top_srcdir)/src/c64 \
 	-I$(top_srcdir)/src/c64dtv \
@@ -59,19 +62,13 @@ libarch_a_SOURCES = \
 	c64uires.h \
 	c64dtvui.c \
 	c64dtvuires.h \
-	catweaselmkiii.c \
 	cbm2ui.c \
 	cbm2uires.h \
 	cbm5x0ui.c \
 	cbm5x0uires.h \
 	console.c \
-	cw.h \
-	cw_device.c \
-	cw_openpci.c \
-	cw_os4.c \
 	fullscreen.c \
 	fullscreenarch.h \
-	hardsid.c \
 	intl.c \
 	intl_funcs.h \
 	joy.c \
@@ -101,8 +98,6 @@ libarch_a_SOURCES = \
 	screen-shot.c \
 	screen-shot.h \
 	signals.c \
-	socketimpl.c \
-	socketimpl.h \
 	statusbar.c \
 	statusbar.h \
 	rawnetarch.c \
@@ -136,7 +131,7 @@ EXTRA_DIST = \
 	intl_text.c \
 	fixdeps.c \
 	genamigaintl.c \
-	genintl_h.sh.in \
+	genintl_h.sh \
 	genintltable.sh \
 	intl.txt \
 	make-bindist.sh
@@ -153,9 +148,9 @@ intl.h intl_table.h:	$(srcdir)/intl.txt genamigaintl
 else
 intl.h: $(srcdir)/intl.txt
 	echo "generating intl.h..."
-	$(SHELL) genintl_h.sh <$(srcdir)/intl.txt >intl.h
+	$(SHELL) $(srcdir)/genintl_h.sh <$(srcdir)/intl.txt >intl.h
 
 intl_table.h: $(srcdir)/intl.txt
 	echo "generating intl_table.h..."
-	$(SHELL) $(srcdir)/genintltable.sh <$(srcdir)/intl.txt >intl_table.h
+	$(SHELL) $(srcdir)/genintltable.sh $(DEBUGBUILD) <$(srcdir)/intl.txt >intl_table.h
 endif

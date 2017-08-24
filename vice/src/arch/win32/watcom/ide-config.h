@@ -10,7 +10,6 @@
 #define HAS_JOYSTICK               1
 #define HAVE_MOUSE                 1
 #define HAVE_LIGHTPEN              1
-#define HAVE_HARDSID               1
 #define HAVE_RS232DEV              1
 #define HAVE_RS232NET              1
 #define HAVE_NETWORK               1
@@ -19,6 +18,11 @@
 #define HAVE_RESID                 1
 #define HAVE_RESID_FP              1
 #define HAVE_RESID_DTV             1
+
+#define HAVE_SSI2001               1
+#define HAVE_HARDSID               1
+#define HAVE_CATWEASELMKIII        1
+#define HAVE_PARSID                1
 
 #define HAS_LONGLONG_INTEGER       1
 #define HAS_UNLOCKRESOURCE         1
@@ -52,7 +56,9 @@
 #define HAVE_GETCWD                1
 #define HAVE_DSOUND_LIB            1
 #define USE_DXSOUND                1
+#define HAVE_TIME_T_IN_TIME_H      1
 
+#define HAVE_STRTOUL            1
 #define HAVE_STRTOK_R			1
 #define HAVE_STRREV			1
 #define HAVE_STRLWR			1

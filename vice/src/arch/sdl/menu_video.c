@@ -32,6 +32,7 @@
 #include "machine.h"
 #include "menu_common.h"
 #include "menu_video.h"
+#include "palette.h"
 #include "resources.h"
 #include "ted.h"
 #include "ui.h"
@@ -40,6 +41,12 @@
 #include "vic.h"
 #include "vicii.h"
 #include "videoarch.h"
+
+static ui_menu_entry_t *palette_dyn_menu1 = NULL;
+static ui_menu_entry_t *palette_dyn_menu2 = NULL;
+
+static ui_menu_entry_t palette_menu1[4];
+static ui_menu_entry_t palette_menu2[4];
 
 /* Border mode menu */
 
@@ -329,7 +336,7 @@ UI_MENU_DEFINE_RADIO(SDLLimitMode)
       radio_SDLLimitMode_callback,                  \
       (ui_callback_data_t)SDL_LIMIT_MODE_FIXED },
 
-#ifdef HAVE_HWSCALE
+#if defined(HAVE_HWSCALE) || defined(USE_SDLUI2)
 
 UI_MENU_DEFINE_RADIO(SDLGLAspectMode)
 
@@ -349,15 +356,32 @@ static const ui_menu_entry_t aspect_menu[] = {
     SDL_MENU_LIST_END
 };
 
+#ifndef USE_SDLUI2
+UI_MENU_DEFINE_RADIO(SDLGLFilter)
+
+static const ui_menu_entry_t filter_menu[] = {
+    { "Nearest",
+      MENU_ENTRY_RESOURCE_RADIO,
+      radio_SDLGLFilter_callback,
+      (ui_callback_data_t)SDL_FILTER_NEAREST },
+    { "Linear",
+      MENU_ENTRY_RESOURCE_RADIO,
+      radio_SDLGLFilter_callback,
+      (ui_callback_data_t)SDL_FILTER_LINEAR },
+    SDL_MENU_LIST_END
+};
+
 UI_MENU_DEFINE_TOGGLE(VICIIHwScale)
 UI_MENU_DEFINE_TOGGLE(VDCHwScale)
 UI_MENU_DEFINE_TOGGLE(CrtcHwScale)
 UI_MENU_DEFINE_TOGGLE(TEDHwScale)
 UI_MENU_DEFINE_TOGGLE(VICHwScale)
+#endif
 UI_MENU_DEFINE_STRING(AspectRatio)
 UI_MENU_DEFINE_TOGGLE(SDLGLFlipX)
 UI_MENU_DEFINE_TOGGLE(SDLGLFlipY)
 
+#ifndef USE_SDLUI2
 #define VICE_SDL_SIZE_MENU_OPENGL_ITEMS(chip)               \
     SDL_MENU_ITEM_SEPARATOR,                                \
     SDL_MENU_ITEM_TITLE("OpenGL"),                          \
@@ -365,6 +389,30 @@ UI_MENU_DEFINE_TOGGLE(SDLGLFlipY)
       MENU_ENTRY_RESOURCE_TOGGLE,                           \
       toggle_##chip##HwScale_callback,                      \
       NULL },                                               \
+    { "Fixed aspect ratio",                                 \
+      MENU_ENTRY_SUBMENU,                                   \
+      submenu_radio_callback,                               \
+      (ui_callback_data_t)aspect_menu },                    \
+    { "Custom aspect ratio",                                \
+      MENU_ENTRY_RESOURCE_STRING,                           \
+      string_AspectRatio_callback,                          \
+      (ui_callback_data_t)"Set aspect ratio (0.5 - 2.0)" }, \
+    { "Filter",                                             \
+      MENU_ENTRY_SUBMENU,                                   \
+      submenu_radio_callback,                               \
+      (ui_callback_data_t)filter_menu },                    \
+    { "Flip X",                                             \
+      MENU_ENTRY_RESOURCE_TOGGLE,                           \
+      toggle_SDLGLFlipX_callback,                           \
+      NULL },                                               \
+    { "Flip Y",                                             \
+      MENU_ENTRY_RESOURCE_TOGGLE,                           \
+      toggle_SDLGLFlipY_callback,                           \
+      NULL },
+#else
+#define VICE_SDL_SIZE_MENU_OPENGL_ITEMS(chip)               \
+    SDL_MENU_ITEM_SEPARATOR,                                \
+    SDL_MENU_ITEM_TITLE("OpenGL"),                          \
     { "Fixed aspect ratio",                                 \
       MENU_ENTRY_SUBMENU,                                   \
       submenu_radio_callback,                               \
@@ -382,6 +430,7 @@ UI_MENU_DEFINE_TOGGLE(SDLGLFlipY)
       toggle_SDLGLFlipY_callback,                           \
       NULL },
 #endif
+#endif
 
 
 /* VICII size menu */
@@ -394,7 +443,7 @@ UI_MENU_DEFINE_RADIO(VICIISDLFullscreenMode)
 static const ui_menu_entry_t vicii_size_menu[] = {
     VICE_SDL_SIZE_MENU_DOUBLESIZE(VICII)
     VICE_SDL_SIZE_MENU_ITEMS(VICII)
-#ifdef HAVE_HWSCALE
+#if defined(HAVE_HWSCALE) || defined(USE_SDLUI2)
     VICE_SDL_SIZE_MENU_OPENGL_ITEMS(VICII)
 #endif
     SDL_MENU_LIST_END
@@ -413,7 +462,7 @@ static const ui_menu_entry_t vdc_size_menu[] = {
     VICE_SDL_SIZE_MENU_DOUBLESIZE(VDC)
     VICE_SDL_SIZE_MENU_STRETCHVERTICAL(VDC)
     VICE_SDL_SIZE_MENU_ITEMS(VDC)
-#ifdef HAVE_HWSCALE
+#if defined(HAVE_HWSCALE) || defined(USE_SDLUI2)
     VICE_SDL_SIZE_MENU_OPENGL_ITEMS(VDC)
 #endif
     SDL_MENU_LIST_END
@@ -432,7 +481,7 @@ static const ui_menu_entry_t crtc_size_menu[] = {
     VICE_SDL_SIZE_MENU_DOUBLESIZE(Crtc)
     VICE_SDL_SIZE_MENU_STRETCHVERTICAL(Crtc)
     VICE_SDL_SIZE_MENU_ITEMS(Crtc)
-#ifdef HAVE_HWSCALE
+#if defined(HAVE_HWSCALE) || defined(USE_SDLUI2)
     VICE_SDL_SIZE_MENU_OPENGL_ITEMS(Crtc)
 #endif
     SDL_MENU_LIST_END
@@ -449,7 +498,7 @@ UI_MENU_DEFINE_RADIO(TEDSDLFullscreenMode)
 static const ui_menu_entry_t ted_size_menu[] = {
     VICE_SDL_SIZE_MENU_DOUBLESIZE(TED)
     VICE_SDL_SIZE_MENU_ITEMS(TED)
-#ifdef HAVE_HWSCALE
+#if defined(HAVE_HWSCALE) || defined(USE_SDLUI2)
     VICE_SDL_SIZE_MENU_OPENGL_ITEMS(TED)
 #endif
     SDL_MENU_LIST_END
@@ -466,7 +515,7 @@ UI_MENU_DEFINE_RADIO(VICSDLFullscreenMode)
 static const ui_menu_entry_t vic_size_menu[] = {
     VICE_SDL_SIZE_MENU_DOUBLESIZE(VIC)
     VICE_SDL_SIZE_MENU_ITEMS(VIC)
-#ifdef HAVE_HWSCALE
+#if defined(HAVE_HWSCALE) || defined(USE_SDLUI2)
     VICE_SDL_SIZE_MENU_OPENGL_ITEMS(VIC)
 #endif
     SDL_MENU_LIST_END
@@ -526,7 +575,6 @@ static const ui_menu_entry_t vdc_filter_menu[] = {
 
 /* Misc. callbacks */
 UI_MENU_DEFINE_TOGGLE(VICIIVideoCache)
-UI_MENU_DEFINE_TOGGLE(VICIINewLuminances)
 UI_MENU_DEFINE_TOGGLE(VDCVideoCache)
 UI_MENU_DEFINE_TOGGLE(CrtcVideoCache)
 UI_MENU_DEFINE_TOGGLE(TEDVideoCache)
@@ -599,16 +647,6 @@ const ui_menu_entry_t c128_video_menu[] = {
       MENU_ENTRY_RESOURCE_TOGGLE,
       toggle_VICIIVideoCache_callback,
       NULL },
-#ifndef DINGOO_NATIVE
-    { "VICII border mode",
-      MENU_ENTRY_SUBMENU,
-      submenu_radio_callback,
-      (ui_callback_data_t)vicii_border_menu },
-#endif
-    { "VICII New luminances",
-      MENU_ENTRY_RESOURCE_TOGGLE,
-      toggle_VICIINewLuminances_callback,
-      NULL },
     { "VICII Color controls",
       MENU_ENTRY_SUBMENU,
       submenu_callback,
@@ -621,14 +659,10 @@ const ui_menu_entry_t c128_video_menu[] = {
       MENU_ENTRY_SUBMENU,
       submenu_radio_callback,
       (ui_callback_data_t)vicii_filter_menu },
-    { "External VICII palette",
-      MENU_ENTRY_RESOURCE_TOGGLE,
-      toggle_VICIIExternalPalette_callback,
-      NULL },
-    { "VICII external palette file",
-      MENU_ENTRY_DIALOG,
-      file_string_VICIIPaletteFile_callback,
-      (ui_callback_data_t)"Choose VICII palette file" },
+    { "VICII colors",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)palette_menu1 },
     { "VICII Audio Leak emulation",
       MENU_ENTRY_RESOURCE_TOGGLE,
       toggle_VICIIAudioLeak_callback,
@@ -650,14 +684,10 @@ const ui_menu_entry_t c128_video_menu[] = {
       MENU_ENTRY_SUBMENU,
       submenu_radio_callback,
       (ui_callback_data_t)vdc_filter_menu },
-    { "External VDC palette",
-      MENU_ENTRY_RESOURCE_TOGGLE,
-      toggle_VDCExternalPalette_callback,
-      NULL },
-    { "VDC external palette file",
-      MENU_ENTRY_DIALOG,
-      file_string_VDCPaletteFile_callback,
-      (ui_callback_data_t)"Choose VDC palette file" },
+    { "VDC colors",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)palette_menu2 },
     { "VDC Audio Leak emulation",
       MENU_ENTRY_RESOURCE_TOGGLE,
       toggle_VDCAudioLeak_callback,
@@ -707,10 +737,6 @@ const ui_menu_entry_t c64_video_menu[] = {
       submenu_radio_callback,
       (ui_callback_data_t)vicii_border_menu },
     SDL_MENU_ITEM_SEPARATOR,
-    { "New luminances",
-      MENU_ENTRY_RESOURCE_TOGGLE,
-      toggle_VICIINewLuminances_callback,
-      NULL },
     { "Color controls",
       MENU_ENTRY_SUBMENU,
       submenu_callback,
@@ -724,14 +750,10 @@ const ui_menu_entry_t c64_video_menu[] = {
       submenu_radio_callback,
       (ui_callback_data_t)vicii_filter_menu },
     SDL_MENU_ITEM_SEPARATOR,
-    { "External palette",
-      MENU_ENTRY_RESOURCE_TOGGLE,
-      toggle_VICIIExternalPalette_callback,
-      NULL },
-    { "External palette file",
-      MENU_ENTRY_DIALOG,
-      file_string_VICIIPaletteFile_callback,
-      (ui_callback_data_t)"Choose palette file" },
+    { "VICII colors",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)palette_menu1 },
     { "VICII Audio Leak emulation",
       MENU_ENTRY_RESOURCE_TOGGLE,
       toggle_VICIIAudioLeak_callback,
@@ -779,14 +801,10 @@ const ui_menu_entry_t c64sc_video_menu[] = {
       submenu_radio_callback,
       (ui_callback_data_t)vicii_filter_menu },
     SDL_MENU_ITEM_SEPARATOR,
-    { "External palette",
-      MENU_ENTRY_RESOURCE_TOGGLE,
-      toggle_VICIIExternalPalette_callback,
-      NULL },
-    { "External palette file",
-      MENU_ENTRY_DIALOG,
-      file_string_VICIIPaletteFile_callback,
-      (ui_callback_data_t)"Choose palette file" },
+    { "VICII colors",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)palette_menu1 },
     { "VICII Audio Leak emulation",
       MENU_ENTRY_RESOURCE_TOGGLE,
       toggle_VICIIAudioLeak_callback,
@@ -830,10 +848,6 @@ const ui_menu_entry_t c64dtv_video_menu[] = {
       submenu_radio_callback,
       (ui_callback_data_t)vicii_border_menu },
     SDL_MENU_ITEM_SEPARATOR,
-    { "Colorfix",
-      MENU_ENTRY_RESOURCE_TOGGLE,
-      toggle_VICIINewLuminances_callback,
-      NULL },
     { "Color controls",
       MENU_ENTRY_SUBMENU,
       submenu_callback,
@@ -917,14 +931,10 @@ const ui_menu_entry_t cbm5x0_video_menu[] = {
       submenu_radio_callback,
       (ui_callback_data_t)vicii_filter_menu },
     SDL_MENU_ITEM_SEPARATOR,
-    { "External palette",
-      MENU_ENTRY_RESOURCE_TOGGLE,
-      toggle_VICIIExternalPalette_callback,
-      NULL },
-    { "External palette file",
-      MENU_ENTRY_DIALOG,
-      file_string_VICIIPaletteFile_callback,
-      (ui_callback_data_t)"Choose palette file" },
+    { "VICII colors",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)palette_menu1 },
     { "VICII Audio Leak emulation",
       MENU_ENTRY_RESOURCE_TOGGLE,
       toggle_VICIIAudioLeak_callback,
@@ -981,14 +991,10 @@ const ui_menu_entry_t cbm6x0_7x0_video_menu[] = {
       MENU_ENTRY_SUBMENU,
       submenu_radio_callback,
       (ui_callback_data_t)crtc_filter_menu },
-    { "External palette",
-      MENU_ENTRY_RESOURCE_TOGGLE,
-      toggle_CrtcExternalPalette_callback,
-      NULL },
-    { "External palette file",
-      MENU_ENTRY_DIALOG,
-      file_string_CrtcPaletteFile_callback,
-      (ui_callback_data_t)"Choose palette file" },
+    { "CRTC colors",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)palette_menu1 },
     { "CRTC Audio Leak emulation",
       MENU_ENTRY_RESOURCE_TOGGLE,
       toggle_CrtcAudioLeak_callback,
@@ -1026,14 +1032,10 @@ const ui_menu_entry_t pet_video_menu[] = {
       MENU_ENTRY_SUBMENU,
       submenu_radio_callback,
       (ui_callback_data_t)crtc_filter_menu },
-    { "External palette",
-      MENU_ENTRY_RESOURCE_TOGGLE,
-      toggle_CrtcExternalPalette_callback,
-      NULL },
-    { "External palette file",
-      MENU_ENTRY_DIALOG,
-      file_string_CrtcPaletteFile_callback,
-      (ui_callback_data_t)"Choose palette file" },
+    { "CRTC colors",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)palette_menu1 },
     { "CRTC Audio Leak emulation",
       MENU_ENTRY_RESOURCE_TOGGLE,
       toggle_CrtcAudioLeak_callback,
@@ -1076,14 +1078,10 @@ const ui_menu_entry_t plus4_video_menu[] = {
       submenu_radio_callback,
       (ui_callback_data_t)ted_filter_menu },
     SDL_MENU_ITEM_SEPARATOR,
-    { "External palette",
-      MENU_ENTRY_RESOURCE_TOGGLE,
-      toggle_TEDExternalPalette_callback,
-      NULL },
-    { "External palette file",
-      MENU_ENTRY_DIALOG,
-      file_string_TEDPaletteFile_callback,
-      (ui_callback_data_t)"Choose palette file" },
+    { "TED colors",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)palette_menu1 },
     { "TED Audio Leak emulation",
       MENU_ENTRY_RESOURCE_TOGGLE,
       toggle_TEDAudioLeak_callback,
@@ -1147,14 +1145,10 @@ const ui_menu_entry_t vic20_video_menu[] = {
       submenu_radio_callback,
       (ui_callback_data_t)vic_filter_menu },
     SDL_MENU_ITEM_SEPARATOR,
-    { "External palette",
-      MENU_ENTRY_RESOURCE_TOGGLE,
-      toggle_VICExternalPalette_callback,
-      NULL },
-    { "External palette file",
-      MENU_ENTRY_DIALOG,
-      file_string_VICPaletteFile_callback,
-      (ui_callback_data_t)"Choose palette file" },
+    { "VIC colors",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)palette_menu1 },
     { "VIC Audio Leak emulation",
       MENU_ENTRY_RESOURCE_TOGGLE,
       toggle_VICAudioLeak_callback,
@@ -1171,3 +1165,222 @@ const ui_menu_entry_t vic20_video_menu[] = {
       (ui_callback_data_t)MACHINE_SYNC_NTSC },
     SDL_MENU_LIST_END
 };
+
+/* static int palette_dyn_menu_init = 0; */
+
+static char *video_chip1_used = NULL;
+static char *video_chip2_used = NULL;
+
+UI_MENU_CALLBACK(external_palette_file1_callback)
+{
+    const char *external_file_name;
+    char *name = (char *)param;
+
+    if (activated) {
+        resources_set_string_sprintf("%sPaletteFile", name, video_chip1_used);
+    } else {
+        resources_get_string_sprintf("%sPaletteFile", &external_file_name, video_chip1_used);
+        if (external_file_name) {
+            if (!strcmp(external_file_name, name)) {
+                return "*";
+            }
+        }
+    }
+    return "";
+}
+
+UI_MENU_CALLBACK(external_palette_file2_callback)
+{
+    const char *external_file_name;
+    char *name = (char *)param;
+
+    if (activated) {
+        resources_set_string_sprintf("%sPaletteFile", name, video_chip2_used);
+    } else {
+        resources_get_string_sprintf("%sPaletteFile", &external_file_name, video_chip2_used);
+        if (external_file_name) {
+            if (!strcmp(external_file_name, name)) {
+                return "*";
+            }
+        }
+    }
+    return "";
+}
+
+static int countgroup(palette_info_t *palettelist, char *chip)
+{
+    int num = 0;
+
+    while (palettelist->name) {
+        if (palettelist->chip && !strcmp(palettelist->chip, chip)) {
+            ++num;
+        }
+        ++palettelist;
+    }
+    return num;
+}
+
+typedef struct name2func_s {
+    char *name;
+    const char *(*toggle_func)(int activated, ui_callback_data_t param);
+    const char *(*file_func)(int activated, ui_callback_data_t param);
+} name2func_t;
+
+static name2func_t name2func[] = {
+    { "VICII", toggle_VICIIExternalPalette_callback, file_string_VICIIPaletteFile_callback },
+    { "VDC", toggle_VDCExternalPalette_callback, file_string_VDCPaletteFile_callback },
+    { "Crtc", toggle_CrtcExternalPalette_callback, file_string_CrtcPaletteFile_callback },
+    { "TED", toggle_TEDExternalPalette_callback, file_string_TEDPaletteFile_callback },
+    { "VIC", toggle_VICExternalPalette_callback, file_string_VICPaletteFile_callback },
+    { NULL, NULL, NULL }
+};
+
+void uipalette_menu_create(char *chip1_name, char *chip2_name)
+{
+    int num;
+    palette_info_t *palettelist = palette_get_info_list();
+    int i;
+    const char *(*toggle_func1)(int activated, ui_callback_data_t param) = NULL;
+    const char *(*file_func1)(int activated, ui_callback_data_t param) = NULL;
+    const char *(*toggle_func2)(int activated, ui_callback_data_t param) = NULL;
+    const char *(*file_func2)(int activated, ui_callback_data_t param) = NULL;
+
+    video_chip1_used = chip1_name;
+    video_chip2_used = chip2_name;
+
+    for (i = 0; name2func[i].name; ++i) {
+        if (!strcmp(video_chip1_used, name2func[i].name)) {
+            toggle_func1 = name2func[i].toggle_func;
+            file_func1 = name2func[i].file_func;
+        }
+    }
+
+    if (video_chip2_used) {
+        for (i = 0; name2func[i].name; ++i) {
+            if (!strcmp(video_chip2_used, name2func[i].name)) {
+                toggle_func2 = name2func[i].toggle_func;
+                file_func2 = name2func[i].file_func;
+            }
+        }
+    }
+
+    num = countgroup(palettelist, video_chip1_used);
+
+    palette_dyn_menu1 = lib_malloc(sizeof(ui_menu_entry_t) * (num + 1));
+
+    i = 0;
+
+    while (palettelist->name) {
+        if (palettelist->chip && !strcmp(palettelist->chip, video_chip1_used)) {
+            palette_dyn_menu1[i].string = (char *)lib_stralloc(palettelist->name);
+            palette_dyn_menu1[i].type = MENU_ENTRY_OTHER;
+            palette_dyn_menu1[i].callback = external_palette_file1_callback;
+            palette_dyn_menu1[i].data = (ui_callback_data_t)lib_stralloc(palettelist->file);
+            ++i;
+        }
+        ++palettelist;
+    }
+
+    palette_dyn_menu1[i].string = NULL;
+    palette_dyn_menu1[i].type = 0;
+    palette_dyn_menu1[i].callback = NULL;
+    palette_dyn_menu1[i].data = NULL;
+
+    if (video_chip2_used) {
+        palettelist = palette_get_info_list();
+        num = countgroup(palettelist, video_chip2_used);
+        palette_dyn_menu2 = lib_malloc(sizeof(ui_menu_entry_t) * (num + 1));
+
+        i = 0;
+
+        while (palettelist->name) {
+            if (palettelist->chip && !strcmp(palettelist->chip, video_chip2_used)) {
+                palette_dyn_menu2[i].string = (char *)lib_stralloc(palettelist->name);
+                palette_dyn_menu2[i].type = MENU_ENTRY_OTHER;
+                palette_dyn_menu2[i].callback = external_palette_file2_callback;
+                palette_dyn_menu2[i].data = (ui_callback_data_t)lib_stralloc(palettelist->file);
+                ++i;
+            }
+            ++palettelist;
+        }
+        palette_dyn_menu2[i].string = NULL;
+        palette_dyn_menu2[i].type = 0;
+        palette_dyn_menu2[i].callback = NULL;
+        palette_dyn_menu2[i].data = NULL;
+    }
+
+    palette_menu1[0].string = "External palette";
+    palette_menu1[0].type = MENU_ENTRY_RESOURCE_TOGGLE;
+    palette_menu1[0].callback = toggle_func1;
+    palette_menu1[0].data = NULL;
+
+    palette_menu1[1].string = "Available palette files";
+    palette_menu1[1].type = MENU_ENTRY_SUBMENU;
+    palette_menu1[1].callback = submenu_callback;
+    palette_menu1[1].data = (ui_callback_data_t)palette_dyn_menu1;
+
+    palette_menu1[2].string = "Custom palette file";
+    palette_menu1[2].type = MENU_ENTRY_DIALOG;
+    palette_menu1[2].callback = file_func1;
+    palette_menu1[2].data = (ui_callback_data_t)"Choose palette file";
+
+    palette_menu1[3].string = NULL;
+    palette_menu1[3].type = MENU_ENTRY_TEXT;
+    palette_menu1[3].callback = NULL;
+    palette_menu1[3].data = NULL;
+
+    if (video_chip2_used) {
+        palette_menu2[0].string = "External palette";
+        palette_menu2[0].type = MENU_ENTRY_RESOURCE_TOGGLE;
+        palette_menu2[0].callback = toggle_func2;
+        palette_menu2[0].data = NULL;
+
+        palette_menu2[1].string = "Available palette files";
+        palette_menu2[1].type = MENU_ENTRY_SUBMENU;
+        palette_menu2[1].callback = submenu_callback;
+        palette_menu2[1].data = (ui_callback_data_t)palette_dyn_menu2;
+
+        palette_menu2[2].string = "Custom palette file";
+        palette_menu2[2].type = MENU_ENTRY_DIALOG;
+        palette_menu2[2].callback = file_func2;
+        palette_menu2[2].data = (ui_callback_data_t)"Choose palette file";
+
+        palette_menu2[3].string = NULL;
+        palette_menu2[3].type = MENU_ENTRY_TEXT;
+        palette_menu2[3].callback = NULL;
+        palette_menu2[3].data = NULL;
+    }
+}
+
+
+/** \brief  Free memory used by the items of \a menu and \a menu itself
+ *
+ * \param[in,out]   menu    heap-allocated sub menu
+ *
+ * \note    the \a menu must be terminated with an empty entry
+ */
+static void palette_dyn_menu_free(ui_menu_entry_t *menu)
+{
+    ui_menu_entry_t *item = menu;
+    while (item->string != NULL) {
+        lib_free(item->string);
+        lib_free(item->data);
+        item++;
+    }
+    lib_free(menu);
+}
+
+
+/** \brief  Clean up memory used by the palette sub menu(s)
+ */
+void uipalette_menu_shutdown(void)
+{
+    if (palette_dyn_menu1 != NULL) {
+        palette_dyn_menu_free(palette_dyn_menu1);
+    }
+    if (palette_dyn_menu2 != NULL) {
+        palette_dyn_menu_free(palette_dyn_menu2);
+    }
+}
+
+

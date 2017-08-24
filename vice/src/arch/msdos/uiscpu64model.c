@@ -1,5 +1,5 @@
 /*
- * uic64model.c - C64 model selection UI for MS-DOS.
+ * uiscpu64model.c - SCPU64 model selection UI for MS-DOS.
  *
  * Written by
  *  Marco van den Heuvel <blackystardust68@yahoo.com>
@@ -32,11 +32,10 @@
 #include "resources.h"
 #include "tui.h"
 #include "tuimenu.h"
-#include "uic64model.h"
+#include "uiscpu64model.h"
 #include "vicii.h"
 
 TUI_MENU_DEFINE_RADIO(VICIIModel)
-TUI_MENU_DEFINE_TOGGLE(VICIINewLuminances)
 TUI_MENU_DEFINE_RADIO(CIA1Model)
 TUI_MENU_DEFINE_RADIO(CIA2Model)
 TUI_MENU_DEFINE_RADIO(GlueLogic)
@@ -90,7 +89,7 @@ static tui_menu_item_def_t vicii_model_submenu[] = {
       (void *)VICII_MODEL_6567R56A, 20, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "6572 (PAL-N)", NULL, radio_VICIIModel_callback,
       (void *)VICII_MODEL_6572, 20, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static char *get_cia_model(int value)
@@ -103,7 +102,7 @@ static char *get_cia_model(int value)
             retval = "6526 (old)";
             break;
         case 1:
-            retval = "6526A (new)";
+            retval = "6526 (new)";
             break;
     }
     return retval;
@@ -121,9 +120,9 @@ static TUI_MENU_CALLBACK(cia1_model_submenu_callback)
 static tui_menu_item_def_t cia1_model_submenu[] = {
     { "6526 (old)", NULL, radio_CIA1Model_callback,
       (void *)0, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { "6526A (new)", NULL, radio_CIA1Model_callback,
+    { "6526 (new)", NULL, radio_CIA1Model_callback,
       (void *)1, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static TUI_MENU_CALLBACK(cia2_model_submenu_callback)
@@ -138,9 +137,9 @@ static TUI_MENU_CALLBACK(cia2_model_submenu_callback)
 static tui_menu_item_def_t cia2_model_submenu[] = {
     { "6526 (old)", NULL, radio_CIA2Model_callback,
       (void *)0, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { "6526A (new)", NULL, radio_CIA2Model_callback,
+    { "6526 (new)", NULL, radio_CIA2Model_callback,
       (void *)1, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static TUI_MENU_CALLBACK(gluelogic_submenu_callback)
@@ -166,7 +165,7 @@ static tui_menu_item_def_t gluelogic_submenu[] = {
       (void *)0, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
     { "Custom IC", NULL, radio_GlueLogic_callback,
       (void *)1, 7, TUI_MENU_BEH_CLOSE, NULL, NULL },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static tui_menu_item_def_t c64_custom_model_menu_items[] = {
@@ -174,10 +173,6 @@ static tui_menu_item_def_t c64_custom_model_menu_items[] = {
       vicii_model_submenu_callback, NULL, 20,
       TUI_MENU_BEH_CONTINUE, vicii_model_submenu,
       "VICII model" },
-    { "_New luminances:",
-      "Enable new VICII luminances",
-      toggle_VICIINewLuminances_callback, NULL, 3,
-      TUI_MENU_BEH_CONTINUE, NULL, NULL },
     { "_Reset IEC bus with computer:",
       "Enable resetting of the IEC bus when the computer resets",
       toggle_IECReset_callback, NULL, 3,
@@ -194,7 +189,7 @@ static tui_menu_item_def_t c64_custom_model_menu_items[] = {
       gluelogic_submenu_callback, NULL, 20,
       TUI_MENU_BEH_CONTINUE, gluelogic_submenu,
       "Glue logic" },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 static TUI_MENU_CALLBACK(set_model_callback)
@@ -258,24 +253,12 @@ static tui_menu_item_def_t c64_model_items[] = {
       "Configure the emulator to emulate a C64 GS machine and do a soft RESET",
       set_model_callback, (void *)C64MODEL_C64_GS, 0,
       TUI_MENU_BEH_RESUME, NULL, NULL },
-    { "_L: PET64 PAL",
-      "Configure the emulator to emulate a PET64 PAL machine and do a soft RESET",
-      set_model_callback, (void *)C64MODEL_PET64_PAL, 0,
-      TUI_MENU_BEH_RESUME, NULL, NULL },
-    { "_M: PET64 NTSC",
-      "Configure the emulator to emulate a PET64 NTSC machine and do a soft RESET",
-      set_model_callback, (void *)C64MODEL_PET64_NTSC, 0,
-      TUI_MENU_BEH_RESUME, NULL, NULL },
-    { "_N: MAX Machine",
-      "Configure the emulator to emulate a MAX Machine and do a soft RESET",
-      set_model_callback, (void *)C64MODEL_ULTIMAX, 0,
-      TUI_MENU_BEH_RESUME, NULL, NULL },
     { "--" },
-    { "_O: Custom",
+    { "_L: Custom",
       "Set custom model options",
       NULL, NULL, 0,
       TUI_MENU_BEH_CONTINUE, c64_custom_model_menu_items, "Set custom C64 model" },
-    { NULL }
+    TUI_MENU_ITEM_DEF_LIST_END
 };
 
 void uiscpu64model_init(struct tui_menu *parent_submenu)

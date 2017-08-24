@@ -4,6 +4,7 @@
  * Written by
  *  Andre Fachat <fachat@physik.tu-chemnitz.de>
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -33,6 +34,8 @@
 #include "alarm.h"
 #include "attach.h"
 #include "autostart.h"
+#include "bbrtc.h"
+#include "cartio.h"
 #include "cartridge.h"
 #include "cbm2-cmdline-options.h"
 #include "cbm2-resources.h"
@@ -50,6 +53,7 @@
 #include "crtc.h"
 #include "datasette.h"
 #include "debug.h"
+#include "debugcart.h"
 #include "diskimage.h"
 #include "drive-cmdline-options.h"
 #include "drive-resources.h"
@@ -61,6 +65,7 @@
 #include "iecdrive.h"
 #include "init.h"
 #include "joyport.h"
+#include "joystick.h"
 #include "kbdbuf.h"
 #include "keyboard.h"
 #include "log.h"
@@ -72,12 +77,14 @@
 #include "mem.h"
 #include "monitor.h"
 #include "network.h"
+#include "paperclip64.h"
 #include "parallel.h"
 #include "printer.h"
 #include "resources.h"
 #include "rs232drv.h"
 #include "sampler.h"
 #include "sampler2bit.h"
+#include "sampler4bit.h"
 #include "screenshot.h"
 #include "serial.h"
 #include "sid-cmdline-options.h"
@@ -86,11 +93,19 @@
 #include "snapshot.h"
 #include "sound.h"
 #include "tape.h"
+#include "tapeport.h"
 #include "tpi.h"
 #include "translate.h"
 #include "traps.h"
 #include "types.h"
+#include "userport.h"
+#include "userport_4bit_sampler.h"
+#include "userport_8bss.h"
+#include "userport_dac.h"
+#include "userport_digimax.h"
 #include "userport_joystick.h"
+#include "userport_rtc_58321a.h"
+#include "userport_rtc_ds1307.h"
 #include "vice-event.h"
 #include "video.h"
 #include "video-sound.h"
@@ -186,6 +201,10 @@ int machine_resources_init(void)
         init_resource_fail("cbm2");
         return -1;
     }
+    if (cartio_resources_init() < 0) {
+        init_resource_fail("cartio");
+        return -1;
+    }
     if (cartridge_resources_init() < 0) {
         init_resource_fail("cartridge");
         return -1;
@@ -200,6 +219,10 @@ int machine_resources_init(void)
     }
     if (drive_resources_init() < 0) {
         init_resource_fail("drive");
+        return -1;
+    }
+    if (tapeport_resources_init() < 0) {
+        init_resource_fail("tapeport");
         return -1;
     }
     if (datasette_resources_init() < 0) {
@@ -234,12 +257,28 @@ int machine_resources_init(void)
         init_resource_fail("joyport 2bit sampler");
         return -1;
     }
+    if (joyport_sampler4bit_resources_init() < 0) {
+        init_resource_fail("joyport 4bit sampler");
+        return -1;
+    }
+    if (joyport_bbrtc_resources_init() < 0) {
+        init_resource_fail("joyport bbrtc");
+        return -1;
+    }
+    if (joyport_paperclip64_resources_init() < 0) {
+        init_resource_fail("joyport paperclip64 dongle");
+        return -1;
+    }
     if (joystick_resources_init() < 0) {
         init_resource_fail("joystick");
         return -1;
     }
     if (sampler_resources_init() < 0) {
         init_resource_fail("samplerdrv");
+        return -1;
+    }
+    if (userport_resources_init() < 0) {
+        init_resource_fail("userport devices");
         return -1;
     }
     if (gfxoutput_resources_init() < 0) {
@@ -303,6 +342,34 @@ int machine_resources_init(void)
         init_resource_fail("userport joystick");
         return -1;
     }
+    if (userport_dac_resources_init() < 0) {
+        init_resource_fail("userport dac");
+        return -1;
+    }
+    if (userport_digimax_resources_init() < 0) {
+        init_resource_fail("userport digimax");
+        return -1;
+    }
+    if (userport_rtc_58321a_resources_init() < 0) {
+        init_resource_fail("userport rtc (58321a)");
+        return -1;
+    }
+    if (userport_rtc_ds1307_resources_init() < 0) {
+        init_resource_fail("userport rtc (ds1307)");
+        return -1;
+    }
+    if (userport_4bit_sampler_resources_init() < 0) {
+        init_resource_fail("userport 4bit sampler");
+        return -1;
+    }
+    if (userport_8bss_resources_init() < 0) {
+        init_resource_fail("userport 8bit stereo sampler");
+        return -1;
+    }
+    if (debugcart_resources_init() < 0) {
+        init_resource_fail("debug cart");
+        return -1;
+    }
     return 0;
 }
 
@@ -315,6 +382,14 @@ void machine_resources_shutdown(void)
     fsdevice_resources_shutdown();
     disk_image_resources_shutdown();
     sampler_resources_shutdown();
+    cartio_shutdown();
+    userport_rtc_58321a_resources_shutdown();
+    userport_rtc_ds1307_resources_shutdown();
+    userport_resources_shutdown();
+    joyport_bbrtc_resources_shutdown();
+    tapeport_resources_shutdown();
+    debugcart_resources_shutdown();
+    cartridge_resources_shutdown();
 }
 
 /* CBM-II-specific command-line option initialization.  */
@@ -326,6 +401,10 @@ int machine_cmdline_options_init(void)
     }
     if (cbm2_cmdline_options_init() < 0) {
         init_cmdline_options_fail("cbm2");
+        return -1;
+    }
+    if (cartio_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("cartio");
         return -1;
     }
     if (cartridge_cmdline_options_init() < 0) {
@@ -342,6 +421,10 @@ int machine_cmdline_options_init(void)
     }
     if (drive_cmdline_options_init() < 0) {
         init_cmdline_options_fail("drive");
+        return -1;
+    }
+    if (tapeport_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("tapeport");
         return -1;
     }
     if (datasette_cmdline_options_init() < 0) {
@@ -368,8 +451,16 @@ int machine_cmdline_options_init(void)
         init_cmdline_options_fail("joyport");
         return -1;
     }
+    if (joyport_bbrtc_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("bbrtc");
+        return -1;
+    }
     if (joystick_cmdline_options_init() < 0) {
         init_cmdline_options_fail("joystick");
+        return -1;
+    }
+    if (userport_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("userport");
         return -1;
     }
     if (gfxoutput_cmdline_options_init() < 0) {
@@ -434,6 +525,34 @@ int machine_cmdline_options_init(void)
 #endif
     if (userport_joystick_cmdline_options_init() < 0) {
         init_cmdline_options_fail("userport joystick");
+        return -1;
+    }
+    if (userport_dac_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("userport dac");
+        return -1;
+    }
+    if (userport_digimax_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("userport digimax");
+        return -1;
+    }
+    if (userport_rtc_58321a_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("userport rtc (58321a)");
+        return -1;
+    }
+    if (userport_rtc_ds1307_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("userport rtc (ds1307)");
+        return -1;
+    }
+    if (userport_4bit_sampler_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("userport 4bit sampler");
+        return -1;
+    }
+    if (userport_8bss_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("userport 8bit stereo sampler");
+        return -1;
+    }
+    if (debugcart_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("debug cart");
         return -1;
     }
     return 0;
@@ -505,10 +624,6 @@ int machine_specific_init(void)
         return -1;
     }
 
-    if (!video_disabled_mode) {
-        joystick_init();
-    }
-
     gfxoutput_init();
 
     rs232drv_init();
@@ -560,6 +675,10 @@ int machine_specific_init(void)
     /* Initialize native sound chip */
     sid_sound_chip_init();
 
+    /* Initialize userport based sound chips */
+    userport_dac_sound_chip_init();
+    userport_digimax_sound_chip_init();
+
     drive_sound_init();
     video_sound_init();
 
@@ -572,7 +691,13 @@ int machine_specific_init(void)
     kbdbuf_init(939, 209, 10, (CLOCK)(machine_timing.rfsh_per_sec * machine_timing.cycles_per_rfsh));
 
     /* Initialize the CBM-II-specific part of the UI.  */
-    cbm2ui_init();
+    if (!console_mode) {
+        cbm2ui_init();
+    }
+
+    if (!video_disabled_mode) {
+        joystick_init();
+    }
 
     cbm2iec_init();
 
@@ -582,6 +707,9 @@ int machine_specific_init(void)
 #endif
 
     machine_drive_stub();
+
+    /* Initialize the CBM2-specific I/O */
+    cbm2io_init();
 
 #if defined (USE_XF86_EXTENSIONS) && (defined(USE_XF86_VIDMODE_EXT) || defined (HAVE_XRANDR))
     {
@@ -616,6 +744,8 @@ void machine_specific_reset(void)
     datasette_reset();
 
     mem_reset();
+
+    sampler_reset();
 }
 
 void machine_specific_powerup(void)
@@ -638,7 +768,9 @@ void machine_specific_shutdown(void)
     mouse_shutdown();
 #endif
 
-    cbm2ui_shutdown();
+    if (!console_mode) {
+        cbm2ui_shutdown();
+    }
 }
 
 void machine_handle_pending_alarms(int num_write_cycles)
@@ -696,7 +828,7 @@ void machine_get_line_cycle(unsigned int *line, unsigned int *cycle, int *half_c
     *half_cycle = (int)-1;
 }
 
-void machine_change_timing(int timeval)
+void machine_change_timing(int timeval, int border_mode)
 {
     /* log_message(LOG_DEFAULT, "machine_change_timing_c610 %d", timeval); */
 
@@ -815,9 +947,34 @@ const char *machine_get_name(void)
 }
 
 /* ------------------------------------------------------------------------- */
+
 /* native screenshot support */
 
 BYTE *crtc_get_active_bitmap(void)
 {
     return NULL;
+}
+
+/* ------------------------------------------------------------------------- */
+
+static void cbm2_userport_set_flag(BYTE b)
+{
+    if (b != 0) {
+        ciacore_set_flag(machine_context.cia1);
+    }
+}
+
+static userport_port_props_t userport_props = {
+    1, /* has pa2 pin */
+    1, /* has pa3 pin */
+    cbm2_userport_set_flag, /* has flag pin */
+    1, /* has pc pin */
+    0  /* NO cnt1, cnt2 or sp pins */
+};
+
+int machine_register_userport(void)
+{
+    userport_port_register(&userport_props);
+
+    return 0;
 }

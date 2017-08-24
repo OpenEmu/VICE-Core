@@ -4,6 +4,7 @@
  * Written by
  *  Ettore Perazzoli <ettore@comm2000.it>
  *  Andreas Boose <viceteam@t-online.de>
+ *  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -58,7 +59,7 @@ extern void __GetMainArgs(int *, char ***, char ***, int);
 #  endif
 #endif
 
-int PASCAL WinMain(HINSTANCE instance, HINSTANCE prev_instance, TCHAR *cmd_line, int cmd_show)
+int WINAPI WinMain(HINSTANCE instance, HINSTANCE prev_instance, char *cmd_line, int cmd_show)
 {
     winmain_instance = instance;
     winmain_prev_instance = prev_instance;
@@ -82,17 +83,41 @@ int PASCAL WinMain(HINSTANCE instance, HINSTANCE prev_instance, TCHAR *cmd_line,
 #  endif
 #  ifndef IDE_COMPILE
     if (!__argc) {
-        TCHAR *vice_cmdline;
-        TCHAR *vice_argv[4096] ;
+        // For now we always pass 8-bit args to main_program()
+        char *vice_cmdline;
+        char *vice_argv[256] ;
         int vice_argc = 0;
+        int i = 0;
 
-        vice_cmdline = lib_stralloc(GetCommandLine());
+        vice_cmdline = lib_stralloc(GetCommandLineA());
 
-        vice_argv[vice_argc] = _tcstok(vice_cmdline, TEXT(" \t"));
-        while (vice_argv[vice_argc] != 0) {
+        while (vice_cmdline[i] != 0) {
+            if (vice_cmdline[i] == '"') {
+                i++;
+                vice_argv[vice_argc] = vice_cmdline + i;
+                while (vice_cmdline[i] != '"' && vice_cmdline[i] != 0) {
+                    i++;
+                }
+                if (vice_cmdline[i] == '"') {
+                    vice_cmdline[i] = 0;
+                    i++;
+                }
+            } else {
+                vice_argv[vice_argc] = vice_cmdline + i;
+                while (vice_cmdline[i] != ' ' && vice_cmdline[i] != 0) {
+                    i++;
+                }
+                if (vice_cmdline[i] == ' ') {
+                    vice_cmdline[i] = 0;
+                    i++;
+                }
+            }
             vice_argc++;
-            vice_argv[vice_argc] = _tcstok(0, TEXT(" \t"));
+            while (vice_cmdline[i] == ' ') {
+                i++;
+            }
         }
+
         main_program(vice_argc, vice_argv);
         lib_free(vice_cmdline);
     } else {
@@ -113,9 +138,9 @@ int PASCAL WinMain(HINSTANCE instance, HINSTANCE prev_instance, TCHAR *cmd_line,
         __GetMainArgs(&vice_argc, &vice_argv, &dummy, -1);
         main_program(vice_argc, vice_argv);
     }
-#else
+#  else
     main_program(_argc, _argv);
-#endif
+#  endif
 #endif
 
     return 0;
