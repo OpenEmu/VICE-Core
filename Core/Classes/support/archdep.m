@@ -231,3 +231,110 @@ char *archdep_extra_title_text(void)
 {
     return NULL;
 }
+
+int archdep_init(int *argc, char **argv)
+{
+    return 0;
+}
+
+const char *archdep_home_path(void)
+{
+    return "";
+}
+
+/* create the default directory where prefs, fliplist, autostart images etc are stored
+ a pointer to the resulting path is returned, and it should be freed by the caller. */
+static char *archdep_make_default_pref_path(int create)
+{
+    char *path;
+    if (archdep_pref_path == NULL) {
+        const char *home;
+        home = archdep_home_path();
+        path = util_concat(home, "/.vice", NULL);
+    } else {
+        path = lib_stralloc(archdep_pref_path);
+    }
+    if(create) {
+        if (access(path, F_OK)) {
+            mkdir(path, S_IRWXU);
+        }
+    }
+    return path;
+}
+
+/** \brief  Sanitize \a name by removing invalid characters for the current OS
+ *
+ * \param[in,out]   name    0-terminated string
+ */
+void archdep_sanitize_filename(char *name)
+{
+}
+
+
+
+/*
+ "special" chars in *unix are:
+ 
+ "'\[]() and acute/forward tick
+ 
+ tested unproblematic (no escaping):
+ 
+ "'() and acute/forward tick
+ 
+ tested problematic (need escaping):
+ 
+ \[]
+ - if the name of a file _inside_ a .zip file contain \, [ or ], then extracting
+ it will fail if they are not escaped.
+ 
+ several problems on autostart remain, which are not quoting but ascii vs petscii related.
+ */
+
+
+int archdep_rmdir(const char *pathname)
+{
+    return rmdir(pathname);
+}
+
+
+#ifndef DEFFILEMODE
+#define DEFFILEMODE (S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH)
+#endif
+
+/* set permissions of given file to rw, respecting current umask */
+int archdep_fix_permissions(const char *file_name)
+{
+    mode_t mask = umask(0);
+    umask(mask);
+    return chmod(file_name, mask ^ DEFFILEMODE); /* 0666 */
+}
+
+int archdep_file_is_blockdev(const char *name)
+{
+    struct stat buf;
+    
+    if (stat(name, &buf) != 0) {
+        return 0;
+    }
+    
+    if (S_ISBLK(buf.st_mode)) {
+        return 1;
+    }
+    
+    return 0;
+}
+
+int archdep_file_is_chardev(const char *name)
+{
+    struct stat buf;
+    
+    if (stat(name, &buf) != 0) {
+        return 0;
+    }
+    
+    if (S_ISCHR(buf.st_mode)) {
+        return 1;
+    }
+    
+    return 0;
+}

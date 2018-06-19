@@ -34,36 +34,6 @@ extern int kbd_arch_get_host_mapping(void);
 extern signed long kbd_arch_keyname_to_keynum(char *keyname);
 extern const char *kbd_arch_keynum_to_keyname(signed long keynum);
 
-/* FIXME: remove these */
-#define KBD_C64_SYM_US  "osx_sym_us.vkm"
-#define KBD_C64_SYM_DE  "osx_sym_de.vkm"
-#define KBD_C64_POS     "osx_pos.vkm"
-#define KBD_C128_SYM    "osx_sym.vkm"
-#define KBD_C128_POS    "osx_pos.vkm"
-#define KBD_VIC20_SYM   "osx_sym.vkm"
-#define KBD_VIC20_POS   "osx_pos.vkm"
-#define KBD_PET_SYM_UK  "osx_sym_uk.vkm"
-#define KBD_PET_POS_UK  "osx_pos_uk.vkm"
-#define KBD_PET_SYM_DE  "osx_sym_de.vkm"
-#define KBD_PET_POS_DE  "osx_pos_de.vkm"
-#define KBD_PET_SYM_GR  "osx_sym_gr.vkm"
-#define KBD_PET_POS_GR  "osx_pos_gr.vkm"
-#define KBD_PLUS4_SYM   "osx_sym.vkm"
-#define KBD_PLUS4_POS   "osx_pos.vkm"
-#define KBD_CBM2_SYM_UK "osx_sym_uk.vkm"
-#define KBD_CBM2_POS_UK "osx_pos_uk.vkm"
-#define KBD_CBM2_SYM_DE "osx_sym_de.vkm"
-#define KBD_CBM2_POS_DE "osx_pos_de.vkm"
-#define KBD_CBM2_SYM_GR "osx_sym_gr.vkm"
-#define KBD_CBM2_POS_GR "osx_pos_gr.vkm"
-
-#define KBD_INDEX_C64_DEFAULT   KBD_INDEX_C64_SYM
-#define KBD_INDEX_C128_DEFAULT  KBD_INDEX_C128_SYM
-#define KBD_INDEX_VIC20_DEFAULT KBD_INDEX_VIC20_SYM
-#define KBD_INDEX_PET_DEFAULT   KBD_INDEX_PET_BUKP
-#define KBD_INDEX_PLUS4_DEFAULT KBD_INDEX_PLUS4_SYM
-#define KBD_INDEX_CBM2_DEFAULT  KBD_INDEX_CBM2_BUKP
-
 #define KBD_PORT_PREFIX "osx"
 
 #endif  /* _KBD_H */

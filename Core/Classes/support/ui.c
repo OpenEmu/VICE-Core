@@ -101,7 +101,9 @@ void ui_display_statustext(const char *text, int fade_out)
 {
 }
 
-void ui_display_joyport(BYTE *joyport)
+extern void ui_display_joystick_status_widget(int joystick_number, int status);
+
+void ui_display_joyport(uint8_t *joyport)
 {
 }
 
@@ -142,3 +144,12 @@ void ui_dispatch_events()
 {
 }
 
+int ui_emulation_is_paused(void)
+{
+    return 0;
+}
+
+int ui_pause_emulation(int flag)
+{
+    return 0;
+}

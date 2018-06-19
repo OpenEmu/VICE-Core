@@ -1,35 +1,41 @@
 /*
- Copyright (c) 2016, OpenEmu Team
- 
- Redistribution and use in source and binary forms, with or without
- modification, are permitted provided that the following conditions are met:
- * Redistributions of source code must retain the above copyright
- notice, this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright
- notice, this list of conditions and the following disclaimer in the
- documentation and/or other materials provided with the distribution.
- * Neither the name of the OpenEmu Team nor the
- names of its contributors may be used to endorse or promote products
- derived from this software without specific prior written permission.
- 
- THIS SOFTWARE IS PROVIDED BY OpenEmu Team ''AS IS'' AND ANY
- EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL OpenEmu Team BE LIABLE FOR ANY
- DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * video.m - MacVICE video interface
+ *
+ * Written by
+ *  Christian Vogelgsang <chris@vogelgsang.org>
+ *  Michael Klein <michael.klein@puffin.lb.shuttle.de>
+ *
+ * This file is part of VICE, the Versatile Commodore Emulator.
+ * See README for copyright notice.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ *  02111-1307  USA.
+ *
  */
-
 
 #include "videoarch.h"
 #include "palette.h"
+#include "resources.h"
+#include "cmdline.h"
+#include "translate.h"
 #include "log.h"
-#include "machine-video.h"
+
 #include "viewport.h"
+
+// Mac Video Log
+//log_t video_log = LOG_ERR;
 
 #ifndef MIN
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -43,24 +49,22 @@ static int oe_num_screens = 0;
 static video_canvas_t *oe_canvaslist[MAX_CANVAS_NUM];
 video_canvas_t *oe_active_canvas = NULL;
 
-/** video_arch */
-
 void video_arch_canvas_init(struct video_canvas_s *canvas)
 {
-
-    if (oe_num_screens == MAX_CANVAS_NUM) {
-        return;
-    }
-
-    canvas->video_draw_buffer_callback = NULL;
-
-    if (oe_active_canvas_num == oe_num_screens) {
-        oe_active_canvas = canvas;
-    }
-
-    canvas->index = oe_num_screens;
-
-    oe_canvaslist[oe_num_screens++] = canvas;
+    
+        if (oe_num_screens == MAX_CANVAS_NUM) {
+            return;
+        }
+    
+        canvas->video_draw_buffer_callback = NULL;
+    
+        if (oe_active_canvas_num == oe_num_screens) {
+            oe_active_canvas = canvas;
+        }
+    
+        canvas->index = oe_num_screens;
+    
+        oe_canvaslist[oe_num_screens++] = canvas;
 }
 
 void video_canvas_switch(int index)
@@ -93,6 +97,79 @@ void video_canvas_switch(int index)
 
 
     video_viewport_resize(canvas, 1);
+}
+
+extern int vsync_frame_counter;
+
+// ----- Palette Stuff -----
+
+int video_canvas_set_palette(video_canvas_t *c, palette_t *p)
+{
+    int i;
+    int rshift = 0;
+    int rbits = 0;
+    int gshift = 0;
+    int gbits = 0;
+    int bshift = 0;
+    int bbits = 0;
+    uint32_t rmask = 0;
+    uint32_t gmask = 0;
+    uint32_t bmask = 0;
+    
+    if (p == NULL) {
+        return 0;    /* no palette, nothing to do */
+    }
+    
+    c->palette = p;
+    
+    // set 32bit palette
+    for (i = 0; i < p->num_entries; i++)
+    {
+        uint32_t col;
+        
+        rbits = 0; rshift = 16; rmask = 0xff;
+        gbits = 0; gshift = 8; gmask = 0xff;
+        bbits = 0; bshift = 0; bmask = 0xff;
+        
+        col = (p->entries[i].red   >> rbits) << rshift
+        | (p->entries[i].green >> gbits) << gshift
+        | (p->entries[i].blue  >> bbits) << bshift
+        | 0xff000000; // alpha
+        
+        video_render_setphysicalcolor(c->videoconfig, i, col, c->depth);
+    }
+    
+    // set colors for palemu
+    for (i = 0; i < 256; i++)
+    {
+        video_render_setrawrgb(i,
+                               ((i & (rmask << rbits)) >> rbits) << rshift,
+                               ((i & (gmask << gbits)) >> gbits) << gshift,
+                               ((i & (bmask << bbits)) >> bbits) << bshift);
+    }
+    video_render_setrawalpha(0xff000000);
+    video_render_initraw(c->videoconfig);
+    
+    return 0;
+}
+
+// ----- Color Stuff -----
+
+int uicolor_alloc_color(unsigned int red, unsigned int green,
+                        unsigned int blue, unsigned long *color_pixel,
+                        uint8_t *pixel_return)
+{
+    return 0;
+}
+
+void uicolor_convert_color_table(unsigned int colnr, uint8_t *data,
+                                 long color_pixel, void *c)
+{
+}
+
+void uicolor_free_color(unsigned int red, unsigned int green,
+                        unsigned int blue, unsigned long color_pixel)
+{
 }
 
 void video_canvas_next(){
@@ -133,8 +210,6 @@ video_canvas_create(video_canvas_t* canvas,
 
     return canvas;
 }
-
-
 
 // VICE wants to change the size of the canvas -> adapt View
 void video_canvas_resize(video_canvas_t * canvas, char resize_canvas)
@@ -177,60 +252,10 @@ int makecol_depth(int depth, int r, int g, int b) {
     int gbits = 0;
     int bshift = 0;
     int bbits = 0;
-    
+
     return (r >> rbits) << rshift
         | (g >> gbits) << gshift
         | (b >> bbits) << bshift
         | 0xff000000;
 }
 
-int video_canvas_set_palette(video_canvas_t *c, palette_t *p)
-{
-
-    int i;
-    int rshift = 0;
-    int rbits = 0;
-    int gshift = 0;
-    int gbits = 0;
-    int bshift = 0;
-    int bbits = 0;
-    DWORD rmask = 0;
-    DWORD gmask = 0;
-    DWORD bmask = 0;
-
-    if (p == NULL) {
-        return 0;	/* no palette, nothing to do */
-    }
-
-    c->palette = p;
-
-    // set 32bit palette
-    for (i = 0; i < p->num_entries; i++)
-    {
-        DWORD col;
-
-        rbits = 0; rshift = 16; rmask = 0xff;
-        gbits = 0; gshift = 8; gmask = 0xff;
-        bbits = 0; bshift = 0; bmask = 0xff;
-
-        col = (p->entries[i].red   >> rbits) << rshift
-        | (p->entries[i].green >> gbits) << gshift
-        | (p->entries[i].blue  >> bbits) << bshift
-        | 0xff000000; // alpha
-
-        video_render_setphysicalcolor(c->videoconfig, i, col, c->depth);
-    }
-
-    // set colors for palemu
-    for (i = 0; i < 256; i++)
-    {
-        video_render_setrawrgb(i,
-                               ((i & (rmask << rbits)) >> rbits) << rshift,
-                               ((i & (gmask << gbits)) >> gbits) << gshift,
-                               ((i & (bmask << bbits)) >> bbits) << bshift);
-    }
-    video_render_setrawalpha(0xff000000);
-    video_render_initraw(c->videoconfig);
-    
-    return 0;
-}
