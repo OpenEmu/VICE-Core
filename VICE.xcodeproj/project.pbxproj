@@ -73,10 +73,6 @@
 		3E3DDE851F4733E400639644 /* sound.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DDE841F4733E400639644 /* sound.c */; };
 		3E3DDE871F47352600639644 /* sound.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DDE841F4733E400639644 /* sound.c */; };
 		3E6E5E981F17BD79007FEF0A /* kbd.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D25C1C44DF9600E456A6 /* kbd.c */; };
-		3E6E5EA11F17BF3C007FEF0A /* platform_darwin_runtime_os.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B1F621F16E0790022C2EF /* platform_darwin_runtime_os.c */; };
-		3E6E5EA21F17BF40007FEF0A /* platform_macosx.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B1F741F16E0790022C2EF /* platform_macosx.c */; };
-		3E6E5EA31F17BF4B007FEF0A /* platform.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B1F4F1F16E0790022C2EF /* platform.c */; };
-		3E6E5EA71F17BFF9007FEF0A /* platform_x86_runtime_cpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B1FA01F16E07A0022C2EF /* platform_x86_runtime_cpu.c */; };
 		3E6E5EB01F17C0E6007FEF0A /* driver-select.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B206B1F16E07A0022C2EF /* driver-select.c */; };
 		3E6E5EB11F17C0E6007FEF0A /* drv-1520.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B206E1F16E07A0022C2EF /* drv-1520.c */; };
 		3E6E5EB21F17C0E6007FEF0A /* drv-ascii.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B20711F16E07A0022C2EF /* drv-ascii.c */; };
@@ -101,7 +97,6 @@
 		3E6E5EC81F17C21E007FEF0A /* soundwav.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B22C81F16E0820022C2EF /* soundwav.c */; };
 		3E6E5EC91F17C5B7007FEF0A /* userport_joystick.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B233E1F16E0850022C2EF /* userport_joystick.c */; };
 		3E6E5ECA1F17C603007FEF0A /* video.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D2641C44DF9600E456A6 /* video.c */; };
-		3E6E5ECB1F17C603007FEF0A /* vsyncarch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558B2A81C46066200D6B7DA /* vsyncarch.m */; };
 		3E6E5ECD1F17C853007FEF0A /* libresid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1BCBDF1F16C3740022C2EF /* libresid.a */; };
 		3E6E5ED01F17C917007FEF0A /* resid.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B224E1F16E0800022C2EF /* resid.cc */; };
 		3E6E5ED81F17CF9C007FEF0A /* signals.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B05241F16E0550022C2EF /* signals.c */; };
@@ -243,7 +238,6 @@
 		3E6E600D1F1924A5007FEF0A /* zipcode.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B25AC1F16E08C0022C2EF /* zipcode.c */; };
 		3E6E600E1F1925DA007FEF0A /* libarchdep.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1BCC201F16C4E30022C2EF /* libarchdep.a */; };
 		3E6E60111F192660007FEF0A /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B0D2B1F16E05D0022C2EF /* crc32.c */; };
-		3E6E60121F1926A0007FEF0A /* archdep.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B025E1F16E0530022C2EF /* archdep.c */; };
 		3EA1AE191F16E2EF00E4AE06 /* render1x1.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B254F1F16E0890022C2EF /* render1x1.c */; };
 		3EA1AE1A1F16E2EF00E4AE06 /* render1x1crt.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B25521F16E0890022C2EF /* render1x1crt.c */; };
 		3EA1AE1B1F16E2EF00E4AE06 /* render1x1ntsc.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B25551F16E0890022C2EF /* render1x1ntsc.c */; };
@@ -516,7 +510,6 @@
 		3EDA967C1F19560C0015CED2 /* main_program.m in Sources */ = {isa = PBXBuildFile; fileRef = 0598D25D1C44DF9600E456A6 /* main_program.m */; };
 		3EDA967D1F19560C0015CED2 /* vice_stubs.c in Sources */ = {isa = PBXBuildFile; fileRef = 0558B2ED1C46BCA200D6B7DA /* vice_stubs.c */; };
 		3EDA967E1F19560C0015CED2 /* ViceGameCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0598D2541C44C2FB00E456A6 /* ViceGameCore.m */; };
-		3EDA967F1F19560C0015CED2 /* archdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E5DD71F17198A007FEF0A /* archdep.m */; };
 		3EDA96821F19560C0015CED2 /* libedit.3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1BCCA31F16DA250022C2EF /* libedit.3.0.tbd */; };
 		3EDA96831F19560C0015CED2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 059611F81C3C47FD005C174C /* libz.tbd */; };
 		3EDA96841F19560C0015CED2 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 059611FA1C3C482C005C174C /* libstdc++.tbd */; };
@@ -580,7 +573,6 @@
 		3EDED4A11F1937B500477292 /* sfx_soundsampler.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B0B871F16E05A0022C2EF /* sfx_soundsampler.c */; };
 		3EDED4D51F19398E00477292 /* libcartcommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EDED48D1F1936AD00477292 /* libcartcommon.a */; };
 		3EDED4D61F1939A700477292 /* libcart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E6E5F3B1F192318007FEF0A /* libcart.a */; };
-		3EDED4DF1F19400000477292 /* libarchdep.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1BCC201F16C4E30022C2EF /* libarchdep.a */; };
 		3EDED4E01F19400000477292 /* libvicecore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1BCA831F16C1670022C2EF /* libvicecore.a */; };
 		3EDED4E11F19400000477292 /* libdiag.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1BCA101F16BDD20022C2EF /* libdiag.a */; };
 		3EDED4E21F19400000477292 /* libdiskimage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1BCAA21F16C19E0022C2EF /* libdiskimage.a */; };
@@ -661,11 +653,17 @@
 		3EE1A9051F17021F003D7C94 /* vsidmemsnapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B0BE81F16E05A0022C2EF /* vsidmemsnapshot.c */; };
 		3EE1A9061F17021F003D7C94 /* vsidpla.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B0BEA1F16E05A0022C2EF /* vsidpla.c */; };
 		3EE1A9071F17021F003D7C94 /* vsidsound.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B0BEC1F16E05A0022C2EF /* vsidsound.c */; };
-		3EEBADA41F43795800E0340A /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E6E5EA01F17BEC2007FEF0A /* libplatform.a */; };
 		3EEBADA51F43795800E0340A /* libresid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1BCBDF1F16C3740022C2EF /* libresid.a */; };
 		3EEBADA61F43795800E0340A /* libvdc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E6E5F291F19212A007FEF0A /* libvdc.a */; };
-		3EEBADA81F437A0500E0340A /* ViceGameCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0598D2541C44C2FB00E456A6 /* ViceGameCore.m */; };
-		3EEBADAB1F437B9000E0340A /* ui.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D2601C44DF9600E456A6 /* ui.c */; };
+		3EFE03E91FBA1CAB006DAF0E /* libraster.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1BCBB81F16C3440022C2EF /* libraster.a */; };
+		EE0FD79320D452A300623D0A /* waasoft_dongle.c in Sources */ = {isa = PBXBuildFile; fileRef = EE0FD79120D452A200623D0A /* waasoft_dongle.c */; };
+		EE0FD79420D452A300623D0A /* waasoft_dongle.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0FD79220D452A300623D0A /* waasoft_dongle.h */; };
+		EE0FD79820D452DB00623D0A /* tapecart.c in Sources */ = {isa = PBXBuildFile; fileRef = EE0FD79520D452DA00623D0A /* tapecart.c */; };
+		EE0FD79920D452DB00623D0A /* tapecart.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0FD79620D452DA00623D0A /* tapecart.h */; };
+		EE0FD79A20D452DB00623D0A /* tapecart-loader.h in Headers */ = {isa = PBXBuildFile; fileRef = EE0FD79720D452DA00623D0A /* tapecart-loader.h */; };
+		EE0FD79B20D4538C00623D0A /* ui.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D2601C44DF9600E456A6 /* ui.c */; };
+		EE0FD79D20D4583800623D0A /* libarchdep.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1BCC201F16C4E30022C2EF /* libarchdep.a */; };
+		EE0FD79F20D4595700623D0A /* archdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E5DD71F17198A007FEF0A /* archdep.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1026,13 +1024,6 @@
 			remoteGlobalIDString = 3E1BCBA71F16C3180022C2EF;
 			remoteInfo = parallel;
 		};
-		3EDED51A1F19417A00477292 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 059603901C3B6E81005C174C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3E6E5E991F17BEC2007FEF0A;
-			remoteInfo = platform;
-		};
 		3EDED51C1F19417A00477292 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 059603901C3B6E81005C174C /* Project object */;
@@ -1194,12 +1185,12 @@
 			remoteGlobalIDString = 3EDA96361F19560C0015CED2;
 			remoteInfo = "VICE C64";
 		};
-		3EEBADA01F4377D500E0340A /* PBXContainerItemProxy */ = {
+		3EFE03E71FBA1C9A006DAF0E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 059603901C3B6E81005C174C /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3E6E5E991F17BEC2007FEF0A;
-			remoteInfo = platform;
+			remoteGlobalIDString = 3E1BCBB11F16C3440022C2EF;
+			remoteInfo = raster;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -3673,7 +3664,6 @@
 		3E6E5DD61F17198A007FEF0A /* archdep+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "archdep+private.h"; sourceTree = "<group>"; };
 		3E6E5DD71F17198A007FEF0A /* archdep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = archdep.m; sourceTree = "<group>"; };
 		3E6E5E3B1F17301C007FEF0A /* libedit.3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libedit.3.tbd; path = usr/lib/libedit.3.tbd; sourceTree = SDKROOT; };
-		3E6E5EA01F17BEC2007FEF0A /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E6E5EAF1F17C0A0007FEF0A /* libprinterdrv.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libprinterdrv.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E6E5F291F19212A007FEF0A /* libvdc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvdc.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E6E5F3B1F192318007FEF0A /* libcart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcart.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3688,6 +3678,11 @@
 		3EDED4951F1936BA00477292 /* libcartsystem.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcartsystem.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EE1A8461F16FBC0003D7C94 /* libvicecommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvicecommon.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EEBADA21F43793F00E0340A /* libCommon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommon.a; path = "../../../../Library/Developer/Xcode/DerivedData/OpenEmu-aagogyswivhduzfmpefjfxkwlaav/Build/Products/Debug/libCommon.a"; sourceTree = "<group>"; };
+		EE0FD79120D452A200623D0A /* waasoft_dongle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = waasoft_dongle.c; sourceTree = "<group>"; };
+		EE0FD79220D452A300623D0A /* waasoft_dongle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = waasoft_dongle.h; sourceTree = "<group>"; };
+		EE0FD79520D452DA00623D0A /* tapecart.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tapecart.c; sourceTree = "<group>"; };
+		EE0FD79620D452DA00623D0A /* tapecart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tapecart.h; sourceTree = "<group>"; };
+		EE0FD79720D452DA00623D0A /* tapecart-loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "tapecart-loader.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3695,7 +3690,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EEBADA41F43795800E0340A /* libplatform.a in Frameworks */,
+				EE0FD79D20D4583800623D0A /* libarchdep.a in Frameworks */,
 				3EEBADA51F43795800E0340A /* libresid.a in Frameworks */,
 				3EEBADA61F43795800E0340A /* libvdc.a in Frameworks */,
 				3EDED4FD1F19407B00477292 /* libvicii.a in Frameworks */,
@@ -3718,7 +3713,6 @@
 				3EDED4F61F19403A00477292 /* libuserport.a in Frameworks */,
 				3EDED4F71F19403A00477292 /* libvdrive.a in Frameworks */,
 				3EDED4EA1F19401000477292 /* libvicecommon.a in Frameworks */,
-				3EDED4DF1F19400000477292 /* libarchdep.a in Frameworks */,
 				3EDED4E01F19400000477292 /* libvicecore.a in Frameworks */,
 				3EDED4E11F19400000477292 /* libdiag.a in Frameworks */,
 				3EDED4E21F19400000477292 /* libdiskimage.a in Frameworks */,
@@ -3751,6 +3745,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EFE03E91FBA1CAB006DAF0E /* libraster.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3923,13 +3918,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3E6E5E9B1F17BEC2007FEF0A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		3E6E5EAA1F17C0A0007FEF0A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -4057,7 +4045,6 @@
 				3EA1AE5E1F16E45C00E4AE06 /* libsid.a */,
 				3EA1AEEB1F16ED7600E4AE06 /* libimagecontents.a */,
 				3EE1A8461F16FBC0003D7C94 /* libvicecommon.a */,
-				3E6E5EA01F17BEC2007FEF0A /* libplatform.a */,
 				3E6E5EAF1F17C0A0007FEF0A /* libprinterdrv.a */,
 				3E6E5F291F19212A007FEF0A /* libvdc.a */,
 				3E6E5F3B1F192318007FEF0A /* libcart.a */,
@@ -5324,6 +5311,8 @@
 		3E1B10291F16E0630022C2EF /* joyport */ = {
 			isa = PBXGroup;
 			children = (
+				EE0FD79120D452A200623D0A /* waasoft_dongle.c */,
+				EE0FD79220D452A300623D0A /* waasoft_dongle.h */,
 				3E1B103A1F16E0630022C2EF /* bbrtc.c */,
 				3E1B103D1F16E0630022C2EF /* cardkey.c */,
 				3E1B10401F16E0630022C2EF /* coplin_keypad.c */,
@@ -5995,6 +5984,9 @@
 		3E1B22EF1F16E0830022C2EF /* tapeport */ = {
 			isa = PBXGroup;
 			children = (
+				EE0FD79720D452DA00623D0A /* tapecart-loader.h */,
+				EE0FD79520D452DA00623D0A /* tapecart.c */,
+				EE0FD79620D452DA00623D0A /* tapecart.h */,
 				3E1B22F71F16E0830022C2EF /* cp-clockf83.c */,
 				3E1B22F81F16E0830022C2EF /* cp-clockf83.h */,
 				3E1B22FA1F16E0830022C2EF /* dtl-basic-dongle.c */,
@@ -6447,8 +6439,8 @@
 				3E1BCCFD1F16DFB40022C2EF /* kernal */,
 				3E1BCCFE1F16DFB40022C2EF /* Makefile.am */,
 				3E1BCCFF1F16DFB40022C2EF /* osx_pos.vkm */,
-				3E1BCD001F16DFB40022C2EF /* osx_sym.vkm */,
 				3E1BCD011F16DFB40022C2EF /* osx_sym_de.vkm */,
+				3E1BCD001F16DFB40022C2EF /* osx_sym.vkm */,
 				3E1BCD021F16DFB40022C2EF /* pc64.vpl */,
 				3E1BCD031F16DFB40022C2EF /* pepto-ntsc-sony.vpl */,
 				3E1BCD041F16DFB40022C2EF /* pepto-ntsc.vpl */,
@@ -6456,29 +6448,29 @@
 				3E1BCD061F16DFB40022C2EF /* pepto-palold.vpl */,
 				3E1BCD071F16DFB40022C2EF /* ptoing.vpl */,
 				3E1BCD081F16DFB40022C2EF /* rgb.vpl */,
-				3E1BCD091F16DFB40022C2EF /* sdl_keyrah.vkm */,
 				3E1BCD0A1F16DFB40022C2EF /* sdl_keyrah_de.vkm */,
-				3E1BCD0B1F16DFB40022C2EF /* sdl_pos.vkm */,
+				3E1BCD091F16DFB40022C2EF /* sdl_keyrah.vkm */,
 				3E1BCD0C1F16DFB40022C2EF /* sdl_pos_da.vkm */,
 				3E1BCD0D1F16DFB40022C2EF /* sdl_pos_de.vkm */,
 				3E1BCD0E1F16DFB40022C2EF /* sdl_pos_fi.vkm */,
 				3E1BCD0F1F16DFB40022C2EF /* sdl_pos_no.vkm */,
+				3E1BCD0B1F16DFB40022C2EF /* sdl_pos.vkm */,
 				3E1BCD101F16DFB40022C2EF /* sdl_sym.vkm */,
 				3E1BCD111F16DFB40022C2EF /* sxkernal */,
 				3E1BCD121F16DFB40022C2EF /* vice.vpl */,
 				3E1BCD131F16DFB40022C2EF /* win_hotkeys.vhk */,
-				3E1BCD141F16DFB40022C2EF /* win_pos.vkm */,
 				3E1BCD151F16DFB40022C2EF /* win_pos_de.vkm */,
+				3E1BCD141F16DFB40022C2EF /* win_pos.vkm */,
 				3E1BCD161F16DFB40022C2EF /* win_shortcuts.vsc */,
-				3E1BCD171F16DFB40022C2EF /* win_sym.vkm */,
 				3E1BCD181F16DFB40022C2EF /* win_sym_de.vkm */,
 				3E1BCD191F16DFB40022C2EF /* win_sym_it.vkm */,
-				3E1BCD1A1F16DFB40022C2EF /* x11_keyrah.vkm */,
+				3E1BCD171F16DFB40022C2EF /* win_sym.vkm */,
 				3E1BCD1B1F16DFB40022C2EF /* x11_keyrah_de.vkm */,
-				3E1BCD1C1F16DFB40022C2EF /* x11_pos.vkm */,
+				3E1BCD1A1F16DFB40022C2EF /* x11_keyrah.vkm */,
 				3E1BCD1D1F16DFB40022C2EF /* x11_pos_de.vkm */,
-				3E1BCD1E1F16DFB40022C2EF /* x11_sym.vkm */,
+				3E1BCD1C1F16DFB40022C2EF /* x11_pos.vkm */,
 				3E1BCD1F1F16DFB40022C2EF /* x11_sym_de.vkm */,
+				3E1BCD1E1F16DFB40022C2EF /* x11_sym.vkm */,
 			);
 			path = C64;
 			sourceTree = "<group>";
@@ -7160,6 +7152,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE0FD79920D452DB00623D0A /* tapecart.h in Headers */,
+				EE0FD79A20D452DB00623D0A /* tapecart-loader.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7258,6 +7252,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE0FD79420D452A300623D0A /* waasoft_dongle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7304,13 +7299,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3E1BCC981F16D8D10022C2EF /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3E6E5E9C1F17BEC2007FEF0A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -7408,7 +7396,6 @@
 				3EDED5151F19417A00477292 /* PBXTargetDependency */,
 				3EDED5171F19417A00477292 /* PBXTargetDependency */,
 				3EDED5191F19417A00477292 /* PBXTargetDependency */,
-				3EDED51B1F19417A00477292 /* PBXTargetDependency */,
 				3EDED51D1F19417A00477292 /* PBXTargetDependency */,
 				3EDED51F1F19417A00477292 /* PBXTargetDependency */,
 				3EDED5211F19417A00477292 /* PBXTargetDependency */,
@@ -7482,6 +7469,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3EFE03E81FBA1C9A006DAF0E /* PBXTargetDependency */,
 			);
 			name = video;
 			productName = c64sc;
@@ -7898,23 +7886,6 @@
 			productReference = 3E1BCC9C1F16D8D10022C2EF /* libp64lib.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		3E6E5E991F17BEC2007FEF0A /* platform */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3E6E5E9D1F17BEC2007FEF0A /* Build configuration list for PBXNativeTarget "platform" */;
-			buildPhases = (
-				3E6E5E9A1F17BEC2007FEF0A /* Sources */,
-				3E6E5E9B1F17BEC2007FEF0A /* Frameworks */,
-				3E6E5E9C1F17BEC2007FEF0A /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = platform;
-			productName = c64sc;
-			productReference = 3E6E5EA01F17BEC2007FEF0A /* libplatform.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		3E6E5EA81F17C0A0007FEF0A /* printerdrv */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3E6E5EAC1F17C0A0007FEF0A /* Build configuration list for PBXNativeTarget "printerdrv" */;
@@ -8031,7 +8002,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				3EEBADA11F4377D500E0340A /* PBXTargetDependency */,
 				3EDA96791F19560C0015CED2 /* PBXTargetDependency */,
 				3EDA96591F19560C0015CED2 /* PBXTargetDependency */,
 				3EDA96371F19560C0015CED2 /* PBXTargetDependency */,
@@ -8172,7 +8142,6 @@
 				3E1BCB791F16C2F20022C2EF /* monitor */,
 				3E1BCC951F16D8D10022C2EF /* p64lib */,
 				3E1BCBA71F16C3180022C2EF /* parallel */,
-				3E6E5E991F17BEC2007FEF0A /* platform */,
 				3E6E5EA81F17C0A0007FEF0A /* printerdrv */,
 				3E1BCBB11F16C3440022C2EF /* raster */,
 				3E1BCBD81F16C3740022C2EF /* resid */,
@@ -8232,11 +8201,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EEBADAB1F437B9000E0340A /* ui.c in Sources */,
-				3EEBADA81F437A0500E0340A /* ViceGameCore.m in Sources */,
+				EE0FD79B20D4538C00623D0A /* ui.c in Sources */,
 				3EE1A8D61F17021F003D7C94 /* c64_256k.c in Sources */,
 				3E6E5ECA1F17C603007FEF0A /* video.c in Sources */,
-				3E6E5ECB1F17C603007FEF0A /* vsyncarch.m in Sources */,
 				3EE1A8D71F17021F003D7C94 /* c64-cmdline-options.c in Sources */,
 				3EE1A8D81F17021F003D7C94 /* c64-memory-hacks.c in Sources */,
 				3EE1A8D91F17021F003D7C94 /* c64-resources.c in Sources */,
@@ -8410,6 +8377,7 @@
 				3EA1AE491F16E38000E4AE06 /* tape_diag_586220_harness.c in Sources */,
 				3EA1AE4B1F16E38000E4AE06 /* tapelog.c in Sources */,
 				3EA1AE4D1F16E38000E4AE06 /* tapeport.c in Sources */,
+				EE0FD79820D452DB00623D0A /* tapecart.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8657,6 +8625,7 @@
 				3EA1AEFC1F16EDA300E4AE06 /* sampler2bit.c in Sources */,
 				3EA1AEFD1F16EDA300E4AE06 /* sampler4bit.c in Sources */,
 				3EA1AEFE1F16EDA300E4AE06 /* script64_dongle.c in Sources */,
+				EE0FD79320D452A300623D0A /* waasoft_dongle.c in Sources */,
 				3EA1AEFF1F16EDA300E4AE06 /* vizawrite64_dongle.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -8759,8 +8728,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE0FD79F20D4595700623D0A /* archdep.m in Sources */,
 				3EDED45E1F192DDB00477292 /* vsyncarch.m in Sources */,
-				3E6E60121F1926A0007FEF0A /* archdep.c in Sources */,
 				3EA1AF3C1F16F29700E4AE06 /* blockdev.c in Sources */,
 				3EA1AF3D1F16F29700E4AE06 /* coproc.c in Sources */,
 				3E6E5ED81F17CF9C007FEF0A /* signals.c in Sources */,
@@ -8777,17 +8746,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EA1AF481F16F2FD00E4AE06 /* p64.c in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3E6E5E9A1F17BEC2007FEF0A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3E6E5EA11F17BF3C007FEF0A /* platform_darwin_runtime_os.c in Sources */,
-				3E6E5EA21F17BF40007FEF0A /* platform_macosx.c in Sources */,
-				3E6E5EA71F17BFF9007FEF0A /* platform_x86_runtime_cpu.c in Sources */,
-				3E6E5EA31F17BF4B007FEF0A /* platform.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8964,7 +8922,6 @@
 				3EDA967C1F19560C0015CED2 /* main_program.m in Sources */,
 				3EDA967D1F19560C0015CED2 /* vice_stubs.c in Sources */,
 				3EDA967E1F19560C0015CED2 /* ViceGameCore.m in Sources */,
-				3EDA967F1F19560C0015CED2 /* archdep.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9316,11 +9273,6 @@
 			target = 3E1BCBA71F16C3180022C2EF /* parallel */;
 			targetProxy = 3EDED5181F19417A00477292 /* PBXContainerItemProxy */;
 		};
-		3EDED51B1F19417A00477292 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3E6E5E991F17BEC2007FEF0A /* platform */;
-			targetProxy = 3EDED51A1F19417A00477292 /* PBXContainerItemProxy */;
-		};
 		3EDED51D1F19417A00477292 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3E6E5EA81F17C0A0007FEF0A /* printerdrv */;
@@ -9436,10 +9388,10 @@
 			target = 3EDA96361F19560C0015CED2 /* VICE C64 */;
 			targetProxy = 3EEBAD9E1F4374EA00E0340A /* PBXContainerItemProxy */;
 		};
-		3EEBADA11F4377D500E0340A /* PBXTargetDependency */ = {
+		3EFE03E81FBA1C9A006DAF0E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3E6E5E991F17BEC2007FEF0A /* platform */;
-			targetProxy = 3EEBADA01F4377D500E0340A /* PBXContainerItemProxy */;
+			target = 3E1BCBB11F16C3440022C2EF /* raster */;
+			targetProxy = 3EFE03E71FBA1C9A006DAF0E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -9530,30 +9482,64 @@
 		059603B21C3B6F3C005C174C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				EXECUTABLE_PREFIX = lib;
 				GCC_INPUT_FILETYPE = automatic;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core $(SRCROOT)/vice/src/sid";
-				USE_HEADERMAP = YES;
+				USER_HEADER_SEARCH_PATHS = "";
+				USE_HEADERMAP = NO;
 			};
 			name = Debug;
 		};
 		059603B31C3B6F3C005C174C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				EXECUTABLE_PREFIX = lib;
 				GCC_INPUT_FILETYPE = automatic;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core $(SRCROOT)/vice/src/sid";
-				USE_HEADERMAP = YES;
+				USER_HEADER_SEARCH_PATHS = "";
+				USE_HEADERMAP = NO;
 			};
 			name = Release;
 		};
@@ -9704,8 +9690,26 @@
 		3E1BCA0E1F16BDD20022C2EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -9714,8 +9718,26 @@
 		3E1BCA0F1F16BDD20022C2EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -9856,6 +9878,24 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -9866,6 +9906,24 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -9874,11 +9932,25 @@
 		3E1BCAA01F16C19E0022C2EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/vice/src",
-					"$(SRCROOT)/support",
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
@@ -9888,11 +9960,25 @@
 		3E1BCAA11F16C19E0022C2EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/vice/src",
-					"$(SRCROOT)/support",
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
@@ -9902,9 +9988,26 @@
 		3E1BCABC1F16C1C40022C2EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -9913,9 +10016,26 @@
 		3E1BCABD1F16C1C40022C2EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -9924,8 +10044,26 @@
 		3E1BCB331F16C27C0022C2EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -9934,8 +10072,26 @@
 		3E1BCB341F16C27C0022C2EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -9944,8 +10100,26 @@
 		3E1BCB3B1F16C2840022C2EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -9954,8 +10128,26 @@
 		3E1BCB3C1F16C2840022C2EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -9964,9 +10156,26 @@
 		3E1BCB431F16C2930022C2EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -9975,9 +10184,26 @@
 		3E1BCB441F16C2930022C2EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -9986,11 +10212,25 @@
 		3E1BCB581F16C2C80022C2EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/unix,
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
@@ -10000,11 +10240,25 @@
 		3E1BCB591F16C2C80022C2EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/unix,
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
@@ -10014,11 +10268,25 @@
 		3E1BCB7E1F16C2F20022C2EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/monitor,
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
@@ -10028,11 +10296,25 @@
 		3E1BCB7F1F16C2F20022C2EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/monitor,
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
@@ -10042,9 +10324,12 @@
 		3E1BCBAC1F16C3180022C2EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/vice/src",
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -10053,9 +10338,12 @@
 		3E1BCBAD1F16C3180022C2EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/vice/src",
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -10124,28 +10412,54 @@
 		3E1BCC1E1F16C4E30022C2EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/Core/Classes/cfgfiles\"",
+					"$(SRCROOT)/vice/src",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core $(SRCROOT)/Core/Classes/cfgfiles \"$(SRCROOT)/Core/Classes/cfgfiles/translate.h\"";
 			};
 			name = Debug;
 		};
 		3E1BCC1F1F16C4E30022C2EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/Core/Classes/cfgfiles\"",
+					"$(SRCROOT)/vice/src",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core $(SRCROOT)/Core/Classes/cfgfiles \"$(SRCROOT)/Core/Classes/cfgfiles/translate.h\"";
 			};
 			name = Release;
 		};
 		3E1BCC9A1F16D8D10022C2EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -10154,28 +10468,26 @@
 		3E1BCC9B1F16D8D10022C2EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
-			};
-			name = Release;
-		};
-		3E6E5E9E1F17BEC2007FEF0A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
-				EXECUTABLE_PREFIX = lib;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
-			};
-			name = Debug;
-		};
-		3E6E5E9F1F17BEC2007FEF0A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
-				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -10266,8 +10578,26 @@
 		3EA1AEE91F16ED7600E4AE06 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -10276,8 +10606,26 @@
 		3EA1AEEA1F16ED7600E4AE06 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -10306,16 +10654,29 @@
 		3EDA96D91F19560C0015CED2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)",
-					"$(SRCROOT)/vice/src",
-					/usr/local/Cellar/ffmpeg/3.1.3/include,
-					/usr/local/Cellar/portaudio/19.6.0/include,
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
 				);
 				INFOPLIST_FILE = Core/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
@@ -10331,15 +10692,28 @@
 		3EDA96DA1F19560C0015CED2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)",
-					"$(SRCROOT)/vice/src",
-					/usr/local/Cellar/ffmpeg/3.1.3/include,
-					/usr/local/Cellar/portaudio/19.6.0/include,
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
 				);
 				INFOPLIST_FILE = Core/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
@@ -10357,10 +10731,18 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"$(SRCROOT)/vice/src",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"$(SRCROOT)/vice/src/sid",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"\"$(SRCROOT)/vice/src/rtc\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core $(SRCROOT)/vice/src/sid";
-				USE_HEADERMAP = YES;
+				USER_HEADER_SEARCH_PATHS = "";
+				USE_HEADERMAP = NO;
 			};
 			name = Debug;
 		};
@@ -10369,10 +10751,18 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"$(SRCROOT)/vice/src",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"$(SRCROOT)/vice/src/sid",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"\"$(SRCROOT)/vice/src/rtc\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core $(SRCROOT)/vice/src/sid";
-				USE_HEADERMAP = YES;
+				USER_HEADER_SEARCH_PATHS = "";
+				USE_HEADERMAP = NO;
 			};
 			name = Release;
 		};
@@ -10399,9 +10789,26 @@
 		3EE1A8441F16FBC0003D7C94 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -10410,9 +10817,26 @@
 		3EE1A8451F16FBC0003D7C94 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+					"$(SRCROOT)/Core/Classes/support",
+					"\"$(SRCROOT)/vice/src\"",
+					"\"$(SRCROOT)/vice/src/core\"",
+					"\"$(SRCROOT)/vice/src/samplerdrv\"",
+					"$(SRCROOT)/vice/src/sid",
+					"$(SRCROOT)/vice/src/tapeport",
+					"$(SRCROOT)/vice/src/joyport",
+					"$(SRCROOT)/vice/src/video",
+					"\"$(SRCROOT)/vice/src/vicii\"",
+					"\"$(SRCROOT)/vice/src/drive\"",
+					"\"$(SRCROOT)/vice/src/userport\"",
+					"\"$(SRCROOT)/vice/src/tape\"",
+					"\"$(SRCROOT)/vice/src/c64/cart\"",
+					"\"$(SRCROOT)/vice/src/lib/p64\"",
+					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -10687,15 +11111,6 @@
 			buildConfigurations = (
 				3E1BCC9A1F16D8D10022C2EF /* Debug */,
 				3E1BCC9B1F16D8D10022C2EF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3E6E5E9D1F17BEC2007FEF0A /* Build configuration list for PBXNativeTarget "platform" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3E6E5E9E1F17BEC2007FEF0A /* Debug */,
-				3E6E5E9F1F17BEC2007FEF0A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
