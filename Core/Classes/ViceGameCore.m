@@ -326,7 +326,8 @@ static void vSync_hold_trap(uint16_t a, void * b)
     return 1;
 }
 
-- (NSUInteger)audioBitDepth {
+- (NSUInteger)audioBitDepth
+{
     return 16;
 }
 
@@ -355,12 +356,20 @@ static void vSync_hold_trap(uint16_t a, void * b)
 - (oneway void)keyDown:(unsigned short)keyCode characters:(NSString *)characters charactersIgnoringModifiers:(NSString *)charactersIgnoringModifiers flags:(NSEventModifierFlags)flags
 {
     NSLog(@"keyDown: code=%03d, flags=%08x", keyCode, (uint32_t)flags);
+    
+    // Set the RunStopLock flag if Arrow up is pressed
+    if (keyCode == 126) RunStopLock = true;
+    
     keyboard_key_pressed(keyCode);
 }
 
 - (oneway void)keyUp:(unsigned short)keyCode characters:(NSString *)characters charactersIgnoringModifiers:(NSString *)charactersIgnoringModifiers flags:(NSEventModifierFlags)flags
 {
     NSLog(@"keyUp: code=%03d, flags=%08x", keyCode, (uint32_t)flags);
+    
+    // UnSet RunStopLock flag if Arrow up is released
+    if (keyCode == 126) RunStopLock = false;
+    
     keyboard_key_released(keyCode);
 }
 
@@ -376,6 +385,9 @@ const size_t joystick_len = sizeof(joystick_bits) / sizeof(joystick_bits[0]);
 
 - (oneway void)didPushC64Button:(OEC64Button)button forPlayer:(NSUInteger)player
 {
+    // Avoid a RunStop Lock if the Arrow key is pressed, and up is pushed on a Joystick
+    if (RunStopLock && button == OEC64JoystickUp) keyboard_key_released(126);
+    
     if (button < joystick_len) {
         joystick_set_value_or((uint32_t)player, joystick_bits[button]);
     }
