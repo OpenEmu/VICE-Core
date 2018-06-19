@@ -84,7 +84,6 @@
 #include "lib.h"
 #include "log.h"
 #include "machine.h"
-#include "platform.h"
 #include "system.h"
 #include "util.h"
 #include "version.h"
@@ -104,6 +103,12 @@
 #undef OutputDebugString
 #define OutputDebugString printf
 #endif
+
+
+/** \brief  Tokens that are illegal in a path/filename
+ */
+static const char *illegal_name_tokens = "/\\?*:|\"<>";
+
 
 static char *orig_workdir;
 static char *argv0;
@@ -223,7 +228,7 @@ static BOOL verify_exe(TCHAR *file_name)
 const char *archdep_home_path(void)
 {
     static char *cached_home = NULL;
-	char *home;
+    char *home;
 #ifndef NO_SHGETFOLDERPATH
     char *home_prefix;
     char data_path[MAX_PATH + 1];
@@ -470,7 +475,7 @@ char *archdep_default_resource_file_name(void)
     char *local_ini = util_concat(archdep_boot_path(), "\\vice.ini", NULL);
 
     if (!util_file_exists(local_ini)) {
-        free(local_ini);
+        lib_free(local_ini);
         return util_concat(archdep_home_path(), "\\vice.ini", NULL);
     } else {
         return local_ini;
@@ -632,6 +637,27 @@ int archdep_expand_path(char **return_path, const char *orig_name)
     return 0;
 }
 
+
+/** \brief  Sanitize \a name by removing invalid characters for the current OS
+ *
+ * \param[in,out]   name    0-terminated string
+ */
+void archdep_sanitize_filename(char *name)
+{
+    while (*name != '\0') {
+        int i = 0;
+        while (illegal_name_tokens[i] != '\0') {
+            if (illegal_name_tokens[i] == *name) {
+                *name = '_';
+                break;
+            }
+            i++;
+        }
+        name++;
+    }
+}
+
+
 void archdep_startup_log_error(const char *format, ...)
 {
     char *tmp;
@@ -695,6 +721,7 @@ FILE *archdep_mkstemp_fd(char **filename, const char *mode)
     fd = fopen(tmp, mode);
 
     if (fd == NULL) {
+        *filename = NULL;
         return NULL;
     }
 
@@ -703,24 +730,15 @@ FILE *archdep_mkstemp_fd(char **filename, const char *mode)
     return fd;
 }
 
-int archdep_file_is_gzip(const char *name)
-{
-    size_t l = strlen(name);
-
-    if ((l < 4 || strcasecmp(name + l - 3, ".gz")) && (l < 3 || strcasecmp(name + l - 2, ".z")) && (l < 4 || toupper(name[l - 1]) != 'Z' || name[l - 4] != '.')) {
-        return 0;
-    }
-    return 1;
-}
-
-int archdep_file_set_gzip(const char *name)
-{
-    return 0;
-}
 
 int archdep_mkdir(const char *pathname, int mode)
 {
     return _mkdir(pathname);
+}
+
+int archdep_rmdir(const char *pathname)
+{
+    return _rmdir(pathname);
 }
 
 int archdep_stat(const char *file_name, unsigned int *len, unsigned int *isdir)
@@ -783,31 +801,10 @@ int archdep_rtc_get_centisecond(void)
     return (int)(t.wMilliseconds / 10);
 }
 
-char *archdep_get_runtime_os(void)
-{
-#ifdef WINMIPS
-    return "MIPS NT";
-#else
-    return platform_get_windows_runtime_os();
-#endif
-}
-
-char *archdep_get_runtime_cpu(void)
-{
-#if defined(__i386__) || defined(__i486__) || defined(__i586__) || defined(__i686__) || defined(__amd64__) || defined(__x86_64__)
-    return platform_get_x86_runtime_cpu();
-#else
-    /* TODO: add runtime cpu detection code */
-    /* arm/mips/alpha/ppc/ia64/sh */
-    return "Unknown CPU";
-#endif
-}
-
-#ifdef IDE_COMPILE
 /* Provide a usleep replacement */
-void usleep(__int64 waitTime)
+void vice_usleep(uint64_t waitTime)
 { 
-    __int64 time1 = 0, time2 = 0, freq = 0;
+    uint64_t time1 = 0, time2 = 0, freq = 0;
 
     QueryPerformanceCounter((LARGE_INTEGER *) &time1);
     QueryPerformanceFrequency((LARGE_INTEGER *)&freq);
@@ -816,7 +813,26 @@ void usleep(__int64 waitTime)
         QueryPerformanceCounter((LARGE_INTEGER *) &time2);
     } while((time2-time1) < waitTime);
 }
-#endif
+
+char *archdep_extra_title_text(void)
+{
+    return NULL;
+}
+
+int is_windows_nt(void)
+{
+    OSVERSIONINFO os_version_info;
+
+    ZeroMemory(&os_version_info, sizeof(os_version_info));
+    os_version_info.dwOSVersionInfoSize = sizeof(os_version_info);
+
+    GetVersionEx(&os_version_info);
+
+    if (os_version_info.dwPlatformId == VER_PLATFORM_WIN32_NT) {
+        return 1;
+    }
+    return 0;
+}
 
 /* include system.c here, instead of compiling it seperatly */
 #include "system.c"

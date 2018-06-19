@@ -1,7 +1,9 @@
 # Makefile.am for the AMIGAOS version of `libarch.a'.
 
 if DUMMY_COMPILE
-SUBDIRS = info-files mui
+SUBDIRS = info-files
+else
+SUBDIRS = mui
 endif
 
 bin_PROGRAMS = x64ns x64dtvns x64scns x128ns xvicns xplus4ns xcbm2ns xcbm5x0ns xpetns xscpu64ns
@@ -103,7 +105,6 @@ libarch_a_SOURCES = \
 	rawnetarch.c \
 	timer.c \
 	timer.h \
-	types.h \
 	ui.c \
 	ui.h \
 	uiapi.c \
@@ -113,7 +114,6 @@ libarch_a_SOURCES = \
 	uic64cart.h \
 	uicart.c \
 	uicart.h \
-	uicmdline.c \
 	uicolor.c \
 	uilib.c \
 	uilib.h \

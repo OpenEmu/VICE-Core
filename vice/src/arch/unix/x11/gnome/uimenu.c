@@ -47,6 +47,8 @@
 #include "util.h"
 #include "x11menu.h"
 
+#include "uimenu.h"
+
 #ifdef DEBUG_MENUS
 #define DBG(_x_)  log_debug _x_
 #else
@@ -155,6 +157,7 @@ void ui_menu_shutdown(void)
         }
     }
     numhotkeys = 0;
+
     /* free checkmarks */
     list = checkmark_list;
     while (list != NULL) {
@@ -179,18 +182,26 @@ void ui_menu_shutdown(void)
     object_list = NULL;
 }
 
-#if 0
 static void delete_checkmark_cb(GtkWidget *w, gpointer data)
 {
     checkmark_t *cm;
 
-    printf("delete_checkmark_cb() called\n");
+    /* For some obscure reason `lib_free(cm->name)` causes a segfault when
+     * trying to load a PSID file via 'Load' in the VSID UI. When disabling the
+     * checkmark free code in ui_shutdown(), we get hundreds of leaks, so for now
+     * ui_shutdown() will have to handle the freeing of the checkmarks.
+     * Ugly and weird, but since we're moving to Gtk3, this will have to do.
+     *
+     * -- compyx, 2017-12-26
+     */
+    return;
+
+    /* printf("delete_checkmark_cb() called\n"); */
     cm = (checkmark_t *)data;
     checkmark_list = g_list_remove(checkmark_list, data);
     lib_free(cm->name);
     lib_free(cm);
 }
-#endif
 
 static void add_accelerator(const char *name, GtkWidget *w, GtkAccelGroup *accel, guint accel_key, ui_hotkey_modifier_t mod)
 {
@@ -323,14 +334,12 @@ void ui_menu_create(GtkWidget *w, GtkAccelGroup *accel, const char *menu_name, u
                             "activate",
                             G_CALLBACK(list[i].callback),
                             (gpointer)&(cmt->obj));
-                    /* never gets triggered for some reason */
-                    #if 0
+                    /* never got triggered for some reason, now recent gtk it gets triggered */
                     g_signal_connect(
                             G_OBJECT(new_item),
                             "destroy",
                             G_CALLBACK(delete_checkmark_cb),
                             (gpointer)cmt);
-                    #endif
                     /* Add this item to the list of calls to perform to update the
                     menu status. e.g. checkmarks or submenus */
                     checkmark_list = g_list_prepend(checkmark_list, cmt);

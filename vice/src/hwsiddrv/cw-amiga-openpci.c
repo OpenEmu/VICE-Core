@@ -34,7 +34,13 @@
 #include <string.h>
 
 #include "cw-amiga.h"
+
+#if !defined(USE_SDLUI) && !defined(USE_SDLUI2)
 #include "loadlibs.h"
+#else
+#include "archdep.h"
+#endif
+
 #include "log.h"
 #include "types.h"
 
@@ -48,7 +54,7 @@ static int sids_found = -1;
 static unsigned long CWbase;
 
 /* read value from SIDs */
-int cw_openpci_read(WORD addr, int chipno)
+int cw_openpci_read(uint16_t addr, int chipno)
 {
     /* check if chipno and addr is valid */
     if (chipno < MAXSID && addr < 0x20) {
@@ -59,7 +65,7 @@ int cw_openpci_read(WORD addr, int chipno)
 }
 
 /* write value into SID */
-void cw_openpci_store(WORD addr, BYTE val, int chipno)
+void cw_openpci_store(uint16_t addr, uint8_t val, int chipno)
 {
     /* check if chipno and addr is valid */
     if (chipno < MAXSID && addr < 0x20) {

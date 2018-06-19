@@ -33,6 +33,7 @@
 #include "debug.h"
 #include "cbm2.h"
 #include "cbm2mem.h"
+#include "cbm2ui.h"
 #include "lib.h"
 #include "machine.h"
 #include "menu_cbm2cart.h"
@@ -40,6 +41,7 @@
 #include "menu_common.h"
 #include "menu_debug.h"
 #include "menu_drive.h"
+#include "menu_edit.h"
 #include "menu_ffmpeg.h"
 #include "menu_help.h"
 #include "menu_jam.h"
@@ -124,8 +126,12 @@ static const ui_menu_entry_t xcbm6x0_7x0_main_menu[] = {
       (ui_callback_data_t)network_menu },
 #endif
     { "Pause",
-      MENU_ENTRY_OTHER,
+      MENU_ENTRY_OTHER_TOGGLE,
       pause_callback,
+      NULL },
+    { "Advance Frame",
+      MENU_ENTRY_OTHER,
+      advance_frame_callback,
       NULL },
     { "Monitor",
       MENU_ENTRY_SUBMENU,
@@ -136,7 +142,7 @@ static const ui_menu_entry_t xcbm6x0_7x0_main_menu[] = {
       vkbd_callback,
       NULL },
     { "Statusbar",
-      MENU_ENTRY_OTHER,
+      MENU_ENTRY_OTHER_TOGGLE,
       statusbar_callback,
       NULL },
 #ifdef DEBUG
@@ -153,6 +159,12 @@ static const ui_menu_entry_t xcbm6x0_7x0_main_menu[] = {
       MENU_ENTRY_SUBMENU,
       submenu_callback,
       (ui_callback_data_t)settings_manager_menu },
+#ifdef USE_SDLUI2
+    { "Edit",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)edit_menu },
+#endif
     { "Quit emulator",
       MENU_ENTRY_OTHER,
       quit_callback,
@@ -220,8 +232,12 @@ static const ui_menu_entry_t xcbm5x0_main_menu[] = {
       (ui_callback_data_t)network_menu },
 #endif
     { "Pause",
-      MENU_ENTRY_OTHER,
+      MENU_ENTRY_OTHER_TOGGLE,
       pause_callback,
+      NULL },
+    { "Advance Frame",
+      MENU_ENTRY_OTHER,
+      advance_frame_callback,
       NULL },
     { "Monitor",
       MENU_ENTRY_SUBMENU,
@@ -232,7 +248,7 @@ static const ui_menu_entry_t xcbm5x0_main_menu[] = {
       vkbd_callback,
       NULL },
     { "Statusbar",
-      MENU_ENTRY_OTHER,
+      MENU_ENTRY_OTHER_TOGGLE,
       statusbar_callback,
       NULL },
 #ifdef DEBUG
@@ -249,6 +265,12 @@ static const ui_menu_entry_t xcbm5x0_main_menu[] = {
       MENU_ENTRY_SUBMENU,
       submenu_callback,
       (ui_callback_data_t)settings_manager_menu },
+#ifdef USE_SDLUI2
+    { "Edit",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)edit_menu },
+#endif
     { "Quit emulator",
       MENU_ENTRY_OTHER,
       quit_callback,
@@ -256,10 +278,10 @@ static const ui_menu_entry_t xcbm5x0_main_menu[] = {
     SDL_MENU_LIST_END
 };
 
-static BYTE *cbm2_font_14 = NULL;
-static BYTE *cbm2_font_8 = NULL;
+static uint8_t *cbm2_font_14 = NULL;
+static uint8_t *cbm2_font_8 = NULL;
 
-void cbm2ui_set_menu_params(int index, menu_draw_t *menu_draw)
+static void cbm2ui_set_menu_params(int index, menu_draw_t *menu_draw)
 {
     int model, i, j;
 
@@ -285,6 +307,17 @@ void cbm2ui_set_menu_params(int index, menu_draw_t *menu_draw)
         }
         sdl_ui_set_menu_font(cbm2_font_8, 8, 8);
     }
+
+    /* CRTC */
+    menu_draw->color_front = menu_draw->color_default_front = 1;
+    menu_draw->color_back = menu_draw->color_default_back = 0;
+    menu_draw->color_cursor_back = 0;
+    menu_draw->color_cursor_revers = 1;
+    menu_draw->color_active_green = 1;
+    menu_draw->color_inactive_red = 1;
+    menu_draw->color_active_grey = 1;
+    menu_draw->color_inactive_grey = 1;
+
     return;
 }
 
@@ -328,11 +361,26 @@ void cbm2ui_shutdown(void)
     lib_free(cbm2_font_8);
 }
 
+static void cbm5x0ui_set_menu_params(int index, menu_draw_t *menu_draw)
+{
+    /* VICII */
+    menu_draw->max_text_x = 40;
+    menu_draw->color_front = menu_draw->color_default_front = 1;
+    menu_draw->color_back = menu_draw->color_default_back = 0;
+    menu_draw->color_cursor_back = 6;
+    menu_draw->color_cursor_revers = 0;
+    menu_draw->color_active_green = 13;
+    menu_draw->color_inactive_red = 2;
+    menu_draw->color_active_grey = 15;
+    menu_draw->color_inactive_grey = 11;
+    sdl_ui_set_menu_params = NULL;
+}
+
 int cbm5x0ui_init(void)
 {
     cbm2_font_8 = lib_malloc(8 * 256);
 
-    sdl_ui_set_menu_params = NULL;
+    sdl_ui_set_menu_params = cbm5x0ui_set_menu_params;
 
     uijoyport_menu_create(1, 1, 0, 0, 0);
     uisampler_menu_create();

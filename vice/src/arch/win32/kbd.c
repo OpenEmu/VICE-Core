@@ -40,7 +40,7 @@
 #include "winkbd.h"
 
 
-BYTE _kbd_extended_key_tab[256] = {
+uint8_t _kbd_extended_key_tab[256] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, K_KPENTER, K_RIGHTCTRL, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -56,7 +56,7 @@ BYTE _kbd_extended_key_tab[256] = {
 /* Windows would not want us to handle raw scancodes like this...  But we
    need it nevertheless.  */
 
-int kbd_handle_keydown(DWORD virtual_key, DWORD key_data)
+int kbd_handle_keydown(uint32_t virtual_key, uint32_t key_data)
 {
     long kcode = (key_data >> 16) & 0xff;
     int repeated = key_data & 0x40000000 ? 1 : 0;
@@ -77,7 +77,7 @@ int kbd_handle_keydown(DWORD virtual_key, DWORD key_data)
     return 0;
 }
 
-int kbd_handle_keyup(DWORD virtual_key, DWORD key_data)
+int kbd_handle_keyup(uint32_t virtual_key, uint32_t key_data)
 {
     long kcode = (key_data >> 16) & 0xff;
     int repeated = key_data & 0x40000000 ? 0 : 1;

@@ -34,6 +34,8 @@
 #include "keyboard.h"
 #include "translate.h"
 
+#include "cardkey.h"
+
 /* Control port <--> Cardkey connections:
 
    cport | keypad | I/O
@@ -114,13 +116,14 @@ The PRESS (POT AY) line is used to indicate a key press.
 #define KEYPAD_KEY_ENTER ROW_COL(3,2)
 #define KEYPAD_KEY_PLUS  ROW_COL(3,3)
 
+#define KEYPAD_NUM_KEYS  16
+
 static int cardkey_enabled = 0;
 
-static unsigned int keys[16];
+static unsigned int keys[KEYPAD_NUM_KEYS];
 
 /* ------------------------------------------------------------------------- */
 
-#ifdef COMMON_KBD
 static void handle_keys(int row, int col, int pressed)
 {
     if (row < 0 || row > 3 || col < 1 || col > 4) {
@@ -129,7 +132,6 @@ static void handle_keys(int row, int col, int pressed)
 
     keys[(row * 4) + col - 1] = (unsigned int)pressed;
 }
-#endif
 
 /* ------------------------------------------------------------------------- */
 
@@ -142,14 +144,10 @@ static int joyport_cardkey_enable(int port, int value)
     }
 
     if (val) {
-        memset(keys, 0, 16);
-#ifdef COMMON_KBD
+        memset(keys, 0, KEYPAD_NUM_KEYS * sizeof(unsigned int));
         keyboard_register_joy_keypad(handle_keys);
-#endif
     } else {
-#ifdef COMMON_KBD
         keyboard_register_joy_keypad(NULL);
-#endif
     }
 
     cardkey_enabled = val;
@@ -157,7 +155,7 @@ static int joyport_cardkey_enable(int port, int value)
     return 0;
 }
 
-static BYTE cardkey_read_dig(int port)
+static uint8_t cardkey_read_dig(int port)
 {
     unsigned int retval = 0;
     unsigned int tmp;
@@ -211,12 +209,12 @@ static BYTE cardkey_read_dig(int port)
 
     retval |= 0xf0;
 
-    joyport_display_joyport(JOYPORT_ID_CARDCO_KEYPAD, (BYTE)~retval);
+    joyport_display_joyport(JOYPORT_ID_CARDCO_KEYPAD, (uint8_t)~retval);
 
-    return (BYTE)retval;
+    return (uint8_t)retval;
 }
 
-static BYTE cardkey_read_pot(void)
+static uint8_t cardkey_read_pot(void)
 {
     int i;
 

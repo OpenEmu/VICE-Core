@@ -12,7 +12,7 @@
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ *  (at your option) any later vers;on.
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -45,7 +45,7 @@
 #include "uiapi.h"
 #include "uiattach.h"
 #include "uicommands.h"
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
 #include "uics8900.h"
 #endif
 #include "uidatasette.h"
@@ -56,7 +56,7 @@
 #include "uids12c887rtc.h"
 #include "uiedit.h"
 
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
 #include "uiethernetcart.h"
 #endif
 
@@ -92,6 +92,10 @@
 #include "vic20model.h"
 #include "vsync.h"
 
+#include "vic20ui.h"
+
+
+/* description would be nice */
 enum {
     MEM_NONE,
     MEM_ALL,
@@ -101,6 +105,8 @@ enum {
     MEM_24K
 };
 
+
+/* description would be nice */
 enum {
     BLOCK_0 = 1,
     BLOCK_1 = 1 << 1,
@@ -385,7 +391,7 @@ UI_MENU_DEFINE_TOGGLE(MegaCartNvRAMWriteBack)
 UI_MENU_DEFINE_TOGGLE(IO2RAM)
 UI_MENU_DEFINE_TOGGLE(IO3RAM)
 
-UI_CALLBACK(set_mc_nvram_image_name)
+static UI_CALLBACK(set_mc_nvram_image_name)
 {
     uilib_select_file((char *)UI_MENU_CB_PARAM, _("Mega-Cart NvRAM image"), UILIB_FILTER_ALL);
 }
@@ -584,7 +590,7 @@ static ui_menu_entry_t io_extensions_submenu[] = {
     { CARTRIDGE_NAME_SFX_SOUND_SAMPLER " (MasC=uerade)", UI_MENU_TYPE_NORMAL,
       NULL, NULL, soundsampler_submenu,
       (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
     UI_MENU_ENTRY_SEPERATOR,
     { N_("Ethernet cartridge (MasC=uerade)"), UI_MENU_TYPE_NORMAL,
       NULL, NULL, ethernetcart_vic20_submenu,
@@ -635,7 +641,7 @@ static ui_menu_entry_t vic20_menu[] = {
       NULL, NULL, uirs232_vic20_submenu,
       (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
 #endif
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
     { N_("Ethernet settings"), UI_MENU_TYPE_NORMAL,
       NULL, NULL, uics8900_submenu,
       (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
@@ -862,7 +868,7 @@ static void vic20ui_dynamic_menu_create(void)
     uikeyboard_menu_create();
     uijoyport_menu_create(1, 0, 1, 1, 0);
     uisid_model_menu_create();
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
     uiethernetcart_menu_create();
 #endif
 }
@@ -875,7 +881,7 @@ static void vic20ui_dynamic_menu_shutdown(void)
     uikeyboard_menu_shutdown();
     uijoyport_menu_shutdown();
     uisid_model_menu_shutdown();
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
     uiethernetcart_menu_shutdown();
 #endif
 }

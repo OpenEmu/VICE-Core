@@ -31,7 +31,11 @@
 #endif
 
 #include <errno.h>
+
+#if !defined(VICE_FFMPEGLIB_H) && !defined(__MSDOS__)
 #include <inttypes.h>
+#endif
+
 #include <limits.h>
 #include <math.h>
 #include <stdint.h>
@@ -41,7 +45,16 @@
 
 #include "attributes.h"
 #include "version.h"
+
+#ifndef _MSC_VER
 #include "libavutil/avconfig.h"
+#endif
+
+#ifdef __MSDOS__
+extern int snprintf(char *buf, size_t count, const char *format, ...);
+extern int vsnprintf(char *text, size_t maxlen, const char *fmt, va_list ap);
+typedef int ptrdiff_t;
+#endif
 
 #if AV_HAVE_BIGENDIAN
 #   define AV_NE(be, le) (be)
@@ -82,10 +95,6 @@ extern attribute_deprecated const uint8_t av_reverse[256];
 #ifdef HAVE_AV_CONFIG_H
 #   include "config.h"
 #   include "intmath.h"
-#endif
-
-#ifdef IDE_COMPILE
-#include "intmath.h"
 #endif
 
 /* Pull in unguarded fallback defines at the end of this file. */

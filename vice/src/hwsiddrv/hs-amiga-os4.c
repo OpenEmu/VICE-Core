@@ -32,15 +32,23 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "hardsid.h"
-#include "loadlibs.h"
+#include "hs-amiga.h"
+
+#if !defined(USE_SDLUI) && !defined(USE_SDLUI2)
+# include "loadlibs.h"
+#else
+# include "archdep.h"
+#endif
+
 #include "log.h"
 #include "types.h"
 
 
-static unsigned char read_sid(unsigned char reg, int chipno); // Read a SID register
-static void write_sid(unsigned char reg, unsigned char data, int chipno); // Write a SID register
+static unsigned char read_sid(unsigned char reg, int chipno); /* Read a SID register */
+static void write_sid(unsigned char reg, unsigned char data, int chipno); /* Write a SID register */
 
 #define MAXSID 4
 
@@ -49,7 +57,7 @@ static int sids_found = -1;
 static int hssids[MAXSID] = {-1, -1, -1, -1};
 
 /* read value from SIDs */
-int hs_os4_read(WORD addr, int chipno)
+int hs_os4_read(uint16_t addr, int chipno)
 {
     /* check if chipno and addr is valid */
     if (chipno < MAXSID && hssids[chipno] != -1 && addr < 0x20) {
@@ -59,7 +67,7 @@ int hs_os4_read(WORD addr, int chipno)
 }
 
 /* write value into SID */
-void hs_os4_store(WORD addr, BYTE val, int chipno)
+void hs_os4_store(uint16_t addr, uint8_t val, int chipno)
 {
     /* check if chipno and addr is valid */
     if (chipno < MAXSID && hssids[chipno] != -1 && addr < 0x20) {
@@ -147,7 +155,7 @@ int hs_os4_open(void)
         return -1;
     }
 
-    // Try and find a HS on the PCI bus
+    /* Try and find a HS on the PCI bus */
     HSDevPCI = IPCI->FindDeviceTags(FDT_VendorID, 0x6581,
                                     FDT_DeviceID, 0x8580,
                                     FDT_Index,    0,
@@ -158,7 +166,7 @@ int hs_os4_open(void)
         return -1;
     }
 
-    // Lock the device, since we're a driver
+    /* Lock the device, since we're a driver */
     HSLock = HSDevPCI->Lock(PCI_LOCK_SHARED);
     if (!HSLock) {
         log_message(LOG_DEFAULT, "Unable to lock the PCI HardSID. Another driver may have an exclusive lock.");
@@ -166,7 +174,7 @@ int hs_os4_open(void)
         return -1;
     }
 
-    // Get the resource range
+    /* Get the resource range */
     HSDevBAR = HSDevPCI->GetResourceRange(0);
     if (!HSDevBAR) {
         log_message(LOG_DEFAULT, "Unable to get PCI HardSID resource range 0.");
@@ -174,7 +182,7 @@ int hs_os4_open(void)
         return -1;
     }
 
-    // Reset the hardsid PCI interface (as per hardsid linux driver)
+    /* Reset the hardsid PCI interface (as per hardsid linux driver) */
     HSDevPCI->OutByte(HSDevBAR->BaseAddress + 0x00, 0xff);
     HSDevPCI->OutByte(HSDevBAR->BaseAddress + 0x02, 0xff);
     usleep(100);

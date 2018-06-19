@@ -38,6 +38,9 @@
 #include "uimenu.h"
 #include "vsync.h"
 
+#include "uisid.h"
+
+
 static UI_CALLBACK(radio_SidModel)
 {
     int engine, model, selected;
@@ -124,6 +127,9 @@ ui_menu_entry_t sid_extra_sids_submenu[] = {
     { N_("Two"), UI_MENU_TYPE_TICK,
       (ui_callback_t)radio_SidStereo, (ui_callback_data_t)2, NULL,
       (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("Three"), UI_MENU_TYPE_TICK,
+      (ui_callback_t)radio_SidStereo, (ui_callback_data_t)3, NULL,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     UI_MENU_ENTRY_LIST_END
 };
 
@@ -135,6 +141,7 @@ ui_menu_entry_t sid_model_submenu[] = {
 };
 
 static ui_menu_entry_t *attach_sid_model_submenu = NULL;
+
 
 void uisid_model_menu_create(void)
 {
@@ -152,6 +159,7 @@ void uisid_model_menu_create(void)
     }
     sid_model_submenu[0].sub_menu = attach_sid_model_submenu;
 }
+
 
 void uisid_model_menu_shutdown(void)
 {

@@ -304,7 +304,9 @@ static ui_menu_entry_t vsid_run_commands_menu[] = {
     { N_("Reset"), UI_MENU_TYPE_NORMAL,
       NULL, NULL, reset_submenu,
       (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
-    UI_MENU_ENTRY_SEPERATOR,
+    { "--", UI_MENU_TYPE_SEPARATOR,
+      NULL, NULL, ui_runmode_commands_menu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     UI_MENU_ENTRY_LIST_END
 };
 
@@ -614,3 +616,49 @@ void vsid_ui_setdrv(char* driver_info_text)
     log_message(LOG_DEFAULT, "VSIDUI: Driver info: %s", driver_info_text);
     ui_vsid_setdrv(driver_info_text);
 }
+
+
+/** \brief  Set driver address
+ *
+ * \param[in]   addr    driver address
+ */
+void vsid_ui_set_driver_addr(uint16_t addr)
+{
+}
+
+
+/** \brief  Set load address
+ *
+ * \param[in]   addr    load address
+ */
+void vsid_ui_set_load_addr(uint16_t addr)
+{
+}
+
+
+/** \brief  Set init routine address
+ *
+ * \param[in]   addr    init routine address
+ */
+void vsid_ui_set_init_addr(uint16_t addr)
+{
+}
+
+
+/** \brief  Set play routine address
+ *
+ * \param[in]   addr    play routine address
+ */
+void vsid_ui_set_play_addr(uint16_t addr)
+{
+}
+
+
+/** \brief  Set size of SID on actual machine
+ *
+ * \param[in]   size    size of SID
+ */
+void vsid_ui_set_data_size(uint16_t size)
+{
+}
+

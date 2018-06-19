@@ -32,6 +32,8 @@
 #include <ctype.h>
 #include <string.h>
 
+#include <sys/utsname.h>
+
 #include "ui.h"
 
 #ifdef HAVE_DIR_H
@@ -63,17 +65,25 @@
 #endif
 
 #include "archdep.h"
+#include "kbd.h"
 #include "keyboard.h"
 #include "lib.h"
 #include "log.h"
 #include "machine.h"
-#include "platform.h"
 #include "util.h"
+
+
+/** \brief  Tokens that are illegal in a path/filename
+ *
+ * FIXME: taken from Unix
+ */
+static const char *illegal_name_tokens = "/";
+
 
 static char *orig_workdir;
 static char *argv0 = NULL;
 
-int archdep_init_extra(int *argc, char **argv)
+static int archdep_init_extra(int *argc, char **argv)
 {
     argv0 = lib_stralloc(argv[0]);
     orig_workdir = getcwd(NULL, PATH_MAX);
@@ -158,6 +168,20 @@ char *archdep_default_resource_file_name(void)
 {
     return util_concat(archdep_boot_path(), "/vice-sdl.ini", NULL);
 }
+
+
+/** \brief  Get path to VICE session file
+ *
+ * The 'session file' is a file that is used to store settings between VICE
+ * runs, storing things like the last used directory.
+ *
+ * \return  path to session file
+ */
+char *archdep_default_session_file_name(void)
+{
+    return util_concat(archdep_boot_path(), "/vice-sdl-session.ini", NULL);
+}
+
 
 char *archdep_default_fliplist_file_name(void)
 {
@@ -341,24 +365,15 @@ FILE *archdep_mkstemp_fd(char **filename, const char *mode)
     return fd;
 }
 
-int archdep_file_is_gzip(const char *name)
-{
-    size_t l = strlen(name);
-
-    if ((l < 4 || strcasecmp(name + l - 3, ".gz")) && (l < 3 || strcasecmp(name + l - 2, ".z")) && (l < 4 || toupper(name[l - 1]) != 'Z' || name[l - 4] != '.')) {
-        return 0;
-    }
-    return 1;
-}
-
-int archdep_file_set_gzip(const char *name)
-{
-    return 0;
-}
 
 int archdep_mkdir(const char *pathname, int mode)
 {
     return mkdir(pathname, (mode_t)mode);
+}
+
+int archdep_rmdir(const char *pathname)
+{
+    return rmdir(pathname);
 }
 
 int archdep_stat(const char *file_name, unsigned int *len, unsigned int *isdir)
@@ -401,29 +416,9 @@ int archdep_rename(const char *oldpath, const char *newpath)
     return rename(oldpath, newpath);
 }
 
-void archdep_shutdown_extra(void)
+static void archdep_shutdown_extra(void)
 {
     lib_free(argv0);
-}
-
-char *archdep_get_runtime_os(void)
-{
-    if (CheckForHaiku()) {
-        return platform_get_haiku_runtime_os();
-    }
-    if (CheckForZeta()) {
-        return platform_get_zeta_runtime_os();
-    }
-    return platform_get_beos_runtime_os();
-}
-
-char *archdep_get_runtime_cpu(void)
-{
-#ifdef WORDS_BIGENDIAN
-    return platform_get_beosppc_runtime_cpu();
-#else
-    return platform_get_x86_runtime_cpu();
-#endif
 }
 
 /* returns host keyboard mapping. used to initialize the keyboard map when
@@ -443,4 +438,19 @@ char *archdep_sdl2_default_renderers[] = {
     "software", "opengl", NULL
 };
 #endif
+
+
+/* This check is needed for haiku, since it always returns 1 on
+   SupportsWindowMode() */
+int CheckForHaiku(void)
+{
+    struct utsname name;
+
+    uname(&name);
+    if (!strncasecmp(name.sysname, "Haiku", 5)) {
+        return -1;
+    }
+    return 0;
+}
+
 

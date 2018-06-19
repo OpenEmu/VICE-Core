@@ -1,9 +1,10 @@
+/** \file   uimon.c
+ * \brief   Native GTK3 UI monitor stuff
+ *
+ * \author  Marco van den Heuvel <blackystardust68@yahoo.com>
+ */
+
 /*
- * uimon.c - Native GTK3 UI monitor stuff.
- *
- * Written by
- *  Marco van den Heuvel <blackystardust68@yahoo.com>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -31,8 +32,17 @@
 #include "not_implemented.h"
 
 #include "console.h"
+#include "debug_gtk3.h"
 #include "monitor.h"
+#include "kbd.h"
+#include "resources.h"
+#include "ui.h"
 #include "uimon.h"
+#include "uimonarch.h"
+#include "videoarch.h"
+#include "vsync.h"
+
+#ifdef HAVE_VTE
 
 char *uimon_get_in(char **ppchCommandLine, const char *prompt)
 {
@@ -53,12 +63,17 @@ int uimon_out(const char *buffer)
 
 void uimon_set_interface(monitor_interface_t **monitor_interface_init, int count)
 {
-    NOT_IMPLEMENTED();
+    NOT_IMPLEMENTED_WARN_ONLY();
 }
 
 void uimon_window_close(void)
 {
     NOT_IMPLEMENTED();
+}
+
+static void window_destroy_cb(void)
+{
+    NOT_IMPLEMENTED_WARN_ONLY();
 }
 
 console_t *uimon_window_open(void)
@@ -73,3 +88,48 @@ console_t *uimon_window_resume(void)
     return NULL;
 }
 
+#endif
+
+/** \brief  Callback to activate the ML-monitor
+ *
+ * \param[in,out]   widget      widget triggering the event
+ * \param[in]       user_data   data for the event (unused)
+ */
+void ui_monitor_activate_callback(GtkWidget *widget, gpointer user_data)
+{
+    int v;
+    int native = 0;
+
+    /*
+     * Determine if we use the spawing terminal or the (yet to write) Gtk3
+     * base monitor
+     */
+    if (resources_get_int("NativeMonitor", &native) < 0) {
+        debug_gtk3("failed to get value of resource 'NativeMonitor'\n");
+    }
+    debug_gtk3("called, native monitor = %s (completely ignored for now)\n",
+            native ? "true" : "false");
+
+    resources_get_int("MonitorServer", &v);
+
+    if (v == 0) {
+#ifdef HAVE_FULLSCREEN
+        fullscreen_suspend(0);
+#endif
+        vsync_suspend_speed_eval();
+        /* ui_autorepeat_on(); */
+
+#ifdef HAVE_MOUSE
+        /* FIXME: restore mouse in case it was grabbed */
+        /* ui_restore_mouse(); */
+#endif
+        if (!ui_emulation_is_paused()) {
+            monitor_startup_trap();
+        } else {
+            monitor_startup(e_default_space);
+#ifdef HAVE_FULLSCREEN
+            fullscreen_resume();
+#endif
+        }
+    }
+}

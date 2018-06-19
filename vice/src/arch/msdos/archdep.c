@@ -27,6 +27,8 @@
 
 #include "vice.h"
 
+#include "types.h"
+
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -50,9 +52,14 @@
 #include "lib.h"
 #include "log.h"
 #include "machine.h"
-#include "platform.h"
 #include "util.h"
 #include "video.h"
+
+
+/** \brief  Tokens that are illegal in a path/filename
+ */
+static const char *illegal_name_tokens = "/\\?*:|\"<>";
+
 
 static char *orig_workdir;
 static char *argv0;
@@ -67,7 +74,7 @@ static void restore_workdir(void)
 int archdep_init(int *argc, char **argv)
 {
     allegro_init();
-    
+
     _fmode = O_BINARY;
 
     argv0 = lib_stralloc(argv[0]);
@@ -299,6 +306,27 @@ int archdep_expand_path(char **return_path, const char *orig_name)
     return 0;
 }
 
+
+/** \brief  Sanitize \a name by removing invalid characters for the current OS
+ *
+ * \param[in,out]   name    0-terminated string
+ */
+void archdep_sanitize_filename(char *name)
+{
+    while (*name != '\0') {
+        int i = 0;
+        while (illegal_name_tokens[i] != '\0') {
+            if (illegal_name_tokens[i] == *name) {
+                *name = '_';
+                break;
+            }
+            i++;
+        }
+        name++;
+    }
+}
+
+
 void archdep_startup_log_error(const char *format, ...)
 {
     va_list ap;
@@ -355,24 +383,15 @@ FILE *archdep_mkstemp_fd(char **filename, const char *mode)
     return fd;
 }
 
-int archdep_file_is_gzip(const char *name)
-{
-    size_t l = strlen(name);
-
-    if ((l < 4 || strcasecmp(name + l - 3, ".gz")) && (l < 3 || strcasecmp(name + l - 2, ".z")) && (l < 4 || toupper(name[l - 1]) != 'Z' || name[l - 4] != '.')) {
-        return 0;
-    }
-    return 1;
-}
-
-int archdep_file_set_gzip(const char *name)
-{
-    return 0;
-}
 
 int archdep_mkdir(const char *pathname, int mode)
 {
     return mkdir(pathname, (mode_t)mode);
+}
+
+int archdep_rmdir(const char *pathname)
+{
+    return rmdir(pathname);
 }
 
 int archdep_stat(const char *file_name, unsigned int *len, unsigned int *isdir)
@@ -412,15 +431,12 @@ int archdep_rename(const char *oldpath, const char *newpath)
 
 void archdep_shutdown(void)
 {
+#ifdef HAVE_NETWORK
     archdep_network_shutdown();
+#endif
 }
 
-char *archdep_get_runtime_os(void)
+char *archdep_extra_title_text(void)
 {
-    return platform_get_dos_runtime_os();
-}
-
-char *archdep_get_runtime_cpu(void)
-{
-    return platform_get_x86_runtime_cpu();
+    return NULL;
 }

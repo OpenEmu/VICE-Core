@@ -47,6 +47,7 @@
 #include "mui/uicpclockf83.h"
 #include "mui/uidatasette.h"
 #include "mui/uidigimax.h"
+#include "mui/uidqbb.h"
 #include "mui/uidrivec64.h"
 #include "mui/uids12c887rtc.h"
 #include "mui/uieasyflash.h"
@@ -55,6 +56,7 @@
 #include "mui/uigmod2.h"
 #include "mui/uiide64.h"
 #include "mui/uiiocollisions.h"
+#include "mui/uiisepic.h"
 #include "mui/uijoyport.h"
 #include "mui/uijoystick.h"
 #include "mui/uijoystickll.h"
@@ -248,7 +250,7 @@ static int c64_ui_specific(video_canvas_t *canvas, int idm)
         case IDM_DRIVE_ROM_SETTINGS:
             ui_c64_drive_rom_settings_dialog(canvas);
             break;
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         case IDM_TFE_SETTINGS:
 //          ui_tfe_settings_dialog(hwnd);
             break;

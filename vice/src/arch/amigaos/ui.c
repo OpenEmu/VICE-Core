@@ -61,6 +61,9 @@
 #include "machine.h"
 #include "vicefeatures.h"
 
+#include "network.h"
+#include "vsyncapi.h"
+
 #include "mui/filereq.h"
 #include "mui/mui.h"
 #include "mui/uiautostart.h"
@@ -76,6 +79,7 @@
 
 #include "mui/uinetwork.h"
 #include "mui/uiram.h"
+#include "mui/uiscreenshot.h"
 #include "mui/uisnapshot.h"
 #include "mui/uisound.h"
 
@@ -359,7 +363,7 @@ static void ui_paste_clipboard_text(void)
 
         text_in_petscii[textlen] = 0;
 
-        charset_petconvstring((BYTE *)text_in_petscii, 0);
+        charset_petconvstring((uint8_t *)text_in_petscii, 0);
 
         kbdbuf_feed(text_in_petscii);
 
@@ -482,7 +486,7 @@ void ui_display_paused(int paused)
 
 static int is_paused = 0;
 
-static void pause_trap(WORD addr, void *data)
+static void pause_trap(uint16_t addr, void *data)
 {
     ui_display_paused(1);
     vsync_suspend_speed_eval();
@@ -507,7 +511,7 @@ void ui_pause_emulation(int flag)
     }
 }
 
-static int ui_emulation_is_paused(void)
+int ui_emulation_is_paused(void)
 {
     return is_paused;
 }

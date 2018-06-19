@@ -35,6 +35,7 @@
 #include "menu_common.h"
 #include "menu_debug.h"
 #include "menu_drive.h"
+#include "menu_edit.h"
 #include "menu_ffmpeg.h"
 #include "menu_help.h"
 #include "menu_jam.h"
@@ -56,6 +57,7 @@
 #include "menu_tape.h"
 #include "menu_video.h"
 #include "petmem.h"
+#include "petui.h"
 #include "pet-resources.h"
 #include "resources.h"
 #include "ui.h"
@@ -126,8 +128,12 @@ static const ui_menu_entry_t xpet_main_menu[] = {
       (ui_callback_data_t)network_menu },
 #endif
     { "Pause",
-      MENU_ENTRY_OTHER,
+      MENU_ENTRY_OTHER_TOGGLE,
       pause_callback,
+      NULL },
+    { "Advance Frame",
+      MENU_ENTRY_OTHER,
+      advance_frame_callback,
       NULL },
     { "Monitor",
       MENU_ENTRY_SUBMENU,
@@ -138,7 +144,7 @@ static const ui_menu_entry_t xpet_main_menu[] = {
       vkbd_callback,
       NULL },
     { "Statusbar",
-      MENU_ENTRY_OTHER,
+      MENU_ENTRY_OTHER_TOGGLE,
       statusbar_callback,
       NULL },
 #ifdef DEBUG
@@ -155,6 +161,12 @@ static const ui_menu_entry_t xpet_main_menu[] = {
       MENU_ENTRY_SUBMENU,
       submenu_callback,
       (ui_callback_data_t)settings_manager_menu },
+#ifdef USE_SDLUI2
+    { "Edit",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)edit_menu },
+#endif
     { "Quit emulator",
       MENU_ENTRY_OTHER,
       quit_callback,
@@ -162,11 +174,11 @@ static const ui_menu_entry_t xpet_main_menu[] = {
     SDL_MENU_LIST_END
 };
 
-static BYTE *pet_font;
+static uint8_t *pet_font;
 
 /* FIXME: support all PET keyboards (see pet-resources.h) */
 
-void petui_set_menu_params(int index, menu_draw_t *menu_draw)
+static void petui_set_menu_params(int index, menu_draw_t *menu_draw)
 {
     static int old_keymap = -1;
     int cols = petmem_get_rom_columns();
@@ -188,6 +200,16 @@ void petui_set_menu_params(int index, menu_draw_t *menu_draw)
         }
         old_keymap = keymap;
     }
+
+    /* CRTC */
+    menu_draw->color_front = menu_draw->color_default_front = 1;
+    menu_draw->color_back = menu_draw->color_default_back = 0;
+    menu_draw->color_cursor_back = 0;
+    menu_draw->color_cursor_revers = 1;
+    menu_draw->color_active_green = 1;
+    menu_draw->color_inactive_red = 1;
+    menu_draw->color_active_grey = 1;
+    menu_draw->color_inactive_grey = 1;
 }
 
 int petui_init(void)

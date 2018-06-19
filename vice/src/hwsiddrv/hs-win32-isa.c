@@ -78,6 +78,7 @@
 #include "alarm.h"
 #include "archdep.h"
 #include "hardsid.h"
+#include "hs-win32.h"
 #include "log.h"
 #include "sid-resources.h"
 #include "types.h"
@@ -173,22 +174,22 @@ static BYTE hardsid_inb(unsigned int addrint)
     return retval;
 }
 
-int hs_isa_read(WORD addr, int chipno)
+int hs_isa_read(uint16_t addr, int chipno)
 {
     if (chipno < MAXSID && hssids[chipno] != -1 && addr < 0x20) {
         hardsid_outb(HARDSID_BASE + 1, (BYTE)((chipno << 6) | (addr & 0x1f) | 0x20));
-        usleep(2);
+        vice_usleep(2);
         return hardsid_inb(HARDSID_BASE);
     }
     return 0;
 }
 
-void hs_isa_store(WORD addr, BYTE outval, int chipno)
+void hs_isa_store(uint16_t addr, uint8_t outval, int chipno)
 {
     if (chipno < MAXSID && hssids[chipno] != -1 && addr < 0x20) {
         hardsid_outb(HARDSID_BASE, outval);
         hardsid_outb(HARDSID_BASE + 1, (BYTE)((chipno << 6) | (addr & 0x1f)));
-        usleep(2);
+        vice_usleep(2);
     }
 }
 

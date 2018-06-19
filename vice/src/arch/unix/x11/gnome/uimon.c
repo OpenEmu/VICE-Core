@@ -81,7 +81,7 @@ static int is_dir(struct dirent *de)
     return 0;
 }
 
-void write_to_terminal(struct console_private_s *t,
+void uimon_write_to_terminal(struct console_private_s *t,
                        const char *data,
                        glong length)
 {
@@ -90,7 +90,8 @@ void write_to_terminal(struct console_private_s *t,
     }
 }
 
-int getColumns(struct console_private_s *t)
+
+int uimon_get_columns(struct console_private_s *t)
 {
     if(t->term) {
         return vte_terminal_get_column_count(VTE_TERMINAL(t->term));
@@ -268,7 +269,8 @@ static gboolean key_press_event (GtkWidget   *widget,
     return FALSE;
 }
 
-gboolean button_press_event(GtkWidget *widget,
+
+static gboolean button_press_event(GtkWidget *widget,
                             GdkEvent  *event,
                             gpointer   user_data)
 {
@@ -292,7 +294,8 @@ static gboolean close_window(GtkWidget *widget, GdkEvent *event, gpointer user_d
     return gtk_widget_hide_on_delete(widget);
 }
 
-int get_string(struct console_private_s *t, char* string, int string_len)
+
+int uimon_get_string(struct console_private_s *t, char* string, int string_len)
 {
     int retval=0;
     while(retval<string_len) {
@@ -416,9 +419,9 @@ int uimon_out(const char *buffer)
     const char *c;
     for(c = buffer; *c; c++) {
         if(*c == '\n') {
-            write_to_terminal(&fixed, "\r", 1);
+            uimon_write_to_terminal(&fixed, "\r", 1);
         }
-        write_to_terminal(&fixed, c, 1);
+        uimon_write_to_terminal(&fixed, c, 1);
     }
     return 0;
 }
@@ -444,7 +447,7 @@ void uimon_set_interface(struct monitor_interface_s **interf, int i)
 
 static char* concat_strings(const char *string1, int nchars, const char *string2)
 {
-    char *ret = malloc(nchars + strlen(string2) + 1);
+    char *ret = lib_malloc(nchars + strlen(string2) + 1);
     memcpy(ret, string1, nchars);
     strcpy(ret + nchars, string2);
     return ret;
@@ -465,7 +468,7 @@ static void fill_completions(const char *string_so_far, int initial_chars, int t
         if (i == token_len && possible_lc->cvec[word_index][token_len] != 0) {
             char *string_to_append = concat_strings(string_so_far, initial_chars, possible_lc->cvec[word_index]);
             linenoiseAddCompletion(lc, string_to_append);
-            free(string_to_append);
+            lib_free(string_to_append);
         }
     }
 }
@@ -519,7 +522,7 @@ static void monitor_completions(const char *string_so_far, linenoiseCompletions 
         if (string_so_far[start_of_token] != '"') {
             char *string_to_append = concat_strings(string_so_far, start_of_token, "\"");
             linenoiseAddCompletion(lc, string_to_append);
-            free(string_to_append);
+            lib_free(string_to_append);
             return;
         }
         for (start_of_path = ++start_of_token, token_len = 0; string_so_far[start_of_token + token_len]; token_len++) {
@@ -537,7 +540,7 @@ static void monitor_completions(const char *string_so_far, linenoiseCompletions 
         } else {
             char *path = concat_strings(string_so_far + start_of_path, start_of_token - start_of_path, "");
             dir = opendir(path);
-            free(path);
+            lib_free(path);
         }
         if (dir) {
             for (direntry = readdir(dir); direntry; direntry = readdir(dir)) {

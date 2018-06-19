@@ -1,9 +1,11 @@
+/** \file   cbm2ui.c
+ * \brief   Native GTK3 CBM2 UI
+ *
+ * \author  Marco van den Heuvel <blackystardust68@yahoo.com>
+ * \author  Bas Wassink <b.wassink@ziggo.nl>
+ */
+
 /*
- * cbm2ui.c - Native GTK3 CBM2 UI.
- *
- * Written by
- *  Marco van den Heuvel <blackystardust68@yahoo.com>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -28,16 +30,89 @@
 
 #include <stdio.h>
 
+#include "cbm2model.h"
+#include "crtc.h"
+#include "crtcontrolwidget.h"
+#include "machinemodelwidget.h"
 #include "not_implemented.h"
+#include "sampler.h"
+#include "ui.h"
+#include "uimachinewindow.h"
+#include "settings_sampler.h"
 
-int cbm2ui_init(void)
+#include "cbm2ui.h"
+
+/** \brief  List of CBM-II models
+ *
+ * Used in the machine-model widget
+ *
+ * \note    Careful: the first entry has an ID of 2 when calling cbm2model_*()
+ *          since xcbm2 skips the 5x0 models.
+ */
+static const char *cbm2_model_list[] = {
+    "CBM 610 PAL", "CBM 610 NTSC", "CBM 620 PAL", "CBM 620 NTSC",
+    "CBM 620+ (1M) PAL", "CBM 620+ (1M) NTSC", "CBM 710 NTSC", "CBM 720 NTSC",
+    "CBM 720+ (1M) NTSC", NULL
+};
+
+
+/** \brief  Identify the canvas used to create a window
+ *
+ * \return  window index on success, -1 on failure
+ */
+static int identify_canvas(video_canvas_t *canvas)
 {
-    NOT_IMPLEMENTED();
+    if (canvas != crtc_get_canvas()) {
+        return -1;
+    }
+
+    return PRIMARY_WINDOW;
+}
+
+/** \brief  Create CRT controls widget for \a target window
+ *
+ * \return  GtkGrid
+ */
+static GtkWidget *create_crt_widget(int target_window)
+{
+    return crt_control_widget_create(NULL, "CRTC");
+}
+
+/** \brief  Pre-initialize the UI before the canvas window gets created
+ *
+ * \return  0 on success, -1 on failure
+ */
+int cbm2ui_init_early(void)
+{
+    ui_machine_window_init();
+    ui_set_identify_canvas_func(identify_canvas);
+    ui_set_create_controls_widget_func(create_crt_widget);
+
+    INCOMPLETE_IMPLEMENTATION();
     return 0;
 }
 
-void cbm2ui_shutdown(void)
+
+/** \brief  Initialize the UI
+ *
+ * \return  0 on success, -1 on failure
+ */
+int cbm2ui_init(void)
 {
-    NOT_IMPLEMENTED();
+    machine_model_widget_getter(cbm2model_get);
+    machine_model_widget_setter(cbm2model_set);
+    machine_model_widget_set_models(cbm2_model_list);
+
+    settings_sampler_set_devices_getter(sampler_get_devices);
+
+    INCOMPLETE_IMPLEMENTATION();
+    return 0;
 }
 
+
+/** \brief  Shut down the UI
+ */
+void cbm2ui_shutdown(void)
+{
+    INCOMPLETE_IMPLEMENTATION();
+}

@@ -71,6 +71,8 @@
 #include "vsync.h"
 #include "zfile.h"
 
+/* #define DEBUGMACHINE */
+
 #ifdef HAS_JOYSTICK
 #include "joy.h"
 #endif
@@ -79,12 +81,19 @@
 #define EXIT_SUCCESS 0
 #endif
 
+#ifdef DEBUGMACHINE
+#define DBG(x) printf x
+#else
+#define DBG(x)
+#endif
+
 static int machine_init_was_called = 0;
 static int mem_initialized = 0;
 static int ignore_jam = 0;
 static int jam_action = MACHINE_JAM_ACTION_DIALOG;
 int machine_keymap_index;
 static char *ExitScreenshotName = NULL;
+static char *ExitScreenshotName1 = NULL;
 
 unsigned int machine_jam(const char *format, ...)
 {
@@ -176,6 +185,8 @@ void machine_reset(void)
 {
     log_message(LOG_DEFAULT, "Main CPU: RESET.");
 
+    ignore_jam = 0;
+
     /* Do machine-specific initialization.  */
     if (!mem_initialized) {
         mem_powerup();
@@ -246,13 +257,20 @@ static void screenshot_at_exit(void)
 {
     struct video_canvas_s *canvas;
 
-    if ((ExitScreenshotName == NULL) || (ExitScreenshotName[0] == 0)) {
-        return;
+    if ((ExitScreenshotName != NULL) && (ExitScreenshotName[0] != 0)) {
+        /* FIXME: this always uses the first canvas, for x128 this is the VDC */
+        canvas = machine_video_canvas_get(0);
+        /* FIXME: perhaps select driver based on the extension of the given name. for now PNG is good enough :) */
+        screenshot_save("PNG", ExitScreenshotName, canvas);
     }
-    /* FIXME: this always uses the first canvas, for x128/VDC we will need extra handling */
-    canvas = machine_video_canvas_get(0);
-    /* FIXME: perhaps select driver based on the extension of the given name. for now PNG is good enough :) */
-    screenshot_save("PNG", ExitScreenshotName, canvas);
+    if (machine_class == VICE_MACHINE_C128) {
+        if ((ExitScreenshotName1 != NULL) && (ExitScreenshotName1[0] != 0)) {
+            /* FIXME: this always uses the second canvas, for x128 this is the VICII */
+            canvas = machine_video_canvas_get(1);
+            /* FIXME: perhaps select driver based on the extension of the given name. for now PNG is good enough :) */
+            screenshot_save("PNG", ExitScreenshotName1, canvas);
+        }
+    }
 }
 
 void machine_shutdown(void)
@@ -368,9 +386,24 @@ static int set_exit_screenshot_name(const char *val, void *param)
     return 0;
 }
 
+static int set_exit_screenshot_name1(const char *val, void *param)
+{
+    if (util_string_set(&ExitScreenshotName1, val)) {
+        return 0;
+    }
+
+    return 0;
+}
+
 static resource_string_t resources_string[] = {
     { "ExitScreenshotName", "", RES_EVENT_NO, NULL,
       &ExitScreenshotName, set_exit_screenshot_name, NULL },
+    RESOURCE_STRING_LIST_END
+};
+
+static resource_string_t resources_string_c128[] = {
+    { "ExitScreenshotName1", "", RES_EVENT_NO, NULL,
+      &ExitScreenshotName1, set_exit_screenshot_name1, NULL },
     RESOURCE_STRING_LIST_END
 };
 
@@ -386,6 +419,11 @@ int machine_common_resources_init(void)
         if (resources_register_string(resources_string) < 0) {
            return -1;
         }
+        if (machine_class == VICE_MACHINE_C128) {
+            if (resources_register_string(resources_string_c128) < 0) {
+            return -1;
+            }
+        }
     }
     return resources_register_int(resources_int);
 }
@@ -393,7 +431,21 @@ int machine_common_resources_init(void)
 void machine_common_resources_shutdown(void)
 {
     lib_free(ExitScreenshotName);
+    lib_free(ExitScreenshotName1);
 }
+
+static const cmdline_option_t cmdline_options_c128[] = {
+    { "-jamaction", SET_RESOURCE, 1, NULL, NULL, "JAMAction", NULL,
+      USE_PARAM_ID, USE_DESCRIPTION_ID, IDCLS_P_TYPE, IDCLS_SET_MACHINE_JAM_ACTION,
+      NULL, NULL },
+    { "-exitscreenshot", SET_RESOURCE, 1, NULL, NULL, "ExitScreenshotName", NULL,
+      USE_PARAM_ID, USE_DESCRIPTION_ID, IDCLS_P_NAME, IDCLS_SET_EXIT_SCREENSHOT,
+      NULL, NULL },
+    { "-exitscreenshotvicii", SET_RESOURCE, 1, NULL, NULL, "ExitScreenshotName1", NULL,
+      USE_PARAM_ID, USE_DESCRIPTION_ID, IDCLS_P_NAME, IDCLS_SET_EXIT_SCREENSHOT,
+      NULL, NULL },
+    CMDLINE_LIST_END
+};
 
 static const cmdline_option_t cmdline_options[] = {
     { "-jamaction", SET_RESOURCE, 1, NULL, NULL, "JAMAction", NULL,
@@ -405,7 +457,6 @@ static const cmdline_option_t cmdline_options[] = {
     CMDLINE_LIST_END
 };
 
-
 static const cmdline_option_t cmdline_options_vsid[] = {
     { "-jamaction", SET_RESOURCE, 1, NULL, NULL, "JAMAction", NULL,
       USE_PARAM_ID, USE_DESCRIPTION_ID, IDCLS_P_TYPE, IDCLS_SET_MACHINE_JAM_ACTION,
@@ -415,10 +466,12 @@ static const cmdline_option_t cmdline_options_vsid[] = {
 
 int machine_common_cmdline_options_init(void)
 {
-    if (machine_class != VICE_MACHINE_VSID) {
-        return cmdline_register_options(cmdline_options);
-    } else {
+    if (machine_class == VICE_MACHINE_C128) {
+        return cmdline_register_options(cmdline_options_c128);
+    } else if (machine_class == VICE_MACHINE_VSID) {
         return cmdline_register_options(cmdline_options_vsid);
+    } else {
+        return cmdline_register_options(cmdline_options);
     }
 }
 

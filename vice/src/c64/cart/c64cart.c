@@ -199,7 +199,7 @@ static cartridge_info_t cartlist[] = {
     { CARTRIDGE_NAME_REX,                 CARTRIDGE_REX,                 CARTRIDGE_GROUP_UTIL },
     { CARTRIDGE_NAME_REX_EP256,           CARTRIDGE_REX_EP256,           CARTRIDGE_GROUP_UTIL },
     { CARTRIDGE_NAME_RGCD,                CARTRIDGE_RGCD,                CARTRIDGE_GROUP_GAME },
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
     { CARTRIDGE_NAME_RRNETMK3,            CARTRIDGE_RRNETMK3,            CARTRIDGE_GROUP_UTIL },
 #endif
     { CARTRIDGE_NAME_ROSS,                CARTRIDGE_ROSS,                CARTRIDGE_GROUP_UTIL },
@@ -539,7 +539,7 @@ int cartridge_type_enabled(int type)
 */
 int cartridge_attach_image(int type, const char *filename)
 {
-    BYTE *rawcart;
+    uint8_t *rawcart;
     char *abs_filename;
     int carttype = CARTRIDGE_NONE;
     int cartid = CARTRIDGE_NONE;

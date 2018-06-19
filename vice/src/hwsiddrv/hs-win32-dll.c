@@ -61,6 +61,8 @@
 #include "sid-resources.h"
 #include "types.h"
 
+#include "hs-win32.h"
+
 #define HARDSID_FLUSH_CYCLES 1000
 #define HARDSID_FLUSH_MS 50
 
@@ -256,7 +258,7 @@ int hs_dll_close(void)
     return 0;
 }
 
-int hs_dll_read(WORD addr, int chipno)
+int hs_dll_read(uint16_t addr, int chipno)
 {
     if (chipno < MAXSID && addr < 0x20 && dll != NULL && !has_usb_hardsid) {
         return ReadFromHardSID((BYTE)device_map[chipno], (UCHAR)(addr & 0x1f));
@@ -265,7 +267,7 @@ int hs_dll_read(WORD addr, int chipno)
     return 0;
 }
 
-void hs_dll_store(WORD addr, BYTE val, int chipno)
+void hs_dll_store(uint16_t addr, uint8_t val, int chipno)
 {
     CLOCK elapsed_cycles;
     BOOL flushneeded = FALSE;

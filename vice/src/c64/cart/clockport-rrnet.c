@@ -30,7 +30,7 @@
 
 #include "vice.h"
 
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -42,6 +42,8 @@
 #include "translate.h"
 #include "uiapi.h"
 
+#include "clockport-rrnet.h"
+
 /* ------------------------------------------------------------------------- */
 /*    variables needed                                                       */
 
@@ -52,7 +54,7 @@ static char *clockport_rrnet_owner = NULL;
 
 /* ------------------------------------------------------------------------- */
 
-static void clockport_rrnet_store(WORD address, BYTE val, void *context)
+static void clockport_rrnet_store(uint16_t address, uint8_t val, void *context)
 {
     if (address < 0x02) {
         return;
@@ -62,7 +64,7 @@ static void clockport_rrnet_store(WORD address, BYTE val, void *context)
     cs8900io_store(address, val);
 }
 
-static BYTE clockport_rrnet_read(WORD address, int *valid, void *context)
+static uint8_t clockport_rrnet_read(uint16_t address, int *valid, void *context)
 {
     if (address < 0x02) {
         return 0;
@@ -73,7 +75,7 @@ static BYTE clockport_rrnet_read(WORD address, int *valid, void *context)
     return cs8900io_read(address);
 }
 
-static BYTE clockport_rrnet_peek(WORD address, void *context)
+static uint8_t clockport_rrnet_peek(uint16_t address, void *context)
 {
     if (address < 0x02) {
         return 0;
@@ -145,4 +147,4 @@ clockport_device_t *clockport_rrnet_open_device(char *owner)
     return retval;
 }
 
-#endif /* #ifdef HAVE_PCAP */
+#endif /* #ifdef HAVE_RAWNET */

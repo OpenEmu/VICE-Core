@@ -34,7 +34,11 @@
  *
  */
 
+/* XXX: why is this here? */
 #undef DEBUG
+
+
+#include <stdint.h>
 
 #include "vice.h"
 
@@ -108,14 +112,15 @@
 #include "log.h"
 #include "resources.h"
 #include "rs232.h"
+#include "rs232dev.h"
 #include "translate.h"
 #include "types.h"
 
 #if defined(NEXTSTEP_COMPILE) || defined(OPENSTEP_COMPILE)
 int cfsetispeed(struct termios *t, int speed)
-{ 
-    t->c_ispeed = speed; 
-    return 0; 
+{
+    t->c_ispeed = speed;
+    return 0;
 }
 
 int cfsetospeed(struct termios *t, int speed)
@@ -417,7 +422,7 @@ void rs232dev_close(int fd)
 }
 
 /* sends a byte to the RS232 line */
-int rs232dev_putc(int fd, BYTE b)
+int rs232dev_putc(int fd, uint8_t b)
 {
     ssize_t n;
 
@@ -447,7 +452,7 @@ int rs232dev_putc(int fd, BYTE b)
 }
 
 /* gets a byte to the RS232 line, returns !=0 if byte received, byte in *b. */
-int rs232dev_getc(int fd, BYTE * b)
+int rs232dev_getc(int fd, uint8_t * b)
 {
     int ret;
     size_t n;

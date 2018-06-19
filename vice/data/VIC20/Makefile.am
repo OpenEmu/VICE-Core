@@ -16,9 +16,13 @@ palettes = \
 
 x11_keymaps = \
 	x11_pos.vkm \
-	x11_sym.vkm
+	x11_sym.vkm \
+	\
+	gtk3_pos.vkm \
+	gtk3_sym.vkm
 
 sdl_keymaps = \
+	sdl_hotkeys.vkm \
 	sdl_pos.vkm \
 	sdl_pos_fi.vkm
 
@@ -29,7 +33,6 @@ extra_keymaps = \
 	beos_pos.vkm \
 	dos_pos.vkm \
 	dos_sym.vkm \
-	os2.vkm \
 	osx_pos.vkm \
 	osx_sym.vkm \
 	win_sym.vkm \

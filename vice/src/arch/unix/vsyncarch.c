@@ -56,6 +56,7 @@ static int pause_pending = 0;
 #define TICKSPERSECOND  1000000000L  /* Nanoseconds resolution. */
 #define TICKSPERMSEC    1000000L
 #define TICKSPERUSEC    1000L
+#define TICKSPERNSEC    1L
 #else
 #define TICKSPERSECOND  1000000L     /* Microseconds resolution. */
 #define TICKSPERMSEC    1000L
@@ -67,7 +68,7 @@ static int pause_pending = 0;
 #ifndef MACOSX_SUPPORT
 
 /* Number of timer units per second. */
-signed long vsyncarch_frequency(void)
+unsigned long vsyncarch_frequency(void)
 {
     return TICKSPERSECOND;
 }
@@ -75,11 +76,17 @@ signed long vsyncarch_frequency(void)
 /* Get time in timer units. */
 unsigned long vsyncarch_gettime(void)
 {
+#ifdef HAVE_NANOSLEEP
+    struct timespec now;
+    clock_gettime(CLOCK_MONOTONIC, &now);
+    return (TICKSPERSECOND * now.tv_sec) + (TICKSPERNSEC * now.tv_nsec);
+#else
+    /* this is really really bad, we should never use the wallclock
+       see: https://blog.habets.se/2010/09/gettimeofday-should-never-be-used-to-measure-time.html */
     struct timeval now;
-
     gettimeofday(&now, NULL);
-
     return (TICKSPERSECOND * now.tv_sec) + (TICKSPERUSEC * now.tv_usec);
+#endif
 }
 
 #endif
@@ -96,26 +103,42 @@ void vsyncarch_display_speed(double speed, double frame_rate, int warp_enabled)
 }
 
 /* Sleep a number of timer units. */
-void vsyncarch_sleep(signed long delay)
+void vsyncarch_sleep(unsigned long delay)
 {
 #ifdef HAVE_NANOSLEEP
     struct timespec ts;
 #endif
-
+    unsigned long thistime, targettime, timewait;
+#if 0
     /* HACK: to prevent any multitasking stuff getting in the way, we return
              immediately on delays up to 0.1ms */
     if (delay < (TICKSPERMSEC / 10)) {
         return;
     }
-
-#ifdef HAVE_NANOSLEEP
-    ts.tv_sec = delay / TICKSPERSECOND;
-    ts.tv_nsec = (delay % TICKSPERSECOND);
-    /* wait until whole interval has elapsed */
-    while (nanosleep(&ts, &ts));
-#else
-    usleep(delay);
 #endif
+    targettime = vsyncarch_gettime() + delay;
+
+    /* repeatedly sleep until the requested delay is over. we do this so we get
+       a somewhat accurate delay even if the sleep function itself uses the
+       wall clock, which under certain circumstance may wait less than the
+       requested time */
+    while ((thistime = vsyncarch_gettime()) < targettime) {
+        /* we use increasingly smaller delays, and for the last 100 steps just
+           poll the current time */
+        timewait = (targettime - thistime) / 10;
+        if (timewait > 100) {
+            /* FIXME: this should use a sleep function with monotonous clock
+                      source, eg clock_nanosleep */
+#ifdef HAVE_NANOSLEEP
+            ts.tv_sec = timewait / TICKSPERSECOND;
+            ts.tv_nsec = (timewait % TICKSPERSECOND);
+            /* wait until whole interval has elapsed */
+            while (nanosleep(&ts, &ts));
+#else
+            usleep(timewait);
+#endif
+        }
+    }
 }
 
 void vsyncarch_presync(void)

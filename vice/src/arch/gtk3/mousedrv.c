@@ -1,9 +1,10 @@
+/** \file   mousedrv.c
+ * \brief   Native GTK3 UI mouse driver stuff.
+ *
+ * \author  Marco van den Heuvel <blackystardust68@yahoo.com>
+ */
+
 /*
- * mousedrv.c - Native GTK3 UI mouse driver stuff.
- *
- * Written by
- *  Marco van den Heuvel <blackystardust68@yahoo.com>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -30,15 +31,47 @@
 
 #include "not_implemented.h"
 
+#include "vsyncapi.h"
 #include "mouse.h"
 #include "mousedrv.h"
 
 
-#ifndef MACOSX_COCOA
+/** \brief The callbacks registered for mouse buttons being pressed or
+ *         released. 
+ *  \sa mousedrv_resources_init which sets these values properly
+ *  \sa mouse_button which uses them
+ */
+static mouse_func_t mouse_funcs = {
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
 
+/** \brief Current mouse X value.
+ *
+ *  This is a dead-reckoning sum of left and right motions and does
+ *  not necessarily bear any connection to any actual X coordinates.
+ *
+ *  \sa mousedrv_get_x
+ */
+static float mouse_x = 0.0;
 
-static mouse_func_t mouse_funcs;
+/** \brief Current mouse Y value.
+ *
+ *  This is a dead-reckoning sum of left and right motions and does
+ *  not necessarily bear any connection to any actual X coordinates.
+ *
+ *  \sa mousedrv_get_y
+ */
+static float mouse_y = 0.0;
 
+/** \brief Last time the mouse was moved.
+ *
+ *  \sa mousedrv_get_timestamp
+ */
+static unsigned long mouse_timestamp = 0;
 
 int mousedrv_cmdline_options_init(void)
 {
@@ -47,30 +80,85 @@ int mousedrv_cmdline_options_init(void)
 
 unsigned long mousedrv_get_timestamp(void)
 {
-    NOT_IMPLEMENTED();
-    return 0;
+    return mouse_timestamp;
 }
 
 int mousedrv_get_x(void)
 {
-    NOT_IMPLEMENTED();
-    return 0;
+    return (int)mouse_x;
 }
 
 int mousedrv_get_y(void)
 {
-    NOT_IMPLEMENTED();
-    return 0;
+    return (int)mouse_y;
+}
+
+
+void mouse_move(float dx, float dy)
+{
+    mouse_x += dx;
+    mouse_y -= dy;  /* why ? */
+
+    /* can't this be done with int modulo ? */
+    while (mouse_x < 0.0) {
+        mouse_x += 65536.0;
+    }
+    while (mouse_x >= 65536.0) {
+        mouse_x -= 65536.0;
+    }
+    while (mouse_y < 0.0) {
+        mouse_y += 65536.0;
+    }
+    while (mouse_y >= 65536.0) {
+        mouse_y -= 65536.0;
+    }
+
+    mouse_timestamp = vsyncarch_gettime();
+}
+
+void mouse_button(int bnumber, int state)
+{
+    switch(bnumber) {
+    case 0:
+        if (mouse_funcs.mbl) {
+            mouse_funcs.mbl(state);
+        }
+        break;
+    case 1:
+        if (mouse_funcs.mbm) {
+            mouse_funcs.mbm(state);
+        }
+        break;
+    case 2:
+        if (mouse_funcs.mbr) {
+            mouse_funcs.mbr(state);
+        }
+        break;
+    case 3:
+        if (mouse_funcs.mbu) {
+            mouse_funcs.mbu(state);
+        }
+        break;
+    case 4:
+        if (mouse_funcs.mbd) {
+            mouse_funcs.mbd(state);
+        }
+        break;
+    default:
+        fprintf(stderr, "GTK3MOUSE: Warning: Strange mouse button %d\n", bnumber);
+    }
 }
 
 void mousedrv_init(void)
 {
-    NOT_IMPLEMENTED();
+    /* This does not require anything special to be done */
 }
 
 void mousedrv_mouse_changed(void)
 {
-    NOT_IMPLEMENTED();
+    /** \todo Tell UI level to capture mouse cursor if necessary and
+     *        permitted */
+    fprintf(stderr, "GTK3MOUSE: Status changed\n");
 }
 
 int mousedrv_resources_init(mouse_func_t *funcs)
@@ -82,9 +170,5 @@ int mousedrv_resources_init(mouse_func_t *funcs)
     mouse_funcs.mbd = funcs->mbd;
     return 0;
 }
-
-
-
-#endif  /* ifndef MACOSX_COCOA */
 
 

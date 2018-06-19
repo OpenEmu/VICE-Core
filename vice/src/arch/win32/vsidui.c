@@ -59,6 +59,9 @@
 #include "vsync.h"
 #include "winmain.h"
 
+#include "vsidui.h"
+
+
 #define countof(array) (sizeof(array) / sizeof((array)[0]))
 
 enum {
@@ -82,7 +85,6 @@ enum {
 
 static const int c64_sid_baseaddress[] = { 0xd4, 0xd5, 0xd6, 0xd7, 0xde, 0xdf, -1 };
 
-int psid_ui_set_tune(resource_value_t tune, void *param);
 
 TCHAR st_AppName[] = TEXT("VSID - The VICE SID player");
 char vsidstrings[VSID_S_LASTLINE + 1][80] = { { 0 } };
@@ -100,7 +102,7 @@ static HMENU menu;
 static LRESULT CALLBACK window_proc(HWND window, UINT msg, WPARAM wparam, LPARAM lparam);
 
 /*****************************************************************************/
-void vsid_disp(int txout_x, int txout_y, const char *str1, const char* str2)
+static void vsid_disp(int txout_x, int txout_y, const char *str1, const char* str2)
 {
     HDC hDC;
     RECT r;
@@ -573,6 +575,51 @@ void vsid_ui_setdrv(char* driver_info_text)
     log_message(LOG_DEFAULT, "%s", vsidstrings[VSID_S_PLAY]);
 }
 
+
+/** \brief  Set driver address
+ *
+ * \param[in]   addr    driver address
+ */
+void vsid_ui_set_driver_addr(uint16_t addr)
+{
+}
+
+
+/** \brief  Set load address
+ *
+ * \param[in]   addr    load address
+ */
+void vsid_ui_set_load_addr(uint16_t addr)
+{
+}
+
+
+/** \brief  Set init routine address
+ *
+ * \param[in]   addr    init routine address
+ */
+void vsid_ui_set_init_addr(uint16_t addr)
+{
+}
+
+
+/** \brief  Set play routine address
+ *
+ * \param[in]   addr    play routine address
+ */
+void vsid_ui_set_play_addr(uint16_t addr)
+{
+}
+
+
+/** \brief  Set size of SID on actual machine
+ *
+ * \param[in]   size    size of SID
+ */
+void vsid_ui_set_data_size(uint16_t size)
+{
+}
+
 static int quitting = 0;
 
 void vsid_ui_close(void)
@@ -672,7 +719,7 @@ static void end_vsid_dialog(HWND hwnd)
 
     if (temp != current_song) {
         current_song = temp;
-        psid_ui_set_tune(uint_to_void_ptr(current_song), NULL);
+        psid_ui_set_tune(current_song, NULL);
         vsid_ui_display_tune_nr(current_song);
         vsid_ui_set_default_tune(default_song);
         vsid_ui_display_nr_of_tunes(songs);
@@ -704,7 +751,7 @@ static INT_PTR CALLBACK dialog_proc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM l
     return FALSE;
 }
 
-void ui_select_vsid_tune(HWND hwnd)
+static void ui_select_vsid_tune(HWND hwnd)
 {
     DialogBox(winmain_instance, (LPCTSTR)(UINT_PTR)IDD_VSID_TUNE_DIALOG, hwnd, dialog_proc);
 }
@@ -726,7 +773,7 @@ static void load_psid_file(HWND window, char *name)
         machine_trigger_reset(MACHINE_RESET_MODE_SOFT);
         songs = psid_tunes(&default_song);
         current_song = default_song;
-        psid_ui_set_tune(uint_to_void_ptr(current_song), NULL);
+        psid_ui_set_tune(current_song, NULL);
         vsid_ui_display_tune_nr(current_song);
         vsid_ui_set_default_tune(default_song);
         vsid_ui_display_nr_of_tunes(songs);
@@ -773,7 +820,7 @@ static void handle_wm_command(WPARAM wparam, LPARAM lparam, HWND hwnd)
         case IDM_NEXT_TUNE:
             if (current_song < songs) {
                 current_song++;
-                psid_ui_set_tune(uint_to_void_ptr(current_song), NULL);
+                psid_ui_set_tune(current_song, NULL);
                 vsid_ui_display_tune_nr(current_song);
                 vsid_ui_set_default_tune(default_song);
                 vsid_ui_display_nr_of_tunes(songs);
@@ -782,7 +829,7 @@ static void handle_wm_command(WPARAM wparam, LPARAM lparam, HWND hwnd)
         case IDM_PREVIOUS_TUNE:
             if (current_song > 1) {
                 current_song--;
-                psid_ui_set_tune(uint_to_void_ptr(current_song), NULL);
+                psid_ui_set_tune(current_song, NULL);
                 vsid_ui_display_tune_nr(current_song);
                 vsid_ui_set_default_tune(default_song);
                 vsid_ui_display_nr_of_tunes(songs);
@@ -923,7 +970,7 @@ static LRESULT CALLBACK window_proc(HWND window, UINT msg, WPARAM wparam, LPARAM
         case WM_KEYDOWN:
             switch(wparam) {
                 case '0':
-                    psid_ui_set_tune(uint_to_void_ptr(current_song), NULL);
+                    psid_ui_set_tune(current_song, NULL);
                     break;
                 case ' ':
                     ui_pause_emulation(!ui_emulation_is_paused());
@@ -951,7 +998,7 @@ static LRESULT CALLBACK window_proc(HWND window, UINT msg, WPARAM wparam, LPARAM
                 case VK_DOWN:
                     if (current_song > 1) {
                         current_song--;
-                        psid_ui_set_tune(uint_to_void_ptr(current_song), NULL);
+                        psid_ui_set_tune(current_song, NULL);
                         vsid_ui_display_tune_nr(current_song);
                         vsid_ui_set_default_tune(default_song);
                         vsid_ui_display_nr_of_tunes(songs);
@@ -962,7 +1009,7 @@ static LRESULT CALLBACK window_proc(HWND window, UINT msg, WPARAM wparam, LPARAM
                 case VK_UP:
                     if (current_song < songs) {
                         current_song++;
-                        psid_ui_set_tune(uint_to_void_ptr(current_song), NULL);
+                        psid_ui_set_tune(current_song, NULL);
                         vsid_ui_display_tune_nr(current_song);
                         vsid_ui_set_default_tune(default_song);
                         vsid_ui_display_nr_of_tunes(songs);

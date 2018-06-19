@@ -536,6 +536,9 @@ IDGS_MON_SCREENSHOT_DESCRIPTION
 IDGS_MON_TAPECTRL_DESCRIPTION
 
 /* monitor/mon_command.c */
+IDGS_MON_MAINCPU_TRACE_DESCRIPTION
+
+/* monitor/mon_command.c */
 IDGS_TYPE
 
 /* joyport.c */
@@ -631,6 +634,9 @@ IDGS_SCRIPT64_DONGLE
 /* joyport/vizawrite64_dongle.c */
 IDGS_VIZAWRITE64_DONGLE
 
+/* joyport/waasoft_dongle.c */
+IDGS_WAASOFT_DONGLE
+
 /* joyport/cx21.c */
 IDGS_CX21
 
@@ -702,6 +708,9 @@ IDGS_TAPE_RTC
 
 /* tapeport/sense-dongle.c */
 IDGS_SENSE_DONGLE
+
+/* tapeport/tapecart.c */
+IDGS_TAPECART
 
 /* userport/userport_dac.c */
 IDGS_USERPORT_DAC
@@ -831,6 +840,30 @@ IDCLS_ENABLE_TAPE_SENSE_DONGLE
 
 /* tapeport/sense-dongle.c */
 IDCLS_DISABLE_TAPE_SENSE_DONGLE
+
+/* tapeport/tapecart.c */
+IDCLS_ENABLE_TAPECART
+
+/* tapeport/tapecart.c */
+IDCLS_DISABLE_TAPECART
+
+/* tapeport/tapecart.c */
+IDCLS_ATTACH_TCRT_TAPECART
+
+/* tapeport/tapecart.c */
+IDCLS_ENABLE_TAPECART_TCRT_UPDATE
+
+/* tapeport/tapecart.c */
+IDCLS_DISABLE_TAPECART_TCRT_UPDATE
+
+/* tapeport/tapecart.c */
+IDCLS_ENABLE_TAPECART_TCRT_OPTIMIZE
+
+/* tapeport/tapecart.c */
+IDCLS_DISABLE_TAPECART_TCRT_OPTIMIZE
+
+/* tapeport/tapecart.c */
+IDCLS_SET_TAPECART_LOGLEVEL
 
 /* tapeport/dtl-basic-dongle.c */
 IDCLS_ENABLE_DTL_BASIC_DONGLE
@@ -1057,11 +1090,12 @@ IDCLS_DISABLE_ACIA_EMU
    scpu64/scpu64-cmdline-options.c */
 IDCLS_P_NUMBER
 
-#ifdef COMMON_KBD
 /* keyboard.c */
 IDCLS_SPECIFY_KEYMAP_FILE_INDEX
+
 /* keyboard.c */
 IDCLS_SPECIFY_KEYBOARD_TYPE
+
 /* keyboard.c */
 IDCLS_SPECIFY_KEYBOARD_MAPPING
 
@@ -1070,7 +1104,6 @@ IDCLS_SPECIFY_SYM_KEYMAP_FILE_NAME
 
 /* keyboard.c */
 IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME
-#endif  /* COMMON_KBD */
 
 /* c128/c128mmu.c */
 IDCLS_ACTIVATE_40_COL_MODE
@@ -1178,13 +1211,11 @@ IDCLS_SPECIFY_BASIC_ROM_NAME
    scpu64/scpu64-cmdline-options.c */
 IDCLS_SPECIFY_CHARGEN_ROM_NAME
 
-#ifdef COMMON_KBD
 /* c64/c64-cmdline-options.c, scpu64/scpu64-cmdline-options.c */
 IDCLS_SPECIFY_INDEX_KEYMAP_FILE_0_2
 
 /* c64/c64-cmdline-options.c, scpu64/scpu64-cmdline-options.c */
 IDCLS_SPECIFY_NAME_SYM_DE_KEYMAP
-#endif   /* COMMON_KBD */
 
 /* c64/c64gluelogic.c */
 IDCLS_SET_GLUE_LOGIC_TYPE
@@ -1498,7 +1529,7 @@ IDCLS_DO_NOT_WRITE_TO_REU_IMAGE
 /* c64/cart/reu.c */
 IDCLS_REU_SIZE
 
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
 /* c64/cart/ethernetcart.c */
 IDCLS_ENABLE_TFE
 
@@ -1519,7 +1550,7 @@ IDCLS_ETHERNETCART_MODE
 
 /* c64/cart/cs8900io.c */
 IDCLS_ETHERNET_INTERFACE
-#endif   /* HAVE_PCAP */
+#endif   /* HAVE_RAWNET */
 
 /* c64/cart/c64cart.c */
 IDCLS_CART_ATTACH_DETACH_RESET
@@ -1855,7 +1886,6 @@ IDCLS_ENABLE_RAM_MAPPING_IN_C000
 /* cbm2/cbm2-cmdline-options.c */
 IDCLS_DISABLE_RAM_MAPPING_IN_C000
 
-#ifdef COMMON_KBD
 /* cbm2/cbm2-cmdline-options.c, pet/pet-cmdline-options.c */
 IDCLS_SPECIFY_KEYMAP_INDEX
 
@@ -1876,7 +1906,6 @@ IDCLS_SPECIFY_BDE_SYM_KEYMAP_NAME
 
 /* cbm2/cbm2-cmdline-options.c, pet/pet-cmdline-options.c */
 IDCLS_SPECIFY_BDE_POS_KEYMAP_NAME
-#endif   /* COMMON_KBD */
 
 /* drive/drive-cmdline-options.c */
 IDCLS_ENABLE_TRUE_DRIVE
@@ -2522,6 +2551,9 @@ IDCLS_SPECIFY_SID_2_ADDRESS
 
 /* sid/sid-cmdline-options.c */
 IDCLS_SPECIFY_SID_3_ADDRESS
+
+/* sid/sid-cmdline-options.c */
+IDCLS_SPECIFY_SID_4_ADDRESS
 
 /* sid/sid-cmdline-options.c */
 IDCLS_ENABLE_SID_FILTERS

@@ -36,6 +36,7 @@
 #define TAPEPORT_DEVICE_SENSE_DONGLE             3
 #define TAPEPORT_DEVICE_TAPE_LOG                 4
 #define TAPEPORT_DEVICE_TAPE_DIAG_586220_HARNESS 5
+#define TAPEPORT_DEVICE_TAPECART                 6
 
 typedef struct tapeport_device_s {
     /* id of the device */
@@ -52,6 +53,9 @@ typedef struct tapeport_device_s {
 
     /* resource of the device, used for detaching when reading snapshots */
     char *resource;
+
+    /* shutdown device */
+    void (*shutdown)(void);
 
     /* reset device */
     void (*reset)(void);

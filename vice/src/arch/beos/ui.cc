@@ -42,6 +42,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <sys/utsname.h>
+
 #include "statusbar.h"
 #include "ui_file.h"
 #include "vicewindow.h"
@@ -61,7 +63,7 @@ extern "C" {
 #include "gfxoutput.h"
 #include "imagecontents.h"
 #include "info.h"
-#include "interrupt.h" 
+#include "interrupt.h"
 #include "kbd.h"
 #include "kbdbuf.h"
 #include "keyboard.h"
@@ -75,8 +77,6 @@ extern "C" {
 #include "mos6510.h"
 #include "mouse.h"
 #include "network.h"
-#include "platform.h"
-#include "platform_discovery.h"
 #include "printer.h"
 #include "resources.h"
 #include "sampler.h"
@@ -92,7 +92,6 @@ extern "C" {
 #include "ui_netplay.h"
 #include "ui_ram.h"
 #include "ui_sound.h"
-#include "uicmdline.h"
 #include "userport_joystick.h"
 #include "util.h"
 #include "version.h"
@@ -112,6 +111,19 @@ extern "C" {
 #define MAX_WINDOWS 2
 ViceWindow *windowlist[MAX_WINDOWS];
 int window_count = 0;
+
+/* This check is needed for haiku, since it always returns 1 on
+   SupportsWindowMode() */
+int CheckForHaiku(void)
+{
+    struct utsname name;
+
+    uname(&name);
+    if (!strncasecmp(name.sysname, "Haiku", 5)) {
+        return -1;
+    }
+    return 0;
+}
 
 /* List of resources that can be switched on and off from the menus.  */
 ui_menu_toggle  toggle_list[] = {
@@ -476,7 +488,8 @@ static snapfiles files[10];
 static int lastindex;
 static int snapcounter;
 
-static void save_quicksnapshot_trap(WORD unused_addr, void *unused_data)
+static void save_quicksnapshot_trap(uint16_t unused_addr, void 
+*unused_data)
 {
     int i, j;
     char *fullname;
@@ -534,7 +547,7 @@ static void save_quicksnapshot_trap(WORD unused_addr, void *unused_data)
     free(fullname);
 }
 
-static void load_quicksnapshot_trap(WORD unused_addr, void *unused_data)
+static void load_quicksnapshot_trap(uint16_t unused_addr, void *unused_data)
 {
     char *fullname;
 
@@ -588,7 +601,7 @@ void ui_display_paused(int flag)
     }
 }
 
-static void pause_trap(WORD addr, void *data)
+static void pause_trap(uint16_t addr, void *data)
 {
     ui_display_paused(1);
     vsync_suspend_speed_eval();
@@ -1095,7 +1108,7 @@ void ui_dispatch_events(void)
 #ifdef USE_SVN_REVISION
                                   " rev" VICE_SVN_REV_STRING,
 #endif
-                                  "\n (", PLATFORM_CPU, " ", PLATFORM_OS, " ", PLATFORM_COMPILER, ")\n\n",
+                                  "\n\n",
                                   NULL);
                 for (i = 0; core_team[i].name; i++) {
                     abouttext = util_concat(tmp, "\xC2\xA9 ", core_team[i].years, " ", core_team[i].name, "\n", NULL);
@@ -1341,9 +1354,9 @@ class TextWindow : public BWindow {
 TextWindow::TextWindow(
     const char *caption,
     const char *header,
-    const char *text) : BWindow(BRect(0,0,400,300), caption, B_DOCUMENT_WINDOW, B_NOT_ZOOMABLE|B_NOT_RESIZABLE) {
+    const char *text) : BWindow(BRect(0,0,500,300), caption, B_DOCUMENT_WINDOW, B_NOT_ZOOMABLE|B_NOT_RESIZABLE) {
 
-    textview = new BTextView(BRect(0, 0, 400 - B_V_SCROLL_BAR_WIDTH, 300), "VICE textview", BRect(10, 10, 390 - B_V_SCROLL_BAR_WIDTH, 290), B_FOLLOW_NONE, B_WILL_DRAW);
+    textview = new BTextView(BRect(0, 0, 500 - B_V_SCROLL_BAR_WIDTH, 300), "VICE textview", BRect(10, 10, 490 - B_V_SCROLL_BAR_WIDTH, 300), B_FOLLOW_NONE, B_WILL_DRAW);
     textview->MakeEditable(false);
     textview->MakeSelectable(false);
     textview->SetViewColor(230, 240, 230, 0);
@@ -1362,7 +1375,7 @@ TextWindow::~TextWindow() {
     delete textview;
     delete scrollview;
 }
-        
+
 void ui_show_text(const char *caption, const char *header, const char *text)
 {
     new TextWindow(caption, header, text);
@@ -1702,7 +1715,7 @@ void ui_display_event_time(unsigned int current, unsigned int total)
     ui_display_statustext(text, 0);
 }
 
-static BYTE ui_joystick_status[3] = { 255, 255, 255 };
+static uint8_t ui_joystick_status[3] = { 255, 255, 255 };
 
 static void ui_display_joyport(int port_num)
 {
@@ -1738,7 +1751,7 @@ void ui_enable_joyport(void)
 }
 
 
-void ui_display_joyport(BYTE *joyport)
+void ui_display_joyport(uint8_t *joyport)
 {
     int i;
 

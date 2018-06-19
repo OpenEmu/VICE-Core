@@ -92,20 +92,20 @@ static void create_content_list(BListView *contentlist, image_contents_t *conten
         delete item;
     }
 
-    start = image_contents_to_string(contents, 0);
+    start = image_contents_to_string(contents, IMAGE_CONTENTS_STRING_UTF8);
     contentlist->AddItem(new BStringItem(start));
     lib_free(start);
 
     if (p == NULL) {
-        contentlist->AddItem(new BStringItem("(EMPTY IMAGE.)"));
+        contentlist->AddItem(new BStringItem("(empty image.)"));
     } else do {
-        start = image_contents_file_to_string(p, 0);
+        start = image_contents_file_to_string(p, IMAGE_CONTENTS_STRING_UTF8);
         contentlist->AddItem(new BStringItem(start));
         lib_free(start);
     } while ((p = p->next) != NULL);
 
     if (contents->blocks_free >= 0) {
-        start = lib_msprintf("%d BLOCKS FREE.", contents->blocks_free);
+        start = lib_msprintf("%d blocks free.", contents->blocks_free);
         contentlist->AddItem(new BStringItem(start));
         lib_free(start);
     }
@@ -632,7 +632,7 @@ void ui_select_file(file_panel_mode panelmode, filetype_t filetype, void *filepa
     }
 }
 
-static void load_snapshot_trap(WORD unused_addr, void *path)
+static void load_snapshot_trap(uint16_t unused_addr, void *path)
 {
     if (machine_read_snapshot((char *)path, 0) < 0) {
         snapshot_display_error();
@@ -640,7 +640,7 @@ static void load_snapshot_trap(WORD unused_addr, void *path)
     lib_free(path);
 }
 
-static void save_snapshot_trap(WORD unused_addr, void *path)
+static void save_snapshot_trap(uint16_t unused_addr, void *path)
 {
     if (machine_write_snapshot((char *)path, 1, 1, 0) < 0) {
         snapshot_display_error();

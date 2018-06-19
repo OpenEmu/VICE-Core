@@ -22,6 +22,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+#ifdef __MSDOS__
+#define HAVE_INT32_T
+#endif
+
 #include "libavutil/avstring.h"
 #include "avformat.h"
 #include "internal.h"
@@ -115,15 +119,6 @@ static int gopher_read(URLContext *h, uint8_t *buf, int size)
 
 
 URLProtocol ff_gopher_protocol = {
-#ifdef IDE_COMPILE
-    "gopher",
-    gopher_open,
-    0, gopher_read,
-    gopher_write,
-    0, gopher_close,
-    0, 0, 0, 0, 0, 0, sizeof(GopherContext),
-    0, URL_PROTOCOL_FLAG_NETWORK,
-#else
 	.name           = "gopher",
     .url_open       = gopher_open,
     .url_read       = gopher_read,
@@ -131,5 +126,4 @@ URLProtocol ff_gopher_protocol = {
     .url_close      = gopher_close,
     .priv_data_size = sizeof(GopherContext),
     .flags          = URL_PROTOCOL_FLAG_NETWORK,
-#endif
 };

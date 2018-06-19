@@ -45,6 +45,8 @@
 #include "resources.h"
 #include "translate.h"
 
+#include "c64dtvflash.h"
+
 #ifndef AMIGA_SUPPORT
 #define DTVROM_NAME_DEFAULT   "dtvrom.bin"
 #else
@@ -62,7 +64,7 @@ static int flash_log_enabled = 0;
 static char *c64dtvflash_filename = NULL;
 
 /* (Flash)ROM array */
-BYTE c64dtvflash_mem[C64_ROM_SIZE];
+uint8_t c64dtvflash_mem[C64_ROM_SIZE];
 
 /* (Flash)ROM state */
 enum {
@@ -73,10 +75,12 @@ enum {
     FLASH_SETCONF,
     FLASH_PROGPROT,
     FLASH_SPPROGRAM
-} c64dtvflash_state = FLASH_IDLE;
+};
+
+uint8_t c64dtvflash_state = (uint8_t)FLASH_IDLE;
 
 /* (Flash)ROM sector lockdown */
-BYTE c64dtvflash_mem_lock[39];
+uint8_t c64dtvflash_mem_lock[39];
 
 /* (Flash)ROM image write */
 int c64dtvflash_mem_rw = 0;
@@ -90,17 +94,17 @@ static int paddr_to_sector(int paddr)
     }
 }
 
-void c64dtvflash_store_direct(int addr, BYTE value)
+void c64dtvflash_store_direct(int addr, uint8_t value)
 {
     c64dtvflash_mem[addr] = value;
 }
 
-BYTE c64dtvflash_read_direct(int addr)
+uint8_t c64dtvflash_read_direct(int addr)
 {
     return c64dtvflash_mem[addr];
 }
 
-void c64dtvflash_store(int addr, BYTE value)
+void c64dtvflash_store(int addr, uint8_t value)
 {
     int i, j, k;
 #ifdef DEBUG
@@ -126,7 +130,7 @@ void c64dtvflash_store(int addr, BYTE value)
                 switch (value) {
                     case 0x90:
                         c64dtvflash_state = FLASH_PRODUCTID;   /* Product ID Entry */
-                        return; 
+                        return;
                     case 0xf0:
                         c64dtvflash_state = FLASH_IDLE;        /* Product ID Exit */
                         return;
@@ -280,7 +284,7 @@ void c64dtvflash_store(int addr, BYTE value)
     }
 }
 
-BYTE c64dtvflash_read(int addr)
+uint8_t c64dtvflash_read(int addr)
 {
     if (c64dtvflash_state != FLASH_IDLE) {
 #ifdef DEBUG
@@ -352,7 +356,7 @@ BYTE c64dtvflash_read(int addr)
 
 /* ------------------------------------------------------------------------- */
 
-static BYTE buf[0x10000];
+static uint8_t buf[0x10000];
 
 
 void c64dtvflash_create_blank_image(char *filename, int copyroms)
@@ -421,7 +425,7 @@ void c64dtvflash_create_blank_image(char *filename, int copyroms)
 
 /* ------------------------------------------------------------------------- */
 
-unsigned int c64dtvflash_rom_loaded = 0;
+int c64dtvflash_rom_loaded = 0;
 
 static int c64dtvflash_load_rom(void)
 {

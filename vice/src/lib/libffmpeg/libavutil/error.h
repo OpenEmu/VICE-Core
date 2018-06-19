@@ -24,13 +24,12 @@
 #ifndef AVUTIL_ERROR_H
 #define AVUTIL_ERROR_H
 
-#ifdef IDE_COMPILE
-#include "ffmpeg-config.h"
-#include "ide-config.h"
-#endif
-
 #include <errno.h>
 #include <stddef.h>
+
+#ifdef __MSDOS__
+#include <sys/types.h>
+#endif
 
 /**
  * @addtogroup lavu_error

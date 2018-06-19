@@ -263,6 +263,12 @@
 /* Can we use the GIF or UNGIF library? */
 #undef HAVE_GIF
 
+/* GTK3 OpenGL support uses GLEW */
+#undef HAVE_GTK3_GLEW
+
+/* Enable OpenGL support in GTK3 UI */
+#undef HAVE_GTK3_OPENGL
+
 /* Is the GUID lib of DX SDK present? */
 #undef HAVE_GUIDLIB
 
@@ -295,6 +301,9 @@
 
 /* Define to 1 if you have the `inb' function. */
 #undef HAVE_INB
+
+/* Define to 1 if you have the `inbv' function. */
+#undef HAVE_INBV
 
 /* Define to 1 if you have the `inb_p' function. */
 #undef HAVE_INB_P
@@ -488,6 +497,9 @@
 /* Define to 1 if you have the `outb' function. */
 #undef HAVE_OUTB
 
+/* Define to 1 if you have the `outbv' function. */
+#undef HAVE_OUTBV
+
 /* Define to 1 if you have the `outb_p' function. */
 #undef HAVE_OUTB_P
 
@@ -497,7 +509,7 @@
 /* Support for ParSID. */
 #undef HAVE_PARSID
 
-/* Support for The Final Ethernet */
+/* Support for PCAP library. */
 #undef HAVE_PCAP
 
 /* A libpcap version with pcap_inject is available */
@@ -544,6 +556,9 @@
 
 /* Support for block device disk image access. */
 #undef HAVE_RAWDRIVE
+
+/* Support for CS8900A ethernet controller. */
+#undef HAVE_RAWNET
 
 /* Are we using the readline library replacement? */
 #undef HAVE_READLINE
@@ -745,6 +760,9 @@
 /* Is the type time_t defined in <sys/types.h>? */
 #undef HAVE_TIME_T_IN_TYPES_H
 
+/* TUN/TAP support using <linux/if_tun.h> */
+#undef HAVE_TUNTAP
+
 /* Define to 1 if you have the `ultoa' function. */
 #undef HAVE_ULTOA
 
@@ -897,9 +915,6 @@
 
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION
-
-/* The current arch, cpu and compiler used. */
-#undef PLATFORM
 
 /* Enable morphos shared SDL library support. */
 #undef POWERSDL_AMIGA_INLINE
@@ -1099,6 +1114,11 @@
 /* Define to 1 if `lex' declares `yytext' as a `char *' by default, not a
    `char[]'. */
 #undef YYTEXT_POINTER
+
+/* Enable large inode numbers on Mac OS X 10.5.  */
+#ifndef _DARWIN_USE_64_BIT_INODE
+# define _DARWIN_USE_64_BIT_INODE 1
+#endif
 
 /* Number of bits in a file offset, on hosts where this is settable. */
 #undef _FILE_OFFSET_BITS

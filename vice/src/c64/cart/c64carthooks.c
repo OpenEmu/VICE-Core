@@ -130,7 +130,7 @@
 #include "superexplode5.h"
 #include "supersnapshot.h"
 #include "supersnapshot4.h"
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
 #include "ethernetcart.h"
 #endif
 #include "warpspeed.h"
@@ -232,7 +232,8 @@ static const cmdline_option_t cmdline_options[] =
     { "-cartar5", CALL_FUNCTION, 1,
       cart_attach_cmdline, (void *)CARTRIDGE_ACTION_REPLAY, NULL, NULL,
       USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_ATTACH_RAW_ACTION_REPLAY_CART },
+      IDCLS_P_NAME, IDCLS_ATTACH_RAW_ACTION_REPLAY_CART,
+      NULL, NULL },
     { "-cartcap", CALL_FUNCTION, 1,
       cart_attach_cmdline, (void *)CARTRIDGE_CAPTURE, NULL, NULL,
       USE_PARAM_ID, USE_DESCRIPTION_ID,
@@ -449,7 +450,7 @@ static const cmdline_option_t cmdline_options[] =
       USE_PARAM_ID, USE_DESCRIPTION_ID,
       IDCLS_P_NAME, IDCLS_ATTACH_RAW_RGCD_CART,
       NULL, NULL },
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
     { "-cartrrnet", CALL_FUNCTION, 1,
       cart_attach_cmdline, (void *)CARTRIDGE_RRNETMK3, NULL, NULL,
       USE_PARAM_ID, USE_DESCRIPTION_ID,
@@ -558,7 +559,7 @@ int cart_cmdline_options_init(void)
         || reu_cmdline_options_init() < 0
         || sfx_soundexpander_cmdline_options_init() < 0
         || sfx_soundsampler_cmdline_options_init() < 0
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         || ethernetcart_cmdline_options_init() < 0
 #endif
         /* "Main Slot" */
@@ -567,7 +568,7 @@ int cart_cmdline_options_init(void)
         || ide64_cmdline_options_init() < 0
         || mmcreplay_cmdline_options_init() < 0
         || retroreplay_cmdline_options_init() < 0
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         || rrnetmk3_cmdline_options_init() < 0
 #endif
         || supersnapshot_v5_cmdline_options_init() < 0
@@ -614,7 +615,7 @@ int cart_resources_init(void)
         || reu_resources_init() < 0
         || sfx_soundexpander_resources_init() < 0
         || sfx_soundsampler_resources_init() < 0
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         || ethernetcart_resources_init() < 0
 #endif
 #if defined(HAVE_RS232DEV) || defined(HAVE_RS232NET)
@@ -626,7 +627,7 @@ int cart_resources_init(void)
         || ide64_resources_init() < 0
         || mmcreplay_resources_init() < 0
         || retroreplay_resources_init() < 0
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         || rrnetmk3_resources_init() < 0
 #endif
         || supersnapshot_v5_resources_init() < 0
@@ -659,7 +660,7 @@ void cart_resources_shutdown(void)
     reu_resources_shutdown();
     sfx_soundexpander_resources_shutdown();
     sfx_soundsampler_resources_shutdown();
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
     ethernetcart_resources_shutdown();
 #endif
 #if defined(HAVE_RS232DEV) || defined(HAVE_RS232NET)
@@ -672,7 +673,7 @@ void cart_resources_shutdown(void)
     ide64_resources_shutdown();
     mmcreplay_resources_shutdown();
     retroreplay_resources_shutdown();
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
     rrnetmk3_resources_shutdown();
 #endif
     supersnapshot_v5_resources_shutdown();
@@ -808,7 +809,7 @@ int cart_type_enabled(int type)
             return sfx_soundexpander_cart_enabled();
         case CARTRIDGE_SFX_SOUND_SAMPLER:
             return sfx_soundsampler_cart_enabled();
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         case CARTRIDGE_TFE:
             return ethernetcart_cart_enabled();
 #endif
@@ -860,7 +861,7 @@ const char *cart_get_file_name(int type)
 #endif
         case CARTRIDGE_SFX_SOUND_EXPANDER:
         case CARTRIDGE_SFX_SOUND_SAMPLER:
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         case CARTRIDGE_TFE:
 #endif
 #if defined(HAVE_RS232DEV) || defined(HAVE_RS232NET)
@@ -892,7 +893,7 @@ void cartridge_setup_context(machine_context_t *machine_context)
 
 /* ------------------------------------------------------------------------- */
 
-int cart_bin_attach(int type, const char *filename, BYTE *rawcart)
+int cart_bin_attach(int type, const char *filename, uint8_t *rawcart)
 {
     switch (type) {
         /* "Slot 0" */
@@ -1005,7 +1006,7 @@ int cart_bin_attach(int type, const char *filename, BYTE *rawcart)
             return rexep256_bin_attach(filename, rawcart);
         case CARTRIDGE_RGCD:
             return rgcd_bin_attach(filename, rawcart);
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         case CARTRIDGE_RRNETMK3:
             return rrnetmk3_bin_attach(filename, rawcart);
 #endif
@@ -1046,7 +1047,7 @@ int cart_bin_attach(int type, const char *filename, BYTE *rawcart)
     XYZ_config_setup should copy the raw cart image into the
     individual implementations array.
 */
-void cart_attach(int type, BYTE *rawcart)
+void cart_attach(int type, uint8_t *rawcart)
 {
     cart_detach_conflicting(type);
     switch (type) {
@@ -1213,7 +1214,7 @@ void cart_attach(int type, BYTE *rawcart)
         case CARTRIDGE_ROSS:
             ross_config_setup(rawcart);
             break;
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         case CARTRIDGE_RRNETMK3:
             rrnetmk3_config_setup(rawcart);
             break;
@@ -1282,7 +1283,7 @@ static int slot1conflicts[] =
     0
 };
 
-void cart_detach_conflicts0(int *list, int type)
+static void cart_detach_conflicts0(int *list, int type)
 {
     int *l = list;
     /* find in list */
@@ -1369,7 +1370,7 @@ int cartridge_enable(int type)
         case CARTRIDGE_SFX_SOUND_SAMPLER:
             sfx_soundsampler_enable();
             break;
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         case CARTRIDGE_TFE:
             ethernetcart_enable();
             break;
@@ -1391,6 +1392,100 @@ int cartridge_enable(int type)
     }
     return -1;
 }
+
+
+/** \brief  Disable cartridge by \a type
+ *
+ * \return  0 on success, -1 on failure
+ *
+ * \todo    More or less copy cartridge_enable() while replacing
+ *          ${cart}_enable() with ${cart_disable(). The various disable
+ *          functions still need to be written at the moment.
+ */
+int cartridge_disable(int type)
+{
+    /*
+    fprintf(stderr, "%s:%d: %s() isn't implemented yet, continuing\n",
+            __FILE__, __LINE__, __func__);
+    */
+    DBG(("CART: enable type: %d\n", type));
+    switch (type) {
+        /* "Slot 0" */
+        case CARTRIDGE_IEEE488:
+            tpi_disable();
+            break;
+        case CARTRIDGE_MAGIC_VOICE:
+            magicvoice_disable();
+            break;
+        case CARTRIDGE_MMC64:
+            mmc64_disable();
+            break;
+        /* "Slot 1" */
+        case CARTRIDGE_DQBB:
+            dqbb_disable();
+            break;
+        case CARTRIDGE_EXPERT:
+            expert_disable();
+            break;
+        case CARTRIDGE_ISEPIC:
+            isepic_disable();
+            break;
+        case CARTRIDGE_RAMCART:
+            ramcart_disable();
+            break;
+        /* "I/O Slot" */
+        case CARTRIDGE_DIGIMAX:
+            digimax_disable();
+            break;
+        case CARTRIDGE_DS12C887RTC:
+            ds12c887rtc_disable();
+            break;
+        case CARTRIDGE_GEORAM:
+            georam_disable();
+            break;
+#ifdef HAVE_MIDI
+        case CARTRIDGE_MIDI_PASSPORT:
+        case CARTRIDGE_MIDI_DATEL:
+        case CARTRIDGE_MIDI_SEQUENTIAL:
+        case CARTRIDGE_MIDI_NAMESOFT:
+        case CARTRIDGE_MIDI_MAPLIN:
+            c64_midi_disable();
+            break;
+#endif
+        case CARTRIDGE_REU:
+            reu_enable();
+            break;
+        case CARTRIDGE_SFX_SOUND_EXPANDER:
+            sfx_soundexpander_enable();
+            break;
+        case CARTRIDGE_SFX_SOUND_SAMPLER:
+            sfx_soundsampler_enable();
+            break;
+#ifdef HAVE_RAWNET
+        case CARTRIDGE_TFE:
+            ethernetcart_enable();
+            break;
+#endif
+#if defined(HAVE_RS232DEV) || defined(HAVE_RS232NET)
+        case CARTRIDGE_TURBO232:
+            aciacart_enable();
+            break;
+#endif
+        /* "Main Slot" */
+        default:
+            DBG(("CART: no disable hook %d\n", type));
+            break;
+    }
+#if 0
+    cart_detach_conflicting(type);
+#endif
+    /* make sure the cart has been disabled */
+    if (!cart_type_enabled(type)) {
+        return 0;
+    }
+    return -1;
+}
+
 
 /*
     detach all cartridges
@@ -1420,7 +1515,7 @@ void cart_detach_all(void)
     reu_detach();
     sfx_soundexpander_detach();
     sfx_soundsampler_detach();
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
     ethernetcart_detach();
 #endif
 #if defined(HAVE_RS232DEV) || defined(HAVE_RS232NET)
@@ -1494,7 +1589,7 @@ void cart_detach(int type)
         case CARTRIDGE_SFX_SOUND_SAMPLER:
             sfx_soundsampler_detach();
             break;
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         case CARTRIDGE_TFE:
             ethernetcart_detach();
             break;
@@ -1634,7 +1729,7 @@ void cart_detach(int type)
         case CARTRIDGE_RGCD:
             rgcd_detach();
             break;
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         case CARTRIDGE_RRNETMK3:
             rrnetmk3_detach();
             break;
@@ -1715,7 +1810,7 @@ void cart_init(void)
     reu_init();
     /* sfx sound expander */
     /* sfx sound sampler */
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
     ethernetcart_init();
 #endif
 #if defined(HAVE_RS232DEV) || defined(HAVE_RS232NET)
@@ -1881,7 +1976,7 @@ void cartridge_init_config(void)
         case CARTRIDGE_RGCD:
             rgcd_config_init();
             break;
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         case CARTRIDGE_RRNETMK3:
             rrnetmk3_config_init();
             break;
@@ -1997,7 +2092,7 @@ void cartridge_reset(void)
     if (sfx_soundsampler_cart_enabled()) {
         sfx_soundsampler_reset();
     }
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
     if (ethernetcart_cart_enabled()) {
         ethernetcart_reset();
     }
@@ -2048,7 +2143,7 @@ void cartridge_reset(void)
         case CARTRIDGE_MMC_REPLAY:
             mmcreplay_reset();
             break;
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         case CARTRIDGE_RRNETMK3:
             rrnetmk3_reset();
             break;
@@ -2091,7 +2186,7 @@ void cartridge_reset(void)
 /* ------------------------------------------------------------------------- */
 
 /* called by cart_nmi_alarm_triggered, after an alarm occured */
-void cart_freeze(int type)
+static void cart_freeze(int type)
 {
     DBG(("CART: freeze\n"));
     switch (type) {
@@ -2265,7 +2360,7 @@ int cartridge_flush_image(int type)
             return mmcreplay_flush_image();
         case CARTRIDGE_RETRO_REPLAY:
             return retroreplay_flush_image();
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         case CARTRIDGE_RRNETMK3:
             return rrnetmk3_flush_image();
 #endif
@@ -2309,7 +2404,7 @@ int cartridge_bin_save(int type, const char *filename)
             return mmcreplay_bin_save(filename);
         case CARTRIDGE_RETRO_REPLAY:
             return retroreplay_bin_save(filename);
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         case CARTRIDGE_RRNETMK3:
             return rrnetmk3_bin_save(filename);
 #endif
@@ -2350,7 +2445,7 @@ int cartridge_crt_save(int type, const char *filename)
             return mmcreplay_crt_save(filename);
         case CARTRIDGE_RETRO_REPLAY:
             return retroreplay_crt_save(filename);
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         case CARTRIDGE_RRNETMK3:
             return rrnetmk3_crt_save(filename);
 #endif
@@ -2404,7 +2499,7 @@ void cartridge_sound_chip_init(void)
 
    TODO: add more cartridges
 */
-void cartridge_mmu_translate(unsigned int addr, BYTE **base, int *start, int *limit)
+void cartridge_mmu_translate(unsigned int addr, uint8_t **base, int *start, int *limit)
 {
     int res = CART_READ_THROUGH;
 #if 0
@@ -2483,7 +2578,7 @@ void cartridge_mmu_translate(unsigned int addr, BYTE **base, int *start, int *li
         case CARTRIDGE_RETRO_REPLAY:
             retroreplay_mmu_translate(addr, base, start, limit);
             return;
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         case CARTRIDGE_RRNETMK3:
             rrnetmk3_mmu_translate(addr, base, start, limit);
             return;
@@ -2516,8 +2611,8 @@ int cartridge_snapshot_write_modules(struct snapshot_s *s)
 {
     snapshot_module_t *m;
 
-    BYTE i;
-    BYTE number_of_carts = 0;
+    uint8_t i;
+    uint8_t number_of_carts = 0;
     int cart_ids[C64CART_DUMP_MAX_CARTS];
     int last_cart = 0;
 
@@ -2557,16 +2652,16 @@ int cartridge_snapshot_write_modules(struct snapshot_s *s)
 
     /* Save "global" cartridge things */
     if (0
-        || SMW_DW(m, (DWORD)mem_cartridge_type) < 0
+        || SMW_DW(m, (uint32_t)mem_cartridge_type) < 0
         || SMW_B(m, export.game) < 0
         || SMW_B(m, export.exrom) < 0
-        || SMW_DW(m, (DWORD)romh_bank) < 0
-        || SMW_DW(m, (DWORD)roml_bank) < 0
-        || SMW_B(m, (BYTE)export_ram) < 0
+        || SMW_DW(m, (uint32_t)romh_bank) < 0
+        || SMW_DW(m, (uint32_t)roml_bank) < 0
+        || SMW_B(m, (uint8_t)export_ram) < 0
         || SMW_B(m, export.ultimax_phi1) < 0
         || SMW_B(m, export.ultimax_phi2) < 0
-        || SMW_DW(m, (DWORD)cart_freeze_alarm_time) < 0
-        || SMW_DW(m, (DWORD)cart_nmi_alarm_time) < 0
+        || SMW_DW(m, (uint32_t)cart_freeze_alarm_time) < 0
+        || SMW_DW(m, (uint32_t)cart_nmi_alarm_time) < 0
         || SMW_B(m, export_slot1.game) < 0
         || SMW_B(m, export_slot1.exrom) < 0
         || SMW_B(m, export_slot1.ultimax_phi1) < 0
@@ -2589,7 +2684,7 @@ int cartridge_snapshot_write_modules(struct snapshot_s *s)
 
     /* Save cart IDs */
     for (i = 0; i < number_of_carts; i++) {
-        if (SMW_DW(m, (DWORD)cart_ids[i]) < 0) {
+        if (SMW_DW(m, (uint32_t)cart_ids[i]) < 0) {
             goto fail;
         }
     }
@@ -2858,7 +2953,7 @@ int cartridge_snapshot_write_modules(struct snapshot_s *s)
                     return -1;
                 }
                 break;
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
             case CARTRIDGE_RRNETMK3:
                 if (rrnetmk3_snapshot_write_module(s) < 0) {
                     return -1;
@@ -2973,7 +3068,7 @@ int cartridge_snapshot_write_modules(struct snapshot_s *s)
                     return -1;
                 }
                 break;
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
             case CARTRIDGE_TFE:
                 if (ethernetcart_snapshot_write_module(s) < 0) {
                     return -1;
@@ -3008,13 +3103,13 @@ fail:
 int cartridge_snapshot_read_modules(struct snapshot_s *s)
 {
     snapshot_module_t *m;
-    BYTE vmajor, vminor;
+    uint8_t vmajor, vminor;
 
-    BYTE i;
-    BYTE number_of_carts;
+    uint8_t i;
+    uint8_t number_of_carts;
     int cart_ids[C64CART_DUMP_MAX_CARTS];
     int local_cartridge_reset;
-    DWORD dummy;
+    uint32_t dummy;
 
     m = snapshot_module_open(s, SNAP_MODULE_NAME, &vmajor, &vminor);
 
@@ -3349,7 +3444,7 @@ int cartridge_snapshot_read_modules(struct snapshot_s *s)
                     goto fail2;
                 }
                 break;
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
             case CARTRIDGE_RRNETMK3:
                 if (rrnetmk3_snapshot_read_module(s) < 0) {
                     goto fail2;
@@ -3464,7 +3559,7 @@ int cartridge_snapshot_read_modules(struct snapshot_s *s)
                     goto fail2;
                 }
                 break;
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
             case CARTRIDGE_TFE:
                 if (ethernetcart_snapshot_read_module(s) < 0) {
                     goto fail2;

@@ -558,7 +558,7 @@ translate_t string_table[] = {
 /* en */ {IDGS_SENDING_SNAPSHOT_TO_CLIENT,    N_("Sending snapshot to client...")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_SENDING_SNAPSHOT_TO_CLIENT_DA, "Sender snapshot til klient..."},
-/* de */ {IDGS_SENDING_SNAPSHOT_TO_CLIENT_DE, "Sende Snapshot zu Client..."},
+/* de */ {IDGS_SENDING_SNAPSHOT_TO_CLIENT_DE, "Sende Snapshot zum Client..."},
 /* es */ {IDGS_SENDING_SNAPSHOT_TO_CLIENT_ES, "Remitiendo Instantánea a cliente..."},
 /* fr */ {IDGS_SENDING_SNAPSHOT_TO_CLIENT_FR, "Envoi de l'instantané au client..."},
 /* hu */ {IDGS_SENDING_SNAPSHOT_TO_CLIENT_HU, ""},  /* fuzzy */
@@ -1406,20 +1406,20 @@ translate_t string_table[] = {
 #endif
 
 /* monitor/mon_command.c */
-/* en */ {IDGS_MON_RETURN_DESCRIPTION,    N_("Continues execution and returns to the monitor just before the next\nRTS or RTI is executed.")},
+/* en */ {IDGS_MON_RETURN_DESCRIPTION,    N_("Continues execution and returns to the monitor just after the next\nRTS or RTI is executed.")},
 #ifdef HAS_TRANSLATION
-/* da */ {IDGS_MON_RETURN_DESCRIPTION_DA, "Fortsæt eksekveringen og vend tilbage til monitoren lige inden næste\nRTS eller RTI udføres."},
-/* de */ {IDGS_MON_RETURN_DESCRIPTION_DE, "Setzt Ausführung fort und retourniert bevor der nächsten RTS oder RTI instruction."},
-/* es */ {IDGS_MON_RETURN_DESCRIPTION_ES, "Continuar ejecución y volver al monitor justo antes que la siguiente\nRTS o RTI sea ejecutada."},
-/* fr */ {IDGS_MON_RETURN_DESCRIPTION_FR, "Continuer l'exécution et retourner au moniteur juste avant la prochaine\nexécution de RTS ou RTI."},
-/* hu */ {IDGS_MON_RETURN_DESCRIPTION_HU, "Folytatja a végrehajtást és visszatér a monitorba a következõ\nRTS vagy RTI utasítás elõtt."},
-/* it */ {IDGS_MON_RETURN_DESCRIPTION_IT, "Continua l'esecuzione e ritorna al monitor subito prima della prossima\nesecuzione di RTS o RTI."},
+/* da */ {IDGS_MON_RETURN_DESCRIPTION_DA, ""},  /* fuzzy */
+/* de */ {IDGS_MON_RETURN_DESCRIPTION_DE, "Setzt Ausführung fort und retourniert zum Monitor unmittelbar nach der nächsten RTS oder RTI instruction."},
+/* es */ {IDGS_MON_RETURN_DESCRIPTION_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_MON_RETURN_DESCRIPTION_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_MON_RETURN_DESCRIPTION_HU, ""},  /* fuzzy */
+/* it */ {IDGS_MON_RETURN_DESCRIPTION_IT, ""},  /* fuzzy */
 /* ko */ {IDGS_MON_RETURN_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_RETURN_DESCRIPTION_NL, "Ga door met uitvoeren van instructies en keer terug naar de monitor net voordat de\nvolgende RTS of RTI wordt uitgevoerd."},
-/* pl */ {IDGS_MON_RETURN_DESCRIPTION_PL, "Wykonuje dalej i wraca do monitora tu¿ przed wykonaniem\nnastêpnego RTS lub RTI."},
-/* ru */ {IDGS_MON_RETURN_DESCRIPTION_RU, "Continues execution and returns to the monitor just before the next\nRTS or RTI is executed."},
-/* sv */ {IDGS_MON_RETURN_DESCRIPTION_SV, "Fortsätt exekveringen och återgå till monitorn precis innan nästa\nRTS eller RTI exekveras."},
-/* tr */ {IDGS_MON_RETURN_DESCRIPTION_TR, "Çalýþmaya devam eder ve sonraki RTS ya da RTI çalýþtýrýlmadan hemen önce\nmonitöre geri döner."},
+/* nl */ {IDGS_MON_RETURN_DESCRIPTION_NL, ""},  /* fuzzy */
+/* pl */ {IDGS_MON_RETURN_DESCRIPTION_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_MON_RETURN_DESCRIPTION_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_MON_RETURN_DESCRIPTION_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_MON_RETURN_DESCRIPTION_TR, ""},  /* fuzzy */
 #endif
 
 /* monitor/mon_command.c */
@@ -2145,17 +2145,17 @@ translate_t string_table[] = {
 #endif
 
 /* monitor/mon_command.c */
-/* en */ {IDGS_MON_CONDITION_DESCRIPTION,    N_("Each time the specified checkpoint is examined, the condition is\nevaluated. If it evalutes to true, the checkpoint is activated.\nOtherwise, it is ignored. If registers are specified in the expression,\nthe values used are those at the time the checkpoint is examined, not\nwhen the condition is set.\nThe condition can use registers (A, X, Y, PC, SP, FL and other cpu\nspecific registers (see manual)) and compare them (==, !=, <, >, <=, >=)\nagainst other registers or constants.\nRegisters can be the registers of other devices; this is denoted by\na memspace prefix (i.e., c:, 8:, 9:, 10:, 11:\nExamples: A == 0, X == Y, 8:X == X)\n")},
+/* en */ {IDGS_MON_CONDITION_DESCRIPTION,    N_("Each time the specified checkpoint is examined, the condition is\nevaluated. If it evalutes to true, the checkpoint is activated.\nOtherwise, it is ignored. If registers are specified in the expression,\nthe values used are those at the time the checkpoint is examined, not\nwhen the condition is set.\nThe condition can use registers (A, X, Y, PC, SP, FL and other cpu\nspecific registers (see manual)) and compare them (==, !=, <, >, <=, >=)\nagainst other registers or constants.\nRegisters can be the registers of other devices; this is denoted by\na memspace prefix (i.e., c:, 8:, 9:, 10:, 11:\nExamples: A == $0, X == Y, 8:X == X)\nYou can also compare against the value of a memory location in a specific\nbank, i.e you can break only if the vic register $d020 is $f0.\nuse the form @[bankname]:[$<address>] | [.label].\nNote this is for the C : memspace only.\nExamples : if @io:$d020 == $f0, if @io:.vicBorder == $f0\n")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_MON_CONDITION_DESCRIPTION_DA, ""},  /* fuzzy */
-/* de */ {IDGS_MON_CONDITION_DESCRIPTION_DE, "Bei jeder Überprüfung des Checkpoints, wird die Bedingung evaluiert.\nIst das Ergebnis `Wahr', wird der Checkpoint aktiviert, sonst ingnoriert.\nWenn Register benutzt werden, werden deren Werte zum Zeitpunkt der \nÜberprüfung herangezogen, nicht zum Zeitpunkt des Setzens der Bedingung.\nDie Bedingung kann Register benutzen (A, X, Y, PC, SP, FL und andere\nCPU spezifische Register (siehe Handbuch)) und gegen andere Register oder\nKonstanten vergleichen (==, !=, <, >, <=, >=).\nRegister können auch Geräteregister sein; dazu wird die memspace Prefix-syntax \nverwendet: c:, 8:, 9:, 10:, 11:\nBeispiel: A == 0, X == Y, 8:X == X\n"},
-/* es */ {IDGS_MON_CONDITION_DESCRIPTION_ES, "Cada vez que un punto de control se examine, la condición se\nevaluará. Si la condición es cierta, se activa el punto de control.\nSi no, se ignora. Si los registros están especificado en la condición,\nse usan los valores en el momento en el que se examina el punto\nde ruptura, no en el momento de poner la condición.\nLa condición puede usar los registros (.A, .X, .Y, .PC, .SP)  y compararlos\nm (==, !=, <, >, <=, >=) con otros registros y constantes.\nLos registros pueden ser de otros periféricos, esto se denota por el\nprefijo de espacio memoria (ej., c:, 8:, 9:, 10:, 11:\nEjemplos: .A == 0, .X == .Y, 8:.X == .X\n"},
+/* de */ {IDGS_MON_CONDITION_DESCRIPTION_DE, "Bei jeder Überprüfung des Checkpoints, wird die Bedingung evaluiert.\nIst das Ergebnis `Wahr', wird der Checkpoint aktiviert, sonst ingnoriert.\nWenn Register benutzt werden, werden deren Werte zum Zeitpunkt der \nÜberprüfung herangezogen, nicht zum Zeitpunkt des Setzens der Bedingung.\nDie Bedingung kann Register benutzen (A, X, Y, PC, SP, FL und andere\nCPU spezifische Register (siehe Handbuch)) und gegen andere Register oder\nKonstanten vergleichen (==, !=, <, >, <=, >=).\nRegister können auch Geräteregister sein; dazu wird die memspace Prefix-syntax \nverwendet: c:, 8:, 9:, 10:, 11:\nBeispiel: A == 0, X == Y, 8:X == X\nMan kann auch gegen den Wert einer Speicherstelle in einer\nspezifischen Speicherbank vergleichen. Z.B. stop nur wenn im VIC\nRegister $d020 ein $f0 steht.\nBenutze die Form @[bankname]:[$<address>] | [.label].\nFunktioniert aber nur im C: Speicherbereich\nZ.B.: if @io:$d020 == $f0, if @io:.vicBorder == $f0\n"},
+/* es */ {IDGS_MON_CONDITION_DESCRIPTION_ES, ""},  /* fuzzy */
 /* fr */ {IDGS_MON_CONDITION_DESCRIPTION_FR, ""},  /* fuzzy */
 /* hu */ {IDGS_MON_CONDITION_DESCRIPTION_HU, ""},  /* fuzzy */
-/* it */ {IDGS_MON_CONDITION_DESCRIPTION_IT, "Ogni volta che si esamina il punto di controllo specificato, viene valutata\nla condizione. Se è vera, il punto di controllo è attivato.\nAltrimenti viene ignorato. Se nell'espressione sono specificati i registri,\nquesti valori sono quelli usati quando viene esaminato il punto di controllo,\nnon quando viene impostata la condizione.\nLa condizione può fare uso dei registri (A, X, Y, PC, SP, FL e altri registri\nspecifici della cpu (vedi manuale)) e confrontarli (==, !=, <, >, <=, >=)\ncon altri registri o costanti.\nI registri possono essere registri di altre periferiche; questo è denotato da\nun prefisso che specifica lo spazio di memoria (cioé, c:, 8:, 9:, 10:, 11:)\nAlcuni esempi: A == 0, X == Y, 8:X == X)\n"},
+/* it */ {IDGS_MON_CONDITION_DESCRIPTION_IT, ""},  /* fuzzy */
 /* ko */ {IDGS_MON_CONDITION_DESCRIPTION_KO, ""},  /* fuzzy */
-/* nl */ {IDGS_MON_CONDITION_DESCRIPTION_NL, "Elke keer dat het opgegeven checkpunt wordt onderzocht zal de conditie worden\ngeëvalueerd. Als de evaluatie positief is dan zal de checkpunt geactiveerd\nworden, bij negatief zal er niets worden gedaan. Als er registers zijn\nopgegeven in de expressie dan zullen de waarden in die registers gebruikt\nworden op het moment dat de checkpunt wordt onderzocht, niet op het moment\ndat de conditie is opgegeven.\nDe conditie kan gebruik maken van registers (A, X, Y, PC, SP, FL en andere\nspecifieke registers (zie handleiding) en kan ze vergelijken\n (==, !=, <, >, <=, >=) met andere registers of constanten\nRegisters kunnen de registers van andere apparaten zijn; de manier van opgeven\nis door een geheugenruimte prefix (bijvoorbeeld: c:, 8:, 9:, 10:, 11:\nVoorbeelden: A == 0, X == Y, 8:X == X\n"},
-/* pl */ {IDGS_MON_CONDITION_DESCRIPTION_PL, "Podczas analizy punktu kontrolnego okre¶lany jest stan.\nJe¶li jest okre¶lony jako 'prawda', punkt kontrolny jest\nuaktywniany. W innym razie jest ignorowany. Je¶li w wyra¿eniu\npodano rejestry, u¿ywane s± warto¶ci z czasu szacowania punktu\nkontrolnego, nie z czasu ustawienia stanu.\nStan mo¿e korzystaæ z rejestrów A, X, Y, PC, SP, FL, jak równie¿\ninnych, konkretnych dla danego procesora (patrz w instrukcji) i porównywaæ je\n(==, !=, <, >, <=, >=) z innymi rejestrami lub sta³ymi. Rejestry mog± byæ\nrejestrami innych urz±dzeñ, co jest okre¶lone przedrostkiem przestrzeni\npamiêci (np. c:, 8:, 9:, 10:, 11:\nPrzyk³ady: A == 0, X == Y, 8:X == X)\n"},
+/* nl */ {IDGS_MON_CONDITION_DESCRIPTION_NL, ""},  /* fuzzy */
+/* pl */ {IDGS_MON_CONDITION_DESCRIPTION_PL, ""},  /* fuzzy */
 /* ru */ {IDGS_MON_CONDITION_DESCRIPTION_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_MON_CONDITION_DESCRIPTION_SV, ""},  /* fuzzy */
 /* tr */ {IDGS_MON_CONDITION_DESCRIPTION_TR, ""},  /* fuzzy */
@@ -2727,7 +2727,7 @@ translate_t string_table[] = {
 /* en */ {IDGS_MON_LOAD_DESCRIPTION,    N_("Load the specified file into memory at the specified address. Set BASIC\npointers appropriately if loaded into computer memory (not all emulators).\nUse (otherwise ignored) two-byte load address from file if no address\nspecified.\nIf device is 0, the file is read from the file system.")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_MON_LOAD_DESCRIPTION_DA, "Indlæs filen i hukommelsen på den angivne adresse. Opdaterer\nBASIC-pointers ved læsning til computerens hukommelse (ikke alle\nemulatorer). Hvis ingen adresse angives bruges load-adressen fra(som ellers ignoreres).\nHvis enhed er 0 læses fra filsystemet."},
-/* de */ {IDGS_MON_LOAD_DESCRIPTION_DE, "Lade die angegebene Datei in den Speicher auf die angegebene Adresse.\nSetze den BASIC Zeiger entsprechend, wenn in den Rechnerspeicher geladen \nwurde (nicht bei allen Emulatoren!).\nVerwende (sonst ignoriert) die zwei-Byte Lade-Adresse aus der Datei, wenn\nkeine Adresse angegeben wurde.\nBei Gerät 0, wird die Datei vom Dateisystem gelade."},
+/* de */ {IDGS_MON_LOAD_DESCRIPTION_DE, "Lade die angegebene Datei in den Speicher auf die angegebene Adresse.\nSetze den BASIC Zeiger entsprechend, wenn in den Rechnerspeicher geladen \nwurde (nicht bei allen Emulatoren!).\nVerwende (sonst ignoriert) die zwei-Byte Lade-Adresse aus der Datei, wenn\nkeine Adresse angegeben wurde.\nBei Gerät 0 wird die Datei vom Dateisystem geladen."},
 /* es */ {IDGS_MON_LOAD_DESCRIPTION_ES, "Cargar el fichero especificado en la dirección de memoria indicada. Actualizar\npunteros BASIC apropiadamente si se carga en la memoria del ordenador\n(no en todos los emuladores).\nUsar dirección de dos bytes del fichero si no se indica otra dirección.\nSi el periférico es 0, el fichero se lee del sistema."},
 /* fr */ {IDGS_MON_LOAD_DESCRIPTION_FR, "Charge le fichier spécifié en mémoire à l'adresse spécifiée. Règle les\npointeurs BASIC correctement si chargée dans la mémoire de l'ordinateur\n(sur certains émulateurs seulement). Utilise l'adresse à deux bits du\nfichier si aucune adresse de chargement n'est spécifiée.\nSi le périphérique est 0, le fichier est lu du système de fichiers."},
 /* hu */ {IDGS_MON_LOAD_DESCRIPTION_HU, "A megadott fájl betöltése a megadott címre. A BASIC mutatókat\na megfelelõ módon beállítja, ha a számítógép memóriába tölti az adatot\n(nem minden emulátornál). Ha nincs cím megadva, az amúgy figyelmen hagyott\nkét bájtos betöltési címet használja a fájlból.\nHa az eszköz 0, a fájlt a fájlrendszerrõl olvassa."},
@@ -2761,7 +2761,7 @@ translate_t string_table[] = {
 /* en */ {IDGS_MON_SAVE_DESCRIPTION,    N_("Save the memory from address1 to address2 to the specified file.\nWrite two-byte load address.\nIf device is 0, the file is written to the file system.")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_MON_SAVE_DESCRIPTION_DA, "Gem hukommelsen fra  adresse1 til adresse2 til den angivne fil.\nSkriv 2-byte loadadresse i starten af filen.\nHvis enhed er 0 skrives til filsystemet."},
-/* de */ {IDGS_MON_SAVE_DESCRIPTION_DE, "Speichere den Speicher von Adresse1 bis Adresse2 in die angegebene Datei.\nSchreibe eine zwei-Byte Lade Adresse.\nBei Gerät 0, wird dei Datei in das Dateisystem geschrieben."},
+/* de */ {IDGS_MON_SAVE_DESCRIPTION_DE, "Speichere den Speicher von Adresse1 bis Adresse2 in die angegebene Datei.\nSchreibe eine zwei-Byte Lade Adresse.\nBei Gerät 0 wird die Datei in das Dateisystem geschrieben."},
 /* es */ {IDGS_MON_SAVE_DESCRIPTION_ES, "Graba memoria entre dirección1 y dirección2 al fichero indicado.\nGraba dirección de carga de dos bytes.\nSi el periférico es 0, se graba en el sistema."},
 /* fr */ {IDGS_MON_SAVE_DESCRIPTION_FR, "Sauvegarde la mémoire depuis adress1 jusqu'à adress2 dans le\nfichier spécifié. Écrit l'adresse à deux bits de chargement dans\nle fichier. Si le périphérique est 0, le fichier est écrit dans\nle système de fichier."},
 /* hu */ {IDGS_MON_SAVE_DESCRIPTION_HU, "A memória cím1 és cím2 közötti tartományának fájlba mentése.\nA kétbájtos betöltési címet is kiírja.\nHa az eszköz 0, a fájlt a fájlrendszeren hozza létre."},
@@ -3084,7 +3084,7 @@ translate_t string_table[] = {
 /* en */ {IDGS_MON_TAPECTRL_DESCRIPTION,    N_("Control the datasette. Valid commands:\n0 = stop, 1 = start, 2 = forward, 3 = rewind, 4 = record,\n5 = reset, 6 = reset counter.")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_MON_TAPECTRL_DESCRIPTION_DA, "Styr datasette. Lovlige kommandoer:\n0 = stop, 1 = start, 2 = spol frem, 3 = spol tilbage,\n4 = optag, 5 = reset, 6 = nulstil tæller."},
-/* de */ {IDGS_MON_TAPECTRL_DESCRIPTION_DE, "Steuere die Datasette. Gültige Kommandos sind:\n0 = Stop, 1 = Start, 2 = Forwärts, 3 = Rückwärts, 4 = Aufnahme,\n5 = Reset, 6 = Reset Zähler."},
+/* de */ {IDGS_MON_TAPECTRL_DESCRIPTION_DE, "Steuere die Datasette. Gültige Kommandos sind:\n0 = Stopp, 1 = Start, 2 = Vorspulen, 3 = Rückspulen, 4 = Aufnahme,\n5 = Reset, 6 = Reset Zähler."},
 /* es */ {IDGS_MON_TAPECTRL_DESCRIPTION_ES, "Control unidad cinta, comandos validos:\n0 = alto, 1 = inicio, 2 = avance, 3 = rebobinar, 4 = grabar,\n5 = reinicio, 6 = reiniciar contador."},
 /* fr */ {IDGS_MON_TAPECTRL_DESCRIPTION_FR, "Contrôle du datassette. Les commandes valides sont :\n0 = STOP, 1 = PLAY, 2 = Avancer, 3 = Reculer, 4 = REC,\n5 = Réinitialiser le ruban, 6 = Réinitialiser le compteur."},
 /* hu */ {IDGS_MON_TAPECTRL_DESCRIPTION_HU, "Szalagos egység vezérlése. Érvényes parancsok:\n0 = start, 1 = indít, 2 = elõre, 3 = vissza, 4 = felvétel,\n5 = újraindít, 6 = számlálót nulláz"},
@@ -3095,6 +3095,23 @@ translate_t string_table[] = {
 /* ru */ {IDGS_MON_TAPECTRL_DESCRIPTION_RU, "Control the datasette. Valid commands:\n0 = stop, 1 = start, 2 = forward, 3 = rewind, 4 = record,\n5 = reset, 6 = reset counter."},
 /* sv */ {IDGS_MON_TAPECTRL_DESCRIPTION_SV, "Styr bandspelaren. Giltiga kommandon:\n0 = stoppa, 1 = starta, 2 = spola framåt, 3 = spola bakåt,\n4 = spela in, 5 = återställ, 6 = nollställ räknare."},
 /* tr */ {IDGS_MON_TAPECTRL_DESCRIPTION_TR, "Teybi kontrol et. Geçerli komutlar:\n0 = durdur, 1 = baþlat, 2 = ileri, 3 = geri, 4 = kayýt,\n5 = reset, 6 = reset sayacý."},
+#endif
+
+/* monitor/mon_command.c */
+/* en */ {IDGS_MON_MAINCPU_TRACE_DESCRIPTION,    N_("Turn tracing of every instruction executed by the main CPU on or off. If the argument is 'toggle' then the current mode is switched.")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_MON_MAINCPU_TRACE_DESCRIPTION_DA, ""},  /* fuzzy */
+/* de */ {IDGS_MON_MAINCPU_TRACE_DESCRIPTION_DE, "Aktiviere/Deaktiviere Tracing jeder CPU Instruktion. Mit Argument\n'toggle' wird der aktuelle Modus umgeschalten."},
+/* es */ {IDGS_MON_MAINCPU_TRACE_DESCRIPTION_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_MON_MAINCPU_TRACE_DESCRIPTION_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_MON_MAINCPU_TRACE_DESCRIPTION_HU, ""},  /* fuzzy */
+/* it */ {IDGS_MON_MAINCPU_TRACE_DESCRIPTION_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_MON_MAINCPU_TRACE_DESCRIPTION_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_MON_MAINCPU_TRACE_DESCRIPTION_NL, ""},  /* fuzzy */
+/* pl */ {IDGS_MON_MAINCPU_TRACE_DESCRIPTION_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_MON_MAINCPU_TRACE_DESCRIPTION_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_MON_MAINCPU_TRACE_DESCRIPTION_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_MON_MAINCPU_TRACE_DESCRIPTION_TR, ""},  /* fuzzy */
 #endif
 
 /* joyport.c */
@@ -3595,7 +3612,7 @@ translate_t string_table[] = {
 /* en */ {IDGS_SCRIPT64_DONGLE,    N_("Script 64 dongle")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_SCRIPT64_DONGLE_DA, ""},  /* fuzzy */
-/* de */ {IDGS_SCRIPT64_DONGLE_DE, ""},  /* fuzzy */
+/* de */ {IDGS_SCRIPT64_DONGLE_DE, "Script 64 Dongle"},
 /* es */ {IDGS_SCRIPT64_DONGLE_ES, ""},  /* fuzzy */
 /* fr */ {IDGS_SCRIPT64_DONGLE_FR, ""},  /* fuzzy */
 /* hu */ {IDGS_SCRIPT64_DONGLE_HU, ""},  /* fuzzy */
@@ -3612,7 +3629,7 @@ translate_t string_table[] = {
 /* en */ {IDGS_VIZAWRITE64_DONGLE,    N_("VizaWrite 64 dongle")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDGS_VIZAWRITE64_DONGLE_DA, ""},  /* fuzzy */
-/* de */ {IDGS_VIZAWRITE64_DONGLE_DE, ""},  /* fuzzy */
+/* de */ {IDGS_VIZAWRITE64_DONGLE_DE, "VizaWrite 64 Dongle"},
 /* es */ {IDGS_VIZAWRITE64_DONGLE_ES, ""},  /* fuzzy */
 /* fr */ {IDGS_VIZAWRITE64_DONGLE_FR, ""},  /* fuzzy */
 /* hu */ {IDGS_VIZAWRITE64_DONGLE_HU, ""},  /* fuzzy */
@@ -3623,6 +3640,23 @@ translate_t string_table[] = {
 /* ru */ {IDGS_VIZAWRITE64_DONGLE_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_VIZAWRITE64_DONGLE_SV, ""},  /* fuzzy */
 /* tr */ {IDGS_VIZAWRITE64_DONGLE_TR, ""},  /* fuzzy */
+#endif
+
+/* joyport/waasoft_dongle.c */
+/* en */ {IDGS_WAASOFT_DONGLE,    N_("WaaSoft dongle")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_WAASOFT_DONGLE_DA, ""},  /* fuzzy */
+/* de */ {IDGS_WAASOFT_DONGLE_DE, "WaaSoft Dongle"},
+/* es */ {IDGS_WAASOFT_DONGLE_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_WAASOFT_DONGLE_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_WAASOFT_DONGLE_HU, ""},  /* fuzzy */
+/* it */ {IDGS_WAASOFT_DONGLE_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_WAASOFT_DONGLE_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_WAASOFT_DONGLE_NL, ""},  /* fuzzy */
+/* pl */ {IDGS_WAASOFT_DONGLE_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_WAASOFT_DONGLE_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_WAASOFT_DONGLE_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_WAASOFT_DONGLE_TR, ""},  /* fuzzy */
 #endif
 
 /* joyport/cx21.c */
@@ -4031,6 +4065,23 @@ translate_t string_table[] = {
 /* ru */ {IDGS_SENSE_DONGLE_RU, ""},  /* fuzzy */
 /* sv */ {IDGS_SENSE_DONGLE_SV, ""},  /* fuzzy */
 /* tr */ {IDGS_SENSE_DONGLE_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapecart.c */
+/* en */ {IDGS_TAPECART,    N_("tapecart")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDGS_TAPECART_DA, ""},  /* fuzzy */
+/* de */ {IDGS_TAPECART_DE, "Tapecart"},
+/* es */ {IDGS_TAPECART_ES, ""},  /* fuzzy */
+/* fr */ {IDGS_TAPECART_FR, ""},  /* fuzzy */
+/* hu */ {IDGS_TAPECART_HU, ""},  /* fuzzy */
+/* it */ {IDGS_TAPECART_IT, ""},  /* fuzzy */
+/* ko */ {IDGS_TAPECART_KO, ""},  /* fuzzy */
+/* nl */ {IDGS_TAPECART_NL, ""},  /* fuzzy */
+/* pl */ {IDGS_TAPECART_PL, ""},  /* fuzzy */
+/* ru */ {IDGS_TAPECART_RU, ""},  /* fuzzy */
+/* sv */ {IDGS_TAPECART_SV, ""},  /* fuzzy */
+/* tr */ {IDGS_TAPECART_TR, ""},  /* fuzzy */
 #endif
 
 /* userport/userport_dac.c */
@@ -5794,7 +5845,6 @@ translate_t string_table[] = {
 /* tr */ {IDCLS_P_NUMBER_TR, "<sayý>"},
 #endif
 
-#ifdef COMMON_KBD
 /* keyboard.c */
 /* en */ {IDCLS_SPECIFY_KEYMAP_FILE_INDEX,    N_("Specify index of keymap file (0=symbolic, 1=positional, 2=symbolic (user), 3=positional (user))")},
 #ifdef HAS_TRANSLATION
@@ -5884,7 +5934,6 @@ translate_t string_table[] = {
 /* ru */ {IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME_RU, "Specify name of positional keymap file"},
 /* sv */ {IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME_SV, "Ange fil för positionsriktig tangentbordsemulering"},
 /* tr */ {IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME_TR, "Konumsal tuþ haritasý dosyasýnýn ismini belirt"},
-#endif
 #endif
 
 /* c128/c128mmu.c */
@@ -6127,54 +6176,54 @@ translate_t string_table[] = {
 #endif
 
 /* c64/c64-cmdline-options.c, scpu64/scpu64-cmdline-options.c */
-/* en */ {IDCLS_SET_BOTH_CIA_MODELS,    N_("Set both CIA models (0 = old 6526, 1 = new 6526A)")},
+/* en */ {IDCLS_SET_BOTH_CIA_MODELS,    N_("Set both CIA models (0 = old 6526, 1 = new 8521)")},
 #ifdef HAS_TRANSLATION
-/* da */ {IDCLS_SET_BOTH_CIA_MODELS_DA, "Vælg type for begge CIA-kredse (0=gammel 6526, 1=ny 6526A)"},
-/* de */ {IDCLS_SET_BOTH_CIA_MODELS_DE, "Wähle beide CIA Modelle (0 = alt 6526, 1 = neu 6526A)"},
-/* es */ {IDCLS_SET_BOTH_CIA_MODELS_ES, "Seleccionar ambos modelos de CIA (0 = antiguo 6526, 1 = nuevo 6526A)"},
-/* fr */ {IDCLS_SET_BOTH_CIA_MODELS_FR, "Définir les deux modèles CIA (0 = ancien 5626, 1 = récent 6526A)"},
+/* da */ {IDCLS_SET_BOTH_CIA_MODELS_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_SET_BOTH_CIA_MODELS_DE, "Wähle beide CIA Modelle (0 = alt 6526, 1 = neu 8521)"},
+/* es */ {IDCLS_SET_BOTH_CIA_MODELS_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_SET_BOTH_CIA_MODELS_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SET_BOTH_CIA_MODELS_HU, ""},  /* fuzzy */
-/* it */ {IDCLS_SET_BOTH_CIA_MODELS_IT, "Imposta entrambi i modelli CIA (0 = 6526 vecchio, 1 = 6526A nuovo)"},
+/* it */ {IDCLS_SET_BOTH_CIA_MODELS_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_BOTH_CIA_MODELS_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_BOTH_CIA_MODELS_NL, "Stel model in voor beide CIA's (0 = oud 6526, 1 = nieuw 6526A)"},
+/* nl */ {IDCLS_SET_BOTH_CIA_MODELS_NL, ""},  /* fuzzy */
 /* pl */ {IDCLS_SET_BOTH_CIA_MODELS_PL, ""},  /* fuzzy */
-/* ru */ {IDCLS_SET_BOTH_CIA_MODELS_RU, "Set both CIA models (0 = old 6526, 1 = new 6526A)"},
+/* ru */ {IDCLS_SET_BOTH_CIA_MODELS_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_BOTH_CIA_MODELS_SV, ""},  /* fuzzy */
-/* tr */ {IDCLS_SET_BOTH_CIA_MODELS_TR, "Her iki CIA modelini belirle (0 = eski 6526, 1 = yeni 6526A)"},
+/* tr */ {IDCLS_SET_BOTH_CIA_MODELS_TR, ""},  /* fuzzy */
 #endif
 
 /* c64/c64-cmdline-options.c, scpu64/scpu64-cmdline-options.c */
-/* en */ {IDCLS_SET_CIA1_MODEL,    N_("Set CIA 1 model (0 = old 6526, 1 = new 6526A)")},
+/* en */ {IDCLS_SET_CIA1_MODEL,    N_("Set CIA 1 model (0 = old 6526, 1 = new 8521)")},
 #ifdef HAS_TRANSLATION
-/* da */ {IDCLS_SET_CIA1_MODEL_DA, "Vælg CIA 1 type (0=gammel 6526, 1=ny 6526A)"},
-/* de */ {IDCLS_SET_CIA1_MODEL_DE, "Wähle CIA 1 Modell (0 = alt 6526, 1 = neu 6526A)"},
-/* es */ {IDCLS_SET_CIA1_MODEL_ES, "Seleccionar CIA 1 Poner CIA 1 model (0 = antiguo 6526, 1 = nuevo 6526A)"},
-/* fr */ {IDCLS_SET_CIA1_MODEL_FR, "Définir le modèle CIA 2 (0 = ancien 5626, 1 = récent 6526A)"},
+/* da */ {IDCLS_SET_CIA1_MODEL_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_SET_CIA1_MODEL_DE, "Wähle CIA 1 Modell (0 = alt 6526, 1 = neu 8521)"},
+/* es */ {IDCLS_SET_CIA1_MODEL_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_SET_CIA1_MODEL_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SET_CIA1_MODEL_HU, ""},  /* fuzzy */
-/* it */ {IDCLS_SET_CIA1_MODEL_IT, "Imposta modello CIA 1 (0 = 6526 vecchio, 1 = 6526A nuovo)"},
+/* it */ {IDCLS_SET_CIA1_MODEL_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_CIA1_MODEL_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_CIA1_MODEL_NL, "Stel CIA 1 model in (0 = oud 6526, 1 = nieuw 6526A)"},
+/* nl */ {IDCLS_SET_CIA1_MODEL_NL, ""},  /* fuzzy */
 /* pl */ {IDCLS_SET_CIA1_MODEL_PL, ""},  /* fuzzy */
-/* ru */ {IDCLS_SET_CIA1_MODEL_RU, "Set CIA 1 model (0 = old 6526, 1 = new 6526A)"},
+/* ru */ {IDCLS_SET_CIA1_MODEL_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_CIA1_MODEL_SV, ""},  /* fuzzy */
-/* tr */ {IDCLS_SET_CIA1_MODEL_TR, "CIA 1 modelini belirle (0 = eski 6526, 1 = yeni 6526A)"},
+/* tr */ {IDCLS_SET_CIA1_MODEL_TR, ""},  /* fuzzy */
 #endif
 
 /* c64/c64-cmdline-options.c, scpu64/scpu64-cmdline-options.c */
-/* en */ {IDCLS_SET_CIA2_MODEL,    N_("Set CIA 2 model (0 = old 6526, 1 = new 6526A)")},
+/* en */ {IDCLS_SET_CIA2_MODEL,    N_("Set CIA 2 model (0 = old 6526, 1 = new 8521)")},
 #ifdef HAS_TRANSLATION
-/* da */ {IDCLS_SET_CIA2_MODEL_DA, "Vælg CIA 2 type (0=gammel 6526, 1=ny 6526A)"},
-/* de */ {IDCLS_SET_CIA2_MODEL_DE, "Wähle CIA 2 Modell (0 = alt 6526, 1 = neu 6526A)\""},
-/* es */ {IDCLS_SET_CIA2_MODEL_ES, "Seleccionar CIA 2 model (0 = antiguo 6526, 1 = nuevo 6526A)"},
-/* fr */ {IDCLS_SET_CIA2_MODEL_FR, "Définir le modèle CIA 1 (0 = ancien 5626, 1 = récent 6526A)"},
+/* da */ {IDCLS_SET_CIA2_MODEL_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_SET_CIA2_MODEL_DE, "Wähle CIA 2 Modell (0 = alt 6526, 1 = neu 8521)\""},
+/* es */ {IDCLS_SET_CIA2_MODEL_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_SET_CIA2_MODEL_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SET_CIA2_MODEL_HU, ""},  /* fuzzy */
-/* it */ {IDCLS_SET_CIA2_MODEL_IT, "Imposta modello CIA 2 (0 = 6526 vecchio, 1 = 6526A nuovo)"},
+/* it */ {IDCLS_SET_CIA2_MODEL_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_CIA2_MODEL_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_CIA2_MODEL_NL, "Stel CIA 2 model in (0 = oud 6526, 1 = nieuw 6526A)"},
+/* nl */ {IDCLS_SET_CIA2_MODEL_NL, ""},  /* fuzzy */
 /* pl */ {IDCLS_SET_CIA2_MODEL_PL, ""},  /* fuzzy */
-/* ru */ {IDCLS_SET_CIA2_MODEL_RU, "Set CIA 2 model (0 = old 6526, 1 = new 6526A)"},
+/* ru */ {IDCLS_SET_CIA2_MODEL_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_CIA2_MODEL_SV, ""},  /* fuzzy */
-/* tr */ {IDCLS_SET_CIA2_MODEL_TR, "CIA 2 modelini belirle (0 = eski 6526, 1 = yeni 6526A)"},
+/* tr */ {IDCLS_SET_CIA2_MODEL_TR, ""},  /* fuzzy */
 #endif
 
 /* c64/c64-cmdline-options.c */
@@ -6404,7 +6453,6 @@ translate_t string_table[] = {
 /* tr */ {IDCLS_SPECIFY_CHARGEN_ROM_NAME_TR, "Karakter Oluþturucu ROM imajýnýn ismini belirt"},
 #endif
 
-#ifdef COMMON_KBD
 /* c64/c64-cmdline-options.c, scpu64/scpu64-cmdline-options.c */
 /* en */ {IDCLS_SPECIFY_INDEX_KEYMAP_FILE_0_2,    N_("Specify index of keymap file (0=sym, 1=symDE, 2=pos)")},
 #ifdef HAS_TRANSLATION
@@ -6437,7 +6485,6 @@ translate_t string_table[] = {
 /* ru */ {IDCLS_SPECIFY_NAME_SYM_DE_KEYMAP_RU, "Specify name of symbolic German keymap file"},
 /* sv */ {IDCLS_SPECIFY_NAME_SYM_DE_KEYMAP_SV, "Ange fil för tysk symbolisk tangentbordsemulering"},
 /* tr */ {IDCLS_SPECIFY_NAME_SYM_DE_KEYMAP_TR, "Sembolik Almanca tuþ haritasý dosyasýnýn ismini belirt"},
-#endif
 #endif
 
 /* c64/c64gluelogic.c */
@@ -7390,6 +7437,142 @@ translate_t string_table[] = {
 /* ru */ {IDCLS_DISABLE_TAPE_SENSE_DONGLE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_DISABLE_TAPE_SENSE_DONGLE_SV, ""},  /* fuzzy */
 /* tr */ {IDCLS_DISABLE_TAPE_SENSE_DONGLE_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapecart.c */
+/* en */ {IDCLS_ENABLE_TAPECART,    N_("Enable tapecart")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_TAPECART_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_TAPECART_DE, "Tapecart aktivieren"},
+/* es */ {IDCLS_ENABLE_TAPECART_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_TAPECART_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_TAPECART_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_TAPECART_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_TAPECART_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_TAPECART_NL, ""},  /* fuzzy */
+/* pl */ {IDCLS_ENABLE_TAPECART_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_TAPECART_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_TAPECART_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_TAPECART_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapecart.c */
+/* en */ {IDCLS_DISABLE_TAPECART,    N_("Disable tapecart")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_TAPECART_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_TAPECART_DE, "Tapecart deaktivieren"},
+/* es */ {IDCLS_DISABLE_TAPECART_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_TAPECART_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_TAPECART_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_TAPECART_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_TAPECART_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_TAPECART_NL, ""},  /* fuzzy */
+/* pl */ {IDCLS_DISABLE_TAPECART_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_TAPECART_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_TAPECART_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_TAPECART_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapecart.c */
+/* en */ {IDCLS_ATTACH_TCRT_TAPECART,    N_("Attach TCRT tapecart image")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ATTACH_TCRT_TAPECART_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ATTACH_TCRT_TAPECART_DE, "TCRT Tapecart Image einlegen"},
+/* es */ {IDCLS_ATTACH_TCRT_TAPECART_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ATTACH_TCRT_TAPECART_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ATTACH_TCRT_TAPECART_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ATTACH_TCRT_TAPECART_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ATTACH_TCRT_TAPECART_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ATTACH_TCRT_TAPECART_NL, ""},  /* fuzzy */
+/* pl */ {IDCLS_ATTACH_TCRT_TAPECART_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ATTACH_TCRT_TAPECART_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ATTACH_TCRT_TAPECART_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ATTACH_TCRT_TAPECART_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapecart.c */
+/* en */ {IDCLS_ENABLE_TAPECART_TCRT_UPDATE,    N_("Enable updating tapecart .tcrt image")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_TAPECART_TCRT_UPDATE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_TAPECART_TCRT_UPDATE_DE, "Schreibzugriff auf TCRT Tapecart Image erlauben"},
+/* es */ {IDCLS_ENABLE_TAPECART_TCRT_UPDATE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_TAPECART_TCRT_UPDATE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_TAPECART_TCRT_UPDATE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_TAPECART_TCRT_UPDATE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_TAPECART_TCRT_UPDATE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_TAPECART_TCRT_UPDATE_NL, ""},  /* fuzzy */
+/* pl */ {IDCLS_ENABLE_TAPECART_TCRT_UPDATE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_TAPECART_TCRT_UPDATE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_TAPECART_TCRT_UPDATE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_TAPECART_TCRT_UPDATE_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapecart.c */
+/* en */ {IDCLS_DISABLE_TAPECART_TCRT_UPDATE,    N_("Disable updating tapecart .tcrt image")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_TAPECART_TCRT_UPDATE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_TAPECART_TCRT_UPDATE_DE, "Schreibzugriff auf TCRT Tapecart Image verhindern"},
+/* es */ {IDCLS_DISABLE_TAPECART_TCRT_UPDATE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_TAPECART_TCRT_UPDATE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_TAPECART_TCRT_UPDATE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_TAPECART_TCRT_UPDATE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_TAPECART_TCRT_UPDATE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_TAPECART_TCRT_UPDATE_NL, ""},  /* fuzzy */
+/* pl */ {IDCLS_DISABLE_TAPECART_TCRT_UPDATE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_TAPECART_TCRT_UPDATE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_TAPECART_TCRT_UPDATE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_TAPECART_TCRT_UPDATE_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapecart.c */
+/* en */ {IDCLS_ENABLE_TAPECART_TCRT_OPTIMIZE,    N_("Enable tapecart .tcrt image optimization on write")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_ENABLE_TAPECART_TCRT_OPTIMIZE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_TAPECART_TCRT_OPTIMIZE_DE, "TCRT Tapecart Image beim Speichern optimieren"},
+/* es */ {IDCLS_ENABLE_TAPECART_TCRT_OPTIMIZE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_ENABLE_TAPECART_TCRT_OPTIMIZE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_ENABLE_TAPECART_TCRT_OPTIMIZE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_ENABLE_TAPECART_TCRT_OPTIMIZE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_ENABLE_TAPECART_TCRT_OPTIMIZE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_ENABLE_TAPECART_TCRT_OPTIMIZE_NL, ""},  /* fuzzy */
+/* pl */ {IDCLS_ENABLE_TAPECART_TCRT_OPTIMIZE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_ENABLE_TAPECART_TCRT_OPTIMIZE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_ENABLE_TAPECART_TCRT_OPTIMIZE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_ENABLE_TAPECART_TCRT_OPTIMIZE_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapecart.c */
+/* en */ {IDCLS_DISABLE_TAPECART_TCRT_OPTIMIZE,    N_("Disable tapecart .tcrt image optimization on write")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_TAPECART_TCRT_OPTIMIZE_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_TAPECART_TCRT_OPTIMIZE_DE, "TCRT Tapecart Image beim Speichern optimieren"},
+/* es */ {IDCLS_DISABLE_TAPECART_TCRT_OPTIMIZE_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_TAPECART_TCRT_OPTIMIZE_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_TAPECART_TCRT_OPTIMIZE_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_TAPECART_TCRT_OPTIMIZE_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_TAPECART_TCRT_OPTIMIZE_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_TAPECART_TCRT_OPTIMIZE_NL, ""},  /* fuzzy */
+/* pl */ {IDCLS_DISABLE_TAPECART_TCRT_OPTIMIZE_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_TAPECART_TCRT_OPTIMIZE_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_TAPECART_TCRT_OPTIMIZE_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_TAPECART_TCRT_OPTIMIZE_TR, ""},  /* fuzzy */
+#endif
+
+/* tapeport/tapecart.c */
+/* en */ {IDCLS_SET_TAPECART_LOGLEVEL,    N_("Set tapecart log verbosity")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_SET_TAPECART_LOGLEVEL_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_SET_TAPECART_LOGLEVEL_DE, "Setze Tapecart Loglevel"},
+/* es */ {IDCLS_SET_TAPECART_LOGLEVEL_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_SET_TAPECART_LOGLEVEL_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_SET_TAPECART_LOGLEVEL_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_SET_TAPECART_LOGLEVEL_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_SET_TAPECART_LOGLEVEL_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_SET_TAPECART_LOGLEVEL_NL, ""},  /* fuzzy */
+/* pl */ {IDCLS_SET_TAPECART_LOGLEVEL_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_SET_TAPECART_LOGLEVEL_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_SET_TAPECART_LOGLEVEL_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_SET_TAPECART_LOGLEVEL_TR, ""},  /* fuzzy */
 #endif
 
 /* tapeport/dtl-basic-dongle.c */
@@ -8820,7 +9003,7 @@ translate_t string_table[] = {
 /* tr */ {IDCLS_REU_SIZE_TR, ""},  /* fuzzy */
 #endif
 
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
 /* c64/cart/ethernetcart.c */
 /* en */ {IDCLS_ENABLE_TFE,    N_("Enable the Ethernet Cartridge in TFE (\"The Final Ethernet\") compatible mode and set default I/O address")},
 #ifdef HAS_TRANSLATION
@@ -10829,7 +11012,6 @@ translate_t string_table[] = {
 /* tr */ {IDCLS_DISABLE_RAM_MAPPING_IN_C000_TR, "$C000-$CFFF aralýðýnda RAM eþleþtirmeyi pasifleþtir"},
 #endif
 
-#ifdef COMMON_KBD
 /* cbm2/cbm2-cmdline-options.c, pet/pet-cmdline-options.c */
 /* en */ {IDCLS_SPECIFY_KEYMAP_INDEX,    N_("Specify index of keymap file (0: UK business symbolic, 1: UK business positional, 2: Graphics symbolic, 3: Graphics positional, 4: German business symbolic, 5: German business positional)")},
 #ifdef HAS_TRANSLATION
@@ -10947,7 +11129,6 @@ translate_t string_table[] = {
 /* ru */ {IDCLS_SPECIFY_BDE_POS_KEYMAP_NAME_RU, "Specify name of German business keyboard positional keymap file"},
 /* sv */ {IDCLS_SPECIFY_BDE_POS_KEYMAP_NAME_SV, "Ange fil för positionsriktig tangentbordsemulering för tyskt \"business\"-tangentbord"},
 /* tr */ {IDCLS_SPECIFY_BDE_POS_KEYMAP_NAME_TR, "Alman business klavyesi konumsal tuþ haritasý dosyasýnýn ismini belirt"},
-#endif
 #endif
 
 /* drive/drive-cmdline-options.c */
@@ -11656,7 +11837,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_PAR_CABLE_C64EXP_TYPE,    N_("Set parallel cable type (0: none, 1: standard, 2: Dolphin DOS 3, 3: Formel 64)")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_PAR_CABLE_C64EXP_TYPE_DA, "Vælg typen af parallelkabel (0: ingen, 1: standard, 2: Dolphin DOS 3 3: Formel 64)"},
-/* de */ {IDCLS_PAR_CABLE_C64EXP_TYPE_DE, "Parallel Kabel Typ (0: Kein, 1: Standard, 2: Dolphin DOS 3, 3: Formel 64)"},
+/* de */ {IDCLS_PAR_CABLE_C64EXP_TYPE_DE, "Parallelkabeltyp (0: Kein, 1: Standard, 2: Dolphin DOS 3, 3: Formel 64)"},
 /* es */ {IDCLS_PAR_CABLE_C64EXP_TYPE_ES, "Seleccionar tipo de cable paralelo (0:no, 1:estándar, 2:Dolphin DOS 3, 3:Formel 64)"},
 /* fr */ {IDCLS_PAR_CABLE_C64EXP_TYPE_FR, "Définir le type de câble parallèle (0: aucun, 1: standard, 2: Dolphin DOS 3, 3: Formel 64)"},
 /* hu */ {IDCLS_PAR_CABLE_C64EXP_TYPE_HU, ""},  /* fuzzy */
@@ -11775,7 +11956,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_ENABLE_STARDOS,    N_("Enable StarDOS")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ENABLE_STARDOS_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_ENABLE_STARDOS_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_ENABLE_STARDOS_DE, "StarDOS aktivieren"},
 /* es */ {IDCLS_ENABLE_STARDOS_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_ENABLE_STARDOS_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_ENABLE_STARDOS_HU, ""},  /* fuzzy */
@@ -11792,7 +11973,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_DISABLE_STARDOS,    N_("Disable StarDOS")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_DISABLE_STARDOS_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_DISABLE_STARDOS_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_STARDOS_DE, "StarDOS deaktivieren"},
 /* es */ {IDCLS_DISABLE_STARDOS_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_DISABLE_STARDOS_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_DISABLE_STARDOS_HU, ""},  /* fuzzy */
@@ -11809,7 +11990,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SPECIFY_STARDOS_ROM_NAME,    N_("Specify name of StarDOS ROM image")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SPECIFY_STARDOS_ROM_NAME_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SPECIFY_STARDOS_ROM_NAME_DE, ""},  /* fuzzy */
+/* de */ {IDCLS_SPECIFY_STARDOS_ROM_NAME_DE, "Name der StarDOS DOS ROM Imagedatei wählen"},
 /* es */ {IDCLS_SPECIFY_STARDOS_ROM_NAME_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_SPECIFY_STARDOS_ROM_NAME_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SPECIFY_STARDOS_ROM_NAME_HU, ""},  /* fuzzy */
@@ -11826,7 +12007,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_PAR_CABLE_PLUS4EXP_TYPE,    N_("Set parallel cable type (0: none, 1: standard)")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_PAR_CABLE_PLUS4EXP_TYPE_DA, "Vælg typen af parallelkabel parallellkabel (0: ingen, 1: standard)"},
-/* de */ {IDCLS_PAR_CABLE_PLUS4EXP_TYPE_DE, "Parallelkabel Typ (0: kein, 1: Standard)"},
+/* de */ {IDCLS_PAR_CABLE_PLUS4EXP_TYPE_DE, "Parallelkabeltyp (0: kein, 1: Standard)"},
 /* es */ {IDCLS_PAR_CABLE_PLUS4EXP_TYPE_ES, "Seleccionar tipo de cable paralelo (0:no, 1:standard)"},
 /* fr */ {IDCLS_PAR_CABLE_PLUS4EXP_TYPE_FR, "Définir le type de câble parallèle (0: aucun, 1: standard)"},
 /* hu */ {IDCLS_PAR_CABLE_PLUS4EXP_TYPE_HU, "Adja meg a párhuzamos kábel típusát (0: nincs, 1: standard)"},
@@ -12438,7 +12619,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SET_AUDIO_STREAM_BITRATE,    N_("Set bitrate for audio stream in media file")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SET_AUDIO_STREAM_BITRATE_DA, "Angiv bitrate for lydstrøm i mediefil"},
-/* de */ {IDCLS_SET_AUDIO_STREAM_BITRATE_DE, "Bitrate für Audio Stream für Media Datei setzen"},
+/* de */ {IDCLS_SET_AUDIO_STREAM_BITRATE_DE, "Bitrate für Audio Stream für Mediendatei setzen"},
 /* es */ {IDCLS_SET_AUDIO_STREAM_BITRATE_ES, "Seleccionar velocidad muestreo para flujo audio en fichero media"},
 /* fr */ {IDCLS_SET_AUDIO_STREAM_BITRATE_FR, "Régler le bitrate audio du fichier média"},
 /* hu */ {IDCLS_SET_AUDIO_STREAM_BITRATE_HU, "Adja meg az audió bitrátát a média fájlhoz"},
@@ -12455,7 +12636,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SET_VIDEO_STREAM_BITRATE,    N_("Set bitrate for video stream in media file")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SET_VIDEO_STREAM_BITRATE_DA, "Angiv bitrate for videostrøm i mediefil"},
-/* de */ {IDCLS_SET_VIDEO_STREAM_BITRATE_DE, "Bitrate für Video Stream für Media Datei setzen"},
+/* de */ {IDCLS_SET_VIDEO_STREAM_BITRATE_DE, "Bitrate für Video Stream für Mediendatei setzen"},
 /* es */ {IDCLS_SET_VIDEO_STREAM_BITRATE_ES, "Seleccionar velocidad muestreo para flujo vídeo en fichero media"},
 /* fr */ {IDCLS_SET_VIDEO_STREAM_BITRATE_FR, "Régler le bitrate vidéo du fichier média"},
 /* hu */ {IDCLS_SET_VIDEO_STREAM_BITRATE_HU, "Adja meg az videó bitrátát a média fájlhoz"},
@@ -14538,6 +14719,23 @@ translate_t string_table[] = {
 #endif
 
 /* sid/sid-cmdline-options.c */
+/* en */ {IDCLS_SPECIFY_SID_4_ADDRESS,    N_("Specify base address for 4th SID")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_SPECIFY_SID_4_ADDRESS_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_SPECIFY_SID_4_ADDRESS_DE, "Basis Adresse für vierten SID definieren"},
+/* es */ {IDCLS_SPECIFY_SID_4_ADDRESS_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_SPECIFY_SID_4_ADDRESS_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_SPECIFY_SID_4_ADDRESS_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_SPECIFY_SID_4_ADDRESS_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_SPECIFY_SID_4_ADDRESS_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_SPECIFY_SID_4_ADDRESS_NL, ""},  /* fuzzy */
+/* pl */ {IDCLS_SPECIFY_SID_4_ADDRESS_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_SPECIFY_SID_4_ADDRESS_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_SPECIFY_SID_4_ADDRESS_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_SPECIFY_SID_4_ADDRESS_TR, ""},  /* fuzzy */
+#endif
+
+/* sid/sid-cmdline-options.c */
 /* en */ {IDCLS_ENABLE_SID_FILTERS,    N_("Emulate SID filters")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ENABLE_SID_FILTERS_DA, "Emulér SID-filtre"},
@@ -15256,17 +15454,17 @@ translate_t string_table[] = {
 #endif
 
 /* vicii/vicii-cmdline-options.c */
-/* en */ {IDCLS_SET_BORDER_MODE,    N_("Set border display mode (0: normal, 1: full, 2: debug)")},
+/* en */ {IDCLS_SET_BORDER_MODE,    N_("Set border display mode (0: normal, 1: full, 2: debug, 3: none)")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SET_BORDER_MODE_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SET_BORDER_MODE_DE, "Rahmen Darstellung Modus (0: Normal, 1: Voll, 2: Debug)"},
-/* es */ {IDCLS_SET_BORDER_MODE_ES, "Seleccionar tipo de borde (0: normal, 1: completo, 2: depuración)"},
+/* de */ {IDCLS_SET_BORDER_MODE_DE, "Rahmen Darstellung Modus (0: Normal, 1: Voll, 2: Debug, 3: kein)"},
+/* es */ {IDCLS_SET_BORDER_MODE_ES, ""},  /* fuzzy */
 /* fr */ {IDCLS_SET_BORDER_MODE_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SET_BORDER_MODE_HU, ""},  /* fuzzy */
-/* it */ {IDCLS_SET_BORDER_MODE_IT, "Imposta la modalità di visualizzazione del bordo (0: normale, 1: intero, 2: debug)"},
+/* it */ {IDCLS_SET_BORDER_MODE_IT, ""},  /* fuzzy */
 /* ko */ {IDCLS_SET_BORDER_MODE_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_SET_BORDER_MODE_NL, "Stel border weergavemodus in (0: normaal, 1: volledig, 2: debug)"},
-/* pl */ {IDCLS_SET_BORDER_MODE_PL, "Okre¶l tryb wy¶wietlania ramki (0: zwyk³a, 1: pe³na, 2: debug)"},
+/* nl */ {IDCLS_SET_BORDER_MODE_NL, ""},  /* fuzzy */
+/* pl */ {IDCLS_SET_BORDER_MODE_PL, ""},  /* fuzzy */
 /* ru */ {IDCLS_SET_BORDER_MODE_RU, ""},  /* fuzzy */
 /* sv */ {IDCLS_SET_BORDER_MODE_SV, ""},  /* fuzzy */
 /* tr */ {IDCLS_SET_BORDER_MODE_TR, ""},  /* fuzzy */
@@ -15480,7 +15678,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_ENABLE_DOUBLE_SCAN,    N_("Enable double scan")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_ENABLE_DOUBLE_SCAN_DA, "Aktivér dobbelt-skan"},
-/* de */ {IDCLS_ENABLE_DOUBLE_SCAN_DE, "Doppelt Scan aktivieren"},
+/* de */ {IDCLS_ENABLE_DOUBLE_SCAN_DE, "Doppelscan aktivieren"},
 /* es */ {IDCLS_ENABLE_DOUBLE_SCAN_ES, "Permitir doble escaneado"},
 /* fr */ {IDCLS_ENABLE_DOUBLE_SCAN_FR, "Activer le mode double scan"},
 /* hu */ {IDCLS_ENABLE_DOUBLE_SCAN_HU, "Dupla pásztázás engedélyezése"},
@@ -15497,7 +15695,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_DISABLE_DOUBLE_SCAN,    N_("Disable double scan")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_DISABLE_DOUBLE_SCAN_DA, "Deaktivér dobbelt-skan"},
-/* de */ {IDCLS_DISABLE_DOUBLE_SCAN_DE, "Doppelt Scan deaktivieren"},
+/* de */ {IDCLS_DISABLE_DOUBLE_SCAN_DE, "Doppelscan deaktivieren"},
 /* es */ {IDCLS_DISABLE_DOUBLE_SCAN_ES, "Deshabilitar doble escaneado"},
 /* fr */ {IDCLS_DISABLE_DOUBLE_SCAN_FR, "Désactiver le mode double scan"},
 /* hu */ {IDCLS_DISABLE_DOUBLE_SCAN_HU, "Dupla pásztázás tiltása"},
@@ -15582,7 +15780,7 @@ translate_t string_table[] = {
 /* en */ {IDCLS_SET_VIDEO_FILTER,    N_("Select rendering filter: (0: none, 1: CRT emulation, 2: scale2x)")},
 #ifdef HAS_TRANSLATION
 /* da */ {IDCLS_SET_VIDEO_FILTER_DA, ""},  /* fuzzy */
-/* de */ {IDCLS_SET_VIDEO_FILTER_DE, "Wähle Rendering Filter: (0: kein, 1: CRT Emulation, 2: Scale2x)"},
+/* de */ {IDCLS_SET_VIDEO_FILTER_DE, "Wähle Rendering Filter: (0: kein, 1: CRT Emulation, 2: Scale2×)"},
 /* es */ {IDCLS_SET_VIDEO_FILTER_ES, "Seleccionar filtro de renderizado: ( 0: no, 1: emulación CRT, 2: scale2x)"},
 /* fr */ {IDCLS_SET_VIDEO_FILTER_FR, ""},  /* fuzzy */
 /* hu */ {IDCLS_SET_VIDEO_FILTER_HU, ""},  /* fuzzy */
@@ -16979,6 +17177,23 @@ translate_t string_table[] = {
 /* tr */ {IDCLS_ENABLE_VERBOSE_LOG_OUTPUT_TR, "Verbose log çýktýsýný aktif et."},
 #endif
 
+/* log.c */
+/* en */ {IDCLS_DISABLE_LOG_OUTPUT,    N_("Disable verbose log output.")},
+#ifdef HAS_TRANSLATION
+/* da */ {IDCLS_DISABLE_LOG_OUTPUT_DA, ""},  /* fuzzy */
+/* de */ {IDCLS_DISABLE_LOG_OUTPUT_DE, "Ausführliche Diagnose deaktivieren."},
+/* es */ {IDCLS_DISABLE_LOG_OUTPUT_ES, ""},  /* fuzzy */
+/* fr */ {IDCLS_DISABLE_LOG_OUTPUT_FR, ""},  /* fuzzy */
+/* hu */ {IDCLS_DISABLE_LOG_OUTPUT_HU, ""},  /* fuzzy */
+/* it */ {IDCLS_DISABLE_LOG_OUTPUT_IT, ""},  /* fuzzy */
+/* ko */ {IDCLS_DISABLE_LOG_OUTPUT_KO, ""},  /* fuzzy */
+/* nl */ {IDCLS_DISABLE_LOG_OUTPUT_NL, ""},  /* fuzzy */
+/* pl */ {IDCLS_DISABLE_LOG_OUTPUT_PL, ""},  /* fuzzy */
+/* ru */ {IDCLS_DISABLE_LOG_OUTPUT_RU, ""},  /* fuzzy */
+/* sv */ {IDCLS_DISABLE_LOG_OUTPUT_SV, ""},  /* fuzzy */
+/* tr */ {IDCLS_DISABLE_LOG_OUTPUT_TR, ""},  /* fuzzy */
+#endif
+
 /* mouse.c */
 /* en */ {IDCLS_ENABLE_MOUSE_GRAB,    N_("Enable mouse grab")},
 #ifdef HAS_TRANSLATION
@@ -18043,7 +18258,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_C64DTVROM_RW_HU, ""},  /* fuzzy */
 /* it */ {IDCLS_ENABLE_C64DTVROM_RW_IT, "Attiva scrittura su immagini ROM C64DTV"},
 /* ko */ {IDCLS_ENABLE_C64DTVROM_RW_KO, "C64DTV ROM ÀÌ¹ÌÁö¿¡ ¾²±â °¡´ÉÇÏ°Ô ÇÏ±â"},
-/* nl */ {IDCLS_ENABLE_C64DTVROM_RW_NL, "Activeer schrijven naar C64DTV ROM bestand"},
+/* nl */ {IDCLS_ENABLE_C64DTVROM_RW_NL, "Activeer schrijven naar C64DTV ROM-bestand"},
 /* pl */ {IDCLS_ENABLE_C64DTVROM_RW_PL, "W³±cz zapis do obrazu ROM C64DTV"},
 /* ru */ {IDCLS_ENABLE_C64DTVROM_RW_RU, "Enable writes to C64DTV ROM image"},
 /* sv */ {IDCLS_ENABLE_C64DTVROM_RW_SV, "Aktivera skrivning till C64DTV-ROM-avbildning"},
@@ -18128,7 +18343,7 @@ translate_t string_table[] = {
 /* hu */ {IDCLS_ENABLE_TRUE_FLASH_FS_HU, "Igazi hardver flash fájlrendszer engedélyezése"},
 /* it */ {IDCLS_ENABLE_TRUE_FLASH_FS_IT, "Attiva emulazione hardware del file system flash"},
 /* ko */ {IDCLS_ENABLE_TRUE_FLASH_FS_KO, ""},  /* fuzzy */
-/* nl */ {IDCLS_ENABLE_TRUE_FLASH_FS_NL, "Activeer hardwarmatige flash bestandssysteem"},
+/* nl */ {IDCLS_ENABLE_TRUE_FLASH_FS_NL, "Activeer hardwarmatige flash-bestandssysteem"},
 /* pl */ {IDCLS_ENABLE_TRUE_FLASH_FS_PL, "W³±cz prawdziwy sprzêtowy system plików flash"},
 /* ru */ {IDCLS_ENABLE_TRUE_FLASH_FS_RU, "Enable true hardware flash file system"},
 /* sv */ {IDCLS_ENABLE_TRUE_FLASH_FS_SV, "Aktivera äkta maskinvaru-flashfilsystem"},

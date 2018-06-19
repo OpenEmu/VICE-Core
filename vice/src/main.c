@@ -37,8 +37,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #ifdef ENABLE_NLS
 #include <locale.h>
+#endif
+
+#ifdef HAS_TRANSLATION
+#include "intl.h"
 #endif
 
 #include "archdep.h"
@@ -51,15 +56,11 @@
 #include "info.h"
 #include "init.h"
 #include "initcmdline.h"
-#ifdef HAS_TRANSLATION
-#include "intl.h"
-#endif
 #include "lib.h"
 #include "log.h"
 #include "machine.h"
 #include "maincpu.h"
 #include "main.h"
-#include "platform.h"
 #include "resources.h"
 #include "sysfile.h"
 #ifdef HAS_TRANSLATION
@@ -216,12 +217,6 @@ int main_program(int argc, char **argv)
 #else
     log_message(LOG_DEFAULT, "*** VICE Version %s ***", VERSION);
 #endif
-    log_message(LOG_DEFAULT, "OS compiled for: %s", platform_get_compile_time_os());
-    log_message(LOG_DEFAULT, "GUI compiled for: %s", platform_get_ui());
-    log_message(LOG_DEFAULT, "CPU compiled for: %s", platform_get_compile_time_cpu());
-    log_message(LOG_DEFAULT, "Compiler used: %s", platform_get_compile_time_compiler());
-    log_message(LOG_DEFAULT, "Current OS: %s", platform_get_runtime_os());
-    log_message(LOG_DEFAULT, "Current CPU: %s", platform_get_runtime_cpu());
     log_message(LOG_DEFAULT, " ");
     if (machine_class == VICE_MACHINE_VSID) {
         log_message(LOG_DEFAULT, "Welcome to %s, the free portable SID Player.",
@@ -265,7 +260,7 @@ int main_program(int argc, char **argv)
     log_message(LOG_DEFAULT, "See the \"About VICE\" command for more info.");
     log_message(LOG_DEFAULT, " ");
 
-    lib_free(program_name);
+    /* lib_free(program_name); */
 
     /* Complete the GUI initialization (after loading the resources and
        parsing the command-line) if necessary.  */

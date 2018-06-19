@@ -1,18 +1,16 @@
 # Makefile.am for the SDL version of `libarch.a'.
 
 if WIN32_COMPILE
-extra_includes = -I$(top_srcdir)/src/arch/win32/msvc/wpcap
+extra_includes = -I$(top_srcdir)/src/arch/win32/mingw32/wpcap
 else
 extra_includes =
 endif
 
 if DUMMY_COMPILE
 SUBDIRS = \
-	msvc-files \
 	qnx4 \
 	sortix-files \
-	syllable-files \
-	win32-watcom
+	syllable-files
 endif
 
 AM_CPPFLAGS = \
@@ -39,6 +37,7 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/platform \
 	-I$(top_srcdir)/src/joyport \
 	-I$(top_srcdir)/src/gfxoutputdrv \
+	-I$(top_srcdir)/src/tapeport \
 	-I$(top_srcdir)/src
 
 noinst_LIBRARIES = libarch.a
@@ -86,6 +85,8 @@ libarch_a_SOURCES = \
 	menu_drive.h \
 	menu_drive_rom.c \
 	menu_drive_rom.h \
+	menu_edit.c \
+	menu_edit.h \
 	menu_ethernet.c \
 	menu_ethernet.h \
 	menu_ethernetcart.c \
@@ -158,10 +159,8 @@ libarch_a_SOURCES = \
 	rs232dev.c \
 	sdlmain.c \
 	signals.c \
-	types.h \
 	ui.c \
 	ui.h \
-	uicmdline.c \
 	uifilereq.c \
 	uifilereq.h \
 	uihotkey.c \
@@ -198,49 +197,15 @@ EXTRA_DIST = \
 	archdep_amiga.h \
 	archdep_beos.c \
 	archdep_beos.h \
+	archdep_os2.c \
+	archdep_os2.h \
 	archdep_unix.c \
 	archdep_unix.h \
 	archdep_win32.c \
 	archdep_win32.h \
-	beos-io-access.h \
 	console_amiga.c \
 	console_sdl.c \
 	console_unix.c \
-	generate_msvc6_sdl1x.bat \
-	generate_msvc6_sdl2x.bat \
-	generate_msvc70_ffmpeg_sdl1x.bat \
-	generate_msvc70_ffmpeg_sdl2x.bat \
-	generate_msvc70_sdl1x.bat \
-	generate_msvc70_sdl2x.bat \
-	generate_msvc71_ffmpeg_sdl1x.bat \
-	generate_msvc71_ffmpeg_sdl2x.bat \
-	generate_msvc71_sdl1x.bat \
-	generate_msvc71_sdl2x.bat \
-	generate_msvc8_ffmpeg_sdl1x.bat \
-	generate_msvc8_ffmpeg_sdl2x.bat \
-	generate_msvc8_sdl1x.bat \
-	generate_msvc8_sdl2x.bat \
-	generate_msvc9_ffmpeg_sdl1x.bat \
-	generate_msvc9_ffmpeg_sdl2x.bat \
-	generate_msvc9_sdl1x.bat \
-	generate_msvc9_sdl2x.bat \
-	generate_msvc10_ffmpeg_sdl1x.bat \
-	generate_msvc10_ffmpeg_sdl2x.bat \
-	generate_msvc10_sdl1x.bat \
-	generate_msvc10_sdl2x.bat \
-	generate_msvc11_ffmpeg_sdl1x.bat \
-	generate_msvc11_ffmpeg_sdl2x.bat \
-	generate_msvc11_sdl1x.bat \
-	generate_msvc11_sdl2x.bat \
-	generate_msvc12_ffmpeg_sdl1x.bat \
-	generate_msvc12_ffmpeg_sdl2x.bat \
-	generate_msvc12_sdl1x.bat \
-	generate_msvc12_sdl2x.bat \
-	generate_msvc14_ffmpeg_sdl1x.bat \
-	generate_msvc14_ffmpeg_sdl2x.bat \
-	generate_msvc14_sdl1x.bat \
-	generate_msvc14_sdl2x.bat \
-	generate_msvcmips_sdl1x.bat \
 	make-bindist_amiga.sh \
 	make-bindist_beos.sh \
 	make-bindist_qnx6.sh \

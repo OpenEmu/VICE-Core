@@ -115,6 +115,12 @@
 #include "mouse.h"
 #endif
 
+
+/** \brief  Delay in seconds before pasting -keybuf argument into the buffer
+ */
+#define KBDBUF_ALARM_DELAY   1
+
+
 machine_context_t machine_context;
 
 const char machine_name[] = "PLUS4";
@@ -288,49 +294,49 @@ static long cycles_per_rfsh = PLUS4_PAL_CYCLES_PER_RFSH;
 static double rfsh_per_sec = PLUS4_PAL_RFSH_PER_SEC;
 */
 
-static joyport_port_props_t control_port_1 = 
+static joyport_port_props_t control_port_1 =
 {
     "Control port 1",
     IDGS_CONTROL_PORT_1,
-    0,				/* has NO potentiometer connected to this port */
-    0,				/* has NO lightpen support on this port */
-    1					/* port is always active */
+    0,                  /* has NO potentiometer connected to this port */
+    0,                  /* has NO lightpen support on this port */
+    1                   /* port is always active */
 };
 
-static joyport_port_props_t control_port_2 = 
+static joyport_port_props_t control_port_2 =
 {
     "Control port 2",
     IDGS_CONTROL_PORT_2,
-    0,				/* has NO potentiometer connected to this port */
-    0,				/* has NO lightpen support on this port */
-    1					/* port is always active */
+    0,                  /* has NO potentiometer connected to this port */
+    0,                  /* has NO lightpen support on this port */
+    1                   /* port is always active */
 };
 
-static joyport_port_props_t userport_joy_control_port_1 = 
+static joyport_port_props_t userport_joy_control_port_1 =
 {
     "Userport joystick adapter port 1",
     IDGS_USERPORT_JOY_ADAPTER_PORT_1,
-    0,				/* has NO potentiometer connected to this port */
-    0,				/* has NO lightpen support on this port */
-    0					/* port can be switched on/off */
+    0,                  /* has NO potentiometer connected to this port */
+    0,                  /* has NO lightpen support on this port */
+    0                   /* port can be switched on/off */
 };
 
-static joyport_port_props_t userport_joy_control_port_2 = 
+static joyport_port_props_t userport_joy_control_port_2 =
 {
     "Userport joystick adapter port 2",
     IDGS_USERPORT_JOY_ADAPTER_PORT_2,
-    0,				/* has NO potentiometer connected to this port */
-    0,				/* has NO lightpen support on this port */
-    0					/* port can be switched on/off */
+    0,                  /* has NO potentiometer connected to this port */
+    0,                  /* has NO lightpen support on this port */
+    0                   /* port can be switched on/off */
 };
 
-static joyport_port_props_t sidcard_port = 
+static joyport_port_props_t sidcard_port =
 {
     "SIDCard control port",
     IDGS_SIDCARD_CONTROL_PORT,
-    1,				/* has a potentiometer connected to this port */
-    0,				/* has NO lightpen support on this port */
-    0					/* port can be switched on/off */
+    1,                  /* has a potentiometer connected to this port */
+    0,                  /* has NO lightpen support on this port */
+    0                   /* port can be switched on/off */
 };
 
 static int init_joyport_ports(void)
@@ -524,22 +530,21 @@ int machine_resources_init(void)
         return -1;
     }
 #endif
-#ifndef COMMON_KBD
-    if (kbd_resources_init() < 0) {
-        init_resource_fail("kbd");
-        return -1;
-    }
-#endif
     if (drive_resources_init() < 0) {
         init_resource_fail("drive");
         return -1;
     }
-    if (tapeport_resources_init() < 0) {
-        init_resource_fail("tapeport");
-        return -1;
-    }
+    /*
+     * This needs to be called before tapeport_resources_init(), otherwise
+     * the tapecart will fail to initialize due to the Datasette resource
+     * appearing after the Tapecart resources
+     */
     if (datasette_resources_init() < 0) {
         init_resource_fail("datasette");
+        return -1;
+    }
+    if (tapeport_resources_init() < 0) {
+        init_resource_fail("tapeport");
         return -1;
     }
     if (debugcart_resources_init() < 0) {
@@ -704,12 +709,6 @@ int machine_cmdline_options_init(void)
         return -1;
     }
 #endif
-#ifndef COMMON_KBD
-    if (kbd_cmdline_options_init() < 0) {
-        init_cmdline_options_fail("kbd");
-        return -1;
-    }
-#endif
     if (drive_cmdline_options_init() < 0) {
         init_cmdline_options_fail("drive");
         return -1;
@@ -832,10 +831,10 @@ int machine_specific_init(void)
        device yet.  */
     sound_init(machine_timing.cycles_per_sec, machine_timing.cycles_per_rfsh);
 
-#ifdef USE_BEOS_UI
+#if defined(USE_BEOS_UI) || defined (USE_NATIVE_GTK3)
     /* Pre-init Plus4-specific parts of the menus before ted_init()
        creates a canvas window with a menubar at the top. This could
-       also be used by other ports, e.g. GTK+...  */
+       also be used by other ports.  */
     plus4ui_init_early();
 #endif
 
@@ -845,12 +844,6 @@ int machine_specific_init(void)
 
     acia_init();
 
-#ifndef COMMON_KBD
-    if (plus4_kbd_init() < 0) {
-        return -1;
-    }
-#endif
-
     plus4_monitor_init();
 
     /* Initialize vsync and register our hook function.  */
@@ -859,7 +852,8 @@ int machine_specific_init(void)
                                 machine_timing.cycles_per_sec);
 
     /* Initialize keyboard buffer.  */
-    kbdbuf_init(1319, 239, 8, (CLOCK)(machine_timing.rfsh_per_sec * machine_timing.cycles_per_rfsh));
+    kbdbuf_init(1319, 239, 8, (CLOCK)(machine_timing.rfsh_per_sec *
+                machine_timing.cycles_per_rfsh * KBDBUF_ALARM_DELAY));
 
     if (!console_mode) {
         plus4ui_init();
@@ -1087,12 +1081,12 @@ struct image_contents_s *machine_diskcontents_bus_read(unsigned int unit)
     return diskcontents_iec_read(unit);
 }
 
-BYTE machine_tape_type_default(void)
+uint8_t machine_tape_type_default(void)
 {
     return TAPE_CAS_TYPE_PRG;
 }
 
-BYTE machine_tape_behaviour(void)
+uint8_t machine_tape_behaviour(void)
 {
     return TAPE_BEHAVIOUR_C16;
 }

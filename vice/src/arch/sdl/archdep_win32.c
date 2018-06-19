@@ -77,11 +77,11 @@
 
 #include "archdep.h"
 #include "ioutil.h"
+#include "kbd.h"
 #include "keyboard.h"
 #include "lib.h"
 #include "log.h"
 #include "machine.h"
-#include "platform.h"
 #include "util.h"
 
 #define STDIN_FILENO  0
@@ -167,6 +167,12 @@
 #ifndef SUBLANG_ITALIAN
 #define SUBLANG_ITALIAN 0x01
 #endif
+
+
+/** \brief  Tokens that are illegal in a path/filename
+ */
+static const char *illegal_name_tokens = "/\\?*:|\"<>";
+
 
 static char *argv0;
 
@@ -311,6 +317,20 @@ char *archdep_default_resource_file_name(void)
 {
     return util_concat(archdep_boot_path(), "\\sdl-vice.ini", NULL);
 }
+
+
+/** \brief  Get path to VICE session file
+ *
+ * The 'session file' is a file that is used to store settings between VICE
+ * runs, storing things like the last used directory.
+ *
+ * \return  path to session file
+ */
+char *archdep_default_session_file_name(void)
+{
+    return util_concat(archdep_boot_path(), "\\sdl-vice-session.ini", NULL);
+}
+
 
 char *archdep_default_fliplist_file_name(void)
 {
@@ -544,24 +564,15 @@ FILE *archdep_mkstemp_fd(char **filename, const char *mode)
     return fd;
 }
 
-int archdep_file_is_gzip(const char *name)
-{
-    size_t l = strlen(name);
-
-    if ((l < 4 || strcasecmp(name + l - 3, ".gz")) && (l < 3 || strcasecmp(name + l - 2, ".z")) && (l < 4 || toupper(name[l - 1]) != 'Z' || name[l - 4] != '.')) {
-        return 0;
-    }
-    return 1;
-}
-
-int archdep_file_set_gzip(const char *name)
-{
-    return 0;
-}
 
 int archdep_mkdir(const char *pathname, int mode)
 {
     return _mkdir(pathname);
+}
+
+int archdep_rmdir(const char *pathname)
+{
+    return _rmdir(pathname);
 }
 
 int archdep_stat(const char *file_name, unsigned int *len, unsigned int *isdir)
@@ -729,24 +740,19 @@ void closedir(DIR *dir)
 }
 #endif
 
-char *archdep_get_runtime_os(void)
+int is_windows_nt(void)
 {
-#ifdef WINMIPS
-    return "MIPS NT";
-#else
-    return platform_get_windows_runtime_os();
-#endif
-}
+    OSVERSIONINFO os_version_info;
 
-char *archdep_get_runtime_cpu(void)
-{
-#if defined(__i386__) || defined(__i486__) || defined(__i586__) || defined(__i686__) || defined(__amd64__) || defined(__x86_64__)
-    return platform_get_x86_runtime_cpu();
-#else
-    /* TODO: add runtime cpu detection code */
-    /* arm/mips/alpha/ppc/ia64/sh */
-    return "Unknown CPU";
-#endif
+    ZeroMemory(&os_version_info, sizeof(os_version_info));
+    os_version_info.dwOSVersionInfoSize = sizeof(os_version_info);
+
+    GetVersionEx(&os_version_info);
+
+    if (os_version_info.dwPlatformId == VER_PLATFORM_WIN32_NT) {
+        return 1;
+    }
+    return 0;
 }
 
 /* returns host keyboard mapping. used to initialize the keyboard map when
@@ -791,11 +797,10 @@ int kbd_arch_get_host_mapping(void)
     return KBD_MAPPING_US;
 }
 
-#ifdef IDE_COMPILE
 /* Provide a usleep replacement */
-void usleep(__int64 waitTime)
+void vice_usleep(uint64_t waitTime)
 { 
-    __int64 time1 = 0, time2 = 0, freq = 0;
+    uint64_t time1 = 0, time2 = 0, freq = 0;
 
     QueryPerformanceCounter((LARGE_INTEGER *) &time1);
     QueryPerformanceFrequency((LARGE_INTEGER *)&freq);
@@ -804,7 +809,6 @@ void usleep(__int64 waitTime)
         QueryPerformanceCounter((LARGE_INTEGER *) &time2);
     } while((time2-time1) < waitTime);
 }
-#endif
 
 #ifdef USE_SDLUI2
 char *archdep_sdl2_default_renderers[] = {

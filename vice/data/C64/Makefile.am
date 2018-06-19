@@ -37,9 +37,19 @@ x11_keymaps = \
 	x11_pos_de.vkm \
 	x11_sym_de.vkm \
 	x11_keyrah.vkm \
-	x11_keyrah_de.vkm
+	x11_keyrah_de.vkm \
+	\
+	gtk3_sym.vkm \
+	gtk3_pos.vkm \
+	gtk3_pos_de.vkm \
+	gtk3_sym_de.vkm \
+	gtk3_keyrah.vkm \
+	gtk3_keyrah_de.vkm
 
 sdl_keymaps = \
+	sdl_joymap_ps3.vjm \
+	sdl_hotkeys.vkm \
+	sdl_hotkeys_vsid.vkm \
 	sdl_pos.vkm \
 	sdl_pos_da.vkm \
 	sdl_pos_de.vkm \
@@ -47,7 +57,11 @@ sdl_keymaps = \
 	sdl_pos_no.vkm \
 	sdl_keyrah.vkm \
 	sdl_keyrah_de.vkm \
-	sdl_sym.vkm
+	sdl_keyrah_retropie.vkm \
+	sdl_keyrah_retropie_de.vkm \
+	sdl_keyrah_combian.vkm \
+	sdl_sym.vkm \
+	sdl_sym_de.vkm
 
 extra_keymaps = \
 	amiga_sym.vkm \
@@ -56,8 +70,6 @@ extra_keymaps = \
 	beos_pos.vkm \
 	dos_sym.vkm \
 	dos_pos.vkm \
-	os2.vkm \
-	os2_sym.vkm \
 	osx_pos.vkm \
 	osx_sym_de.vkm \
 	osx_sym.vkm \

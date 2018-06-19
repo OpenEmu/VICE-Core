@@ -1,10 +1,11 @@
+/** \file   event.c
+ * \brief   Event handling
+ *
+ * \author  Andreas Boose <viceteam@t-online.de>
+ * \author  Andreas Matthies <aDOTmatthiesATgmxDOTnet>
+ */
+
 /*
- * event.c - Event handling.
- *
- * Written by
- *  Andreas Boose <viceteam@t-online.de>
- *  Andreas Matthies <aDOTmatthiesATgmxDOTnet>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -30,6 +31,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include "alarm.h"
 #include "archdep.h"
@@ -62,6 +64,13 @@
 #define EVENT_START_SNAPSHOT "start" FSDEV_EXT_SEP_STR "vsf"
 #define EVENT_END_SNAPSHOT "end" FSDEV_EXT_SEP_STR "vsf"
 #define EVENT_MILESTONE_SNAPSHOT "milestone" FSDEV_EXT_SEP_STR "vsf"
+
+
+/** \brief  Size of the CRC32 entries
+ *
+ * CRC32 entries are stored as little endian values
+ */
+#define CRC32_SIZE  (sizeof(uint32_t))
 
 
 struct event_image_list_s {
@@ -159,7 +168,7 @@ void event_record_attach_in_list(event_list_state_t *list, unsigned int unit,
     if (event_image_include) {
         size = (unsigned int)strlen(filename) + 3;
     } else {
-        size = (unsigned int)strlen(strfile) + sizeof(long) + 4;
+        size = (unsigned int)strlen(strfile) + CRC32_SIZE + 4;
     }
 
     event_data = lib_malloc(size);
@@ -189,9 +198,14 @@ void event_record_attach_in_list(event_list_state_t *list, unsigned int unit,
             size += (unsigned int)file_len;
         }
     } else {
+        uint32_t crc = crc32_file(filename);
+
         strcpy(&event_data[2], "");
-        *(unsigned long *)(event_data + 3) = crc32_file(filename);
-        strcpy(&event_data[3 + sizeof(long)], strfile);
+
+        /* store crc32 in little-endian format */
+        crc32_to_le(((uint8_t *)event_data + 3), crc);
+
+        strcpy(&event_data[3 + CRC32_SIZE], strfile);
     }
 
     lib_free(strdir);
@@ -218,7 +232,10 @@ static void event_playback_attach_image(void *data, unsigned int size)
     unsigned int unit, read_only;
     char *orig_filename, *filename = NULL;
     size_t file_len;
-    unsigned long crc_to_attach;
+    uint32_t crc_to_attach;
+
+    uint8_t crc_file[CRC32_SIZE];   /* CRC32 little endian value of file */
+    uint8_t crc_snap[CRC32_SIZE];   /* CRC32 of file in the snapshot */
 
     unit = (unsigned int)((char*)data)[0];
     read_only = (unsigned int)((char*)data)[1];
@@ -226,14 +243,35 @@ static void event_playback_attach_image(void *data, unsigned int size)
 
     if (*orig_filename == 0) {
         /* no image attached */
-        orig_filename = (char *) data + 3 + sizeof(long);
+        orig_filename = (char *) data + 3 + CRC32_SIZE;
 
         if (event_image_append(orig_filename, &filename, 0) != 0) {
-            crc_to_attach = *(unsigned long *)(((char *)data) + 3);
-            do {
-                filename = ui_get_file("Please attach image %s (CRC32 checksum 0x%x)",
-                                       (char *) data + 3 + sizeof(long), crc_to_attach);
-            } while (filename != NULL && crc_to_attach != crc32_file(filename));
+#if 0
+            crc_to_attach = *(uint32_t *)(((char *)data) + 3);
+#endif
+            /* looks weird, but crc_to_attach is used in messages */
+            crc_to_attach = crc32_from_le(data + 3);
+            crc32_to_le(crc_file, crc_to_attach);
+
+            while (true) {
+                uint32_t file_crc;
+
+                filename = ui_get_file(
+                        "Please attach image %s (CRC32 checksum 0x" PRIu32 ")",
+                        (char *) data + 3 + sizeof(uint32_t), crc_to_attach);
+                if (filename == NULL) {
+                    break;
+                }
+
+                /* get CRC32 of current file */
+                file_crc = crc32_file(filename);
+                /* translate crc32 to little endian */
+                crc32_to_le(crc_snap, file_crc);
+                /* check CRC32 */
+                if (memcmp(crc_snap, crc_file, CRC32_SIZE) != 0) {
+                    break;
+                }
+            }
             if (filename == NULL) {
                 ui_error("Image wasn't attached. Playback will probably get out of sync.");
                 return;
@@ -288,25 +326,28 @@ void event_record_in_list(event_list_state_t *list, unsigned int type,
 
     /*log_debug("EVENT RECORD %i CLK %i", type, maincpu_clk);*/
 
+    if (type == EVENT_RESETCPU) {
+        next_timestamp_clk -= maincpu_clk;
+    }
+
     switch (type) {
-        case EVENT_RESETCPU:
-            next_timestamp_clk -= maincpu_clk;
-        case EVENT_KEYBOARD_MATRIX:
-        case EVENT_KEYBOARD_RESTORE:
-        case EVENT_KEYBOARD_DELAY:
-        case EVENT_JOYSTICK_VALUE:
-        case EVENT_DATASETTE:
-        case EVENT_ATTACHDISK:
-        case EVENT_ATTACHTAPE:
-        case EVENT_ATTACHIMAGE:
-        case EVENT_INITIAL:
-        case EVENT_SYNC_TEST:
+        case EVENT_RESETCPU:            /* fall through */
+        case EVENT_KEYBOARD_MATRIX:     /* fall through */
+        case EVENT_KEYBOARD_RESTORE:    /* fall through */
+        case EVENT_KEYBOARD_DELAY:      /* fall through */
+        case EVENT_JOYSTICK_VALUE:      /* fall through */
+        case EVENT_DATASETTE:           /* fall through */
+        case EVENT_ATTACHDISK:          /* fall through */
+        case EVENT_ATTACHTAPE:          /* fall through */
+        case EVENT_ATTACHIMAGE:         /* fall through */
+        case EVENT_INITIAL:             /* fall through */
+        case EVENT_SYNC_TEST:           /* fall through */
         case EVENT_RESOURCE:
             event_data = lib_malloc(size);
             memcpy(event_data, data, size);
             break;
-        case EVENT_LIST_END:
-        case EVENT_OVERFLOW:
+        case EVENT_LIST_END:            /* fall through */
+        case EVENT_OVERFLOW:            /* fall through */
         case EVENT_KEYBOARD_CLEAR:
             break;
         default:
@@ -568,8 +609,8 @@ static void warp_end_list(void)
 /* writes or replaces version string in the initial event                */
 static void event_write_version(void)
 {
-    BYTE *new_data;
-    BYTE *data;
+    uint8_t *new_data;
+    uint8_t *data;
     unsigned int ver_idx;
 
     if (event_list->base->type != EVENT_INITIAL) {
@@ -608,7 +649,7 @@ static void event_write_version(void)
 
 static void event_initial_write(void)
 {
-    BYTE *data = NULL;
+    uint8_t *data = NULL;
     size_t len = 0;
 
     switch (event_start_mode) {
@@ -634,7 +675,7 @@ static void event_initial_write(void)
 
 /*-----------------------------------------------------------------------*/
 
-static void event_record_start_trap(WORD addr, void *data)
+static void event_record_start_trap(uint16_t addr, void *data)
 {
     switch (event_start_mode) {
         case EVENT_START_MODE_FILE_SAVE:
@@ -717,7 +758,7 @@ int event_record_start(void)
     return 0;
 }
 
-static void event_record_stop_trap(WORD addr, void *data)
+static void event_record_stop_trap(uint16_t addr, void *data)
 {
     if (machine_write_snapshot(
             event_snapshot_path(event_end_snapshot), 1, 1, 1) < 0) {
@@ -775,10 +816,10 @@ void event_reset_ack(void)
     }
 }
 
-static void event_playback_start_trap(WORD addr, void *data)
+static void event_playback_start_trap(uint16_t addr, void *data)
 {
     snapshot_t *s;
-    BYTE minor, major;
+    uint8_t minor, major;
 
     event_version[0] = 0;
 
@@ -807,7 +848,7 @@ static void event_playback_start_trap(WORD addr, void *data)
     event_list->current = event_list->base;
 
     if (event_list->current->type == EVENT_INITIAL) {
-        BYTE *data = (BYTE *)(event_list->current->data);
+        uint8_t *data = (uint8_t *)(event_list->current->data);
         switch (data[0]) {
             case EVENT_START_MODE_FILE_SAVE:
                 /*log_debug("READING %s", (char *)(&data[1]));*/
@@ -892,7 +933,7 @@ int event_playback_stop(void)
     return 0;
 }
 
-static void event_record_set_milestone_trap(WORD addr, void *data)
+static void event_record_set_milestone_trap(uint16_t addr, void *data)
 {
     if (machine_write_snapshot(event_snapshot_path(event_end_snapshot), 1, 1, 1) < 0) {
         ui_error(translate_text(IDGS_CANT_CREATE_END_SNAP_S),
@@ -917,7 +958,7 @@ int event_record_set_milestone(void)
     return 0;
 }
 
-static void event_record_reset_milestone_trap(WORD addr, void *data)
+static void event_record_reset_milestone_trap(uint16_t addr, void *data)
 {
     /* We need to disable recording to avoid events being recorded while
        snapshot reading. */
@@ -956,15 +997,7 @@ int event_record_reset_milestone(void)
     return 0;
 }
 
-int event_network_start(void)
-{
-    return 0;
-}
 
-int event_network_stop(void)
-{
-    return 0;
-}
 /*-----------------------------------------------------------------------*/
 
 int event_record_active(void)
@@ -982,7 +1015,7 @@ int event_playback_active(void)
 int event_snapshot_read_module(struct snapshot_s *s, int event_mode)
 {
     snapshot_module_t *m;
-    BYTE major_version, minor_version;
+    uint8_t major_version, minor_version;
     event_list_t *curr;
     unsigned int num_of_timestamps;
 
@@ -1008,7 +1041,7 @@ int event_snapshot_read_module(struct snapshot_s *s, int event_mode)
     while (1) {
         unsigned int type, size;
         CLOCK clk;
-        BYTE *data = NULL;
+        uint8_t *data = NULL;
 
         /*
             throw away recorded timestamp (recording them  was introduced in
@@ -1113,9 +1146,9 @@ int event_snapshot_write_module(struct snapshot_s *s, int event_mode)
     while (curr != NULL) {
         if (curr->type != EVENT_TIMESTAMP
             && (0
-                || SMW_DW(m, (DWORD)curr->type) < 0
-                || SMW_DW(m, (DWORD)curr->clk) < 0
-                || SMW_DW(m, (DWORD)curr->size) < 0
+                || SMW_DW(m, (uint32_t)curr->type) < 0
+                || SMW_DW(m, (uint32_t)curr->clk) < 0
+                || SMW_DW(m, (uint32_t)curr->size) < 0
                 || SMW_BA(m, curr->data, curr->size) < 0)) {
             snapshot_module_close(m);
             return -1;

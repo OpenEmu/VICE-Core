@@ -1,9 +1,10 @@
+/** \file   archdep_win32.h
+ * \brief   Windows-specific stuff - header
+ *
+ * \author  Marco van den Heuvel <blackystardust68@yahoo.com>
+ */
+
 /*
- * archdep_win32.h - Architecture dependant defines.
- *
- * Written by
- *  Marco van den Heuvel <blackystardust68@yahoo.com>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -29,9 +30,6 @@
 
 #include "archapi.h"
 
-/* This platform supports choosing drives. */
-#define SDL_CHOOSE_DRIVES
-
 /* Filesystem dependant operators.  */
 #define FSDEVICE_DEFAULT_DIR "."
 #define FSDEV_DIR_SEP_STR    "\\"
@@ -44,13 +42,13 @@
 #define ARCHDEP_FINDPATH_SEPARATOR_STRING ";"
 
 /* Modes for fopen().  */
-#define MODE_READ              "r"
+#define MODE_READ              "rb"
 #define MODE_READ_TEXT         "rt"
-#define MODE_READ_WRITE        "r+"
-#define MODE_WRITE             "w"
+#define MODE_READ_WRITE        "rb+"
+#define MODE_WRITE             "wb"
 #define MODE_WRITE_TEXT        "wt"
-#define MODE_APPEND            "a"
-#define MODE_APPEND_READ_WRITE "a+"
+#define MODE_APPEND            "ab"
+#define MODE_APPEND_READ_WRITE "ab+"
 
 /* Printer default devices.  */
 #define ARCHDEP_PRINTER_DEFAULT_DEV1 "viceprnt.out"
@@ -81,7 +79,7 @@
 /* Default sound fragment size */
 #define ARCHDEP_SOUND_FRAGMENT_SIZE SOUND_FRAGMENT_MEDIUM
 
-extern void archdep_workaround_nop(const char *otto);
+void archdep_workaround_nop(const char *otto);
 
 /*
     FIXME: confirm wether SIGPIPE must be handled or not. if the emulator quits
@@ -90,7 +88,7 @@ extern void archdep_workaround_nop(const char *otto);
 
            see archdep_unix.c and bug #3201796
 */
-#define archdep_signals_init(x)
+void archdep_signals_init(int do_coredumps);
 #define archdep_signals_pipe_set()
 #define archdep_signals_pipe_unset()
 
@@ -118,5 +116,7 @@ extern void archdep_workaround_nop(const char *otto);
 
 /* Keyword to use for a static prototype */
 #define STATIC_PROTOTYPE static
+
+void vice_usleep(uint64_t waitTime);
 
 #endif

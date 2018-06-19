@@ -45,7 +45,7 @@
 #include "uic64cart.h"
 #include "uicommands.h"
 
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
 #include "uics8900.h"
 #endif
 
@@ -59,7 +59,7 @@
 #include "uieasyflash.h"
 #include "uiedit.h"
 
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
 #include "uiethernetcart.h"
 #endif
 
@@ -86,7 +86,7 @@
 #include "uiretroreplay.h"
 #include "uireu.h"
 
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
 #include "uirrnetmk3.h"
 #endif
 
@@ -110,6 +110,9 @@
 #include "uivicii.h"
 #include "vsync.h"
 
+#include "c128ui.h"
+
+
 UI_MENU_DEFINE_RADIO(MachineVideoStandard)
 
 static ui_menu_entry_t set_viciimodel_submenu[] = {
@@ -126,6 +129,7 @@ static ui_menu_entry_t set_viciimodel_submenu[] = {
 
 UI_MENU_DEFINE_RADIO(SidStereoAddressStart)
 UI_MENU_DEFINE_RADIO(SidTripleAddressStart)
+UI_MENU_DEFINE_RADIO(SidQuadAddressStart)
 
 SID_D4XX_MENU(set_sid_stereo_address_d4xx_submenu, radio_SidStereoAddressStart)
 SID_D7XX_MENU(set_sid_stereo_address_d7xx_submenu, radio_SidStereoAddressStart)
@@ -169,6 +173,27 @@ static ui_menu_entry_t set_sid_triple_address_submenu[] = {
     UI_MENU_ENTRY_LIST_END
 };
 
+SID_D4XX_MENU(set_sid_quad_address_d4xx_submenu, radio_SidQuadAddressStart)
+SID_D7XX_MENU(set_sid_quad_address_d7xx_submenu, radio_SidQuadAddressStart)
+SID_DEXX_MENU(set_sid_quad_address_dexx_submenu, radio_SidQuadAddressStart)
+SID_DFXX_MENU(set_sid_quad_address_dfxx_submenu, radio_SidQuadAddressStart)
+
+static ui_menu_entry_t set_sid_quad_address_submenu[] = {
+    { "$D4xx", UI_MENU_TYPE_NORMAL,
+        NULL, NULL, set_sid_quad_address_d4xx_submenu,
+        (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "$D7xx", UI_MENU_TYPE_NORMAL,
+        NULL, NULL, set_sid_quad_address_d7xx_submenu,
+        (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "$DExx", UI_MENU_TYPE_NORMAL,
+        NULL, NULL, set_sid_quad_address_dexx_submenu,
+        (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { "$DFxx", UI_MENU_TYPE_NORMAL,
+        NULL, NULL, set_sid_quad_address_dfxx_submenu,
+        (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    UI_MENU_ENTRY_LIST_END
+};
+
 UI_MENU_DEFINE_TOGGLE(SidFilters)
 
 static ui_menu_entry_t sid_submenu[] = {
@@ -183,6 +208,9 @@ static ui_menu_entry_t sid_submenu[] = {
       (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { N_("Third SID base address"), UI_MENU_TYPE_NORMAL,
       NULL, NULL, set_sid_triple_address_submenu,
+      (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
+    { N_("Fourth SID base address"), UI_MENU_TYPE_NORMAL,
+      NULL, NULL, set_sid_quad_address_submenu,
       (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     UI_MENU_ENTRY_SEPERATOR,
     { N_("SID filters"), UI_MENU_TYPE_TICK,
@@ -260,7 +288,7 @@ static ui_menu_entry_t ext_function_type_submenu[] = {
     UI_MENU_ENTRY_LIST_END
 };
 
-UI_CALLBACK(set_function_rom_name)
+static UI_CALLBACK(set_function_rom_name)
 {
     char *resname = (char *)UI_MENU_CB_PARAM;
     ui_button_t button;
@@ -351,7 +379,7 @@ static ui_menu_entry_t io_extensions_submenu[] = {
     { CARTRIDGE_NAME_SUPER_SNAPSHOT_V5, UI_MENU_TYPE_NORMAL,
       NULL, NULL, supersnapshot_v5_submenu,
       (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
     UI_MENU_ENTRY_SEPERATOR,
     { N_("Ethernet cartridge"), UI_MENU_TYPE_NORMAL,
       NULL, NULL, ethernetcart_c64_submenu,
@@ -390,7 +418,7 @@ static ui_menu_entry_t io_extensions_submenu[] = {
       NULL, NULL, userport_c64_cbm2_submenu,
       (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     { "Tape port devices", UI_MENU_TYPE_NORMAL,
-      NULL, NULL, tapeport_submenu,
+      NULL, NULL, tapeport_submenu_c64,
       (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
     UI_MENU_ENTRY_SEPERATOR,
     { N_("I/O collision handling ($D000-$DFFF)"), UI_MENU_TYPE_NORMAL,
@@ -599,7 +627,7 @@ static ui_menu_entry_t set_cia##x##model_submenu[] = {                 \
     { N_("6526 (old)"), UI_MENU_TYPE_TICK,                             \
       (ui_callback_t)radio_CIA##x##Model, (ui_callback_data_t)0, NULL, \
       (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },                       \
-    { N_("6526 (new)"), UI_MENU_TYPE_TICK,                             \
+    { N_("8521 (new)"), UI_MENU_TYPE_TICK,                             \
       (ui_callback_t)radio_CIA##x##Model, (ui_callback_data_t)1, NULL, \
       (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },                       \
     UI_MENU_ENTRY_LIST_END                                             \
@@ -667,7 +695,7 @@ static ui_menu_entry_t c128_menu[] = {
       NULL, NULL, uirs232_c128_submenu,
       (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
 #endif
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
     { N_("Ethernet settings"), UI_MENU_TYPE_NORMAL,
         NULL, NULL, uics8900_submenu,
       (ui_keysym_t)0, (ui_hotkey_modifier_t)0 },
@@ -900,7 +928,7 @@ static void c128ui_dynamic_menu_create(void)
     uimmc64_menu_create();
     uimmcr_menu_create();
     uiretroreplay_menu_create();
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
     uiethernetcart_menu_create();
 #endif
 }
@@ -919,7 +947,7 @@ static void c128ui_dynamic_menu_shutdown(void)
     uimmc64_menu_shutdown();
     uimmcr_menu_shutdown();
     uiretroreplay_menu_shutdown();
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
     uiethernetcart_menu_shutdown();
 #endif
 }

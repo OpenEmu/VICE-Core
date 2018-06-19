@@ -1,9 +1,8 @@
-/*
- * c128-cmdline-options.c
+/** \file   c128-cmdline-options.c
+ * \brief   C128 command line options
  *
- * Written by
- *  Andreas Boose <viceteam@t-online.de>
- *  Marco van den Heuvel <blackystardust68@yahoo.com>
+ * \author  Andreas Boose <viceteam@t-online.de>
+ * \author  Marco van den Heuvel <blackystardust68@yahoo.com
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -38,7 +37,7 @@
 #include "machine.h"
 #include "translate.h"
 
-int set_cia_model(const char *value, void *extra_param)
+static int set_cia_model(const char *value, void *extra_param)
 {
     int model;
 

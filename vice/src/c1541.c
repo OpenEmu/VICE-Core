@@ -46,6 +46,7 @@
 #include "diskimage.h"
 #include "fsimage.h"
 #include "diskcontents.h"
+#include "machine.h"
 
 #include "version.h"
 
@@ -57,16 +58,8 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-/* apparently there are crappy C-libs out there that don't declare EXIT_SUCCESS
- * or EXIT_FAILURE
- */
-#ifndef EXIT_SUCCESS
-# define EXIT_SUCCESS 0
-#endif
-#ifndef EXIT_FAILURE
-# define EXIT_FAILURE 1
-#endif
+#include <stdint.h>
+#include <limits.h>
 
 #include <string.h>
 #include <assert.h>
@@ -101,8 +94,8 @@
 #include "serial.h"
 #include "snapshot.h"
 #include "tape.h"
-#include "types.h"
 #include "util.h"
+#include "uiapi.h"
 #include "vdrive-bam.h"
 #include "vdrive-command.h"
 #include "vdrive-dir.h"
@@ -149,12 +142,38 @@
 #define UNIT_MAX        (UNIT_MIN + DRIVE_COUNT - 1)
 
 #define C1541_VERSION_MAJOR     4   /**< c1541 major version number */
-#define C1541_VERSION_MINOR     1   /**< c1541 minor version number */
+#define C1541_VERSION_MINOR     2   /**< c1541 minor version number */
 
+
+/* mostly useless crap, show go into c1541.h */
+char *kbd_get_menu_keyname(void);
+void enable_text(void);
+void disable_text(void);
+int machine_bus_device_attach(unsigned int device, const char *name,
+                              int (*getf)(vdrive_t *, uint8_t *, unsigned int,
+                                          struct cbmdos_cmd_parse_s *),
+                              int (*putf)(vdrive_t *, uint8_t, unsigned int),
+                              int (*openf)(vdrive_t *, const char *, int,
+                                           unsigned int),
+                              int (*closef)(vdrive_t *, unsigned int),
+                              void (*flushf)(vdrive_t *, unsigned int),
+                              void (*listenf)(vdrive_t *, unsigned int));
+
+struct vdrive_s *file_system_get_vdrive(unsigned int unit);
+void ui_error_string(const char *text);
+void vsync_suspend_speed_eval(void);
+struct image_contents_s *machine_diskcontents_bus_read(unsigned int unit);
+int machine_bus_lib_directory(unsigned int unit, const char *pattern, uint8_t **buf);
+int machine_bus_lib_read_sector(unsigned int unit, unsigned int track, unsigned int sector, uint8_t *buf);
+int machine_bus_lib_write_sector(unsigned int unit, unsigned int track, unsigned int sector, uint8_t *buf);
+unsigned int machine_bus_device_type_get(unsigned int unit);
+void machine_drive_flush(void);
+const char *machine_get_name(void);
 
 /** \brief  Machine name
  */
 const char machine_name[] = "C1541";
+int machine_class = VICE_MACHINE_C1541;
 
 /* Global clock counter.  */
 CLOCK clk = 0L;
@@ -258,16 +277,16 @@ int rom2031_loaded = 0;
 int rom1001_loaded = 0;
 int rom2040_loaded = 0;
 
-BYTE *drive_rom1540;
-BYTE *drive_rom1541;
-BYTE *drive_rom1541ii;
-BYTE *drive_rom1571;
-BYTE *drive_rom1581;
-BYTE *drive_rom2000;
-BYTE *drive_rom4000;
-BYTE *drive_rom2031;
-BYTE *drive_rom1001;
-BYTE *drive_rom2040;
+uint8_t *drive_rom1540;
+uint8_t *drive_rom1541;
+uint8_t *drive_rom1541ii;
+uint8_t *drive_rom1571;
+uint8_t *drive_rom1581;
+uint8_t *drive_rom2000;
+uint8_t *drive_rom4000;
+uint8_t *drive_rom2031;
+uint8_t *drive_rom1001;
+uint8_t *drive_rom2040;
 
 /* ------------------------------------------------------------------------- */
 
@@ -662,7 +681,7 @@ static int split_args(const char *line, int *nargs, char **args)
                 }
                 if (!(*s == ' ' && in_quote)) {
                     break;
-                }
+                }       /* fallthrough */
             default:
                 begin_of_arg = 0;
                 *(d++) = *s;
@@ -692,12 +711,17 @@ static int split_args(const char *line, int *nargs, char **args)
  * \param[out]  return_value    \a arg convert to int
  *
  * \return  0 on success, -1 on failure
+ *
+ * \note    on error, \a return_value is set to `INT_MIN`
  */
 static int arg_to_int(const char *arg, int *return_value)
 {
     char *tailptr;
     int counter = 0;
     int base = 10;
+
+    /* set value for error conditions, keeps compiler happy */
+    *return_value = INT_MIN;
 
     if (arg == NULL || *arg == '\0') {
         return -1;
@@ -1632,7 +1656,7 @@ static int block_cmd(int nargs, char **args)
     unsigned int track;
     unsigned int sector;
     vdrive_t *vdrive;
-    BYTE *buf, chrbuf[BLOCK_CMD_WIDTH + 1], sector_data[RAW_BLOCK_SIZE];
+    uint8_t *buf, chrbuf[BLOCK_CMD_WIDTH + 1], sector_data[RAW_BLOCK_SIZE];
     int cnt;
     int err;
 
@@ -2029,7 +2053,7 @@ static int copy_cmd(int nargs, char **args)
         }
         dest_name_ascii = lib_stralloc(args[nargs - 1]);
         dest_name_petscii = lib_stralloc(dest_name_ascii);
-        charset_petconvstring((BYTE *)dest_name_petscii, 0);
+        charset_petconvstring((uint8_t *)dest_name_petscii, 0);
         dest_unit = drive_index + UNIT_MIN;
     } else {
         if (*p != 0) {
@@ -2040,7 +2064,7 @@ static int copy_cmd(int nargs, char **args)
             }
             dest_name_ascii = lib_stralloc(p);
             dest_name_petscii = lib_stralloc(dest_name_ascii);
-            charset_petconvstring((BYTE *)dest_name_petscii, 0);
+            charset_petconvstring((uint8_t *)dest_name_petscii, 0);
         } else {
             dest_name_ascii = dest_name_petscii = NULL;
         }
@@ -2081,9 +2105,9 @@ static int copy_cmd(int nargs, char **args)
         }
 
         src_name_petscii = lib_stralloc(src_name_ascii);
-        charset_petconvstring((BYTE *)src_name_petscii, 0);
+        charset_petconvstring((uint8_t *)src_name_petscii, 0);
 
-        if (vdrive_iec_open(drives[src_unit - UNIT_MIN], (BYTE *)src_name_petscii,
+        if (vdrive_iec_open(drives[src_unit - UNIT_MIN], (uint8_t *)src_name_petscii,
                             (unsigned int)strlen(src_name_petscii), 0, NULL)) {
             fprintf(stderr, "cannot read `%s'\n", src_name_ascii);
             if (dest_name_ascii != NULL) {
@@ -2098,7 +2122,7 @@ static int copy_cmd(int nargs, char **args)
 
         if (dest_name_ascii != NULL) {
             if (vdrive_iec_open(drives[dest_unit - UNIT_MIN],
-                        (BYTE *)dest_name_petscii,
+                        (uint8_t *)dest_name_petscii,
                                 (unsigned int)strlen(dest_name_petscii), 1, NULL)) {
                 fprintf(stderr, "cannot write `%s'\n", dest_name_petscii);
                 vdrive_iec_close(drives[src_unit - UNIT_MIN], 0);
@@ -2110,7 +2134,7 @@ static int copy_cmd(int nargs, char **args)
             }
         } else {
             if (vdrive_iec_open(drives[dest_unit - UNIT_MIN],
-                        (BYTE *)src_name_petscii,
+                        (uint8_t *)src_name_petscii,
                                 (unsigned int)strlen(src_name_petscii), 1, NULL)) {
                 fprintf(stderr, "cannot write `%s'\n", src_name_petscii);
                 vdrive_iec_close(drives[src_unit - UNIT_MIN], 0);
@@ -2123,13 +2147,13 @@ static int copy_cmd(int nargs, char **args)
         printf("copying `%s' ...\n", args[i]); /* FIXME */
 
         {
-            BYTE c;
+            uint8_t c;
             int status = 0;
 
             do {
                 status = vdrive_iec_read(drives[src_unit - UNIT_MIN],
-                        ((BYTE *)&c), 0);
-                if (vdrive_iec_write(drives[dest_unit - UNIT_MIN], ((BYTE)(c)), 1)) {
+                        ((uint8_t *)&c), 0);
+                if (vdrive_iec_write(drives[dest_unit - UNIT_MIN], ((uint8_t)(c)), 1)) {
                     fprintf(stderr, "no space on image ?\n");
                     break;
                 }
@@ -2195,11 +2219,11 @@ static int delete_cmd(int nargs, char **args)
         }
 
         command = util_concat("s:", name, NULL);
-        charset_petconvstring((BYTE *)command, 0);
+        charset_petconvstring((uint8_t *)command, 0);
 
         printf("deleting `%s' on unit %d\n", name, unit);
 
-        status = vdrive_command_execute(drives[dnr], (BYTE *)command,
+        status = vdrive_command_execute(drives[dnr], (uint8_t *)command,
                                         (unsigned int)strlen(command));
 
         lib_free(command);
@@ -2216,15 +2240,6 @@ static int delete_cmd(int nargs, char **args)
     return FD_OK;
 }
 
-static void unix_filename(char *p)
-{
-    while (*p) {
-        if (*p == '/') {
-            *p = '_';
-        }
-        p++;
-    }
-}
 
 /* Extract all files <gwesp@cosy.sbg.ac.at>.  */
 /* FIXME: This does not work with non-standard file names.  */
@@ -2234,7 +2249,7 @@ static int extract_cmd_common(int nargs, char **args, int geos)
     int dnr = 0;
     unsigned int track, sector;
     vdrive_t *floppy;
-    BYTE *buf, *str;
+    uint8_t *buf, *str;
     unsigned int channel = 2;
 
     if (nargs == 2) {
@@ -2253,7 +2268,7 @@ static int extract_cmd_common(int nargs, char **args, int geos)
 
     floppy = drives[dnr];
 
-    if (vdrive_iec_open(floppy, (const BYTE *)"#", 1, channel, NULL)) {
+    if (vdrive_iec_open(floppy, (const uint8_t *)"#", 1, channel, NULL)) {
         fprintf(stderr, "cannot open buffer #%u in unit %d\n", channel,
                 dnr + UNIT_MIN);
         return FD_RDERR;
@@ -2265,7 +2280,7 @@ static int extract_cmd_common(int nargs, char **args, int geos)
     while (1) {
         int i, res;
 
-        str = (BYTE *)lib_msprintf("B-R:%u 0 %u %u", channel, track, sector);
+        str = (uint8_t *)lib_msprintf("B-R:%u 0 %u %u", channel, track, sector);
         res = vdrive_command_execute(floppy, str, (unsigned int)strlen((char *)str));
 
         lib_free(str);
@@ -2277,17 +2292,17 @@ static int extract_cmd_common(int nargs, char **args, int geos)
         buf = floppy->buffers[channel].buffer;
 
         for (i = 0; i < 256; i += 32) {
-            BYTE file_type = buf[i + SLOT_TYPE_OFFSET];
+            uint8_t file_type = buf[i + SLOT_TYPE_OFFSET];
 
             if (((file_type & 7) == CBMDOS_FT_SEQ
                         || (file_type & 7) == CBMDOS_FT_PRG
                         || (file_type & 7) == CBMDOS_FT_USR)
                     && (file_type & CBMDOS_FT_CLOSED)) {
-                BYTE *file_name = buf + i + SLOT_NAME_OFFSET;
+                uint8_t *file_name = buf + i + SLOT_NAME_OFFSET;
                 int status = 0;
-                BYTE c;
-                BYTE name[IMAGE_CONTENTS_FILE_NAME_LEN + 1];
-                BYTE cbm_name[IMAGE_CONTENTS_FILE_NAME_LEN + 1];
+                uint8_t c;
+                uint8_t name[IMAGE_CONTENTS_FILE_NAME_LEN + 1];
+                uint8_t cbm_name[IMAGE_CONTENTS_FILE_NAME_LEN + 1];
                 FILE *fd;
                 unsigned int len;
 
@@ -2302,9 +2317,12 @@ static int extract_cmd_common(int nargs, char **args, int geos)
                     }
                 }
 
-                charset_petconvstring((BYTE *)name, 1);
+                charset_petconvstring((uint8_t *)name, 1);
                 printf("%s\n", name);
-                unix_filename((char *)name); /* For now, convert '/' to '_'. */
+
+                /* translate illegal chars for the host OS to '_' */
+                archdep_sanitize_filename((char *)name);
+
                 if (vdrive_iec_open(floppy, cbm_name, len, 0, NULL)) {
                     fprintf(stderr,
                             "cannot open `%s' on unit %d\n",
@@ -2449,10 +2467,10 @@ static int format_cmd(int nargs, char **args)
     }
 
     command = util_concat("n:", args[1], NULL);
-    charset_petconvstring((BYTE *)command, 0);
+    charset_petconvstring((uint8_t *)command, 0);
 
     printf("formatting in unit %d ...\n", dev + UNIT_MIN);
-    vdrive_command_execute(drives[dev], (BYTE *)command,
+    vdrive_command_execute(drives[dev], (uint8_t *)command,
             (unsigned int)strlen(command));
 
     lib_free(command);
@@ -2802,7 +2820,7 @@ static int name_cmd(int nargs, char **args)
 {
     char *id;
     char *name;
-    BYTE *dst;
+    uint8_t *dst;
     int i;
     int unit;
     vdrive_t *vdrive;
@@ -2826,7 +2844,7 @@ static int name_cmd(int nargs, char **args)
     vdrive = drives[unit];
     vdrive_bam_read_bam(vdrive);
     name = args[1];
-    charset_petconvstring((BYTE *)name, 0);
+    charset_petconvstring((uint8_t *)name, 0);
     id = strrchr(args[1], ',');
     if (id) {
         *id++ = '\0';
@@ -2902,7 +2920,7 @@ static int read_cmd(int nargs, char **args)
     FILE *outf = NULL;
     fileio_info_t *finfo = NULL;
     unsigned int format = FILEIO_FORMAT_RAW;
-    BYTE c;
+    uint8_t c;
     int status = 0;
 
     unit = extract_unit_from_file_name(args[1], &p);
@@ -2935,9 +2953,9 @@ static int read_cmd(int nargs, char **args)
     }
 
     src_name_petscii = lib_stralloc(src_name_ascii);
-    charset_petconvstring((BYTE *)src_name_petscii, 0);
+    charset_petconvstring((uint8_t *)src_name_petscii, 0);
 
-    if (vdrive_iec_open(drives[dnr], (BYTE *)src_name_petscii,
+    if (vdrive_iec_open(drives[dnr], (uint8_t *)src_name_petscii,
                         (unsigned int)strlen(src_name_petscii), 0, NULL)) {
         fprintf(stderr,
                 "cannot read `%s' on unit %d\n", src_name_ascii, dnr + 8);
@@ -2961,7 +2979,7 @@ static int read_cmd(int nargs, char **args)
 
             dest_name_ascii = args[2];
             open_petscii_name = lib_stralloc(dest_name_ascii);
-            charset_petconvstring((BYTE *)open_petscii_name, 0);
+            charset_petconvstring((uint8_t *)open_petscii_name, 0);
             finfo = fileio_open(open_petscii_name, NULL, format,
                                 FILEIO_COMMAND_WRITE, FILEIO_TYPE_PRG);
             lib_free(open_petscii_name);
@@ -2970,12 +2988,14 @@ static int read_cmd(int nargs, char **args)
         size_t l;
 
         dest_name_ascii = actual_name;
-        vdrive_dir_no_a0_pads((BYTE *)dest_name_ascii, CBMDOS_SLOT_NAME_LENGTH);
+        vdrive_dir_no_a0_pads((uint8_t *)dest_name_ascii, CBMDOS_SLOT_NAME_LENGTH);
         l = strlen(dest_name_ascii) - 1;
         while (dest_name_ascii[l] == ' ') {
             dest_name_ascii[l] = 0;
             l--;
         }
+        /* remove illegal chars from output filename */
+        archdep_sanitize_filename(dest_name_ascii);
 
         finfo = fileio_open(dest_name_ascii, NULL, format,
                             FILEIO_COMMAND_WRITE, FILEIO_TYPE_PRG);
@@ -3039,29 +3059,29 @@ int internal_read_geos_file(int unit, FILE* outf, char* src_name_ascii)
     unsigned int n;
 
     /* Get TS of info block */
-    BYTE infoTrk = drives[unit]->buffers[0].slot[SLOT_SIDE_TRACK];
-    BYTE infoSec = drives[unit]->buffers[0].slot[SLOT_SIDE_SECTOR];
+    uint8_t infoTrk = drives[unit]->buffers[0].slot[SLOT_SIDE_TRACK];
+    uint8_t infoSec = drives[unit]->buffers[0].slot[SLOT_SIDE_SECTOR];
 
     /* Get TS of first data block or vlir block
        (depends on the geos file type) */
-    BYTE firstTrk = drives[unit]->buffers[0].slot[SLOT_FIRST_TRACK];
-    BYTE firstSec = drives[unit]->buffers[0].slot[SLOT_FIRST_SECTOR];
+    uint8_t firstTrk = drives[unit]->buffers[0].slot[SLOT_FIRST_TRACK];
+    uint8_t firstSec = drives[unit]->buffers[0].slot[SLOT_FIRST_SECTOR];
 
     /* get geos file structure and geos file type */
-    BYTE geosFileStruc = drives[unit]->buffers[0].slot[SLOT_GEOS_FILE_STRUC];
-    /*BYTE geosFileType = drives[unit]->buffers[0].slot[SLOT_GEOS_FILE_TYPE];*/
+    uint8_t geosFileStruc = drives[unit]->buffers[0].slot[SLOT_GEOS_FILE_STRUC];
+    /*uint8_t geosFileType = drives[unit]->buffers[0].slot[SLOT_GEOS_FILE_TYPE];*/
 
-    BYTE infoBlock[256];
-    BYTE vlirBlock[256];
-    BYTE block[256];
-    BYTE vlirTrans[256];
+    uint8_t infoBlock[256];
+    uint8_t vlirBlock[256];
+    uint8_t block[256];
+    uint8_t vlirTrans[256];
 
     unsigned int aktTrk, aktSec, vlirIdx, NoOfBlocks, NoOfChains, BytesInLastSector;
 
     /* the first block in a cvt file is the directory entry padded with
        zeros */
     for (n = 2; n < 32; n++) {
-        BYTE c = drives[unit]->buffers[0].slot[n];
+        uint8_t c = drives[unit]->buffers[0].slot[n];
         fputc(c, outf);
     }
     /* signature */
@@ -3261,10 +3281,22 @@ int internal_read_geos_file(int unit, FILE* outf, char* src_name_ascii)
  * Date:        2000-07-28
  * Reads a geos file from the diskimage and writes it to a convert file
  * This code was copied from the write_cmd function.
+ *
+ *
+ * This function was completely broken and assumed GEOS files are PRG files
+ * with PETSCII filenames. So when people complain this command doesnt work
+ * anymore, they have incorrect GEOS files.
+ *
+ * Also note that the directory display routine of c1541 assumes PETSCII file
+ * names and as such the GEOS file names are display with their case inverted,
+ * so to extract a file called 'rEADmE' in the directory, use 'ReadMe' to
+ * extract it.
+ *
+ * -- compyx, 2018-05-18
  */
 static int read_geos_cmd(int nargs, char **args)
 {
-    char *src_name_petscii, *src_name_ascii;
+    char *src_name_ascii;
     char *dest_name_ascii;
     char *actual_name;
     char *p;
@@ -3272,6 +3304,9 @@ static int read_geos_cmd(int nargs, char **args)
     int err_code;
     int dev;
     int unit;
+    cbmdos_cmd_parse_t *parse_cmd;
+    size_t namelen;
+
 
     unit = extract_unit_from_file_name(args[1], &p);
     if (unit > 0) {
@@ -3304,17 +3339,35 @@ static int read_geos_cmd(int nargs, char **args)
         return FD_BADNAME;
     }
 
-    src_name_petscii = lib_stralloc(src_name_ascii);
-    charset_petconvstring((BYTE *)src_name_petscii, 0);
 
-    if (vdrive_iec_open(drives[dev], (BYTE *)src_name_petscii,
-                        (unsigned int)strlen(src_name_petscii), 0, NULL)) {
+    /*
+     * We use this to pass to vdrive_iec_open() as its `cmd_parse_ext` argument
+     * to tell the function to look for USR files. Without this the function
+     * defaults to looking for PRG files and will fail to locate the GEOS file
+     * requested.
+     */
+    namelen = strlen(src_name_ascii);
+    parse_cmd = lib_calloc(1, sizeof *parse_cmd);
+    parse_cmd->cmd = (const uint8_t *)src_name_ascii;
+    parse_cmd->cmdlength = namelen;
+    parse_cmd->parsecmd = lib_stralloc(src_name_ascii); /* freed in
+                                                           vdrive_iec_open() */
+    parse_cmd->parselength = namelen;
+    parse_cmd->secondary = 0;
+    parse_cmd->filetype = CBMDOS_FT_USR;
+    parse_cmd->readmode = CBMDOS_FAM_READ;
+
+    if (vdrive_iec_open(drives[dev], (uint8_t *)src_name_ascii,
+                        (unsigned int)strlen(src_name_ascii), 0,
+                        parse_cmd)) {
         fprintf(stderr,
                 "cannot read `%s' on unit %d\n", src_name_ascii, unit);
         lib_free(src_name_ascii);
-        lib_free(src_name_petscii);
+        lib_free(parse_cmd);
         return FD_BADNAME;
     }
+
+    lib_free(parse_cmd);
 
     /* Get real filename from the disk file.
        Slot must be defined by vdrive_iec_open().  */
@@ -3330,13 +3383,13 @@ static int read_geos_cmd(int nargs, char **args)
         int l;
 
         dest_name_ascii = actual_name;
-        vdrive_dir_no_a0_pads((BYTE *) dest_name_ascii, CBMDOS_SLOT_NAME_LENGTH);
+        vdrive_dir_no_a0_pads((uint8_t *) dest_name_ascii, CBMDOS_SLOT_NAME_LENGTH);
         l = (int)strlen(dest_name_ascii) - 1;
         while (dest_name_ascii[l] == ' ') {
             dest_name_ascii[l] = 0;
             l--;
         }
-        charset_petconvstring((BYTE *)dest_name_ascii, 1);
+        charset_petconvstring((uint8_t *)dest_name_ascii, 1);
     }
 
     outf = fopen(dest_name_ascii, MODE_WRITE);
@@ -3345,7 +3398,6 @@ static int read_geos_cmd(int nargs, char **args)
                 "cannot create output file `%s': %s\n",
                 dest_name_ascii, strerror(errno));
         vdrive_iec_close(drives[dev], 0);
-        lib_free(src_name_petscii);
         lib_free(src_name_ascii);
         lib_free(actual_name);
         return FD_NOTWRT;
@@ -3358,7 +3410,6 @@ static int read_geos_cmd(int nargs, char **args)
     fclose(outf);
     vdrive_iec_close(drives[dev], 0);
 
-    lib_free(src_name_petscii);
     lib_free(src_name_ascii);
     lib_free(actual_name);
 
@@ -3373,7 +3424,7 @@ static int fix_ts(int unit, unsigned int trk, unsigned int sec,
                   unsigned int next_trk, unsigned int next_sec,
                   unsigned int blk_offset)
 {
-    BYTE block[256];
+    uint8_t block[256];
     if (vdrive_read_sector(drives[unit], block, trk, sec) == 0) {
         block[blk_offset] = (unsigned char)next_trk;
         block[blk_offset + 1] = (unsigned char)next_sec;
@@ -3391,14 +3442,14 @@ static int fix_ts(int unit, unsigned int trk, unsigned int sec,
  */
 static int internal_write_geos_file(int unit, FILE* f)
 {
-    BYTE dirBlock[256];
-    BYTE infoBlock[256];
-    BYTE vlirBlock[256];
-    BYTE block[256];
+    uint8_t dirBlock[256];
+    uint8_t infoBlock[256];
+    uint8_t vlirBlock[256];
+    uint8_t block[256];
     unsigned int vlirTrk, vlirSec;
     unsigned int aktTrk, aktSec;
     unsigned int lastTrk, lastSec;
-    BYTE geosFileStruc;
+    uint8_t geosFileStruc;
     int c = 0;
     unsigned int n;
     int bContinue;
@@ -3630,7 +3681,7 @@ static int write_geos_cmd(int nargs, char **args)
     int erg;
     char *dest_name_ascii, *dest_name_petscii;
     FILE *f;
-    BYTE* e;
+    uint8_t* e;
     char *slashp;
     vdrive_dir_context_t dir;
 
@@ -3665,9 +3716,9 @@ static int write_geos_cmd(int nargs, char **args)
         dest_name_ascii = lib_stralloc(slashp + 1);
     }
     dest_name_petscii = lib_stralloc(dest_name_ascii);
-    charset_petconvstring((BYTE *)dest_name_petscii, 0);
+    charset_petconvstring((uint8_t *)dest_name_petscii, 0);
 
-    if (vdrive_iec_open(drives[dev], (BYTE *)dest_name_petscii,
+    if (vdrive_iec_open(drives[dev], (uint8_t *)dest_name_petscii,
                         (unsigned int)strlen(dest_name_petscii), 1, NULL)) {
         fprintf(stderr, "cannot open `%s' for writing on image\n",
                 dest_name_ascii);
@@ -3795,10 +3846,10 @@ static int rename_cmd(int nargs, char **args)
     printf("renaming `%s' to `%s'\n", src_name, dest_name);
 
     command = util_concat("r:", dest_name, "=", src_name, NULL);
-    charset_petconvstring((BYTE *)command, 0);
+    charset_petconvstring((uint8_t *)command, 0);
 
     vdrive_command_execute(drives[dev],
-                           (BYTE *)command, (unsigned int)strlen(command));
+                           (uint8_t *)command, (unsigned int)strlen(command));
 
     lib_free(command);
     lib_free(dest_name);
@@ -3865,9 +3916,9 @@ static int tape_cmd(int nargs, char **args)
         if (rec->type) {
             char *dest_name_ascii;
             char *dest_name_petscii;
-            BYTE *buf;
+            uint8_t *buf;
             size_t name_len;
-            WORD file_size;
+            uint16_t file_size;
             int i, retval;
 
             /* Ignore traling spaces and 0xa0's.  */
@@ -3882,7 +3933,7 @@ static int tape_cmd(int nargs, char **args)
 
             dest_name_ascii = lib_calloc(1, name_len + 1);
             memcpy(dest_name_ascii, dest_name_petscii, name_len);
-            charset_petconvstring((BYTE *)dest_name_ascii, 1);
+            charset_petconvstring((uint8_t *)dest_name_ascii, 1);
 
             if (nargs > 2) {
                 int i, found;
@@ -3901,7 +3952,7 @@ static int tape_cmd(int nargs, char **args)
             }
 
             if (rec->type == 1 || rec->type == 3) {
-                if (vdrive_iec_open(drive, (BYTE *)dest_name_petscii,
+                if (vdrive_iec_open(drive, (uint8_t *)dest_name_petscii,
                                     (unsigned int)name_len, 1, NULL)) {
                     fprintf(stderr,
                             "cannot open `%s' for writing on drive %d\n",
@@ -3915,10 +3966,10 @@ static int tape_cmd(int nargs, char **args)
                         dest_name_ascii, rec->start_addr, rec->end_addr,
                         drive_index + 8);
 
-                vdrive_iec_write(drive, ((BYTE)(rec->start_addr & 0xff)), 1);
-                vdrive_iec_write(drive, ((BYTE)(rec->start_addr >> 8)), 1);
+                vdrive_iec_write(drive, ((uint8_t)(rec->start_addr & 0xff)), 1);
+                vdrive_iec_write(drive, ((uint8_t)(rec->start_addr >> 8)), 1);
 
-                file_size = (WORD)(rec->end_addr - rec->start_addr);
+                file_size = (uint16_t)(rec->end_addr - rec->start_addr);
 
                 buf = lib_calloc((size_t)file_size, 1);
 
@@ -3931,7 +3982,7 @@ static int tape_cmd(int nargs, char **args)
 
                 for (i = 0; i < file_size; i++) {
                     if (vdrive_iec_write(drives[drive_index],
-                                         ((BYTE)(buf[i])), 1)) {
+                                         ((uint8_t)(buf[i])), 1)) {
                         tape_internal_close_tape_image(tape_image);
                         lib_free(dest_name_petscii);
                         lib_free(dest_name_ascii);
@@ -3942,10 +3993,10 @@ static int tape_cmd(int nargs, char **args)
 
                 lib_free(buf);
             } else if (rec->type == 4) {
-                BYTE b;
+                uint8_t b;
                 char *dest_name_plustype;
                 dest_name_plustype = util_concat(dest_name_petscii, ",S,W", NULL);
-                retval = vdrive_iec_open(drive, (BYTE *)dest_name_plustype,
+                retval = vdrive_iec_open(drive, (uint8_t *)dest_name_plustype,
                                          (unsigned int)name_len + 4, 2, NULL);
                 lib_free(dest_name_plustype);
 
@@ -4016,7 +4067,7 @@ static int unlynx_loop(FILE *f, FILE *f2, vdrive_t *vdrive, long dentries)
     long lbsize, bsize;
     char cname[20]; /* FIXME: remove magic number */
     int ftype;
-    BYTE val;
+    uint8_t val;
     long cnt;
     size_t len;
     char buff[256];
@@ -4158,7 +4209,7 @@ static int unlynx_cmd(int nargs, char **args)
     FILE *f, *f2;
     int dev, cnt;
     long dentries, dirsize;
-    BYTE val;
+    uint8_t val;
     char buff[256];
     int rc;
     char *path;
@@ -4367,7 +4418,7 @@ static int write_cmd(int nargs, char **args)
         }
 
         if (dest_name != NULL) {
-            charset_petconvstring((BYTE *)dest_name, 0);
+            charset_petconvstring((uint8_t *)dest_name, 0);
         }
     } else {
         /* write <source> */
@@ -4402,7 +4453,7 @@ static int write_cmd(int nargs, char **args)
         dest_len = (unsigned int)strlen(dest_name);
     }
 
-    if (vdrive_iec_open(drives[dnr], (BYTE *)dest_name, (unsigned int)dest_len,
+    if (vdrive_iec_open(drives[dnr], (uint8_t *)dest_name, (unsigned int)dest_len,
                 1, NULL)) {
         fprintf(stderr, "cannot open `%s' for writing on image\n",
                 finfo->name);
@@ -4419,7 +4470,7 @@ static int write_cmd(int nargs, char **args)
     }
 
     while (1) {
-        BYTE c;
+        uint8_t c;
 
         if (fileio_read(finfo, &c, 1) != 1) {
             break;
@@ -4447,7 +4498,7 @@ static int zcreate_cmd(int nargs, char **args)
     unsigned int count;
     char *p, *fname, *dirname, *oname;
     int singlefilemode = 0, err;
-    BYTE sector_data[256];
+    uint8_t sector_data[256];
 
     /* Open image or create a new one.  If the file exists, it must have
        valid header.  */
@@ -4564,7 +4615,7 @@ static int zcreate_cmd(int nargs, char **args)
 
     fclose(fsfd);
 
-    vdrive_command_execute(vdrive, (BYTE *)"I", 1);
+    vdrive_command_execute(vdrive, (uint8_t *)"I", 1);
 
     lib_free(fname);
     lib_free(dirname);
@@ -4585,8 +4636,8 @@ static int raw_cmd(int nargs, char **args)
     if (nargs >= 2) {
         char *command = lib_stralloc(args[1]);
 
-        charset_petconvstring((BYTE *)command, 0);
-        vdrive_command_execute(vdrive, (BYTE *)command, (unsigned int)strlen(command));
+        charset_petconvstring((uint8_t *)command, 0);
+        vdrive_command_execute(vdrive, (uint8_t *)command, (unsigned int)strlen(command));
         lib_free(command);
     }
 
@@ -4650,7 +4701,7 @@ int main(int argc, char **argv)
         using_history();
 #endif
         version_cmd(0, NULL);
-        printf("Copyright 1995-2017 The VICE Development Team.\n"
+        printf("Copyright 1995-2018 The VICE Development Team.\n"
                "C1541 is free software, covered by the GNU General Public License,"
                " and you are\n"
                "welcome to change it and/or distribute copies of it under certain"
@@ -4737,7 +4788,7 @@ int main(int argc, char **argv)
  */
 static int p00save_cmd(int nargs, char **args)
 {
-    int dnr = 0, enable;
+    int dnr = 0, enable = 0;
 
     arg_to_int(args[1], &enable);
 
@@ -4767,9 +4818,9 @@ void disable_text(void)
 }
 
 int machine_bus_device_attach(unsigned int device, const char *name,
-                              int (*getf)(vdrive_t *, BYTE *, unsigned int,
+                              int (*getf)(vdrive_t *, uint8_t *, unsigned int,
                                           struct cbmdos_cmd_parse_s *),
-                              int (*putf)(vdrive_t *, BYTE, unsigned int),
+                              int (*putf)(vdrive_t *, uint8_t, unsigned int),
                               int (*openf)(vdrive_t *, const char *, int,
                                            unsigned int),
                               int (*closef)(vdrive_t *, unsigned int),
@@ -4789,12 +4840,12 @@ struct vdrive_s *file_system_get_vdrive(unsigned int unit)
     return drives[unit - 8];
 }
 
-snapshot_module_t *snapshot_module_create(snapshot_t *s, const char *name, BYTE major_version, BYTE minor_version)
+snapshot_module_t *snapshot_module_create(snapshot_t *s, const char *name, uint8_t major_version, uint8_t minor_version)
 {
     return NULL;
 }
 
-snapshot_module_t *snapshot_module_open(snapshot_t *s, const char *name, BYTE *major_version_return, BYTE *minor_version_return)
+snapshot_module_t *snapshot_module_open(snapshot_t *s, const char *name, uint8_t *major_version_return, uint8_t *minor_version_return)
 {
     return NULL;
 }
@@ -4814,10 +4865,6 @@ int snapshot_module_read_dword_into_uint(snapshot_module_t *m, unsigned int *val
     return 0;
 }
 
-void archdep_ui_init(int argc, char *argv[])
-{
-}
-
 void ui_error_string(const char *text)
 {
 }
@@ -4831,17 +4878,17 @@ struct image_contents_s *machine_diskcontents_bus_read(unsigned int unit)
     return diskcontents_iec_read(unit);
 }
 
-int machine_bus_lib_directory(unsigned int unit, const char *pattern, BYTE **buf)
+int machine_bus_lib_directory(unsigned int unit, const char *pattern, uint8_t **buf)
 {
     return serial_iec_lib_directory(unit, pattern, buf);
 }
 
-int machine_bus_lib_read_sector(unsigned int unit, unsigned int track, unsigned int sector, BYTE *buf)
+int machine_bus_lib_read_sector(unsigned int unit, unsigned int track, unsigned int sector, uint8_t *buf)
 {
     return serial_iec_lib_read_sector(unit, track, sector, buf);
 }
 
-int machine_bus_lib_write_sector(unsigned int unit, unsigned int track, unsigned int sector, BYTE *buf)
+int machine_bus_lib_write_sector(unsigned int unit, unsigned int track, unsigned int sector, uint8_t *buf)
 {
     return serial_iec_lib_write_sector(unit, track, sector, buf);
 }
@@ -4860,7 +4907,12 @@ const char *machine_get_name(void)
     return machine_name;
 }
 
-BYTE machine_tape_behaviour(void)
+uint8_t machine_tape_behaviour(void)
 {
     return TAPE_BEHAVIOUR_NORMAL;
+}
+
+char *kbd_get_menu_keyname(void)
+{
+    return NULL;
 }

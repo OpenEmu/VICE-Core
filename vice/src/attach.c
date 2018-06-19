@@ -290,12 +290,12 @@ const char *file_system_get_disk_name(unsigned int unit)
     return disk_image_fsimage_name_get(vdrive->image);
 }
 
-int file_system_bam_get_disk_id(unsigned int unit, BYTE *id)
+int file_system_bam_get_disk_id(unsigned int unit, uint8_t *id)
 {
     return vdrive_bam_get_disk_id(unit, id);
 }
 
-int file_system_bam_set_disk_id(unsigned int unit, BYTE *id)
+int file_system_bam_set_disk_id(unsigned int unit, uint8_t *id)
 {
     return vdrive_bam_set_disk_id(unit, id);
 }
@@ -555,6 +555,9 @@ static int attach_disk_image(disk_image_t **imgptr, vdrive_t *floppy,
     image = *imgptr;
 
     memcpy(image, &new_image, sizeof(disk_image_t));
+    /* free the P64 stuff, fixes the leak in src/attach.c, reported when
+     * using --enable-debug */
+    lib_free(new_image.p64);
 
     switch (unit) {
         case 8:

@@ -168,27 +168,27 @@ static kbdtype_info_t kbdinfo[KBD_TYPE_NUM + 1] = {
 
 kbdtype_info_t *machine_get_keyboard_info_list(void)
 {
-    return &kbdinfo[0];
+    return kbdinfo;
 }
 
 /* ------------------------------------------------------------------------ */
 
-static joyport_port_props_t userport_joy_control_port_1 = 
+static joyport_port_props_t userport_joy_control_port_1 =
 {
     "Userport joystick adapter port 1",
     IDGS_USERPORT_JOY_ADAPTER_PORT_1,
-    0,				/* has NO potentiometer connected to this port */
-    0,				/* has NO lightpen support on this port */
-    0					/* port can be switched on/off */
+    0,                  /* NO potentiometer connected to this port */
+    0,                  /* has NO lightpen support on this port */
+    0                   /* port can be switched on/off */
 };
 
-static joyport_port_props_t userport_joy_control_port_2 = 
+static joyport_port_props_t userport_joy_control_port_2 =
 {
     "Userport joystick adapter port 2",
     IDGS_USERPORT_JOY_ADAPTER_PORT_2,
-    0,				/* has NO potentiometer connected to this port */
-    0,				/* has NO lightpen support on this port */
-    0					/* port can be switched on/off */
+    0,                  /* has NO potentiometer connected to this port */
+    0,                  /* has NO lightpen support on this port */
+    0                   /* port can be switched on/off */
 };
 
 static int init_joyport_ports(void)
@@ -239,16 +239,21 @@ int machine_resources_init(void)
         init_resource_fail("sidcart");
         return -1;
     }
+    /*
+     * This needs to be called before tapeport_resources_init(), otherwise
+     * the tapecart will fail to initialize due to the Datasette resource
+     * appearing after the Tapecart resources
+     */
     if (drive_resources_init() < 0) {
         init_resource_fail("drive");
         return -1;
     }
-    if (tapeport_resources_init() < 0) {
-        init_resource_fail("tapeport");
-        return -1;
-    }
     if (datasette_resources_init() < 0) {
         init_resource_fail("datasette");
+        return -1;
+    }
+    if (tapeport_resources_init() < 0) {
+        init_resource_fail("tapeport");
         return -1;
     }
     if (acia1_resources_init() < 0) {
@@ -351,12 +356,6 @@ int machine_resources_init(void)
 #ifdef HAVE_MOUSE
     if (mouse_resources_init() < 0) {
         init_resource_fail("mouse");
-        return -1;
-    }
-#endif
-#ifndef COMMON_KBD
-    if (pet_kbd_resources_init() < 0) {
-        init_resource_fail("pet kbd");
         return -1;
     }
 #endif
@@ -541,12 +540,6 @@ int machine_cmdline_options_init(void)
         return -1;
     }
 #endif
-#ifndef COMMON_KBD
-    if (pet_kbd_cmdline_options_init() < 0) {
-        init_cmdline_options_fail("pet kbd");
-        return -1;
-    }
-#endif
     if (userport_joystick_cmdline_options_init() < 0) {
         init_cmdline_options_fail("userport joystick");
         return -1;
@@ -646,10 +639,10 @@ int machine_specific_init(void)
     /* initialize print devices */
     printer_init();
 
-#ifdef USE_BEOS_UI
+#if defined(USE_BEOS_UI) || defined (USE_NATIVE_GTK3)
     /* Pre-init PET-specific parts of the menus before crtc_init()
        creates a canvas window with a menubar at the top. This could
-       also be used by other ports, e.g. GTK+...  */
+       also be used by other ports.  */
     petui_init_early();
 #endif
 
@@ -667,13 +660,6 @@ int machine_specific_init(void)
     pia1_init();
     pia2_init();
     acia1_init();
-
-#ifndef COMMON_KBD
-    /* Initialize the keyboard.  */
-    if (pet_kbd_init() < 0) {
-        return -1;
-    }
-#endif
 
     /* Initialize the datasette emulation.  */
     datasette_init();
@@ -1020,12 +1006,12 @@ struct image_contents_s *machine_diskcontents_bus_read(unsigned int unit)
     return NULL;
 }
 
-BYTE machine_tape_type_default(void)
+uint8_t machine_tape_type_default(void)
 {
     return TAPE_CAS_TYPE_PRG;
 }
 
-BYTE machine_tape_behaviour(void)
+uint8_t machine_tape_behaviour(void)
 {
     return TAPE_BEHAVIOUR_NORMAL;
 }
@@ -1043,9 +1029,9 @@ const char *machine_get_name(void)
 /* ------------------------------------------------------------------------- */
 /* native screenshot support */
 
-BYTE *crtc_get_active_bitmap(void)
+uint8_t *crtc_get_active_bitmap(void)
 {
-    BYTE *retval = NULL;
+    uint8_t *retval = NULL;
 
     retval = petdww_crtc_get_active_bitmap();
 
@@ -1056,7 +1042,7 @@ BYTE *crtc_get_active_bitmap(void)
 
 /* ------------------------------------------------------------------------- */
 
-static void pet_userport_set_flag(BYTE b)
+static void pet_userport_set_flag(uint8_t b)
 {
     viacore_signal(machine_context.via, VIA_SIG_CA1, b ? VIA_SIG_RISE : VIA_SIG_FALL);
 }

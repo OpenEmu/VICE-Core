@@ -1,9 +1,10 @@
+/** \file   joy.h
+ * \brief   Joystick support wrapper for native GTK3 UI - header
+ *
+ * \author  Marco van den Heuvel <blackystardust68@yahoo.com>
+ */
+
 /*
- * joy.h - Joystick support wrapper for native GTK3 UI.
- *
- * Written by
- *  Marco van den Heuvel <blackystardust68@yahoo.com>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *

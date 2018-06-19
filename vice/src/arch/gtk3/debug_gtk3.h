@@ -1,9 +1,10 @@
+/** \file   debug_gtk3.h
+ * \brief   Gtk3 port debugging code - header
+ *
+ * \author  Bas Wassink <b.wassink@ziggo.nl>
+ */
+
 /*
- * debug_gtk3.c - Gtk3 port debugging code
- *
- * Written by
- *  Bas Wassink <b.wassink@ziggo.nl>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -24,12 +25,14 @@
  *
  */
 
-/** \file   src/arch/gtk3/debug_gtk3.h
+/**
  * \brief   Debugging code for the Gtk3 native port - header
  */
 
 #include <vice.h>
 #include "config.h"
+
+#include <gtk/gtk.h>
 
 #ifndef HAVE_DEBUG_GTK3_H
 # define HAVE_DEBUG_GTK3_H
@@ -37,17 +40,22 @@
 /* HAVE_DEBUG_NATIVE_GTK3 comes from configure */
 # ifdef HAVE_DEBUG_GTK3UI
 
-/* __func__ is non-standard */
-#  ifdef __func__
-#   define __func__ "<undefined>"
-#  endif
-
 #  define VICE_GTK3_FUNC_ENTERED(X) \
     printf("GTK3:%s:%d: %s() entered\n", \
             __FILE__, __LINE__, __func__)
-# else
+
+/** \brief  Print debugging info on stdout
+ *
+ * Works just like g_print() or printf(), except that every line is prefixed
+ * with "[debug-gtk3] $FILE:$LINE::$FUNC(): "
+ */
+#  define debug_gtk3(...) \
+    g_print("[debug-gtk3] %s:%d::%s(): ", __FILE__, __LINE__, __func__); \
+    g_print(__VA_ARGS__);
+
+# else  /* HAVE_DEBUG_GTK3UI */
 #  define VICE_GTK3_FUNC_ENTERED(X)
-# endif
-#endif
+#  define debug_gtk3(...)
+# endif /* HAVE DEBUG_GTK3UI */
 
-
+#endif  /* HAVE_DEBUG_GTK3_H */

@@ -32,11 +32,9 @@
 #import "vicemachine.h"
 #import "viceapplication.h"
 
-// ----- VICEMachineNotifier -----
+#include "interrupt.h"
 
-void archdep_ui_init(int argc, char *argv[])
-{
-}
+// ----- VICEMachineNotifier -----
 
 int ui_init_finish(void)
 {
@@ -61,6 +59,30 @@ int ui_init(int *argc, char **argv)
 
 void ui_shutdown(void)
 {
+}
+
+// ----- pause stuff -----
+static void pause_trap(uint16_t addr, void *data)
+{
+    vsync_suspend_speed_eval();
+    while ([theVICEMachine isPaused]) {
+        ui_dispatch_next_event();
+    }
+}
+
+int ui_emulation_is_paused(void)
+{
+    return [theVICEMachine isPaused];
+}
+
+int ui_pause_emulation(int flag)
+{
+    if (flag && !ui_emulation_is_paused()) {
+        [theVICEMachine setPaused:1];
+        interrupt_maincpu_trigger_trap(pause_trap, 0);
+    } else {
+        [theVICEMachine setPaused:0];
+    }
 }
 
 // ----- Drive Status Display -----
@@ -157,7 +179,7 @@ void ui_display_statustext(const char *text, int fade_out)
     NSLog(@"Status: %s %d",text,fade_out);
 }
 
-void ui_display_joyport(BYTE *joyport)
+void ui_display_joyport(uint8_t *joyport)
 {
     [[theVICEMachine machineNotifier] postDisplayJoystickNotification:(int)joyport[1]
                                         secondJoystick:(int)joyport[2]];

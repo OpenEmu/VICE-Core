@@ -31,7 +31,9 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
+#if defined(HAVE_SYS_IOCTL_H)
 #include <sys/ioctl.h>
+#endif
 #include <stdlib.h>
 
 #if defined(HAVE_SYS_MMAN_H) && defined(HAVE_HW_INOUT_H)
@@ -79,6 +81,8 @@
 #include "log.h"
 #include "types.h"
 
+#include "io-access.h"
+
 #if defined(__linux) || defined(__FreeBSD__) || ((defined(sun) || defined(__sun)) && (defined(__SVR4) || defined(__svr4__)))
 
 #define IO_PORT_ACCESS
@@ -107,7 +111,7 @@ static int device_io_open(void)
     return 0;
 }
 
-static BYTE device_io_inb(WORD addr)
+static uint8_t device_io_inb(uint16_t addr)
 {
     iopbuf tmpbuf;
 
@@ -119,7 +123,7 @@ static BYTE device_io_inb(WORD addr)
     return tmpbuf.port_value;
 }
 
-static void device_io_outb(WORD addr, BYTE val)
+static void device_io_outb(uint16_t addr, uint8_t val)
 {
     iopbuf tmpbuf;
 
@@ -143,9 +147,9 @@ static int device_io_open(void)
     return 0;
 }
 
-static BYTE device_io_inb(WORD addr)
+static uint8_t device_io_inb(uint16_t addr)
 {
-    BYTE b = 0;
+    uint8_t b = 0;
 
     lseek(io_fd, addr, SEEK_SET);
     if (read(io_fd, &b, 1) != 1) {
@@ -155,7 +159,7 @@ static BYTE device_io_inb(WORD addr)
     return b;
 }
 
-static void device_io_outb(WORD addr, BYTE val)
+static void device_io_outb(uint16_t addr, uint8_t val)
 {
     lseek(io_fd, addr, SEEK_SET);
     if (write(io_fd, &val, 1) != 1) {
@@ -177,14 +181,22 @@ static int device_io_open(void)
     return 0;
 }
 
-static BYTE device_io_inb(WORD addr)
+static uint8_t device_io_inb(uint16_t addr)
 {
+#ifdef HAVE_INBV
     return inbv(addr);
+#else
+    return inb(addr);
+#endif
 }
 
-static void device_io_outb(WORD addr, BYTE val)
+static void device_io_outb(uint16_t addr, uint8_t val)
 {
+#ifdef HAVE_OUTBV
     outbv(addr, val);
+#else
+    outb(addr, val);
+#endif
 }
 #endif
 
@@ -277,15 +289,15 @@ static int vice_get_ioperm(unsigned long *iomap)
 
 #if defined(__NetBSD__) && (defined(HAVE_LIBAMD64) || defined(HAVE_I386_SET_IOPERM))
 #define VICE_OUTB_DEFINED
-static inline void vice_outb(WORD port, BYTE val)
+static inline void vice_outb(uint16_t port, uint8_t val)
 {
     asm volatile("outb %0, %1"
                  : : "a"(val), "Nd"(port));
 }
 
-static inline BYTE vice_inb(WORD port)
+static inline uint8_t vice_inb(uint16_t port)
 {
-    BYTE ret;
+    uint8_t ret;
 
     asm volatile("inb %1, %0"
                  : "=a"(ret) : "Nd"(port));
@@ -295,12 +307,12 @@ static inline BYTE vice_inb(WORD port)
 
 #ifdef HAVE_MMAP_DEVICE_IO
 #define VICE_OUTB_DEFINED
-static inline void vice_outb(WORD port, BYTE val)
+static inline void vice_outb(uint16_t port, uint8_t val)
 {
     out8(port, val);
 }
 
-static inline BYTE vice_inb(WORD port)
+static inline uint8_t vice_inb(uint16_t port)
 {
     return in8(port);
 }
@@ -309,14 +321,15 @@ static inline BYTE vice_inb(WORD port)
 #if (defined(sun) || defined(__sun)) && (defined(__SVR4) || defined(__svr4__))
 #if !defined(__sparc64__) && !defined(sparc64) && !defined(__sparc__) && !defined(sparc) && !defined(__PPC__) && !defined(__ppc)
 #define VICE_OUTB_DEFINED
-static inline void vice_outb(WORD port, BYTE val)
+static inline void vice_outb(uint16_t port, uint8_t val)
 {
     __asm__ __volatile__ ("outb (%w1)": :"a" (val), "Nd" (port));
 }
 
-static inline BYTE vice_inb(WORD port)
+static inline uint8_t vice_inb(uint16_t port)
 {
-    BYTE retval;
+    uint8_t retval;
+
     __asm__ __volatile__ ("inb (%w1)":"=a" (retval):"Nd" (port));
 
     return retval;
@@ -326,30 +339,30 @@ static inline BYTE vice_inb(WORD port)
 
 #ifndef VICE_OUTB_DEFINED
 #  ifdef HAVE_OUTB_P
-static inline void vice_outb(WORD port, BYTE val)
+static inline void vice_outb(uint16_t port, uint8_t val)
 {
     outb_p(val, port);
 }
 
-static inline BYTE vice_inb(WORD port)
+static inline uint8_t vice_inb(uint16_t port)
 {
     return inb_p(port);
 }
 #  else
 #    ifdef __OpenBSD__
-static inline void vice_outb(WORD port, BYTE val)
+static inline void vice_outb(uint16_t port, uint8_t val)
 {
     outb(port, val);
 }
 #    else
-static inline void vice_outb(WORD port, BYTE val)
+static inline void vice_outb(uint16_t port, uint8_t val)
 {
 #ifdef HAVE_OUTB
     outb(val, port);
 #endif
 }
 #    endif
-static inline BYTE vice_inb(WORD port)
+static inline uint8_t vice_inb(uint16_t port)
 {
 #ifdef HAVE_INB
     return inb(port);
@@ -360,7 +373,7 @@ static inline BYTE vice_inb(WORD port)
 #  endif
 #endif
 
-void io_access_store(WORD addr, BYTE value)
+void io_access_store(uint16_t addr, uint8_t value)
 {
 #ifdef IO_PORT_ACCESS
     if (io_fd != -1) {
@@ -371,7 +384,7 @@ void io_access_store(WORD addr, BYTE value)
     vice_outb(addr, value);
 }
 
-BYTE io_access_read(WORD addr)
+uint8_t io_access_read(uint16_t addr)
 {
 #ifdef IO_PORT_ACCESS
     if (io_fd != -1) {
@@ -381,7 +394,7 @@ BYTE io_access_read(WORD addr)
     return vice_inb(addr);
 }
 
-int io_access_map(WORD addr, WORD space)
+int io_access_map(uint16_t addr, uint16_t space)
 {
 #if defined(HAVE_LIBAMD64) || defined(HAVE_I386_SET_IOPERM)
 #  ifndef __FreeBSD__
@@ -441,7 +454,7 @@ int io_access_map(WORD addr, WORD space)
     return -1;
 }
 
-void io_access_unmap(WORD addr, WORD space)
+void io_access_unmap(uint16_t addr, uint16_t space)
 {
 #if defined(HAVE_LIBAMD64) || defined(HAVE_I386_SET_IOPERM)
 #  ifndef __FreeBSD__

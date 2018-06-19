@@ -36,6 +36,9 @@
 #include "tapeport.h"
 #include "translate.h"
 
+#include "sense-dongle.h"
+
+
 static int sense_dongle_enabled = 0;
 
 /* ------------------------------------------------------------------------- */
@@ -51,6 +54,7 @@ static tapeport_device_t sense_dongle_device = {
     IDGS_SENSE_DONGLE,
     0,
     "TapeSenseDongle",
+    NULL, /* no shutdown */
     sense_dongle_reset,
     NULL, /* no set motor */
     NULL, /* no set write */

@@ -25,7 +25,8 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/platform \
 	-I$(top_srcdir)/src/joyport \
 	-I$(top_srcdir)/src/samplerdrv \
-	-I$(top_srcdir)/src/imagecontents
+	-I$(top_srcdir)/src/imagecontents \
+	-I$(top_srcdir)/src/gfxoutputdrv
 
 libarch_a_DEPENDENCIES = @DOS_TFE_PCAP_LIB@
 
@@ -79,7 +80,6 @@ libarch_a_SOURCES = \
 	tuimenu.h \
 	tuiview.c \
 	tuiview.h \
-	types.h \
 	ui.c \
 	ui.h \
 	uiattach.h \
@@ -106,7 +106,6 @@ libarch_a_SOURCES = \
 	uicbm5x0model.h \
 	uiciamodel.c \
 	uiciamodel.h \
-	uicmdline.c \
 	uidigimax.c \
 	uidigimax.h \
 	uidqbb.c \
@@ -127,6 +126,8 @@ libarch_a_SOURCES = \
 	uiethernetcart.h \
 	uiexpert.c \
 	uiexpert.h \
+	uiffmpeg.c \
+	uiffmpeg.h \
 	uigeoram.c \
 	uigeoram.h \
 	uigmod2.c \

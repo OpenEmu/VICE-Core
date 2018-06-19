@@ -1,10 +1,10 @@
+/** \file   rawnetarch.c
+ * \brief   raw ethernet interface, architecture-dependant stuff
+ *
+ * \author  Bas Wassink <b.wassink@ziggo.nl
+ */
+
 /*
- * rawnetarch.c - raw ethernet interface,
- *                 architecture-dependant stuff
- *
- * Written by
- *  Bas Wassink <b.wassink@ziggo.nl
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -27,7 +27,7 @@
 
 #include "vice.h"
 
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
 
 # ifdef UNIX_COMPILE
 #  include "rawnetarch_unix.c"
@@ -37,6 +37,4 @@
 #  endif
 # endif
 
-#endif  /* ifdef HAVE_PCAP */
-
-
+#endif  /* ifdef HAVE_RAWNET */

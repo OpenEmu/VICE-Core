@@ -209,7 +209,7 @@ static void joystick_release_joysticks(void)
     }
 }
 
-int joystick_di_open(int port_idx, int dev)
+static int joystick_di_open(int port_idx, int dev)
 {
     JoyInfo *joy = joystick_list;
     int i = 0;
@@ -307,7 +307,7 @@ int joystick_di_open(int port_idx, int dev)
     }
 }
 
-void joystick_di_close(int port_idx)
+static void joystick_di_close(int port_idx)
 {
     if (joystick_di_devices[port_idx]) {
         IDirectInputDevice_Unacquire(joystick_di_devices[port_idx]);
@@ -661,14 +661,14 @@ int joy_arch_init(void)
     return 0;
 }
 
-static void joystick_release_winmm_joysticks()
+static void joystick_release_winmm_joysticks(void)
 {
     joy_winmm_priv_t* joy_list = joy_winmm_list;
-    
+
     while (joy_list != NULL) {
         joy_winmm_priv_t* joy_remove = joy_list;
         joy_list = joy_list->next;
-        free(joy_remove);
+        lib_free(joy_remove);
     }
 }
 
