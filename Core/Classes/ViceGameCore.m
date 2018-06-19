@@ -48,15 +48,17 @@
 static __unsafe_unretained ViceGameCore* core;
 
 uint32_t* OEvideobuffer;
-int vid_width = 512, vid_height = 512;
+int vid_width = 384, vid_height = 272;
 jmp_buf emu_exit_jmp;
 
 static dispatch_semaphore_t sem_Core_pause, sem_CPU_pause, sem_vSync_hold;
 static bool running, pausestart, CPU_paused, vSync_held, BootComplete;
+const char archdep_boot_path(void);
 
 @interface ViceGameCore() <OEC64SystemResponderClient>
 {
     NSThread *thread;
+    bool RunStopLock;
 }
 
 - (void)initializeEmulator;
@@ -389,9 +391,9 @@ static int openemu_init(const char *param, int *speed, int *fragsize, int *fragn
     return 0;
 }
 
-static int openemu_write(SWORD *pbuf, size_t nr)
+static int openemu_write(int16_t *pbuf, size_t nr)
 {
-    [[core ringBufferAtIndex:0] write:pbuf maxLength:nr * 2];
+    [[core audioBufferAtIndex:0] write:pbuf maxLength:nr * 2];
     return 0;
 }
 
