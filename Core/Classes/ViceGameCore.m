@@ -291,6 +291,11 @@ static void vSync_hold_trap(uint16_t a, void * b)
     return OEIntSizeMake(vid_width, vid_height);
 }
 
+- (OEIntSize)aspectSize
+{
+    return OEIntSizeMake(4,3);
+}
+
 - (OEIntRect)screenRect
 {
     return OEIntRectMake(0, 0,  vid_width, vid_height);
