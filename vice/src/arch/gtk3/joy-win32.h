@@ -1,9 +1,10 @@
+/** \file   joy-win32.h
+ * \brief   Joystick support for Windows - header
+ *
+ * \author  Ettore Perazzoli <ettore@comm2000.it>
+ */
+
 /*
- * joy-win32.h - Joystick support for Windows.
- *
- * Written by
- *  Ettore Perazzoli <ettore@comm2000.it>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -36,8 +37,8 @@ typedef int joystick_device_t;
 #define JOYDEV_HW1     4
 #define JOYDEV_HW2     5
 
-extern int joystick_close(void);
-extern void joystick_update(void);
-extern char joystick_uses_direct_input(void);
+int joystick_close(void);
+void joystick_update(void);
+char joystick_uses_direct_input(void);
 
 #endif

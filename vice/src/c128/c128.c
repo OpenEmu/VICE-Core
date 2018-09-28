@@ -1,14 +1,13 @@
+/** \file   c128.c
+ * \brief   C128 basic stuff
+ *
+ * \author  Andreas Boose <viceteam@t-online.de>
+ * \author  Ettore Perazzoli <ettore@comm2000.it>
+ * \author  Marco van den Heuvel <blackystardust68@yahoo.com>
+ * \author  Jouko Valta <jopi@stekt.oulu.fi>
+ */
+
 /*
- * c128.c
- *
- * Written by
- *  Andreas Boose <viceteam@t-online.de>
- *  Ettore Perazzoli <ettore@comm2000.it>
- *  Marco van den Heuvel <blackystardust68@yahoo.com>
- *
- * Based on the original work in VICE 0.11.0 by
- *  Jouko Valta <jopi@stekt.oulu.fi>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -50,6 +49,7 @@
 #define CARTRIDGE_INCLUDE_SLOTMAIN_API
 #include "c64cartsystem.h"
 #undef CARTRIDGE_INCLUDE_SLOTMAIN_API
+#include "c64_256k.h"
 #include "c64cia.h"
 #include "c64iec.h"
 #include "c64keyboard.h"
@@ -69,6 +69,7 @@
 #include "drive.h"
 #include "export.h"
 #include "fliplist.h"
+#include "fmopl.h"
 #include "fsdevice.h"
 #include "functionrom.h"
 #include "gfxoutput.h"
@@ -91,6 +92,8 @@
 #include "paperclip64.h"
 #include "parallel.h"
 #include "patchrom.h"
+#include "plus60k.h"
+#include "plus256k.h"
 #include "printer.h"
 #include "rs232drv.h"
 #include "rsuser.h"
@@ -107,6 +110,7 @@
 #include "tape.h"
 #include "tape_diag_586220_harness.h"
 #include "tapeport.h"
+#include "tapecart.h"
 #include "tpi.h"
 #include "translate.h"
 #include "traps.h"
@@ -129,6 +133,7 @@
 #include "video-sound.h"
 #include "vizawrite64_dongle.h"
 #include "vsync.h"
+#include "waasoft_dongle.h"
 #include "z80.h"
 #include "z80mem.h"
 
@@ -137,27 +142,33 @@
 #include "mouse.h"
 #endif
 
+
+/** \brief  Delay in seconds before pasting -keybuf argument into the buffer
+ */
+#define KBDBUF_ALARM_DELAY   1
+
+
 /* dummy functions until the C128 version of the
    256K expansion can be made */
 
 int c64_256k_enabled = 0;
 int c64_256k_start = 0xdf80;
 
-void c64_256k_store(WORD addr, BYTE byte)
+void c64_256k_store(uint16_t addr, uint8_t byte)
 {
 }
 
-BYTE c64_256k_read(WORD addr)
+uint8_t c64_256k_read(uint16_t addr)
 {
     return 0xff;
 }
 
-BYTE c64_256k_ram_segment2_read(WORD addr)
+uint8_t c64_256k_ram_segment2_read(uint16_t addr)
 {
     return mem_ram[addr];
 }
 
-void c64_256k_ram_segment2_store(WORD addr, BYTE byte)
+void c64_256k_ram_segment2_store(uint16_t addr, uint8_t byte)
 {
     mem_ram[addr] = byte;
 }
@@ -171,12 +182,12 @@ void c64_256k_cia_set_vbank(int ciabank)
 
 int plus60k_enabled = 0;
 
-BYTE plus60k_ram_read(WORD addr)
+uint8_t plus60k_ram_read(uint16_t addr)
 {
     return mem_ram[addr];
 }
 
-void plus60k_ram_store(WORD addr, BYTE value)
+void plus60k_ram_store(uint16_t addr, uint8_t value)
 {
     mem_ram[addr] = value;
 }
@@ -186,19 +197,19 @@ void plus60k_ram_store(WORD addr, BYTE value)
 
 int plus256k_enabled = 0;
 
-BYTE plus256k_ram_high_read(WORD addr)
+uint8_t plus256k_ram_high_read(uint16_t addr)
 {
     return mem_ram[addr];
 }
 
-void plus256k_ram_high_store(WORD addr, BYTE byte)
+void plus256k_ram_high_store(uint16_t addr, uint8_t byte)
 {
     mem_ram[addr] = byte;
 }
 
 #if defined(HAVE_MOUSE) && defined(HAVE_LIGHTPEN)
 /* Lightpen trigger function; needs to trigger both VICII and VDC */
-void c128_trigger_light_pen(CLOCK mclk)
+static void c128_trigger_light_pen(CLOCK mclk)
 {
     vicii_trigger_light_pen(mclk);
     vdc_trigger_light_pen(mclk);
@@ -491,40 +502,40 @@ static void c128io_init(void)
 
 /* ------------------------------------------------------------------------ */
 
-static joyport_port_props_t control_port_1 = 
+static joyport_port_props_t control_port_1 =
 {
     "Control port 1",
     IDGS_CONTROL_PORT_1,
-    1,				/* has a potentiometer connected to this port */
-    1,				/* has lightpen support on this port */
-    1					/* port is always active */
+    1,                  /* has a potentiometer connected to this port */
+    1,                  /* has lightpen support on this port */
+    1                   /* port is always active */
 };
 
-static joyport_port_props_t control_port_2 = 
+static joyport_port_props_t control_port_2 =
 {
     "Control port 2",
     IDGS_CONTROL_PORT_2,
-    1,				/* has a potentiometer connected to this port */
-    0,				/* has NO lightpen support on this port */
-    1					/* port is always active */
+    1,                  /* has a potentiometer connected to this port */
+    0,                  /* has NO lightpen support on this port */
+    1                   /* port is always active */
 };
 
-static joyport_port_props_t userport_joy_control_port_1 = 
+static joyport_port_props_t userport_joy_control_port_1 =
 {
     "Userport joystick adapter port 1",
     IDGS_USERPORT_JOY_ADAPTER_PORT_1,
-    0,				/* has NO potentiometer connected to this port */
-    0,				/* has NO lightpen support on this port */
-    0					/* port can be switched on/off */
+    0,                  /* has NO potentiometer connected to this port */
+    0,                  /* has NO lightpen support on this port */
+    0                   /* port can be switched on/off */
 };
 
-static joyport_port_props_t userport_joy_control_port_2 = 
+static joyport_port_props_t userport_joy_control_port_2 =
 {
     "Userport joystick adapter port 2",
     IDGS_USERPORT_JOY_ADAPTER_PORT_2,
-    0,				/* has NO potentiometer connected to this port */
-    0,				/* has NO lightpen support on this port */
-    0					/* port can be switched on/off */
+    0,                  /* has NO potentiometer connected to this port */
+    0,                  /* has NO lightpen support on this port */
+    0                   /* port can be switched on/off */
 };
 
 static int init_joyport_ports(void)
@@ -625,6 +636,10 @@ int machine_resources_init(void)
         init_resource_fail("joyport vizawrite64 dongle");
         return -1;
     }
+    if (joyport_waasoft_dongle_resources_init() <0) {
+        init_resource_fail("joyport waasoft dongle");
+        return -1;
+    }
     if (joystick_resources_init() < 0) {
         init_resource_fail("joystick");
         return -1;
@@ -694,14 +709,17 @@ int machine_resources_init(void)
         return -1;
     }
 #endif
-#ifndef COMMON_KBD
-    if (kbd_resources_init() < 0) {
-        init_resource_fail("kbd");
-        return -1;
-    }
-#endif
     if (drive_resources_init() < 0) {
         init_resource_fail("drive");
+        return -1;
+    }
+    /*
+     * This needs to be called before tapeport_resources_init(), otherwise
+     * the tapecart will fail to initialize due to the Datasette resource
+     * appearing after the Tapecart resources
+     */
+    if (datasette_resources_init() < 0) {
+        init_resource_fail("datasette");
         return -1;
     }
     if (tapeport_resources_init() < 0) {
@@ -710,10 +728,6 @@ int machine_resources_init(void)
     }
     if (tape_diag_586220_harness_resources_init() < 0) {
         init_resource_fail("tape diag 586220 harness");
-        return -1;
-    }
-    if (datasette_resources_init() < 0) {
-        init_resource_fail("datasette");
         return -1;
     }
     if (cartridge_resources_init() < 0) {
@@ -786,6 +800,7 @@ void machine_resources_shutdown(void)
     userport_resources_shutdown();
     joyport_bbrtc_resources_shutdown();
     tapeport_resources_shutdown();
+    tapecart_exit();
 }
 
 /* C128-specific command-line option initialization.  */
@@ -898,12 +913,6 @@ int machine_cmdline_options_init(void)
 #ifdef HAVE_MOUSE
     if (mouse_cmdline_options_init() < 0) {
         init_cmdline_options_fail("mouse");
-        return -1;
-    }
-#endif
-#ifndef COMMON_KBD
-    if (kbd_cmdline_options_init() < 0) {
-        init_cmdline_options_fail("kbd");
         return -1;
     }
 #endif
@@ -1065,10 +1074,10 @@ int machine_specific_init(void)
     }
     autostart_init((CLOCK)(delay * C128_PAL_RFSH_PER_SEC * C128_PAL_CYCLES_PER_RFSH), 1, 0xa27, 0xe0, 0xec, 0xee);
 
-#ifdef USE_BEOS_UI
+#if defined(USE_BEOS_UI) || defined (USE_NATIVE_GTK3)
     /* Pre-init C128-specific parts of the menus before vdc_init() and
        vicii_init() create canvas windows with menubars at the top. This
-       could also be used by other ports, e.g. GTK+...  */
+       could also be used by other ports.  */
     c128ui_init_early();
 #endif
 
@@ -1083,13 +1092,7 @@ int machine_specific_init(void)
     cia1_init(machine_context.cia1);
     cia2_init(machine_context.cia2);
 
-#ifndef COMMON_KBD
     /* Initialize the keyboard.  */
-    if (c128_kbd_init() < 0) {
-        return -1;
-    }
-#endif
-
     c64keyboard_init();
 
     c128_monitor_init();
@@ -1119,9 +1122,12 @@ int machine_specific_init(void)
     /* Initialize sound.  Notice that this does not really open the audio
        device yet.  */
     sound_init(machine_timing.cycles_per_sec, machine_timing.cycles_per_rfsh);
+    fmopl_set_machine_parameter(machine_timing.cycles_per_sec);
 
     /* Initialize keyboard buffer.  */
-    kbdbuf_init(842, 208, 10, (CLOCK)(machine_timing.rfsh_per_sec * machine_timing.cycles_per_rfsh));
+    kbdbuf_init(842, 208, 10,
+            (CLOCK)(machine_timing.rfsh_per_sec *
+                machine_timing.cycles_per_rfsh * KBDBUF_ALARM_DELAY));
 
     /* Initialize the C128-specific I/O */
     c128io_init();
@@ -1161,7 +1167,7 @@ int machine_specific_init(void)
 
         resources_get_int("UseFullscreen", &fs);
         if (fs) {
-            resources_get_int("40/80ColumnKey", &fs);
+            resources_get_int("C128ColumnKey", &fs);
             if (fs == 1) {
                 resources_set_int("VICIIFullscreen", 1);
             } else {
@@ -1351,6 +1357,8 @@ void machine_change_timing(int timeval, int border_mode)
     cia1_set_timing(machine_context.cia1, machine_timing.cycles_per_sec, machine_timing.power_freq);
     cia2_set_timing(machine_context.cia2, machine_timing.cycles_per_sec, machine_timing.power_freq);
 
+    fmopl_set_machine_parameter(machine_timing.cycles_per_sec);
+
     machine_trigger_reset(MACHINE_RESET_MODE_HARD);
 }
 
@@ -1411,12 +1419,12 @@ struct image_contents_s *machine_diskcontents_bus_read(unsigned int unit)
     return diskcontents_iec_read(unit);
 }
 
-BYTE machine_tape_type_default(void)
+uint8_t machine_tape_type_default(void)
 {
     return TAPE_CAS_TYPE_BAS;
 }
 
-BYTE machine_tape_behaviour(void)
+uint8_t machine_tape_behaviour(void)
 {
     return TAPE_BEHAVIOUR_NORMAL;
 }
@@ -1434,7 +1442,7 @@ const char *machine_get_name(void)
 
 /* ------------------------------------------------------------------------- */
 
-static void c128_userport_set_flag(BYTE b)
+static void c128_userport_set_flag(uint8_t b)
 {
     if (b != 0) {
         ciacore_set_flag(machine_context.cia2);

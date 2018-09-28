@@ -18,7 +18,8 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/rtc \
 	-I$(top_srcdir)/src/joyport \
 	-I$(top_srcdir)/src/samplerdrv \
-	-I$(top_srcdir)/src/tapeport
+	-I$(top_srcdir)/src/tapeport \
+	-I$(top_srcdir)/src/core
 
 noinst_LIBRARIES = libvsid.a libc64.a libc64sc.a libc64c128.a libc64c64dtv.a libc64scpu64.a
 
@@ -289,8 +290,8 @@ EXTRA_DIST =
 SUFFIXES = .a65
 
 .a65.h:
-	xa -R -G $< -o $(srcdir)/$*.o65
-	od -v -An -w8 -tx1 $(srcdir)/$*.o65 | sed 's/\w\w/0x&,/g' > $(srcdir)/$@
+	$(XA) -R -G $< -o $*.o65
+	od -v -An -tx1 $*.o65 | sed 's/\([0-9a-f][0-9a-f]\)/0x\1,/g' > $@
 
 .PHONY: libc64cart libc64cartsystem libc64commoncart
 

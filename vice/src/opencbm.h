@@ -99,7 +99,9 @@ extern void vdd_usleep(CBM_FILE f, unsigned int howlong);
 #ifdef HAVE_STDINT_H
 #include <stdint.h>
 #else
+#ifndef _INTTYPES_H
 typedef int intptr_t;
+#endif
 #endif
 
 # define EXTERN extern /*!< EXTERN is not defined on Linux */
@@ -126,6 +128,10 @@ typedef unsigned char __u_char;
 #endif
 
 #if (defined(sun) || defined(__sun)) && !(defined(__SVR4) || defined(__svr4__))
+typedef unsigned char __u_char;
+#endif
+
+#ifdef __osf__
 typedef unsigned char __u_char;
 #endif
 

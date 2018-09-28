@@ -46,11 +46,17 @@ static int cw_use_os4 = 0;
 
 #include "catweaselmkiii.h"
 #include "cw-amiga.h"
+
+#if !defined(USE_SDLUI) && !defined(USE_SDLUI2)
 #include "loadlibs.h"
+#else
+#include "archdep.h"
+#endif
+
 #include "types.h"
 
 /* read value from SIDs */
-int catweaselmkiii_drv_read(WORD addr, int chipno)
+int catweaselmkiii_drv_read(uint16_t addr, int chipno)
 {
     if (cw_use_device) {
         return cw_device_read(addr, chipno);
@@ -81,7 +87,7 @@ int catweaselmkiii_drv_read(WORD addr, int chipno)
 }
 
 /* write value into SID */
-void catweaselmkiii_drv_store(WORD addr, BYTE val, int chipno)
+void catweaselmkiii_drv_store(uint16_t addr, uint8_t val, int chipno)
 {
     if (cw_use_device) {
         cw_device_store(addr, val, chipno);

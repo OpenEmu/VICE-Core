@@ -136,12 +136,12 @@ void rs232drv_close(int fd)
     rs232_close(fd);
 }
 
-int rs232drv_putc(int fd, BYTE b)
+int rs232drv_putc(int fd, uint8_t b)
 {
     return rs232_putc(fd, b);
 }
 
-int rs232drv_getc(int fd, BYTE *b)
+int rs232drv_getc(int fd, uint8_t *b)
 {
     return rs232_getc(fd, b);
 }
@@ -180,12 +180,12 @@ void rs232drv_close(int fd)
 {
 }
 
-int rs232drv_putc(int fd, BYTE b)
+int rs232drv_putc(int fd, uint8_t b)
 {
     return -1;
 }
 
-int rs232drv_getc(int fd, BYTE *b)
+int rs232drv_getc(int fd, uint8_t *b)
 {
     return -1;
 }

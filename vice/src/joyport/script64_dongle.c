@@ -34,6 +34,9 @@
 #include "keyboard.h"
 #include "translate.h"
 
+#include "script64_dongle.h"
+
+
 /* Control port <--> Script 64 dongle connections:
 
    cport | resistor value to pin 5
@@ -58,12 +61,12 @@ static int joyport_script64_dongle_enable(int port, int value)
     return 0;
 }
 
-static BYTE script64_dongle_read_potx(void)
+static uint8_t script64_dongle_read_potx(void)
 {
     return POTX_RETURN;
 }
 
-static BYTE script64_dongle_read_poty(void)
+static uint8_t script64_dongle_read_poty(void)
 {
     return POTY_RETURN;
 }

@@ -32,10 +32,16 @@
 /* Expansion port signals.  */
 
 typedef struct {
-    BYTE ultimax_phi1; /* flag for vic-ii, ultimax mode in phi1 phase */
-    BYTE ultimax_phi2; /* flag for vic-ii, ultimax mode in phi2 phase */
+    uint8_t ultimax_phi1; /* flag for vic-ii, ultimax mode in phi1 phase */
+    uint8_t ultimax_phi2; /* flag for vic-ii, ultimax mode in phi2 phase */
 } export_t;
 
 extern export_t export;
+
+void cart_power_off(void);
+
+
+uint8_t *ultimax_romh_phi1_ptr(uint16_t addr);
+uint8_t *ultimax_romh_phi2_ptr(uint16_t addr);
 
 #endif

@@ -72,6 +72,7 @@ static tapeport_device_t tape_diag_586220_harness_device = {
     IDGS_TAPE_DIAG_586220_HARNESS,
     0,
     "TapeDiag586220Harness",
+    NULL, /* no shutdown */
     NULL,
     tape_diag_586220_harness_set_motor,
     tape_diag_586220_harness_toggle_write_bit,
@@ -89,22 +90,22 @@ static tapeport_device_list_t *tape_diag_586220_harness_list_item = NULL;
 
 static void tape_diag_586220_harness_set_motor(int flag)
 {
-    c64_diag_586220_store_tapeport(C64_DIAG_TAPEPORT_MOTOR, (BYTE)flag);
+    c64_diag_586220_store_tapeport(C64_DIAG_TAPEPORT_MOTOR, (uint8_t)flag);
 }
 
 static void tape_diag_586220_harness_toggle_write_bit(int write_bit)
 {
-    c64_diag_586220_store_tapeport(C64_DIAG_TAPEPORT_WRITE, (BYTE)write_bit);
+    c64_diag_586220_store_tapeport(C64_DIAG_TAPEPORT_WRITE, (uint8_t)write_bit);
 }
 
 static void tape_diag_586220_harness_set_sense_out(int sense)
 {
-    c64_diag_586220_store_tapeport(C64_DIAG_TAPEPORT_SENSE, (BYTE)sense);
+    c64_diag_586220_store_tapeport(C64_DIAG_TAPEPORT_SENSE, (uint8_t)sense);
 }
 
 static void tape_diag_586220_harness_set_read_out(int read)
 {
-    c64_diag_586220_store_tapeport(C64_DIAG_TAPEPORT_READ, (BYTE)read);
+    c64_diag_586220_store_tapeport(C64_DIAG_TAPEPORT_READ, (uint8_t)read);
 }
 
 /* ------------------------------------------------------------------------- */

@@ -39,6 +39,11 @@
 #include "mon_command.h"
 #include "asm.h"
 #include "montypes.h"
+
+#ifdef AMIGA_MORPHOS
+#undef REG_PC
+#endif
+
 #include "mon_parse.h" /* FIXME ! */
 #include "mon_util.h"
 #include "translate.h"
@@ -689,7 +694,14 @@ static const mon_cmds_t mon_cmd_array[] = {
       IDGS_MON_TAPECTRL_DESCRIPTION,
       NULL, NULL },
 
-    { NULL }
+    { "maincpu_trace", "",
+      USE_PARAM_STRING, USE_DESCRIPTION_ID,
+      "[on|off|toggle]", 1,
+      { IDGS_UNUSED, IDGS_UNUSED, IDGS_UNUSED, IDGS_UNUSED },
+      IDGS_MON_MAINCPU_TRACE_DESCRIPTION,
+      "[on|off|toggle]", NULL },
+
+    { NULL, NULL, 0, 0, NULL, 0, { 0, 0, 0, 0 }, 0, NULL, NULL }
 };
 
 int mon_get_nth_command(int index, const char** full_name, const char **short_name, int *takes_filename_as_arg)

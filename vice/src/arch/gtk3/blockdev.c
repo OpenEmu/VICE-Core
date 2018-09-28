@@ -1,10 +1,11 @@
+/** \file   blockdev.c
+ * \brief   Native GTK3 UI block device stuff
+ *
+ * \author  Marco van den Heuvel <blackystardust68@yahoo.com>
+ * \author  Bas Wassink <b.wassink@ziggo.nl>
+ */
+
 /*
- * blockdev.c - Native GTK3 UI block device stuff.
- *
- * Written by
- *  Marco van den Heuvel <blackystardust68@yahoo.com>
- *  Bas Wassink <b.wassink@ziggo.nl>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -28,10 +29,13 @@
 #include "vice.h"
 
 #include <stdio.h>
+#include <stdint.h>
 
 #include "not_implemented.h"
-
 #include "types.h"
+
+#include "blockdev.h"
+
 
 int blockdev_close(void)
 {
@@ -46,13 +50,13 @@ int blockdev_close(void)
 
 int blockdev_cmdline_options_init(void)
 {
-    /* NOP, just like arc/unix */
+    /* NOP, just like arch/unix */
     return 0;
 }
 
 void blockdev_init(void)
 {
-    /* NOP, just like arc/unix */
+    /* NOP, just like arch/unix */
 }
 
 int blockdev_open(const char *name, unsigned int *read_only)
@@ -65,7 +69,7 @@ int blockdev_open(const char *name, unsigned int *read_only)
 #endif
 }
 
-int blockdev_read_sector(BYTE *buf, unsigned int track, unsigned int sector)
+int blockdev_read_sector(uint8_t *buf, unsigned int track, unsigned int sector)
 {
 #ifdef UNIX_COMPILE
     NOT_IMPLEMENTED();
@@ -81,7 +85,7 @@ int blockdev_resources_init(void)
     return 0;
 }
 
-int blockdev_write_sector(const BYTE *buf, unsigned int track, unsigned int sector)
+int blockdev_write_sector(const uint8_t *buf, unsigned int track, unsigned int sector)
 {
 #ifdef UNIX_COMPILE
     NOT_IMPLEMENTED();
@@ -90,4 +94,3 @@ int blockdev_write_sector(const BYTE *buf, unsigned int track, unsigned int sect
     return -1;
 #endif
 }
-

@@ -1,9 +1,11 @@
+/** \file   archdep_unix.c
+ * \brief   Miscellaneous UNIX-specific stuff
+ *
+ * \author  Marco van den Heuvel <blackystardust68@yahoo.com>
+ * \author  Bas Wassink <b.wassink@ziggo.nl>
+ */
+
 /*
- * archdep_unix.c - Miscellaneous system-specific stuff.
- *
- * Written by
- *  Marco van den Heuvel <blackystardust68@yahoo.com>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -28,12 +30,15 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <errno.h>
 #include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include <glib.h>
 
 #include "ioutil.h"
 #include "lib.h"
-#include "platform.h"
 #include "util.h"
 
 #include "not_implemented.h"
@@ -54,6 +59,11 @@
 static const gchar *path_separator = "/";
 
 
+/** \brief  Tokens that are illegal in a path/filename
+ */
+static const char *illegal_name_tokens = "/";
+
+
 
 /** \brief  String containing search paths
  *
@@ -61,6 +71,11 @@ static const gchar *path_separator = "/";
  * deallocated in archdep_shutdown().
  */
 static char *default_path = NULL;
+
+
+/** \brief  Path to the binary
+ */
+static char *boot_path_bin = NULL;
 
 
 /** \brief  Write log message to stdout
@@ -81,10 +96,57 @@ int archdep_default_logger(const char *level_string, const char *txt)
 }
 
 
+/** \brief  Generate path to vicerc
+ *
+ * The value returned needs to be freed using lib_free()
+ *
+ * \return  absolute path to vice.ini
+ */
+char *archdep_default_resource_file_name(void)
+{
+    char *cfg;
+    gchar *tmp;
+    char *path;
+
+    cfg = archdep_user_config_path();
+    tmp = g_build_path(path_separator, cfg, "vicerc", NULL);
+    /* transfer ownership to VICE */
+    path = lib_stralloc(tmp);
+    g_free(tmp);
+    lib_free(cfg);
+    return path;
+}
+
+
+/** \brief  Get default settings file name
+ *
+ * \return  path to default settings file
+ */
 char *archdep_default_save_resource_file_name(void)
 {
-    NOT_IMPLEMENTED();
-    return NULL;
+    char *fname;
+    const char *home;
+    const char *viceuserdir;
+
+    if (archdep_pref_path == NULL) {
+        home = archdep_home_path();
+        /* XDG spec */
+        viceuserdir = util_concat(home, "/.config/vice", NULL);
+    } else {
+        viceuserdir = archdep_pref_path;
+    }
+
+    if (access(viceuserdir, F_OK) != 0) {
+        mkdir(viceuserdir, 0700);
+    }
+
+    fname = util_concat(viceuserdir, "/vicerc", NULL);
+
+    if (archdep_pref_path == NULL) {
+        lib_free(viceuserdir);
+    }
+
+    return fname;
 }
 
 
@@ -96,70 +158,51 @@ char *archdep_default_save_resource_file_name(void)
  */
 char *archdep_default_sysfile_pathlist(const char *emu_id)
 {
-#ifdef MINIX_SUPPORT
-    static char *default_path_temp;
-#endif
-
     if (default_path == NULL) {
         const char *boot_path;
-        const char *home_path;
+        const char *config_path;
 
         boot_path = archdep_boot_path();
-        home_path = archdep_user_config_path();
+        config_path = archdep_user_config_path();
 
-        /* First search in the `LIBDIR' then the $HOME/.vice/ dir (home_path)
+        /* First search in the `LIBDIR' then the $HOME/.config/vice/ dir (config_path)
            and then in the `boot_path'.  */
 
-#ifdef MINIX_SUPPORT
-        default_path_temp = util_concat(
-                LIBDIR, "/", emu_id, ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                home_path, "/", VICEUSERDIR, "/", emu_id,NULL);
-
-        default_path = util_concat(
-                default_path_temp, ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                boot_path, "/", emu_id, ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                LIBDIR, "/DRIVES", ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                home_path, "/", VICEUSERDIR, "/DRIVES", ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                boot_path, "/DRIVES", ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                LIBDIR, "/PRINTER", ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                home_path, "/", VICEUSERDIR, "/PRINTER", ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                boot_path, "/PRINTER", NULL);
-        lib_free(default_path_temp);
-
-#else
-# if defined(MACOSX_BUNDLE)
+#if defined(MACOSX_BUNDLE)
         /* Mac OS X Bundles keep their ROMS in Resources/bin/../ROM */
-#  if defined(MACOSX_COCOA)
-#   define MACOSX_ROMDIR "/../Resources/ROM/"
-#  else
-#   define MACOSX_ROMDIR "/../ROM/"
-#  endif
+# if defined(MACOSX_COCOA)
+#  define MACOSX_ROMDIR "/../Resources/ROM/"
+# else
+#  define MACOSX_ROMDIR "/../ROM/"
+# endif
         default_path = util_concat(
                 boot_path, MACOSX_ROMDIR, emu_id, ARCHDEP_FINDPATH_SEPARATOR_STRING,
                 boot_path, "/", emu_id, ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                home_path, "/", VICEUSERDIR, "/", emu_id, ARCHDEP_FINDPATH_SEPARATOR_STRING,
+                config_path, "/", emu_id, ARCHDEP_FINDPATH_SEPARATOR_STRING,
                 boot_path, MACOSX_ROMDIR, "DRIVES", ARCHDEP_FINDPATH_SEPARATOR_STRING,
                 boot_path, "/DRIVES", ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                home_path, "/", VICEUSERDIR, "/DRIVES", ARCHDEP_FINDPATH_SEPARATOR_STRING,
+                config_path, "/DRIVES", ARCHDEP_FINDPATH_SEPARATOR_STRING,
                 boot_path, MACOSX_ROMDIR, "PRINTER", ARCHDEP_FINDPATH_SEPARATOR_STRING,
                 boot_path, "/PRINTER", ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                home_path, "/", VICEUSERDIR, "/PRINTER", NULL);
-# else
+                config_path, "/PRINTER", NULL);
+#else
         default_path = util_concat(
                 LIBDIR, "/", emu_id, ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                home_path, "/", VICEUSERDIR, "/", emu_id, ARCHDEP_FINDPATH_SEPARATOR_STRING,
+                config_path, "/", emu_id, ARCHDEP_FINDPATH_SEPARATOR_STRING,
                 boot_path, "/", emu_id, ARCHDEP_FINDPATH_SEPARATOR_STRING,
                 LIBDIR, "/DRIVES", ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                home_path, "/", VICEUSERDIR, "/DRIVES", ARCHDEP_FINDPATH_SEPARATOR_STRING,
+                config_path, "/DRIVES", ARCHDEP_FINDPATH_SEPARATOR_STRING,
                 boot_path, "/DRIVES", ARCHDEP_FINDPATH_SEPARATOR_STRING,
                 LIBDIR, "/PRINTER", ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                home_path, "/", VICEUSERDIR, "/PRINTER", ARCHDEP_FINDPATH_SEPARATOR_STRING,
+                config_path, "/PRINTER", ARCHDEP_FINDPATH_SEPARATOR_STRING,
                 boot_path, "/PRINTER", NULL);
-# endif
 #endif
+        lib_free(config_path);
     }
 
-    return default_path;
+    /* We allocate a fresh string here because sysfile.c, among other
+     * places, takes ownership of the result. */
+    return lib_stralloc(default_path);
 }
 
 
@@ -192,114 +235,148 @@ int archdep_expand_path(char **return_path, const char *orig_name)
 }
 
 
-char *archdep_filename_parameter(const char *name)
-{
-    NOT_IMPLEMENTED();
-    return NULL;
-}
-
-int archdep_file_is_gzip(const char *name)
-{
-    NOT_IMPLEMENTED();
-    return 0;
-}
-
-int archdep_file_set_gzip(const char *name)
-{
-    NOT_IMPLEMENTED();
-    return 0;
-}
-
-
-/** \brief  Determine OS during runtime
+/** \brief  Get the absolute path to the VICE dir
  *
- * \return  OS name
+ * \return  Path to VICE's directory
  */
-char *archdep_get_runtime_os(void)
+const char *archdep_boot_path(void)
 {
-/* TODO: add runtime os detection code for other *nix os'es */
-#ifndef RUNTIME_OS_CALL
-    return "*nix";
-#else
-    return RUNTIME_OS_CALL();
-#endif
+    char *sep;
+
+    if (boot_path_bin == NULL) {
+        boot_path_bin = findpath(argv0, getenv("PATH"), IOUTIL_ACCESS_X_OK);
+
+        /* Remove the program name.  */
+        sep = strrchr(boot_path_bin, '/');
+        if (sep != NULL) {
+           *sep = '\0';
+        }
+    }
+
+    return boot_path_bin;
 }
-
-
-/** \brief  Determine CPU type during runtime
- *
- * \return  CPU name
- */
-char *archdep_get_runtime_cpu(void)
-{
-/* TODO: add runtime cpu detection code for other cpu's */
-#ifndef RUNTIME_CPU_CALL
-    return "Unknown CPU";
-#else
-    return RUNTIME_CPU_CALL();
-#endif
-}
-
 
 char *archdep_make_backup_filename(const char *fname)
 {
-    NOT_IMPLEMENTED();
-    return 0;
+    return util_concat(fname, "~", NULL);
 }
 
-int archdep_mkdir(const char *pathname, int mode)
-{
-    NOT_IMPLEMENTED();
-    return 0;
-}
-
-FILE *archdep_mkstemp_fd(char **filename, const char *mode)
-{
-    NOT_IMPLEMENTED();
-    return NULL;
-}
-
-char *archdep_quote_parameter(const char *name)
-{
-    NOT_IMPLEMENTED();
-    return NULL;
-}
-
-int archdep_rename(const char *oldpath, const char *newpath)
-{
-    NOT_IMPLEMENTED();
-    return 0;
-}
 
 void archdep_shutdown(void)
 {
     if (default_path != NULL) {
         lib_free(default_path);
     }
+    if (argv0 != NULL) {
+        lib_free(argv0);
+        argv0 = NULL;
+    }
+
+    if (boot_path_bin != NULL) {
+        lib_free(boot_path_bin);
+        boot_path_bin = NULL;
+    }
+    if (program_name != NULL) {
+        lib_free(program_name);
+        program_name = NULL;
+    }
 
     archdep_network_shutdown();
 
     /* partially implemented */
-    NOT_IMPLEMENTED();
+    INCOMPLETE_IMPLEMENTATION();
 }
 
-int archdep_spawn(const char *name, char **argv, char **pstdout_redir, const char *stderr_redir)
+int archdep_spawn(const char *name, char **argv,
+                  char **pstdout_redir, const char *stderr_redir)
 {
-    NOT_IMPLEMENTED();
-    return 0;
+    pid_t child_pid;
+    int child_status;
+    char *stdout_redir;
+
+
+    if (pstdout_redir != NULL) {
+        if (*pstdout_redir == NULL) {
+            *pstdout_redir = archdep_tmpnam();
+        }
+        stdout_redir = *pstdout_redir;
+    } else {
+        stdout_redir = NULL;
+    }
+
+    child_pid = vfork();
+    if (child_pid < 0) {
+        log_error(LOG_DEFAULT, "vfork() failed: %s.", strerror(errno));
+        return -1;
+    } else {
+        if (child_pid == 0) {
+            if (stdout_redir && freopen(stdout_redir, "w", stdout) == NULL) {
+                log_error(LOG_DEFAULT, "freopen(\"%s\") failed: %s.", stdout_redir, strerror(errno));
+                _exit(-1);
+            }
+            if (stderr_redir && freopen(stderr_redir, "w", stderr) == NULL) {
+                log_error(LOG_DEFAULT, "freopen(\"%s\") failed: %s.", stderr_redir, strerror(errno));
+                _exit(-1);
+            }
+            execvp(name, argv);
+            _exit(-1);
+        }
+    }
+
+    if (waitpid(child_pid, &child_status, 0) != child_pid) {
+        log_error(LOG_DEFAULT, "waitpid() failed: %s", strerror(errno));
+        return -1;
+    }
+
+    if (WIFEXITED(child_status)) {
+        return WEXITSTATUS(child_status);
+    } else {
+        return -1;
+    }
 }
 
-void archdep_startup_log_error(const char *format, ...)
-{
-    NOT_IMPLEMENTED();
-}
+/* for when I figure this out: */
+#if 0
+    char *stdout_redir;
+    gboolean result;
+    GPid child_pid;
+    GError *err;
+
+    if (pstdout_redir != NULL) {
+        if (*pstdout_redir == NULL) {
+            *pstdout_redir = archdep_tmpnam();
+        }
+        stdout_redir = *pstdout_redir;
+    } else {
+        stdout_redir = NULL;
+    }
+
+    result = g_spawn_async(NULL,        /* working_directory, NULL = inherit */
+                           argv,        /* argv */
+                           NULL,        /* envp, NULL = inherit */
+                           G_SPAWN_DEFAULT,   /* flags */
+                           NULL,        /* child_setup */
+                           NULL,        /* user_data */
+                           &child_pid,  /* child PID object */
+                           &err);
+#endif
+
 
 int archdep_stat(const char *file_name, unsigned int *len, unsigned int *isdir)
 {
-    NOT_IMPLEMENTED();
+    struct stat statbuf;
+
+    if (stat(file_name, &statbuf) < 0) {
+        *len = 0;
+        *isdir = 0;
+        return -1;
+    }
+
+    *len = statbuf.st_size;
+    *isdir = S_ISDIR(statbuf.st_mode);
+
     return 0;
 }
-
 
 /** \brief  Create a unique temporary filename
  *
@@ -351,19 +428,31 @@ void archdep_signals_pipe_unset(void)
 
 char *archdep_default_rtc_file_name(void)
 {
-    NOT_IMPLEMENTED();
-    return NULL;
+    if (archdep_pref_path == NULL) {
+        /* XDG-spec path */
+        return util_concat(archdep_home_path(), "/.config/vice/vice.rtc", NULL);
+    } else {
+        return util_concat(archdep_pref_path, "/vice-rtc", NULL);
+    }
 }
 
 int archdep_file_is_chardev(const char *name)
 {
-    NOT_IMPLEMENTED();
+    INCOMPLETE_IMPLEMENTATION();
     return 0;
 }
 
 int archdep_file_is_blockdev(const char *name)
 {
-    NOT_IMPLEMENTED();
+    struct stat buf;
+
+    if (stat(name, &buf) != 0) {
+        return 0;
+    }
+
+    if (S_ISBLK(buf.st_mode)) {
+        return 1;
+    }
     return 0;
 }
 

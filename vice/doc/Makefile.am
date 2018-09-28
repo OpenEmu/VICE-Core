@@ -10,11 +10,13 @@ MISC_DOX = \
 	coding-guidelines.txt \
 	Documentation-Howto.txt \
 	Doxygen-Howto.txt \
+	ffmpeg-support.txt \
 	hardware-sids.txt \
 	iec-bus.txt \
 	MacOSX-ResourceTree.txt \
 	NLS-Howto.txt \
 	ports-status.txt \
+	SDL-support.txt \
 	WinNT-Unicode.txt
 
 TEXI_TOOLS = \
@@ -58,13 +60,13 @@ AM_MAKEINFOFLAGS = --no-split
 $(builddir)/vice.txt:		$(srcdir)/vice.texi
 	touch vicetmp.txt
 	LANG=C $(MAKEINFO) -D$(PLATFORM_DOX_FLAGS) -o vicetmp.txt --no-headers $(srcdir)/vice.texi
-	$(srcdir)/fixdox.sh txt <vicetmp.txt | sed 's/ \+$$//' >$(builddir)/vice.txt
+	$(srcdir)/fixdox.sh txt <vicetmp.txt | LANG=C sed 's/ \+$$//' >$(builddir)/vice.txt
 	rm -f vicetmp.txt
 
 $(builddir)/vice.pdf:	$(srcdir)/vice.texi
 if BUILD_PDF
-	sed 's/@heading NO WARRANTY/@center NO WARRANTY/g' <$(srcdir)/vice.texi >vicepdf.texi
-	$(TEXI2DVI) -q --clean --pdf "--texinfo=@set $(PLATFORM_DOX_FLAGS) " -o $(builddir)/vice.pdf vicepdf.texi
+	LANG=C sed 's/@heading NO WARRANTY/@center NO WARRANTY/g' <$(srcdir)/vice.texi >vicepdf.texi
+	LANG=C $(TEXI2DVI) -q --clean --pdf "--texinfo=@set $(PLATFORM_DOX_FLAGS) " -o $(builddir)/vice.pdf vicepdf.texi
 	rm -f vicepdf.texi
 
 PDF_DEPS=$(builddir)/vice.pdf

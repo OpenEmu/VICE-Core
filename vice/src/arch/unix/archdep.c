@@ -59,7 +59,6 @@
 #include "lib.h"
 #include "log.h"
 #include "machine.h"
-#include "platform.h"
 #include "ui.h"
 #include "util.h"
 
@@ -79,6 +78,12 @@
 #endif
 #endif
 
+
+/** \brief  Tokens that are illegal in a path/filename
+ */
+static const char *illegal_name_tokens = "/";
+
+
 static char *argv0 = NULL;
 static char *boot_path = NULL;
 
@@ -89,7 +94,6 @@ int archdep_init(int *argc, char **argv)
 {
     argv0 = lib_stralloc(argv[0]);
     log_verbose_init(*argc, argv);
-    archdep_ui_init(*argc, argv);
     return 0;
 }
 
@@ -409,7 +413,7 @@ int archdep_expand_path(char **return_path, const char *orig_name)
     } else if (*orig_name == '~' && *(orig_name +1) == '/') {
         *return_path = util_concat(archdep_home_path(), orig_name + 1, NULL);
     } else {
-        static char *cwd;
+        char *cwd;
 
         cwd = ioutil_current_dir();
         *return_path = util_concat(cwd, "/", orig_name, NULL);
@@ -417,6 +421,27 @@ int archdep_expand_path(char **return_path, const char *orig_name)
     }
     return 0;
 }
+
+
+/** \brief  Sanitize \a name by removing invalid characters for the current OS
+ *
+ * \param[in,out]   name    0-terminated string
+ */
+void archdep_sanitize_filename(char *name)
+{
+    while (*name != '\0') {
+        int i = 0;
+        while (illegal_name_tokens[i] != '\0') {
+            if (illegal_name_tokens[i] == *name) {
+                *name = '_';
+                break;
+            }
+            i++;
+        }
+        name++;
+    }
+}
+
 
 void archdep_startup_log_error(const char *format, ...)
 {
@@ -546,20 +571,6 @@ FILE *archdep_mkstemp_fd(char **filename, const char *mode)
 #endif
 }
 
-int archdep_file_is_gzip(const char *name)
-{
-    size_t l = strlen(name);
-
-    if ((l < 4 || strcasecmp(name + l - 3, ".gz")) && (l < 3 || strcasecmp(name + l - 2, ".z")) && (l < 4 || util_toupper(name[l - 1]) != 'Z' || name[l - 4] != '.')) {
-        return 0;
-    }
-    return 1;
-}
-
-int archdep_file_set_gzip(const char *name)
-{
-    return 0;
-}
 
 /* called by ioutil_mkdir, modes defined in ioutil.h */
 int archdep_mkdir(const char *pathname, int mode)
@@ -569,6 +580,15 @@ int archdep_mkdir(const char *pathname, int mode)
 #else
     return mkdir(pathname, mode);
 #endif
+}
+
+/** \brief  Remove directory \a pathname
+ *
+ * \return  0 on success, -1 on failure
+ */
+int archdep_rmdir(const char *pathname)
+{
+    return rmdir(pathname);
 }
 
 int archdep_stat(const char *file_name, unsigned int *len, unsigned int *isdir)
@@ -641,22 +661,7 @@ void archdep_shutdown(void)
     archdep_network_shutdown();
 }
 
-char *archdep_get_runtime_os(void)
+char *archdep_extra_title_text(void)
 {
-/* TODO: add runtime os detection code for other *nix os'es */
-#ifndef RUNTIME_OS_CALL
-    return "*nix";
-#else
-    return RUNTIME_OS_CALL();
-#endif
-}
-
-char *archdep_get_runtime_cpu(void)
-{
-/* TODO: add runtime cpu detection code for other cpu's */
-#ifndef RUNTIME_CPU_CALL
-    return "Unknown CPU";
-#else
-    return RUNTIME_CPU_CALL();
-#endif
+    return NULL;
 }

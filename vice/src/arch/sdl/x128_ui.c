@@ -1,10 +1,11 @@
+/** \file   x128_ui.c
+ * \brief   Implementation of the C128-specific part of the UI.
+ *
+ * \author  Hannu Nuotio <hannu.nuotio@tut.fi>
+ * \author  arco van den Heuvel <blackystardust68@yahoo.com>
+ */
+
 /*
- * x128_ui.c - Implementation of the C128-specific part of the UI.
- *
- * Written by
- *  Hannu Nuotio <hannu.nuotio@tut.fi>
- *  Marco van den Heuvel <blackystardust68@yahoo.com>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -32,12 +33,14 @@
 
 #include "debug.h"
 #include "c128mem.h"
+#include "c128ui.h"
 #include "menu_c128hw.h"
 #include "menu_c64_common_expansions.h"
 #include "menu_c64cart.h"
 #include "menu_common.h"
 #include "menu_debug.h"
 #include "menu_drive.h"
+#include "menu_edit.h"
 #include "menu_ethernet.h"
 #include "menu_ethernetcart.h"
 #include "menu_ffmpeg.h"
@@ -129,8 +132,12 @@ static const ui_menu_entry_t x128_main_menu[] = {
       (ui_callback_data_t)network_menu },
 #endif
     { "Pause",
-      MENU_ENTRY_OTHER,
+      MENU_ENTRY_OTHER_TOGGLE,
       pause_callback,
+      NULL },
+    { "Advance Frame",
+      MENU_ENTRY_OTHER,
+      advance_frame_callback,
       NULL },
     { "Monitor",
       MENU_ENTRY_SUBMENU,
@@ -141,7 +148,7 @@ static const ui_menu_entry_t x128_main_menu[] = {
       vkbd_callback,
       NULL },
     { "Statusbar",
-      MENU_ENTRY_OTHER,
+      MENU_ENTRY_OTHER_TOGGLE,
       statusbar_callback,
       NULL },
 #ifdef DEBUG
@@ -158,6 +165,12 @@ static const ui_menu_entry_t x128_main_menu[] = {
       MENU_ENTRY_SUBMENU,
       submenu_callback,
       (ui_callback_data_t)settings_manager_menu },
+#ifdef USE_SDLUI2
+    { "Edit",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)edit_menu },
+#endif
     { "Quit emulator",
       MENU_ENTRY_OTHER,
       quit_callback,
@@ -165,14 +178,30 @@ static const ui_menu_entry_t x128_main_menu[] = {
     SDL_MENU_LIST_END
 };
 
-void c128ui_set_menu_params(int index, menu_draw_t *menu_draw)
+static void c128ui_set_menu_params(int index, menu_draw_t *menu_draw)
 {
-    if (index == 0) { /* VICII */
+    if (index == 0) {
+        /* VICII */
         menu_draw->max_text_x = 40;
-        menu_draw->color_front = 1;
-    } else {         /* VDC */
+        menu_draw->color_front = menu_draw->color_default_front = 1;
+        menu_draw->color_back = menu_draw->color_default_back = 0;
+        menu_draw->color_cursor_back = 6;
+        menu_draw->color_cursor_revers = 0;
+        menu_draw->color_active_green = 13;
+        menu_draw->color_inactive_red = 2;
+        menu_draw->color_active_grey = 15;
+        menu_draw->color_inactive_grey = 11;
+    } else {
+        /* VDC */
         menu_draw->max_text_x = 80;
-        menu_draw->color_front = 15;
+        menu_draw->color_front = menu_draw->color_default_front = 15;
+        menu_draw->color_back = menu_draw->color_default_back = 0;
+        menu_draw->color_cursor_back = 2;
+        menu_draw->color_cursor_revers = 0;
+        menu_draw->color_active_green = 4;
+        menu_draw->color_inactive_red = 8;
+        menu_draw->color_active_grey = 13;
+        menu_draw->color_inactive_grey = 9;
     }
 }
 
@@ -183,7 +212,7 @@ int c128ui_init(void)
 #ifdef SDL_DEBUG
     fprintf(stderr, "%s\n", __func__);
 #endif
-    resources_get_int("40/80ColumnKey", &columns_key);
+    resources_get_int("C128ColumnKey", &columns_key);
     sdl_video_canvas_switch(columns_key ^ 1);
 
     sdl_ui_set_menu_params = c128ui_set_menu_params;
@@ -222,7 +251,7 @@ void c128ui_shutdown(void)
     sdl_menu_midi_out_free();
 #endif
 
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
     sdl_menu_ethernet_interface_free();
 #endif
 

@@ -1,5 +1,5 @@
 Name:		vice
-Version:	3.1
+Version:	3.2
 Release:	1%{?dist}
 Summary:	Versatile Commodore 8-bit Emulator
 Vendor:		VICE Team
@@ -14,7 +14,7 @@ BuildRequires:	alsa-lib-devel ffmpeg-devel gettext-devel giflib-devel gtk2-devel
 
 
 %description
-This is version 3.1 of VICE, the multi-platform C64, C128, VIC20,
+This is version 3.2 of VICE, the multi-platform C64, C128, VIC20,
 PET, PLUS4, CBM-II and C64DTV emulator.
 
 

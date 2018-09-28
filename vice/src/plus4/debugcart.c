@@ -36,12 +36,14 @@
 #include "machine.h"
 #include "maincpu.h"
 
+#include "debugcart.h"
+
 static int debugcart_enabled = 0;
 
 /* ------------------------------------------------------------------------- */
 
 /* a prototype is needed */
-static void debugcart_store(WORD addr, BYTE value);
+static void debugcart_store(uint16_t addr, uint8_t value);
 
 static io_source_t debugcart_device = {
     CARTRIDGE_NAME_DEBUGCART,
@@ -66,11 +68,10 @@ static io_source_list_t *debugcart_list_item = NULL;
 
 /* ------------------------------------------------------------------------- */
 
-static void debugcart_store(WORD addr, BYTE value)
+static void debugcart_store(uint16_t addr, uint8_t value)
 {
     int n = (int)value;
-    /* FIXME: perhaps print a timestamp too */
-    fprintf(stdout, "DBGCART: exit(%d)\n", n);
+    fprintf(stdout, "DBGCART: exit(%d) cycles elapsed: %d\n", n, maincpu_clk);
     exit(n);
 }
 

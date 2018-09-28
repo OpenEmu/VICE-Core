@@ -55,6 +55,7 @@
 #include "kbdbuf.h"
 #include "keyboard.h"
 #include "lib.h"
+#include "lightpen.h"
 #include "log.h"
 #include "machine.h"
 #include "maincpu.h"
@@ -151,10 +152,10 @@ static const ui_menu_grey_function_t grayed_list_function[] = {
 
 /* List of resources that can be grayed out from the menus.  */
 static const ui_menu_toggle_t grayed_list_res[] = {
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
     { "ETHERNET_DISABLED", IDM_ETHERNET_SETTINGS },
     { "ETHERNET_DISABLED", IDM_ETHERNETCART_SETTINGS },
-#endif /* #ifdef HAVE_PCAP */
+#endif /* #ifdef HAVE_RAWNET */
     { NULL, 0 }
 };
 
@@ -690,7 +691,7 @@ void ui_make_resizable(video_canvas_t *canvas, int enable)
         SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
 }
 
-void ui_handle_aspect_ratio(int window_index, WPARAM wparam, LPARAM lparam)
+static void ui_handle_aspect_ratio(int window_index, WPARAM wparam, LPARAM lparam)
 {
     int keep_aspect_ratio, true_aspect_ratio;
     int aspect_ratio;
@@ -1152,7 +1153,7 @@ int ui_extend_image_dialog(void)
 /* ------------------------------------------------------------------------- */
 static int is_paused = 0;
 
-static void pause_trap(WORD addr, void *data)
+static void pause_trap(uint16_t addr, void *data)
 {
     ui_display_paused(1);
     vsync_suspend_speed_eval();
@@ -1351,7 +1352,7 @@ void ui_display_event_time(unsigned int current, unsigned int total)
 static BYTE ui_new_joyport[3] = { 0, 0, 0 };
 static BYTE ui_old_joyport[3] = { 0, 0, 0 };
 
-void ui_display_joyport(BYTE *joyport)
+void ui_display_joyport(uint8_t *joyport)
 {
     ui_new_joyport[1] = joyport[1];
     ui_new_joyport[2] = joyport[2];
@@ -2193,7 +2194,7 @@ static LRESULT CALLBACK window_proc(HWND window, UINT msg, WPARAM wparam, LPARAM
         case WM_RBUTTONDOWN:
             if (_mouse_enabled) {
                 mousedrv_button_right(1);
-            } else {
+            } else if (!lightpen_enabled) {
                 ui_paste_clipboard_text(window);
             }
             break;
@@ -2214,7 +2215,7 @@ static LRESULT CALLBACK window_proc(HWND window, UINT msg, WPARAM wparam, LPARAM
             break;
 #else
         case WM_RBUTTONDOWN:
-            if (!_mouse_enabled) {
+            if (!_mouse_enabled && !lightpen_enabled) {
                 ui_paste_clipboard_text(window);
             }
             break;

@@ -34,7 +34,13 @@
 #include <string.h>
 
 #include "hardsid.h"
+
+#if !defined(USE_SDLUI) && !defined(USE_SDLUI2)
 #include "loadlibs.h"
+#else
+#include "archdep.h"
+#endif
+
 #include "log.h"
 #include "types.h"
 
@@ -44,13 +50,13 @@ static int sids_found = -1;
 
 static int hssids[MAXSID] = {-1, -1, -1, -1};
 
-static unsigned char read_sid(unsigned char reg, int chipno); // Read a SID register
-static void write_sid(unsigned char reg, unsigned char data, int chipno); // Write a SID register
+static unsigned char read_sid(unsigned char reg, int chipno); /* Read a SID register */
+static void write_sid(unsigned char reg, unsigned char data, int chipno); /* Write a SID register */
 
 static unsigned char *HSbase = NULL;
 
 /* read value from SIDs */
-int hs_openpci_read(WORD addr, int chipno)
+int hs_openpci_read(uint16_t addr, int chipno)
 {
     /* check if chipno and addr is valid */
     if (chipno < MAXSID && hssids[chipno] != -1 && addr < 0x20) {
@@ -61,7 +67,7 @@ int hs_openpci_read(WORD addr, int chipno)
 }
 
 /* write value into SID */
-void hs_openpci_store(WORD addr, BYTE val, int chipno)
+void hs_openpci_store(uint16_t addr, uint8_t val, int chipno)
 {
     /* check if chipno and addr is valid */
     if (chipno < MAXSID && hssids[chipno] != -1 && addr < 0x20) {
@@ -156,7 +162,7 @@ int hs_openpci_open(void)
     }
 
 #if defined(pci_obtain_card) && defined(pci_release_card)
-    // Lock the device, since we're a driver
+    /* Lock the device, since we're a driver */
     HSLock = pci_obtain_card(dev);
     if (!HSLock) {
         log_message(LOG_DEFAULT, "Unable to lock the HardSID. Another driver may have an exclusive lock." );
@@ -166,7 +172,7 @@ int hs_openpci_open(void)
 
     HSbase = (char *)dev->base_address[0];
 
-    // Reset the hardsid PCI interface (as per hardsid linux driver)
+    /* Reset the hardsid PCI interface (as per hardsid linux driver) */
     pci_outb(0xff, HSbase + 0x00);
     pci_outb(0x00, HSbase + 0x02);
     usleep(100);

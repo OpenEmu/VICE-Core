@@ -54,6 +54,9 @@
 #include "types.h"
 #include "debug.h"
 
+#define COMPILING_LIB_DOT_C
+#include "lib.h"
+
 #if (defined(sun) || defined(__sun)) && !(defined(__SVR4) || defined(__svr4__))
 #  ifndef RAND_MAX
 #    define RAND_MAX 32767
@@ -362,7 +365,7 @@ static void lib_debug_libc_free(void *ptr)
         } else {
             free(ptr);
         }
-    } 
+    }
 #ifdef LIB_DEBUG_WARN_FREE_NULL
     else {
 #ifdef LIB_DEBUG_PINPOINT
@@ -439,7 +442,7 @@ void *lib_debug_leaklist_bt_caller[LIB_DEBUG_LEAKLIST_MAX][DEBUG_BT_MAXDEPTH];
 int lib_debug_leaklist_bt_numcaller[LIB_DEBUG_LEAKLIST_MAX];
 #endif
 
-void lib_debug_leaklist_add(unsigned int index)
+static void lib_debug_leaklist_add(unsigned int index)
 {
     unsigned int i;
 #ifdef LIB_DEBUG_CALLER
@@ -506,7 +509,7 @@ void lib_debug_check(void)
     printf("\n");
     for (index = 0; index < lib_debug_leaklist_num; index++) {
         printf("%s:%d: Warning: Memory block(s) allocated here was not free'd (Memory leak with size 0x%x at %p).",
-               lib_debug_leaklist_filename[index], lib_debug_leaklist_line[index], 
+               lib_debug_leaklist_filename[index], lib_debug_leaklist_line[index],
                lib_debug_leaklist_size[index], lib_debug_leaklist_address[index]);
 #ifdef LIB_DEBUG_CALLER
         printf("\ncallstack:\n");
@@ -554,6 +557,9 @@ void lib_debug_check(void)
 
 /*----------------------------------------------------------------------------*/
 /* like malloc, but abort on out of memory. */
+#ifdef LIB_DEBUG_PINPOINT
+static
+#endif
 void *lib_malloc(size_t size)
 {
 #ifdef LIB_DEBUG
@@ -638,6 +644,9 @@ void *lib_AllocMem(unsigned long size, unsigned long attributes)
 #endif
 
 /* Like calloc, but abort if not enough memory is available.  */
+#ifdef LIB_DEBUG_PINPOINT
+static
+#endif
 void *lib_calloc(size_t nmemb, size_t size)
 {
 #ifdef LIB_DEBUG
@@ -660,6 +669,9 @@ void *lib_calloc(size_t nmemb, size_t size)
 }
 
 /* Like realloc, but abort if not enough memory is available.  */
+#ifdef LIB_DEBUG_PINPOINT
+static
+#endif
 void *lib_realloc(void *ptr, size_t size)
 {
 #ifdef LIB_DEBUG
@@ -682,6 +694,10 @@ void *lib_realloc(void *ptr, size_t size)
     return new_ptr;
 }
 
+
+#ifdef LIB_DEBUG_PINPOINT
+static
+#endif
 void lib_free(const void *constptr)
 {
     void * ptr = (void*) constptr;
@@ -722,6 +738,9 @@ void lib_FreeMem(void *ptr, unsigned long size)
 
 /* Malloc enough space for `str', copy `str' into it and return its
    address.  */
+#ifdef LIB_DEBUG_PINPOINT
+static
+#endif
 char *lib_stralloc(const char *str)
 {
     size_t size;

@@ -11,7 +11,7 @@ dnl Command-line options
 VICE_ARG_INIT()
 
 VICE_VERSION_MAJOR=3
-VICE_VERSION_MINOR=1
+VICE_VERSION_MINOR=2
 VICE_VERSION_BUILD=0
 
 dnl Miminum required version of yasm to build static/shared ffmpeg
@@ -39,7 +39,6 @@ VICE_ARG_WITH_LIST(uithreads,     [  --with-uithreads        enables multi threa
 VICE_ARG_ENABLE_LIST(textfield,   [  --disable-textfield     disable enhanced text field widget])
 VICE_ARG_ENABLE_LIST(fullscreen,  [  --disable-fullscreen    disable XFree86 fullscreen detection])
 VICE_ARG_ENABLE_LIST(gnomeui,     [  --enable-gnomeui        enables GNOME UI with GTK2 support])
-VICE_ARG_ENABLE_LIST(gnomeui3,    [  --enable-gnomeui3       enables GNOME UI with GTK3 support])
 VICE_ARG_ENABLE_LIST(sdlui,       [  --enable-sdlui          enables SDL UI support])
 VICE_ARG_ENABLE_LIST(sdlui2,      [  --enable-sdlui2         enables SDL2 UI support])
 VICE_ARG_ENABLE_LIST(native-gtk3ui,[  --enable-native-gtk3ui  enables WIP native GTK3 UI support])
@@ -170,7 +169,7 @@ fi
 AC_SUBST(VICE_VERSION)
 
 AM_INIT_AUTOMAKE(vice, $VICE_VERSION)
-AM_CONFIG_HEADER(src/config.h)
+AC_CONFIG_HEADERS(src/config.h)
 
 if test x"$VICE_VERSION_BUILD" = "x" -o x"$VICE_VERSION_BUILD" = "x0" ; then
   VERSION_RC=$VICE_VERSION_MAJOR","$VICE_VERSION_MINOR",0,0"
@@ -190,6 +189,7 @@ is_unix_macosx=no
 is_dos=no
 is_win32=no
 is_win32_x11=no
+is_win32_gtk3=no
 is_os2=no
 is_beos=no
 is_amiga=no
@@ -267,7 +267,7 @@ HAVE_RS232DEV_SUPPORT="no "
 HAVE_NETWORK_SUPPORT="no "
 HAVE_RS232NET_SUPPORT="no "
 HAVE_IPV6_SUPPORT="no "
-HAVE_PCAP_SUPPORT="no "
+HAVE_RAWNET_SUPPORT="no "
 
 HAVE_RAWDRIVE_SUPPORT="no "
 HAVE_OPENCBM_SUPPORT="no "
@@ -326,6 +326,13 @@ fi
 user_cflags=$CFLAGS
 AC_PROG_CC([gcc clang cc])
 AC_LIB_PROG_LD
+
+# We require C99
+# this breaks the nightlies
+#AC_PROG_CC_C99
+#if test x"$ac_cv_prog_cc_c99" = "xno"; then
+#  AC_MSG_ERROR([A C99-compliant compiler is required.])
+#fi
 
 
 dnl Set proper mkfontdir path for QNX6
@@ -454,6 +461,13 @@ if test x"$host_os" = "xcygwin32" -o x"$host_os" = "xcygwin"; then
   fi
 fi
 
+if test x"$host_os" = "xmingw32"; then
+  if test x"$enable_native_gtk3ui" = "xyes"; then
+    host_os=mingw32-gtk3
+    is_win32_gtk3=yes
+  fi
+fi
+
 dnl disable toolchain and ar checking for ppc-beos
 if test x"$host_os" = "xbeos" -a x"$host_cpu" = "xpowerpc"; then
   toolchain_check=no
@@ -546,6 +560,8 @@ if test x"$posix_check" = "xyes"; then
                    CFLAGS=$ORIG_CFLAGS ])
 fi
 
+
+
 dnl Check for needed external programs.
 AC_PROG_CPP
 AC_CHECK_PROG(AR, ar, ar, ar)
@@ -561,32 +577,38 @@ dnl Check for large file support
 AC_SYS_LARGEFILE
 
 if test x"$enable_static_ffmpeg" = "xyes" -o x"$enable_shared_ffmpeg" = "xyes"; then
-  AC_CHECK_PROG(YASM, yasm, yasm, no)
-  if test x"$YASM" = "xno"; then
-    AC_MSG_ERROR([yasm needed for ffmpeg compile])
-  fi
-  dnl Check minimum yasm version required
-  yasm_ver=`$YASM --version | head -n 1 | cut -d ' ' -f 2`
-  yasm_maj=`echo "$yasm_ver" | cut -d '.' -f 1`
-  yasm_min=`echo "$yasm_ver" | cut -d '.' -f 2`
-  yasm_rev=`echo "$yasm_ver" | cut -d '.' -f 3`
-  yasm_ok=false
+  case "$host_cpu" in
+  i*86 | x86_64* | amd64*)
+    AC_CHECK_PROG(YASM, yasm, yasm, no)
+    if test x"$YASM" = "xno"; then
+      AC_MSG_ERROR([yasm needed for ffmpeg compile])
+    fi
+    dnl Check minimum yasm version required
+    yasm_ver=`$YASM --version | head -n 1 | cut -d ' ' -f 2`
+    yasm_maj=`echo "$yasm_ver" | cut -d '.' -f 1`
+    yasm_min=`echo "$yasm_ver" | cut -d '.' -f 2`
+    yasm_rev=`echo "$yasm_ver" | cut -d '.' -f 3`
+    yasm_ok=false
 
-  if test $yasm_maj -gt $YASM_VERSION_MAJOR; then
-    yasm_ok=true
-  elif test $yasm_maj -eq $YASM_VERSION_MAJOR; then
-    if test $yasm_min -gt $YASM_VERSION_MINOR; then
+    if test $yasm_maj -gt $YASM_VERSION_MAJOR; then
       yasm_ok=true
-    elif test $yasm_min -eq $YASM_VERSION_MINOR; then
-      if test $yasm_rev -ge $YASM_VERSION_BUILD; then
+    elif test $yasm_maj -eq $YASM_VERSION_MAJOR; then
+      if test $yasm_min -gt $YASM_VERSION_MINOR; then
         yasm_ok=true
+      elif test $yasm_min -eq $YASM_VERSION_MINOR; then
+        if test $yasm_rev -ge $YASM_VERSION_BUILD; then
+          yasm_ok=true
+        fi
       fi
     fi
-  fi
 
-  if test x"$yasm_ok" != x"true"; then
-    AC_MSG_ERROR([yasm 1.2.0 or higher required])
-  fi
+    if test x"$yasm_ok" != x"true"; then
+      AC_MSG_ERROR([yasm 1.2.0 or higher required])
+    fi
+    ;;
+  *)
+    ;;
+  esac
 fi
 
 AC_CHECK_PROGS(YACC, byacc yacc 'bison -y', [no])
@@ -661,6 +683,12 @@ else
 fi
 
 AC_CHECK_PROGS(DOS2UNIX, dos2unix, dos2unix)
+
+AC_CHECK_PROGS(XA, [xa xa65], no)
+
+if test x"$XA" = "xno"; then
+  AC_MSG_ERROR([xa is missing])
+fi
 
 if test x"$SVN" != "x"; then
   svnrevision=`$SVN 2>dummy.tmp info $srcdir | grep Revision | cut -d " " -f 2`
@@ -870,8 +898,10 @@ elif test x"$host_os" = "xamigaos" -o x"$host_os" = "xamigaos4" -o x"$host_os" =
 
   CFLAGS="$CFLAGS -finline-functions"
 
-  if test x"$enable_sdlui" = "xyes" -o x"$enable_sdlui2" = "xyes" -a x"is_amigaos4" = "xyes"; then
-    LIBS="$LIBS -lunix"
+  if test x"$enable_sdlui" = "xyes" -o x"$enable_sdlui2" = "xyes"; then
+    if test x"is_amigaos4" = "xyes"; then
+      LIBS="$LIBS -lunix"
+    fi
   fi
 
 elif test x"$host_os" = "xcygwin32" -o x"$host_os" = "xcygwin" -o x"$host_os" = "xmingw32" -o x"$host_os" = "xmingw32msvc"; then
@@ -937,8 +967,11 @@ elif test x"$host_os" = "xcygwin32" -o x"$host_os" = "xcygwin" -o x"$host_os" = 
     AC_DEFINE(HAVE_MIDI,,[Enable support for MIDI.])
     HAVE_MIDI_SUPPORT="yes"
   fi
-  AC_DEFINE(HAVE_PCAP,,[Support for CS8900A ethernet controller.])
-  HAVE_PCAP_SUPPORT="yes"
+  if test x"$enable_ethernet" = "xyes"; then
+    AC_DEFINE(HAVE_PCAP,,[Support for PCAP library.])
+    AC_DEFINE(HAVE_RAWNET,,[Support for CS8900A ethernet controller.])
+    HAVE_RAWNET_SUPPORT="yes"
+  fi
   if test x"$enable_rs232" != "xno"; then
     AC_DEFINE(HAVE_RS232DEV,,[Enable RS232 device emulation.])
     HAVE_RS232DEV_SUPPORT="yes"
@@ -1115,9 +1148,13 @@ darwin*)
   HAVE_LIGHTPEN_SUPPORT="yes"
 
   AC_DEFINE(MACOSX_SUPPORT,,[Enable Mac OS X specific code.])
-  if test x"$enable_bundle" != "xno" -o x"$enable_sdlui" = "xyes" -o x"$enable_sdlui2" = "xyes" -o x"$enable_native_gtk3ui" = "xyes"; then
-    echo "enabled Mac application bundles"
-    AC_DEFINE(MACOSX_BUNDLE,,[Enable Mac OS X application bundles.])
+  if test x"$enable_bundle" != "xno"; then
+    if test x"$with_cocoa" = "xyes" -o x"$enable_sdlui" = "xyes" -o x"$enable_sdlui2" = "xyes" -o x"$enable_native_gtk3ui" = "xyes"; then
+      echo "enabled Mac application bundles"
+      AC_DEFINE(MACOSX_BUNDLE,,[Enable Mac OS X application bundles.])
+    else
+      echo "disabled Mac application bundles"
+    fi
   else
     echo "disabled Mac application bundles"
   fi
@@ -1177,15 +1214,15 @@ dnl All other UN*X systems
     dnl Check for the type of compiler first.
     if test x"$GCC" = "xyes" ; then
 
-      AC_MSG_CHECKING([if the compiler supports -Wno-missing-field-initializers])
-      ORIG_CFLAGS=$CFLAGS
-      CFLAGS="$CFLAGS -Wno-missing-field-initializers"
-      AC_TRY_COMPILE([],
-                     [int test;],
-                     [ AC_MSG_RESULT(yes)
-                       warn_no_mfi="-Wno-missing-field-initializers" ],
-                     [ AC_MSG_RESULT(no)
-                       warn_no_mfi="" ])
+#      AC_MSG_CHECKING([if the compiler supports -Wno-missing-field-initializers])
+#      ORIG_CFLAGS=$CFLAGS
+#      CFLAGS="$CFLAGS -Wno-missing-field-initializers"
+#      AC_TRY_COMPILE([],
+#                     [int test;],
+#                     [ AC_MSG_RESULT(yes)
+#                       warn_no_mfi="-Wno-missing-field-initializers" ],
+#                     [ AC_MSG_RESULT(no)
+#                       warn_no_mfi="" ])
       AC_MSG_CHECKING([if the compiler supports -Wno-unused-parameter])
       CFLAGS="$ORIG_CFLAGS -Wno-unused-parameter"
       AC_TRY_COMPILE([],
@@ -1256,6 +1293,40 @@ dnl All other UN*X systems
   ;;
 esac
 fi
+
+
+dnl check if the compiler supports -Werror=missing-prototypes
+AC_MSG_CHECKING([if the compiler supports -Wmissing-prototypes])
+ORIG_CFLAGS="$CFLAGS"
+CFLAGS="$CFLAGS -Wmissing-prototypes"
+AC_TRY_COMPILE([],
+               [int test;],
+               [ AC_MSG_RESULT(yes)],
+               [ AC_MSG_RESULT(no)
+                 CFLAGS="$ORIG_CFLAGS" ])
+
+
+dnl check if the compiler supports -Werror=implicit-function-declaration
+AC_MSG_CHECKING([if the compiler supports -Werror=implicit-function-declaration])
+ORIG_CFLAGS="$CFLAGS"
+CFLAGS="$CFLAGS -Werror=implicit-function-declaration"
+AC_TRY_COMPILE([],
+               [int test;],
+               [ AC_MSG_RESULT(yes)],
+               [ AC_MSG_RESULT(no)
+                 CFLAGS="$ORIG_CFLAGS" ])
+
+
+dnl check if the compiler supports -Wfatal-errors
+AC_MSG_CHECKING([if the compiler supports -Wfatal-errors])
+ORIG_CFLAGS="$CFLAGS"
+CFLAGS="$CFLAGS -Wfatal-errors"
+AC_TRY_COMPILE([],
+               [int test;],
+               [ AC_MSG_RESULT(yes)],
+               [ AC_MSG_RESULT(no)
+                 CFLAGS="$ORIG_CFLAGS" ])
+
 
 dnl check for debug build
 if test x"$enable_debug" = "xyes"; then
@@ -1516,7 +1587,7 @@ fi
 
 dnl Check if --param inline-unit-growth=60 can be used.
 old_CFLAGS=$CFLAGS
-CFLAGS="$CFLAGS --param inline-unit-growth=60"
+CFLAGS="$CFLAGS -Werror --param inline-unit-growth=60"
 AC_MSG_CHECKING([if the compiler accepts --param inline-unit-growth=60])
 AC_TRY_COMPILE([],
                [int test;],
@@ -1531,7 +1602,7 @@ AC_SUBST(INLINE_UNIT_GROWTH)
 
 dnl Check if --param max-inline-insns-single=600 can be used.
 old_CFLAGS=$CFLAGS
-CFLAGS="$CFLAGS --param max-inline-insns-single=600"
+CFLAGS="$CFLAGS -Werror --param max-inline-insns-single=600"
 AC_MSG_CHECKING([if the compiler accepts --param max-inline-insns-single=600])
 AC_TRY_COMPILE([],
                [int test;],
@@ -1624,16 +1695,15 @@ else
     dnl Set CXXFLAGS. Use -fno-exceptions for G++ if supported.
     if test "$ac_test_CXXFLAGS" != set; then
       if test "$GXX" = yes; then
-        CXXFLAGS="$CFLAGS -fno-exceptions"
+        old_CXXFLAGS=$CXXFLAGS
+        CXXFLAGS="$CXXFLAGS -fno-exceptions"
         AC_MSG_CHECKING([whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) works])
         AC_TRY_COMPILE([],
                        [ int test; ],
                        [ AC_MSG_RESULT(yes) ],
                        [ AC_MSG_RESULT(no)
-                         CXXFLAGS="$CFLAGS"
+                         CXXFLAGS=$old_CXXFLAGS
                          ])
-      else
-        CXXFLAGS="$CFLAGS"
       fi
     fi
     AC_PROG_CXXCPP
@@ -1756,6 +1826,7 @@ AC_CHECK_HEADERS(direct.h errno.h fcntl.h limits.h regex.h unistd.h strings.h \
 sys/dirent.h sys/stat.h inttypes.h libgen.h sys/ioctl.h \
 dir.h io.h process.h signal.h alloca.h wchar.h stdint.h sys/time.h)
 
+
 AC_CHECK_HEADER(regexp.h,,,[#define	INIT		register char *sp = instring;
 #define	GETC()		(*sp++)
 #define	PEEKC()		(*sp)
@@ -1792,10 +1863,8 @@ else
 fi
 
 if test "x$ac_cv_sizeof_time_t" = "x4"; then
-  AC_MSG_RESULT([time_t is 32 bit])
   AC_DEFINE([TIME_T_IS_32BIT],,[time_t is 32 bit])
 elif test "x$ac_cv_sizeof_time_t" = "x8"; then
-  AC_MSG_RESULT([time_t is 64 bit])
   AC_DEFINE([TIME_T_IS_64BIT],,[time_t is 64 bit])
 else
   AC_MSG_ERROR([can not figure type of time_t])
@@ -2238,6 +2307,7 @@ if test x"$enable_static_ffmpeg" = "xyes"; then
   AC_CHECK_LIB(bz2, BZ2_bzDecompressInit,,)
   AC_CHECK_LIB(lzma, lzma_code,,)
   AC_CHECK_LIB(va, vaBeginPicture,,)
+  AC_CHECK_LIB(m, sqrt,,)
 
   if test x"$is_win32" = "xyes"; then
     win32_pthreads=no
@@ -2249,6 +2319,11 @@ if test x"$enable_static_ffmpeg" = "xyes"; then
       AC_CHECK_LIB(pthread, _imp__pthread_self, [ win32_pthreads=yes ])
     else
       LIBS="$LIBS -lpthreadGC2"
+    fi
+    if test x"$win32_pthreads" = "xno"; then
+      AC_CHECK_LIB(pthread, pthread_self, [ win32_pthreads=yes ])
+    else
+      LIBS="$LIBS -lpthread"
     fi
     if test x"$win32_pthreads" = "xno"; then
       AC_MSG_ERROR([Needed pthread lib missing])
@@ -2455,15 +2530,21 @@ dnl ----- Ethernet -----
 TFE_LIBS=""
 DOS_TFE_PCAP_LIB=""
 if test x"$enable_ethernet" = "xyes"; then
-  if test x"$is_dos" = "xyes" ; then
+  have_tuntap="no"
+  if test x"$is_win32_gtk3" = "xyes"; then
+    AC_DEFINE(HAVE_PCAP,,[Support for PCAP library.])
+    AC_DEFINE(HAVE_RAWNET,,[Support for CS8900A ethernet controller.])
+    HAVE_RAWNET_SUPPORT="yes"
+  elif test x"$is_dos" = "xyes" ; then
     old_LIBS="$LIBS"
     AC_CHECK_LIB(watt, gethostbyname,[ AC_DEFINE(DOS_TCP,,[Can we use the dos WATTCP library?])
                                        TFE_LIBS="-lwatt $TFE_LIBS";
                                        LIBS="-lwatt $LIBS"],,)
 
     AC_CHECK_LIB(pcap, pcap_open_live,[ AC_DEFINE(DOS_TFE,,[Can we use the dos PCAP library?])
-                                        AC_DEFINE(HAVE_PCAP,,[Support for The Final Ethernet])
-                                        HAVE_PCAP_SUPPORT="yes";
+                                        AC_DEFINE(HAVE_PCAP,,[Support for PCAP library.])
+                                        AC_DEFINE(HAVE_RAWNET,,[Support for CS8900A ethernet controller.])
+                                        HAVE_RAWNET_SUPPORT="yes";
                                         TFE_LIBS="arch/msdos/libpcap_nodma.a $TFE_LIBS";
                                         DOS_TFE_PCAP_LIB="libpcap_nodma.a";
                                         LIBS="-lpcap $LIBS"],,)
@@ -2477,14 +2558,16 @@ if test x"$enable_ethernet" = "xyes"; then
       AC_CHECK_LIB(nsl, gethostbyname,[ LIBS="-lnsl $LIBS" ],,)
       AC_CHECK_LIB(socket, gethostbyname,[ LIBS="-lsocket $LIBS" ],,)
       AC_CHECK_LIB(pcap, pcap_inject,[
-        AC_DEFINE(HAVE_PCAP,,[Support for The Final Ethernet])
-        HAVE_PCAP_SUPPORT="yes";
+        AC_DEFINE(HAVE_PCAP,,[Support for PCAP library.])
+        AC_DEFINE(HAVE_RAWNET,,[Support for CS8900A ethernet controller.])
+        HAVE_RAWNET_SUPPORT="yes";
         AC_DEFINE(HAVE_PCAP_INJECT,,[A libpcap version with pcap_inject is available])
         TFE_LIBS="-lpcap"
       ],,$LIBS)
       AC_CHECK_LIB(pcap, pcap_sendpacket,[
-        AC_DEFINE(HAVE_PCAP,,[Support for The Final Ethernet])
-        HAVE_PCAP_SUPPORT="yes";
+        AC_DEFINE(HAVE_PCAP,,[Support for PCAP library.])
+        AC_DEFINE(HAVE_RAWNET,,[Support for CS8900A ethernet controller.])
+        HAVE_RAWNET_SUPPORT="yes";
         AC_DEFINE(HAVE_PCAP_SENDPACKET,,[A libpcap version with pcap_sendpacket is available])
         TFE_LIBS="-lpcap"
       ],,$LIBS)
@@ -2492,8 +2575,9 @@ if test x"$enable_ethernet" = "xyes"; then
     dnl libnet.a
       AC_CHECK_LIB(pcap, pcap_open_live,[
         AC_CHECK_LIB(net, libnet_init,[
-          AC_DEFINE(HAVE_PCAP,,[Support for The Final Ethernet])
-          HAVE_PCAP_SUPPORT="yes";
+          AC_DEFINE(HAVE_PCAP,,[Support for PCAP library.])
+          AC_DEFINE(HAVE_RAWNET,,[Support for CS8900A ethernet controller.])
+          HAVE_RAWNET_SUPPORT="yes";
           AC_DEFINE(VICE_USE_LIBNET_1_1,,[Support for The Final Ethernet])
           TFE_LIBS="-lpcap `libnet-config --libs`"
           libnet_cflags="`libnet-config --defines`"
@@ -2502,8 +2586,9 @@ if test x"$enable_ethernet" = "xyes"; then
     dnl libnet.a
       AC_CHECK_LIB(pcap, pcap_open_live,[
         AC_CHECK_LIB(net, libnet_write_link_layer,[
-          AC_DEFINE(HAVE_PCAP,,[Support for The Final Ethernet])
-          HAVE_PCAP_SUPPORT="yes";
+          AC_DEFINE(HAVE_PCAP,,[Support for PCAP library.])
+          AC_DEFINE(HAVE_RAWNET,,[Support for CS8900A ethernet controller.])
+          HAVE_RAWNET_SUPPORT="yes";
           TFE_LIBS="-lpcap `libnet-config --libs`"
           libnet_cflags="`libnet-config --defines`"
       ],,$LIBS)],,$LIBS)
@@ -2523,9 +2608,14 @@ if test x"$enable_ethernet" = "xyes"; then
           CFLAGS="$CFLAGS $libnet_cflags"
         fi
       fi
+    dnl check for tuntap
+      AC_CHECK_HEADER(linux/if_tun.h,[AC_DEFINE(HAVE_TUNTAP,, [TUN/TAP support using <linux/if_tun.h>])
+                      AC_DEFINE(HAVE_RAWNET,,[Support for CS8900A ethernet controller.])
+                      have_tuntap=yes
+                      HAVE_RAWNET_SUPPORT="yes"])
     fi
   fi
-  if test x"$TFE_LIBS" = "x" -a x"$is_win32" = "xno"; then
+  if test x"$TFE_LIBS" = "x" -a x"$is_win32" = "xno" -a x"$is_win32_gtk3" = "xno" -a x"$have_tuntap" = "xno"; then
     AC_MSG_ERROR([Needed pcap library not found, please install libpcap-dev or equivalent])
   fi
 fi
@@ -2547,7 +2637,7 @@ if test x"$with_sdlsound" = "xyes" -o x"$enable_sdlui" = "xyes" -o x"$enable_sdl
             AC_DEFINE(USE_SDLUI,,[Enable SDL UI support.])
         fi
         AC_DEFINE(CEGCC_COMPILE,,[Enable cegcc support.])
-    elif test x"$is_amiga" = "xyes" -a x"$enable_sdlui2" != "xyes"; then
+    elif test x"$is_amiga" = "xyes" -a x"$is_amiga_aros" != "xyes" -a x"$enable_sdlui2" != "xyes"; then
         if test x"$enable_sdlui" = "xyes"; then
             AC_DEFINE(USE_SDLUI,,[Enable SDL UI support.])
         fi
@@ -2951,9 +3041,7 @@ fi
 dnl Check and setup native GTK3 compilation.
 if test x"$enable_native_gtk3ui" = "xyes"; then
 
-  dnl GTK3-FIXME: add actual gtk3 checking code
-
-  PKG_CHECK_MODULES(GTK, [gtk+-3.0])
+  PKG_CHECK_MODULES(GTK, [gtk+-3.0 >= 3.16])
   AC_DEFINE(HAVE_CAIRO,,[Enable Cairo rendering support])
   HAVE_CAIRO_SUPPORT="yes"
   PKG_CHECK_MODULES(GLIB, [glib-2.0])
@@ -2972,9 +3060,56 @@ if test x"$enable_native_gtk3ui" = "xyes"; then
     echo "GTK3 on *nix (Experimental)"
   fi
 
-  dnl a check for hardware scaling needs to be added
-  dnl it needs to use AC_DEFINE(HAVE_HWSCALE,,[Enable arbitrary window scaling])
-  dnl and set HAVE_HWSCALE_SUPPORT="yes"
+  dnl Check for OpenGL 3.x and (on platforms that need it) GLEW.
+
+  AC_MSG_CHECKING(whether we can use the GL library)
+  old_LIBS="$LIBS"
+  LIBS="$LIBS -lGL -lGLEW"
+  AC_TRY_LINK([#include <GL/glew.h>],
+              [glewInit()],
+              [AC_MSG_RESULT(yes);
+               have_opengl_lib=yes;
+               have_glew=yes],
+              [AC_MSG_RESULT(no);
+               LIBS="$old_LIBS"])
+  if test x"$have_opengl_lib" != "xyes"; then
+    AC_MSG_CHECKING(whether we can use the opengl32 library...)
+    old_LIBS="$LIBS"
+    LIBS="$LIBS -lopengl32 -lglew32"
+    AC_TRY_LINK([#include <GL/glew.h>],
+                [glewInit()],
+                [AC_MSG_RESULT(yes);
+                 have_opengl_lib=yes;
+                 have_glew=yes],
+                [AC_MSG_RESULT(no);
+                 LIBS="$old_LIBS"])
+  fi
+
+  if test x"$have_opengl_lib" != "xyes" -a x"$is_unix_macosx" = "xyes"; then
+    AC_MSG_CHECKING(whether we can use the OpenGL Framework)
+    old_LIBS="$LIBS"
+    LIBS="$LIBS -framework OpenGL"
+    AC_TRY_LINK([#define GL_GLEXT_PROTOTYPES
+#include <OpenGL/gl.h>],
+                [glUniform4f(0,1,2,3,4);],
+                [AC_MSG_RESULT(yes);
+                 have_opengl_lib=yes],
+                [AC_MSG_RESULT(no);
+                 LIBS="$old_LIBS"])
+  fi
+
+  dnl Note that even if HAVE_HWSCALE is "no", GTK3's base "Cairo"
+  dnl renderer can still do scaling, and even claims to do it in
+  dnl hardware. Our experimentation suggests that this is more
+  dnl aspirational than genuine, though...
+  AC_DEFINE(HAVE_HWSCALE,,[Enable arbitrary window scaling])
+  HAVE_HWSCALE_SUPPORT="yes"
+  if test x"$have_opengl_lib" = "xyes"; then
+    AC_DEFINE(HAVE_GTK3_OPENGL,,[Enable OpenGL support in GTK3 UI])
+  fi
+  if test x"$have_glew" = "xyes"; then
+    AC_DEFINE(HAVE_GTK3_GLEW,,[GTK3 OpenGL support uses GLEW])
+  fi
 fi
 
 dnl ----- Sound Drivers -----
@@ -3110,9 +3245,11 @@ if test x"$enable_lame" != "xno" ; then
         USE_LAMEMP3_SUPPORT="yes"
         AC_DEFINE(HAVE_STATIC_LAME,,[Static linking for lame libs])
       fi
+      if test x"$USE_LAMEMP3_SUPPORT" != "xyes" -a x"$enable_lame" = "xyes"; then
+        AC_MSG_ERROR([lame mp3 support is missing])
+      fi
     fi
   fi
-
 fi
 
 AC_PATH_PROGS(FCCACHE, fc-cache, false)
@@ -3341,6 +3478,10 @@ if test x"$is_unix_macosx" = "xyes" -a x"$enable_sdlui" != "xyes" -a x"$enable_s
   fi
 fi
 
+if test x"$is_win32_gtk3" = "xyes" -a x"$enable_native_gtk3ui" = "xyes"; then
+  SOUND_DRIVERS="$SOUND_DRIVERS soundwmm.o"
+fi
+
 AC_SUBST(SOUND_DRIVERS)
 AC_SUBST(SOUND_LIBS)
 
@@ -3467,7 +3608,7 @@ if test x"$is_unix" = "xyes"; then
 
     if test x"$IOSID_SUPPORT" = "xno"; then
       AC_CHECK_FUNCS(ioperm,[IOSID_SUPPORT=yes],)
-      AC_CHECK_FUNCS(inb outb outb_p inb_p)
+      AC_CHECK_FUNCS(inb outb outb_p inb_p inbv outbv)
     fi
 
     if test x"$IOSID_SUPPORT" = "xyes"; then
@@ -3687,7 +3828,7 @@ if test x"$with_png" != "xno" ; then
     fi
   fi
 
-  if test x"$HAVE_PNG_SUPPORT" != "xyes"; then
+  if test x"$HAVE_PNG_SUPPORT" != "xyes" -a x"$cross_compiling" != "xyes"; then
     PKG_PROG_PKG_CONFIG
     if test x"$PKG_CONFIG" != "x"; then
       AC_MSG_CHECKING([if pkgconfig libpng is present])
@@ -3695,6 +3836,7 @@ if test x"$with_png" != "xno" ; then
       if test x"$HAVE_PNG_SUPPORT" = "xyes"; then
           GFXOUTPUT_LIBS="$PNG_LIBS $GFXOUTPUT_LIBS"
           GFXOUTPUT_DRIVERS="$GFXOUTPUT_DRIVERS pngdrv.o";
+          CFLAGS="$PNG_CFLAGS $CFLAGS";
           AC_DEFINE(HAVE_PNG,,[Can we use the PNG library?])
           AC_MSG_RESULT([yes])
       else
@@ -3757,17 +3899,16 @@ if test x"$enable_portaudio" != "xno"; then
   AC_CHECK_HEADERS(portaudio.h, PA_HEADERS="yes", PA_HEADERS="no")
 
   if test x"$PA_HEADERS" = "xyes"; then
-    AC_CHECK_LIB(portaudio, Pa_Initialize,
-                 [LIBS="$LIBS -lportaudio";
-                  USE_PORTAUDIO_SUPPORT="yes";
-                  AC_DEFINE(USE_PORTAUDIO,,[Enable portaudio sampling support.])],,)
-
-    if test x"$USE_PORTAUDIO_SUPPORT" != "xyes" -a x"$is_win32" = "xyes"; then
-      unset ac_cv_lib_portaudio_Pa_Initialize
+    if test x"$is_win32" = "xyes" -o x"$is_win32_gtk3" = "xyes"; then
       AC_CHECK_LIB(portaudio, Pa_Initialize,
                    [LIBS="$LIBS -lportaudio -lwinmm";
                     USE_PORTAUDIO_SUPPORT="yes";
                     AC_DEFINE(USE_PORTAUDIO,,[Enable portaudio sampling support.])],,-lwinmm)
+    else
+      AC_CHECK_LIB(portaudio, Pa_Initialize,
+                 [LIBS="$LIBS -lportaudio";
+                  USE_PORTAUDIO_SUPPORT="yes";
+                  AC_DEFINE(USE_PORTAUDIO,,[Enable portaudio sampling support.])],,)
     fi
   fi
 
@@ -4284,7 +4425,7 @@ if test x"$enable_sdlui" = "xyes" -o x"$enable_sdlui2" = "xyes"; then
   ARCH_SRC_DIR="\$(top_srcdir)/src/arch/sdl"
   ARCH_LIBS="$ARCH_DIR/libarch.a"
   if test x"$is_win32" = "xyes"; then
-    ARCH_INCLUDES="-I$ARCH_SRC_DIR -I\$(top_srcdir)/src/arch/win32/msvc/wpcap"
+    ARCH_INCLUDES="-I$ARCH_SRC_DIR -I\$(top_srcdir)/src/arch/win32/mingw32/wpcap"
   else
     ARCH_INCLUDES="-I$ARCH_SRC_DIR -I\$(top_srcdir)/src/arch"
   fi
@@ -4315,9 +4456,10 @@ AM_CONDITIONAL(MAKE_BINDIST, false)
 if test x"$enable_native_gtk3ui" = "xyes"; then
   ARCH_DIR="\$(top_builddir)/src/arch/gtk3"
   ARCH_SRC_DIR="\$(top_srcdir)/src/arch/gtk3"
-  ARCH_LIBS="$ARCH_DIR/libarch.a"
+  ARCH_LIBS="$ARCH_DIR/libarch.a $ARCH_DIR/widgets/libwidgets.a $ARCH_DIR/widgets/base/libbasewidgets.a"
   if test x"$is_win32" = "xyes"; then
-    ARCH_INCLUDES="-I$ARCH_SRC_DIR -I\$(top_srcdir)/src/arch/win32/msvc/wpcap"
+    ARCH_INCLUDES="-I$ARCH_SRC_DIR -I\$(top_srcdir)/src/arch/win32/mingw32/wpcap"
+    AM_CONDITIONAL(MAKE_BINDIST, true)
   else
     ARCH_INCLUDES="-I$ARCH_SRC_DIR -I\$(top_srcdir)/src/arch"
   fi
@@ -4368,7 +4510,12 @@ if test x"$is_unix" = "xyes"; then
     fi
   fi
 
-  AC_DEFINE(UNIX_COMPILE,,[Are we compiling for unix?])
+  if test x"$is_win32_gtk3" = "xyes"; then
+    AC_DEFINE(WIN32_COMPILE,,[Are we compiling for windows?])
+    LIBS="$LIBS -lntdll"
+  else
+    AC_DEFINE(UNIX_COMPILE,,[Are we compiling for unix?])
+  fi
 
   if test x"$is_unix_macosx" = "xyes" ; then
     ARCH_MAKE_BINDIST_DIR="\$(top_srcdir)/src/arch/unix/macosx"
@@ -4398,7 +4545,11 @@ if test x"$is_unix" = "xyes"; then
 
   AM_CONDITIONAL(SUPPORT_CMDLINE_TOOLS, true)
   AM_CONDITIONAL(UNIX_COMPILE, true)
-  AM_CONDITIONAL(WIN32_COMPILE, false)
+  if test x"$is_win32_gtk3" = "xyes"; then
+     AM_CONDITIONAL(WIN32_COMPILE, true)
+  else
+     AM_CONDITIONAL(WIN32_COMPILE, false)
+  fi
   AM_CONDITIONAL(MSDOS_COMPILE, false)
   AM_CONDITIONAL(OS2_COMPILE, false)
   AM_CONDITIONAL(BEOS_COMPILE, false)
@@ -4555,19 +4706,6 @@ elif test x"$is_win32" = "xyes"; then
     ARCH_SRC_DIR="\$(top_srcdir)/src/arch/win32"
     ARCH_LIBS="$ARCH_DIR/libarch.a"
     ARCH_INCLUDES="-I\$(top_srcdir)/src/arch/win32"
-    if test x"$host_os" = "xcygwin32" -o x"$host_os" = "xcygwin"; then
-      AC_DEFINE([PLATFORM], ["win32 x86 cygwin"],[The current arch, cpu and compiler used.])
-    else
-      if test x"$host_cpu" = "xx86_64" -o x"$host_cpu" = "xamd64"; then
-        AC_DEFINE([PLATFORM], ["win64 x64 mingw"], [The current arch, cpu and compiler used.])
-      else
-        if test x"$CC" = "xowcc"; then
-          AC_DEFINE([PLATFORM], ["win32 x86 owcc"], [The current arch, cpu and compiler used.])
-        else
-          AC_DEFINE([PLATFORM], ["win32 x86 mingw"], [The current arch, cpu and compiler used.])
-        fi
-      fi
-    fi
   fi
   AC_DEFINE(WIN32_COMPILE,,[Are we compiling for win32?])
 
@@ -4709,8 +4847,8 @@ elif test x"$is_beos" = "xyes"; then
   AM_CONDITIONAL(UNIX_NEXTSTEP_COMPILE, false)
   AM_CONDITIONAL(UNIX_SCO4_COMPILE, false)
   AM_CONDITIONAL(UNIX_OPENSERVER5_COMPILE, false)
-  AM_CONDITIONAL(UNIX_OPENSERVER6_COMPILE, false)  
-  AM_CONDITIONAL(UNIX_UNIXWARE_COMPILE, false)  
+  AM_CONDITIONAL(UNIX_OPENSERVER6_COMPILE, false)
+  AM_CONDITIONAL(UNIX_UNIXWARE_COMPILE, false)
   AM_CONDITIONAL(UNIX_HPUX_COMPILE, false)
   AM_CONDITIONAL(SYLLABLE_COMPILE, false)
   AM_CONDITIONAL(WIN32_COMPILE, false)
@@ -4991,23 +5129,13 @@ AC_OUTPUT([Makefile
            src/arch/android/AnVICE/src-proto/com/locnet/vice/Makefile
            src/arch/beos/Makefile
            src/arch/gtk3/Makefile
+           src/arch/gtk3/widgets/Makefile
+           src/arch/gtk3/widgets/base/Makefile
            src/arch/msdos/Makefile
-           src/arch/os2/Makefile
-           src/arch/os2/dialogs/Makefile
-           src/arch/os2/doc/Makefile
-           src/arch/os2/fonts/Makefile
-           src/arch/os2/icons/Makefile
-           src/arch/os2/kbd/Makefile
-           src/arch/os2/snippets/Makefile
-           src/arch/os2/unused/Makefile
-           src/arch/os2/unused/pm/Makefile
-           src/arch/os2/watcom/Makefile
            src/arch/sdl/Makefile
-           src/arch/sdl/msvc-files/Makefile
            src/arch/sdl/qnx4/Makefile
            src/arch/sdl/sortix-files/Makefile
            src/arch/sdl/syllable-files/Makefile
-           src/arch/sdl/win32-watcom/Makefile
            src/arch/unix/Makefile
            src/arch/unix/gui/Makefile
            src/arch/unix/minix/Makefile
@@ -5030,17 +5158,12 @@ AC_OUTPUT([Makefile
            src/arch/unix/macosx/cocoa/dialog/Makefile
            src/arch/unix/macosx/Resources/Makefile
            src/arch/unix/macosx/Resources/English.lproj/Makefile
-           src/arch/watcom-source-wrappers/Makefile
            src/arch/win32/Makefile
-           src/arch/win32/vice-version.bat
            src/arch/win32/evc/Makefile
            src/arch/win32/mingw32/Makefile
-           src/arch/win32/msvc/Makefile
-           src/arch/win32/msvc/wpcap/Makefile
-           src/arch/win32/msvc/wpcap/net/Makefile
+           src/arch/win32/mingw32/wpcap/Makefile
+           src/arch/win32/mingw32/wpcap/net/Makefile
            src/arch/win32/utils/Makefile
-           src/arch/win32/vs_tmpl/Makefile
-           src/arch/win32/watcom/Makefile
            src/buildtools/Makefile
            src/c128/Makefile
            src/c64/Makefile
@@ -5075,7 +5198,6 @@ AC_OUTPUT([Makefile
            src/monitor/Makefile
            src/parallel/Makefile
            src/pet/Makefile
-           src/platform/Makefile
            src/plus4/Makefile
            src/printerdrv/Makefile
            src/raster/Makefile
@@ -5136,6 +5258,9 @@ else
         if test x"$is_win32_x11" = "xyes"; then
             show_arch="Win32-X11 (treated as Unix)"
             real_arch="Unix"
+        elif test x"$enable_native_gtk3ui" = "xyes"; then
+            show_arch="Win32-GTK3 (treated as Unix)"
+            real_arch="Unix"
         else
             show_arch="Win32"
             real_arch="Win32"
@@ -5171,7 +5296,7 @@ if test x"$is_os2" = "xyes"; then
     show_gui="DIVE (PM)"
 fi
 if test x"$is_win32" = "xyes"; then
-    if test x"$is_win32_x11" != "xyes"; then
+    if test x"$is_win32_x11" != "xyes" -a x"$enable_native_gtk3ui" = "xyes"; then
         show_gui="Win32"
     fi
 fi
@@ -5395,7 +5520,7 @@ fi
 echo "Network support                  : $HAVE_NETWORK_SUPPORT"
 echo "RS232 network support            : $HAVE_RS232NET_SUPPORT"
 echo "IPv6 network support             : $HAVE_IPV6_SUPPORT (--enable/disable-ipv6)"
-echo "Network capture/injection support: $HAVE_PCAP_SUPPORT (--enable/disable-ethernet)"
+echo "Network capture/injection support: $HAVE_RAWNET_SUPPORT (--enable/disable-ethernet)"
 
 echo ""
 echo "DRIVE"
@@ -5441,4 +5566,8 @@ echo "Debug support              : $DEBUG_SUPPORT (--enable/disable-debug)"
 echo "Embedded data files support: $USE_EMBEDDED_SUPPORT (--enable/disable-embedded)"
 
 echo ""
+echo "CPPFLAGS: $CPPFLAGS"
+echo "CFLAGS  : $CFLAGS"
+echo "CXXFLAGS: $CXXFLAGS"
+echo "LDFLAGS : $LDFLAGS"
 echo "----------------------------------------------------------------------"

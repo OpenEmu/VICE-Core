@@ -57,6 +57,7 @@
  
     windowBaseTitle = [[super window] title];
     [windowBaseTitle retain];
+    [memoryTable setDataSource:self];
 }
 
 -(void)readMemory
@@ -87,24 +88,13 @@
     }
 }
 
--(void)monitorInitDone:(NSNotification *)notification;
-{   
-#ifdef MONITOR_DEBUG
-    NSLog(@"mem: -> set data source");
-#endif
-    [memoryTable setDataSource:self];
-}
-
 -(void)monitorUpdate:(NSNotification *)notification
 {
-#ifdef MONITOR_DEBUG
-    NSLog(@"mem: -> update");
-#endif
     [self readMemory];
     [memoryTable reloadData];
 }
 
-- (id)markDiff:(id)input bytes:(const BYTE *)bytes oldBytes:(const BYTE *)oldBytes scale:(int)scale
+- (id)markDiff:(id)input bytes:(const uint8_t *)bytes oldBytes:(const uint8_t *)oldBytes scale:(int)scale
 {
     id theValue = [[NSMutableAttributedString alloc] initWithString:input];
     int i;
@@ -143,7 +133,7 @@
 
 - (id)tableView:(NSTableView *)aTableView
     objectValueForTableColumn:(NSTableColumn *)aTableColumn
-    row:(int)rowIndex
+    row:(NSInteger)rowIndex
 {
     if(data == nil)
         return nil;
@@ -153,7 +143,7 @@
     NSParameterAssert(rowIndex >= 0 && rowIndex < TOTAL_LINES);
 
     int address = rowIndex * PER_LINE;
-    const BYTE *bytes = (const BYTE *)[data bytes] + address;
+    const uint8_t *bytes = (const uint8_t *)[data bytes] + address;
 
     NSString *colId = [aTableColumn identifier];
 
@@ -164,7 +154,7 @@
 
         // color address if a change in line happened
         if(sameBank) {
-            const BYTE *oldBytes = (const BYTE *)[lastData bytes] + address;
+            const uint8_t *oldBytes = (const uint8_t *)[lastData bytes] + address;
             int i;
             BOOL differs = NO;
             for(i=0;i<PER_LINE;i++) {
@@ -193,7 +183,7 @@
         
         // compare data and mark differences
         if(sameBank) {
-            const BYTE *oldBytes = (const BYTE *)[lastData bytes] + address;
+            const uint8_t *oldBytes = (const uint8_t *)[lastData bytes] + address;
             theValue = [self markDiff:theValue bytes:bytes oldBytes:oldBytes scale:3];
         }
         
@@ -201,17 +191,17 @@
     // PETSCII Column
     else if([colId compare:@"petscii"] == NSOrderedSame) {
         
-        BYTE line[PER_LINE];
+        uint8_t line[PER_LINE];
         int i;
         for(i=0;i<PER_LINE;i++) {
             line[i] = charset_p_toascii(bytes[i],0);
         }
         
-        theValue = [NSString stringWithCString:(char *)line encoding:NSUTF8StringEncoding];
+        theValue = [[NSString alloc] initWithBytes:line length:PER_LINE encoding:NSUTF8StringEncoding];
 
         // compare data and mark differences
         if(sameBank) {
-            const BYTE *oldBytes = (const BYTE *)[lastData bytes] + address;
+            const uint8_t *oldBytes = (const uint8_t *)[lastData bytes] + address;
             theValue = [self markDiff:theValue bytes:bytes oldBytes:oldBytes scale:1];
         }
         
@@ -219,17 +209,17 @@
     // Screen Column
     else if([colId compare:@"screen"] == NSOrderedSame) {
         
-        BYTE line[PER_LINE];
+        uint8_t line[PER_LINE];
         int i;
         for(i=0;i<PER_LINE;i++) {
             line[i] = charset_p_toascii(charset_screencode_to_petcii(bytes[i]),0);
         }
         
-        theValue = [NSString stringWithCString:(char *)line encoding:NSUTF8StringEncoding];
+        theValue = [[NSString alloc] initWithBytes:line length:PER_LINE encoding:NSUTF8StringEncoding];
         
         // compare data and mark differences
         if(sameBank) {
-            const BYTE *oldBytes = (const BYTE *)[lastData bytes] + address;
+            const uint8_t *oldBytes = (const uint8_t *)[lastData bytes] + address;
             theValue = [self markDiff:theValue bytes:bytes oldBytes:oldBytes scale:1];
         }
 

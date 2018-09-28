@@ -1,5 +1,4 @@
-/*
- * archdep.c - Miscellaneous system-specific stuff.
+/* archdep.c - Miscellaneous system-specific stuff.
  *
  * Written by
  *  Andreas Matthies <andreas.matthies@gmx.net>
@@ -69,11 +68,20 @@
 #include "lib.h"
 #include "log.h"
 #include "machine.h"
-#include "platform.h"
 #include "util.h"
+
+
+/** \brief  Tokens that are illegal in a path/filename
+ *
+ * FIXME: taken from Unix
+ */
+static const char *illegal_name_tokens = "/";
+
 
 static char *orig_workdir;
 static char *argv0 = NULL;
+static char *default_path;
+
 
 int archdep_init(int *argc, char **argv)
 {
@@ -128,7 +136,6 @@ const char *archdep_boot_path(void)
 
 char *archdep_default_sysfile_pathlist(const char *emu_id)
 {
-    static char *default_path;
 
     if (default_path == NULL) {
         const char *boot_path = archdep_boot_path();
@@ -279,6 +286,27 @@ int archdep_expand_path(char **return_path, const char *orig_name)
     return 0;
 }
 
+
+/** \brief  Sanitize \a name by removing invalid characters for the current OS
+ *
+ * \param[in,out]   name    0-terminated string
+ */
+void archdep_sanitize_filename(char *name)
+{
+    while (*name != '\0') {
+        int i = 0;
+        while (illegal_name_tokens[i] != '\0') {
+            if (illegal_name_tokens[i] == *name) {
+                *name = '_';
+                break;
+            }
+            i++;
+        }
+        name++;
+    }
+}
+
+
 void archdep_startup_log_error(const char *format, ...)
 {
     char *tmp;
@@ -331,25 +359,15 @@ FILE *archdep_mkstemp_fd(char **filename, const char *mode)
     return fd;
 }
 
-int archdep_file_is_gzip(const char *name)
-{
-    size_t l = strlen(name);
-
-    if ((l < 4 || strcasecmp(name + l - 3, ".gz")) && (l < 3 || strcasecmp(name + l - 2, ".z")) &&
-        (l < 4 || toupper(name[l - 1]) != 'Z' || name[l - 4] != '.')) {
-        return 0;
-    }
-    return 1;
-}
-
-int archdep_file_set_gzip(const char *name)
-{
-    return 0;
-}
 
 int archdep_mkdir(const char *pathname, int mode)
 {
     return mkdir(pathname, (mode_t)mode);
+}
+
+int archdep_rmdir(const char *pathname)
+{
+    return rmdir(pathname);
 }
 
 int archdep_stat(const char *file_name, unsigned int *len, unsigned int *isdir)
@@ -390,25 +408,13 @@ int archdep_rename(const char *oldpath, const char *newpath)
 void archdep_shutdown(void)
 {
     lib_free(argv0);
+    if (default_path != NULL) {
+        lib_free(default_path);
+    }
     archdep_network_shutdown();
 }
 
-char *archdep_get_runtime_os(void)
+char *archdep_extra_title_text(void)
 {
-    if (CheckForHaiku()) {
-        return platform_get_haiku_runtime_os();
-    }
-    if (CheckForZeta()) {
-        return platform_get_zeta_runtime_os();
-    }
-    return platform_get_beos_runtime_os();
-}
-
-char *archdep_get_runtime_cpu(void)
-{
-#ifdef WORDS_BIGENDIAN
-    return platform_get_beosppc_runtime_cpu();
-#else
-    return platform_get_x86_runtime_cpu();
-#endif
+    return NULL;
 }

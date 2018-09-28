@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52
-     from ../../doc/vice.texi on 30 March 2017 -->
+     from ../../doc/vice.texi on 19 May 2018 -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <TITLE>VICE Manual - 7  Machine-specific features</TITLE>
@@ -511,18 +511,18 @@ after enabling it from the user interface.
 
 <DT><CODE>IOCollisionHandling</CODE>
 <DD>
-<A NAME="IDX485"></A>
+<A NAME="IDX501"></A>
  
 Integer specifying the way the I/O collisions should be handled.
 (0: error message and detach all involved carts, 1: error message and detach last attached involved 
 carts, 2: warning in log and 'AND' the valid return values)
 
-<A NAME="IDX486"></A>
+<A NAME="IDX502"></A>
 <DT><CODE>CartridgeReset</CODE>
 <DD>
 Boolean specifying whether the machine should be reset when a cartridge is changed.
 
-<A NAME="IDX487"></A>
+<A NAME="IDX503"></A>
 <DT><CODE>CartridgeType</CODE>
 <DD>
 Integer specifying the type of cartridge emulated in the "main" slot.
@@ -722,75 +722,75 @@ The following cartridge types are valid:
 58: RR-Net MK3
 </UL>
 
-<A NAME="IDX488"></A>
+<A NAME="IDX504"></A>
 <DT><CODE>CartridgeFile</CODE>
 <DD>
 String specifying the filename of the image for the cartridge emulated in the "main" slot.
 
-<A NAME="IDX489"></A>
+<A NAME="IDX505"></A>
 <DT><CODE>DQBB</CODE>
 <DD>
 Boolean specifying whether the Double Quick Brown Box should be emulated or not.
 
-<A NAME="IDX490"></A>
+<A NAME="IDX506"></A>
 <DT><CODE>DQBBfilename</CODE>
 <DD>
 String specifying the filename of the DQBB RAM image.
 
-<A NAME="IDX491"></A>
+<A NAME="IDX507"></A>
 <DT><CODE>DQBBImageWrite</CODE>
 <DD>
 Boolean, if true write back the DQBB image file automatically, incase the RAM
 contents changed, when detaching or quitting the emulator.
 
-<A NAME="IDX492"></A>
+<A NAME="IDX508"></A>
 <DT><CODE>EasyFlashJumper</CODE>
 <DD>
 Boolean specifying whether the Easy Flash jumper is set.
 
-<A NAME="IDX493"></A>
+<A NAME="IDX509"></A>
 <DT><CODE>EasyFlashWriteCRT</CODE>
 <DD>
 Boolean, if true write back the Easy Flash image file automatically, incase the
 contents changed, when detaching or quitting the emulator.
 
-<A NAME="IDX494"></A>
+<A NAME="IDX510"></A>
 <DT><CODE>EasyFlashOptimizeCRT</CODE>
 <DD>
 Boolean, if true omit empty (filled with $ff) banks from the .crt image when writing.
 
-<A NAME="IDX495"></A>
+<A NAME="IDX511"></A>
 <DT><CODE>ExpertCartridgeEnabled</CODE>
 <DD>
 Boolean specifying whether the Expert Cartridge should be emulated or not.
 
-<A NAME="IDX496"></A>
+<A NAME="IDX512"></A>
 <DT><CODE>Expertfilename</CODE>
 <DD>
 String specifying the filename of the Expert Cartridge RAM image.
 
-<A NAME="IDX497"></A>
+<A NAME="IDX513"></A>
 <DT><CODE>ExpertImageWrite</CODE>
 <DD>
 Boolean, if true write back the Expert Cartridge image file automatically, incase the RAM
 contents changed, when detaching or quitting the emulator.
 
-<A NAME="IDX498"></A>
+<A NAME="IDX514"></A>
 <DT><CODE>ExpertCartridgeMode</CODE>
 <DD>
 Integer specifying the state of the expert cartridge switch.
 (0: off, 1: prg, 2: on)
 
-<A NAME="IDX499"></A>
+<A NAME="IDX515"></A>
 <DT><CODE>IDE64version</CODE>
 <DD>
 Integer specifying whether the emulated card version is V3.4, V4.1 or V4.2. This is automatically
 detected most of the time for .crt cartridge images.
 
-<A NAME="IDX500"></A>
-<A NAME="IDX501"></A>
-<A NAME="IDX502"></A>
-<A NAME="IDX503"></A>
+<A NAME="IDX516"></A>
+<A NAME="IDX517"></A>
+<A NAME="IDX518"></A>
+<A NAME="IDX519"></A>
 <DT><CODE>IDE64Image1</CODE>
 <DD>
 <DT><CODE>IDE64Image2</CODE>
@@ -802,10 +802,10 @@ detected most of the time for .crt cartridge images.
 Strings specifying the full path to the four harddisk images. If a file is non-existing the drive is not emulated.
 Some older IDEDOS versions only support the first two harddisks.
 
-<A NAME="IDX504"></A>
-<A NAME="IDX505"></A>
-<A NAME="IDX506"></A>
-<A NAME="IDX507"></A>
+<A NAME="IDX520"></A>
+<A NAME="IDX521"></A>
+<A NAME="IDX522"></A>
+<A NAME="IDX523"></A>
 <DT><CODE>IDE64Cylinders1</CODE>
 <DD>
 <DT><CODE>IDE64Cylinders2</CODE>
@@ -817,10 +817,10 @@ Some older IDEDOS versions only support the first two harddisks.
 Integers specifying the number of cylinders for the four harddisk images.
 (1..65535)
 
-<A NAME="IDX508"></A>
-<A NAME="IDX509"></A>
-<A NAME="IDX510"></A>
-<A NAME="IDX511"></A>
+<A NAME="IDX524"></A>
+<A NAME="IDX525"></A>
+<A NAME="IDX526"></A>
+<A NAME="IDX527"></A>
 <DT><CODE>IDE64Heads1</CODE>
 <DD>
 <DT><CODE>IDE64Heads2</CODE>
@@ -832,10 +832,10 @@ Integers specifying the number of cylinders for the four harddisk images.
 Integers specifying the number of heads for the four harddisk images.
 (1..16)
 
-<A NAME="IDX512"></A>
-<A NAME="IDX513"></A>
-<A NAME="IDX514"></A>
-<A NAME="IDX515"></A>
+<A NAME="IDX528"></A>
+<A NAME="IDX529"></A>
+<A NAME="IDX530"></A>
+<A NAME="IDX531"></A>
 <DT><CODE>IDE64Sectors1</CODE>
 <DD>
 <DT><CODE>IDE64Sectors2</CODE>
@@ -847,10 +847,10 @@ Integers specifying the number of heads for the four harddisk images.
 Integers specifying the number of sectors for the four harddisk images.
 (1..63)
 
-<A NAME="IDX516"></A>
-<A NAME="IDX517"></A>
-<A NAME="IDX518"></A>
-<A NAME="IDX519"></A>
+<A NAME="IDX532"></A>
+<A NAME="IDX533"></A>
+<A NAME="IDX534"></A>
+<A NAME="IDX535"></A>
 <DT><CODE>IDE64AutodetectSize1</CODE>
 <DD>
 <DT><CODE>IDE64AutodetectSize2</CODE>
@@ -862,193 +862,211 @@ Integers specifying the number of sectors for the four harddisk images.
 Booleans specifying whether the disk geometry should be auto detected based
 on the disk image for the respective harddisk, or the cylinder/head/sector resources above should be used.
 
-<A NAME="IDX520"></A>
+<A NAME="IDX536"></A>
 <DT><CODE>IDE64USBServerAddress</CODE>
 <DD>
 String specifying the address the IDE64 USB server listens to (ip4://127.0.0.1:64245)
-<A NAME="IDX521"></A>
+<A NAME="IDX537"></A>
 <DT><CODE>IDE64USBServer</CODE>
 <DD>
 Boolean specifying whether the IDE64 USB server is enabled.
 
-<A NAME="IDX522"></A>
+<A NAME="IDX538"></A>
 <DT><CODE>IDE64RTCSave</CODE>
 <DD>
 Boolean specifying whether the IDE64 RTC data should be saved when changed or not.
 
-<A NAME="IDX523"></A>
+<A NAME="IDX539"></A>
 <DT><CODE>IEEE488</CODE>
 <DD>
 Boolean specifying whether the IEEE488 interface should be emulated or not.
 
-<A NAME="IDX524"></A>
+<A NAME="IDX540"></A>
 <DT><CODE>IEEE488Image</CODE>
 <DD>
 String specifying the filename of the IEEE488 ROM image.
 
-<A NAME="IDX525"></A>
+<A NAME="IDX541"></A>
 <DT><CODE>IsepicCartridgeEnabled</CODE>
 <DD>
 Boolean specifying whether ISEPIC should be emulated or not.
 
-<A NAME="IDX526"></A>
+<A NAME="IDX542"></A>
 <DT><CODE>Isepicfilename</CODE>
 <DD>
 String specifying the filename of the ISEPIC RAM image.
 
-<A NAME="IDX527"></A>
+<A NAME="IDX543"></A>
 <DT><CODE>IsepicSwitch</CODE>
 <DD>
 Boolean specifying the status of the ISEPIC switch.
 (0: off, 1: on)
 
-<A NAME="IDX528"></A>
+<A NAME="IDX544"></A>
 <DT><CODE>IsepicImageWrite</CODE>
 <DD>
 Boolean, if true write back the ISEPIC image file automatically, incase the RAM
 contents changed, when detaching or quitting the emulator.
 
-<A NAME="IDX529"></A>
+<A NAME="IDX545"></A>
 <DT><CODE>MagicVoiceCartridgeEnabled</CODE>
 <DD>
 Boolean specifying whether the Magic Voice should be emulated or not.
 
-<A NAME="IDX530"></A>
+<A NAME="IDX546"></A>
 <DT><CODE>MagicVoiceImage</CODE>
 <DD>
 String specifying the filename of the Magic Voice ROM image.
 
-<A NAME="IDX531"></A>
+<A NAME="IDX547"></A>
 <DT><CODE>MMC64</CODE>
 <DD>
 Boolean specifying whether the MMC64 should be emulated or not.
 
-<A NAME="IDX532"></A>
+<A NAME="IDX548"></A>
 <DT><CODE>MMC64BIOSfilename</CODE>
 <DD>
 String specifying the filename of the MMC64 Flash ROM image.
 
-<A NAME="IDX533"></A>
+<A NAME="IDX549"></A>
 <DT><CODE>MMC64_bios_write</CODE>
 <DD>
 Boolean, if true write back the MMC64 Flash ROM image file automatically, incase the
 contents changed, when detaching or quitting the emulator.
 
-<A NAME="IDX534"></A>
+<A NAME="IDX550"></A>
 <DT><CODE>MMC64_flashjumper</CODE>
 <DD>
 Boolean that specifies whether the MMC64 flash jumper is set.
 
-<A NAME="IDX535"></A>
+<A NAME="IDX551"></A>
 <DT><CODE>MMC64_revision</CODE>
 <DD>
 Integer specifying the MMC64 hardware revision.
 (0: Revision A, 1: Revision B)
 
-<A NAME="IDX536"></A>
+<A NAME="IDX552"></A>
 <DT><CODE>MMC64imagefilename</CODE>
 <DD>
 String specifying the filename of the SD-Card image used by the MMC64 emulation.
 
-<A NAME="IDX537"></A>
+<A NAME="IDX553"></A>
 <DT><CODE>MMC64_RO</CODE>
 <DD>
 Boolean, if true the SD-Card image is mounted read-only.
 
-<A NAME="IDX538"></A>
+<A NAME="IDX554"></A>
 <DT><CODE>MMC64_sd_type</CODE>
 <DD>
 Integer that specifies the reported type for the emulated SD-Card.
 (0: Auto, 1: MMC, 2: SD, 3: SDHC)
 
-<A NAME="IDX539"></A>
+<A NAME="IDX555"></A>
+<DT><CODE>MMC64ClockPort</CODE>
+<DD>
+Integer that specifies the clockport device used.
+(0: None, 1: ETH64-II, 2: RRNet, 3: Silver Surfer, 4: MP3@64, 5: Catweasel MkIII SID)
+
+<A NAME="IDX556"></A>
 <DT><CODE>MMCRCardImage</CODE>
 <DD>
 String specifying the filename of the SD-Card image used by the MMCR emulation.
 
-<A NAME="IDX540"></A>
+<A NAME="IDX557"></A>
 <DT><CODE>MMCREEPROMImage</CODE>
 <DD>
 String specifying the filename of the MMCR EEPROM image.
 
-<A NAME="IDX541"></A>
+<A NAME="IDX558"></A>
 <DT><CODE>MMCRRescueMode</CODE>
 <DD>
 Boolean specifying if the rescue mode (both buttons pressed during powerup)
 of the MMCR is active.
 
-<A NAME="IDX542"></A>
+<A NAME="IDX559"></A>
 <DT><CODE>MMCRImageWrite</CODE>
 <DD>
 Boolean, if true write back the MMCR Flash ROM image file automatically, incase the
 contents changed, when detaching or quitting the emulator.
 
-<A NAME="IDX543"></A>
+<A NAME="IDX560"></A>
 <DT><CODE>MMCRCardRW</CODE>
 <DD>
 Boolean specifying if the SD-Card image used by the MMCR emulation is writeable.
 
-<A NAME="IDX544"></A>
+<A NAME="IDX561"></A>
 <DT><CODE>MMCRSDType</CODE>
 <DD>
 Integer that specifies the reported type for the emulated SD-Card.
 (0: Auto, 1: MMC, 2: SD, 3: SDHC)
 
-<A NAME="IDX545"></A>
+<A NAME="IDX562"></A>
 <DT><CODE>MMCREEPROMRW</CODE>
 <DD>
 Boolean specifying if the MMCR EEPROM image is writeable.
 
-<A NAME="IDX546"></A>
+<A NAME="IDX563"></A>
+<DT><CODE>MMCRClockPort</CODE>
+<DD>
+Integer that specifies the clockport device.
+(0: None, 1: ETH64-II, 2: RRNet, 3: Silver Surfer, 4: MP3@64, 5: Catweasel MkIII SID)
+
+<A NAME="IDX564"></A>
 <DT><CODE>RAMCART</CODE>
 <DD>
 Boolean specifying whether the RAMCart should be emulated or not.
 
-<A NAME="IDX547"></A>
+<A NAME="IDX565"></A>
 <DT><CODE>RAMCARTfilename</CODE>
 <DD>
 String specifying the filename of the RAMCart RAM image.
 
-<A NAME="IDX548"></A>
+<A NAME="IDX566"></A>
 <DT><CODE>RAMCARTImageWrite</CODE>
 <DD>
 Boolean, if true write back the RAMCart image file automatically, incase the RAM
 contents changed, when detaching or quitting the emulator.
 
-<A NAME="IDX549"></A>
+<A NAME="IDX567"></A>
 <DT><CODE>RAMCART_RO</CODE>
 <DD>
 Boolean, if true the RAMCart contents are read only.
 
-<A NAME="IDX550"></A>
+<A NAME="IDX568"></A>
 <DT><CODE>RAMCARTsize</CODE>
 <DD>
 Integer specifying the size of the RAMCart in KB.
 (64, 128)
 
-<A NAME="IDX551"></A>
+<A NAME="IDX569"></A>
 <DT><CODE>RRrevision</CODE>
 <DD>
 Integer specifying the RR hardware revision.
 (0: Retro Replay, 1: Nordic Replay)
 
-<A NAME="IDX552"></A>
+<A NAME="IDX570"></A>
 <DT><CODE>RRFlashJumper</CODE>
 <DD>
 Boolean specifying whether the RR flash jumper is set or not.
 
-<A NAME="IDX553"></A>
+<A NAME="IDX571"></A>
 <DT><CODE>RRBankJumper</CODE>
 <DD>
 Boolean specifying whether the RR bank jumper is set or not.
 
-<A NAME="IDX554"></A>
+<A NAME="IDX572"></A>
 <DT><CODE>RRBiosWrite</CODE>
 <DD>
 Boolean, if true write back the RR Flash ROM image file automatically, incase the
 contents changed, when detaching or quitting the emulator.
 
-<A NAME="IDX555"></A>
+<A NAME="IDX573"></A>
+<DT><CODE>RRClockPort</CODE>
+<DD>
+Integer that specifies the clockport device.
+(0: None, 1: ETH64-II, 2: RRNet, 3: Silver Surfer, 4: MP3@64, 5: Catweasel MkIII SID)
+
+<A NAME="IDX574"></A>
 <DT><CODE>SSRamExpansion</CODE>
 <DD>
 Boolean, if true enable the 32k addon RAM of the Supersnapshot V5
@@ -1063,19 +1081,19 @@ Boolean, if true enable the 32k addon RAM of the Supersnapshot V5
 
 <DT><CODE>-iocollision &#60;method&#62;</CODE>
 <DD>
-<A NAME="IDX556"></A>
+<A NAME="IDX575"></A>
  
 Select the way the I/O collisions should be handled
 (<CODE>IOCollisionHandling</CODE>).
 (0: error message and detach all involved carts, 1: error message and detach last attached involved 
 carts, 2: warning in log and 'AND' the valid return values
 
-<A NAME="IDX557"></A>
+<A NAME="IDX576"></A>
 <DT><CODE>+cart</CODE>
 <DD>
 Disable all cartridges (which would eventually be enabled in the config file).
 
-<A NAME="IDX558"></A>
+<A NAME="IDX577"></A>
 <DT><CODE>-cartreset</CODE>
 <DD>
 <DT><CODE>+cartreset</CODE>
@@ -1083,92 +1101,92 @@ Disable all cartridges (which would eventually be enabled in the config file).
 Reset/Do not reset machine if a cartridge is attached or detached
 (<CODE>CartridgeReset=1</CODE>, <CODE>CartridgeReset=0</CODE>).
 
-<A NAME="IDX559"></A>
+<A NAME="IDX578"></A>
 <DT><CODE>-cart8 &#60;name&#62;</CODE>
 <DD>
 Attach generic 8KB cartridge image.
 
-<A NAME="IDX560"></A>
+<A NAME="IDX579"></A>
 <DT><CODE>-cart16 &#60;name&#62;</CODE>
 <DD>
 Attach generic 16KB cartridge image.
 
-<A NAME="IDX561"></A>
+<A NAME="IDX580"></A>
 <DT><CODE>-cartultimax &#60;name&#62;</CODE>
 <DD>
 Attach generic 16kB Ultimax cartridge image.
 
-<A NAME="IDX562"></A>
+<A NAME="IDX581"></A>
 <DT><CODE>-cartcrt &#60;name&#62;</CODE>
 <DD>
 Attach CRT cartridge image.
 
-<A NAME="IDX563"></A>
+<A NAME="IDX582"></A>
 <DT><CODE>-cartap &#60;name&#62;</CODE>
 <DD>
 Attach raw 32KB Atomic Power cartridge image.
 
-<A NAME="IDX564"></A>
+<A NAME="IDX583"></A>
 <DT><CODE>-cartar2 &#60;name&#62;</CODE>
 <DD>
 Attach raw 16kB Action Replay MK2 cartridge image.
 
-<A NAME="IDX565"></A>
+<A NAME="IDX584"></A>
 <DT><CODE>-cartar3 &#60;name&#62;</CODE>
 <DD>
 Attach raw 16KB Action Replay MK3 cartridge image.
 
-<A NAME="IDX566"></A>
+<A NAME="IDX585"></A>
 <DT><CODE>-cartar4 &#60;name&#62;</CODE>
 <DD>
 Attach raw 32KB Action Replay MK4 cartridge image.
 
-<A NAME="IDX567"></A>
+<A NAME="IDX586"></A>
 <DT><CODE>-cartar5 &#60;name&#62;</CODE>
 <DD>
 Attach raw 32KB Action Replay cartridge image.
 
-<A NAME="IDX568"></A>
+<A NAME="IDX587"></A>
 <DT><CODE>-cartcap &#60;name&#62;</CODE>
 <DD>
 Attach raw 8kB Capture cartridge image.
 
-<A NAME="IDX569"></A>
+<A NAME="IDX588"></A>
 <DT><CODE>-cartcomal &#60;name&#62;</CODE>
 <DD>
 Attach raw 64kB Comal 80 cartridge image.
 
-<A NAME="IDX570"></A>
+<A NAME="IDX589"></A>
 <DT><CODE>-cartdep256 &#60;name&#62;</CODE>
 <DD>
 Attach raw Dela EP256 cartridge image.
 
-<A NAME="IDX571"></A>
+<A NAME="IDX590"></A>
 <DT><CODE>-cartdep64 &#60;name&#62;</CODE>
 <DD>
 Attach raw Dela EP64 cartridge image.
 
-<A NAME="IDX572"></A>
+<A NAME="IDX591"></A>
 <DT><CODE>-cartdep7x8 &#60;name&#62;</CODE>
 <DD>
 Attach raw Dela EP7x8 cartridge image.
 
-<A NAME="IDX573"></A>
+<A NAME="IDX592"></A>
 <DT><CODE>-cartdin &#60;name&#62;</CODE>
 <DD>
 Attach raw 128kB Dinamic cartridge image.
 
-<A NAME="IDX574"></A>
+<A NAME="IDX593"></A>
 <DT><CODE>-cartdsm &#60;name&#62;</CODE>
 <DD>
 Attach raw 8kB Diashow-Maker cartridge image.
 
-<A NAME="IDX575"></A>
+<A NAME="IDX594"></A>
 <DT><CODE>-cartdqbb &#60;name&#62;</CODE>
 <DD>
 Attach raw 16kB Double Quick Brown Box cartridge image.
 
-<A NAME="IDX576"></A>
+<A NAME="IDX595"></A>
 <DT><CODE>-dqbb</CODE>
 <DD>
 <DT><CODE>+dqbb</CODE>
@@ -1176,13 +1194,13 @@ Attach raw 16kB Double Quick Brown Box cartridge image.
 Enable/disable Double Quick Brown Box
 (<CODE>DQBB=1</CODE>, <CODE>DQBB=0</CODE>).
 
-<A NAME="IDX577"></A>
+<A NAME="IDX596"></A>
 <DT><CODE>-dqbbimage &#60;name&#62;</CODE>
 <DD>
 Specify Double Quick Brown Box filename
 (<CODE>DQBBfilename</CODE>).
 
-<A NAME="IDX578"></A>
+<A NAME="IDX597"></A>
 <DT><CODE>-dqbbimagerw</CODE>
 <DD>
 <DT><CODE>+dqbbimagerw</CODE>
@@ -1190,12 +1208,12 @@ Specify Double Quick Brown Box filename
 Allow/disallow writing to DQBB image
 (<CODE>DQBBImageWrite=1</CODE>, <CODE>DQBBImageWrite=0</CODE>).
 
-<A NAME="IDX579"></A>
+<A NAME="IDX598"></A>
 <DT><CODE>-carteasy &#60;name&#62;</CODE>
 <DD>
 Attach raw EasyFlash cartridge image.
 
-<A NAME="IDX580"></A>
+<A NAME="IDX599"></A>
 <DT><CODE>-easyflashjumper</CODE>
 <DD>
 <DT><CODE>+easyflashjumper</CODE>
@@ -1203,7 +1221,7 @@ Attach raw EasyFlash cartridge image.
 Enable/disable EasyFlash jumper
 (<CODE>EasyFlashJumper=1</CODE>, <CODE>EasyFlashJumper=0</CODE>).
 
-<A NAME="IDX581"></A>
+<A NAME="IDX600"></A>
 <DT><CODE>-easyflashcrtwrite</CODE>
 <DD>
 <DT><CODE>+easyflashcrtwrite</CODE>
@@ -1211,7 +1229,7 @@ Enable/disable EasyFlash jumper
 Allow/Disallow writing to EasyFlash .crt image
 (<CODE>EasyFlashWriteCRT=1</CODE>, <CODE>EasyFlashWriteCRT=0</CODE>).
 
-<A NAME="IDX582"></A>
+<A NAME="IDX601"></A>
 <DT><CODE>-easyflashcrtoptimize</CODE>
 <DD>
 <DT><CODE>+easyflashcrtoptimize</CODE>
@@ -1219,22 +1237,22 @@ Allow/Disallow writing to EasyFlash .crt image
 Allow/Disallow EasyFlash .crt image optimizing (omitting of empty banks) on write
 (<CODE>EasyFlashOptimizeCRT=1</CODE>, <CODE>EasyFlashOptimizeCRT=0</CODE>).
 
-<A NAME="IDX583"></A>
+<A NAME="IDX602"></A>
 <DT><CODE>-cartepyx &#60;name&#62;</CODE>
 <DD>
 Attach raw 8KB Epyx FastLoad cartridge image.
 
-<A NAME="IDX584"></A>
+<A NAME="IDX603"></A>
 <DT><CODE>-cartexos &#60;name&#62;</CODE>
 <DD>
 Attach raw 8kB EXOS cartridge image.
 
-<A NAME="IDX585"></A>
+<A NAME="IDX604"></A>
 <DT><CODE>-cartexpert &#60;name&#62;</CODE>
 <DD>
 Attach raw 8kB Expert Cartridge image.
 
-<A NAME="IDX586"></A>
+<A NAME="IDX605"></A>
 <DT><CODE>-expert</CODE>
 <DD>
 <DT><CODE>+expert</CODE>
@@ -1242,13 +1260,13 @@ Attach raw 8kB Expert Cartridge image.
 Enable/Disable the Expert Cartridge
 (<CODE>ExpertCartridgeEnabled=1</CODE>, <CODE>ExpertCartridgeEnabled=0</CODE>).
 
-<A NAME="IDX587"></A>
+<A NAME="IDX606"></A>
 <DT><CODE>-expertimagename &#60;name&#62;</CODE>
 <DD>
 Set Expert Cartridge image name
 (<CODE>Expertfilename</CODE>).
 
-<A NAME="IDX588"></A>
+<A NAME="IDX607"></A>
 <DT><CODE>-expertimagerw</CODE>
 <DD>
 <DT><CODE>+expertimagerw</CODE>
@@ -1256,127 +1274,127 @@ Set Expert Cartridge image name
 Allow/Disallow writing to Expert Cartridge image
 (<CODE>ExpertImageWrite=1</CODE>, <CODE>ExpertImageWrite=0</CODE>).
 
-<A NAME="IDX589"></A>
+<A NAME="IDX608"></A>
 <DT><CODE>-expertmode &#60;mode&#62;</CODE>
 <DD>
 Set Expert Cartridge mode
 (<CODE>ExpertCartridgeMode</CODE>).
 (0: off, 1: prg, 2: on)
 
-<A NAME="IDX590"></A>
+<A NAME="IDX609"></A>
 <DT><CODE>-cartf64 &#60;Name&#62;</CODE>
 <DD>
 Attach raw 32kB Formel 64 image.
 
-<A NAME="IDX591"></A>
+<A NAME="IDX610"></A>
 <DT><CODE>-cartfc1 &#60;name&#62;</CODE>
 <DD>
 Attach raw 16kB Final Cartridge image.
 
-<A NAME="IDX592"></A>
+<A NAME="IDX611"></A>
 <DT><CODE>-cartfc3 &#60;name&#62;</CODE>
 <DD>
 Attach raw 64kB Final Cartridge III image.
 
-<A NAME="IDX593"></A>
+<A NAME="IDX612"></A>
 <DT><CODE>-cartfcplus &#60;name&#62;</CODE>
 <DD>
 Attach raw 32kB Final Cartridge Plus image.
 
-<A NAME="IDX594"></A>
+<A NAME="IDX613"></A>
 <DT><CODE>-cartff &#60;name&#62;</CODE>
 <DD>
 Attach raw 8kB Freeze Frame image.
 
-<A NAME="IDX595"></A>
+<A NAME="IDX614"></A>
 <DT><CODE>-cartfm &#60;name&#62;</CODE>
 <DD>
 Attach raw 32kB Freeze Machine image.
 
-<A NAME="IDX596"></A>
+<A NAME="IDX615"></A>
 <DT><CODE>-cartfp &#60;name&#62;</CODE>
 <DD>
 Attach raw 128kB Fun Play/Power Play cartridge image.
 
-<A NAME="IDX597"></A>
+<A NAME="IDX616"></A>
 <DT><CODE>-cartgk &#60;name&#62;</CODE>
 <DD>
 Attach raw 8KB Game Killer cartridge image.
 
-<A NAME="IDX598"></A>
+<A NAME="IDX617"></A>
 <DT><CODE>-cartgs &#60;name&#62;</CODE>
 <DD>
 Attach raw 512kB Game System cartridge image.
 
-<A NAME="IDX599"></A>
+<A NAME="IDX618"></A>
 <DT><CODE>-cartide64 &#60;name&#62;</CODE>
 <DD>
 Attach raw 64KB or 128KB IDE64 cartridge image.
 
-<A NAME="IDX600"></A>
+<A NAME="IDX619"></A>
 <DT><CODE>-IDE64image1 &#60;name&#62;</CODE>
 <DD>
-<A NAME="IDX601"></A>
+<A NAME="IDX620"></A>
 <DT><CODE>-IDE64image2 &#60;name&#62;</CODE>
 <DD>
-<A NAME="IDX602"></A>
+<A NAME="IDX621"></A>
 <DT><CODE>-IDE64image3 &#60;name&#62;</CODE>
 <DD>
-<A NAME="IDX603"></A>
+<A NAME="IDX622"></A>
 <DT><CODE>-IDE64image4 &#60;name&#62;</CODE>
 <DD>
 Specify path to the image files for IDE64 harddisks
 (<CODE>IDE64Image1</CODE>, <CODE>IDE64Image2</CODE>, <CODE>IDE64Image3</CODE>, <CODE>IDE64Image4</CODE>).
 
-<A NAME="IDX604"></A>
+<A NAME="IDX623"></A>
 <DT><CODE>-IDE64cyl1 &#60;value&#62;</CODE>
 <DD>
-<A NAME="IDX605"></A>
+<A NAME="IDX624"></A>
 <DT><CODE>-IDE64cyl2 &#60;value&#62;</CODE>
 <DD>
-<A NAME="IDX606"></A>
+<A NAME="IDX625"></A>
 <DT><CODE>-IDE64cyl3 &#60;value&#62;</CODE>
 <DD>
-<A NAME="IDX607"></A>
+<A NAME="IDX626"></A>
 <DT><CODE>-IDE64cyl4 &#60;value&#62;</CODE>
 <DD>
 Set number of cylinders for the IDE64 harddisk emulation
 (<CODE>IDE64Cylinders1</CODE>, <CODE>IDE64Cylinders2</CODE>, <CODE>IDE64Cylinders3</CODE>, <CODE>IDE64Cylinders1</CODE>).
 (1..65535)
 
-<A NAME="IDX608"></A>
+<A NAME="IDX627"></A>
 <DT><CODE>-IDE64hds1 &#60;value&#62;</CODE>
 <DD>
-<A NAME="IDX609"></A>
+<A NAME="IDX628"></A>
 <DT><CODE>-IDE64hds2 &#60;value&#62;</CODE>
 <DD>
-<A NAME="IDX610"></A>
+<A NAME="IDX629"></A>
 <DT><CODE>-IDE64hds3 &#60;value&#62;</CODE>
 <DD>
-<A NAME="IDX611"></A>
+<A NAME="IDX630"></A>
 <DT><CODE>-IDE64hds4 &#60;value&#62;</CODE>
 <DD>
 Set number of heads for the IDE64 harddisk emulation
 (<CODE>IDE64Heads1</CODE>, <CODE>IDE64Heads2</CODE>, <CODE>IDE64Heads3</CODE>, <CODE>IDE64Heads4</CODE>).
 (1..16)
 
-<A NAME="IDX612"></A>
+<A NAME="IDX631"></A>
 <DT><CODE>-IDE64sec1 &#60;value&#62;</CODE>
 <DD>
-<A NAME="IDX613"></A>
+<A NAME="IDX632"></A>
 <DT><CODE>-IDE64sec2 &#60;value&#62;</CODE>
 <DD>
-<A NAME="IDX614"></A>
+<A NAME="IDX633"></A>
 <DT><CODE>-IDE64sec3 &#60;value&#62;</CODE>
 <DD>
-<A NAME="IDX615"></A>
+<A NAME="IDX634"></A>
 <DT><CODE>-IDE64sec4 &#60;value&#62;</CODE>
 <DD>
 Set number of sectors for the IDE64 harddisk emulation
 (<CODE>IDE64Sectors1</CODE>, <CODE>IDE64Sectors2</CODE>, <CODE>IDE64Sectors3</CODE>, <CODE>IDE64Sectors4</CODE>).
 (1..63)
 
-<A NAME="IDX616"></A>
+<A NAME="IDX635"></A>
 <DT><CODE>-IDE64autosize1</CODE>
 <DD>
 <DT><CODE>+IDE64autosize1</CODE>
@@ -1384,7 +1402,7 @@ Set number of sectors for the IDE64 harddisk emulation
 Autodetect geometry of formatted image or do not autodetect and use specified geometry
 (<CODE>IDE64AutodetectSize1=1</CODE>, <CODE>IDE64AutodetectSize1=0</CODE>).
 
-<A NAME="IDX617"></A>
+<A NAME="IDX636"></A>
 <DT><CODE>-IDE64autosize2</CODE>
 <DD>
 <DT><CODE>+IDE64autosize2</CODE>
@@ -1392,7 +1410,7 @@ Autodetect geometry of formatted image or do not autodetect and use specified ge
 Autodetect geometry of formatted image or do not autodetect and use specified geometry
 (<CODE>IDE64AutodetectSize2=1</CODE>, <CODE>IDE64AutodetectSize2=0</CODE>).
 
-<A NAME="IDX618"></A>
+<A NAME="IDX637"></A>
 <DT><CODE>-IDE64autosize3</CODE>
 <DD>
 <DT><CODE>+IDE64autosize3</CODE>
@@ -1400,7 +1418,7 @@ Autodetect geometry of formatted image or do not autodetect and use specified ge
 Autodetect geometry of formatted image or do not autodetect and use specified geometry
 (<CODE>IDE64AutodetectSize3=1</CODE>, <CODE>IDE64AutodetectSize3=0</CODE>).
 
-<A NAME="IDX619"></A>
+<A NAME="IDX638"></A>
 <DT><CODE>-IDE64autosize4</CODE>
 <DD>
 <DT><CODE>+IDE64autosize4</CODE>
@@ -1408,25 +1426,25 @@ Autodetect geometry of formatted image or do not autodetect and use specified ge
 Autodetect geometry of formatted image or do not autodetect and use specified geometry
 (<CODE>IDE64AutodetectSize4=1</CODE>, <CODE>IDE64AutodetectSize4=0</CODE>).
 
-<A NAME="IDX620"></A>
+<A NAME="IDX639"></A>
 <DT><CODE>-IDE64version &#60;value&#62;</CODE>
 <DD>
 Select IDE64 version V3 (0), V4.1 (1) or V4.2 (2).
 (<CODE>IDE64version</CODE>).
 (0..2)
 
-<A NAME="IDX621"></A>
+<A NAME="IDX640"></A>
 <DT><CODE>-IDE64USB</CODE>
 <DD>
 <DT><CODE>+IDE64USB</CODE>
 <DD>
 Enable/Disable IDE64 USB server
-<A NAME="IDX622"></A>
+<A NAME="IDX641"></A>
 <DT><CODE>-IDE64USBAddress &#60;name&#62;</CODE>
 <DD>
 The local address the IDE64 USB server should bind to
 
-<A NAME="IDX623"></A>
+<A NAME="IDX642"></A>
 <DT><CODE>-IDE64rtcsave</CODE>
 <DD>
 <DT><CODE>+IDE64rtcsave</CODE>
@@ -1434,12 +1452,12 @@ The local address the IDE64 USB server should bind to
 Enable/disable saving of IDE64 RTC data when changed
 (<CODE>IDE64RTCSave=1</CODE>, <CODE>IDE64RTCSave=0</CODE>).
 
-<A NAME="IDX624"></A>
+<A NAME="IDX643"></A>
 <DT><CODE>-cartieee &#60;name&#62;</CODE>
 <DD>
 Attach CBM IEEE-488 cartridge image.
 
-<A NAME="IDX625"></A>
+<A NAME="IDX644"></A>
 <DT><CODE>-ieee488</CODE>
 <DD>
 <DT><CODE>+ieee488</CODE>
@@ -1447,13 +1465,13 @@ Attach CBM IEEE-488 cartridge image.
 Enable/disable emulation of the IEEE488 interface
 (<CODE>IEEE488=1</CODE>, <CODE>IEEE488=0</CODE>).
 .
-<A NAME="IDX626"></A>
+<A NAME="IDX645"></A>
 <DT><CODE>-ieee488image &#60;name&#62;</CODE>
 <DD>
 Set IEEE488 interface image name
 (<CODE>IEEE488Image</CODE>).
 
-<A NAME="IDX627"></A>
+<A NAME="IDX646"></A>
 <DT><CODE>-isepic</CODE>
 <DD>
 <DT><CODE>+isepic</CODE>
@@ -1461,7 +1479,7 @@ Set IEEE488 interface image name
 Enable/disable the ISEPIC cart
 (<CODE>IsepicCartridgeEnabled=1</CODE>, <CODE>IsepicCartridgeEnabled=0</CODE>).
 
-<A NAME="IDX628"></A>
+<A NAME="IDX647"></A>
 <DT><CODE>-isepicswitch</CODE>
 <DD>
 <DT><CODE>+isepicswitch</CODE>
@@ -1469,18 +1487,18 @@ Enable/disable the ISEPIC cart
 Enable/disable the ISEPIC switch
 (<CODE>IsepicSwitch=1</CODE>, <CODE>IsepicSwitch=0</CODE>).
 
-<A NAME="IDX629"></A>
+<A NAME="IDX648"></A>
 <DT><CODE>-cartisepic &#60;name&#62;</CODE>
 <DD>
 Attach raw 2kB ISEPIC cartridge image.
 
-<A NAME="IDX630"></A>
+<A NAME="IDX649"></A>
 <DT><CODE>-isepicimagename &#60;name&#62;</CODE>
 <DD>
 Set ISEPIC image name
 (<CODE>Isepicfilename</CODE>).
 
-<A NAME="IDX631"></A>
+<A NAME="IDX650"></A>
 <DT><CODE>-isepicimagerw</CODE>
 <DD>
 <DT><CODE>+isepicimagerw</CODE>
@@ -1488,37 +1506,37 @@ Set ISEPIC image name
 Allow/disallow writing to ISEPIC image
 (<CODE>IsepicImageWrite=1</CODE>, <CODE>IsepicImageWrite=0</CODE>).
 
-<A NAME="IDX632"></A>
+<A NAME="IDX651"></A>
 <DT><CODE>-cartkcs &#60;name&#62;</CODE>
 <DD>
 Attach raw 16kB KCS Power cartridge image.
 
-<A NAME="IDX633"></A>
+<A NAME="IDX652"></A>
 <DT><CODE>-cartks &#60;name&#62;</CODE>
 <DD>
 Attach raw 24kB Kingsoft cartridge image.
 
-<A NAME="IDX634"></A>
+<A NAME="IDX653"></A>
 <DT><CODE>-cartmach5 &#60;name&#62;</CODE>
 <DD>
 Attach raw 8kB MACH 5 cartridge image.
 
-<A NAME="IDX635"></A>
+<A NAME="IDX654"></A>
 <DT><CODE>-cartmd &#60;name&#62;</CODE>
 <DD>
 Attach raw 32/64/128kB Magic Desk cartridge image.
 
-<A NAME="IDX636"></A>
+<A NAME="IDX655"></A>
 <DT><CODE>-cartmf &#60;name&#62;</CODE>
 <DD>
 Attach raw Magic Formel cartridge image.
 
-<A NAME="IDX637"></A>
+<A NAME="IDX656"></A>
 <DT><CODE>-cartmikro &#60;name&#62;</CODE>
 <DD>
 Attach raw 8kB Mikro Assembler cartridge image.
 
-<A NAME="IDX638"></A>
+<A NAME="IDX657"></A>
 <DT><CODE>-mmc64</CODE>
 <DD>
 <DT><CODE>+mmc64</CODE>
@@ -1526,36 +1544,36 @@ Attach raw 8kB Mikro Assembler cartridge image.
 Enable/disable the MMC64 expansion
 (<CODE>MMC64=1</CODE>, <CODE>MMC64=0</CODE>).
 
-<A NAME="IDX639"></A>
+<A NAME="IDX658"></A>
 <DT><CODE>-cartmmc64 &#60;name&#62;</CODE>
 <DD>
 Attach raw 8kB MMC64 cartridge image.
 
-<A NAME="IDX640"></A>
+<A NAME="IDX659"></A>
 <DT><CODE>-mmc64bios &#60;name&#62;</CODE>
 <DD>
 Specify name of MMC64 BIOS image
 (<CODE>MMC64BIOSfilename</CODE>).
 
-<A NAME="IDX641"></A>
+<A NAME="IDX660"></A>
 <DT><CODE>-mmc64image &#60;name&#62;</CODE>
 <DD>
 Specify name of MMC64 image
 (<CODE>MMC64imagefilename</CODE>).
 
-<A NAME="IDX642"></A>
+<A NAME="IDX661"></A>
 <DT><CODE>-mmc64readonly</CODE>
 <DD>
 Set the MMC64 card to read-only
 (<CODE>MMC64_RO=1</CODE>).
 
-<A NAME="IDX643"></A>
+<A NAME="IDX662"></A>
 <DT><CODE>-mmc64readwrite</CODE>
 <DD>
 Set the MMC64 card to read/write
 (<CODE>MMC64_RO=0</CODE>).
 
-<A NAME="IDX644"></A>
+<A NAME="IDX663"></A>
 <DT><CODE>-mmc64flash</CODE>
 <DD>
 <DT><CODE>+mmc64flash</CODE>
@@ -1563,38 +1581,45 @@ Set the MMC64 card to read/write
 Enable/Disable the MMC64 flash jumper
 (<CODE>MMC64_flashjumper=1</CODE>, <CODE>MMC64_flashjumper=0</CODE>).
 
-<A NAME="IDX645"></A>
+<A NAME="IDX664"></A>
 <DT><CODE>-mmc64bioswrite</CODE>
 <DD>
 Save the MMC64 bios when changed
 (<CODE>MMC64_bios_write</CODE>=1).
 
-<A NAME="IDX646"></A>
+<A NAME="IDX665"></A>
 <DT><CODE>-mmc64biosreadonly</CODE>
 <DD>
 Do not save the MMC64 bios when changed
 (<CODE>MMC64_bios_write</CODE>=0).
 
-<A NAME="IDX647"></A>
+<A NAME="IDX666"></A>
 <DT><CODE>-mmc64rev &#60;revision&#62;</CODE>
 <DD>
 Specify MMC64 revision
 (<CODE>MMC64_revision</CODE>).
 (0: Revision A, 1: Revision B)
 
-<A NAME="IDX648"></A>
+<A NAME="IDX667"></A>
 <DT><CODE>-mmc64sdtype &#60;type&#62;</CODE>
 <DD>
 Specify MMC64 SD type
 (<CODE>MMC64_sd_type</CODE>).
 (0: Auto, 1: MMC, 2: SD, 3: SDHC)
 
-<A NAME="IDX649"></A>
+<A NAME="IDX668"></A>
+<DT><CODE>-mmc64clockportdevice &#60;device&#62;</CODE>
+<DD>
+Set MMC64 clockport device
+(<CODE>MMC64ClockPort</CODE>)
+(0: None, 1: ETH64-II, 2: RRNet, 3: Silver Surfer, 4: MP3@64, 5: Catweasel MkIII SID)
+
+<A NAME="IDX669"></A>
 <DT><CODE>-cartmmcr &#60;name&#62;</CODE>
 <DD>
 Attach raw 512kB MMC Replay cartridge image.
 
-<A NAME="IDX650"></A>
+<A NAME="IDX670"></A>
 <DT><CODE>-mmcrrescue</CODE>
 <DD>
 <DT><CODE>+mmcrrescue</CODE>
@@ -1602,7 +1627,7 @@ Attach raw 512kB MMC Replay cartridge image.
 Enable/disable MMC Replay rescue mode
 (<CODE>MMCRRescueMode=1</CODE>, <CODE>MMCRRescueMode=0</CODE>).
 
-<A NAME="IDX651"></A>
+<A NAME="IDX671"></A>
 <DT><CODE>-mmcrimagerw</CODE>
 <DD>
 <DT><CODE>+mmcrimagerw</CODE>
@@ -1610,20 +1635,20 @@ Enable/disable MMC Replay rescue mode
 Allow/disallow writing to MMC Replay image
 (<CODE>MMCRImageWrite=1</CODE>, <CODE>MMCRImageWrite=0</CODE>).
 
-<A NAME="IDX652"></A>
+<A NAME="IDX672"></A>
 <DT><CODE>-mmcrsdtype &#60;type&#62;</CODE>
 <DD>
 Specify MMC Replay SD type
 (<CODE>MMCRSDType</CODE>).
 (0: Auto, 1: MMC, 2: SD, 3: SDHC)
 
-<A NAME="IDX653"></A>
+<A NAME="IDX673"></A>
 <DT><CODE>-mmcrcardimage &#60;filename&#62;</CODE>
 <DD>
 Specify MMC Replay card image filename
 (<CODE>MMCRCardImage</CODE>).
 
-<A NAME="IDX654"></A>
+<A NAME="IDX674"></A>
 <DT><CODE>-mmcrcardrw</CODE>
 <DD>
 <DT><CODE>+mmcrcardrw</CODE>
@@ -1631,13 +1656,13 @@ Specify MMC Replay card image filename
 Allow/disallow writes to MMC Replay card image
 (<CODE>MMCRCardRW=1</CODE>, <CODE>MMCRCardRW=0</CODE>).
 
-<A NAME="IDX655"></A>
+<A NAME="IDX675"></A>
 <DT><CODE>-mmcreepromimage &#60;filename&#62;</CODE>
 <DD>
 Specify MMC Replay EEPROM image filename
 (<CODE>MMCREEPROMImage</CODE>).
 
-<A NAME="IDX656"></A>
+<A NAME="IDX676"></A>
 <DT><CODE>-mmcreepromrw</CODE>
 <DD>
 <DT><CODE>+mmcreepromrw</CODE>
@@ -1645,18 +1670,25 @@ Specify MMC Replay EEPROM image filename
 Allow/disallow writes to MMC Replay EEPROM image
 (<CODE>MMCREEPROMRW=1</CODE>, <CODE>MMCREEPROMRW=0</CODE>).
 
-<A NAME="IDX657"></A>
+<A NAME="IDX677"></A>
+<DT><CODE>-mmcrclockportdevice &#60;id&#62;</CODE>
+<DD>
+Set MMC Replay clockport device
+(<CODE>MMCRClockPort</CODE>).
+(0: None, 1: ETH64-II, 2: RRNet, 3: Silver Surfer, 4: MP3@64, 5: Catweasel MkIII SID)
+
+<A NAME="IDX678"></A>
 <DT><CODE>-cartmv &#60;name&#62;</CODE>
 <DD>
 Attach raw 16kB Magic Voice cartridge image.
 
-<A NAME="IDX658"></A>
+<A NAME="IDX679"></A>
 <DT><CODE>-magicvoiceimage &#60;name&#62;</CODE>
 <DD>
 Specify Magic Voice cartridge ROM image filename
 (<CODE>MagicVoiceImage</CODE>).
 
-<A NAME="IDX659"></A>
+<A NAME="IDX680"></A>
 <DT><CODE>-magicvoice</CODE>
 <DD>
 <DT><CODE>+magicvoice</CODE>
@@ -1664,27 +1696,27 @@ Specify Magic Voice cartridge ROM image filename
 Enable/disable Magic Voice cartridge
 (<CODE>MagicVoiceCartridgeEnabled=1</CODE>, <CODE>MagicVoiceCartridgeEnabled=0</CODE>).
 
-<A NAME="IDX660"></A>
+<A NAME="IDX681"></A>
 <DT><CODE>-cartocean &#60;name&#62;</CODE>
 <DD>
 Attach raw Ocean cartridge image.
 
-<A NAME="IDX661"></A>
+<A NAME="IDX682"></A>
 <DT><CODE>-cartp64 &#60;name&#62;</CODE>
 <DD>
 Attach raw 256KB Prophet 64 cartridge image.
 
-<A NAME="IDX662"></A>
+<A NAME="IDX683"></A>
 <DT><CODE>-cartpf &#60;name&#62;</CODE>
 <DD>
 Attach raw 64kb Pagefox cartridge image.
 
-<A NAME="IDX663"></A>
+<A NAME="IDX684"></A>
 <DT><CODE>-cartramcart &#60;name&#62;</CODE>
 <DD>
 Attach raw RamCart cartridge image.
 
-<A NAME="IDX664"></A>
+<A NAME="IDX685"></A>
 <DT><CODE>-ramcart</CODE>
 <DD>
 <DT><CODE>+ramcart</CODE>
@@ -1692,20 +1724,20 @@ Attach raw RamCart cartridge image.
 Enable/disable the RAMCART expansion
 (<CODE>RAMCART=1</CODE>, <CODE>RAMCART=0</CODE>).
 
-<A NAME="IDX665"></A>
+<A NAME="IDX686"></A>
 <DT><CODE>-ramcartsize &#60;size in KB&#62;</CODE>
 <DD>
 Size of the RAMCART expansion
 (<CODE>RAMCARTsize</CODE>).
 (64, 128)
 
-<A NAME="IDX666"></A>
+<A NAME="IDX687"></A>
 <DT><CODE>-ramcartimage &#60;name&#62;</CODE>
 <DD>
 Specify name of RAMCART image
 (<CODE>RAMCARTfilename</CODE>).
 
-<A NAME="IDX667"></A>
+<A NAME="IDX688"></A>
 <DT><CODE>-ramcartimagerw</CODE>
 <DD>
 <DT><CODE>+ramcartimagerw</CODE>
@@ -1713,44 +1745,44 @@ Specify name of RAMCART image
 Allow/disallow writing to RAMCart image
 (<CODE>RAMCARTImageWrite=1</CODE>, <CODE>RAMCARTImageWrite=0</CODE>).
 
-<A NAME="IDX668"></A>
+<A NAME="IDX689"></A>
 <DT><CODE>-ramcartro</CODE>
 <DD>
 Set the RamCart switch to read-only
 (<CODE>RAMCART_RO=1</CODE>).
 
-<A NAME="IDX669"></A>
+<A NAME="IDX690"></A>
 <DT><CODE>-ramcartrw</CODE>
 <DD>
 Set the RamCart switch to read-only
 (<CODE>RAMCART_RO=0</CODE>).
 
-<A NAME="IDX670"></A>
+<A NAME="IDX691"></A>
 <DT><CODE>-cartrep256 &#60;name&#62;</CODE>
 <DD>
 Attach raw REX EP256 cartridge image.
 
-<A NAME="IDX671"></A>
+<A NAME="IDX692"></A>
 <DT><CODE>-cartrgcd &#60;Name&#62;</CODE>
 <DD>
 Attach raw 64kB RGCD cartridge image.
 
-<A NAME="IDX672"></A>
+<A NAME="IDX693"></A>
 <DT><CODE>-cartross &#60;name&#62;</CODE>
 <DD>
 Attach raw 16/32kB ROSS cartridge image.
 
-<A NAME="IDX673"></A>
+<A NAME="IDX694"></A>
 <DT><CODE>-cartrrnet &#60;name&#62;</CODE>
 <DD>
 Attach raw 8KB RR-Net MK3 cartridge image.
 
-<A NAME="IDX674"></A>
+<A NAME="IDX695"></A>
 <DT><CODE>-cartrr &#60;name&#62;</CODE>
 <DD>
 Attach raw 64KB Retro Replay cartridge image.
 
-<A NAME="IDX675"></A>
+<A NAME="IDX696"></A>
 <DT><CODE>-rrbioswrite</CODE>
 <DD>
 <DT><CODE>+rrbioswrite</CODE>
@@ -1758,7 +1790,7 @@ Attach raw 64KB Retro Replay cartridge image.
 Enable/disable saving of the RR ROM at exit
 (<CODE>RRBiosWrite=1</CODE>, <CODE>RRBiosWrite=0</CODE>).
 
-<A NAME="IDX676"></A>
+<A NAME="IDX697"></A>
 <DT><CODE>-rrbankjumper</CODE>
 <DD>
 <DT><CODE>+rrbankjumper</CODE>
@@ -1766,7 +1798,7 @@ Enable/disable saving of the RR ROM at exit
 Set/unset RR Bank Jumper
 (<CODE>RRBankJumper=1</CODE>, <CODE>RRBankJumper=0</CODE>).
 
-<A NAME="IDX677"></A>
+<A NAME="IDX698"></A>
 <DT><CODE>-rrflashjumper</CODE>
 <DD>
 <DT><CODE>+rrflashjumper</CODE>
@@ -1774,59 +1806,66 @@ Set/unset RR Bank Jumper
 Set/unset RR Flash Jumper
 (<CODE>RRFlashJumper=1</CODE>, <CODE>RRFlashJumper=0</CODE>).
 
-<A NAME="IDX678"></A>
+<A NAME="IDX699"></A>
 <DT><CODE>-rrrev &#60;Revision&#62;</CODE>
 <DD>
 Set the RR revision
 (<CODE>RRrevision</CODE>).
 (0: Retro Replay, 1: Nordic Replay)
 
-<A NAME="IDX679"></A>
+<A NAME="IDX700"></A>
+<DT><CODE>-rrclockportdevice &#60;device&#62;</CODE>
+<DD>
+Set the RR clockport device
+(<CODE>RRClockPort</CODE>)
+(0: None, 1: ETH64-II, 2: RRNet, 3: Silver Surfer, 4: MP3@64, 5: Catweasel MkIII SID)
+
+<A NAME="IDX701"></A>
 <DT><CODE>-cartru &#60;name&#62;</CODE>
 <DD>
 Attach raw 8kB REX Utility cartridge image.
 
-<A NAME="IDX680"></A>
+<A NAME="IDX702"></A>
 <DT><CODE>-carts64 &#60;name&#62;</CODE>
 <DD>
 Attach raw 4kB Snapshot 64 cartridge image.
 
-<A NAME="IDX681"></A>
+<A NAME="IDX703"></A>
 <DT><CODE>-cartsb &#60;name&#62;</CODE>
 <DD>
 Attach raw Structured Basic cartridge image.
 
-<A NAME="IDX682"></A>
+<A NAME="IDX704"></A>
 <DT><CODE>-cartse5 &#60;name&#62;</CODE>
 <DD>
 Attach raw 16kB Super Explode V5 cartridge image.
 
-<A NAME="IDX683"></A>
+<A NAME="IDX705"></A>
 <DT><CODE>-cartsg &#60;name&#62;</CODE>
 <DD>
 Attach raw 64kB Super Games cartridge image.
 
-<A NAME="IDX684"></A>
+<A NAME="IDX706"></A>
 <DT><CODE>-cartsilver &#60;Name&#62;</CODE>
 <DD>
 Attach raw Silverrock 128 cartridge image.
 
-<A NAME="IDX685"></A>
+<A NAME="IDX707"></A>
 <DT><CODE>-cartsimon &#60;name&#62;</CODE>
 <DD>
 Attach raw 16kB Simons' Basic cartridge image.
 
-<A NAME="IDX686"></A>
+<A NAME="IDX708"></A>
 <DT><CODE>-cartss4 &#60;name&#62;</CODE>
 <DD>
 Attach raw 32KB Super Snapshot V4 cartridge image.
 
-<A NAME="IDX687"></A>
+<A NAME="IDX709"></A>
 <DT><CODE>-cartss5 &#60;name&#62;</CODE>
 <DD>
 Attach raw 64KB Super Snapshot V5 cartridge image.
 
-<A NAME="IDX688"></A>
+<A NAME="IDX710"></A>
 <DT><CODE>-ssramexpansion</CODE>
 <DD>
 <DT><CODE>+ssramexpansion</CODE>
@@ -1834,22 +1873,22 @@ Attach raw 64KB Super Snapshot V5 cartridge image.
 Enable/disable 32k addon RAM.
 (<CODE>SSRamExpansion=1</CODE>, <CODE>SSRamExpansion=0</CODE>).
 
-<A NAME="IDX689"></A>
+<A NAME="IDX711"></A>
 <DT><CODE>-cartstar &#60;name&#62;</CODE>
 <DD>
 Attach raw 16KB Stardos cartridge image.
 
-<A NAME="IDX690"></A>
+<A NAME="IDX712"></A>
 <DT><CODE>-cartwl &#60;name&#62;</CODE>
 <DD>
 Attach raw 16KB Westermann Learning cartridge image.
 
-<A NAME="IDX691"></A>
+<A NAME="IDX713"></A>
 <DT><CODE>-cartws &#60;name&#62;</CODE>
 <DD>
 Attach raw 8kB Warp Speed cartridge image.
 
-<A NAME="IDX692"></A>
+<A NAME="IDX714"></A>
 <DT><CODE>-cartzaxxon &#60;name&#62;</CODE>
 <DD>
 Attach raw 16kB Zaxxon cartridge image.
@@ -1867,12 +1906,12 @@ Attach raw 16kB Zaxxon cartridge image.
 
 <DT><CODE>CIA1Model</CODE>
 <DD>
-<A NAME="IDX693"></A>
+<A NAME="IDX715"></A>
  
 Integer specifying CIA1 model (all emulators except x64dtv/xpet/xplus4/xvic).
 (0: old 6526, 1: new 6526A)
 
-<A NAME="IDX694"></A>
+<A NAME="IDX716"></A>
 <DT><CODE>CIA2Model</CODE>
 <DD>
 Integer specifying CIA2 model (all emulators except x64dtv/xcbm2/xcbm5x0/xpet/xplus4/xvic).
@@ -1888,14 +1927,14 @@ Integer specifying CIA2 model (all emulators except x64dtv/xcbm2/xcbm5x0/xpet/xp
 
 <DT><CODE>-ciamodel &#60;model&#62;</CODE>
 <DD>
-<A NAME="IDX695"></A>
+<A NAME="IDX717"></A>
  
 Set both CIA models
 (<CODE>CIA1Model</CODE>, <CODE>CIA2Model</CODE>)
 (all emulators except x64dtv/xcbm2/xcbm5x0/xpet/xplus4/xvic).
 (0: old 6526, 1: new 6526A)
 
-<A NAME="IDX696"></A>
+<A NAME="IDX718"></A>
 <DT><CODE>-cia1model &#60;model&#62;</CODE>
 <DD>
 Set CIA1 model
@@ -1903,7 +1942,7 @@ Set CIA1 model
 (all emulators except x64dtv/xpet/xplus4/xvic).
 (0: old 6526, 1: new 6526A)
 
-<A NAME="IDX697"></A>
+<A NAME="IDX719"></A>
 <DT><CODE>-cia2model &#60;model&#62;</CODE>
 <DD>
 Set CIA2 model
@@ -1927,7 +1966,7 @@ used in both the C64 and the C128.
 
 <LI>
 
-<A NAME="IDX698"></A>
+<A NAME="IDX720"></A>
  
 "Sprite-sprite collisions" and "Sprite-background collisions", if
 enabled, cause the hardware detection of sprite-to-sprite and
@@ -1936,7 +1975,7 @@ feature is used by many games, and disabling either of the two detection
 systems can sometimes make you invincible (although there is also a
 chance that also enemies become invincible then).
 
-<A NAME="IDX699"></A>
+<A NAME="IDX721"></A>
 <LI>
 
 "Color set" can be used to dynamically change the palette file being used by 
@@ -1980,127 +2019,127 @@ choosing one of the available predefined color sets, for example:
 
 <DT><CODE>VICIIModel</CODE>
 <DD>
-<A NAME="IDX700"></A>
+<A NAME="IDX722"></A>
  
 Integer that specifies VIC-II model
 (x64sc/xscpu64 only).
 (6569, 6569r1, 8565, 6567, 8562, 6567r56a, 6572)
 
-<A NAME="IDX701"></A>
+<A NAME="IDX723"></A>
 <DT><CODE>VICIICheckSsColl</CODE>
 <DD>
 Boolean specifying whether the sprite-sprite hardware collision
 detection must be emulated.
 
-<A NAME="IDX702"></A>
+<A NAME="IDX724"></A>
 <DT><CODE>VICIICheckSbColl</CODE>
 <DD>
 Boolean specifying whether the sprite-background hardware collision
 detection must be emulated.
 
-<A NAME="IDX703"></A>
+<A NAME="IDX725"></A>
 <DT><CODE>VICIIVSPBug</CODE>
 <DD>
 Boolean specifying whether the "VSP Bug" must be emulated
 (x64sc/xscpu64 only).
 
-<A NAME="IDX704"></A>
+<A NAME="IDX726"></A>
 <DT><CODE>VICIIVideoCache</CODE>
 <DD>
 Boolean specifying whether the video cache is turned on.
 
-<A NAME="IDX705"></A>
+<A NAME="IDX727"></A>
 <DT><CODE>VICIIDoubleSize</CODE>
 <DD>
 Boolean specifying whether double-size mode is turned on.
 
-<A NAME="IDX706"></A>
+<A NAME="IDX728"></A>
 <DT><CODE>VICIIDoubleScan</CODE>
 <DD>
 Boolean specifying whether double-scan mode is turned on.
 
-<A NAME="IDX707"></A>
+<A NAME="IDX729"></A>
 <DT><CODE>VICIINewLuminances</CODE>
 <DD>
 Boolean specifying whether to use new (9 steps) luminances.
 
-<A NAME="IDX708"></A>
+<A NAME="IDX730"></A>
 <DT><CODE>VICIIPaletteFile</CODE>
 <DD>
 String specifying the name of the palette file being used. The
 <TT>`.vpl'</TT> extension is optional.
 
-<A NAME="IDX709"></A>
+<A NAME="IDX731"></A>
 <DT><CODE>VICIIExternalPalette</CODE>
 <DD>
 Boolean specifying whether to use external palette file or not.
 
-<A NAME="IDX710"></A>
+<A NAME="IDX732"></A>
 <DT><CODE>VICIIColorSaturation</CODE>
 <DD>
 Integer specifying saturation of internal calculated palette.
 (0..2000)
 
-<A NAME="IDX711"></A>
+<A NAME="IDX733"></A>
 <DT><CODE>VICIIColorContrast</CODE>
 <DD>
 Integer specifying contrast of internal calculated palette.
 (0..2000)
 
-<A NAME="IDX712"></A>
+<A NAME="IDX734"></A>
 <DT><CODE>VICIIColorBrightness</CODE>
 <DD>
 Integer specifying brightness of internal calculated palette.
 (0..2000)
 
-<A NAME="IDX713"></A>
+<A NAME="IDX735"></A>
 <DT><CODE>VICIIColorGamma</CODE>
 <DD>
 Integer specifying gamma of internal calculated palette.
 (0..4000)
 
-<A NAME="IDX714"></A>
+<A NAME="IDX736"></A>
 <DT><CODE>VICIIColorTint</CODE>
 <DD>
 Integer specifying tint of internal calculated palette.
 (0..2000)
 
-<A NAME="IDX715"></A>
+<A NAME="IDX737"></A>
 <DT><CODE>VICIIPALScanLineShade</CODE>
 <DD>
 Integer specifying amount of scan line shading for the CRT emulation.
 (0..1000)
 
-<A NAME="IDX716"></A>
+<A NAME="IDX738"></A>
 <DT><CODE>VICIIPALBlur</CODE>
 <DD>
 Integer specifying amount of horizontal blur for the CRT emulation.
 (0..1000)
 
-<A NAME="IDX717"></A>
+<A NAME="IDX739"></A>
 <DT><CODE>VICIIPALOddLinePhase</CODE>
 <DD>
 Integer specifying phase for color carrier in odd lines.
 (0..2000)
 
-<A NAME="IDX718"></A>
+<A NAME="IDX740"></A>
 <DT><CODE>VICIIPALOddLineOffset</CODE>
 <DD>
 Integer specifying phase offset for color carrier in odd lines.
 (0..2000)
 
-<A NAME="IDX719"></A>
+<A NAME="IDX741"></A>
 <DT><CODE>VICIIAudioLeak</CODE>
 <DD>
 Boolean specifying whether to enable/disable video to audio leak emulation.
 
-<A NAME="IDX720"></A>
+<A NAME="IDX742"></A>
 <DT><CODE>VICIIFilter</CODE>
 <DD>
 Integer specifying rendering filter.
 (0: None, 1: CRT emulation, 2: Scale2x)
 
-<A NAME="IDX721"></A>
+<A NAME="IDX743"></A>
 <DT><CODE>VICIIBorderMode</CODE>
 <DD>
 Integer specifying border display mode.
@@ -2116,14 +2155,14 @@ Integer specifying border display mode.
 
 <DT><CODE>-VICIIcheckss</CODE>
 <DD>
-<A NAME="IDX722"></A>
+<A NAME="IDX744"></A>
  
 <DT><CODE>+VICIIcheckss</CODE>
 <DD>
 Enable/disable emulation of hardware sprite-sprite collision detection
 (<CODE>VICIICheckSsColl=1</CODE>, <CODE>VICIICheckSsColl=0</CODE>).
 
-<A NAME="IDX723"></A>
+<A NAME="IDX745"></A>
 <DT><CODE>-VICIIchecksb</CODE>
 <DD>
 <DT><CODE>+VICIIchecksb</CODE>
@@ -2131,7 +2170,7 @@ Enable/disable emulation of hardware sprite-sprite collision detection
 Enable/disable emulation of hardware sprite-background collision detection
 (<CODE>VICIICheckSbColl=1</CODE>, <CODE>VICIICheckSbColl=0</CODE>).
 
-<A NAME="IDX724"></A>
+<A NAME="IDX746"></A>
 <DT><CODE>-VICIIvspbug</CODE>
 <DD>
 <DT><CODE>+VICIIvspbug</CODE>
@@ -2140,7 +2179,7 @@ Enable/disable emulation of the "VSP bug"
 (<CODE>VICIIVSPBug=1</CODE>, <CODE>VICIIVSPBug=0</CODE>)
 (x64sc/xscpu64 only).
 
-<A NAME="IDX725"></A>
+<A NAME="IDX747"></A>
 <DT><CODE>-VICIIvcache</CODE>
 <DD>
 <DT><CODE>+VICIIvcache</CODE>
@@ -2148,7 +2187,7 @@ Enable/disable emulation of the "VSP bug"
 Enable/disable the video cache
 (<CODE>VICIIVideoCache=1</CODE>, <CODE>VICIIVideoCache=0</CODE>).
 
-<A NAME="IDX726"></A>
+<A NAME="IDX748"></A>
 <DT><CODE>-VICIIdsize</CODE>
 <DD>
 <DT><CODE>+VICIIdsize</CODE>
@@ -2156,7 +2195,7 @@ Enable/disable the video cache
 Enable/disable the double size mode
 (<CODE>VICIIDoubleSize=1</CODE>, <CODE>VICIIDoubleSize=0</CODE>).
 
-<A NAME="IDX727"></A>
+<A NAME="IDX749"></A>
 <DT><CODE>-VICIIdscan</CODE>
 <DD>
 <DT><CODE>+VICIIdscan</CODE>
@@ -2164,48 +2203,48 @@ Enable/disable the double size mode
 Enable/disable the double scan mode
 (<CODE>VICIIDoubleScan=1</CODE>, <CODE>VICIIDoubleScan=0</CODE>).
 
-<A NAME="IDX728"></A>
+<A NAME="IDX750"></A>
 <DT><CODE>-VICIIfilter &#60;Mode&#62;</CODE>
 <DD>
 Select rendering filter
 (<CODE>VICIIFilter</CODE>).
 (0: None, 1: CRT emulation, 2: Scale2x)
 
-<A NAME="IDX729"></A>
+<A NAME="IDX751"></A>
 <DT><CODE>-VICIIintpal</CODE>
 <DD>
 Use an internal calculated palette
 (<CODE>VICIIExternalPalette=0</CODE>).
 
-<A NAME="IDX730"></A>
+<A NAME="IDX752"></A>
 <DT><CODE>-VICIIextpal</CODE>
 <DD>
 Use an external palette (file)
 (<CODE>VICIIExternalPalette=1</CODE>).
 
-<A NAME="IDX731"></A>
+<A NAME="IDX753"></A>
 <DT><CODE>-VICIIpalette &#60;Name&#62;</CODE>
 <DD>
 Specify the name of the palette file
 (<CODE>VICIIPaletteFile</CODE>).
 
-<A NAME="IDX732"></A>
+<A NAME="IDX754"></A>
 <DT><CODE>-VICIIXRANDRfullmode &#60;mode&#62;</CODE>
 <DD>
 Select fullscreen mode
-<A NAME="IDX733"></A>
+<A NAME="IDX755"></A>
 <DT><CODE>-VICIIVidmodefullmode &#60;mode&#62;</CODE>
 <DD>
 Select fullscreen mode
 
-<A NAME="IDX734"></A>
+<A NAME="IDX756"></A>
 <DT><CODE>-VICIIborders &#60;mode&#62;</CODE>
 <DD>
 Set VIC-II border display mode
 (<CODE>VICIIBorderMode</CODE>).
 (0: normal, 1: full, 2: debug, 3: none)
 
-<A NAME="IDX735"></A>
+<A NAME="IDX757"></A>
 <DT><CODE>-VICIImodel &#60;model&#62;</CODE>
 <DD>
 Set VIC-II model
@@ -2213,7 +2252,7 @@ Set VIC-II model
 (x64sc and xscpu64 only).
 (6569, 6569r1, 8565, 6567, 8562, 6567r56a, 6572)
 
-<A NAME="IDX736"></A>
+<A NAME="IDX758"></A>
 <DT><CODE>-VICIInewluminance</CODE>
 <DD>
 <DT><CODE>+VICIInewluminance</CODE>
@@ -2221,61 +2260,61 @@ Set VIC-II model
 Enable/disable new luminances
 (<CODE>VICIINewLuminances=1</CODE>, <CODE>VICIINewLuminances=0</CODE>).
 
-<A NAME="IDX737"></A>
+<A NAME="IDX759"></A>
 <DT><CODE>-VICIIsaturation &#60;0-2000&#62;</CODE>
 <DD>
 Set saturation of internal calculated palette
 (<CODE>VICIIColorSaturation</CODE>).
 
-<A NAME="IDX738"></A>
+<A NAME="IDX760"></A>
 <DT><CODE>-VICIIcontrast &#60;0-2000&#62;</CODE>
 <DD>
 Set contrast of internal calculated palette
 (<CODE>VICIIColorContrast</CODE>).
 
-<A NAME="IDX739"></A>
+<A NAME="IDX761"></A>
 <DT><CODE>-VICIIbrightness &#60;0-2000&#62;</CODE>
 <DD>
 Set brightness of internal calculated palette
 (<CODE>VICIIColorBrightness</CODE>).
 
-<A NAME="IDX740"></A>
+<A NAME="IDX762"></A>
 <DT><CODE>-VICIIgamma &#60;0-4000&#62;</CODE>
 <DD>
 Set gamma of internal calculated palette
 (<CODE>VICIIColorGamma</CODE>).
 
-<A NAME="IDX741"></A>
+<A NAME="IDX763"></A>
 <DT><CODE>-VICIItint &#60;0-2000&#62;</CODE>
 <DD>
 Set tint of internal calculated palette
 (<CODE>VICIIColorTint</CODE>).
 
-<A NAME="IDX742"></A>
+<A NAME="IDX764"></A>
 <DT><CODE>-VICIIoddlinesphase &#60;0-2000&#62;</CODE>
 <DD>
 Set phase for color carrier in odd lines
 (<CODE>VICIIPALOddLinePhase</CODE>).
 
-<A NAME="IDX743"></A>
+<A NAME="IDX765"></A>
 <DT><CODE>-VICIIoddlinesoffset &#60;0-2000&#62;</CODE>
 <DD>
 Set phase offset for color carrier in odd lines
 (<CODE>VICIIPALOddLineOffset</CODE>).
 
-<A NAME="IDX744"></A>
+<A NAME="IDX766"></A>
 <DT><CODE>-VICIIcrtblur &#60;0-1000&#62;</CODE>
 <DD>
 Amount of horizontal blur for the CRT emulation
 (<CODE>VICIIPALBlur</CODE>).
 
-<A NAME="IDX745"></A>
+<A NAME="IDX767"></A>
 <DT><CODE>-VICIIcrtscanlineshade &#60;0-1000&#62;</CODE>
 <DD>
 Amount of scan line shading for the CRT emulation
 (<CODE>VICIIPALScanLineShade</CODE>).
 
-<A NAME="IDX746"></A>
+<A NAME="IDX768"></A>
 <DT><CODE>-VICIIaudioleak</CODE>
 <DD>
 <DT><CODE>+VICIIaudioleak</CODE>
@@ -2299,7 +2338,7 @@ audio chip.
 
 <LI>
 
-<A NAME="IDX747"></A>
+<A NAME="IDX769"></A>
  
 "Second SID" maps a second SID chip into the address space for stereo
 sound. This emulates e.g. the "SID Symphony Stereo Cartridge" from
@@ -2307,7 +2346,7 @@ Dr. Evil Laboratories. The second SID can be used with software such as
 "Stereo SID Player" by Mark Dickenson or "The Enhanced Sidplayer" by
 Craig Chamberlain.
 
-<A NAME="IDX748"></A>
+<A NAME="IDX770"></A>
 <LI>
 
 "Second SID base address" sets the start address for the second SID
@@ -2315,27 +2354,27 @@ chip. Software normally uses $DE00 or $DF00, since $DE00-$DEFF and
 $DF00-$DFFF can be mapped through the cartridge port of the C64. The
 default start address is $DE00.
 
-<A NAME="IDX749"></A>
+<A NAME="IDX771"></A>
 <LI>
 
 "Emulate filters" causes the built-in programmable filters of the SID
 chip to be emulated.  A lot of C64 music requires them to be emulated
 properly, but their emulation requires some additional processor power.
 
-<A NAME="IDX750"></A>
+<A NAME="IDX772"></A>
 <LI>
 
 "ChipModel" specifies the model of the SID chip being emulated: there
 are two slightly different generations of SID chips: MOS6581 ones and
 MOS8580 ones.
 
-<A NAME="IDX751"></A>
+<A NAME="IDX773"></A>
 <LI>
 
 "Use reSID emulation" specifies whether the more accurate (and
 resource hungry) reSID emulation is turned on or off.
 
-<A NAME="IDX752"></A>
+<A NAME="IDX774"></A>
 <LI>
 
 "reSID sampling method" selects the method for conversion of the SID
@@ -2365,7 +2404,7 @@ for non-interactive sound generation. Unless you have a very fast
 machine, that is.
 </UL>
 
-<A NAME="IDX753"></A>
+<A NAME="IDX775"></A>
 <LI>"reSID resampling passband" specifies the percentage of the
 
 total bandwidth allocated to the resampling filter passband. The work
@@ -2386,12 +2425,12 @@ almost 20kHz).
 
 <DT><CODE>SidStereo</CODE>
 <DD>
-<A NAME="IDX754"></A>
+<A NAME="IDX776"></A>
  
 Integer specifying the amount of emulated extra SIDs.
-(0: off, 1: 1 extra sid, 2: 2 extra sids)
+(0: off, 1: 1 extra sid, 2: 2 extra sids, 3: three extra sids)
 
-<A NAME="IDX755"></A>
+<A NAME="IDX777"></A>
 <DT><CODE>SidStereoAddressStart</CODE>
 <DD>
 Integer specifying the base address of the second SID
@@ -2408,7 +2447,7 @@ Integer specifying the base address of the second SID
 0xDEC0, 0xDEE0, 0xDF00, 0xDF20, 0xDF40, 0xDF60, 0xDF80, 0xDFA0,
 0xDFC0, 0xDFE0)
 
-<A NAME="IDX756"></A>
+<A NAME="IDX778"></A>
 <DT><CODE>SidTripleAddressStart</CODE>
 <DD>
 Integer specifying the base address of the third SID
@@ -2425,40 +2464,57 @@ Integer specifying the base address of the third SID
 0xDEC0, 0xDEE0, 0xDF00, 0xDF20, 0xDF40, 0xDF60, 0xDF80, 0xDFA0,
 0xDFC0, 0xDFE0)
 
-<A NAME="IDX757"></A>
+<A NAME="IDX779"></A>
+<DT><CODE>SidQuadAddressStart</CODE>
+<DD>
+Integer specifying the base address of the third SID
+(x64, x64sc, xscpu64, x128 and vsid only).
+(x128: 0xD420, 0xD440, 0xD460, 0xD480, 0xD4A0, 0xD4C0, 0xD4E0,
+0xD700, 0xD720, 0xD740, 0xD760, 0xD780, 0xD7A0, 0xD7C0, 0xD7E0,
+0xDE00, 0xDE20, 0xDE40, 0xDE60, 0xDE80, 0xDEA0, 0xDEC0, 0xDEE0,
+0xDF00, 0xDF20, 0xDF40, 0xDF60, 0xDF80, 0xDFA0, 0xDFC0, 0xDFE0)
+(x64/x64sc/xscpu64/vsid: 0xD420, 0xD440, 0xD460, 0xD480, 0xD4A0,
+0xD4C0, 0xD4E0, 0xD500, 0xD520, 0xD540, 0xD560, 0xD580, 0xD5A0,
+0xD5C0, 0xD5E0, 0xD600, 0xD620, 0xD640, 0xD660, 0xD680, 0xD6A0,
+0xD6C0, 0xD6E0, 0xD700, 0xD720, 0xD740, 0xD760, 0xD780, 0xD7A0,
+0xD7C0, 0xD7E0, 0xDE00, 0xDE20, 0xDE40, 0xDE60, 0xDE80, 0xDEA0,
+0xDEC0, 0xDEE0, 0xDF00, 0xDF20, 0xDF40, 0xDF60, 0xDF80, 0xDFA0,
+0xDFC0, 0xDFE0)
+
+<A NAME="IDX780"></A>
 <DT><CODE>SidFilters</CODE>
 <DD>
 Boolean specifying whether the built-in SID filters must be emulated.
 
-<A NAME="IDX758"></A>
+<A NAME="IDX781"></A>
 <DT><CODE>SidModel</CODE>
 <DD>
 Integer specifying what model of the SID must be emulated.
 (0: 6581, 1: 8580, 2: 8580D, 3: 6581R4, 4: DTVSID)
 
-<A NAME="IDX759"></A>
+<A NAME="IDX782"></A>
 <DT><CODE>SidEngine</CODE>
 <DD>
 Integer specifying what SID engine will be used.
 (0: FastSID, 1: ReSID, 2: Catweasel MKIII, 3: HardSID, 4: ParSID Port 1, 5: ParSID Port 2, 6: ParSID Port 3)
 
-<A NAME="IDX760"></A>
+<A NAME="IDX783"></A>
 <DT><CODE>SidResidSampling</CODE>
 <DD>
 Integer specifying the sampling method (<CODE>0</CODE>: Fast, <CODE>1</CODE>:
 Interpolation, <CODE>2</CODE>: Resampling, <CODE>3</CODE>: Fast Resampling)
 
-<A NAME="IDX761"></A>
+<A NAME="IDX784"></A>
 <DT><CODE>SidResidPassband</CODE>
 <DD>
 Integer specifying the resampling filter passband in percentage of the
 total bandwidth (<CODE>0 - 90</CODE>).
 
-<A NAME="IDX762"></A>
+<A NAME="IDX785"></A>
 <DT><CODE>SidResidGain</CODE>
 <DD>
 Integer that specifies reSID gain in percent [97] (90..100)
-<A NAME="IDX763"></A>
+<A NAME="IDX786"></A>
 <DT><CODE>SidResidFilterBias</CODE>
 <DD>
 Integer that specifies reSID filter bias, which can be used to adjust DAC bias 
@@ -2474,13 +2530,13 @@ in millivolts. [0] (-5000..5000)
 
 <DT><CODE>-sidstereo</CODE>
 <DD>
-<A NAME="IDX764"></A>
+<A NAME="IDX787"></A>
  
 Specify the amount of extra SID chips to emulate
 (<CODE>SidStereo</CODE>).
 (0: off, 1: 1 extra sid, 2: 2 extra sids)
 
-<A NAME="IDX765"></A>
+<A NAME="IDX788"></A>
 <DT><CODE>-sidstereoaddress &#60;Base address&#62;</CODE>
 <DD>
 Specifies the start address for the second SID chip
@@ -2498,7 +2554,7 @@ Specifies the start address for the second SID chip
 0xDEC0, 0xDEE0, 0xDF00, 0xDF20, 0xDF40, 0xDF60, 0xDF80, 0xDFA0,
 0xDFC0, 0xDFE0)
 
-<A NAME="IDX766"></A>
+<A NAME="IDX789"></A>
 <DT><CODE>-sidtripleaddress <CODE>ADDRESS</CODE></CODE>
 <DD>
 Specifies the start address for the third SID chip
@@ -2516,7 +2572,7 @@ Specifies the start address for the third SID chip
 0xDEC0, 0xDEE0, 0xDF00, 0xDF20, 0xDF40, 0xDF60, 0xDF80, 0xDFA0,
 0xDFC0, 0xDFE0)
 
-<A NAME="IDX767"></A>
+<A NAME="IDX790"></A>
 <DT><CODE>-sidenginemodel &#60;engine and model&#62;</CODE>
 <DD>
 Specify engine and model for the emulated SID chip
@@ -2533,7 +2589,7 @@ ParSID Port 1: 1024/parsid/parsid1/par1/lpt1,
 ParSID Port 2: 1280/parsid2/par2/lpt2
 ParSID Port 3: 1536/parsid3/par3/lpt3)
 
-<A NAME="IDX768"></A>
+<A NAME="IDX791"></A>
 <DT><CODE>-sidfilters</CODE>
 <DD>
 <DT><CODE>+sidfilters</CODE>
@@ -2541,25 +2597,25 @@ ParSID Port 3: 1536/parsid3/par3/lpt3)
 Enable/disable emulation of the built-in SID filters
 (<CODE>SidFilters=1</CODE>, <CODE>SidFilters=0</CODE>).
 
-<A NAME="IDX769"></A>
+<A NAME="IDX792"></A>
 <DT><CODE>-residsamp <CODE>METHOD</CODE></CODE>
 <DD>
 Specifies the sampling method; fast (<CODE>SidResidSampling=0</CODE>),
 interpolating (<CODE>SidResidSampling=1</CODE>), resampling
 (<CODE>SidResidSampling=2</CODE>), fast resampling (<CODE>SidResidSampling=3</CODE>).
 
-<A NAME="IDX770"></A>
+<A NAME="IDX793"></A>
 <DT><CODE>-residpass <CODE>PERCENTAGE</CODE></CODE>
 <DD>
 Specifies the resampling filter passband in percentage of the total
 bandwidth (<CODE>SidResidPassband=0-90</CODE>).
 
-<A NAME="IDX771"></A>
+<A NAME="IDX794"></A>
 <DT><CODE>-residgain <CODE>PERCENTAGE</CODE></CODE>
 <DD>
 Specifies reSID gain in percent (90 - 100).
 
-<A NAME="IDX772"></A>
+<A NAME="IDX795"></A>
 <DT><CODE>-residfilterbias &#60;number&#62;</CODE>
 <DD>
 reSID filter bias setting, which can be used to adjust DAC bias in millivolts.
@@ -2590,25 +2646,25 @@ The following I/O extensions are available:
 
 <LI>ACIA (Swiftlink, Turbo232)
 
-<A NAME="IDX773"></A>
+<A NAME="IDX796"></A>
  
 
-<A NAME="IDX774"></A>
+<A NAME="IDX797"></A>
 <LI>DigiMAX
 
-<A NAME="IDX775"></A>
+<A NAME="IDX798"></A>
 <LI>DS12C887 RTC
 
-<A NAME="IDX776"></A>
+<A NAME="IDX799"></A>
 <LI>Ethernet (The Final Ethernet, RR-Net)
 
-<A NAME="IDX777"></A>
+<A NAME="IDX800"></A>
 <LI>GEO-RAM
 
-<A NAME="IDX778"></A>
+<A NAME="IDX801"></A>
 <LI>MIDI (Passport, Datel, Maplin, Namesoft, Sequential)
 
-<A NAME="IDX779"></A>
+<A NAME="IDX802"></A>
 <LI>REU -
 
 The "RAM Expansion Module" extension emulates a standard
@@ -2616,10 +2672,10 @@ Commodore RAM Expansion Unit; this can be used with GEOS and other
 programs that are designed to take advantage of it.  This currently
 works only in the C64 emulator.
 
-<A NAME="IDX780"></A>
+<A NAME="IDX803"></A>
 <LI>SFX Sound Expander
 
-<A NAME="IDX781"></A>
+<A NAME="IDX804"></A>
 <LI>SFX Sound Sampler
 
 </UL>
@@ -2632,127 +2688,135 @@ works only in the C64 emulator.
 
 <DT><CODE>DIGIMAX</CODE>
 <DD>
-<A NAME="IDX782"></A>
+<A NAME="IDX805"></A>
  
 Boolean specifying whether the DigiMAX cartridge should be emulated or not.
 
-<A NAME="IDX783"></A>
+<A NAME="IDX806"></A>
 <DT><CODE>DIGIMAXbase</CODE>
 <DD>
 Integer specifying the DigiMAX base address.
 (0xDD00: useport, 0xDE00, 0xDE20, 0xDE40, 0xDE60, 0xDE80, 0xDEA0, 0xDEC0, 0xDEE0,
 0xDF00, 0xDF20, 0xDF40, 0xDF60, 0xDF80, 0xDFA0, 0xDFC0, 0xDFE0)
 
-<A NAME="IDX784"></A>
+<A NAME="IDX807"></A>
 <DT><CODE>DS12C887RTC</CODE>
 <DD>
 Boolean specifying whether the DS12C887 RTC cartridge should be emulated or not.
 
-<A NAME="IDX785"></A>
+<A NAME="IDX808"></A>
 <DT><CODE>DS12C887RTCbase</CODE>
 <DD>
 Integer specifying the DS12C887 RTC base address.
 x128: (0xD700, 0xDE00, 0xDF00)
 x64/x64sc/xscpu64: (0xD500, 0xD600, 0xD700, 0xDE00, 0xDF00)
 
-<A NAME="IDX786"></A>
+<A NAME="IDX809"></A>
 <DT><CODE>DS12C887RTCRunMode</CODE>
 <DD>
 Boolean specifying whether the DS12C887 RTC cartridge starts out running or halted.
 (0: halted, 1: running)
 
-<A NAME="IDX787"></A>
+<A NAME="IDX810"></A>
 <DT><CODE>DS12C887RTCSave</CODE>
 <DD>
 Boolean specifying whether the DS12C887 RTC data should be saved when changed or not.
 
-<A NAME="IDX788"></A>
-<DT><CODE>ETHERNET_ACTIVE</CODE>
+<A NAME="IDX811"></A>
+<DT><CODE>ETHERNETCART_ACTIVE</CODE>
 <DD>
 Boolean that specifies whether the CS8900 ethernet interface emulation is active.
-<A NAME="IDX789"></A>
+<A NAME="IDX812"></A>
 <DT><CODE>ETHERNET_INTERFACE</CODE>
 <DD>
 String specifying the device name of the ethernet device to use for the emulation.
-<A NAME="IDX790"></A>
+<A NAME="IDX813"></A>
 <DT><CODE>ETHERNET_DISABLED</CODE>
 <DD>
 Boolean that specified whether ethernet emulation has been disabled because it is
 not available in the current configuration.
-<A NAME="IDX791"></A>
-<DT><CODE>ETHERNET_AS_RR</CODE>
+<A NAME="IDX814"></A>
+<DT><CODE>ETHERNETCARTMode</CODE>
 <DD>
 Boolean that specifies whether RR-Net compatible mapping is enabled.
+<A NAME="IDX815"></A>
+<DT><CODE>ETHERNETCARTBase</CODE>
+<DD>
+Integer specifying the I/O base address of the emulated ethernet cartridge,
 
-<A NAME="IDX792"></A>
+<A NAME="IDX816"></A>
 <DT><CODE>GEORAM</CODE>
 <DD>
 Boolean specifying whether the GEO-RAM cartridge should be emulated or not.
+(x64/x64sc/x128).
 
-<A NAME="IDX793"></A>
+<A NAME="IDX817"></A>
 <DT><CODE>GEORAMfilename</CODE>
 <DD>
 String specifying the filename of the GEORAM image.
+(x64/x64sc/x128).
 
-<A NAME="IDX794"></A>
+<A NAME="IDX818"></A>
 <DT><CODE>GEORAMImageWrite</CODE>
 <DD>
 Boolean, if true write back the GEO-RAM image file automatically, incase the RAM
 contents changed, when detaching or quitting the emulator.
+(x64/x64sc/x128).
 
-<A NAME="IDX795"></A>
+<A NAME="IDX819"></A>
 <DT><CODE>GEORAMsize</CODE>
 <DD>
 Integer specifying the size of the emulated GEO-RAM in KB.
 (64, 128, 256, 512, 1024, 2048, 4096).
+(x64/x64sc/x128).
 
-<A NAME="IDX796"></A>
+<A NAME="IDX820"></A>
 <DT><CODE>MIDIEnable</CODE>
 <DD>
 Boolean specifying whether the MIDI cartridge should be emulated or not
 (x64/x64sc/xscpu64/x128 only, and only if MIDI support is enabled and available at compile time).
 
-<A NAME="IDX797"></A>
+<A NAME="IDX821"></A>
 <DT><CODE>MIDIMode</CODE>
 <DD>
 Integer specifying the type of emulated MIDI interface
 (x64, x64sc, xscpu64 and x128 only, and only if MIDI support is enabled and available at compile time).
 (0: Sequential, 1: Passport/Syntech, 2: DATEL/Siel/JMS, 3: Namesoft, 4: Maplin)
 
-<A NAME="IDX798"></A>
+<A NAME="IDX822"></A>
 <DT><CODE>REU</CODE>
 <DD>
 Boolean specifying whether the RAM Expansion Module should be emulated or not.
 
-<A NAME="IDX799"></A>
+<A NAME="IDX823"></A>
 <DT><CODE>REUfilename</CODE>
 <DD>
 String specifying the filename of the REU image.
 
-<A NAME="IDX800"></A>
+<A NAME="IDX824"></A>
 <DT><CODE>REUImageWrite</CODE>
 <DD>
-Boolean, if true write back the REU image file automatically, incase the RAM
+Boolean, if true write back the REU image file automatically, in case the RAM
 contents changed, when detaching or quitting the emulator.
 
-<A NAME="IDX801"></A>
+<A NAME="IDX825"></A>
 <DT><CODE>REUsize</CODE>
 <DD>
 Integer specifying the size of the emulated REU in KB.
 (128, 256, 512, 1024, 2048, 4096, 8192, 16384)
 
-<A NAME="IDX802"></A>
+<A NAME="IDX826"></A>
 <DT><CODE>SFXSoundExpander</CODE>
 <DD>
 Boolean specifying whether the SFX Sound Expander should be emulated or not.
 
-<A NAME="IDX803"></A>
+<A NAME="IDX827"></A>
 <DT><CODE>SFXSoundExpanderChip</CODE>
 <DD>
 Integer specifying which YM chip is emulated.
 (3526, 3812)
 
-<A NAME="IDX804"></A>
+<A NAME="IDX828"></A>
 <DT><CODE>SFXSoundSampler</CODE>
 <DD>
 Boolean specifying whether the SFX Sound Sampler should be emulated or not.
@@ -2767,14 +2831,14 @@ Boolean specifying whether the SFX Sound Sampler should be emulated or not.
 
 <DT><CODE>-digimax</CODE>
 <DD>
-<A NAME="IDX805"></A>
+<A NAME="IDX829"></A>
  
 <DT><CODE>+digimax</CODE>
 <DD>
 Enable/disable the DigiMAX cartridge
 (<CODE>DIGIMAX=1</CODE>, <CODE>DIGIMAX=0</CODE>).
 
-<A NAME="IDX806"></A>
+<A NAME="IDX830"></A>
 <DT><CODE>-digimaxbase &#60;base address&#62;</CODE>
 <DD>
 Base address of the DigiMAX cartridge
@@ -2782,7 +2846,7 @@ Base address of the DigiMAX cartridge
 (0xDD00: userport, 0xDE00, 0xDE20, 0xDE40, 0xDE60, 0xDE80, 0xDEA0, 0xDEC0, 0xDEE0,
 0xDF00, 0xDF20, 0xDF40, 0xDF60, 0xDF80, 0xDFA0, 0xDFC0, 0xDFE0)
 
-<A NAME="IDX807"></A>
+<A NAME="IDX831"></A>
 <DT><CODE>-ds12c887rtc</CODE>
 <DD>
 <DT><CODE>+ds12c887rtc</CODE>
@@ -2790,7 +2854,7 @@ Base address of the DigiMAX cartridge
 Enable/disable the DS12C887 RTC cartridge
 (<CODE>DS12C887RTC=1</CODE>, <CODE>DS12C887RTC=0</CODE>).
 
-<A NAME="IDX808"></A>
+<A NAME="IDX832"></A>
 <DT><CODE>-ds12c887rtcbase &#60;base address&#62;</CODE>
 <DD>
 Base address of the DS12C887 RTC cartridge
@@ -2798,7 +2862,7 @@ Base address of the DS12C887 RTC cartridge
 x128: (0xD700, 0xDE00, 0xDF00)
 x64/x64sc/xscpu64: (0xD500, 0xD600, 0xD700, 0xDE00, 0xDF00)
 
-<A NAME="IDX809"></A>
+<A NAME="IDX833"></A>
 <DT><CODE>-ds12c887rtchalted</CODE>
 <DD>
 Set the DS12C887 RTC oscillator to 'halted'
@@ -2808,7 +2872,7 @@ Set the DS12C887 RTC oscillator to 'halted'
 Set the DS12C887 RTC oscillator to 'running'
 (<CODE>DS12C887RTCRunMode=1</CODE>).
 
-<A NAME="IDX810"></A>
+<A NAME="IDX834"></A>
 <DT><CODE>-ds12c887rtcsave</CODE>
 <DD>
 <DT><CODE>+ds12c887rtcsave</CODE>
@@ -2816,7 +2880,7 @@ Set the DS12C887 RTC oscillator to 'running'
 Enable/disable saving of the DS12C887 RTC data when changed
 (<CODE>DS12C887RTCSave=1</CODE>, <CODE>DS12C887RTCSave=0</CODE>).
 
-<A NAME="IDX811"></A>
+<A NAME="IDX835"></A>
 <DT><CODE>-miditype &#60;0-4&#62;</CODE>
 <DD>
 Set MIDI interface type
@@ -2824,7 +2888,7 @@ Set MIDI interface type
 (x64, x64sc, xscpu64 and x128 only, and only if MIDI support is enabled and available at compile time).
 (0: Sequential, 1: Passport/Syntech, 2: DATEL/Siel/JMS, 3: Namesoft, 4: Maplin)
 
-<A NAME="IDX812"></A>
+<A NAME="IDX836"></A>
 <DT><CODE>-midi</CODE>
 <DD>
 <DT><CODE>+midi</CODE>
@@ -2834,7 +2898,7 @@ Enable/disable MIDI emulation
 (x64, x64sc, xscpu64 and x128 only, and only if MIDI support is enabled and available at compile time).
 (0: Sequential, 1: Passport/Syntech, 2: DATEL/Siel/JMS, 3: Namesoft, 4: Maplin)
 
-<A NAME="IDX813"></A>
+<A NAME="IDX837"></A>
 <DT><CODE>-georam</CODE>
 <DD>
 <DT><CODE>+georam</CODE>
@@ -2842,18 +2906,18 @@ Enable/disable MIDI emulation
 Enable/disable the GEORAM expansion unit
 (<CODE>GEORAM=1</CODE>, <CODE>GEORAM=0</CODE>).
 
-<A NAME="IDX814"></A>
+<A NAME="IDX838"></A>
 <DT><CODE>-cartgeoram &#60;name&#62;</CODE>
 <DD>
 Attach raw GEO-RAM cartridge image.
 
-<A NAME="IDX815"></A>
+<A NAME="IDX839"></A>
 <DT><CODE>-georamimage &#60;name&#62;</CODE>
 <DD>
 Specify name of GEORAM image
 (<CODE>GEORAMfilename</CODE>).
 
-<A NAME="IDX816"></A>
+<A NAME="IDX840"></A>
 <DT><CODE>-georamimagerw</CODE>
 <DD>
 <DT><CODE>+georamimagerw</CODE>
@@ -2861,14 +2925,14 @@ Specify name of GEORAM image
 Allow/disallow writing to GEORAM image
 (<CODE>GEORAMImageWrite=1</CODE>, <CODE>GEORAMImageWrite=0</CODE>).
 
-<A NAME="IDX817"></A>
+<A NAME="IDX841"></A>
 <DT><CODE>-georamsize &#60;size in KB&#62;</CODE>
 <DD>
 Size of the GEORAM expansion unit
 (<CODE>GEORAMsize</CODE>).
 (64, 128, 256, 512, 1024, 2048, 4096)
 
-<A NAME="IDX818"></A>
+<A NAME="IDX842"></A>
 <DT><CODE>-reu</CODE>
 <DD>
 <DT><CODE>+reu</CODE>
@@ -2876,18 +2940,18 @@ Size of the GEORAM expansion unit
 Enable/disable emulation of the RAM Expansion Module
 (<CODE>REU=1</CODE>, <CODE>REU=0</CODE>).
 
-<A NAME="IDX819"></A>
+<A NAME="IDX843"></A>
 <DT><CODE>-cartreu &#60;name&#62;</CODE>
 <DD>
 Attach raw REU cartridge image.
 
-<A NAME="IDX820"></A>
+<A NAME="IDX844"></A>
 <DT><CODE>-reuimage &#60;name&#62;</CODE>
 <DD>
 Specify name of REU image
 (<CODE>REUfilename</CODE>).
 
-<A NAME="IDX821"></A>
+<A NAME="IDX845"></A>
 <DT><CODE>-reuimagerw</CODE>
 <DD>
 <DT><CODE>+reuimagerw</CODE>
@@ -2895,14 +2959,14 @@ Specify name of REU image
 Allow/disallow writing to REU image
 (<CODE>REUImageWrite=1</CODE>, <CODE>REUImageWrite=0</CODE>).
 
-<A NAME="IDX822"></A>
+<A NAME="IDX846"></A>
 <DT><CODE>-reusize &#60;size in KB&#62;</CODE>
 <DD>
 Size of the RAM expansion unit
 (<CODE>REUsize</CODE>).
 (128, 256, 512, 1024, 2048, 4096, 8192, 16384)
 
-<A NAME="IDX823"></A>
+<A NAME="IDX847"></A>
 <DT><CODE>-sfxse</CODE>
 <DD>
 <DT><CODE>+sfxse</CODE>
@@ -2910,14 +2974,14 @@ Size of the RAM expansion unit
 Enable/disable the SFX soundexpander cartridge
 (<CODE>SFXSoundExpander=1</CODE>, <CODE>SFXSoundExpander=0</CODE>).
 
-<A NAME="IDX824"></A>
+<A NAME="IDX848"></A>
 <DT><CODE>-sfxsetype &#60;type&#62;</CODE>
 <DD>
 Set YM chip type
 (<CODE>SFXSoundExpanderChip</CODE>).
 (3526, 3812)
 
-<A NAME="IDX825"></A>
+<A NAME="IDX849"></A>
 <DT><CODE>-sfxss</CODE>
 <DD>
 <DT><CODE>+sfxss</CODE>
@@ -2925,24 +2989,24 @@ Set YM chip type
 Enable/disable the SFX Sound Sampler cartridge
 (<CODE>SFXSoundSampler=1</CODE>, <CODE>SFXSoundSampler=0</CODE>).
 
-<A NAME="IDX826"></A>
+<A NAME="IDX850"></A>
 <DT><CODE>-tfe</CODE>
 <DD>
 <DT><CODE>+tfe</CODE>
 <DD>
 Enable/Disable the TFE ("The Final Ethernet") unit
-<A NAME="IDX827"></A>
+<A NAME="IDX851"></A>
 <DT><CODE>-tfeif &#60;name&#62;</CODE>
 <DD>
 Set the system ethernet interface for TFE emulation
-<A NAME="IDX828"></A>
+<A NAME="IDX852"></A>
 <DT><CODE>-tferrnet</CODE>
 <DD>
 <DT><CODE>+tferrnet</CODE>
 <DD>
 Enable/Disable RRNet mode of TFE emulation
 
-<A NAME="IDX829"></A>
+<A NAME="IDX853"></A>
 <DT><CODE>-burstmod &#60;value&#62;</CODE>
 <DD>
 Set the kind of burst modification. This emulates the fast serial bus connection
@@ -2971,21 +3035,21 @@ C64 emulator at startup. They cannot be changed from the menus.
 
 <DT><CODE>BasicName</CODE>
 <DD>
-<A NAME="IDX830"></A>
+<A NAME="IDX854"></A>
  
 String specifying the name of the Basic ROM (default <TT>`basic'</TT>).
 
-<A NAME="IDX831"></A>
+<A NAME="IDX855"></A>
 <DT><CODE>ChargenName</CODE>
 <DD>
 String specifying the name of the character generator ROM (default <TT>`chargen'</TT>).
 
-<A NAME="IDX832"></A>
+<A NAME="IDX856"></A>
 <DT><CODE>KernalName</CODE>
 <DD>
 String specifying the name of the Kernal ROM (default <TT>`kernal'</TT>).
 
-<A NAME="IDX833"></A>
+<A NAME="IDX857"></A>
 <DT><CODE>KernalRev</CODE>
 <DD>
 String specifying the Kernal revision. This resource can be used to
@@ -3025,24 +3089,24 @@ Commodore 4064 (also known as "PET64" or "Educator 64") ROM.
 
 <DT><CODE>-basic &#60;name&#62;</CODE>
 <DD>
-<A NAME="IDX834"></A>
+<A NAME="IDX858"></A>
  
 Specify filename of the Basic ROM file
 (<CODE>BasicName</CODE>).
 
-<A NAME="IDX835"></A>
+<A NAME="IDX859"></A>
 <DT><CODE>-chargen &#60;name&#62;</CODE>
 <DD>
 Specify filename of the character generator ROM file
 (<CODE>ChargenName</CODE>).
 
-<A NAME="IDX836"></A>
+<A NAME="IDX860"></A>
 <DT><CODE>-kernal &#60;name&#62;</CODE>
 <DD>
 Specify filename of the Kernal ROM file
 (<CODE>KernalName</CODE>).
 
-<A NAME="IDX837"></A>
+<A NAME="IDX861"></A>
 <DT><CODE>-kernalrev &#60;revision&#62;</CODE>
 <DD>
 Specify Kernal revision
@@ -3062,67 +3126,102 @@ Specify Kernal revision
 
 <DT><CODE>GlueLogic</CODE>
 <DD>
-<A NAME="IDX838"></A>
+<A NAME="IDX862"></A>
  
 Integer specifying the type of emulated glue-logic.
 (0: discrete, 1: custom IC)
 
-<A NAME="IDX839"></A>
+<A NAME="IDX863"></A>
 <DT><CODE>BurstMod</CODE>
 <DD>
 Integer specifying the kind of Burst-Mode modification.
 (0: None, 1: CIA-1, 2: CIA-2)
 
-<A NAME="IDX840"></A>
+<A NAME="IDX864"></A>
 <DT><CODE>BoardType</CODE>
 <DD>
 Integer specifying the type of emulated board (not available in xscpu64).
 (0: C64, 1: MAX)
 
-<A NAME="IDX841"></A>
+<A NAME="IDX865"></A>
 <DT><CODE>IECReset</CODE>
 <DD>
 Integer specifying if the IEC bus resets when the CPU resets.
 (0: No, 1: Yes)
 
-<A NAME="IDX842"></A>
+<A NAME="IDX866"></A>
 <DT><CODE>MemoryHack</CODE>
 <DD>
 Integer specifying what memory expansion hack is active.
 (0: None, 1: C64 256K, 2: PLUS60K, 3: PLUS256K)
 
-<A NAME="IDX843"></A>
+<A NAME="IDX867"></A>
 <DT><CODE>PLUS60Kfilename</CODE>
 <DD>
 String specifying the filename of the PLUS60K RAM image.
 
-<A NAME="IDX844"></A>
+<A NAME="IDX868"></A>
 <DT><CODE>PLUS60Kbase</CODE>
 <DD>
 Integer that specifies the base address of the PLUS60K RAM expansion.
 (0xD040, 0xD100)
 
-<A NAME="IDX845"></A>
+<A NAME="IDX869"></A>
 <DT><CODE>PLUS256Kfilename</CODE>
 <DD>
 String specifying the filename of the PLUS256K RAM image.
 
-<A NAME="IDX846"></A>
+<A NAME="IDX870"></A>
 <DT><CODE>C64_256Kfilename</CODE>
 <DD>
 String specifying the filename of the 256K RAM image.
 
-<A NAME="IDX847"></A>
+<A NAME="IDX871"></A>
 <DT><CODE>C64_256Kbase</CODE>
 <DD>
 Integer that specifies the base address of the 256K RAM expansion.
 (0xDE00/0xDE80/0xDF00/0xDF80)
 
-<A NAME="IDX848"></A>
+<A NAME="IDX872"></A>
 <DT><CODE>MachineVideoStandard</CODE>
 <DD>
 Integer that specifies the video standard of the emulated machine
-(4: PAL-N, 3: Old NTSC, 1: PAL, 2: NTSC).
+(0: PAL, 1: Old PAL, 2: NTSC, 3: Old NTSC, 4: PAL-N).
+
+<A NAME="IDX873"></A>
+<DT><CODE>CPMCart</CODE>
+<DD>
+Boolean that specifies if a CP/M cartridge is attached.
+
+<A NAME="IDX874"></A>
+<DT><CODE>TapecartEnabled</CODE>
+<DD>
+Boolean that specifies if a tapecart is attached.
+
+<A NAME="IDX875"></A>
+<DT><CODE>TapecartUpdateTCRT</CODE>
+<DD>
+Boolean, if true write back the tapecart memory contents back to the
+.tcrt file when detaching the image or quitting the emulator.
+
+<A NAME="IDX876"></A>
+<DT><CODE>TapecartOptimizeTCRT</CODE>
+<DD>
+Boolean, when set to true the .tcrt image will be optimized by leaving
+out blank space at the end when saving.
+
+<A NAME="IDX877"></A>
+<DT><CODE>TapecartLogLevel</CODE>
+<DD>
+Integer that specifies the tapecart emulation log level. At the default
+level of 0, only errors are logged. Level 1 additionally logs mode
+changes and command bytes and level 2 adds details of command
+parameters.
+
+<A NAME="IDX878"></A>
+<DT><CODE>TapecartTCRTFilename</CODE>
+<DD>
+String specifying the file name of the current tapecart image.
 
 </DL>
 
@@ -3134,83 +3233,83 @@ Integer that specifies the video standard of the emulated machine
 
 <DT><CODE>-gluelogictype &#60;type&#62;</CODE>
 <DD>
-<A NAME="IDX849"></A>
+<A NAME="IDX879"></A>
  
 Set glue logic type
 (<CODE>GlueLogic</CODE>).
 (0: discrete, 1: 252535-01)
 
-<A NAME="IDX850"></A>
+<A NAME="IDX880"></A>
 <DT><CODE>-iecreset &#60;value&#62;</CODE>
 <DD>
 Set IEC reset bahaviour
 (<CODE>IECReset</CODE>).
 (0: Do not reset with CPU reset, 1: Reset with CPU reset)
 
-<A NAME="IDX851"></A>
+<A NAME="IDX881"></A>
 <DT><CODE>-memoryexphack &#60;device&#62;</CODE>
 <DD>
 Set active memory expansion hack
 (<CODE>MemoryHack</CODE>).
 (0: None, 1: C64 256K, 2: PLUS60K, 3: PLUS256K)
 
-<A NAME="IDX852"></A>
+<A NAME="IDX882"></A>
 <DT><CODE>-plus60kimage &#60;name&#62;</CODE>
 <DD>
 Specify name of PLUS60K image
 (<CODE>PLUS60Kfilename</CODE>).
 
-<A NAME="IDX853"></A>
+<A NAME="IDX883"></A>
 <DT><CODE>-plus60kbase &#60;base address&#62;</CODE>
 <DD>
 Base address of the PLUS60K expansion
 (<CODE>PLUS60Kbase</CODE>).
 (0xD040/0xD100)
 
-<A NAME="IDX854"></A>
+<A NAME="IDX884"></A>
 <DT><CODE>-plus256kimage &#60;name&#62;</CODE>
 <DD>
 Specify name of PLUS256K image
 (<CODE>PLUS256Kfilename</CODE>).
 
-<A NAME="IDX855"></A>
+<A NAME="IDX885"></A>
 <DT><CODE>-256kimage &#60;name&#62;</CODE>
 <DD>
 Specify name of 256K image
 (<CODE>C64_256Kfilename</CODE>).
 
-<A NAME="IDX856"></A>
+<A NAME="IDX886"></A>
 <DT><CODE>-256kbase &#60;base address&#62;</CODE>
 <DD>
 Base address of the 256K expansion
 (<CODE>C64_256Kbase</CODE>).
 (0xDE00/0xDE80/0xDF00/0xDF80)
 
-<A NAME="IDX857"></A>
+<A NAME="IDX887"></A>
 <DT><CODE>-pal</CODE>
 <DD>
 Use PAL sync factor
 (<CODE>MachineVideoStandard=1</CODE>).
 
-<A NAME="IDX858"></A>
+<A NAME="IDX888"></A>
 <DT><CODE>-ntsc</CODE>
 <DD>
 Use NTSC sync factor
 (<CODE>MachineVideoStandard=2</CODE>).
 
-<A NAME="IDX859"></A>
+<A NAME="IDX889"></A>
 <DT><CODE>-ntscold</CODE>
 <DD>
 Use old NTSC sync factor
 (<CODE>MachineVideoStandard=3</CODE>).
 
-<A NAME="IDX860"></A>
+<A NAME="IDX890"></A>
 <DT><CODE>-paln</CODE>
 <DD>
 Use PAL-N sync factor
 (<CODE>MachineVideoStandard=4</CODE>).
 
-<A NAME="IDX861"></A>
+<A NAME="IDX891"></A>
 <DT><CODE>-model &#60;Model&#62;</CODE>
 <DD>
 Set the C64 model
@@ -3218,6 +3317,53 @@ Set the C64 model
 <CODE>ChargenName</CODE>, <CODE>SidEngine</CODE>, <CODE>SidModel</CODE>)
 (x64 and x64sc only).
 (c64/c64c/c64old, ntsc/newntsc/oldntsc, drean, jap, c64gs, pet64, ultimax)
+
+<A NAME="IDX892"></A>
+<DT><CODE>-cpmcart</CODE>
+<DD>
+<DT><CODE>+cpmcart</CODE>
+<DD>
+Enable/disable the CP/M cartridge
+(<CODE>CPMCart=1</CODE>. <CODE>CPMCart=0</CODE>)
+
+<A NAME="IDX893"></A>
+<DT><CODE>-tapecart</CODE>
+<DD>
+<DT><CODE>+tapecart</CODE>
+<DD>
+Enable/disable tapecart emulation
+(<CODE>TapecartEnabled=1</CODE>. <CODE>TapecartEnabled=0</CODE>)
+
+<A NAME="IDX894"></A>
+<DT><CODE>-tcrt &#60;name&#62;</CODE>
+<DD>
+Specify tapecart .tcrt image filename
+(<CODE>TapecartTCRTFilename</CODE>)
+
+<A NAME="IDX895"></A>
+<DT><CODE>-tapecartupdatetcrt</CODE>
+<DD>
+<DT><CODE>+tapecartupdatetcrt</CODE>
+<DD>
+Specify if the attached .tcrt image should be updated when the emulated
+tapecart is written to.
+(<CODE>TapecartUpdateTCRT=1</CODE>. <CODE>TapecartUpdateTCRT=0</CODE>)
+
+<A NAME="IDX896"></A>
+<DT><CODE>-tapecartoptimizetcrt</CODE>
+<DD>
+<DT><CODE>+tapecartoptimizetcrt</CODE>
+<DD>
+Specify if writing to a .tcrt file should optimize its size by leaving
+out blank space at the end.
+(<CODE>TapecartOptimizeTCRT=1</CODE>. <CODE>TapecartOptimizeTCRT=0</CODE>)
+
+<A NAME="IDX897"></A>
+<DT><CODE>-tapecartloglevel &#60;number&#62;</CODE>
+<DD>
+Specify the tapecart log level. The default level of 0 only logs
+errors. Level 1 additionally logs mode changes and command bytes and
+level 2 adds details of command parameters.
 
 </DL>
 
@@ -3237,107 +3383,83 @@ Set the C64 model
 
 <DT><CODE>VDC64KB</CODE>
 <DD>
-<A NAME="IDX862"></A>
+<A NAME="IDX898"></A>
  
 Boolean to enabled/disable full 64k video ram.
 
-<A NAME="IDX863"></A>
+<A NAME="IDX899"></A>
 <DT><CODE>VDCRevision</CODE>
 <DD>
 Integer specifying the VDC hardware revision
 (0: Rev 0, 1: Rev 1, 2: Rev 2).
 
-<A NAME="IDX864"></A>
+<A NAME="IDX900"></A>
 <DT><CODE>VDCVideoCache</CODE>
 <DD>
 Boolean specifying whether the video cache is turned on.
 
-<A NAME="IDX865"></A>
+<A NAME="IDX901"></A>
 <DT><CODE>VDCDoubleSize</CODE>
 <DD>
 Boolean specifying whether double-size mode is turned on.
 
-<A NAME="IDX866"></A>
+<A NAME="IDX902"></A>
 <DT><CODE>VDCDoubleScan</CODE>
 <DD>
 Boolean specifying whether double-scan mode is turned on.
 
-<A NAME="IDX867"></A>
+<A NAME="IDX903"></A>
 <DT><CODE>VDCStretchVertical</CODE>
 <DD>
 Boolean specifying whether vertical stretching is turned on.
 
-<A NAME="IDX868"></A>
+<A NAME="IDX904"></A>
 <DT><CODE>VDCPaletteFile</CODE>
 <DD>
 String specifying the name of the palette file being used. The
 <TT>`.vpl'</TT> extension is optional.
 
-<A NAME="IDX869"></A>
+<A NAME="IDX905"></A>
 <DT><CODE>VDCExternalPalette</CODE>
 <DD>
 Boolean specifying whether to use external palette file or not.
 
-<A NAME="IDX870"></A>
+<A NAME="IDX906"></A>
 <DT><CODE>VDCColorSaturation</CODE>
 <DD>
 Integer specifying saturation of internal calculated palette.
 (0..2000)
 
-<A NAME="IDX871"></A>
+<A NAME="IDX907"></A>
 <DT><CODE>VDCColorContrast</CODE>
 <DD>
 Integer specifying contrast of internal calculated palette.
 (0..2000)
 
-<A NAME="IDX872"></A>
+<A NAME="IDX908"></A>
 <DT><CODE>VDCColorBrightness</CODE>
 <DD>
 Integer specifying brightness of internal calculated palette.
 (0..2000)
 
-<A NAME="IDX873"></A>
+<A NAME="IDX909"></A>
 <DT><CODE>VDCColorGamma</CODE>
 <DD>
 Integer specifying gamma of internal calculated palette.
 (0..4000)
 
-<A NAME="IDX874"></A>
-<DT><CODE>VDCColorTint</CODE>
-<DD>
-Integer specifying tint of internal calculated palette.
-(0..2000)
-
-<A NAME="IDX875"></A>
+<A NAME="IDX910"></A>
 <DT><CODE>VDCPALScanLineShade</CODE>
 <DD>
 Integer specifying amount of scan line shading for the CRT emulation.
 (0..1000)
 
-<A NAME="IDX876"></A>
-<DT><CODE>VDCPALBlur</CODE>
-<DD>
-Integer specifying amount of horizontal blur for the CRT emulation.
-(0..1000)
-
-<A NAME="IDX877"></A>
-<DT><CODE>VDCPALOddLinePhase</CODE>
-<DD>
-Integer specifying phase for color carrier in odd lines.
-(0..2000)
-
-<A NAME="IDX878"></A>
-<DT><CODE>VDCPALOddLineOffset</CODE>
-<DD>
-Integer specifying phase offset for color carrier in odd lines.
-(0..2000)
-
-<A NAME="IDX879"></A>
+<A NAME="IDX911"></A>
 <DT><CODE>VDCAudioLeak</CODE>
 <DD>
 Boolean specifying whether to enable/disable video to audio leak emulation.
 
-<A NAME="IDX880"></A>
+<A NAME="IDX912"></A>
 <DT><CODE>VDCFilter</CODE>
 <DD>
 Integer specifying rendering filter
@@ -3352,14 +3474,14 @@ Integer specifying rendering filter
 
 <DT><CODE>-VDCvcache</CODE>
 <DD>
-<A NAME="IDX881"></A>
+<A NAME="IDX913"></A>
  
 <DT><CODE>+VDCvcache</CODE>
 <DD>
 Enable/disable the video cache
 (<CODE>VDCVideoCache=1</CODE>, <CODE>VDCVideoCache=0</CODE>).
 
-<A NAME="IDX882"></A>
+<A NAME="IDX914"></A>
 <DT><CODE>-VDCdsize</CODE>
 <DD>
 <DT><CODE>+VDCdsize</CODE>
@@ -3367,7 +3489,7 @@ Enable/disable the video cache
 Enable/disable double size
 (<CODE>VDCDoubleSize=1</CODE>, <CODE>VDCDoubleSize=0</CODE>).
 
-<A NAME="IDX883"></A>
+<A NAME="IDX915"></A>
 <DT><CODE>-VDCstretchvertical</CODE>
 <DD>
 <DT><CODE>+VDCstretchvertical</CODE>
@@ -3375,7 +3497,7 @@ Enable/disable double size
 Enable/Disable vertical stretching
 (<CODE>VDCStretchVertical=1</CODE>, <CODE>VDCStretchVertical=0</CODE>).
 
-<A NAME="IDX884"></A>
+<A NAME="IDX916"></A>
 <DT><CODE>-VDCdscan</CODE>
 <DD>
 <DT><CODE>+VDCdscan</CODE>
@@ -3383,107 +3505,107 @@ Enable/Disable vertical stretching
 Enable/disable double scan
 (<CODE>VDCDoubleScan=1</CODE>, <CODE>VDCDoubleScan=0</CODE>).
 
-<A NAME="IDX885"></A>
+<A NAME="IDX917"></A>
 <DT><CODE>-VDCintpal</CODE>
 <DD>
 Use an internal calculated palette
 (<CODE>VDCExternalPalette=0</CODE>).
 
-<A NAME="IDX886"></A>
+<A NAME="IDX918"></A>
 <DT><CODE>-VDCextpal</CODE>
 <DD>
 Use an external palette (file)
 (<CODE>VDCExternalPalette=1</CODE>).
 
-<A NAME="IDX887"></A>
+<A NAME="IDX919"></A>
 <DT><CODE>-VDCpalette &#60;name&#62;</CODE>
 <DD>
 Specify name of file of external palette
 (<CODE>VDCPaletteFile</CODE>).
 
-<A NAME="IDX888"></A>
+<A NAME="IDX920"></A>
 <DT><CODE>-VDCXRANDRfullmode &#60;mode&#62;</CODE>
 <DD>
 Select fullscreen mode
-<A NAME="IDX889"></A>
+<A NAME="IDX921"></A>
 <DT><CODE>-VDCVidmodefullmode &#60;mode&#62;</CODE>
 <DD>
 Select fullscreen mode
 
-<A NAME="IDX890"></A>
+<A NAME="IDX922"></A>
 <DT><CODE>-VDC16KB</CODE>
 <DD>
 Set the VDC memory size to 16KB
 (<CODE>VDC64KB=0</CODE>).
 
-<A NAME="IDX891"></A>
+<A NAME="IDX923"></A>
 <DT><CODE>-VDC64KB</CODE>
 <DD>
 Set the VDC memory size to 64KB
 (<CODE>VDC64KB=1</CODE>).
 
-<A NAME="IDX892"></A>
+<A NAME="IDX924"></A>
 <DT><CODE>-VDCRevision &#60;number&#62;</CODE>
 <DD>
 Set VDC revision
 (<CODE>VDCRevision</CODE>).
 (0..2)
 
-<A NAME="IDX893"></A>
+<A NAME="IDX925"></A>
 <DT><CODE>-VDCsaturation &#60;0-2000&#62;</CODE>
 <DD>
 Set saturation of internal calculated palette
 (<CODE>VDCColorSaturation</CODE>).
 
-<A NAME="IDX894"></A>
+<A NAME="IDX926"></A>
 <DT><CODE>-VDCcontrast &#60;0-2000&#62;</CODE>
 <DD>
 Set contrast of internal calculated palette
 (<CODE>VDCColorContrast</CODE>).
 
-<A NAME="IDX895"></A>
+<A NAME="IDX927"></A>
 <DT><CODE>-VDCbrightness &#60;0-2000&#62;</CODE>
 <DD>
 Set brightness of internal calculated palette
 (<CODE>VDCColorBrightness</CODE>).
 
-<A NAME="IDX896"></A>
+<A NAME="IDX928"></A>
 <DT><CODE>-VDCgamma &#60;0-4000&#62;</CODE>
 <DD>
 Set gamma of internal calculated palette
 (<CODE>VDCColorGamma</CODE>).
 
-<A NAME="IDX897"></A>
+<A NAME="IDX929"></A>
 <DT><CODE>-VDCtint &#60;0-2000&#62;</CODE>
 <DD>
 Set tint of internal calculated palette
 (<CODE>VDCColorTint</CODE>).
 
-<A NAME="IDX898"></A>
+<A NAME="IDX930"></A>
 <DT><CODE>-VDCoddlinesphase &#60;0-2000&#62;</CODE>
 <DD>
 Set phase for color carrier in odd lines
 (<CODE>VDCPALOddLinePhase</CODE>).
 
-<A NAME="IDX899"></A>
+<A NAME="IDX931"></A>
 <DT><CODE>-VDCoddlinesoffset &#60;0-2000&#62;</CODE>
 <DD>
 Set phase offset for color carrier in odd lines
 (<CODE>VDCPALOddLineOffset</CODE>).
 
-<A NAME="IDX900"></A>
+<A NAME="IDX932"></A>
 <DT><CODE>-VDCcrtblur &#60;0-1000&#62;</CODE>
 <DD>
 Amount of horizontal blur for the CRT emulation
 (<CODE>VDCPALBlur</CODE>).
 
-<A NAME="IDX901"></A>
+<A NAME="IDX933"></A>
 <DT><CODE>-VDCcrtscanlineshade &#60;0-1000&#62;</CODE>
 <DD>
 Amount of scan line shading for the CRT emulation
 (<CODE>VDCPALScanLineShade</CODE>).
 
-<A NAME="IDX902"></A>
+<A NAME="IDX934"></A>
 <DT><CODE>-VDCaudioleak</CODE>
 <DD>
 <DT><CODE>+VDCaudioleak</CODE>
@@ -3491,7 +3613,7 @@ Amount of scan line shading for the CRT emulation
 Enable/disable video to audio leak emulation
 (<CODE>VDCAudioLeak=1</CODE>, <CODE>VDCAudioLeak=0</CODE>).
 
-<A NAME="IDX903"></A>
+<A NAME="IDX935"></A>
 <DT><CODE>-VDCfilter &#60;Mode&#62;</CODE>
 <DD>
 Select rendering filter
@@ -3512,116 +3634,116 @@ Select rendering filter
 
 <DT><CODE>ChargenIntName</CODE>
 <DD>
-<A NAME="IDX904"></A>
+<A NAME="IDX936"></A>
  
 String specifying the filename of the international character generator ROM image.
 
-<A NAME="IDX905"></A>
+<A NAME="IDX937"></A>
 <DT><CODE>ChargenDEName</CODE>
 <DD>
 String specifying the filename of the German character generator ROM image.
 
-<A NAME="IDX906"></A>
+<A NAME="IDX938"></A>
 <DT><CODE>ChargenFRName</CODE>
 <DD>
 String specifying the filename of the French character generator ROM image.
 
-<A NAME="IDX907"></A>
+<A NAME="IDX939"></A>
 <DT><CODE>ChargenSEName</CODE>
 <DD>
 String specifying the filename of the Swedish character generator ROM image.
 
-<A NAME="IDX908"></A>
+<A NAME="IDX940"></A>
 <DT><CODE>ChargenCHName</CODE>
 <DD>
 String specifying the filename of the Swiss character generator ROM image.
 
-<A NAME="IDX909"></A>
+<A NAME="IDX941"></A>
 <DT><CODE>KernalIntName</CODE>
 <DD>
 String specifying the filename of the international Kernal ROM image.
 
-<A NAME="IDX910"></A>
+<A NAME="IDX942"></A>
 <DT><CODE>KernalDEName</CODE>
 <DD>
 String specifying the filename of the German Kernal ROM image.
 
-<A NAME="IDX911"></A>
+<A NAME="IDX943"></A>
 <DT><CODE>KernalFIName</CODE>
 <DD>
 String specifying the filename of the Finnish Kernal ROM image.
 
-<A NAME="IDX912"></A>
+<A NAME="IDX944"></A>
 <DT><CODE>KernalFRName</CODE>
 <DD>
 String specifying the filename of the French Kernal ROM image.
 
-<A NAME="IDX913"></A>
+<A NAME="IDX945"></A>
 <DT><CODE>KernalITName</CODE>
 <DD>
 String specifying the filename of the Italian Kernal ROM image.
 
-<A NAME="IDX914"></A>
+<A NAME="IDX946"></A>
 <DT><CODE>KernalNOName</CODE>
 <DD>
 String specifying the filename of the Norwegian Kernal ROM image.
 
-<A NAME="IDX915"></A>
+<A NAME="IDX947"></A>
 <DT><CODE>KernalSEName</CODE>
 <DD>
 String specifying the filename of the Swedish Kernal ROM image.
 
-<A NAME="IDX916"></A>
+<A NAME="IDX948"></A>
 <DT><CODE>KernalCHName</CODE>
 <DD>
 String specifying the filename of the Swiss Kernal ROM image.
 
-<A NAME="IDX917"></A>
-<A NAME="IDX918"></A>
+<A NAME="IDX949"></A>
+<A NAME="IDX950"></A>
 <DT><CODE>BasicLoName</CODE>
 <DD>
 <DT><CODE>BasicHiName</CODE>
 <DD>
 Strings specifying the filename of the Basic ROM images.
 
-<A NAME="IDX919"></A>
+<A NAME="IDX951"></A>
 <DT><CODE>Kernal64Name</CODE>
 <DD>
 String specifying the filename of the C64 Kernal ROM image.
 
-<A NAME="IDX920"></A>
+<A NAME="IDX952"></A>
 <DT><CODE>Basic64Name</CODE>
 <DD>
 String specifying the filename of the C64 Basic ROM image.
 
-<A NAME="IDX921"></A>
+<A NAME="IDX953"></A>
 <DT><CODE>InternalFunctionROM</CODE>
 <DD>
 Integer specifying the internal function ROM type
 (0: None, 1: ROM, 2: RAM, 3: RTC).
 
-<A NAME="IDX922"></A>
+<A NAME="IDX954"></A>
 <DT><CODE>InternalFunctionName</CODE>
 <DD>
 String specifying the filename of the ROM image for the internal function ROM.
 
-<A NAME="IDX923"></A>
+<A NAME="IDX955"></A>
 <DT><CODE>InternalFunctionROMRTCSave</CODE>
 <DD>
 Boolean to enable/disable the saving of the Internal Function RTC data when changed.
 
-<A NAME="IDX924"></A>
+<A NAME="IDX956"></A>
 <DT><CODE>ExternalFunctionROM</CODE>
 <DD>
 Integer specifying the external function ROM type
 (0: None, 1: ROM, 2: RAM, 3: RTC)
 
-<A NAME="IDX925"></A>
+<A NAME="IDX957"></A>
 <DT><CODE>ExternalFunctionName</CODE>
 <DD>
 String specifying the filename of the ROM image for the external function ROM.
 
-<A NAME="IDX926"></A>
+<A NAME="IDX958"></A>
 <DT><CODE>ExternalFunctionROMRTCSave</CODE>
 <DD>
 Boolean to enable/disable the saving of the External Function RTC data when changed.
@@ -3636,121 +3758,121 @@ Boolean to enable/disable the saving of the External Function RTC data when chan
 
 <DT><CODE>-basic64 &#60;name&#62;</CODE>
 <DD>
-<A NAME="IDX927"></A>
+<A NAME="IDX959"></A>
  
 Specify name of C64 mode BASIC ROM image
 (<CODE>Basic64Name</CODE>).
 
-<A NAME="IDX928"></A>
+<A NAME="IDX960"></A>
 <DT><CODE>-kernal64 &#60;name&#62;</CODE>
 <DD>
 Specify name of C64 mode Kernal ROM image
 (<CODE>Kernal64Name</CODE>).
 
-<A NAME="IDX929"></A>
+<A NAME="IDX961"></A>
 <DT><CODE>-basiclo &#60;name&#62;</CODE>
 <DD>
 Specify name of BASIC ROM image (lower part)
 (<CODE>BasicLoName</CODE>).
 
-<A NAME="IDX930"></A>
+<A NAME="IDX962"></A>
 <DT><CODE>-basichi &#60;name&#62;</CODE>
 <DD>
 Specify name of BASIC ROM image (higher part)
 (<CODE>BasicHiName</CODE>).
 
-<A NAME="IDX931"></A>
+<A NAME="IDX963"></A>
 <DT><CODE>-kernal &#60;name&#62;</CODE>
 <DD>
 Specify name of international Kernal ROM image
 (<CODE>KernalIntName</CODE>).
 
-<A NAME="IDX932"></A>
+<A NAME="IDX964"></A>
 <DT><CODE>-kernalde &#60;name&#62;</CODE>
 <DD>
 Specify name of German Kernal ROM image
 (<CODE>KernalDEName</CODE>).
 
-<A NAME="IDX933"></A>
+<A NAME="IDX965"></A>
 <DT><CODE>-kernalfi &#60;name&#62;</CODE>
 <DD>
 Specify name of Finnish Kernal ROM image
 (<CODE>KernalFIName</CODE>).
 
-<A NAME="IDX934"></A>
+<A NAME="IDX966"></A>
 <DT><CODE>-kernalfr &#60;name&#62;</CODE>
 <DD>
 Specify name of French Kernal ROM image
 (<CODE>KernalFRName</CODE>).
 
-<A NAME="IDX935"></A>
+<A NAME="IDX967"></A>
 <DT><CODE>-kernalit &#60;name&#62;</CODE>
 <DD>
 Specify name of Italian Kernal ROM image
 (<CODE>KernalITName</CODE>).
 
-<A NAME="IDX936"></A>
+<A NAME="IDX968"></A>
 <DT><CODE>-kernalno &#60;name&#62;</CODE>
 <DD>
 Specify name of Norwegian Kernal ROM image
 (<CODE>KernalNOName</CODE>).
 
-<A NAME="IDX937"></A>
+<A NAME="IDX969"></A>
 <DT><CODE>-kernalse &#60;name&#62;</CODE>
 <DD>
 Specify name of Swedish Kernal ROM image
 (<CODE>KernalSEName</CODE>).
 
-<A NAME="IDX938"></A>
+<A NAME="IDX970"></A>
 <DT><CODE>-kernalch &#60;name&#62;</CODE>
 <DD>
 Specify name of Swiss Kernal ROM image
 (<CODE>KernalCHName</CODE>).
 
-<A NAME="IDX939"></A>
+<A NAME="IDX971"></A>
 <DT><CODE>-chargen &#60;name&#62;</CODE>
 <DD>
 Specify name of international character generator ROM image
 (<CODE>ChargenIntName</CODE>).
 
-<A NAME="IDX940"></A>
+<A NAME="IDX972"></A>
 <DT><CODE>-chargde &#60;name&#62;</CODE>
 <DD>
 Specify name of German character generator ROM image
 (<CODE>ChargenDEName</CODE>).
 
-<A NAME="IDX941"></A>
+<A NAME="IDX973"></A>
 <DT><CODE>-chargfr &#60;name&#62;</CODE>
 <DD>
 Specify name of French character generator ROM image
 (<CODE>ChargenFRName</CODE>).
 
-<A NAME="IDX942"></A>
+<A NAME="IDX974"></A>
 <DT><CODE>-chargse &#60;name&#62;</CODE>
 <DD>
 Specify name of Swedish character generator ROM image
 (<CODE>ChargenSEName</CODE>).
 
-<A NAME="IDX943"></A>
+<A NAME="IDX975"></A>
 <DT><CODE>-chargch &#60;name&#62;</CODE>
 <DD>
 Specify name of Swiss character generator ROM image
 (<CODE>ChargenCHName</CODE>).
 
-<A NAME="IDX944"></A>
+<A NAME="IDX976"></A>
 <DT><CODE>-intfunc &#60;type&#62;</CODE>
 <DD>
 Set the internal Function ROM type
 (<CODE>InternalFunctionROM</CODE>).
 (0: None, 1: ROM, 2: RAM, 3: RTC)
 
-<A NAME="IDX945"></A>
+<A NAME="IDX977"></A>
 <DT><CODE>-intfrom &#60;name&#62;</CODE>
 <DD>
 Specify name of internal Function ROM image
 (<CODE>InternalFunctionName</CODE>).
 
-<A NAME="IDX946"></A>
+<A NAME="IDX978"></A>
 <DT><CODE>-intfuncrtcsave</CODE>
 <DD>
 <DT><CODE>+intfuncrtcsave</CODE>
@@ -3758,20 +3880,20 @@ Specify name of internal Function ROM image
 Enable/disable the saving of the Internal Function RTC data when changed
 (<CODE>InternalFunctionROMRTCSave=1</CODE>, <CODE>InternalFunctionROMRTCSave=0</CODE>).
 
-<A NAME="IDX947"></A>
+<A NAME="IDX979"></A>
 <DT><CODE>-extfunc &#60;type&#62;</CODE>
 <DD>
 Set the external Function ROM type
 (<CODE>ExternalFunctionROM</CODE>).
 (0: None, 1: ROM, 2: RAM, 3: RTC)
 
-<A NAME="IDX948"></A>
+<A NAME="IDX980"></A>
 <DT><CODE>-extfrom &#60;name&#62;</CODE>
 <DD>
 Specify name of external Function ROM image
 (<CODE>ExternalFunctionName</CODE>).
 
-<A NAME="IDX949"></A>
+<A NAME="IDX981"></A>
 <DT><CODE>-extfuncrtcsave</CODE>
 <DD>
 <DT><CODE>+extfuncrtcsave</CODE>
@@ -3791,30 +3913,30 @@ Enable/disable the saving of the External Function RTC data when changed
 
 <DL COMPACT>
 
-<DT><CODE>40/80ColumnKey</CODE>
+<DT><CODE>C128ColumnKey</CODE>
 <DD>
-<A NAME="IDX950"></A>
+<A NAME="IDX982"></A>
  
 Boolean specifying the status of the 40/80 columns key.
 (0: Not pressed, 1: Pressed)
 
-<A NAME="IDX951"></A>
+<A NAME="IDX983"></A>
 <DT><CODE>Go64Mode</CODE>
 <DD>
 Boolean, if true enter C64 mode on reset.
 
-<A NAME="IDX952"></A>
+<A NAME="IDX984"></A>
 <DT><CODE>C128FullBanks</CODE>
 <DD>
 Boolean to enable/disable RAM banks 2 and 3.
 
-<A NAME="IDX953"></A>
+<A NAME="IDX985"></A>
 <DT><CODE>MachineType</CODE>
 <DD>
 Integer specifying the C128 machine type.
 (0: International, 1: Finnish, 2: French, 3: German, 4: Italian, 5: Norwegian, 6: Swedish)
 
-<A NAME="IDX954"></A>
+<A NAME="IDX986"></A>
 <DT><CODE>MachineVideoStandard</CODE>
 <DD>
 Integer that specifies the video standard of the emulated machine
@@ -3830,18 +3952,18 @@ Integer that specifies the video standard of the emulated machine
 
 <DT><CODE>-40col</CODE>
 <DD>
-<A NAME="IDX955"></A>
+<A NAME="IDX987"></A>
  
 Activate 40 column mode
 (<CODE>40/80ColumnKey=1</CODE>).
 
-<A NAME="IDX956"></A>
+<A NAME="IDX988"></A>
 <DT><CODE>-80col</CODE>
 <DD>
 Activate 80 column mode
 (<CODE>40/80ColumnKey=0</CODE>).
 
-<A NAME="IDX957"></A>
+<A NAME="IDX989"></A>
 <DT><CODE>-go64</CODE>
 <DD>
 Always switch to C64 mode on reset
@@ -3851,19 +3973,19 @@ Always switch to C64 mode on reset
 Always switch to C128 mode on reset
 (<CODE>Go64Mode=0</CODE>.
 
-<A NAME="IDX958"></A>
+<A NAME="IDX990"></A>
 <DT><CODE>-pal</CODE>
 <DD>
 Use PAL sync factor
 (<CODE>MachineVideoStandard=1</CODE>).
 
-<A NAME="IDX959"></A>
+<A NAME="IDX991"></A>
 <DT><CODE>-ntsc</CODE>
 <DD>
 Use NTSC sync factor
 (<CODE>MachineVideoStandard=2</CODE>).
 
-<A NAME="IDX960"></A>
+<A NAME="IDX992"></A>
 <DT><CODE>-model &#60;Model&#62;</CODE>
 <DD>
 Set the C128 model
@@ -3871,7 +3993,7 @@ Set the C128 model
 <CODE>VDC64KB</CODE>, <CODE>SidEngine</CODE>, <CODE>SidModel</CODE>).
 (c128/c128dcr, pal/ntsc)
 
-<A NAME="IDX961"></A>
+<A NAME="IDX993"></A>
 <DT><CODE>-c128fullbanks</CODE>
 <DD>
 <DT><CODE>+c128fullbanks</CODE>
@@ -3879,7 +4001,7 @@ Set the C128 model
 Enable/disable RAM banks 2 and 3
 (<CODE>C128FullBanks=1</CODE>, <CODE>C128FullBanks=0</CODE>).
 
-<A NAME="IDX962"></A>
+<A NAME="IDX994"></A>
 <DT><CODE>-machinetype &#60;Type&#62;</CODE>
 <DD>
 Set the C128 machine type
@@ -3939,12 +4061,12 @@ normally you should use a patched rom.
 
 <DT><CODE>-c64dtvromimage &#60;name&#62;</CODE>
 <DD>
-<A NAME="IDX963"></A>
+<A NAME="IDX995"></A>
  
 Specify filename of the C64DTV ROM image
 (<CODE>c64dtvromfilename</CODE>).
 
-<A NAME="IDX964"></A>
+<A NAME="IDX996"></A>
 <DT><CODE>-c64dtvromrw</CODE>
 <DD>
 <DT><CODE>+c64dtvromrw</CODE>
@@ -3964,14 +4086,14 @@ file system instead.
 
 <DT><CODE>-trueflashfs</CODE>
 <DD>
-<A NAME="IDX965"></A>
+<A NAME="IDX997"></A>
  
 <DT><CODE>+trueflashfs</CODE>
 <DD>
 Enable/disable true hardware flash file system
 (<CODE>FlashTrueFS=1</CODE>, <CODE>FlashTrueFS=0</CODE>).
 
-<A NAME="IDX966"></A>
+<A NAME="IDX998"></A>
 <DT><CODE>-fsflash &#60;name&#62;</CODE>
 <DD>
 Specify the directory for the flash file system device
@@ -3993,7 +4115,7 @@ bug is intended for testing DTV software.
 
 <DT><CODE>-dtvrev &#60;revision&#62;</CODE>
 <DD>
-<A NAME="IDX967"></A>
+<A NAME="IDX999"></A>
  
 Specify DTV revision
 (<CODE>DtvRevision</CODE>).
@@ -4051,14 +4173,14 @@ can be used simultaneously with either Hummer ADC or userport joystick.
 
 <DT><CODE>-hummeradc</CODE>
 <DD>
-<A NAME="IDX968"></A>
+<A NAME="IDX1000"></A>
  
 <DT><CODE>+hummeradc</CODE>
 <DD>
 Enable/Disable Hummer ADC
 (<CODE>HummerADC=1</CODE>, <CODE>HummerADC=0</CODE>).
 
-<A NAME="IDX969"></A>
+<A NAME="IDX1001"></A>
 <DT><CODE>-ps2mouse</CODE>
 <DD>
 <DT><CODE>+ps2mouse</CODE>
@@ -4081,20 +4203,20 @@ line parameters. This can be useful for DTV software development.
 
 <DT><CODE>-dtvblitterlog</CODE>
 <DD>
-<A NAME="IDX970"></A>
+<A NAME="IDX1002"></A>
  
 <DT><CODE>+dtvblitterlog</CODE>
 <DD>
 Enable or disable DTV Blitter log
 
-<A NAME="IDX971"></A>
+<A NAME="IDX1003"></A>
 <DT><CODE>-dtvdmalog</CODE>
 <DD>
 <DT><CODE>+dtvdmalog</CODE>
 <DD>
 Enable or disable DTV DMA log
 
-<A NAME="IDX972"></A>
+<A NAME="IDX1004"></A>
 <DT><CODE>-dtvflashlog</CODE>
 <DD>
 <DT><CODE>+dtvflashlog</CODE>
@@ -4131,70 +4253,70 @@ to "ramXX", where XX is the starting bank (usually "bank00").
 
 <DT><CODE>DtvRevision</CODE>
 <DD>
-<A NAME="IDX973"></A>
+<A NAME="IDX1005"></A>
  
 Integer specifying the emulated DTV revision.
 (2: DTV2, 3: DTV3)
 
-<A NAME="IDX974"></A>
+<A NAME="IDX1006"></A>
 <DT><CODE>ChargenName</CODE>
 <DD>
 String specifying the name of the character generator ROM (default <TT>`chargen'</TT>).
 
-<A NAME="IDX975"></A>
+<A NAME="IDX1007"></A>
 <DT><CODE>KernalName</CODE>
 <DD>
 String specifying the name of the Kernal ROM (default <TT>`kernal'</TT>).
 
-<A NAME="IDX976"></A>
+<A NAME="IDX1008"></A>
 <DT><CODE>BasicName</CODE>
 <DD>
 String specifying the name of the Basic ROM (default <TT>`basic'</TT>).
 
-<A NAME="IDX977"></A>
+<A NAME="IDX1009"></A>
 <DT><CODE>c64dtvromfilename</CODE>
 <DD>
 String specifying the filename of the DTV Flash ROM image.
 
-<A NAME="IDX978"></A>
+<A NAME="IDX1010"></A>
 <DT><CODE>c64dtvromrw</CODE>
 <DD>
 Boolean that specifies whether the emulated Flash ROM is writeable.
 
-<A NAME="IDX979"></A>
+<A NAME="IDX1011"></A>
 <DT><CODE>FSFlashDir</CODE>
 <DD>
 String specifying the working directory for the flash file system.
 
-<A NAME="IDX980"></A>
+<A NAME="IDX1012"></A>
 <DT><CODE>FlashTrueFS</CODE>
 <DD>
 Boolean, enables true hardware flash file system.
 
-<A NAME="IDX981"></A>
+<A NAME="IDX1013"></A>
 <DT><CODE>HummerADC</CODE>
 <DD>
 Boolean to enable/disable the Hummer ADC emulation.
 
-<A NAME="IDX982"></A>
+<A NAME="IDX1014"></A>
 <DT><CODE>ps2mouse</CODE>
 <DD>
 Boolean to enable/disable PS/2 Mouse emulation.
 
-<A NAME="IDX983"></A>
+<A NAME="IDX1015"></A>
 <DT><CODE>DtvBlitterLog</CODE>
 <DD>
 Boolean, enables Blitter logging.
-<A NAME="IDX984"></A>
+<A NAME="IDX1016"></A>
 <DT><CODE>DtvDMALog</CODE>
 <DD>
 Boolean, enables DMA logging.
-<A NAME="IDX985"></A>
+<A NAME="IDX1017"></A>
 <DT><CODE>DtvFlashLog</CODE>
 <DD>
 Boolean, enables Flash ROM logging.
 
-<A NAME="IDX986"></A>
+<A NAME="IDX1018"></A>
 <DT><CODE>MachineVideoStandard</CODE>
 <DD>
 Integer that specifies the video standard of the emulated machine.
@@ -4210,37 +4332,37 @@ Integer that specifies the video standard of the emulated machine.
 
 <DT><CODE>-model &#60;Model&#62;</CODE>
 <DD>
-<A NAME="IDX987"></A>
+<A NAME="IDX1019"></A>
  
 Set the DTV model
 (<CODE>MachineVideoStandard</CODE>, <CODE>DtvRevision</CODE>, <CODE>HummerADC</CODE>).
 (v2/v2pal/v2ntsc, v3/v3pal/v3ntsc, hummer)
 
-<A NAME="IDX988"></A>
+<A NAME="IDX1020"></A>
 <DT><CODE>-pal</CODE>
 <DD>
 Use PAL sync factor
 (<CODE>MachineVideoStandard=1</CODE>).
 
-<A NAME="IDX989"></A>
+<A NAME="IDX1021"></A>
 <DT><CODE>-ntsc</CODE>
 <DD>
 Use NTSC sync factor
 (<CODE>MachineVideoStandard=2</CODE>).
 
-<A NAME="IDX990"></A>
+<A NAME="IDX1022"></A>
 <DT><CODE>-chargen &#60;name&#62;</CODE>
 <DD>
 Specify filename of the character generator ROM file
 (<CODE>ChargenName</CODE>).
 
-<A NAME="IDX991"></A>
+<A NAME="IDX1023"></A>
 <DT><CODE>-kernal &#60;name&#62;</CODE>
 <DD>
 Specify filename of the Kernal ROM file
 (<CODE>KernalName</CODE>).
 
-<A NAME="IDX992"></A>
+<A NAME="IDX1024"></A>
 <DT><CODE>-basic &#60;name&#62;</CODE>
 <DD>
 Specify the filename of the Basic ROM file
@@ -4260,50 +4382,50 @@ Specify the filename of the Basic ROM file
 
 <DT><CODE>ChargenName</CODE>
 <DD>
-<A NAME="IDX993"></A>
+<A NAME="IDX1025"></A>
  
 String specifying the name of the character generator ROM (default <TT>`chargen'</TT>).
 
-<A NAME="IDX994"></A>
+<A NAME="IDX1026"></A>
 <DT><CODE>SCPU64Name</CODE>
 <DD>
 String specifying the name of the SCPU64 ROM (default <TT>`scpu64'</TT>).
 
-<A NAME="IDX995"></A>
+<A NAME="IDX1027"></A>
 <DT><CODE>MachineVideoStandard</CODE>
 <DD>
 Integer that specifies the video standard of the emulated machine
 (4: PAL-N, 3: Old NTSC, 1: PAL, 2: NTSC).
 
-<A NAME="IDX996"></A>
+<A NAME="IDX1028"></A>
 <DT><CODE>IECReset</CODE>
 <DD>
 Integer specifying if the IEC bus resets when the CPU resets.
 (0: No, 1: Yes)
 
-<A NAME="IDX997"></A>
+<A NAME="IDX1029"></A>
 <DT><CODE>BurstMod</CODE>
 <DD>
 Integer specifying the kind of Burst-Mode modification.
 (0: None, 1: CIA-1, 2: CIA-2)
 
-<A NAME="IDX998"></A>
+<A NAME="IDX1030"></A>
 <DT><CODE>SIMMSize</CODE>
 <DD>
 Integer specifying the size of the SIMM RAM.
 (0, 1, 4, 8, 16)
 
-<A NAME="IDX999"></A>
+<A NAME="IDX1031"></A>
 <DT><CODE>JiffySwitch</CODE>
 <DD>
 Boolean to enable/disable the jiffy switch.
 
-<A NAME="IDX1000"></A>
+<A NAME="IDX1032"></A>
 <DT><CODE>SpeedSwitch</CODE>
 <DD>
 Boolean to enable/disable the speed switch.
 
-<A NAME="IDX1001"></A>
+<A NAME="IDX1033"></A>
 <DT><CODE>GlueLogic</CODE>
 <DD>
 Integer specifying the type of emulated glue-logic.
@@ -4319,18 +4441,18 @@ Integer specifying the type of emulated glue-logic.
 
 <DT><CODE>-chargen &#60;name&#62;</CODE>
 <DD>
-<A NAME="IDX1002"></A>
+<A NAME="IDX1034"></A>
  
 Specify filename of the character generator ROM file
 (<CODE>ChargenName</CODE>).
 
-<A NAME="IDX1003"></A>
+<A NAME="IDX1035"></A>
 <DT><CODE>-scpu64 &#60;Name&#62;</CODE>
 <DD>
 Specify filename of the SCPU64 ROM file
 (<CODE>SCPU64Name</CODE>).
 
-<A NAME="IDX1004"></A>
+<A NAME="IDX1036"></A>
 <DT><CODE>-model &#60;Model&#62;</CODE>
 <DD>
 Set the C64 model
@@ -4339,38 +4461,38 @@ Set the C64 model
 <CODE>SidEngine</CODE>, <CODE>SidModel</CODE>).
 (c64/c64c/c64old, ntsc/newntsc/oldntsc, drean, jap, c64gs)
 
-<A NAME="IDX1005"></A>
+<A NAME="IDX1037"></A>
 <DT><CODE>-pal</CODE>
 <DD>
 Use PAL sync factor
 (<CODE>MachineVideoStandard=1</CODE>).
 
-<A NAME="IDX1006"></A>
+<A NAME="IDX1038"></A>
 <DT><CODE>-ntsc</CODE>
 <DD>
 Use NTSC sync factor
 (<CODE>MachineVideoStandard=2</CODE>).
 
-<A NAME="IDX1007"></A>
+<A NAME="IDX1039"></A>
 <DT><CODE>-ntscold</CODE>
 <DD>
 Use old NTSC sync factor
 (<CODE>MachineVideoStandard=3</CODE>).
 
-<A NAME="IDX1008"></A>
+<A NAME="IDX1040"></A>
 <DT><CODE>-paln</CODE>
 <DD>
 Use PAL-N sync factor
 (<CODE>MachineVideoStandard=4</CODE>).
 
-<A NAME="IDX1009"></A>
+<A NAME="IDX1041"></A>
 <DT><CODE>-iecreset &#60;value&#62;</CODE>
 <DD>
 Set IEC reset bahaviour
 (<CODE>IECReset</CODE>).
 (0: Do not reset with CPU reset, 1: Reset with CPU reset)
 
-<A NAME="IDX1010"></A>
+<A NAME="IDX1042"></A>
 <DT><CODE>-burstmod &#60;value&#62;</CODE>
 <DD>
 Set the kind of burst modification. This emulates the fast serial bus connection
@@ -4379,14 +4501,14 @@ the tape port cut
 (<CODE>BurstMod</CODE>).
 (0: None, 1: CIA-1, 2: CIA-2)
 
-<A NAME="IDX1011"></A>
+<A NAME="IDX1043"></A>
 <DT><CODE>-simmsize &#60;number&#62;</CODE>
 <DD>
 Set the size of the SIMM RAM
 (<CODE>SIMMSize</CODE>).
 (0, 1, 4, 8, 16)
 
-<A NAME="IDX1012"></A>
+<A NAME="IDX1044"></A>
 <DT><CODE>-jiffyswitch</CODE>
 <DD>
 <DT><CODE>+jiffyswitch</CODE>
@@ -4394,7 +4516,7 @@ Set the size of the SIMM RAM
 Enable/disable the jiffy switch
 (<CODE>JiffySwitch=1</CODE>, <CODE>JiffySwitch=0</CODE>).
 
-<A NAME="IDX1013"></A>
+<A NAME="IDX1045"></A>
 <DT><CODE>-speedswitch</CODE>
 <DD>
 <DT><CODE>+speedswitch</CODE>
@@ -4402,7 +4524,7 @@ Enable/disable the jiffy switch
 Enable/disable the speed switch
 (<CODE>SpeedSwitch=1</CODE>, <CODE>SpeedSwitch=0</CODE>).
 
-<A NAME="IDX1014"></A>
+<A NAME="IDX1046"></A>
 <DT><CODE>-gluelogictype &#60;type&#62;</CODE>
 <DD>
 Set glue logic type
@@ -4493,12 +4615,12 @@ but you also have to enable the IEEE488 hardware by menu.
 
 <DT><CODE>CartridgeReset</CODE>
 <DD>
-<A NAME="IDX1015"></A>
+<A NAME="IDX1047"></A>
  
 Boolean specifying whether the machine should be reset when a cartridge is
 changed.
 
-<A NAME="IDX1016"></A>
+<A NAME="IDX1048"></A>
 <DT><CODE>CartridgeType</CODE>
 <DD>
 Integer specifying the type of cartridge emulated.
@@ -4569,12 +4691,12 @@ The following cartridge types are valid:
 0x8019: 16KB at $4000-$7FFF
 </UL>
 
-<A NAME="IDX1017"></A>
+<A NAME="IDX1049"></A>
 <DT><CODE>CartridgeFile</CODE>
 <DD>
 String specifying the filename of the image for the current cartridge.
 
-<A NAME="IDX1018"></A>
+<A NAME="IDX1050"></A>
 <DT><CODE>IOCollisionHandling</CODE>
 <DD>
 Integer specifying the way the I/O collisions should be handled.
@@ -4582,11 +4704,11 @@ Integer specifying the way the I/O collisions should be handled.
 1: error message and detach last attached involved carts,
 2: warning in log and 'AND' the valid return values)
 
-<A NAME="IDX1019"></A>
-<A NAME="IDX1020"></A>
-<A NAME="IDX1021"></A>
-<A NAME="IDX1022"></A>
-<A NAME="IDX1023"></A>
+<A NAME="IDX1051"></A>
+<A NAME="IDX1052"></A>
+<A NAME="IDX1053"></A>
+<A NAME="IDX1054"></A>
+<A NAME="IDX1055"></A>
 <DT><CODE>GenericCartridgeFile2000</CODE>
 <DD>
 <DT><CODE>GenericCartridgeFile4000</CODE>
@@ -4599,99 +4721,99 @@ Integer specifying the way the I/O collisions should be handled.
 <DD>
 Strings specifying the name of the respective cartridge ROM images.
 
-<A NAME="IDX1024"></A>
+<A NAME="IDX1056"></A>
 <DT><CODE>FinalExpansionWriteBack</CODE>
 <DD>
 Boolean, if true write back the Flash ROM image file automatically, incase the
 contents changed, when detaching or quitting the emulator.
 
-<A NAME="IDX1025"></A>
+<A NAME="IDX1057"></A>
 <DT><CODE>VicFlashPluginWriteBack</CODE>
 <DD>
 Boolean, if true write back the Flash ROM image file automatically, incase the
 contents changed, when detaching or quitting the emulator.
 
-<A NAME="IDX1026"></A>
+<A NAME="IDX1058"></A>
 <DT><CODE>MegaCartNvRAMfilename</CODE>
 <DD>
 String specifying the filename of the MegaCart NvRAM image.
 
-<A NAME="IDX1027"></A>
+<A NAME="IDX1059"></A>
 <DT><CODE>MegaCartNvRAMWriteBack</CODE>
 <DD>
 Boolean, if true write back the NvRAM image file automatically, incase the RAM
 contents changed, when detaching or quitting the emulator.
 
-<A NAME="IDX1028"></A>
+<A NAME="IDX1060"></A>
 <DT><CODE>UltiMemWriteBack</CODE>
 <DD>
 Boolean, if true write back the Flash ROM image file automatically, incase the
 contents changed, when detaching or quitting the emulator.
 
-<A NAME="IDX1029"></A>
+<A NAME="IDX1061"></A>
 <DT><CODE>IO2RAM</CODE>
 <DD>
 Boolean specifying whether the I/O-2 ($9800-$9BFF) RAM cartridge should be emulated or not.
 
-<A NAME="IDX1030"></A>
+<A NAME="IDX1062"></A>
 <DT><CODE>IO3RAM</CODE>
 <DD>
 Boolean specifying whether the I/O-3 ($9C00-$9FFF) RAM cartridge should be emulated or not.
 
-<A NAME="IDX1031"></A>
-<DT><CODE>TFEIOSwap</CODE>
+<A NAME="IDX1063"></A>
+<DT><CODE>VFLImod</CODE>
 <DD>
-Boolean, swap/don't swap io mapping (map cart I/O to VIC20 I/O-2)
+Boolean specifying whether the VFLI modification should be enabled.
 
-<A NAME="IDX1032"></A>
+<A NAME="IDX1064"></A>
 <DT><CODE>SFXSoundExpander</CODE>
 <DD>
 Boolean specifying whether the SFX Sound Expander should be emulated or not.
 
-<A NAME="IDX1033"></A>
+<A NAME="IDX1065"></A>
 <DT><CODE>SFXSoundExpanderChip</CODE>
 <DD>
 Integer specifying which YM chip is emulated.
 (3526, 3812)
 
-<A NAME="IDX1034"></A>
+<A NAME="IDX1066"></A>
 <DT><CODE>SFXSoundExpanderIOSwap</CODE>
 <DD>
 Boolean, swap io mapping (map cart I/O to VIC20 I/O-2) or don't swap io mapping (map cart I/O to VIC20 I/O-3).
 
-<A NAME="IDX1035"></A>
+<A NAME="IDX1067"></A>
 <DT><CODE>SFXSoundSampler</CODE>
 <DD>
 Boolean specifying whether the SFX Sound Sampler should be emulated or not.
 
-<A NAME="IDX1036"></A>
+<A NAME="IDX1068"></A>
 <DT><CODE>SFXSoundSamplerIOSwap</CODE>
 <DD>
 Boolean, swap io mapping (map cart I/O to VIC20 I/O-2) or don't swap io mapping (map cart I/O to VIC20 I/O-3).
 
-<A NAME="IDX1037"></A>
+<A NAME="IDX1069"></A>
 <DT><CODE>GEORAMfilename</CODE>
 <DD>
 String specifying the filename of the GEORAM image.
 
-<A NAME="IDX1038"></A>
+<A NAME="IDX1070"></A>
 <DT><CODE>GEORAM</CODE>
 <DD>
 Boolean specifying whether the GEO-RAM cartridge (using the MasC=uerade cartridge adapter) should be emulated or not.
 
-<A NAME="IDX1039"></A>
+<A NAME="IDX1071"></A>
 <DT><CODE>GEORAMsize</CODE>
 <DD>
 Integer specifying the size of the emulated GEO-RAM in KB.
 (64, 128, 256, 512, 1024, 2048, 4096).
 
-<A NAME="IDX1040"></A>
+<A NAME="IDX1072"></A>
 <DT><CODE>GEORAMImageWrite</CODE>
 <DD>
 Boolean, if true write back the GEO-RAM image file automatically, incase the RAM
 contents changed, when detaching or quitting the emulator.
 
-<A NAME="IDX1041"></A>
+<A NAME="IDX1073"></A>
 <DT><CODE>GEORAMIOSwap</CODE>
 <DD>
 Boolean specifying whether the io mapping should be swapped
@@ -4699,63 +4821,63 @@ Boolean specifying whether the io mapping should be swapped
 or not
 (map cart I/O-2 to VIC20 I/O-2 and cart I/O-2 to VIC20 I/O-3).
 
-<A NAME="IDX1042"></A>
+<A NAME="IDX1074"></A>
 <DT><CODE>SidCart</CODE>
 <DD>
 Boolean specifying whether SID-Cart emulation is enabled or not.
 
-<A NAME="IDX1043"></A>
+<A NAME="IDX1075"></A>
 <DT><CODE>SidAddress</CODE>
 <DD>
 Integer that specifies the base address of the emulated SID chip.
 (0x9800, 0x9C00)
 
-<A NAME="IDX1044"></A>
+<A NAME="IDX1076"></A>
 <DT><CODE>SidClock</CODE>
 <DD>
 Integer specifying the clock rate used for the emulated SID chip
 (0: C64, 1: VIC20)
 
-<A NAME="IDX1045"></A>
+<A NAME="IDX1077"></A>
 <DT><CODE>DIGIMAX</CODE>
 <DD>
 Boolean specifying whether the DigiMAX cartridge (using the MasC=uerade cartridge adapter) should be emulated or not.
 
-<A NAME="IDX1046"></A>
+<A NAME="IDX1078"></A>
 <DT><CODE>DIGIMAXbase</CODE>
 <DD>
 Integer specifying the DigiMAX base address.
 (0x9800, 0x9820, 0x9840, 0x9860, 0x9880, 0x98A0, 0x98C0, 0x98E0,
 0x9C00, 0x9C20, 0x9C40, 0x9C60, 0x9C80, 0x9CA0, 0x9CC0, 0x9CE0)
 
-<A NAME="IDX1047"></A>
+<A NAME="IDX1079"></A>
 <DT><CODE>DS12C887RTC</CODE>
 <DD>
 Boolean specifying whether the DS12C887 RTC cartridge (using the MasC=uerade cartridge adapter) should be emulated or not.
 
-<A NAME="IDX1048"></A>
+<A NAME="IDX1080"></A>
 <DT><CODE>DS12C887RTCbase</CODE>
 <DD>
 Integer specifying the DS12C887 RTC base address.
 (0x9800, 0x9C00)
 
-<A NAME="IDX1049"></A>
+<A NAME="IDX1081"></A>
 <DT><CODE>DS12C887RTCRunMode</CODE>
 <DD>
 Boolean specifying whether the DS12C887 RTC cartridge starts out running or halted.
 (0: halted, 1: running)
 
-<A NAME="IDX1050"></A>
+<A NAME="IDX1082"></A>
 <DT><CODE>DS12C887RTCSave</CODE>
 <DD>
 Boolean specifying whether the DS12C887 RTC data should be saved when changed or not.
 
-<A NAME="IDX1051"></A>
+<A NAME="IDX1083"></A>
 <DT><CODE>IEEE488</CODE>
 <DD>
 Boolean specifying whether the IEEE488 interface should be emulated or not.
 
-<A NAME="IDX1052"></A>
+<A NAME="IDX1084"></A>
 <DT><CODE>MachineVideoStandard</CODE>
 <DD>
 Integer that specifies the video standard of the emulated machine
@@ -4771,7 +4893,7 @@ Integer that specifies the video standard of the emulated machine
 
 <DT><CODE>-iocollision &#60;method&#62;</CODE>
 <DD>
-<A NAME="IDX1053"></A>
+<A NAME="IDX1085"></A>
  
 Select the way the I/O collisions should be handled
 (<CODE>IOCollisionHandling</CODE>).
@@ -4779,7 +4901,7 @@ Select the way the I/O collisions should be handled
 1: error message and detach last attached involved carts,
 2: warning in log and 'AND' the valid return values
 
-<A NAME="IDX1054"></A>
+<A NAME="IDX1086"></A>
 <DT><CODE>-cartreset</CODE>
 <DD>
 <DT><CODE>+cartreset</CODE>
@@ -4787,43 +4909,43 @@ Select the way the I/O collisions should be handled
 Do/don't reset machine if a cartridge is attached or detached
 (<CODE>CartridgeReset=1</CODE>, <CODE>CartridgeReset</CODE>).
 
-<A NAME="IDX1055"></A>
+<A NAME="IDX1087"></A>
 <DT><CODE>-cart2 &#60;name&#62;</CODE>
 <DD>
 Specify 4/8/16K extension ROM name at $2000
-<A NAME="IDX1056"></A>
+<A NAME="IDX1088"></A>
 <DT><CODE>-cart4 &#60;name&#62;</CODE>
 <DD>
 Specify 4/8/16K extension ROM name at $4000
-<A NAME="IDX1057"></A>
+<A NAME="IDX1089"></A>
 <DT><CODE>-cart6 &#60;name&#62;</CODE>
 <DD>
 Specify 4/8/16K extension ROM name at $6000
-<A NAME="IDX1058"></A>
+<A NAME="IDX1090"></A>
 <DT><CODE>-cartA &#60;name&#62;</CODE>
 <DD>
 Specify 4/8K extension ROM name at $A000
-<A NAME="IDX1059"></A>
+<A NAME="IDX1091"></A>
 <DT><CODE>-cartB &#60;name&#62;</CODE>
 <DD>
 Specify 4K extension ROM name at $B000
-<A NAME="IDX1060"></A>
+<A NAME="IDX1092"></A>
 <DT><CODE>-cartgeneric &#60;name&#62;</CODE>
 <DD>
 Specify generic extension ROM name
 
-<A NAME="IDX1061"></A>
+<A NAME="IDX1093"></A>
 <DT><CODE>-cartmega &#60;name&#62;</CODE>
 <DD>
 Specify Mega-Cart extension ROM name
 
-<A NAME="IDX1062"></A>
+<A NAME="IDX1094"></A>
 <DT><CODE>-mcnvramfile &#60;name&#62;</CODE>
 <DD>
 Set Mega-Cart NvRAM filename
 (<CODE>MegaCartNvRAMfilename</CODE>).
 
-<A NAME="IDX1063"></A>
+<A NAME="IDX1095"></A>
 <DT><CODE>-mcnvramwriteback</CODE>
 <DD>
 <DT><CODE>+mcnvramwriteback</CODE>
@@ -4831,12 +4953,12 @@ Set Mega-Cart NvRAM filename
 Enable/Disable Mega-Cart NvRAM writeback
 (<CODE>MegaCartNvRAMWriteBack=1</CODE>, <CODE>MegaCartNvRAMWriteBack=0</CODE>).
 
-<A NAME="IDX1064"></A>
+<A NAME="IDX1096"></A>
 <DT><CODE>-cartfe &#60;name&#62;</CODE>
 <DD>
 Specify Final Expansion extension ROM name
 
-<A NAME="IDX1065"></A>
+<A NAME="IDX1097"></A>
 <DT><CODE>-fewriteback</CODE>
 <DD>
 <DT><CODE>+fewriteback</CODE>
@@ -4844,12 +4966,12 @@ Specify Final Expansion extension ROM name
 Enable/disable Final Expansion write back to ROM file
 (<CODE>FinalExpansionWriteBack=1</CODE>, <CODE>FinalExpansionWriteBack=0</CODE>).
 
-<A NAME="IDX1066"></A>
+<A NAME="IDX1098"></A>
 <DT><CODE>-cartfp &#60;name&#62;</CODE>
 <DD>
 Specify Vic Flash Plugin extension ROM name
 
-<A NAME="IDX1067"></A>
+<A NAME="IDX1099"></A>
 <DT><CODE>-fpwriteback</CODE>
 <DD>
 <DT><CODE>+fpwriteback</CODE>
@@ -4857,7 +4979,7 @@ Specify Vic Flash Plugin extension ROM name
 Enable/Disable Vic Flash Plugin write back to ROM file
 (<CODE>VicFlashPluginWriteBack=1</CODE>, <CODE>VicFlashPluginWriteBack=0</CODE>).
 
-<A NAME="IDX1068"></A>
+<A NAME="IDX1100"></A>
 <DT><CODE>-umwriteback</CODE>
 <DD>
 <DT><CODE>+umwriteback</CODE>
@@ -4865,7 +4987,7 @@ Enable/Disable Vic Flash Plugin write back to ROM file
 Enable/disable UltiMem write back to ROM file
 (<CODE>UltiMemWriteBack=1</CODE>, <CODE>UltiMemWriteBack=0</CODE>).
 
-<A NAME="IDX1069"></A>
+<A NAME="IDX1101"></A>
 <DT><CODE>-io2ram</CODE>
 <DD>
 <DT><CODE>+io2ram</CODE>
@@ -4873,7 +4995,7 @@ Enable/disable UltiMem write back to ROM file
 Enable/disable the I/O-2 ($9800-$9BFF) RAM cartridge
 (<CODE>IO2RAM=1</CODE>, <CODE>IO2RAM=0</CODE>).
 
-<A NAME="IDX1070"></A>
+<A NAME="IDX1102"></A>
 <DT><CODE>-io3ram</CODE>
 <DD>
 <DT><CODE>+io3ram</CODE>
@@ -4881,7 +5003,7 @@ Enable/disable the I/O-2 ($9800-$9BFF) RAM cartridge
 Enable/disable the I/O-3 ($9C00-$9FFF) RAM cartridge
 (<CODE>IO3RAM=1</CODE>, <CODE>IO3RAM=0</CODE>).
 
-<A NAME="IDX1071"></A>
+<A NAME="IDX1103"></A>
 <DT><CODE>-ieee488</CODE>
 <DD>
 <DT><CODE>+ieee488</CODE>
@@ -4889,7 +5011,15 @@ Enable/disable the I/O-3 ($9C00-$9FFF) RAM cartridge
 Enable/disable VIC-1112 IEEE488 interface
 (<CODE>IEEE488=1</CODE>, <CODE>IEEE488=0</CODE>).
 
-<A NAME="IDX1072"></A>
+<A NAME="IDX1104"></A>
+<DT><CODE>-vflimod</CODE>
+<DD>
+<DT><CODE>+vflimod</CODE>
+<DD>
+Enable/disable VIC-20 VFLI modification
+(<CODE>VFLImod=1</CODE>, <CODE>VFLImod=0</CODE>)
+
+<A NAME="IDX1105"></A>
 <DT><CODE>-sidcart</CODE>
 <DD>
 <DT><CODE>+sidcart</CODE>
@@ -4897,44 +5027,44 @@ Enable/disable VIC-1112 IEEE488 interface
 Enable/disable SID Cartridge
 (<CODE>SidCart=1</CODE>, <CODE>SidCart=0</CODE>).
 
-<A NAME="IDX1073"></A>
+<A NAME="IDX1106"></A>
 <DT><CODE>-sidcartaddress &#60;address&#62;</CODE>
 <DD>
 Specify address of the SID Cartridge
 (<CODE>SidAddress</CODE>).
 (0x9800, 0x9C00)
 
-<A NAME="IDX1074"></A>
+<A NAME="IDX1107"></A>
 <DT><CODE>-sidcartclock &#60;clock&#62;</CODE>
 <DD>
 Specify clock of the SID Cartridge
 (<CODE>SidClock</CODE>).
 (0: C64, 1: VIC20)
 
-<A NAME="IDX1075"></A>
+<A NAME="IDX1108"></A>
 <DT><CODE>-tfeioswap</CODE>
 <DD>
 <DT><CODE>+tfeioswap</CODE>
 <DD>
 Swap/don't swap io mapping (map cart I/O to VIC20 I/O-2)
-<A NAME="IDX1076"></A>
+<A NAME="IDX1109"></A>
 <DT><CODE>-tfe</CODE>
 <DD>
 <DT><CODE>+tfe</CODE>
 <DD>
 Enable/Disable the TFE ("The Final Ethernet") unit
-<A NAME="IDX1077"></A>
+<A NAME="IDX1110"></A>
 <DT><CODE>-tfeif &#60;name&#62;</CODE>
 <DD>
 Set the system ethernet interface for TFE emulation
-<A NAME="IDX1078"></A>
+<A NAME="IDX1111"></A>
 <DT><CODE>-tferrnet</CODE>
 <DD>
 <DT><CODE>+tferrnet</CODE>
 <DD>
 Enable/Disable RRNet mode of TFE emulation
 
-<A NAME="IDX1079"></A>
+<A NAME="IDX1112"></A>
 <DT><CODE>-digimax</CODE>
 <DD>
 <DT><CODE>+digimax</CODE>
@@ -4942,7 +5072,7 @@ Enable/Disable RRNet mode of TFE emulation
 Enable/disable the DigiMAX cartridge (using the MasC=uerade cartridge adapter)
 (<CODE>DIGIMAX=1</CODE>, <CODE>DIGIMAX=0</CODE>).
 
-<A NAME="IDX1080"></A>
+<A NAME="IDX1113"></A>
 <DT><CODE>-digimaxbase &#60;base address&#62;</CODE>
 <DD>
 Base address of the DigiMAX cartridge
@@ -4950,7 +5080,7 @@ Base address of the DigiMAX cartridge
 (0x9800, 0x9820, 0x9840, 0x9860, 0x9880, 0x98A0, 0x98C0, 0x98E0,
 0x9C00, 0x9C20, 0x9C40, 0x9C60, 0x9C80, 0x9CA0, 0x9CC0, 0x9CE0)
 
-<A NAME="IDX1081"></A>
+<A NAME="IDX1114"></A>
 <DT><CODE>-ds12c887rtc</CODE>
 <DD>
 <DT><CODE>+ds12c887rtc</CODE>
@@ -4958,14 +5088,14 @@ Base address of the DigiMAX cartridge
 Enable/disable the DS12C887 RTC cartridge (using the MasC=uerade cartridge adapter)
 (<CODE>DS12C887RTC=1</CODE>, <CODE>DS12C887RTC=0</CODE>).
 
-<A NAME="IDX1082"></A>
+<A NAME="IDX1115"></A>
 <DT><CODE>-ds12c887rtcbase &#60;base address&#62;</CODE>
 <DD>
 Base address of the DS12C887 RTC cartridge
 (<CODE>DS12C887RTCbase</CODE>).
 (0x9800, 0x9C00)
 
-<A NAME="IDX1083"></A>
+<A NAME="IDX1116"></A>
 <DT><CODE>-ds12c887rtchalted</CODE>
 <DD>
 Set the DS12C887 RTC oscillator to 'halted'
@@ -4975,7 +5105,7 @@ Set the DS12C887 RTC oscillator to 'halted'
 Set the DS12C887 RTC oscillator to 'running'
 (<CODE>DS12C887RTCRunMode=1</CODE>).
 
-<A NAME="IDX1084"></A>
+<A NAME="IDX1117"></A>
 <DT><CODE>-ds12c887rtcsave</CODE>
 <DD>
 <DT><CODE>+ds12c887rtcsave</CODE>
@@ -4983,7 +5113,7 @@ Set the DS12C887 RTC oscillator to 'running'
 Enable/disable saving of the DS12C887 RTC data when changed
 (<CODE>DS12C887RTCSave=1</CODE>, <CODE>DS12C887RTCSave=0</CODE>).
 
-<A NAME="IDX1085"></A>
+<A NAME="IDX1118"></A>
 <DT><CODE>-sfxse</CODE>
 <DD>
 <DT><CODE>+sfxse</CODE>
@@ -4991,14 +5121,14 @@ Enable/disable saving of the DS12C887 RTC data when changed
 Enable/disable the SFX soundexpander cartridge (using the MasC=uerade cartridge adapter)
 (<CODE>SFXSoundExpander=1</CODE>, <CODE>SFXSoundExpander=0</CODE>).
 
-<A NAME="IDX1086"></A>
+<A NAME="IDX1119"></A>
 <DT><CODE>-sfxsetype &#60;type&#62;</CODE>
 <DD>
 Set YM chip type
 (<CODE>SFXSoundExpanderChip</CODE>).
 (3526, 3812)
 
-<A NAME="IDX1087"></A>
+<A NAME="IDX1120"></A>
 <DT><CODE>-sfxseioswap</CODE>
 <DD>
 Swap io mapping (map cart I/O to VIC20 I/O-2)
@@ -5008,7 +5138,7 @@ Swap io mapping (map cart I/O to VIC20 I/O-2)
 Swap io mapping (map cart I/O to VIC20 I/O-3)
 (<CODE>SFXSoundExpanderIOSwap=0</CODE>).
 
-<A NAME="IDX1088"></A>
+<A NAME="IDX1121"></A>
 <DT><CODE>-sfxssioswap</CODE>
 <DD>
 Swap io mapping (map cart I/O to VIC20 I/O-2)
@@ -5018,7 +5148,7 @@ Swap io mapping (map cart I/O to VIC20 I/O-2)
 Don't swap io mapping (map cart I/O to VIC20 I/O-3)
 (<CODE>SFXSoundSamplerIOSwap=0</CODE>).
 
-<A NAME="IDX1089"></A>
+<A NAME="IDX1122"></A>
 <DT><CODE>-sfxss</CODE>
 <DD>
 <DT><CODE>+sfxss</CODE>
@@ -5026,7 +5156,7 @@ Don't swap io mapping (map cart I/O to VIC20 I/O-3)
 Enable/disable the SFX Sound Sampler cartridge
 (<CODE>SFXSoundSampler=1</CODE>, <CODE>SFXSoundSampler=0</CODE>).
 
-<A NAME="IDX1090"></A>
+<A NAME="IDX1123"></A>
 <DT><CODE>-georamioswap</CODE>
 <DD>
 Swap the io mapping (map cart I/O-1 to VIC20 I/O-3 and cart I/O-2 to VIC20 I/O-2)
@@ -5036,7 +5166,7 @@ Swap the io mapping (map cart I/O-1 to VIC20 I/O-3 and cart I/O-2 to VIC20 I/O-2
 Do not swap the io mapping (map cart I/O-2 to VIC20 I/O-2 and cart I/O-2 to VIC20 I/O-3)
 (<CODE>GEORAMIOSwap=0</CODE>).
 
-<A NAME="IDX1091"></A>
+<A NAME="IDX1124"></A>
 <DT><CODE>-georam</CODE>
 <DD>
 <DT><CODE>+georam</CODE>
@@ -5044,13 +5174,13 @@ Do not swap the io mapping (map cart I/O-2 to VIC20 I/O-2 and cart I/O-2 to VIC2
 Enable/disable the GEORAM expansion unit (using the MasC=uerade cartridge adapter)
 (<CODE>GEORAM=1</CODE>, <CODE>GEORAM=0</CODE>).
 
-<A NAME="IDX1092"></A>
+<A NAME="IDX1125"></A>
 <DT><CODE>-georamimage &#60;name&#62;</CODE>
 <DD>
 Specify name of GEORAM image
 (<CODE>GEORAMfilename</CODE>).
 
-<A NAME="IDX1093"></A>
+<A NAME="IDX1126"></A>
 <DT><CODE>-georamimagerw</CODE>
 <DD>
 <DT><CODE>+georamimagerw</CODE>
@@ -5058,27 +5188,27 @@ Specify name of GEORAM image
 Allow/disallow writing to GEORAM image
 (<CODE>GEORAMImageWrite=1</CODE>, <CODE>GEORAMImageWrite=0</CODE>).
 
-<A NAME="IDX1094"></A>
+<A NAME="IDX1127"></A>
 <DT><CODE>-georamsize &#60;size in KB&#62;</CODE>
 <DD>
 Size of the GEORAM expansion unit
 (<CODE>GEORAMsize</CODE>).
 (64, 128, 256, 512, 1024, 2048, 4096)
 
-<A NAME="IDX1095"></A>
+<A NAME="IDX1128"></A>
 <DT><CODE>-model &#60;model&#62;</CODE>
 <DD>
 Specify the VIC20 model you want to emulate
 (<CODE>MachineVideoStandard</CODE>, <CODE>RamBlock0</CODE>, <CODE>RamBlock1</CODE>, <CODE>RamBlock2</CODE>, <CODE>RamBlock3</CODE> and <CODE>RamBlock5</CODE>).
 (vic20/vic20pal/vic20ntsc, vic21)
 
-<A NAME="IDX1096"></A>
+<A NAME="IDX1129"></A>
 <DT><CODE>-pal</CODE>
 <DD>
 Use PAL sync factor
 (<CODE>MachineVideoStandard=1</CODE>).
 
-<A NAME="IDX1097"></A>
+<A NAME="IDX1130"></A>
 <DT><CODE>-ntsc</CODE>
 <DD>
 Use NTSC sync factor
@@ -5098,97 +5228,97 @@ Use NTSC sync factor
 
 <DT><CODE>VICVideoCache</CODE>
 <DD>
-<A NAME="IDX1098"></A>
+<A NAME="IDX1131"></A>
  
 Boolean specifying whether the video cache is turned on.
 
-<A NAME="IDX1099"></A>
+<A NAME="IDX1132"></A>
 <DT><CODE>VICDoubleSize</CODE>
 <DD>
 Boolean specifying whether double-size mode is turned on.
 
-<A NAME="IDX1100"></A>
+<A NAME="IDX1133"></A>
 <DT><CODE>VICDoubleScan</CODE>
 <DD>
 Boolean specifying whether double-scan mode is turned on.
 
-<A NAME="IDX1101"></A>
+<A NAME="IDX1134"></A>
 <DT><CODE>VICPaletteFile</CODE>
 <DD>
 String specifying the name of the palette file being used. The
 <TT>`.vpl'</TT> extension is optional.
 
-<A NAME="IDX1102"></A>
+<A NAME="IDX1135"></A>
 <DT><CODE>VICExternalPalette</CODE>
 <DD>
 Boolean specifying whether to use external palette file or not.
 
-<A NAME="IDX1103"></A>
+<A NAME="IDX1136"></A>
 <DT><CODE>VICColorSaturation</CODE>
 <DD>
 Integer specifying saturation of internal calculated palette.
 (0..2000)
 
-<A NAME="IDX1104"></A>
+<A NAME="IDX1137"></A>
 <DT><CODE>VICColorContrast</CODE>
 <DD>
 Integer specifying contrast of internal calculated palette,
 (0..2000)
 
-<A NAME="IDX1105"></A>
+<A NAME="IDX1138"></A>
 <DT><CODE>VICColorBrightness</CODE>
 <DD>
 Integer specifying brightness of internal calculated palette.
 (0..2000)
 
-<A NAME="IDX1106"></A>
+<A NAME="IDX1139"></A>
 <DT><CODE>VICColorGamma</CODE>
 <DD>
 Integer specifying gamma of internal calculated palette.
 (0..4000)
 
-<A NAME="IDX1107"></A>
+<A NAME="IDX1140"></A>
 <DT><CODE>VICColorTint</CODE>
 <DD>
 Integer specifying tint of internal calculated palette.
 (0..2000)
 
-<A NAME="IDX1108"></A>
+<A NAME="IDX1141"></A>
 <DT><CODE>VICPALScanLineShade</CODE>
 <DD>
 Integer specifying amount of scan line shading for the CRT emulation.
 (0..1000)
 
-<A NAME="IDX1109"></A>
+<A NAME="IDX1142"></A>
 <DT><CODE>VICPALBlur</CODE>
 <DD>
 Integer specifying amount of horizontal blur for the CRT emulation.
 (0..1000)
 
-<A NAME="IDX1110"></A>
+<A NAME="IDX1143"></A>
 <DT><CODE>VICPALOddLinePhase</CODE>
 <DD>
 Integer specifying phase for color carrier in odd lines.
 (0..2000)
 
-<A NAME="IDX1111"></A>
+<A NAME="IDX1144"></A>
 <DT><CODE>VICPALOddLineOffset</CODE>
 <DD>
 Integer specifying phase offset for color carrier in odd lines.
 (0..2000)
 
-<A NAME="IDX1112"></A>
+<A NAME="IDX1145"></A>
 <DT><CODE>VICAudioLeak</CODE>
 <DD>
 Boolean specifying whether to enable/disable video to audio leak emulation.
 
-<A NAME="IDX1113"></A>
+<A NAME="IDX1146"></A>
 <DT><CODE>VICFilter</CODE>
 <DD>
 Integer specifying the rendering filter.
 (0: None, 1: CRT emulation, 2: Scale2x)
 
-<A NAME="IDX1114"></A>
+<A NAME="IDX1147"></A>
 <DT><CODE>VICBorderMode</CODE>
 <DD>
 Integer specifying border display mode
@@ -5204,14 +5334,14 @@ Integer specifying border display mode
 
 <DT><CODE>-VICvcache</CODE>
 <DD>
-<A NAME="IDX1115"></A>
+<A NAME="IDX1148"></A>
  
 <DT><CODE>+VICvcache</CODE>
 <DD>
 Enable/disable the video cache
 (<CODE>VICVideoCache=1</CODE>, <CODE>VICVideoCache=0</CODE>).
 
-<A NAME="IDX1116"></A>
+<A NAME="IDX1149"></A>
 <DT><CODE>-VICdsize</CODE>
 <DD>
 <DT><CODE>+VICdsize</CODE>
@@ -5219,7 +5349,7 @@ Enable/disable the video cache
 Enable/disable the double size mode
 (<CODE>VICDoubleSize=1</CODE>, <CODE>VICDoubleSize=0</CODE>).
 
-<A NAME="IDX1117"></A>
+<A NAME="IDX1150"></A>
 <DT><CODE>-VICdscan</CODE>
 <DD>
 <DT><CODE>+VICdscan</CODE>
@@ -5227,102 +5357,102 @@ Enable/disable the double size mode
 Enable/disable the double scan mode
 (<CODE>VICDoubleScan=1</CODE>, <CODE>VICDoubleScan=0</CODE>).
 
-<A NAME="IDX1118"></A>
+<A NAME="IDX1151"></A>
 <DT><CODE>-VICfilter &#60;Mode&#62;</CODE>
 <DD>
 Select rendering filter
 (<CODE>VICFilter</CODE>).
 (0: None, 1: CRT emulation, 2: Scale2x)
 
-<A NAME="IDX1119"></A>
+<A NAME="IDX1152"></A>
 <DT><CODE>-VICpalette NAME</CODE>
 <DD>
 Specify the name of the palette file
 (<CODE>VICPaletteFile</CODE>).
 
-<A NAME="IDX1120"></A>
+<A NAME="IDX1153"></A>
 <DT><CODE>-VICintpal</CODE>
 <DD>
 Use an internal calculated palette
 (<CODE>VICExternalPalette=0</CODE>).
 
-<A NAME="IDX1121"></A>
+<A NAME="IDX1154"></A>
 <DT><CODE>-VICextpal</CODE>
 <DD>
 Use an external palette (file)
 (<CODE>VICExternalPalette=1</CODE>).
 
-<A NAME="IDX1122"></A>
+<A NAME="IDX1155"></A>
 <DT><CODE>-VICXRANDRfullmode &#60;mode&#62;</CODE>
 <DD>
 Select fullscreen mode
-<A NAME="IDX1123"></A>
+<A NAME="IDX1156"></A>
 <DT><CODE>-VICVidmodefullmode &#60;mode&#62;</CODE>
 <DD>
 Select fullscreen mode
 
-<A NAME="IDX1124"></A>
+<A NAME="IDX1157"></A>
 <DT><CODE>-VICborders &#60;mode&#62;</CODE>
 <DD>
 Set VIC border display mode
 (<CODE>VICBorderMode</CODE>).
 (0: normal, 1: full, 2: debug, 3: none)
 
-<A NAME="IDX1125"></A>
+<A NAME="IDX1158"></A>
 <DT><CODE>-VICsaturation &#60;0-2000&#62;</CODE>
 <DD>
 Set saturation of internal calculated palette
 (<CODE>VICColorSaturation</CODE>).
 
-<A NAME="IDX1126"></A>
+<A NAME="IDX1159"></A>
 <DT><CODE>-VICcontrast &#60;0-2000&#62;</CODE>
 <DD>
 Set contrast of internal calculated palette
 (<CODE>VICColorContrast</CODE>).
 
-<A NAME="IDX1127"></A>
+<A NAME="IDX1160"></A>
 <DT><CODE>-VICbrightness &#60;0-2000&#62;</CODE>
 <DD>
 Set brightness of internal calculated palette
 (<CODE>VICColorBrightness</CODE>).
 
-<A NAME="IDX1128"></A>
+<A NAME="IDX1161"></A>
 <DT><CODE>-VICgamma &#60;0-4000&#62;</CODE>
 <DD>
 Set gamma of internal calculated palette
 (<CODE>VICColorGamma</CODE>).
 
-<A NAME="IDX1129"></A>
+<A NAME="IDX1162"></A>
 <DT><CODE>-VICtint &#60;0-2000&#62;</CODE>
 <DD>
 Set tint of internal calculated palette
 (<CODE>VICColorTint</CODE>).
 
-<A NAME="IDX1130"></A>
+<A NAME="IDX1163"></A>
 <DT><CODE>-VICoddlinesphase &#60;0-2000&#62;</CODE>
 <DD>
 Set phase for color carrier in odd lines
 (<CODE>VICPALOddLinePhase</CODE>).
 
-<A NAME="IDX1131"></A>
+<A NAME="IDX1164"></A>
 <DT><CODE>-VICoddlinesoffset &#60;0-2000&#62;</CODE>
 <DD>
 Set phase offset for color carrier in odd lines.
 (<CODE>VICPALOddLineOffset</CODE>).
 
-<A NAME="IDX1132"></A>
+<A NAME="IDX1165"></A>
 <DT><CODE>-VICcrtblur &#60;0-1000&#62;</CODE>
 <DD>
 Amount of horizontal blur for the CRT emulation
 (<CODE>VICPALBlur</CODE>).
 
-<A NAME="IDX1133"></A>
+<A NAME="IDX1166"></A>
 <DT><CODE>-VICcrtscanlineshade &#60;0-1000&#62;</CODE>
 <DD>
 Amount of scan line shading for the CRT emulation
 (<CODE>VICPALScanLineShade</CODE>).
 
-<A NAME="IDX1134"></A>
+<A NAME="IDX1167"></A>
 <DT><CODE>-VICaudioleak</CODE>
 <DD>
 <DT><CODE>+VICaudioleak</CODE>
@@ -5410,11 +5540,11 @@ all RAM expansion blocks enabled;
 
 <DT><CODE>RAMBlock0</CODE>
 <DD>
-<A NAME="IDX1135"></A>
- <A NAME="IDX1136"></A>
- <A NAME="IDX1137"></A>
- <A NAME="IDX1138"></A>
- <A NAME="IDX1139"></A>
+<A NAME="IDX1168"></A>
+ <A NAME="IDX1169"></A>
+ <A NAME="IDX1170"></A>
+ <A NAME="IDX1171"></A>
+ <A NAME="IDX1172"></A>
  
 <DT><CODE>RAMBlock1</CODE>
 <DD>
@@ -5436,7 +5566,7 @@ Booleans specifying whether RAM blocks 0, 1, 2, 3 and 5 must be enabled.
 
 <DT><CODE>-memory &#60;config&#62;</CODE>
 <DD>
-<A NAME="IDX1140"></A>
+<A NAME="IDX1173"></A>
  
 Specify memory configuration. It must be a comma-separated list of
 options, each of which can be one the following:
@@ -5514,16 +5644,16 @@ VIC20 emulator at startup.  They cannot be changed from the menus.
 
 <DT><CODE>KernalName</CODE>
 <DD>
-<A NAME="IDX1141"></A>
+<A NAME="IDX1174"></A>
  
 String specifying the name of the Kernal ROM (default <TT>`kernal'</TT>).
 
-<A NAME="IDX1142"></A>
+<A NAME="IDX1175"></A>
 <DT><CODE>BasicName</CODE>
 <DD>
 String specifying the name of the Basic ROM (default <TT>`basic'</TT>).
 
-<A NAME="IDX1143"></A>
+<A NAME="IDX1176"></A>
 <DT><CODE>ChargenName</CODE>
 <DD>
 String specifying the name of the character generator ROM (default <TT>`chargen'</TT>).
@@ -5538,28 +5668,28 @@ String specifying the name of the character generator ROM (default <TT>`chargen'
 
 <DT><CODE>-kernal &#60;name&#62;</CODE>
 <DD>
-<A NAME="IDX1144"></A>
+<A NAME="IDX1177"></A>
  
 Specify the filename of the Kernal ROM file
 (<CODE>KernalName</CODE>).
 
-<A NAME="IDX1145"></A>
+<A NAME="IDX1178"></A>
 <DT><CODE>-basic &#60;name&#62;</CODE>
 <DD>
 Specify the filename of the Basic ROM file
 (<CODE>BasicName</CODE>).
 
-<A NAME="IDX1146"></A>
+<A NAME="IDX1179"></A>
 <DT><CODE>-chargen &#60;name&#62;</CODE>
 <DD>
 Specify the filename of the character generator ROM file
 (<CODE>ChargenName</CODE>).
 
-<A NAME="IDX1147"></A>
-<A NAME="IDX1148"></A>
-<A NAME="IDX1149"></A>
-<A NAME="IDX1150"></A>
-<A NAME="IDX1151"></A>
+<A NAME="IDX1180"></A>
+<A NAME="IDX1181"></A>
+<A NAME="IDX1182"></A>
+<A NAME="IDX1183"></A>
+<A NAME="IDX1184"></A>
 <DT><CODE>-cart2 NAME</CODE>
 <DD>
 <DT><CODE>-cart4 NAME</CODE>
@@ -5603,97 +5733,97 @@ Specify <TT>`NAME'</TT> as the cartridge image to attach.
 
 <DT><CODE>TEDVideoCache</CODE>
 <DD>
-<A NAME="IDX1152"></A>
+<A NAME="IDX1185"></A>
  
 Boolean specifying whether the video cache is turned on.
 
-<A NAME="IDX1153"></A>
+<A NAME="IDX1186"></A>
 <DT><CODE>TEDDoubleSize</CODE>
 <DD>
 Boolean specifying whether double-size mode is turned on.
 
-<A NAME="IDX1154"></A>
+<A NAME="IDX1187"></A>
 <DT><CODE>TEDDoubleScan</CODE>
 <DD>
 Boolean specifying whether double-scan mode is turned on.
 
-<A NAME="IDX1155"></A>
+<A NAME="IDX1188"></A>
 <DT><CODE>TEDPaletteFile</CODE>
 <DD>
 String specifying the name of the palette file being used. The
 <TT>`.vpl'</TT> extension is optional.
 
-<A NAME="IDX1156"></A>
+<A NAME="IDX1189"></A>
 <DT><CODE>TEDExternalPalette</CODE>
 <DD>
 Boolean specifying whether to use external palette file or not.
 
-<A NAME="IDX1157"></A>
+<A NAME="IDX1190"></A>
 <DT><CODE>TEDColorSaturation</CODE>
 <DD>
 Integer specifying saturation of internal calculated palette.
 (0..2000)
 
-<A NAME="IDX1158"></A>
+<A NAME="IDX1191"></A>
 <DT><CODE>TEDColorContrast</CODE>
 <DD>
 Integer specifying contrast of internal calculated palette.
 (0..2000)
 
-<A NAME="IDX1159"></A>
+<A NAME="IDX1192"></A>
 <DT><CODE>TEDColorBrightness</CODE>
 <DD>
 Integer specifying brightness of internal calculated palette.
 (0..2000)
 
-<A NAME="IDX1160"></A>
+<A NAME="IDX1193"></A>
 <DT><CODE>TEDColorGamma</CODE>
 <DD>
 Integer specifying gamma of internal calculated palette.
 (0..4000)
 
-<A NAME="IDX1161"></A>
+<A NAME="IDX1194"></A>
 <DT><CODE>TEDColorTint</CODE>
 <DD>
 Integer specifying tint of internal calculated palette.
 (0..2000)
 
-<A NAME="IDX1162"></A>
+<A NAME="IDX1195"></A>
 <DT><CODE>TEDPALScanLineShade</CODE>
 <DD>
 Integer specifying amount of scan line shading for the CRT emulation.
 (0..1000)
 
-<A NAME="IDX1163"></A>
+<A NAME="IDX1196"></A>
 <DT><CODE>TEDPALBlur</CODE>
 <DD>
 Integer specifying amount of horizontal blur for the CRT emulation.
 (0..1000)
 
-<A NAME="IDX1164"></A>
+<A NAME="IDX1197"></A>
 <DT><CODE>TEDPALOddLinePhase</CODE>
 <DD>
 Integer specifying phase for color carrier in odd lines.
 (0..2000)
 
-<A NAME="IDX1165"></A>
+<A NAME="IDX1198"></A>
 <DT><CODE>TEDPALOddLineOffset</CODE>
 <DD>
 Integer specifying phase offset for color carrier in odd lines.
 (0..2000)
 
-<A NAME="IDX1166"></A>
+<A NAME="IDX1199"></A>
 <DT><CODE>TEDAudioLeak</CODE>
 <DD>
 Boolean specifying whether to enable/disable video to audio leak emulation.
 
-<A NAME="IDX1167"></A>
+<A NAME="IDX1200"></A>
 <DT><CODE>TEDFilter</CODE>
 <DD>
 Integer specifying rendering filter.
 (0: None, 1: CRT emulation, 2: Scale2x)
 
-<A NAME="IDX1168"></A>
+<A NAME="IDX1201"></A>
 <DT><CODE>TEDBorderMode</CODE>
 <DD>
 Integer specifying border display mode.
@@ -5709,14 +5839,14 @@ Integer specifying border display mode.
 
 <DT><CODE>-TEDvcache</CODE>
 <DD>
-<A NAME="IDX1169"></A>
+<A NAME="IDX1202"></A>
  
 <DT><CODE>+TEDvcache</CODE>
 <DD>
 Enable/disable the video cache
 (<CODE>TEDVideoCache=1</CODE>, <CODE>TEDVideoCache=0</CODE>).
 
-<A NAME="IDX1170"></A>
+<A NAME="IDX1203"></A>
 <DT><CODE>-TEDdsize</CODE>
 <DD>
 <DT><CODE>+TEDdsize</CODE>
@@ -5724,7 +5854,7 @@ Enable/disable the video cache
 Enable/disable double size
 (<CODE>TEDDoubleSize=1</CODE>, <CODE>TEDDoubleSize=0</CODE>).
 
-<A NAME="IDX1171"></A>
+<A NAME="IDX1204"></A>
 <DT><CODE>-TEDdscan</CODE>
 <DD>
 <DT><CODE>+TEDdscan</CODE>
@@ -5732,102 +5862,102 @@ Enable/disable double size
 Enable/disable double scan
 (<CODE>TEDDoubleScan=1</CODE>, <CODE>TEDDoubleScan=0</CODE>).
 
-<A NAME="IDX1172"></A>
+<A NAME="IDX1205"></A>
 <DT><CODE>-TEDfilter &#60;Mode&#62;</CODE>
 <DD>
 Select rendering filter
 (<CODE>TEDFilter</CODE>).
 (0: None, 1: CRT emulation, 2: Scale2x)
 
-<A NAME="IDX1173"></A>
+<A NAME="IDX1206"></A>
 <DT><CODE>-TEDintpal</CODE>
 <DD>
 Use an internal calculated palette
 (<CODE>TEDExternalPalette=0</CODE>).
 
-<A NAME="IDX1174"></A>
+<A NAME="IDX1207"></A>
 <DT><CODE>-TEDextpal</CODE>
 <DD>
 Use an external palette (file)
 (<CODE>TEDExternalPalette=1</CODE>).
 
-<A NAME="IDX1175"></A>
+<A NAME="IDX1208"></A>
 <DT><CODE>-TEDpalette &#60;name&#62;</CODE>
 <DD>
 Specify name of the external palette file
 (<CODE>TEDPaletteFile</CODE>).
 
-<A NAME="IDX1176"></A>
+<A NAME="IDX1209"></A>
 <DT><CODE>-TEDXRANDRfullmode &#60;mode&#62;</CODE>
 <DD>
 Select fullscreen mode
-<A NAME="IDX1177"></A>
+<A NAME="IDX1210"></A>
 <DT><CODE>-TEDVidmodefullmode &#60;mode&#62;</CODE>
 <DD>
 Select fullscreen mode
 
-<A NAME="IDX1178"></A>
+<A NAME="IDX1211"></A>
 <DT><CODE>-TEDborders &#60;mode&#62;</CODE>
 <DD>
 Set TED border display mode
 (<CODE>TEDBorderMode</CODE>).
 (0: normal, 1: full, 2: debug, 3: none)
 
-<A NAME="IDX1179"></A>
+<A NAME="IDX1212"></A>
 <DT><CODE>-TEDsaturation &#60;0-2000&#62;</CODE>
 <DD>
 Set saturation of internal calculated palette
 (<CODE>TEDColorSaturation</CODE>).
 
-<A NAME="IDX1180"></A>
+<A NAME="IDX1213"></A>
 <DT><CODE>-TEDcontrast &#60;0-2000&#62;</CODE>
 <DD>
 Set contrast of internal calculated palette
 (<CODE>TEDColorContrast</CODE>).
 
-<A NAME="IDX1181"></A>
+<A NAME="IDX1214"></A>
 <DT><CODE>-TEDbrightness &#60;0-2000&#62;</CODE>
 <DD>
 Set brightness of internal calculated palette
 (<CODE>TEDColorBrightness</CODE>).
 
-<A NAME="IDX1182"></A>
+<A NAME="IDX1215"></A>
 <DT><CODE>-TEDgamma &#60;0-4000&#62;</CODE>
 <DD>
 Set gamma of internal calculated palette
 (<CODE>TEDColorGamma</CODE>).
 
-<A NAME="IDX1183"></A>
+<A NAME="IDX1216"></A>
 <DT><CODE>-TEDtint &#60;0-2000&#62;</CODE>
 <DD>
 Set tint of internal calculated palette
 (<CODE>TEDColorTint</CODE>).
 
-<A NAME="IDX1184"></A>
+<A NAME="IDX1217"></A>
 <DT><CODE>-TEDoddlinesphase &#60;0-2000&#62;</CODE>
 <DD>
 Set phase for color carrier in odd lines
 (<CODE>TEDPALOddLinePhase</CODE>).
 
-<A NAME="IDX1185"></A>
+<A NAME="IDX1218"></A>
 <DT><CODE>-TEDoddlinesoffset &#60;0-2000&#62;</CODE>
 <DD>
 Set phase offset for color carrier in odd lines
 (<CODE>TEDPALOddLineOffset</CODE>).
 
-<A NAME="IDX1186"></A>
+<A NAME="IDX1219"></A>
 <DT><CODE>-TEDcrtblur &#60;0-1000&#62;</CODE>
 <DD>
 Amount of horizontal blur for the CRT emulation
 (<CODE>TEDPALBlur</CODE>).
 
-<A NAME="IDX1187"></A>
+<A NAME="IDX1220"></A>
 <DT><CODE>-TEDcrtscanlineshade &#60;0-1000&#62;</CODE>
 <DD>
 Amount of scan line shading for the CRT emulation
 (<CODE>TEDPALScanLineShade</CODE>).
 
-<A NAME="IDX1188"></A>
+<A NAME="IDX1221"></A>
 <DT><CODE>-TEDaudioleak</CODE>
 <DD>
 <DT><CODE>+TEDaudioleak</CODE>
@@ -5849,43 +5979,43 @@ Enable/disable video to audio leak emulation
 
 <DT><CODE>CartridgeReset</CODE>
 <DD>
-<A NAME="IDX1189"></A>
+<A NAME="IDX1222"></A>
  
 Boolean specifying whether the machine should be reset when a cartridge is changed.
 
-<A NAME="IDX1190"></A>
+<A NAME="IDX1223"></A>
 <DT><CODE>DIGIBLASTER</CODE>
 <DD>
 Boolean to enable/disable the Digiblaster emulation.
 
-<A NAME="IDX1191"></A>
+<A NAME="IDX1224"></A>
 <DT><CODE>SpeechEnabled</CODE>
 <DD>
 Boolean to enable/disable the emulation of the V364 speech chip.
 
-<A NAME="IDX1192"></A>
+<A NAME="IDX1225"></A>
 <DT><CODE>SpeechImage</CODE>
 <DD>
 String specifying the filename of the speech ROM image.
 
-<A NAME="IDX1193"></A>
+<A NAME="IDX1226"></A>
 <DT><CODE>SidCart</CODE>
 <DD>
 Boolean specifying whether SID-Cart emulation is enabled or not.
 
-<A NAME="IDX1194"></A>
+<A NAME="IDX1227"></A>
 <DT><CODE>SidAddress</CODE>
 <DD>
 Integer that specifies the base address of the emulated SID chip.
 (0xFD40, 0xFE80)
 
-<A NAME="IDX1195"></A>
+<A NAME="IDX1228"></A>
 <DT><CODE>SidClock</CODE>
 <DD>
 Integer specifying the clock rate used for the emulated SID chip
 (0: C64, 1: Plus4)
 
-<A NAME="IDX1196"></A>
+<A NAME="IDX1229"></A>
 <DT><CODE>SIDCartJoy</CODE>
 <DD>
 Boolean to enable/disable the emulation of the SID-Cart control port.
@@ -5900,23 +6030,23 @@ Boolean to enable/disable the emulation of the SID-Cart control port.
 
 <DT><CODE>-cartreset</CODE>
 <DD>
-<A NAME="IDX1197"></A>
+<A NAME="IDX1230"></A>
  
 <DT><CODE>+cartreset</CODE>
 <DD>
 Do/don't reset machine if a cartridge is attached or detached
 (<CODE>CartridgeReset=1</CODE>, <CODE>CartridgeReset</CODE>).
 
-<A NAME="IDX1198"></A>
+<A NAME="IDX1231"></A>
 <DT><CODE>-cart &#60;Name&#62;</CODE>
 <DD>
 Smart-attach cartridge image
-<A NAME="IDX1199"></A>
+<A NAME="IDX1232"></A>
 <DT><CODE>+cart</CODE>
 <DD>
 Disable default cartridge
 
-<A NAME="IDX1200"></A>
+<A NAME="IDX1233"></A>
 <DT><CODE>-digiblaster</CODE>
 <DD>
 <DT><CODE>+digiblaster</CODE>
@@ -5924,7 +6054,7 @@ Disable default cartridge
 Enable/disable the digiblaster add-on
 (<CODE>DIGIBLASTER=1</CODE>, <CODE>DIGIBLASTER=0</CODE>).
 
-<A NAME="IDX1201"></A>
+<A NAME="IDX1234"></A>
 <DT><CODE>-sidcart</CODE>
 <DD>
 <DT><CODE>+sidcart</CODE>
@@ -5932,7 +6062,7 @@ Enable/disable the digiblaster add-on
 Enable/disable SID Cartridge
 (<CODE>SidCart=1</CODE>, <CODE>SidCart=0</CODE>).
 
-<A NAME="IDX1202"></A>
+<A NAME="IDX1235"></A>
 <DT><CODE>-sidcartjoy</CODE>
 <DD>
 <DT><CODE>+sidcartjoy</CODE>
@@ -5940,21 +6070,21 @@ Enable/disable SID Cartridge
 Enable/disable SID cartridge control port
 (<CODE>SIDCartJoy=1</CODE>, <CODE>SIDCartJoy=0</CODE>).
 
-<A NAME="IDX1203"></A>
+<A NAME="IDX1236"></A>
 <DT><CODE>-sidcartaddress &#60;address&#62;</CODE>
 <DD>
 Specify address of the SID Cartridge
 (<CODE>SidAddress</CODE>).
 (0xFD40, 0xFE80)
 
-<A NAME="IDX1204"></A>
+<A NAME="IDX1237"></A>
 <DT><CODE>-sidcartclock &#60;clock&#62;</CODE>
 <DD>
 Specify clock of the SID Cartridge
 (<CODE>SidClock</CODE>).
 (0: C64, 1: Plus4)
 
-<A NAME="IDX1205"></A>
+<A NAME="IDX1238"></A>
 <DT><CODE>-speech</CODE>
 <DD>
 <DT><CODE>+speech</CODE>
@@ -5962,7 +6092,7 @@ Specify clock of the SID Cartridge
 Enable/Disable the v364 speech add-on
 (<CODE>SpeechEnabled=1</CODE>, <CODE>SpeechEnabled=0</CODE>).
 
-<A NAME="IDX1206"></A>
+<A NAME="IDX1239"></A>
 <DT><CODE>-speechrom &#60;name&#62;</CODE>
 <DD>
 Attach Speech ROM image
@@ -5982,41 +6112,41 @@ Attach Speech ROM image
 
 <DT><CODE>KernalName</CODE>
 <DD>
-<A NAME="IDX1207"></A>
+<A NAME="IDX1240"></A>
  
 String specifying the name of the Kernal ROM (default <TT>`kernal'</TT>).
 
-<A NAME="IDX1208"></A>
+<A NAME="IDX1241"></A>
 <DT><CODE>BasicName</CODE>
 <DD>
 String specifying the name of the Basic ROM (default <TT>`basic'</TT>).
 
-<A NAME="IDX1209"></A>
+<A NAME="IDX1242"></A>
 <DT><CODE>FunctionLowName</CODE>
 <DD>
 String specifying the filename of the Lo Function ROM.
 
-<A NAME="IDX1210"></A>
+<A NAME="IDX1243"></A>
 <DT><CODE>FunctionHighName</CODE>
 <DD>
 String specifying the filename of the High Function ROM.
 
-<A NAME="IDX1211"></A>
+<A NAME="IDX1244"></A>
 <DT><CODE>c1loName</CODE>
 <DD>
 String specifying the filename of cartridge 1 Lo ROM.
 
-<A NAME="IDX1212"></A>
+<A NAME="IDX1245"></A>
 <DT><CODE>c1hiName</CODE>
 <DD>
 String specifying the filename of cartridge 1 High ROM.
 
-<A NAME="IDX1213"></A>
+<A NAME="IDX1246"></A>
 <DT><CODE>c2loName</CODE>
 <DD>
 String specifying the filename of cartridge 2 Lo ROM.
 
-<A NAME="IDX1214"></A>
+<A NAME="IDX1247"></A>
 <DT><CODE>c2hiName</CODE>
 <DD>
 String specifying the filename of cartridge 2 High ROM.
@@ -6031,48 +6161,48 @@ String specifying the filename of cartridge 2 High ROM.
 
 <DT><CODE>-kernal &#60;Name&#62;</CODE>
 <DD>
-<A NAME="IDX1215"></A>
+<A NAME="IDX1248"></A>
  
 Specify name of the Kernal ROM image
 (<CODE>KernalName</CODE>).
 
-<A NAME="IDX1216"></A>
+<A NAME="IDX1249"></A>
 <DT><CODE>-basic &#60;Name&#62;</CODE>
 <DD>
 Specify name of the BASIC ROM image
 (<CODE>BasicName</CODE>).
 
-<A NAME="IDX1217"></A>
+<A NAME="IDX1250"></A>
 <DT><CODE>-functionlo &#60;name&#62;</CODE>
 <DD>
 Specify name of Function low ROM image
 (<CODE>FunctionLowName</CODE>).
 
-<A NAME="IDX1218"></A>
+<A NAME="IDX1251"></A>
 <DT><CODE>-functionhi &#60;name&#62;</CODE>
 <DD>
 Specify name of Function high ROM image
 (<CODE>FunctionHighName</CODE>).
 
-<A NAME="IDX1219"></A>
+<A NAME="IDX1252"></A>
 <DT><CODE>-c1lo &#60;name&#62;</CODE>
 <DD>
 Specify name of Cartridge 1 low ROM image
 (<CODE>c1loName</CODE>).
 
-<A NAME="IDX1220"></A>
+<A NAME="IDX1253"></A>
 <DT><CODE>-c1hi &#60;name&#62;</CODE>
 <DD>
 Specify name of Cartridge 1 high ROM image
 (<CODE>c1HiName</CODE>).
 
-<A NAME="IDX1221"></A>
+<A NAME="IDX1254"></A>
 <DT><CODE>-c2lo &#60;name&#62;</CODE>
 <DD>
 Specify name of Cartridge 2 low ROM image
 (<CODE>c2loName</CODE>).
 
-<A NAME="IDX1222"></A>
+<A NAME="IDX1255"></A>
 <DT><CODE>-c2hi &#60;name&#62;</CODE>
 <DD>
 Specify name of Cartridge 2 high ROM image
@@ -6092,24 +6222,24 @@ Specify name of Cartridge 2 high ROM image
 
 <DT><CODE>MachineVideoStandard</CODE>
 <DD>
-<A NAME="IDX1223"></A>
+<A NAME="IDX1256"></A>
  
 Integer that specifies the video standard of the emulated machine
 (1: PAL, 2: NTSC).
 
-<A NAME="IDX1224"></A>
+<A NAME="IDX1257"></A>
 <DT><CODE>RamSize</CODE>
 <DD>
 Integer specifying the size of the memory in kByte.
 (16, 32, 64)
 
-<A NAME="IDX1225"></A>
+<A NAME="IDX1258"></A>
 <DT><CODE>MemoryHack</CODE>
 <DD>
 Integer specifying what memory expansion hack is active.
 (0: None, 1: C256K, 2: H256K, 3: H1024K, 4: H4096K)
 
-<A NAME="IDX1226"></A>
+<A NAME="IDX1259"></A>
 <DT><CODE>Acia1Enable</CODE>
 <DD>
 Boolean specifying whether the ACIA should be emulated or not.
@@ -6124,7 +6254,7 @@ Boolean specifying whether the ACIA should be emulated or not.
 
 <DT><CODE>-model &#60;model&#62;</CODE>
 <DD>
-<A NAME="IDX1227"></A>
+<A NAME="IDX1260"></A>
  
 Specify the PLUS4 model you want to emulate
 (<CODE>MachineVideoStandard</CODE>, <CODE>RamSize</CODE>, <CODE>KernalName</CODE>,
@@ -6132,38 +6262,46 @@ Specify the PLUS4 model you want to emulate
 <CODE>Acia1Enable</CODE>, <CODE>SpeechImage</CODE>, <CODE>SpeechEnabled</CODE>).
 (c16/c16pal/c16ntsc, plus4/plus4pal/plus4ntsc, v364/cv364, c232)
 
-<A NAME="IDX1228"></A>
+<A NAME="IDX1261"></A>
 <DT><CODE>-pal</CODE>
 <DD>
 Use PAL sync factor
 (<CODE>MachineVideoStandard=1</CODE>).
 
-<A NAME="IDX1229"></A>
+<A NAME="IDX1262"></A>
 <DT><CODE>-ntsc</CODE>
 <DD>
 Use NTSC sync factor
 (<CODE>MachineVideoStandard=2</CODE>).
 
-<A NAME="IDX1230"></A>
+<A NAME="IDX1263"></A>
 <DT><CODE>-ramsize &#60;ramsize&#62;</CODE>
 <DD>
 Specify size of RAM installed in kb
 (<CODE>RamSize</CODE>).
 (16, 32, 64)
 
-<A NAME="IDX1231"></A>
+<A NAME="IDX1264"></A>
 <DT><CODE>-memoryexphack &#60;device&#62;</CODE>
 <DD>
 Set active memory expansion hack
 (<CODE>MemoryHack</CODE>).
 (0: None, 1: C256K, 2: H256K, 3: H1024K, 4: H4096K)
 
-<A NAME="IDX1232"></A>
+<A NAME="IDX1265"></A>
 <DT><CODE>-acia</CODE>
 <DD>
 <DT><CODE>+acia</CODE>
 <DD>
 Enable/Disable the ACIA emulation
+
+<A NAME="IDX1266"></A>
+<DT><CODE>-userportdac</CODE>
+<DD>
+<DT><CODE>+userportdac</CODE>
+<DD>
+Enable/disable the userport DAC
+(<CODE>UserportDAC=1</CODE>, <CODE>UserportDAC=0</CODE>).
 
 </DL>
 
@@ -6197,94 +6335,94 @@ file, command line options or right-menu items):
 
 <DT><CODE>RamSize</CODE>
 <DD>
-<A NAME="IDX1233"></A>
+<A NAME="IDX1267"></A>
  
-Integer specifying the size of the memory in kByte. 96k denotes a 8096, 128k a 8296.
+Integer specifying the size of the memory in kByte. 96k denotes an 8096, 128k an 8296.
 (4, 8, 16, 32, 96, 128)
 
-<A NAME="IDX1234"></A>
+<A NAME="IDX1268"></A>
 <DT><CODE>IOSize</CODE>
 <DD>
 Integer specifying the size of the I/O area in Bytes for the 8296 model.
 (256, 2048)
 
-<A NAME="IDX1235"></A>
+<A NAME="IDX1269"></A>
 <DT><CODE>VideoSize</CODE>
 <DD>
 Integer specifying the number of columns on the screen.
 (0: Automatic from ROM, 40: 40 columns, 80: 80 columns)
 
-<A NAME="IDX1236"></A>
+<A NAME="IDX1270"></A>
 <DT><CODE>Ram9</CODE>
 <DD>
 Boolean specifying if the 8296 can map RAM into the address range $9*** or not.
 
-<A NAME="IDX1237"></A>
+<A NAME="IDX1271"></A>
 <DT><CODE>RamA</CODE>
 <DD>
 Boolean specifying if the 8296 can map RAM into the address range $A*** or not.
 
-<A NAME="IDX1238"></A>
+<A NAME="IDX1272"></A>
 <DT><CODE>SuperPET</CODE>
 <DD>
 Boolean that enables/disables the SuperPET (MicroMainFrame 9000) I/O and 6809 CPU,
 and disables/enables the 8x96 mappings.
 
-<A NAME="IDX1239"></A>
+<A NAME="IDX1273"></A>
 <DT><CODE>Basic1</CODE>
 <DD>
 Boolean to enable/disable the patching of a version 1 kernal ROM to make the IEEE488 interface work.
 
-<A NAME="IDX1240"></A>
+<A NAME="IDX1274"></A>
 <DT><CODE>Basic1Chars</CODE>
 <DD>
 Boolean to enable/disable the exchanges of some characters in the character ROM
 that have changed between the first PET 2001 and all newer versions.
 
-<A NAME="IDX1241"></A>
+<A NAME="IDX1275"></A>
 <DT><CODE>EoiBlank</CODE>
 <DD>
 Boolean to enable/disable the "blank screen on EOI" feature of the oldest PET 2001.
 
-<A NAME="IDX1242"></A>
+<A NAME="IDX1276"></A>
 <DT><CODE>DiagPin</CODE>
 <DD>
 Boolean to enable/disable the diagnostic pin on the PET userport (see below).
 
-<A NAME="IDX1243"></A>
+<A NAME="IDX1277"></A>
 <DT><CODE>ChargenName</CODE>
 <DD>
 String specifying the name of the character generator ROM (default <TT>`chargen'</TT>).
 
-<A NAME="IDX1244"></A>
+<A NAME="IDX1278"></A>
 <DT><CODE>KernalName</CODE>
 <DD>
 String specifying the name of the Kernal ROM (default <TT>`kernal4'</TT>).
 
-<A NAME="IDX1245"></A>
+<A NAME="IDX1279"></A>
 <DT><CODE>BasicName</CODE>
 <DD>
 String specifying the name of the Basic ROM (default <TT>`basic4'</TT>).
 
-<A NAME="IDX1246"></A>
+<A NAME="IDX1280"></A>
 <DT><CODE>EditorName</CODE>
 <DD>
 String specifying the filename of the editor ROM file. This file contains
 an overlay for the editor ROM at $E000-$E7FF if necessary.
 
-<A NAME="IDX1247"></A>
+<A NAME="IDX1281"></A>
 <DT><CODE>RomModule9Name</CODE>
 <DD>
 String specifying the filename for the $9*** Expansion ROM file. This file contains
 an expansion ROM image of 4k.
 
-<A NAME="IDX1248"></A>
+<A NAME="IDX1282"></A>
 <DT><CODE>RomModuleAName</CODE>
 <DD>
 String specifying the filename for the $A*** Expansion ROM file. This file contains
 an expansion ROM image of 4k.
 
-<A NAME="IDX1249"></A>
+<A NAME="IDX1283"></A>
 <DT><CODE>RomModuleBName</CODE>
 <DD>
 String specifying the filename for the $B*** Expansion ROM file. This file contains
@@ -6361,105 +6499,81 @@ will emulate a PET 3032 while <SAMP>`xpet -model 8296'</SAMP> will emulate a PET
 
 <DT><CODE>Crtc</CODE>
 <DD>
-<A NAME="IDX1250"></A>
+<A NAME="IDX1284"></A>
  
 Boolean specifying whether to enable/disable CRTC 6545 emulation (all models from 40xx and above).
 
-<A NAME="IDX1251"></A>
+<A NAME="IDX1285"></A>
 <DT><CODE>CrtcVideoCache</CODE>
 <DD>
 Boolean specifying whether the video cache is turned on.
 
-<A NAME="IDX1252"></A>
+<A NAME="IDX1286"></A>
 <DT><CODE>CrtcDoubleSize</CODE>
 <DD>
 Boolean specifying whether double-size mode is turned on.
 
-<A NAME="IDX1253"></A>
+<A NAME="IDX1287"></A>
 <DT><CODE>CrtcDoubleScan</CODE>
 <DD>
 Boolean specifying whether double-scan mode is turned on.
 
-<A NAME="IDX1254"></A>
+<A NAME="IDX1288"></A>
 <DT><CODE>CrtcStretchVertical</CODE>
 <DD>
 Boolean specifying whether vertical stretching is turned on.
 
-<A NAME="IDX1255"></A>
+<A NAME="IDX1289"></A>
 <DT><CODE>CrtcPaletteFile</CODE>
 <DD>
 String specifying the name of the palette file being used. The
 <TT>`.vpl'</TT> extension is optional.
 
-<A NAME="IDX1256"></A>
+<A NAME="IDX1290"></A>
 <DT><CODE>CrtcExternalPalette</CODE>
 <DD>
 Boolean specifying whether to use external palette file or not.
 
-<A NAME="IDX1257"></A>
+<A NAME="IDX1291"></A>
 <DT><CODE>CrtcColorSaturation</CODE>
 <DD>
 Integer specifying saturation of internal calculated palette.
 (0..2000)
 
-<A NAME="IDX1258"></A>
+<A NAME="IDX1292"></A>
 <DT><CODE>CrtcColorContrast</CODE>
 <DD>
 Integer specifying contrast of internal calculated palette.
 (0..2000)
 
-<A NAME="IDX1259"></A>
+<A NAME="IDX1293"></A>
 <DT><CODE>CrtcColorBrightness</CODE>
 <DD>
 Integer specifying brightness of internal calculated palette.
 (0..2000)
 
-<A NAME="IDX1260"></A>
+<A NAME="IDX1294"></A>
 <DT><CODE>CrtcColorGamma</CODE>
 <DD>
 Integer specifying gamma of internal calculated palette.
 (0..4000)
 
-<A NAME="IDX1261"></A>
-<DT><CODE>CrtcColorTint</CODE>
-<DD>
-Integer specifying tint of internal calculated palette.
-(0..2000)
-
-<A NAME="IDX1262"></A>
-<DT><CODE>CrtcPALScanLineShade</CODE>
-<DD>
-Integer specifying amount of scan line shading for the CRT emulation.
-(0..1000)
-
-<A NAME="IDX1263"></A>
+<A NAME="IDX1295"></A>
 <DT><CODE>CrtcPALBlur</CODE>
 <DD>
 Integer specifying amount of horizontal blur for the CRT emulation.
 (0..1000)
 
-<A NAME="IDX1264"></A>
-<DT><CODE>CrtcPALOddLinePhase</CODE>
-<DD>
-Integer specifying phase for color carrier in odd lines
-(0..2000)
-
-<A NAME="IDX1265"></A>
-<DT><CODE>CrtcPALOddLineOffset</CODE>
-<DD>
-Integer specifying phase offset for color carrier in odd lines.
-(0..2000)
-
-<A NAME="IDX1266"></A>
+<A NAME="IDX1296"></A>
 <DT><CODE>CrtcAudioLeak</CODE>
 <DD>
 Boolean specifying whether to enable/disable video to audio leak emulation.
 
-<A NAME="IDX1267"></A>
+<A NAME="IDX1297"></A>
 <DT><CODE>CrtcFilter</CODE>
 <DD>
 Integer specifying rendering filter.
-(0: None, 2: CRT emulation, 3: Scale2x)
+(0: None, 1: CRT emulation, 2: Scale2x)
 
 </DL>
 
@@ -6471,14 +6585,14 @@ Integer specifying rendering filter.
 
 <DT><CODE>-crtc</CODE>
 <DD>
-<A NAME="IDX1268"></A>
+<A NAME="IDX1298"></A>
  
 <DT><CODE>+crtc</CODE>
 <DD>
 Enable/disable the 6545 CRTC emulation
 (<CODE>Crtc=1</CODE>, <CODE>Crtc=0</CODE>).
 
-<A NAME="IDX1269"></A>
+<A NAME="IDX1299"></A>
 <DT><CODE>-Crtcvcache</CODE>
 <DD>
 <DT><CODE>+Crtcvcache</CODE>
@@ -6486,7 +6600,7 @@ Enable/disable the 6545 CRTC emulation
 Enable/disable the video cache
 (<CODE>CrtcVideoCache=1</CODE>, <CODE>CrtcVideoCache=0</CODE>).
 
-<A NAME="IDX1270"></A>
+<A NAME="IDX1300"></A>
 <DT><CODE>-Crtcdsize</CODE>
 <DD>
 <DT><CODE>+Crtcdsize</CODE>
@@ -6494,7 +6608,7 @@ Enable/disable the video cache
 Enable/disable double size
 (<CODE>CrtcDoubleSize=1</CODE>, <CODE>CrtcDoubleSize=0</CODE>).
 
-<A NAME="IDX1271"></A>
+<A NAME="IDX1301"></A>
 <DT><CODE>-CRTCstretchvertical</CODE>
 <DD>
 <DT><CODE>+CRTCstretchvertical</CODE>
@@ -6502,7 +6616,7 @@ Enable/disable double size
 Enable/disable vertical stretching
 (<CODE>CrtcStretchVertical=1</CODE>, <CODE>CrtcStretchVertical=0</CODE>).
 
-<A NAME="IDX1272"></A>
+<A NAME="IDX1302"></A>
 <DT><CODE>-Crtcdscan</CODE>
 <DD>
 <DT><CODE>+Crtcdscan</CODE>
@@ -6510,91 +6624,91 @@ Enable/disable vertical stretching
 Enable/disable double scan
 (<CODE>CrtcDoubleScan=1</CODE>, <CODE>CrtcDoubleScan=0</CODE>).
 
-<A NAME="IDX1273"></A>
+<A NAME="IDX1303"></A>
 <DT><CODE>-Crtcfilter &#60;Mode&#62;</CODE>
 <DD>
 Select rendering filter
 (<CODE>CrtcFilter</CODE>).
 (0: None, 2: CRT emulation, 3: Scale2x)
 
-<A NAME="IDX1274"></A>
+<A NAME="IDX1304"></A>
 <DT><CODE>-Crtcintpal</CODE>
 <DD>
 Use an internal calculated palette
 (<CODE>CrtcExternalPalette=0</CODE>).
 
-<A NAME="IDX1275"></A>
+<A NAME="IDX1305"></A>
 <DT><CODE>-Crtcextpal</CODE>
 <DD>
 Use an external palette (file)
 (<CODE>CrtcExternalPalette=1</CODE>).
 
-<A NAME="IDX1276"></A>
+<A NAME="IDX1306"></A>
 <DT><CODE>-Crtcpalette &#60;name&#62;</CODE>
 <DD>
 Specify the name of the palette file
 (<CODE>CrtcPaletteFile</CODE>).
 
-<A NAME="IDX1277"></A>
+<A NAME="IDX1307"></A>
 <DT><CODE>-CrtcVidmodefullmode &#60;mode&#62;</CODE>
 <DD>
 Select fullscreen mode
 
-<A NAME="IDX1278"></A>
+<A NAME="IDX1308"></A>
 <DT><CODE>-Crtcsaturation &#60;0-2000&#62;</CODE>
 <DD>
 Set saturation of internal calculated palette
 (<CODE>CrtcColorSaturation</CODE>).
 
-<A NAME="IDX1279"></A>
+<A NAME="IDX1309"></A>
 <DT><CODE>-Crtccontrast &#60;0-2000&#62;</CODE>
 <DD>
 Set contrast of internal calculated palette
 (<CODE>CrtcColorContrast</CODE>).
 
-<A NAME="IDX1280"></A>
+<A NAME="IDX1310"></A>
 <DT><CODE>-Crtcbrightness &#60;0-2000&#62;</CODE>
 <DD>
 Set brightness of internal calculated palette
 (<CODE>CrtcColorBrightness</CODE>).
 
-<A NAME="IDX1281"></A>
+<A NAME="IDX1311"></A>
 <DT><CODE>-Crtcgamma &#60;0-4000&#62;</CODE>
 <DD>
 Set gamma of internal calculated palette
 (<CODE>CrtcColorGamma</CODE>).
 
-<A NAME="IDX1282"></A>
+<A NAME="IDX1312"></A>
 <DT><CODE>-Crtctint &#60;0-2000&#62;</CODE>
 <DD>
 Set tint of internal calculated palette
 (<CODE>CrtcColorTint</CODE>).
 
-<A NAME="IDX1283"></A>
+<A NAME="IDX1313"></A>
 <DT><CODE>-Crtcoddlinesphase &#60;0-2000&#62;</CODE>
 <DD>
 Set phase for color carrier in odd lines
 (<CODE>CrtcPALOddLinePhase</CODE>).
 
-<A NAME="IDX1284"></A>
+<A NAME="IDX1314"></A>
 <DT><CODE>-Crtcoddlinesoffset &#60;0-2000&#62;</CODE>
 <DD>
 Set phase offset for color carrier in odd lines
 (<CODE>CrtcPALOddLineOffset</CODE>).
 
-<A NAME="IDX1285"></A>
+<A NAME="IDX1315"></A>
 <DT><CODE>-Crtccrtblur &#60;0-1000&#62;</CODE>
 <DD>
 Amount of horizontal blur for the CRT emulation
 (<CODE>CrtcPALBlur</CODE>).
 
-<A NAME="IDX1286"></A>
+<A NAME="IDX1316"></A>
 <DT><CODE>-Crtccrtscanlineshade &#60;0-1000&#62;</CODE>
 <DD>
 Amount of scan line shading for the CRT emulation
 (<CODE>CrtcPALScanLineShade</CODE>).
 
-<A NAME="IDX1287"></A>
+<A NAME="IDX1317"></A>
 <DT><CODE>-Crtcaudioleak</CODE>
 <DD>
 <DT><CODE>+Crtcaudioleak</CODE>
@@ -6616,65 +6730,65 @@ Enable/disable video to audio leak emulation
 
 <DT><CODE>PETREU</CODE>
 <DD>
-<A NAME="IDX1288"></A>
+<A NAME="IDX1318"></A>
  
 Boolean specifying whether PET REU emulation is enabled or not.
 
-<A NAME="IDX1289"></A>
+<A NAME="IDX1319"></A>
 <DT><CODE>PETREUfilename</CODE>
 <DD>
 String specifying the filename of the PET REU image.
 
-<A NAME="IDX1290"></A>
+<A NAME="IDX1320"></A>
 <DT><CODE>PETREUsize</CODE>
 <DD>
 Integer specifying the size of the emulated PET REU in KB.
 (128, 512, 1024, 2048)
 
-<A NAME="IDX1291"></A>
+<A NAME="IDX1321"></A>
 <DT><CODE>PETDWW</CODE>
 <DD>
 Boolean specifying whether DWW emulation is enabled or not.
 
-<A NAME="IDX1292"></A>
+<A NAME="IDX1322"></A>
 <DT><CODE>PETDWWfilename</CODE>
 <DD>
 String specifying the filename of the DWW image RAM image.
 
-<A NAME="IDX1293"></A>
+<A NAME="IDX1323"></A>
 <DT><CODE>PETHRE</CODE>
 <DD>
 Boolean specifying whether HRE emulation is enabled or not.
 
-<A NAME="IDX1294"></A>
+<A NAME="IDX1324"></A>
 <DT><CODE>PETColour</CODE>
 <DD>
 Integer selecting the colour extension.
 (0: off, 1: RGBI, 2: Analog)
 
-<A NAME="IDX1295"></A>
+<A NAME="IDX1325"></A>
 <DT><CODE>PETColourBG</CODE>
 <DD>
 Iteger specifying the analog colour background on PET 4032.
 (0..255)
 
-<A NAME="IDX1296"></A>
+<A NAME="IDX1326"></A>
 <DT><CODE>UserportDAC</CODE>
 <DD>
 Boolean specifying whether userport DAC emulation is enabled.
 
-<A NAME="IDX1297"></A>
+<A NAME="IDX1327"></A>
 <DT><CODE>SidCart</CODE>
 <DD>
 Boolean specifying whether SID Cart emulation is enabled or not.
 
-<A NAME="IDX1298"></A>
+<A NAME="IDX1328"></A>
 <DT><CODE>SidAddress</CODE>
 <DD>
 Integer that specifies the base address of the emulated SID chip.
 (0x8F00, 0xE900)
 
-<A NAME="IDX1299"></A>
+<A NAME="IDX1329"></A>
 <DT><CODE>SidClock</CODE>
 <DD>
 Integer specifying the clock rate used for the emulated SID chip.
@@ -6690,27 +6804,27 @@ Integer specifying the clock rate used for the emulated SID chip.
 
 <DT><CODE>-petreu</CODE>
 <DD>
-<A NAME="IDX1300"></A>
+<A NAME="IDX1330"></A>
  
 <DT><CODE>+petreu</CODE>
 <DD>
 Enable/disable the PET Memory Expansion Unit
 (<CODE>PETREU=1</CODE>, <CODE>PETREU=0</CODE>).
 
-<A NAME="IDX1301"></A>
+<A NAME="IDX1331"></A>
 <DT><CODE>-petreuimage &#60;name&#62;</CODE>
 <DD>
 Specify name of PET Ram and Expansion Unit image
 (<CODE>PETREUfilename</CODE>).
 
-<A NAME="IDX1302"></A>
+<A NAME="IDX1332"></A>
 <DT><CODE>-petreuramsize &#60;size in KB&#62;</CODE>
 <DD>
 Size of the PET Ram and Expansion Unit
 (<CODE>PETREUsize</CODE>).
 (128, 512, 1024, 2048)
 
-<A NAME="IDX1303"></A>
+<A NAME="IDX1333"></A>
 <DT><CODE>-userportdac</CODE>
 <DD>
 <DT><CODE>+userportdac</CODE>
@@ -6718,7 +6832,7 @@ Size of the PET Ram and Expansion Unit
 Enable/disable the userport DAC
 (<CODE>UserportDAC=1</CODE>, <CODE>UserportDAC=0</CODE>).
 
-<A NAME="IDX1304"></A>
+<A NAME="IDX1334"></A>
 <DT><CODE>-petdww</CODE>
 <DD>
 <DT><CODE>+petdww</CODE>
@@ -6726,13 +6840,13 @@ Enable/disable the userport DAC
 Enable/disable the PET DWW hi-res board (30xx models only)
 (<CODE>PETDWW=1</CODE>, <CODE>PETDWW=0</CODE>).
 
-<A NAME="IDX1305"></A>
+<A NAME="IDX1335"></A>
 <DT><CODE>-petdwwimage &#60;name&#62;</CODE>
 <DD>
 Specify name of PET DWW RAM image
 (<CODE>PETDWWfilename</CODE>).
 
-<A NAME="IDX1306"></A>
+<A NAME="IDX1336"></A>
 <DT><CODE>-pethre</CODE>
 <DD>
 <DT><CODE>+pethre</CODE>
@@ -6740,25 +6854,25 @@ Specify name of PET DWW RAM image
 Enable/disable the PET HRE extension (model 8296 only)
 (<CODE>PETHRE=1</CODE>, <CODE>PETHRE=0</CODE>).
 
-<A NAME="IDX1307"></A>
+<A NAME="IDX1337"></A>
 <DT><CODE>-colour-rgbi</CODE>
 <DD>
 Enable the RGBI colour extension to PET 4032
 (<CODE>PETColour=1</CODE>).
 
-<A NAME="IDX1308"></A>
+<A NAME="IDX1338"></A>
 <DT><CODE>-colour-analog</CODE>
 <DD>
 Enable the analog colour extension to PET 4032
 (<CODE>PETColour=2</CODE>).
 
-<A NAME="IDX1309"></A>
+<A NAME="IDX1339"></A>
 <DT><CODE>-colour-analog-bg &#60;Colour 0-255&#62;</CODE>
 <DD>
 Select the analog colour background on PET 4032
 (<CODE>PETColourBG</CODE>).
 
-<A NAME="IDX1310"></A>
+<A NAME="IDX1340"></A>
 <DT><CODE>-sidcart</CODE>
 <DD>
 <DT><CODE>+sidcart</CODE>
@@ -6766,14 +6880,14 @@ Select the analog colour background on PET 4032
 Enable/disable the SID Cartridge
 (<CODE>SidCart=1</CODE>, <CODE>SidCart=0</CODE>).
 
-<A NAME="IDX1311"></A>
+<A NAME="IDX1341"></A>
 <DT><CODE>-sidcartaddress &#60;address&#62;</CODE>
 <DD>
 Specify address of the SID Cartridge
 (<CODE>SidAddress</CODE>).
 (0x8F00, 0xE900)
 
-<A NAME="IDX1312"></A>
+<A NAME="IDX1342"></A>
 <DT><CODE>-sidcartclock &#60;clock&#62;</CODE>
 <DD>
 Specify clock of the SID Cartridge
@@ -6794,12 +6908,12 @@ Specify clock of the SID Cartridge
 
 <DT><CODE>H6809RomAName</CODE>
 <DD>
-<A NAME="IDX1313"></A>
- <A NAME="IDX1314"></A>
- <A NAME="IDX1315"></A>
- <A NAME="IDX1316"></A>
- <A NAME="IDX1317"></A>
- <A NAME="IDX1318"></A>
+<A NAME="IDX1343"></A>
+ <A NAME="IDX1344"></A>
+ <A NAME="IDX1345"></A>
+ <A NAME="IDX1346"></A>
+ <A NAME="IDX1347"></A>
+ <A NAME="IDX1348"></A>
  
 <DT><CODE>H6809RomBName</CODE>
 <DD>
@@ -6824,78 +6938,78 @@ relevant for the SuperPET.
 
 <DT><CODE>-kernal &#60;name&#62;</CODE>
 <DD>
-<A NAME="IDX1319"></A>
+<A NAME="IDX1349"></A>
  
 Specify filename of the Kernal ROM file
 (<CODE>KernalName</CODE>).
 
-<A NAME="IDX1320"></A>
+<A NAME="IDX1350"></A>
 <DT><CODE>-basic &#60;name&#62;</CODE>
 <DD>
 Specify filename of the BASIC ROM file
 (<CODE>BasicName</CODE>).
 
-<A NAME="IDX1321"></A>
+<A NAME="IDX1351"></A>
 <DT><CODE>-editor NAME</CODE>
 <DD>
 Specify the filename for the editor ROM file
 (<CODE>EditorName</CODE>).
 
-<A NAME="IDX1322"></A>
+<A NAME="IDX1352"></A>
 <DT><CODE>-chargen &#60;name&#62;</CODE>
 <DD>
 Specify filename of the character generator ROM file
 (<CODE>ChargenName</CODE>).
 
-<A NAME="IDX1323"></A>
+<A NAME="IDX1353"></A>
 <DT><CODE>-rom9 &#60;name&#62;</CODE>
 <DD>
 Specify the filename for the ROM image file for the $9***
 cartridge area (<CODE>RomModule9Name</CODE>).
 
-<A NAME="IDX1324"></A>
+<A NAME="IDX1354"></A>
 <DT><CODE>-romA &#60;name&#62;</CODE>
 <DD>
 Specify the filename for the ROM image file for the $A***
 cartridge area (<CODE>RomModuleAName</CODE>).
 
-<A NAME="IDX1325"></A>
+<A NAME="IDX1355"></A>
 <DT><CODE>-romB &#60;name&#62;</CODE>
 <DD>
 Specify the filename for the ROM image file for the $B***
 cartridge area (<CODE>RomModuleBName</CODE>).
 
-<A NAME="IDX1326"></A>
+<A NAME="IDX1356"></A>
 <DT><CODE>-6809romA &#60;Name&#62;</CODE>
 <DD>
 Specify 4K to 24K ROM file name at $A000 for 6809
 (<CODE>H6809RomAName</CODE>).
 
-<A NAME="IDX1327"></A>
+<A NAME="IDX1357"></A>
 <DT><CODE>-6809romB &#60;Name&#62;</CODE>
 <DD>
 Specify 4K to 20K ROM file name at $B000 for 6809
 (<CODE>H6809RomBName</CODE>).
 
-<A NAME="IDX1328"></A>
+<A NAME="IDX1358"></A>
 <DT><CODE>-6809romC &#60;Name&#62;</CODE>
 <DD>
 Specify 4K to 16K ROM file name at $C000 for 6809
 (<CODE>H6809RomCName</CODE>).
 
-<A NAME="IDX1329"></A>
+<A NAME="IDX1359"></A>
 <DT><CODE>-6809romD &#60;Name&#62;</CODE>
 <DD>
 Specify 4K to 12K ROM file name at $D000 for 6809
 (<CODE>H6809RomDName</CODE>).
 
-<A NAME="IDX1330"></A>
+<A NAME="IDX1360"></A>
 <DT><CODE>-6809romE &#60;Name&#62;</CODE>
 <DD>
 Specify 2K or 8K ROM file name at $E000 for 6809
 (<CODE>H6809RomEName</CODE>).
 
-<A NAME="IDX1331"></A>
+<A NAME="IDX1361"></A>
 <DT><CODE>-6809romF &#60;Name&#62;</CODE>
 <DD>
 Specify 4K ROM file name at $F000 for 6809
@@ -6930,12 +7044,12 @@ the BASIC, but directly jumps into the builtin machine monitor.
 
 <DT><CODE>MachineVideoStandard</CODE>
 <DD>
-<A NAME="IDX1332"></A>
+<A NAME="IDX1362"></A>
  
 Integer that specifies the video standard of the emulated machine
 (1: PAL, 2: NTSC).
 
-<A NAME="IDX1333"></A>
+<A NAME="IDX1363"></A>
 <DT><CODE>CPUswitch</CODE>
 <DD>
 Integer specifying the status of the SuperPET CPU switch
@@ -6955,18 +7069,18 @@ These are the commandline options specific for the PET models.
 
 <DT><CODE>-pal</CODE>
 <DD>
-<A NAME="IDX1334"></A>
+<A NAME="IDX1364"></A>
  
 Use PAL sync factor
 (<CODE>MachineVideoStandard=1</CODE>).
 
-<A NAME="IDX1335"></A>
+<A NAME="IDX1365"></A>
 <DT><CODE>-ntsc</CODE>
 <DD>
 Use NTSC sync factor
 (<CODE>MachineVideoStandard=2</CODE>).
 
-<A NAME="IDX1336"></A>
+<A NAME="IDX1366"></A>
 <DT><CODE>-model &#60;model&#62;</CODE>
 <DD>
 Specify the PET model you want to emulate
@@ -6976,28 +7090,28 @@ Specify the PET model you want to emulate
 <CODE>H6809RomDName</CODE>, <CODE>H6809RomEName</CODE>, <CODE>H6809RomFName</CODE>).
 (2001, 3008, 3016, 3032, 3032B, 4016, 4032, 4032B, 8032, 8096, 8296, SuperPET)
 
-<A NAME="IDX1337"></A>
+<A NAME="IDX1367"></A>
 <DT><CODE>-iosize &#60;size&#62;</CODE>
 <DD>
 Specify size of I/O in Bytes
 (<CODE>IOSize</CODE>).
 (256, 2048)
 
-<A NAME="IDX1338"></A>
+<A NAME="IDX1368"></A>
 <DT><CODE>-ramsize &#60;size&#62;</CODE>
 <DD>
 Specify size of RAM in KB
 (<CODE>RamSize</CODE>).
 (8, 16, 32, 96, 128)
 
-<A NAME="IDX1339"></A>
+<A NAME="IDX1369"></A>
 <DT><CODE>-videosize &#60;size&#62;</CODE>
 <DD>
 Specify video size
 (<CODE>VideoSize</CODE>).
 (0: Automatic from ROM, 40: 40 columns, 80: 80 columns)
 
-<A NAME="IDX1340"></A>
+<A NAME="IDX1370"></A>
 <DT><CODE>-petram9</CODE>
 <DD>
 <DT><CODE>+petram9</CODE>
@@ -7005,7 +7119,7 @@ Specify video size
 Switch on/off RAM mapping at address $9000-$9FFF
 (<CODE>Ram9=1</CODE>, <CODE>Ram9=0</CODE>).
 
-<A NAME="IDX1341"></A>
+<A NAME="IDX1371"></A>
 <DT><CODE>-petramA</CODE>
 <DD>
 <DT><CODE>+petramA</CODE>
@@ -7013,7 +7127,7 @@ Switch on/off RAM mapping at address $9000-$9FFF
 Switch on/off RAM mapping at address $A000-$AFFF
 (<CODE>RamA=1</CODE>, <CODE>RamA=0</CODE>).
 
-<A NAME="IDX1342"></A>
+<A NAME="IDX1372"></A>
 <DT><CODE>-superpet</CODE>
 <DD>
 <DT><CODE>+superpet</CODE>
@@ -7021,25 +7135,25 @@ Switch on/off RAM mapping at address $A000-$AFFF
 Enable/disable SuperPET I/O and CPU emulation
 (<CODE>SuperPET</CODE>).
 
-<A NAME="IDX1343"></A>
+<A NAME="IDX1373"></A>
 <DT><CODE>-cpu6502</CODE>
 <DD>
 Set SuperPET CPU switch to '6502'
 (<CODE>CPUswitch=0</CODE>).
 
-<A NAME="IDX1344"></A>
+<A NAME="IDX1374"></A>
 <DT><CODE>-cpu6809</CODE>
 <DD>
 Set SuperPET CPU switch to '6809'
 (<CODE>CPUswitch=1</CODE>).
 
-<A NAME="IDX1345"></A>
+<A NAME="IDX1375"></A>
 <DT><CODE>-cpuprog</CODE>
 <DD>
 Set SuperPET CPU switch to 'Prog'
 (<CODE>CPUswitch=2</CODE>).
 
-<A NAME="IDX1346"></A>
+<A NAME="IDX1376"></A>
 <DT><CODE>-basic1</CODE>
 <DD>
 <DT><CODE>+basic1</CODE>
@@ -7047,7 +7161,7 @@ Set SuperPET CPU switch to 'Prog'
 Enable/disable patching the IEEE488 section of the PET2001 ROM when detected
 (<CODE>Basic1=1</CODE>, <CODE>Basic1=0</CODE>).
 
-<A NAME="IDX1347"></A>
+<A NAME="IDX1377"></A>
 <DT><CODE>-basic1char</CODE>
 <DD>
 <DT><CODE>+basic1char</CODE>
@@ -7055,7 +7169,7 @@ Enable/disable patching the IEEE488 section of the PET2001 ROM when detected
 Enable/disable PET 2001 character generator
 (<CODE>Basic1Chars=1</CODE>, <CODE>Basic1Chars=0</CODE>).
 
-<A NAME="IDX1348"></A>
+<A NAME="IDX1378"></A>
 <DT><CODE>-eoiblank</CODE>
 <DD>
 <DT><CODE>+eoiblank</CODE>
@@ -7063,7 +7177,7 @@ Enable/disable PET 2001 character generator
 Enable/disable EOI blanking the screen
 (<CODE>EoiBlank=1</CODE>, <CODE>EoiBlank=0</CODE>).
 
-<A NAME="IDX1349"></A>
+<A NAME="IDX1379"></A>
 <DT><CODE>-diagpin</CODE>
 <DD>
 <DT><CODE>+diagpin</CODE>
@@ -7125,9 +7239,9 @@ feeling;
 
 
 
-<H3><A NAME="SEC193" HREF="vice_toc.html#TOC193">7.7.9  DWW high resolution grapics</A></H3>
+<H3><A NAME="SEC193" HREF="vice_toc.html#TOC193">7.7.9  DWW high resolution graphics</A></H3>
 <P>
-<A NAME="IDX1350"></A>
+<A NAME="IDX1380"></A>
 The DWW, or Double-W
 <A NAME="DOCF1" HREF="vice_foot.html#FOOT1">(1)</A>,
 board is a high resolution graphics board for PET models 30xx. It
@@ -7220,13 +7334,13 @@ when memory mapped to $EC00:
 </P>
 <P>
 Unfortunately there is no logical means of expanding the memory
-to 16 K, so even in a 80 columns PET the resolution will be the same.
+to 16 K, so even in an 80 columns PET the resolution will be the same.
 
 </P>
 
 
 
-<H3><A NAME="SEC194" HREF="vice_toc.html#TOC194">7.7.10  HRE high resolution grapics</A></H3>
+<H3><A NAME="SEC194" HREF="vice_toc.html#TOC194">7.7.10  HRE high resolution graphics</A></H3>
 
 <P>
 This information comes from <A HREF="mailto:kontakt@michau.name">Michal Pleban</A>,
@@ -7234,7 +7348,7 @@ This information comes from <A HREF="mailto:kontakt@michau.name">Michal Pleban</
 
 </P>
 <P>
-<A NAME="IDX1351"></A>
+<A NAME="IDX1381"></A>
 This is a short information about the HRE (HiRes Emulator) graphics
 board for PET 8296. This is a small board that is installed on the
 mainboard into sockets for the CRTC and character ROM. It adds the
@@ -7261,7 +7375,7 @@ The ROMs are initialized by the command
 
 </P>
 <P>
-<A NAME="IDX1352"></A>
+<A NAME="IDX1382"></A>
 After that, the computer recognizes additional BASIC commands like
 DISPLAY, PLOT and so on; these commands are identical to those of the
 HiRes Graphics boards based on Thomson chips. All BASIC programs written
@@ -7349,68 +7463,68 @@ file, command line options or right-menu items):
 
 <DT><CODE>RamSize</CODE>
 <DD>
-<A NAME="IDX1353"></A>
+<A NAME="IDX1383"></A>
  
 Size of memory in kByte.
 xcbm2: (128, 256, 512, 1024)
 xcbm5x0: (64, 128, 256, 512, 1024)
 
-<A NAME="IDX1354"></A>
+<A NAME="IDX1384"></A>
 <DT><CODE>Ram08</CODE>
 <DD>
 Boolean specifying whether the RAM should be mapped to the expansion ROM area at $0800-$0FFF or not.
 
-<A NAME="IDX1355"></A>
+<A NAME="IDX1385"></A>
 <DT><CODE>Ram1</CODE>
 <DD>
 Boolean specifying whether the RAM should be mapped to the expansion ROM area at $1000-$1FFF or not.
 
-<A NAME="IDX1356"></A>
+<A NAME="IDX1386"></A>
 <DT><CODE>Ram2</CODE>
 <DD>
 Boolean specifying whether the RAM should be mapped to the expansion ROM area at $2000-$3FFF or not.
 
-<A NAME="IDX1357"></A>
+<A NAME="IDX1387"></A>
 <DT><CODE>Ram4</CODE>
 <DD>
 Boolean specifying whether the RAM should be mapped to the expansion ROM area at $4000-$5FFF or not.
 
-<A NAME="IDX1358"></A>
+<A NAME="IDX1388"></A>
 <DT><CODE>Ram6</CODE>
 <DD>
 Boolean specifying whether the RAM should be mapped to the expansion ROM area at $6000-$7FFF or not.
 
-<A NAME="IDX1359"></A>
+<A NAME="IDX1389"></A>
 <DT><CODE>RamC</CODE>
 <DD>
 Boolean specifying whether the RAM should be mapped to the expansion ROM area at $C000-$CFFF or not.
 
-<A NAME="IDX1360"></A>
+<A NAME="IDX1390"></A>
 <DT><CODE>CartridgeReset</CODE>
 <DD>
 Boolean specifying whether the machine should be reset when a cartridge is changed.
 
-<A NAME="IDX1361"></A>
+<A NAME="IDX1391"></A>
 <DT><CODE>Cart1Name</CODE>
 <DD>
-String specifying the filename for the $1000-$1FFF expansion ROM file. This file contains an 8k ROM dump.
+String specifying the filename for the $1000-$1FFF expansion ROM file. This file contains a 4k ROM dump.
 
-<A NAME="IDX1362"></A>
+<A NAME="IDX1392"></A>
 <DT><CODE>Cart2Name</CODE>
 <DD>
 String specifying the filename for the $2000-$3FFF expansion ROM file. This file contains an 8k ROM dump.
 
-<A NAME="IDX1363"></A>
+<A NAME="IDX1393"></A>
 <DT><CODE>Cart4Name</CODE>
 <DD>
 String specifying the filename for the $4000-$5FFF expansion ROM file. This file contains an 8k ROM dump.
 
-<A NAME="IDX1364"></A>
+<A NAME="IDX1394"></A>
 <DT><CODE>Cart6Name</CODE>
 <DD>
-String specifying the filename for the $6000-$6FFF expansion ROM file. This file contains an 8k ROM dump.
+String specifying the filename for the $6000-$7FFF expansion ROM file. This file contains an 8k ROM dump.
 
-<A NAME="IDX1365"></A>
+<A NAME="IDX1395"></A>
 <DT><CODE>ModelLine</CODE>
 <DD>
 The CBM-II business models have two hardcoded lines at one of the I/O ports.
@@ -7420,25 +7534,25 @@ and either for 8 (C6x0) or 14 (C7x0) scanlines per character.
 xcbm2: (0: CBM 7x0 (50Hz), 1: 60Hz C6x0, 2: 50Hz C6x0)
 xcbm5x0: (1: 60Hz C5x0, 2: 50Hz C5x0)
 
-<A NAME="IDX1366"></A>
+<A NAME="IDX1396"></A>
 <DT><CODE>ChargenName</CODE>
 <DD>
 String specifying the name of the character generator ROM
 (default for xcbm2: <TT>`chargen.600'</TT>, default for xcbm5x0: <TT>`chargen.500'</TT>).
 
-<A NAME="IDX1367"></A>
+<A NAME="IDX1397"></A>
 <DT><CODE>KernalName</CODE>
 <DD>
 String specifying the name of the Kernal ROM
 (default for xcbm2: <TT>`kernal'</TT>, default for xcbm5x0: <TT>`kernal.500'</TT>).
 
-<A NAME="IDX1368"></A>
+<A NAME="IDX1398"></A>
 <DT><CODE>BasicName</CODE>
 <DD>
 String specifying the name of the Basic ROM
 (default for xcbm2: <TT>`basic.128'</TT>, default for xcbm5x0: <TT>`basic.500'</TT>).
 
-<A NAME="IDX1369"></A>
+<A NAME="IDX1399"></A>
 <DT><CODE>MachineVideoStandard</CODE>
 <DD>
 Integer that specifies the video standard of the emulated machine
@@ -7509,29 +7623,29 @@ will emulate a CBM 610 while <SAMP>`xcbm2 -model 620'</SAMP> will emulate a CBM
 
 <DT><CODE>-kernal &#60;name&#62;</CODE>
 <DD>
-<A NAME="IDX1370"></A>
+<A NAME="IDX1400"></A>
  
 Specify the name of the Kernal ROM file
 (<CODE>KernalName</CODE>).
 
-<A NAME="IDX1371"></A>
+<A NAME="IDX1401"></A>
 <DT><CODE>-basic &#60;name&#62;</CODE>
 <DD>
 Specify the name of the Basic ROM file
 (<CODE>BasicName</CODE>).
 
-<A NAME="IDX1372"></A>
+<A NAME="IDX1402"></A>
 <DT><CODE>-chargen &#60;name&#62;</CODE>
 <DD>
 Specify the filename for the character generator ROM file
 (<CODE>ChargenName</CODE>).
 
-<A NAME="IDX1373"></A>
+<A NAME="IDX1403"></A>
 <DT><CODE>+cart</CODE>
 <DD>
 Disable all cartridges (which would eventually be enabled in the config file).
 
-<A NAME="IDX1374"></A>
+<A NAME="IDX1404"></A>
 <DT><CODE>-cartreset</CODE>
 <DD>
 <DT><CODE>+cartreset</CODE>
@@ -7539,25 +7653,25 @@ Disable all cartridges (which would eventually be enabled in the config file).
 Reset/do not reset machine if a cartridge is attached or detached
 (<CODE>CartridgeReset=1</CODE>, <CODE>CartridgeReset=0</CODE>).
 
-<A NAME="IDX1375"></A>
+<A NAME="IDX1405"></A>
 <DT><CODE>-cart1 &#60;name&#62;</CODE>
 <DD>
 Specify the filename for the ROM image file for the cartridge area $1000-$1FFF
 (<CODE>Cart1Name</CODE>).
 
-<A NAME="IDX1376"></A>
+<A NAME="IDX1406"></A>
 <DT><CODE>-cart2 &#60;name&#62;</CODE>
 <DD>
 Specify the filename for the ROM image file for the cartridge area $2000-$2FFF
 (<CODE>Cart2Name</CODE>).
 
-<A NAME="IDX1377"></A>
+<A NAME="IDX1407"></A>
 <DT><CODE>-cart4 &#60;name&#62;</CODE>
 <DD>
 Specify the filename for the ROM image file for the cartridge area $4000-$5FFF
 (<CODE>Cart4Name</CODE>).
 
-<A NAME="IDX1378"></A>
+<A NAME="IDX1408"></A>
 <DT><CODE>-cart6 &#60;name&#62;</CODE>
 <DD>
 Specify the filename for the ROM image file for the cartridge area $6000-$7FFF
@@ -7576,18 +7690,18 @@ These are the commandline options specific for the CBM-II models.
 
 <DT><CODE>-pal</CODE>
 <DD>
-<A NAME="IDX1379"></A>
+<A NAME="IDX1409"></A>
  
 Use PAL sync factor
 (<CODE>MachineVideoStandard=1</CODE>).
 
-<A NAME="IDX1380"></A>
+<A NAME="IDX1410"></A>
 <DT><CODE>-ntsc</CODE>
 <DD>
 Use NTSC sync factor
 (<CODE>MachineVideoStandard=2</CODE>).
 
-<A NAME="IDX1381"></A>
+<A NAME="IDX1411"></A>
 <DT><CODE>-ramsize &#60;ramsize&#62;</CODE>
 <DD>
 Specify size of RAM
@@ -7595,7 +7709,7 @@ Specify size of RAM
 xcbm2: (128, 256, 512, 1024)
 xcbm5x0: (64, 128, 256, 512, 1024)
 
-<A NAME="IDX1382"></A>
+<A NAME="IDX1412"></A>
 <DT><CODE>-ram08</CODE>
 <DD>
 <DT><CODE>+ram08</CODE>
@@ -7603,7 +7717,7 @@ xcbm5x0: (64, 128, 256, 512, 1024)
 Enable/disable RAM mapping in bank 15 at address $0800-$0FFF
 (<CODE>Ram08=1</CODE>, <CODE>Ram08=0</CODE>).
 
-<A NAME="IDX1383"></A>
+<A NAME="IDX1413"></A>
 <DT><CODE>-ram1</CODE>
 <DD>
 <DT><CODE>+ram1</CODE>
@@ -7611,7 +7725,7 @@ Enable/disable RAM mapping in bank 15 at address $0800-$0FFF
 Enable/disable RAM mapping in bank 15 at address $1000-$1FFF
 (<CODE>Ram1=1</CODE>, <CODE>Ram1=0</CODE>).
 
-<A NAME="IDX1384"></A>
+<A NAME="IDX1414"></A>
 <DT><CODE>-ram2</CODE>
 <DD>
 <DT><CODE>+ram2</CODE>
@@ -7619,7 +7733,7 @@ Enable/disable RAM mapping in bank 15 at address $1000-$1FFF
 Enable/disable RAM mapping in bank 15 at address $2000-$3FFF
 (<CODE>Ram2=1</CODE>, <CODE>Ram2=0</CODE>).
 
-<A NAME="IDX1385"></A>
+<A NAME="IDX1415"></A>
 <DT><CODE>-ram4</CODE>
 <DD>
 <DT><CODE>+ram4</CODE>
@@ -7627,7 +7741,7 @@ Enable/disable RAM mapping in bank 15 at address $2000-$3FFF
 Enable/disable RAM mapping in bank 15 at address $4000-$5FFF
 (<CODE>Ram4=1</CODE>, <CODE>Ram4=0</CODE>).
 
-<A NAME="IDX1386"></A>
+<A NAME="IDX1416"></A>
 <DT><CODE>-ram6</CODE>
 <DD>
 <DT><CODE>+ram6</CODE>
@@ -7635,7 +7749,7 @@ Enable/disable RAM mapping in bank 15 at address $4000-$5FFF
 Enable/disable RAM mapping in bank 15 at address $6000-$7FFF
 (<CODE>Ram6=1</CODE>, <CODE>Ram6=0</CODE>).
 
-<A NAME="IDX1387"></A>
+<A NAME="IDX1417"></A>
 <DT><CODE>-ramC</CODE>
 <DD>
 <DT><CODE>+ramC</CODE>
@@ -7643,7 +7757,7 @@ Enable/disable RAM mapping in bank 15 at address $6000-$7FFF
 Enable/disable RAM mapping in bank 15 at address $C000-$CFFF
 (<CODE>RamC=1</CODE>, <CODE>RamC=0</CODE>).
 
-<A NAME="IDX1388"></A>
+<A NAME="IDX1418"></A>
 <DT><CODE>-model &#60;modelnumber&#62;</CODE>
 <DD>
 Specify CBM-II model to emulate
@@ -7693,32 +7807,32 @@ feeling;
 
 <DT><CODE>PSIDKeepEnv</CODE>
 <DD>
-<A NAME="IDX1389"></A>
+<A NAME="IDX1419"></A>
  
 Boolean that specifies whether to override PSID settings for Video standard and 
 SID model.
 
-<A NAME="IDX1390"></A>
+<A NAME="IDX1420"></A>
 <DT><CODE>PSIDTune</CODE>
 <DD>
 Integer that specifies the currently played sub tune.
 
-<A NAME="IDX1391"></A>
+<A NAME="IDX1421"></A>
 <DT><CODE>ChargenName</CODE>
 <DD>
 String specifying the name of the character generator ROM (default <TT>`chargen'</TT>).
 
-<A NAME="IDX1392"></A>
+<A NAME="IDX1422"></A>
 <DT><CODE>KernalName</CODE>
 <DD>
 String specifying the name of the Kernal ROM (default <TT>`kernal'</TT>).
 
-<A NAME="IDX1393"></A>
+<A NAME="IDX1423"></A>
 <DT><CODE>BasicName</CODE>
 <DD>
 String specifying the name of the Basic ROM (default <TT>`basic'</TT>).
 
-<A NAME="IDX1394"></A>
+<A NAME="IDX1424"></A>
 <DT><CODE>KernalRev</CODE>
 <DD>
 String specifying the Kernal revision. This resource can be used to
@@ -7748,7 +7862,7 @@ Commodore SX-64 ROM;
 Commodore 4064 (also known as "PET64" or "Educator 64") ROM.
 </DL>
 
-<A NAME="IDX1395"></A>
+<A NAME="IDX1425"></A>
 <DT><CODE>MachineVideoStandard</CODE>
 <DD>
 Integer that specifies the video standard of the emulated machine
@@ -7764,54 +7878,54 @@ Integer that specifies the video standard of the emulated machine
 
 <DT><CODE>-keepenv</CODE>
 <DD>
-<A NAME="IDX1396"></A>
+<A NAME="IDX1426"></A>
  
 Override PSID settings for Video standard and SID model
 (<CODE>PSIDKeepEnv=1</CODE>).
 
-<A NAME="IDX1397"></A>
+<A NAME="IDX1427"></A>
 <DT><CODE>-tune &#60;number&#62;</CODE>
 <DD>
 Specify PSID tune &#60;number&#62;
 (<CODE>PSIDTune</CODE>).
 
-<A NAME="IDX1398"></A>
+<A NAME="IDX1428"></A>
 <DT><CODE>-chargen &#60;name&#62;</CODE>
 <DD>
 Specify name of character generator ROM image
 (<CODE>ChargenName</CODE>).
 
-<A NAME="IDX1399"></A>
+<A NAME="IDX1429"></A>
 <DT><CODE>-kernal &#60;name&#62;</CODE>
 <DD>
 Specify name of the Kernal ROM image
 (<CODE>KernalName</CODE>).
 
-<A NAME="IDX1400"></A>
+<A NAME="IDX1430"></A>
 <DT><CODE>-basic &#60;name&#62;</CODE>
 <DD>
 Specify name of the Basic ROM image
 (<CODE>BasicName</CODE>).
 
-<A NAME="IDX1401"></A>
+<A NAME="IDX1431"></A>
 <DT><CODE>-pal</CODE>
 <DD>
 Use PAL sync factor
 (<CODE>MachineVideoStandard=1</CODE>).
 
-<A NAME="IDX1402"></A>
+<A NAME="IDX1432"></A>
 <DT><CODE>-ntsc</CODE>
 <DD>
 Use NTSC sync factor
 (<CODE>MachineVideoStandard=2</CODE>).
 
-<A NAME="IDX1403"></A>
+<A NAME="IDX1433"></A>
 <DT><CODE>-ntscold</CODE>
 <DD>
 Use old NTSC sync factor
 (<CODE>MachineVideoStandard=3</CODE>).
 
-<A NAME="IDX1404"></A>
+<A NAME="IDX1434"></A>
 <DT><CODE>-paln</CODE>
 <DD>
 Use PAL-N sync factor

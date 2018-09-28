@@ -7,17 +7,9 @@
 #define WINDOWS_RC_COMPILE
 #endif
 
-#ifdef IDE_COMPILE
-#include <winuser.h>
-#endif
-
 #include "debug.h"
 #include "res.h"
 #include "rescommon.h"
-
-#ifdef IDE_COMPILE
-#include "videoarch.h"
-#endif
 
 #ifndef WINDRES_CP_IGNORE
 #pragma code_page(28591)
@@ -273,7 +265,7 @@ BEGIN
         END
         MENUITEM "", IDM_SID_SETTINGS
         MENUITEM "", IDM_CIA_SETTINGS
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         MENUITEM "", IDM_ETHERNET_SETTINGS
 #endif
         MENUITEM SEPARATOR
@@ -296,7 +288,7 @@ BEGIN
             MENUITEM "", IDM_RRNETMK3_SETTINGS
             MENUITEM "", IDM_TOGGLE_SS5_32K
             MENUITEM SEPARATOR
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
             MENUITEM "", IDM_ETHERNETCART_SETTINGS
 #endif
             MENUITEM "", IDM_IEEE488
@@ -322,6 +314,7 @@ BEGIN
             POPUP "Tape port devices"
             BEGIN
                 MENUITEM "", IDM_TAPELOG_SETTINGS
+                MENUITEM "", IDM_TAPECART_SETTINGS
                 MENUITEM "", IDM_CP_CLOCK_F83_SETTINGS
                 MENUITEM "", IDM_TOGGLE_DATASETTE
                 MENUITEM "", IDM_TOGGLE_TAPE_SENSE_DONGLE
@@ -1200,8 +1193,8 @@ BEGIN
   IDS_C128_FUNCTIONROM_INTERNAL_RTC_SAVE "Sla de Interne Functie RTC gegevens op bij wijziging"
   IDS_C128_FUNCTIONROM_EXTERNAL_RTC_SAVE "Sla de Interne Functie RTC gegevens op bij wijziging"
   IDS_C128_FULL_BANKS                    "RAM bank 2 en 3 inschakelen"
-  IDS_C128MODEL                          "C128 model"
-  IDS_MP_VDC_SETTINGS                    "VDC instellingen"
+  IDS_C128MODEL                          "C128-model"
+  IDS_MP_VDC_SETTINGS                    "VDC-instellingen"
   IDS_MP_VDC_REVISION                    "VDC revisie"
   IDS_MI_TOGGLE_VDC64KB                  "64KB videogeheugen"
   IDS_MI_IEEE488                         "IEEE488 Interface emulatie"

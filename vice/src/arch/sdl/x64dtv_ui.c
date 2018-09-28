@@ -32,10 +32,12 @@
 
 #include "debug.h"
 #include "c64mem.h"
+#include "c64ui.h"
 #include "menu_c64dtvhw.h"
 #include "menu_common.h"
 #include "menu_debug.h"
 #include "menu_drive.h"
+#include "menu_edit.h"
 #include "menu_ffmpeg.h"
 #include "menu_help.h"
 #include "menu_jam.h"
@@ -113,8 +115,12 @@ static const ui_menu_entry_t x64dtv_main_menu[] = {
       (ui_callback_data_t)network_menu },
 #endif
     { "Pause",
-      MENU_ENTRY_OTHER,
+      MENU_ENTRY_OTHER_TOGGLE,
       pause_callback,
+      NULL },
+    { "Advance Frame",
+      MENU_ENTRY_OTHER,
+      advance_frame_callback,
       NULL },
     { "Monitor",
       MENU_ENTRY_SUBMENU,
@@ -125,7 +131,7 @@ static const ui_menu_entry_t x64dtv_main_menu[] = {
       vkbd_callback,
       NULL },
     { "Statusbar",
-      MENU_ENTRY_OTHER,
+      MENU_ENTRY_OTHER_TOGGLE,
       statusbar_callback,
       NULL },
 #ifdef DEBUG
@@ -142,6 +148,12 @@ static const ui_menu_entry_t x64dtv_main_menu[] = {
       MENU_ENTRY_SUBMENU,
       submenu_callback,
       (ui_callback_data_t)settings_manager_menu },
+#ifdef USE_SDLUI2
+    { "Edit",
+      MENU_ENTRY_SUBMENU,
+      submenu_callback,
+      (ui_callback_data_t)edit_menu },
+#endif
     { "Quit emulator",
       MENU_ENTRY_OTHER,
       quit_callback,
@@ -149,9 +161,18 @@ static const ui_menu_entry_t x64dtv_main_menu[] = {
     SDL_MENU_LIST_END
 };
 
-void c64dtvui_set_menu_params(int index, menu_draw_t *menu_draw)
+static void c64dtvui_set_menu_params(int index, menu_draw_t *menu_draw)
 {
-    menu_draw->color_front = 15;
+    /* VICII-DTV */
+    menu_draw->max_text_x = 40;
+    menu_draw->color_front = menu_draw->color_default_front = 15;
+    menu_draw->color_back = menu_draw->color_default_back = 0;
+    menu_draw->color_cursor_back = (9*16)+6;
+    menu_draw->color_cursor_revers = 0;
+    menu_draw->color_active_green = (14*16)+13;
+    menu_draw->color_inactive_red = (4*16)+6;
+    menu_draw->color_active_grey = 10;
+    menu_draw->color_inactive_grey = 5;
 
     sdl_ui_set_menu_params = NULL;
 }

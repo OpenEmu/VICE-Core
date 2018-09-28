@@ -1,4 +1,3 @@
-
 /*! \file vice.h
  *
  *  \brief Main header file for VICE.
@@ -38,14 +37,10 @@
    actually automake barfs if the source directory was already
    configured, so this should not be an issue anymore.  */
 
-#ifdef IDE_COMPILE
-# include <ide-config.h> /* standard config file for IDE based compiles. */
-#else
-# ifdef ANDROID_COMPILE
+#ifdef ANDROID_COMPILE
 #  include <config.android.h>
-# else
+#else
 #  include <config.h> /* Automagically created by the `configure' script.  */
-# endif
 #endif
 
 /* ------------------------------------------------------------------------- */
@@ -114,9 +109,9 @@ typedef int ssize_t;
 #endif
 
 /* ------------------------------------------------------------------------- */
-/* Which OS is using the common keyboard routines?  */
-#if !defined(__OS2__) || defined(USE_SDLUI) || defined(USE_SDLUI2)
-#define COMMON_KBD
+/* A common define for the SDL UIs. */
+#if defined(USE_SDLUI) || defined(USE_SDLUI2)
+#define SDL_UI_SUPPORT
 #endif
 
 /* Which OS is using those ugly scale source coordinates.  */
@@ -193,6 +188,11 @@ static int noop;
 /* sortix does not have rs232 support */
 #ifdef __sortix__
 #undef HAVE_RS232DEV
+#endif
+
+
+#if defined(USE_NATIVE_GTK3) && defined(WIN32_COMPILE) && !defined(__cplusplus)
+#define atexit vice_atexit
 #endif
 
 #endif

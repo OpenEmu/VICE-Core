@@ -24,9 +24,11 @@
  *
  */
 
+#include <stdint.h>
+
 #include "vice.h"
 
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
 
 #ifdef UNIX_COMPILE
 #include "../unix/rawnetarch.c"

@@ -36,7 +36,12 @@ typedef enum cmdline_option_type { SET_RESOURCE, CALL_FUNCTION }
     cmdline_option_type_t;
 
 typedef struct cmdline_option_s {
-    /* Name of command-line option.  */
+    /* Name of command-line option
+     *
+     * This cannot be `const`, since some code (see drive-cmdline-options.c
+     * for example) uses this field to store and later free dynamically
+     * allocated strings.
+     */
     char *name;
 
     /* Behavior of this command-line option.  */
@@ -53,7 +58,10 @@ typedef struct cmdline_option_s {
     /* Extra parameter to pass to `set_func' if type is `CALL_FUNCTION'.  */
     void *extra_param;
 
-    /* Resource to change if `type' is `SET_RESOURCE'.  */
+    /* Resource to change if `type' is `SET_RESOURCE'
+     *
+     * Also cannot be `const`, see comment of `name` field
+     */
     char *resource_name;
 
     /* Value to assign to `resource_name' if `type' is `SET_RESOURCE' and

@@ -3,17 +3,9 @@
 
 #include "vice.h"
 
-#ifdef IDE_COMPILE
-#include <winuser.h>
-#endif
-
 #include "debug.h"
 #include "res.h"
 #include "rescommon.h"
-
-#ifdef IDE_COMPILE
-#include "videoarch.h"
-#endif
 
 #ifndef WINDRES_CP_IGNORE
 #pragma code_page(28591)
@@ -258,7 +250,7 @@ BEGIN
         MENUITEM "", IDM_VICII_SETTINGS
         MENUITEM "", IDM_SID_SETTINGS
         MENUITEM "", IDM_CIA_SETTINGS
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         MENUITEM "", IDM_ETHERNET_SETTINGS
 #endif
         MENUITEM SEPARATOR
@@ -283,7 +275,7 @@ BEGIN
             MENUITEM "", IDM_RRNETMK3_SETTINGS
             MENUITEM "", IDM_TOGGLE_SS5_32K
             MENUITEM SEPARATOR
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
             MENUITEM "", IDM_ETHERNETCART_SETTINGS
 #endif
 //IEEE488 missing
@@ -311,6 +303,7 @@ BEGIN
             POPUP "Tape port devices"
             BEGIN
                 MENUITEM "", IDM_TAPELOG_SETTINGS
+                MENUITEM "", IDM_TAPECART_SETTINGS
                 MENUITEM "", IDM_CP_CLOCK_F83_SETTINGS
                 MENUITEM "", IDM_TOGGLE_DATASETTE
                 MENUITEM "", IDM_TOGGLE_TAPE_SENSE_DONGLE
@@ -864,13 +857,13 @@ END
 STRINGTABLE
 LANGUAGE LANG_DUTCH, SUBLANG_NEUTRAL
 BEGIN
-  IDS_C64_MODEL                    "C64 model"
+  IDS_C64_MODEL                    "C64-model"
   IDS_6569_PAL                     "6569 (PAL)"
   IDS_8565_PAL                     "8565 (PAL)"
-  IDS_6569R1_OLD_PAL               "6569R1 (oud PAL)"
+  IDS_6569R1_OLD_PAL               "6569R1 (oude PAL)"
   IDS_6567_NTSC                    "6567 (NTSC)"
   IDS_8562_NTSC                    "8562 (NTSC)"
-  IDS_6567R56A_OLD_NTSC            "6567R56A (oud NTSC)"
+  IDS_6567R56A_OLD_NTSC            "6567R56A (oude NTSC)"
   IDS_6572_PAL_N                   "6572 (PAL-N)"
   IDS_C64_MODEL_CAPTION            "C64 model instellingen"
   IDS_C64BURSTMOD_CAPTION          "C64 drive burst modificatie instellingen"
@@ -878,10 +871,10 @@ BEGIN
   IDS_C64BURSTMOD_CIA              "C64 drive burst modificatie CIA"
   IDS_C64_PAL                      "C64 PAL"
   IDS_C64C_PAL                     "C64C PAL"
-  IDS_C64_OLD_PAL                  "C64 oud PAL"
+  IDS_C64_OLD_PAL                  "C64 oude PAL"
   IDS_C64_NTSC                     "C64 NTSC"
   IDS_C64C_NTSC                    "C64C NTSC"
-  IDS_C64_OLD_NTSC                 "C64 oud NTSC"
+  IDS_C64_OLD_NTSC                 "C64 oude NTSC"
   IDS_DREAN                        "Drean"
   IDS_C64_SX_PAL                   "C64 SX PAL"
   IDS_C64_SX_NTSC                  "C64 SX NTSC"

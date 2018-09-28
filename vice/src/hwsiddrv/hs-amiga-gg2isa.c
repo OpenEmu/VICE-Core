@@ -34,7 +34,13 @@
 #include <string.h>
 
 #include "hs-amiga.h"
+
+#if !defined(USE_SDLUI) && !defined(USE_SDLUI2)
 #include "loadlibs.h"
+#else
+#include "archdep.h"
+#endif
+
 #include "log.h"
 #include "types.h"
 
@@ -50,7 +56,7 @@ static unsigned char *HSbase = NULL;
 static int hssids[4] = { -1, -1, -1, -1 };
 
 /* read value from SIDs */
-int hs_gg2_isa_read(WORD addr, int chipno)
+int hs_gg2_isa_read(uint16_t addr, int chipno)
 {
     /* check if chipno and addr is valid */
     if (chipno < MAXSID && hssids[chipno] != -1 && addr < 0x20) {
@@ -61,7 +67,7 @@ int hs_gg2_isa_read(WORD addr, int chipno)
 }
 
 /* write value into SID */
-void hs_gg2_isa_store(WORD addr, BYTE val, int chipno)
+void hs_gg2_isa_store(uint16_t addr, uint8_t val, int chipno)
 {
     /* check if chipno and addr is valid */
     if (chipno < MAXSID && hssids[chipno] != -1 && addr < 0x20) {
@@ -229,7 +235,6 @@ static unsigned char read_sid(unsigned short reg, int chipno)
 static void write_sid(unsigned short reg, unsigned char data, int chipno)
 {
     unsigned char cmd;
-    BYTE tmp;
 
     cmd = (chipno << 6) | (reg & 0x1f);            // Write command & address
 

@@ -29,16 +29,11 @@
 #ifndef VICE_UI_WIN32_H
 #define VICE_UI_WIN32_H
 
-#include "types.h"
-
 #include <stdio.h>
-
-#undef BYTE
-#undef WORD
-#undef DWORD
-
 #include <windows.h> /* hack to get LPOLESTR etc on some mingw(64) */
 #include <wtypes.h>
+
+#include "types.h"
 
 #ifndef DUMMYUNIONNAME
 #define DUMMYUNIONNAME u1
@@ -115,7 +110,7 @@ extern HWND ui_active_window;
 
 /* ------------------------------------------------------------------------- */
 
-extern int ui_vblank_sync_enabled();
+extern int ui_vblank_sync_enabled(void);
 
 extern void ui_exit(void);
 extern void ui_display_speed(float percent, float framerate, int warp_flag);
@@ -136,8 +131,8 @@ extern void ui_register_res_values(const ui_res_value_list_t *valuelist);
 
 /* Windows-specific functions.  */
 
-extern void ui_update_menu();
-extern void ui_show_menu();
+extern void ui_update_menu(void);
+extern void ui_show_menu(void);
 extern HWND ui_get_main_hwnd(void);
 extern void ui_open_canvas_window(struct video_canvas_s *canvas);
 extern void ui_canvas_child_window(struct video_canvas_s *canvas, int enable);

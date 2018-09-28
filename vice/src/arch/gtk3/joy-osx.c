@@ -1,9 +1,10 @@
+/** \file   joy-osx.c
+ * \brief   Mac OS X joystick support
+ *
+ * \author  Christian Vogelgsang <chris@vogelgsang.org>
+ */
+
 /*
- * joy-osx.c - Mac OS X joystick support.
- *
- * Written by
- *   Christian Vogelgsang <chris@vogelgsang.org>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -35,6 +36,7 @@
 #include "joyport.h"
 #include "joystick.h"
 #include "keyboard.h"
+#include "lib.h"
 #include "log.h"
 #include "resources.h"
 #include "translate.h"
@@ -112,6 +114,7 @@ static int set_joy_a_auto_button_mapping(const char *val,void *param)
     }
     return 0;
 }
+
 /* a threshold */
 
 static int set_joy_a_x_threshold(int val, void *param)
@@ -802,7 +805,6 @@ static void setup_hat_switch_mapping(joystick_descriptor_t *joy)
         joy->hat_switch.mapped = 0;
         log_message(LOG_DEFAULT, "mac_joy:   hat switch not mapped");
     }
-
 }
 
 /* determine if the given device matches the joystick descriptor */
@@ -940,7 +942,7 @@ void joy_reload_device_list(void)
 /* query for available joysticks and set them up */
 int joy_arch_init(void)
 {
-    if (joy_hid_init()<0) {
+    if (joy_hid_init() < 0) {
         return 0;
     }
 
@@ -963,15 +965,27 @@ void joystick_close(void)
     joy_hid_unmap_device(&joy_a);
     joy_hid_unmap_device(&joy_b);
     joy_hid_exit();
+
+    lib_free(joy_a.device_name);
+    lib_free(joy_a.axis[HID_X_AXIS].name);
+    lib_free(joy_a.axis[HID_Y_AXIS].name);
+    lib_free(joy_a.button_mapping);
+    lib_free(joy_a.auto_button_mapping);
+    lib_free(joy_b.device_name);
+    lib_free(joy_b.axis[HID_X_AXIS].name);
+    lib_free(joy_b.axis[HID_Y_AXIS].name);
+    lib_free(joy_b.button_mapping);
+    lib_free(joy_b.auto_button_mapping);
 }
 
 /* ----- Read Joystick ----- */
 
-static BYTE read_button(joystick_descriptor_t *joy, int id, BYTE resValue)
+static uint8_t read_button(joystick_descriptor_t *joy, int id, uint8_t resValue)
 {
     /* button not mapped? */
-    if (joy->buttons[id].mapped == 0)
+    if (joy->buttons[id].mapped == 0) {
         return 0;
+    }
 
     int value;
     if (joy_hid_read_button(joy, id, &value) != 0) {
@@ -981,7 +995,7 @@ static BYTE read_button(joystick_descriptor_t *joy, int id, BYTE resValue)
     return value ? resValue : 0;
 }
 
-static BYTE read_auto_button(joystick_descriptor_t *joy, int id, BYTE resValue)
+static uint8_t read_auto_button(joystick_descriptor_t *joy, int id, uint8_t resValue)
 {
     /* button not mapped? */
     joy_button_t *button = &joy->buttons[id];
@@ -1011,7 +1025,7 @@ static BYTE read_auto_button(joystick_descriptor_t *joy, int id, BYTE resValue)
     return result;
 }
 
-static BYTE read_axis(joystick_descriptor_t *joy, int id, BYTE min, BYTE max)
+static uint8_t read_axis(joystick_descriptor_t *joy, int id, uint8_t min, uint8_t max)
 {
     joy_axis_t *axis = &joy->axis[id];
     if (axis->mapped == 0) {
@@ -1032,7 +1046,7 @@ static BYTE read_axis(joystick_descriptor_t *joy, int id, BYTE min, BYTE max)
     }
 }
 
-static BYTE read_hat_switch(joystick_descriptor_t *joy)
+static uint8_t read_hat_switch(joystick_descriptor_t *joy)
 {
     static const int map_hid_to_joy[8] = {
         1,   /* 1=N */
@@ -1062,10 +1076,10 @@ static BYTE read_hat_switch(joystick_descriptor_t *joy)
     return map_hid_to_joy[value];
 }
 
-static BYTE read_joystick(joystick_descriptor_t *joy)
+static uint8_t read_joystick(joystick_descriptor_t *joy)
 {
     /* read buttons */
-    BYTE joy_bits = read_button(joy, HID_FIRE, 16) |
+    uint8_t joy_bits = read_button(joy, HID_FIRE, 16) |
                     read_button(joy, HID_ALT_FIRE, 16) |
                     read_button(joy, HID_LEFT, 4) |
                     read_button(joy, HID_RIGHT, 8) |
@@ -1097,14 +1111,14 @@ void joystick(void)
         /* is HID joystick A mapped? */
         if (joy_port == JOYDEV_HID_0) {
             if (joy_a.mapped) {
-                BYTE joy_bits = read_joystick(&joy_a);
+                uint8_t joy_bits = read_joystick(&joy_a);
                 joystick_set_value_absolute(i + 1, joy_bits);
             }
         }
         /* is HID joystick B mapped? */
         else if (joy_port == JOYDEV_HID_1) {
             if (joy_b.mapped) {
-                BYTE joy_bits = read_joystick(&joy_b);
+                uint8_t joy_bits = read_joystick(&joy_b);
                 joystick_set_value_absolute(i + 1, joy_bits);
             }
         }
@@ -1112,5 +1126,5 @@ void joystick(void)
 }
 
 #endif /* HAS_JOYSTICK */
-#endif
 
+#endif /* MACOSX_SUPPORT */

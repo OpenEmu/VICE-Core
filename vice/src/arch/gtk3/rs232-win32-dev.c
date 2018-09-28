@@ -1,9 +1,16 @@
+/** \file   rs232-win32-dev.c
+ * \brief   RS232 Device emulation
+ *
+ * \author  Spiro Trikaliotis <spiro.trikaliotis@gmx.de>
+ *
+ * The RS232 emulation captures the bytes sent to the RS232 interfaces
+ * available (currently, ACIA 6551, std. C64, and Daniel Dallmann's fast RS232
+ * with 9600 BPS).
+ *
+ * I/O is done to a physical COM port.
+ */
+
 /*
- * rs232-win32-dev.c - RS232 Device emulation.
- *
- * Written by
- *  Spiro Trikaliotis <spiro.trikaliotis@gmx.de>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -24,14 +31,6 @@
  *
  */
 
-/*
- * The RS232 emulation captures the bytes sent to the RS232 interfaces
- * available (currently ACIA 6551, std C64 and Daniel Dallmanns fast RS232
- * with 9600 Baud).
- *
- * I/O is done to a physical COM port.
- */
-
 #undef        DEBUG
 /* #define DEBUG */
 
@@ -41,6 +40,7 @@
 #include "vice.h"
 
 #include <errno.h>
+#include <stdint.h>
 #include <string.h>
 #include <winsock.h>
 
@@ -50,6 +50,7 @@
 
 #include "log.h"
 #include "rs232.h"
+#include "rs232dev.h"
 #include "types.h"
 #include "util.h"
 
@@ -186,7 +187,7 @@ int rs232dev_open(int device)
          * ensure that a read will always terminate and only return
          * what is already in the buffers
          */
-        comm_timeouts.ReadIntervalTimeout = MAXDWORD;
+        comm_timeouts.ReadIntervalTimeout = UINT32_MAX;
         comm_timeouts.ReadTotalTimeoutMultiplier = 0;
         comm_timeouts.ReadTotalTimeoutConstant = 0;
 
@@ -240,13 +241,13 @@ void rs232dev_close(int fd)
 
 #if DEBUG_FAKE_INPUT_OUTPUT
 static char rs232_debug_fake_input = 0;
-static int rs232_debug_fake_input_available = 0;
+static unsigned rs232_debug_fake_input_available = 0;
 #endif
 
 /* sends a byte to the RS232 line */
-int rs232dev_putc(int fd, BYTE b)
+int rs232dev_putc(int fd, uint8_t b)
 {
-    DWORD number_of_bytes = 1;
+    uint32_t number_of_bytes = 1;
 
     DEBUG_LOG_MESSAGE((rs232dev_log, "rs232dev: Output %u = `%c'.", (unsigned)b, b));
 
@@ -256,11 +257,11 @@ int rs232dev_putc(int fd, BYTE b)
     rs232_debug_fake_input = b;
 
 #else
-    if ( WriteFile(fds[fd].fd, &b, number_of_bytes, &number_of_bytes, NULL) == 0) {
+    if (WriteFile(fds[fd].fd, &b, (DWORD)1, (LPDWORD)&number_of_bytes, NULL) == 0) {
         return -1;
     }
 
-    if (number_of_bytes != 1) {
+    if (number_of_bytes == 0) {
         return -1;
     }
 #endif
@@ -268,31 +269,24 @@ int rs232dev_putc(int fd, BYTE b)
     return 0;
 }
 
-/* gets a byte to the RS232 line, returns !=0 if byte received, byte in *b. */
-int rs232dev_getc(int fd, BYTE * b)
+/* gets a byte from the RS232 line, returns !=0 if byte received, byte in *b. */
+int rs232dev_getc(int fd, uint8_t *b)
 {
-    DWORD number_of_bytes = 1;
+    uint32_t number_of_bytes = 1;
 
 #if DEBUG_FAKE_INPUT_OUTPUT
 
-    if (fds[fd].rts && fds[fd].dtr && rs232_debug_fake_input_available) {
-        if (rs232_debug_fake_input_available > 0) {
-            --rs232_debug_fake_input_available;
-        }
+    if (rs232_debug_fake_input_available != 0) {
+        --rs232_debug_fake_input_available;
         *b = rs232_debug_fake_input;
     } else {
         number_of_bytes = 0;
     }
 
 #else
-    if (fds[fd].rts && fds[fd].dtr) {
-        if (ReadFile(fds[fd].fd, b, number_of_bytes, &number_of_bytes, NULL) == 0) {
-            return -1;
-        }
-    } else {
-        number_of_bytes = 0;
+    if (ReadFile(fds[fd].fd, b, (DWORD)1, (LPDWORD)&number_of_bytes, NULL) == 0) {
+        return -1;
     }
-
 #endif
 
     if (number_of_bytes) {
@@ -330,8 +324,8 @@ enum rs232handshake_in rs232dev_get_status(int fd)
     enum rs232handshake_in modem_status = 0;
 
     do {
-        DWORD modemstat = 0;
-        if (GetCommModemStatus(fds[fd].fd, &modemstat) == 0) {
+        uint32_t modemstat = 0;
+        if (GetCommModemStatus(fds[fd].fd, (LPDWORD)&modemstat) == 0) {
             DEBUG_LOG_MESSAGE((rs232dev_log, "Could not get modem status for device %d.", device));
             break;
         }

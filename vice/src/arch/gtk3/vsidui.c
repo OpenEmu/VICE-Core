@@ -1,9 +1,11 @@
+/** \file   vsidui.c
+ * \brief   Native GTK3 VSID UI
+ *
+ * \author  Marco van den Heuvel <blackystardust68@yahoo.com>
+ * \author  Bas Wassink <b.wassink@ziggo.nl>
+ */
+
 /*
- * vsidui.c - Native GTK3 VSID UI.
- *
- * Written by
- *  Marco van den Heuvel <blackystardust68@yahoo.com>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -30,69 +32,235 @@
 
 #include "not_implemented.h"
 
+#include "vice_gtk3.h"
+#include "machine.h"
+#include "psid.h"
+#include "ui.h"
+#include "uisidattach.h"
+#include "uivsidwindow.h"
+#include "vicii.h"
+
+#include "videomodelwidget.h"
+#include "vsidcontrolwidget.h"
+#include "vsidtuneinfowidget.h"
+#include "vsidmainwidget.h"
+
+#include "vsidui.h"
+
+
+static const vice_gtk3_radiogroup_entry_t vsid_vicii_models[] = {
+    { "PAL",            MACHINE_SYNC_PAL },
+    { "NTSC",           MACHINE_SYNC_NTSC },
+    { "NTSC (old)",     MACHINE_SYNC_NTSCOLD },
+    { "PAL-N/Drean",    MACHINE_SYNC_PALN },
+    { NULL,             -1 }
+};
+
+
 void vsid_ui_close(void)
 {
-    NOT_IMPLEMENTED();
+    NOT_IMPLEMENTED_WARN_ONLY();
 }
 
+
+/** \brief  Display tune author in the UI
+ *
+ * \param[in]   author  author name
+ */
 void vsid_ui_display_author(const char *author)
 {
-    NOT_IMPLEMENTED();
+    vsid_tune_info_widget_set_author(author);
 }
 
+
+/** \brief  Display tune copyright info in the UI
+ *
+ * \param[in]   copright    copyright info
+ */
 void vsid_ui_display_copyright(const char *copyright)
 {
-    NOT_IMPLEMENTED();
+    vsid_tune_info_widget_set_copyright(copyright);
 }
 
+
+/** \brief  Set IRQ type for the UI
+ *
+ * \param[in]   irq IRQ type
+ */
 void vsid_ui_display_irqtype(const char *irq)
 {
-    NOT_IMPLEMENTED();
+    vsid_tune_info_widget_set_irq(irq);
 }
 
+
+/** \brief  Display tune name in the UI
+ *
+ * \param[in]   name    tune name
+ */
 void vsid_ui_display_name(const char *name)
 {
-    NOT_IMPLEMENTED();
+    vsid_tune_info_widget_set_name(name);
 }
 
+
+/** \brief  Set number of tunes for the UI
+ *
+ * \param[in]   count   number of tunes
+ */
 void vsid_ui_display_nr_of_tunes(int count)
 {
-    NOT_IMPLEMENTED();
+    vsid_main_widget_set_tune_count(count);
 }
 
+
+/** \brief  Set SID model for the UI
+ *
+ * \param[in]   model   SID model
+ */
 void vsid_ui_display_sid_model(int model)
 {
-    NOT_IMPLEMENTED();
+    vsid_tune_info_widget_set_model(model);
 }
 
+
+/** \brief  Set sync factor for the UI
+ *
+ * \param[in]   sync    sync factor
+ */
 void vsid_ui_display_sync(int sync)
 {
-    NOT_IMPLEMENTED();
+    vsid_tune_info_widget_set_sync(sync);
 }
 
+
+/** \brief  Set run time of tune in the UI
+ *
+ * \param[in]   sec seconds of play time
+ */
 void vsid_ui_display_time(unsigned int sec)
 {
-    NOT_IMPLEMENTED();
+    vsid_tune_info_widget_set_time(sec);
 }
 
+
+/** \brief  Set current tune number in the UI
+ *
+ * \param[in]   nr  tune number
+ */
 void vsid_ui_display_tune_nr(int nr)
 {
-    NOT_IMPLEMENTED();
+    vsid_main_widget_set_tune_current(nr);
 }
 
-int vsid_ui_init(void)
-{
-    NOT_IMPLEMENTED();
-    return 0;
-}
 
+/** \brief  Set driver info text for the UI
+ *
+ * \param[in]   driver_info_text    text with driver info (duh)
+ */
 void vsid_ui_setdrv(char *driver_info_text)
 {
-    NOT_IMPLEMENTED();
+    vsid_tune_info_widget_set_driver(driver_info_text);
 }
 
+
+/** \brief  Set default tune number in the UI
+ *
+ * \param[in]   nr  tune number
+ */
 void vsid_ui_set_default_tune(int nr)
 {
-    NOT_IMPLEMENTED();
+    vsid_main_widget_set_tune_default(nr);
 }
 
+
+/** \brief  Set driver address
+ *
+ * \param[in]   addr    driver address
+ */
+void vsid_ui_set_driver_addr(uint16_t addr)
+{
+    vsid_tune_info_widget_set_driver_addr(addr);
+}
+
+
+/** \brief  Set load address
+ *
+ * \param[in]   addr    load address
+ */
+void vsid_ui_set_load_addr(uint16_t addr)
+{
+    vsid_tune_info_widget_set_load_addr(addr);
+}
+
+
+/** \brief  Set init routine address
+ *
+ * \param[in]   addr    init routine address
+ */
+void vsid_ui_set_init_addr(uint16_t addr)
+{
+    vsid_tune_info_widget_set_init_addr(addr);
+}
+
+
+/** \brief  Set play routine address
+ *
+ * \param[in]   addr    play routine address
+ */
+void vsid_ui_set_play_addr(uint16_t addr)
+{
+    vsid_tune_info_widget_set_play_addr(addr);
+}
+
+
+/** \brief  Set size of SID on actual machine
+ *
+ * \param[in]   size    size of SID
+ */
+void vsid_ui_set_data_size(uint16_t size)
+{
+    vsid_tune_info_widget_set_data_size(size);
+}
+
+
+
+
+
+/** \brief  Identify the canvas used to create a window
+ *
+ * \return  window index on success, -1 on failure
+ */
+static int identify_canvas(video_canvas_t *canvas)
+{
+    if (canvas != vicii_get_canvas()) {
+        return -1;
+    }
+    return PRIMARY_WINDOW;
+}
+
+
+/** \brief  Initialize the VSID UI
+ *
+ * \return  0 on success, -1 on failure
+ */
+int vsid_ui_init(void)
+{
+    video_canvas_t *canvas = vicii_get_canvas();
+
+    video_model_widget_set_title("VIC-II model");
+    video_model_widget_set_resource("MachineVideoStandard");
+    video_model_widget_set_models(vsid_vicii_models);
+
+
+    ui_vsid_window_init();
+    ui_set_identify_canvas_func(identify_canvas);
+
+    ui_create_main_window(canvas);
+    ui_display_main_window(canvas->window_index);
+
+    uisidattach_set_psid_init_func(psid_init_driver);
+    uisidattach_set_psid_play_func(machine_play_psid);
+
+    INCOMPLETE_IMPLEMENTATION();
+    return 0;
+}

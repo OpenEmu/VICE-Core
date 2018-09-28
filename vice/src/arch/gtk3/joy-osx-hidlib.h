@@ -1,9 +1,10 @@
+/** \file   joy-osx-hidlib.h
+ * \brief   Common interface for the HID implementations - header
+ *
+ * \author  Christian Vogelgsang <chris@vogelgsang.org>
+ */
+
 /*
- * joy-osx-hidlib.h - Common interface for the HID implementations.
- *
- * Written by
- *  Christian Vogelgsang <chris@vogelgsang.org>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -105,19 +106,19 @@ typedef struct joy_hid_device_array joy_hid_device_array_t;
 
 /* ----- API ----- */
 
-extern int  joy_hidlib_init(void); /* return 0=ok !=0 errror */
-extern void joy_hidlib_exit(void);
+int  joy_hidlib_init(void); /* return 0=ok !=0 errror */
+void joy_hidlib_exit(void);
 
-extern joy_hid_device_array_t *joy_hidlib_enumerate_devices(void);
-extern void joy_hidlib_free_devices(joy_hid_device_array_t *devices);
+joy_hid_device_array_t *joy_hidlib_enumerate_devices(void);
+void joy_hidlib_free_devices(joy_hid_device_array_t *devices);
 
-extern int  joy_hidlib_open_device(joy_hid_device_t *device);
-extern void joy_hidlib_close_device(joy_hid_device_t *device);
+int  joy_hidlib_open_device(joy_hid_device_t *device);
+void joy_hidlib_close_device(joy_hid_device_t *device);
 
-extern int  joy_hidlib_enumerate_elements(joy_hid_device_t *device);
-extern void joy_hidlib_free_elements(joy_hid_device_t *device);
+int  joy_hidlib_enumerate_elements(joy_hid_device_t *device);
+void joy_hidlib_free_elements(joy_hid_device_t *device);
 
-extern int  joy_hidlib_get_value(joy_hid_device_t *device, 
+int  joy_hidlib_get_value(joy_hid_device_t *device, 
                                  joy_hid_element_t *element,
                                  int *value, int phys);
 

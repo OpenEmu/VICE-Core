@@ -30,6 +30,8 @@
 
 #include <stdio.h>
 
+#include "ui.h"
+
 #include "cmdline.h"
 #include "lib.h"
 #include "res.h"
@@ -37,7 +39,7 @@
 #include "resources.h"
 #include "translate.h"
 #include "types.h"
-#include "ui.h"
+#include "uiapi.h"
 #include "uilib.h"
 #include "util.h"
 #include "videoarch.h"
@@ -212,7 +214,7 @@ static int set_alwaysontop(int val, void *param)
     return 0;
 }
 
-void resize_every_canvas(void)
+static void resize_every_canvas(void)
 {
     video_canvas_t *canvas;
     int window_index;

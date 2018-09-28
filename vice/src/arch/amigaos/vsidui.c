@@ -45,11 +45,16 @@
 #include "info.h"
 #include "intl.h"
 #include "log.h"
+#include "pointer.h"
 #include "psid.h"
 #include "sid.h"
 #include "sound.h"
+#include "translate.h"
 #include "ui.h"
+#include "util.h"
 #include "vsidui.h"
+
+#include "mui/mui.h"
 
 #define UI_VSID
 #define UI_MENU_NAME vsid_ui_translation_menu
@@ -79,6 +84,8 @@ const struct TextAttr vsid_font_attr = {
     "Helvetica.font", 11, FS_NORMAL, 0
 #endif
 };
+
+extern void toggle_menu_item(struct Menu *menu, int idm, int checked);
 
 enum {
     VSID_S_TITLE = 0,
@@ -402,7 +409,7 @@ static int vsid_menu_handle(int idm)
         case IDM_NEXT_TUNE:
             if (current_song < songs) {
                 current_song++;
-                psid_ui_set_tune(uint_to_void_ptr(current_song), NULL);
+                psid_ui_set_tune(current_song, NULL);
                 vsid_ui_display_tune_nr(current_song);
                 vsid_ui_set_default_tune(default_song);
                 vsid_ui_display_nr_of_tunes(songs);
@@ -411,7 +418,7 @@ static int vsid_menu_handle(int idm)
         case IDM_PREVIOUS_TUNE:
             if (current_song > 1) {
                 current_song--;
-                psid_ui_set_tune(uint_to_void_ptr(current_song), NULL);
+                psid_ui_set_tune(current_song, NULL);
                 vsid_ui_display_tune_nr(current_song);
                 vsid_ui_set_default_tune(default_song);
                 vsid_ui_display_nr_of_tunes(songs);
@@ -429,7 +436,7 @@ static int vsid_menu_handle(int idm)
                     machine_trigger_reset(MACHINE_RESET_MODE_SOFT);
                     songs = psid_tunes(&default_song);
                     current_song = default_song;
-                    psid_ui_set_tune(uint_to_void_ptr(current_song), NULL);
+                    psid_ui_set_tune(current_song, NULL);
                     vsid_ui_display_tune_nr(current_song);
                     vsid_ui_set_default_tune(default_song);
                     vsid_ui_display_nr_of_tunes(songs);
@@ -873,3 +880,49 @@ void vsid_ui_display_irqtype(const char *irq)
 void vsid_ui_setdrv(char* driver_info_text)
 {
 }
+
+
+/** \brief  Set driver address
+ *
+ * \param[in]   addr    driver address
+ */
+void vsid_ui_set_driver_addr(uint16_t addr)
+{
+}
+
+
+/** \brief  Set load address
+ *
+ * \param[in]   addr    load address
+ */
+void vsid_ui_set_load_addr(uint16_t addr)
+{
+}
+
+
+/** \brief  Set init routine address
+ *
+ * \param[in]   addr    init routine address
+ */
+void vsid_ui_set_init_addr(uint16_t addr)
+{
+}
+
+
+/** \brief  Set play routine address
+ *
+ * \param[in]   addr    play routine address
+ */
+void vsid_ui_set_play_addr(uint16_t addr)
+{
+}
+
+
+/** \brief  Set size of SID on actual machine
+ *
+ * \param[in]   size    size of SID
+ */
+void vsid_ui_set_data_size(uint16_t size)
+{
+}
+

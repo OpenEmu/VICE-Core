@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52
-     from ../../doc/vice.texi on 30 March 2017 -->
+     from ../../doc/vice.texi on 19 May 2018 -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <TITLE>VICE Manual - 14  cartconv</TITLE>
@@ -34,60 +34,60 @@ The cartconv program has the following parameters:
 
 <DT><CODE>-i "input name"</CODE>
 <DD>
-<A NAME="IDX1874"></A>
+<A NAME="IDX1905"></A>
  
 This parameter is mandatory, it should contain the name of the binary/.crt
 file you want to convert. For the EPROM type of cartridges this parameter
 can be used multiple times to insert images into the resulting file.
-<A NAME="IDX1875"></A>
+<A NAME="IDX1906"></A>
 <DT><CODE>-o "output name"</CODE>
 <DD>
 This parameter is mandatory, it should contain the name of the binary/.crt
 file you want to convert the input file to.
-<A NAME="IDX1876"></A>
+<A NAME="IDX1907"></A>
 <DT><CODE>-t carttype</CODE>
 <DD>
 This parameter is optional. It is only needed when converting to a .crt
 file. See below for the supported cartridge types.
-<A NAME="IDX1877"></A>
+<A NAME="IDX1908"></A>
 <DT><CODE>-n "cart name"</CODE>
 <DD>
 This parameter is optional and is used as the cartridge name when creating
 a .crt file.
-<A NAME="IDX1878"></A>
+<A NAME="IDX1909"></A>
 <DT><CODE>-l loadaddress</CODE>
 <DD>
 This parameter is optional and is used as the load-address when converting
 a .crt file to a .prg file, or when converting to a generic type .crt
 file.
-<A NAME="IDX1879"></A>
+<A NAME="IDX1910"></A>
 <DT><CODE>-f "input name"</CODE>
 <DD>
 This parameter is optional, and is meant to output information about the
 named file. It can't be used in conjuction with any of the other parameters.
-<A NAME="IDX1880"></A>
+<A NAME="IDX1911"></A>
 <DT><CODE>-r</CODE>
 <DD>
 This parameter is optional, it enables repair mode (accept broken input files)
-<A NAME="IDX1881"></A>
+<A NAME="IDX1912"></A>
 <DT><CODE>-p</CODE>
 <DD>
 This parameter is optional, when it is given cartconv will accept input files that
 do not match the cartridge sizes (useful for development).
-<A NAME="IDX1882"></A>
+<A NAME="IDX1913"></A>
 <DT><CODE>-b</CODE>
 <DD>
 This parameter is optional, when it is given cartconv will not omit banks that
 are empty (filled with $ff).
-<A NAME="IDX1883"></A>
+<A NAME="IDX1914"></A>
 <DT><CODE>-q</CODE>
 <DD>
 This parameter is optional, it disables all non-error messages
-<A NAME="IDX1884"></A>
+<A NAME="IDX1915"></A>
 <DT><CODE>--types</CODE>
 <DD>
 This parameter is optional. It shows all supported cartridge types (see below).
-<A NAME="IDX1885"></A>
+<A NAME="IDX1916"></A>
 <DT><CODE>--version</CODE>
 <DD>
 Show cartconv version string and exit

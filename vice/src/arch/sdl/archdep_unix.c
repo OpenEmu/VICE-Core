@@ -60,12 +60,12 @@
 #include "archdep.h"
 #include "findpath.h"
 #include "ioutil.h"
+#include "kbd.h"
 #include "keyboard.h"
 #include "lib.h"
 #include "log.h"
 #include "machine.h"
 #include "monitor.h"
-#include "platform.h"
 #include "ui.h"
 #include "util.h"
 
@@ -73,8 +73,15 @@
 #define waitpid(p, s, o) wait3((union wait *)(s), (o), (struct rusage *) 0)
 #endif
 
+
+/** \brief  Tokens that are illegal in a path/filename
+ */
+static const char *illegal_name_tokens = "/";
+
+
 static char *argv0 = NULL;
 static char *boot_path = NULL;
+static char *program_name = NULL;
 
 /* alternate storage of preferences */
 const char *archdep_pref_path = NULL; /* NULL -> use home_path + ".vice" */
@@ -93,7 +100,7 @@ int archdep_rtc_get_centisecond(void)
 }
 #endif
 
-int archdep_init_extra(int *argc, char **argv)
+static int archdep_init_extra(int *argc, char **argv)
 {
     ssize_t read;
 #if !defined(USE_PROC_SELF_EXE)
@@ -121,8 +128,6 @@ int archdep_init_extra(int *argc, char **argv)
 
 char *archdep_program_name(void)
 {
-    static char *program_name = NULL;
-
     if (program_name == NULL) {
         char *p;
 
@@ -262,6 +267,27 @@ char *archdep_default_resource_file_name(void)
         return util_concat(archdep_pref_path, "/sdl-vicerc", NULL);
     }
 }
+
+
+/** \brief  Get path to VICE session file
+ *
+ * The 'session file' is a file that is used to store settings between VICE
+ * runs, storing things like the last used directory.
+ *
+ * \return  path to session file
+ */
+char *archdep_default_session_file_name(void)
+{
+    if (archdep_pref_path == NULL) {
+        const char *home;
+
+        home = archdep_home_path();
+        return util_concat(home, "/.vice/sdl-vicesession", NULL);
+    } else {
+        return util_concat(archdep_pref_path, "/sdl-vicesession", NULL);
+    }
+}
+
 
 char *archdep_default_fliplist_file_name(void)
 {
@@ -418,12 +444,24 @@ int archdep_spawn(const char *name, char **argv, char **pstdout_redir, const cha
     }
 }
 
-/* return malloc'd version of full pathname of orig_name */
+
+/** \brief  Return malloc'd version of full pathname of orig_name
+ *
+ * Returns the absolute path of \a orig_name. Expands '~' to the user's home
+ * path.
+ *
+ * \param[out]  return_path pointer to expand path destination
+ * \param[in]   orig_name   original path
+ *
+ * \return  0
+ */
 int archdep_expand_path(char **return_path, const char *orig_name)
 {
     /* Unix version.  */
     if (*orig_name == '/') {
         *return_path = lib_stralloc(orig_name);
+    } else if (*orig_name == '~' && *(orig_name + 1) == '/') {
+        *return_path = util_concat(archdep_home_path(), orig_name + 1, NULL);
     } else {
         static char *cwd;
 
@@ -433,6 +471,7 @@ int archdep_expand_path(char **return_path, const char *orig_name)
     }
     return 0;
 }
+
 
 void archdep_startup_log_error(const char *format, ...)
 {
@@ -551,20 +590,6 @@ FILE *archdep_mkstemp_fd(char **filename, const char *mode)
 #endif
 }
 
-int archdep_file_is_gzip(const char *name)
-{
-    size_t l = strlen(name);
-
-    if ((l < 4 || strcasecmp(name + l - 3, ".gz")) && (l < 3 || strcasecmp(name + l - 2, ".z")) && (l < 4 || toupper((int)(name[l - 1])) != 'Z' || name[l - 4] != '.')) {
-        return 0;
-    }
-    return 1;
-}
-
-int archdep_file_set_gzip(const char *name)
-{
-    return 0;
-}
 
 int archdep_mkdir(const char *pathname, int mode)
 {
@@ -573,6 +598,11 @@ int archdep_mkdir(const char *pathname, int mode)
 #else
     return mkdir(pathname, mode);
 #endif
+}
+
+int archdep_rmdir(const char *pathname)
+{
+    return rmdir(pathname);
 }
 
 int archdep_stat(const char *file_name, unsigned int *len, unsigned int *isdir)
@@ -638,13 +668,11 @@ static void archdep_shutdown_extra(void)
 {
     lib_free(argv0);
     lib_free(boot_path);
+    if (program_name != NULL) {
+        lib_free(program_name);
+        program_name = NULL;
+    }
 }
-
-
-/* Fetch Platform Stuff for Mac OS X */
-#ifdef MACOSX_BUNDLE
-#include "../platform/platform_macosx.c"
-#endif
 
 /******************************************************************************/
 
@@ -687,7 +715,9 @@ int archdep_rename(const char *oldpath, const char *newpath)
     return rename(oldpath, newpath);
 }
 
-char *archdep_get_runtime_os(void)
+/* doesn't seem to be required -- compyx */
+#if 0
+static char *archdep_get_runtime_os(void)
 {
 /* TODO: add runtime os detection code for other *nix os'es */
 #ifndef RUNTIME_OS_CALL
@@ -697,7 +727,7 @@ char *archdep_get_runtime_os(void)
 #endif
 }
 
-char *archdep_get_runtime_cpu(void)
+static char *archdep_get_runtime_cpu(void)
 {
 /* TODO: add runtime cpu detection code for other cpu's */
 #ifndef RUNTIME_CPU_CALL
@@ -706,9 +736,11 @@ char *archdep_get_runtime_cpu(void)
     return RUNTIME_CPU_CALL();
 #endif
 }
+#endif
+
 
 /* returns host keyboard mapping. used to initialize the keyboard map when
-   starting with a black (default) config, so an educated guess works good
+   starting with a blank (default) config, so an educated guess works good
    enough most of the time :)
 
    FIXME: add more languages
@@ -720,14 +752,14 @@ int kbd_arch_get_host_mapping(void)
     int maps[KBD_MAPPING_NUM] = {
         KBD_MAPPING_US, KBD_MAPPING_UK, KBD_MAPPING_DE, KBD_MAPPING_DA,
         KBD_MAPPING_NO, KBD_MAPPING_FI, KBD_MAPPING_IT };
-    char str[KBD_MAPPING_NUM][3] = {
-        "us", "uk", "de", "da", "no", "fi", "it"};
+    char str[KBD_MAPPING_NUM][6] = {
+        "en_US", "en_UK", "de", "da", "no", "fi", "it"};
     /* setup the locale */
     setlocale(LC_ALL, "");
     l = setlocale(LC_ALL, NULL);
     if (l && (strlen(l) > 1)) {
         for (n = 1; n < KBD_MAPPING_NUM; n++) {
-            if (memcmp(l, str[n], 2) == 0) {
+            if (strncmp(l, str[n], strlen(str[n])) == 0) {
                 return maps[n];
             }
         }

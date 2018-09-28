@@ -55,9 +55,9 @@ static int psctrl[MAXSID] = {-1, -1, -1};
 /* input/output functions */
 static void parsid_outb(unsigned int addrint, BYTE value)
 {
+#ifdef _M_IX86
     WORD addr = (WORD)addrint;
 
-#ifdef  _M_IX86
 #ifdef WATCOM_COMPILE
     outp(addr, value);
 #else
@@ -68,18 +68,19 @@ static void parsid_outb(unsigned int addrint, BYTE value)
 
 static BYTE parsid_inb(unsigned int addrint)
 {
+#ifdef _M_IX86
     WORD addr = (WORD)addrint;
 
-#ifdef  _M_IX86
 #ifdef WATCOM_COMPILE
     return inp(addr);
 #else
     return _inp(addr);
 #endif
 #endif
+    return 0;
 }
 
-void ps_io_out_ctr(BYTE parsid_ctrport, int chipno)
+void ps_io_out_ctr(uint8_t parsid_ctrport, int chipno)
 {
     if (chipno < MAXSID && pssids[chipno] != -1) {
         parsid_outb(pssids[chipno] + 2, parsid_ctrport);
@@ -87,7 +88,7 @@ void ps_io_out_ctr(BYTE parsid_ctrport, int chipno)
     }
 }
 
-BYTE ps_io_in_ctr(int chipno)
+uint8_t ps_io_in_ctr(int chipno)
 {
     if (chipno < MAXSID && pssids[chipno] != -1) {
         if (psctrl[chipno] == -1) {
@@ -100,14 +101,14 @@ BYTE ps_io_in_ctr(int chipno)
     return 0;
 }
 
-void ps_io_out_data(BYTE outval, int chipno)
+void ps_io_out_data(uint8_t outval, int chipno)
 {
     if (chipno < MAXSID && pssids[chipno] != -1) {
         parsid_outb(pssids[chipno], outval);
     }
 }
 
-BYTE ps_io_in_data(int chipno)
+uint8_t ps_io_in_data(int chipno)
 {
     if (chipno < MAXSID && pssids[chipno] != -1) {
         return parsid_inb(pssids[chipno]);

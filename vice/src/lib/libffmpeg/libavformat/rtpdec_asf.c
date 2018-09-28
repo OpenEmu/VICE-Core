@@ -25,6 +25,10 @@
  * @author Ronald S. Bultje <rbultje@ronald.bitfreak.net>
  */
 
+#ifdef __MSDOS__
+#define HAVE_INT32_T
+#endif
+
 #include "libavutil/base64.h"
 #include "libavutil/avstring.h"
 #include "libavutil/intreadwrite.h"
@@ -294,19 +298,6 @@ static void asfrtp_free_context(PayloadContext *asf)
     av_free(asf);
 }
 
-#ifdef IDE_COMPILE
-#define RTP_ASF_HANDLER(n, s, t) \
-RTPDynamicProtocolHandler ff_ms_rtp_ ## n ## _handler = { \
-    s, \
-    t, \
-    AV_CODEC_ID_NONE, \
-    0, 0, \
-    asfrtp_parse_sdp_line, \
-    asfrtp_new_context, \
-    asfrtp_free_context, \
-    asfrtp_parse_packet,   \
-}
-#else
 #define RTP_ASF_HANDLER(n, s, t) \
 RTPDynamicProtocolHandler ff_ms_rtp_ ## n ## _handler = { \
     .enc_name         = s, \
@@ -317,7 +308,6 @@ RTPDynamicProtocolHandler ff_ms_rtp_ ## n ## _handler = { \
     .free             = asfrtp_free_context, \
     .parse_packet     = asfrtp_parse_packet,   \
 }
-#endif
 
 RTP_ASF_HANDLER(asf_pfv, "x-asf-pf",  AVMEDIA_TYPE_VIDEO);
 RTP_ASF_HANDLER(asf_pfa, "x-asf-pf",  AVMEDIA_TYPE_AUDIO);

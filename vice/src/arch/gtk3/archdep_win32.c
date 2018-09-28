@@ -1,9 +1,10 @@
+/** \file   archdep_win32.c
+ * \brief   Miscellaneous Windows-specific stuff
+ *
+ * \author  Marco van den Heuvel <blackystardust68@yahoo.com>
+ */
+
 /*
- * archdep_win32.c - Miscellaneous system-specific stuff.
- *
- * Written by
- *  Marco van den Heuvel <blackystardust68@yahoo.com>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -28,14 +29,28 @@
 
 #include <stdio.h>
 #include <glib.h>
+#include <windows.h>
 
 #include "lib.h"
-#include "platform.h"
 #include "util.h"
 
 #include "not_implemented.h"
 
 #include "archdep.h"
+
+/* fix VICE userdir */
+#ifdef VICEUSERDIR
+# undef VICEUSERDIR
+#endif
+#define VICEUSERDIR "vice"
+
+/** \brief  Path separator used in GLib code
+ */
+static const gchar *path_separator = "\\";
+
+/** \brief  Tokens that are illegal in a path/filename
+ */
+static const char *illegal_name_tokens = "/\\?*:|\"<>";
 
 
 /** \brief  String containing search paths
@@ -45,13 +60,13 @@
  */
 static char *default_path = NULL;
 
-
+#if 0
 char *archdep_default_fliplist_file_name(void)
 {
     NOT_IMPLEMENTED();
     return NULL;
 }
-
+#endif
 
 /** \brief  Write message to Windows debugger/logger
  *
@@ -64,21 +79,42 @@ char *archdep_default_fliplist_file_name(void)
  */
 int archdep_default_logger(const char *level_string, const char *txt)
 {
-    TCHAR *st_out;
-
     char *out = lib_msprintf("*** %s %s\n", level_string, txt);
-    st_out = system_mbstowcs_alloc(out);
-    OutputDebugString(st_out);
-    system_mbstowcs_free(st_out);
+    OutputDebugString(out);
     lib_free(out);
     return 0;
 }
 
 
+/** \brief  Generate path to vice.ini
+ *
+ * The value returned needs to be freed using lib_free()
+ *
+ * \return  absolute path to vice.ini
+ */
+char *archdep_default_resource_file_name(void)
+{
+    char *cfg;
+    gchar *tmp;
+    char *path;
+
+    cfg = archdep_user_config_path();
+    tmp = g_build_path(path_separator, cfg, "vice.ini", NULL);
+    /* transfer ownership to VICE */
+    path = lib_stralloc(tmp);
+    g_free(tmp);
+    lib_free(cfg);
+    return path;
+}
+
+
 char *archdep_default_save_resource_file_name(void)
 {
-    NOT_IMPLEMENTED();
-    return NULL;
+    /* XXX: taken from SDL, but is wrong, this returns the directoru in which
+     *      $emu is executing plus 'vice.ini', while the proper dir would be
+     *      %APPDATA%/vice
+     */
+    return archdep_default_resource_file_name();
 }
 
 
@@ -100,7 +136,7 @@ char *archdep_default_sysfile_pathlist(const char *emu_id)
                 boot_path, "\\PRINTER", NULL);
     }
 
-    return default_path;
+    return lib_stralloc(default_path);
 }
 
 
@@ -120,53 +156,27 @@ int archdep_expand_path(char **return_path, const char *orig_name)
     return 0;
 }
 
-char *archdep_filename_parameter(const char *name)
-{
-    NOT_IMPLEMENTED();
-    return NULL;
-}
-
-int archdep_file_is_gzip(const char *name)
-{
-    NOT_IMPLEMENTED();
-    return 0;
-}
-
-int archdep_file_set_gzip(const char *name)
-{
-    NOT_IMPLEMENTED();
-    return 0;
-}
-
-
-/** \brief  Get CPU name during runtime
+/** \brief  Get the absolute path to the VICE dir
  *
- * \return  CPU name
+ * \return  Path to VICE's directory
  */
-char *archdep_get_runtime_cpu(void)
+char boot_path[MAX_PATH];
+const char *archdep_boot_path(void)
 {
-#if defined(__i386__) || defined(__i486__) || defined(__i586__) || defined(__i686__) || defined(__amd64__) || defined(__x86_64__)
-    return platform_get_x86_runtime_cpu();
-#else
-    /* TODO: add runtime cpu detection code */
-    /* arm/mips/alpha/ppc/ia64/sh */
-    return "Unknown CPU";
-#endif
+    char *checkpath;
+
+    GetModuleFileName(NULL, boot_path, MAX_PATH);
+
+    checkpath = boot_path + strlen(boot_path);
+
+    while (*checkpath != '\\') {
+        checkpath--;
+    }
+    *checkpath = 0;
+
+    return boot_path;
 }
 
-
-/** \brief  Detect OS during runtime
- *
- * \return  OS name
- */
-char *archdep_get_runtime_os(void)
-{
-#ifdef WINMIPS
-    return "MIPS NT";
-#else
-    return platform_get_windows_runtime_os();
-#endif
-}
 
 
 char *archdep_make_backup_filename(const char *fname)
@@ -175,37 +185,23 @@ char *archdep_make_backup_filename(const char *fname)
     return 0;
 }
 
-int archdep_mkdir(const char *pathname, int mode)
-{
-    NOT_IMPLEMENTED();
-    return 0;
-}
-
-FILE *archdep_mkstemp_fd(char **filename, const char *mode)
-{
-    NOT_IMPLEMENTED();
-    return NULL;
-}
-
-char *archdep_quote_parameter(const char *name)
-{
-    NOT_IMPLEMENTED();
-    return NULL;
-}
-
-int archdep_rename(const char *oldpath, const char *newpath)
-{
-    NOT_IMPLEMENTED();
-    return 0;
-}
 
 void archdep_shutdown(void)
 {
     if (default_path != NULL) {
         lib_free(default_path);
     }
+    if (argv0 != NULL) {
+        lib_free(argv0);
+        argv0 = NULL;
+    }
 
-    archdep_network_shutdown();
+    if (program_name != NULL) {
+        lib_free(program_name);
+        program_name = NULL;
+    }
+
+    /* archdep_network_shutdown(); */
 
     /* partially implemented */
     NOT_IMPLEMENTED();
@@ -217,14 +213,19 @@ int archdep_spawn(const char *name, char **argv, char **pstdout_redir, const cha
     return 0;
 }
 
-void archdep_startup_log_error(const char *format, ...)
-{
-    NOT_IMPLEMENTED();
-}
+
+
 
 int archdep_stat(const char *file_name, unsigned int *len, unsigned int *isdir)
 {
-    NOT_IMPLEMENTED();
+    struct stat statbuf;
+
+    if (stat(file_name, &statbuf) < 0) {
+        return -1;
+    }
+
+    *len = statbuf.st_size;
+    *isdir = S_ISDIR(statbuf.st_mode);
     return 0;
 }
 
@@ -244,7 +245,7 @@ char *archdep_tmpnam(void)
     }
 }
 
-
+#if 0
 void archdep_signals_pipe_set(void)
 {
     NOT_IMPLEMENTED();
@@ -254,11 +255,13 @@ void archdep_signals_pipe_unset(void)
 {
     NOT_IMPLEMENTED();
 }
+#endif
 
 char *archdep_default_rtc_file_name(void)
 {
-    NOT_IMPLEMENTED();
-    return NULL;
+    /* XXX: temp hack, should resolve %APPDATA%\\vice
+     *      2017-09-13 -- Compyx */
+    return util_concat(archdep_boot_path(), "\\vice.rtc", NULL);
 }
 
 int archdep_file_is_chardev(const char *name)
@@ -269,7 +272,6 @@ int archdep_file_is_chardev(const char *name)
 
 int archdep_file_is_blockdev(const char *name)
 {
-    NOT_IMPLEMENTED();
     return 0;
 }
 
@@ -279,3 +281,15 @@ int archdep_fix_permissions(const char *file_name)
     return 0;
 }
 
+/* Provide a usleep replacement */
+void vice_usleep(uint64_t waitTime)
+{
+    uint64_t time1 = 0, time2 = 0, freq = 0;
+
+    QueryPerformanceCounter((LARGE_INTEGER *) &time1);
+    QueryPerformanceFrequency((LARGE_INTEGER *)&freq);
+
+    do {
+        QueryPerformanceCounter((LARGE_INTEGER *) &time2);
+    } while((time2-time1) < waitTime);
+}

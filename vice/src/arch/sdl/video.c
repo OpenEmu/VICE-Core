@@ -131,7 +131,7 @@ static Uint32 rmask = 0, gmask = 0, bmask = 0, amask = 0;
 static int texformat = 0;
 #endif
 
-BYTE *draw_buffer_vsid = NULL;
+uint8_t *draw_buffer_vsid = NULL;
 /* ------------------------------------------------------------------------- */
 /* Video-related resources.  */
 
@@ -480,6 +480,11 @@ void video_arch_resources_shutdown(void)
 
 #if defined(HAVE_HWSCALE) || defined(USE_SDLUI2)
     lib_free(aspect_ratio_s);
+#endif
+
+
+#ifdef USE_SDLUI2
+    lib_free(sdl2_renderer_name);
 #endif
 }
 
@@ -910,6 +915,7 @@ static video_canvas_t *sdl_canvas_create(video_canvas_t *canvas, unsigned int *w
     double aspect = 1.0;
     char rendername[256] = { 0 };
     char **renderlist = NULL;
+    char *gl_string;
     int renderamount = SDL_GetNumRenderDrivers();
     unsigned int window_h = 0;
     unsigned int window_w = 0;
@@ -1085,11 +1091,15 @@ static video_canvas_t *sdl_canvas_create(video_canvas_t *canvas, unsigned int *w
        NOW we can get the proc adress from opengl/es/1/2 functions in there */
     glGetStringAPI = (glGetString_Func)SDL_GL_GetProcAddress("glGetString");
 
-    log_message(sdlvideo_log, "Vendor     : %s", glGetStringAPI(GL_VENDOR));
-    log_message(sdlvideo_log, "Renderer   : %s", glGetStringAPI(GL_RENDERER));
-    log_message(sdlvideo_log, "Version    : %s", glGetStringAPI(GL_VERSION));
+    gl_string = (char *)glGetStringAPI(GL_VENDOR);
+    log_message(sdlvideo_log, "Vendor     : %s", gl_string != NULL ? gl_string : "Unknown");
+    gl_string = (char *)glGetStringAPI(GL_RENDERER);
+    log_message(sdlvideo_log, "Renderer   : %s", gl_string != NULL ? gl_string : "Unknown");
+    gl_string = (char *)glGetStringAPI(GL_VERSION);
+    log_message(sdlvideo_log, "Version    : %s", gl_string != NULL ? gl_string : "Unknown");
 #ifdef SDL_DEBUG
-    log_message(sdlvideo_log, "Extensions : %s", glGetStringAPI(GL_EXTENSIONS));
+    gl_string = (char *)glGetStringAPI(GL_EXTENSIONS);
+    log_message(sdlvideo_log, "Extensions : %s", gl_string != NULL ? gl_string : "Unknown");
 #endif
 
     /* some devices, OS do not provide a windowing system they have always a fixed width/height, 
@@ -1143,6 +1153,9 @@ static video_canvas_t *sdl_canvas_create(video_canvas_t *canvas, unsigned int *w
         SDL_PushEvent(&sdlevent);
     }
 
+    /* Enable file/text drag and drop support */
+    SDL_EventState(SDL_DROPFILE, SDL_ENABLE);
+
     return canvas;
 }
 #endif
@@ -1159,7 +1172,7 @@ video_canvas_t *video_canvas_create(video_canvas_t *canvas, unsigned int *width,
 
 void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsigned int ys, unsigned int xi, unsigned int yi, unsigned int w, unsigned int h)
 {
-    BYTE *backup;
+    uint8_t *backup;
 
     if ((canvas == NULL) || (canvas->screen == NULL) || (canvas != sdl_active_canvas)) {
         return;
@@ -1215,10 +1228,10 @@ void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsign
 
         backup = canvas->draw_buffer->draw_buffer;
         canvas->draw_buffer->draw_buffer = canvas->draw_buffer_vsid->draw_buffer;
-        video_canvas_render(canvas, (BYTE *)canvas->screen->pixels, w, h, xs, ys, xi, yi, canvas->screen->pitch, canvas->screen->format->BitsPerPixel);
+        video_canvas_render(canvas, (uint8_t *)canvas->screen->pixels, w, h, xs, ys, xi, yi, canvas->screen->pitch, canvas->screen->format->BitsPerPixel);
         canvas->draw_buffer->draw_buffer = backup;
     } else {
-        video_canvas_render(canvas, (BYTE *)canvas->screen->pixels, w, h, xs, ys, xi, yi, canvas->screen->pitch, canvas->screen->format->BitsPerPixel);
+        video_canvas_render(canvas, (uint8_t *)canvas->screen->pixels, w, h, xs, ys, xi, yi, canvas->screen->pitch, canvas->screen->format->BitsPerPixel);
     }
 
 #ifndef USE_SDLUI2
@@ -1549,11 +1562,6 @@ void video_canvas_destroy(struct video_canvas_s *canvas)
     }
 
     lib_free(canvas->fullscreenconfig);
-}
-
-void video_add_handlers(void)
-{
-    DBG(("%s", __func__));
 }
 
 char video_canvas_can_resize(video_canvas_t *canvas)

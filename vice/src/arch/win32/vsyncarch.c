@@ -26,10 +26,8 @@
 
 #include "vice.h"
 
-#ifndef IDE_COMPILE
 #define WINVER 0x0500
 #include <windows.h>
-#endif
 
 #include "vsync.h"
 #include "kbdbuf.h"
@@ -53,7 +51,7 @@ static int pause_pending = 0;
 
 enum { EXTRA_PRECISION = 10 };
 
-signed long vsyncarch_frequency(void)
+unsigned long vsyncarch_frequency(void)
 {
     return 1000 << EXTRA_PRECISION;
 }
@@ -72,7 +70,6 @@ void vsyncarch_init(void)
 
 // -------------------------------------------------------------------------
 
-#if !defined(IDE_COMPILE) && !defined(WATCOM_COMPILE)
 typedef WINUSERAPI UINT (WINAPI *FPTR_SendInput)(UINT, LPINPUT,int);
 
 static FPTR_SendInput pfnSendInput = NULL;
@@ -106,7 +103,6 @@ static void win32_mouse_jitter(void)
         pfnSendInput(1, &ip, sizeof(INPUT));
     }
 }
-#endif
 
 // Display speed (percentage) and frame rate (frames per second).
 void vsyncarch_display_speed(double speed, double frame_rate, int warp_enabled)
@@ -114,10 +110,10 @@ void vsyncarch_display_speed(double speed, double frame_rate, int warp_enabled)
     ui_display_speed((float) speed, (float)frame_rate, warp_enabled);
 }
 
-void vsyncarch_sleep(signed long delay)
+void vsyncarch_sleep(unsigned long delay)
 {
-    SDWORD current_time = (SDWORD) timeGetTime();
-    SDWORD target_time = current_time + (delay >> EXTRA_PRECISION);
+    int32_t current_time = (int32_t) timeGetTime();
+    int32_t target_time = current_time + (delay >> EXTRA_PRECISION);
     while (current_time < target_time) {
         Sleep(target_time - current_time);
         current_time = timeGetTime();
@@ -150,10 +146,8 @@ void vsyncarch_postsync(void)
     /* Dispatch all the pending UI events.  */
     ui_dispatch_events();
 
-#if !defined(IDE_COMPILE) && !defined(WATCOM_COMPILE)
     /* prevent screensaver */
     win32_mouse_jitter();
-#endif
 
     ui_frame_update_gui();
 }

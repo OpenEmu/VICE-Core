@@ -31,10 +31,6 @@
 
 #include "types.h"
 
-#ifndef COMMON_KBD
-#include "kbd.h"
-#endif
-
 /* Maximum of keyboard array (CBM-II values
  * (8 for C64/VIC20, 10 for PET, 11 for C128; we need max).  */
 #define KBD_ROWS    16
@@ -114,7 +110,6 @@ extern void keyboard_register_joy_keypad(key_joy_keypad_func_t func);
 typedef void (*keyboard_machine_func_t)(int *);
 extern void keyboard_register_machine(keyboard_machine_func_t func);
 
-extern void keyboard_register_machine(keyboard_machine_func_t func);
 extern void keyboard_alternative_set(int alternative);
 
 /* These ugly externs will go away sooner or later.  */
@@ -122,9 +117,7 @@ extern int keyarr[KBD_ROWS];
 extern int rev_keyarr[KBD_COLS];
 extern int keyboard_shiftlock;
 
-#ifdef COMMON_KBD
 extern int keyboard_resources_init(void);
 extern int keyboard_cmdline_options_init(void);
-#endif
 
 #endif

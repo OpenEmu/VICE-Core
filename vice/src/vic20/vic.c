@@ -35,6 +35,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "videoarch.h"
+
 #include "archdep.h"
 #include "clkguard.h"
 #include "lib.h"
@@ -62,7 +64,6 @@
 #include "vic20-resources.h"
 #include "vic20mem.h"
 #include "vic20memrom.h"
-#include "videoarch.h"
 #include "viewport.h"
 #include "vsync.h"
 
@@ -171,8 +172,8 @@ static void update_pixel_tables(raster_t *raster)
 
     for (i = 0; i < 256; i++) {
         vic.pixel_table.sing[i] = i;
-        *((BYTE *)(vic.pixel_table.doub + i))
-            = *((BYTE *)(vic.pixel_table.doub + i) + 1)
+        *((uint8_t *)(vic.pixel_table.doub + i))
+            = *((uint8_t *)(vic.pixel_table.doub + i) + 1)
                   = vic.pixel_table.sing[i];
     }
 }
@@ -413,7 +414,7 @@ void vic_trigger_light_pen_internal(int retrigger)
     /* HACK for the magic 6 in the PAL dump */
     x += vic.light_pen.x_extra_bits;
 
-    vic.light_pen.x = x;
+    vic.light_pen.x = x | 1;
     vic.light_pen.y = y / 2;
     vic.light_pen.x_extra_bits = 1;
 }

@@ -1,14 +1,14 @@
 ## Makefile.am for the Win32 version of `libarch.a'.
 
 if !CROSS
-SUBDIRS = evc mingw32 msvc utils vs_tmpl watcom
+SUBDIRS = evc mingw32 utils
 endif
 
 SUFFIXES = .rc
 
 AM_CPPFLAGS = \
 	@ARCH_INCLUDES@ \
-	@ARCH_INCLUDES@/msvc/wpcap \
+	@ARCH_INCLUDES@/mingw32/wpcap \
 	@ARCH_INCLUDES@/mingw32 \
 	-I$(top_builddir)/src \
 	-I$(top_srcdir)/src \
@@ -30,6 +30,7 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/lib/p64 \
 	-I$(top_srcdir)/src/platform \
 	-I$(top_srcdir)/src/joyport \
+	-I$(top_srcdir)/src/tapeport \
 	-I$(top_srcdir)/src/samplerdrv \
 	-I$(top_srcdir)/src/sid
 
@@ -61,7 +62,6 @@ libarch_a_SOURCES = \
 	lightpendrv.h \
 	mousedrv.c \
 	mousedrv.h \
-	msvc-d3d.h \
 	petui.c \
 	plus4ui.c \
 	rawnetarch.c \
@@ -121,6 +121,7 @@ libarch_a_SOURCES = \
 	ressiddtv.rc \
 	ressoundexpander.rc \
 	ressoundsampler.rc \
+	restapecart.rc \
 	restapelog.rc \
 	rested.rc \
 	resuserportrtc58321a.rc \
@@ -135,7 +136,6 @@ libarch_a_SOURCES = \
 	signals.c \
 	statusbar.c \
 	statusbar.h \
-	types.h \
 	ui-resources.c \
 	ui.c \
 	ui.h \
@@ -173,7 +173,6 @@ libarch_a_SOURCES = \
 	uicbm5x0set.h \
 	uicia.c \
 	uicia.h \
-	uicmdline.c \
 	uiconsole.c \
 	uicpclockf83.c \
 	uicpclockf83.h \
@@ -307,6 +306,8 @@ libarch_a_SOURCES = \
 	uisoundsampler.h \
 	uispeed.c \
 	uispeed.h \
+	uitapecart.c \
+	uitapecart.h \
 	uitapelog.c \
 	uitapelog.h \
 	uited.c \
@@ -352,23 +353,6 @@ endif
 EXTRA_DIST = \
 	c64.ico \
 	dirent.c \
-	generate_msvc6_project.bat \
-	generate_msvc70_ffmpeg_project.bat \
-	generate_msvc70_project.bat \
-	generate_msvc71_ffmpeg_project.bat \
-	generate_msvc71_project.bat \
-	generate_msvc8_ffmpeg_project.bat \
-	generate_msvc8_project.bat \
-	generate_msvc9_ffmpeg_project.bat \
-	generate_msvc9_project.bat \
-	generate_msvc10_ffmpeg_project.bat \
-	generate_msvc10_project.bat \
-	generate_msvc11_ffmpeg_project.bat \
-	generate_msvc11_project.bat \
-	generate_msvc12_ffmpeg_project.bat \
-	generate_msvc12_project.bat \
-	generate_msvc14_ffmpeg_project.bat \
-	generate_msvc14_project.bat \
 	genmenuid.sh \
 	genstringid.sh \
 	genwinres.sh \
@@ -379,9 +363,7 @@ EXTRA_DIST = \
 	resmenu.txt \
 	resstrings.txt \
 	system.c \
-	vice.manifest \
-	vice-version.bat \
-	vice-version.bat.in
+	vice.manifest
 
 BUILT_SOURCES = res.h menuid.h stringid.h
 
@@ -422,6 +404,7 @@ resc128cat.rc: $(srcdir)/resc128.rc $(srcdir)/res.rc res.h \
 	$(srcdir)/resds12c887rtc.rc $(srcdir)/resuserportrtc58321a.rc \
 	$(srcdir)/ressampler.rc $(srcdir)/resuserportrtcds1307.rc \
 	$(srcdir)/resrrnetmk3.rc $(srcdir)/rescpclockf83.rc \
+	$(srcdir)/restapecart.rc \
 	$(srcdir)/restapelog.rc $(srcdir)/resiocollisions.rc \
 	$(srcdir)/resgmod2.rc $(srcdir)/resethernet.rc \
 	$(srcdir)/resethernetcart.rc $(srcdir)/reskeymap.rc \
@@ -440,6 +423,7 @@ resc128cat.rc: $(srcdir)/resc128.rc $(srcdir)/res.rc res.h \
 	$(srcdir)/resuserportrtc58321a.rc $(srcdir)/resuserportrtcds1307.rc \
 	$(srcdir)/ressampler.rc $(srcdir)/resrrnetmk3.rc \
 	$(srcdir)/rescpclockf83.rc $(srcdir)/restapelog.rc \
+	$(srcdir)/restapecart.rc \
 	$(srcdir)/resiocollisions.rc $(srcdir)/resgmod2.rc \
 	$(srcdir)/resethernet.rc $(srcdir)/resethernetcart.rc \
 	$(srcdir)/reskeymap.rc
@@ -458,6 +442,7 @@ resc64cat.rc: $(srcdir)/resc64.rc $(srcdir)/res.rc res.h $(srcdir)/resacia.rc \
 	$(srcdir)/resds12c887rtc.rc $(srcdir)/resuserportrtc58321a.rc \
 	$(srcdir)/resuserportrtcds1307.rc $(srcdir)/ressampler.rc \
 	$(srcdir)/resrrnetmk3.rc $(srcdir)/rescpclockf83.rc \
+	$(srcdir)/restapecart.rc \
 	$(srcdir)/restapelog.rc $(srcdir)/resiocollisions.rc \
 	$(srcdir)/resgmod2.rc $(srcdir)/resethernet.rc \
 	$(srcdir)/resethernetcart.rc $(srcdir)/reskeymap.rc \
@@ -477,6 +462,7 @@ resc64cat.rc: $(srcdir)/resc64.rc $(srcdir)/res.rc res.h $(srcdir)/resacia.rc \
 	$(srcdir)/resjoyport.rc $(srcdir)/resuserportrtc58321a.rc \
 	$(srcdir)/resuserportrtcds1307.rc $(srcdir)/ressampler.rc \
 	$(srcdir)/resrrnetmk3.rc $(srcdir)/rescpclockf83.rc \
+	$(srcdir)/restapecart.rc \
 	$(srcdir)/restapelog.rc $(srcdir)/resiocollisions.rc \
 	$(srcdir)/resgmod2.rc $(srcdir)/resethernet.rc \
 	$(srcdir)/resethernetcart.rc $(srcdir)/reskeymap.rc

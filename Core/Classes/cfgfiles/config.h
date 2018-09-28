@@ -1059,7 +1059,7 @@
 /* #undef USE_XF86_VIDMODE_EXT */
 
 /* Version number of package */
-#define VERSION "3.1"
+#define VERSION "3.2"
 
 /* Win32 Version string. */
 #define VERSION_RC "$VERSION_RC"

@@ -34,6 +34,8 @@
 #include "keyboard.h"
 #include "translate.h"
 
+#include "cx85.h"
+
 /* Control port <--> CX85 keypad connections:
 
    cport | keypad | I/O
@@ -119,13 +121,14 @@ The PRESS (POT AY) line is used to indicate a key press.
 #define KEYPAD_KEY_0      16
 #define KEYPAD_KEY_DOT    18
 
+#define KEYPAD_KEYS_NUM   20
+
 static int cx85_enabled = 0;
 
-static unsigned int keys[20];
+static unsigned int keys[KEYPAD_KEYS_NUM];
 
 /* ------------------------------------------------------------------------- */
 
-#ifdef COMMON_KBD
 static void handle_keys(int row, int col, int pressed)
 {
     /* ignore non-existing keys */
@@ -135,7 +138,6 @@ static void handle_keys(int row, int col, int pressed)
 
     keys[(row * 5) + col] = (unsigned int)pressed;
 }
-#endif
 
 /* ------------------------------------------------------------------------- */
 
@@ -148,14 +150,10 @@ static int joyport_cx85_enable(int port, int value)
     }
 
     if (val) {
-        memset(keys, 0, 20);
-#ifdef COMMON_KBD
+        memset(keys, 0, KEYPAD_KEYS_NUM * sizeof(unsigned int));
         keyboard_register_joy_keypad(handle_keys);
-#endif
     } else {
-#ifdef COMMON_KBD
         keyboard_register_joy_keypad(NULL);
-#endif
     }
 
     cx85_enabled = val;
@@ -163,7 +161,7 @@ static int joyport_cx85_enable(int port, int value)
     return 0;
 }
 
-static BYTE cx85_read_dig(int port)
+static uint8_t cx85_read_dig(int port)
 {
     unsigned int retval = 0;
     unsigned int tmp;
@@ -223,12 +221,12 @@ static BYTE cx85_read_dig(int port)
 
     retval |= 0xe0;
 
-    joyport_display_joyport(JOYPORT_ID_CX85_KEYPAD, (BYTE)~retval);
+    joyport_display_joyport(JOYPORT_ID_CX85_KEYPAD, (uint8_t)~retval);
 
-    return (BYTE)retval;
+    return (uint8_t)retval;
 }
 
-static BYTE cx85_read_pot(void)
+static uint8_t cx85_read_pot(void)
 {
     int i;
 

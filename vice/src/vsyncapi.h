@@ -34,7 +34,7 @@ struct video_canvas_s;
 typedef void (*void_hook_t)(void);
 
 /* number of timer units per second - used to calc speed and fps */
-extern signed long vsyncarch_frequency(void);
+extern unsigned long vsyncarch_frequency(void);
 
 /* provide the actual time in timer units */
 extern unsigned long vsyncarch_gettime(void);
@@ -46,7 +46,7 @@ extern void vsyncarch_init(void);
 extern void vsyncarch_display_speed(double speed, double fps, int warp_enabled);
 
 /* sleep the given amount of timer units */
-extern void vsyncarch_sleep(signed long delay);
+extern void vsyncarch_sleep(unsigned long delay);
 
 #if defined (HAVE_OPENGL_SYNC) && !defined(USE_SDLUI) && !defined(USE_SDLUI2)
 /* synchronize with vertical blanks */

@@ -35,6 +35,7 @@
 #include "vice_sdl.h"
 #include <stdio.h>
 
+#include "autostart.h"
 #include "cmdline.h"
 #include "color.h"
 #include "fullscreenarch.h"
@@ -123,6 +124,12 @@ void ui_handle_misc_sdl_event(SDL_Event e)
         case SDL_VIDEOEXPOSE:
             DBG(("ui_handle_misc_sdl_event: SDL_VIDEOEXPOSE"));
             video_canvas_refresh_all(sdl_active_canvas);
+            break;
+#else
+        case SDL_DROPFILE:
+            if (autostart_autodetect(e.drop.file, NULL, 0, AUTOSTART_MODE_RUN) < 0) {
+                ui_error("Cannot autostart specified file.");
+            }
             break;
 #endif
 #ifdef SDL_DEBUG
@@ -391,8 +398,10 @@ ui_menu_action_t ui_dispatch_events(void)
                             }
                             shift_down++;
                         }
+                        ui_display_kbd_status(event);
                         retval = sdlkbd_press(kcode, 0);
                     } else {
+                        ui_display_kbd_status(event);
                         retval = sdlkbd_release(kcode, 0);
 
                         if (ctrl || (kcode == SDLK_TAB)) {
@@ -438,9 +447,11 @@ ui_menu_action_t ui_dispatch_events(void)
     while (SDL_PollEvent(&e)) {
         switch (e.type) {
             case SDL_KEYDOWN:
+                ui_display_kbd_status(&e);
                 retval = sdlkbd_press(SDL2x_to_SDL1x_Keys(e.key.keysym.sym), e.key.keysym.mod);
                 break;
             case SDL_KEYUP:
+                ui_display_kbd_status(&e);
                 retval = sdlkbd_release(SDL2x_to_SDL1x_Keys(e.key.keysym.sym), e.key.keysym.mod);
                 break;
 #ifdef HAVE_SDL_NUMJOYSTICKS
@@ -483,22 +494,50 @@ ui_menu_action_t ui_dispatch_events(void)
     return retval;
 }
 
+/* note: we need to be a bit more "radical" about disabling the (mouse) pointer.
+ * in practise, we really only need it for the lightpen emulation.
+ *
+ * TODO: and perhaps in windowed mode enable it when the mouse is moved.
+ */
+
 void ui_check_mouse_cursor(void)
 {
     if (_mouse_enabled && !lightpen_enabled && !sdl_menu_state) {
+        /* mouse grabbed, not in menu. grab input but do not show a pointer */
 #ifndef USE_SDLUI2
         SDL_ShowCursor(SDL_DISABLE);
         SDL_WM_GrabInput(SDL_GRAB_ON);
 #else
         SDL_SetRelativeMouseMode(SDL_TRUE);
 #endif
-    } else {
+    } else if (lightpen_enabled && !sdl_menu_state) {
+        /* lightpen active, not in menu. show a pointer for the lightpen emulation */
 #ifndef USE_SDLUI2
-        SDL_ShowCursor((sdl_active_canvas->fullscreenconfig->enable && !lightpen_enabled) ? SDL_DISABLE : SDL_ENABLE);
+        SDL_ShowCursor(SDL_ENABLE);
         SDL_WM_GrabInput(SDL_GRAB_OFF);
 #else
         SDL_SetRelativeMouseMode(SDL_FALSE);
 #endif
+    } else {
+        if (sdl_active_canvas->fullscreenconfig->enable) {
+            /* fullscreen, never show pointer (we really never need it) */
+#ifndef USE_SDLUI2
+            SDL_ShowCursor(SDL_DISABLE);
+            SDL_WM_GrabInput(SDL_GRAB_OFF);
+#else
+            SDL_ShowCursor(SDL_DISABLE);
+            SDL_SetRelativeMouseMode(SDL_FALSE);
+#endif
+        } else {
+            /* windowed, TODO: disable pointer after time-out */
+#ifndef USE_SDLUI2
+            SDL_ShowCursor(SDL_DISABLE);
+            SDL_WM_GrabInput(SDL_GRAB_OFF);
+#else
+            SDL_ShowCursor(SDL_DISABLE);
+            SDL_SetRelativeMouseMode(SDL_FALSE);
+#endif
+        }
     }
 }
 
@@ -560,7 +599,11 @@ static int set_native_monitor(int val, void *param)
 #endif
 
 #ifndef DEFAULT_MENU_KEY
-#define DEFAULT_MENU_KEY SDLK_F12
+# ifdef MACOSX_SUPPORT
+#  define DEFAULT_MENU_KEY SDLK_F10
+# else
+#  define DEFAULT_MENU_KEY SDLK_F12
+# endif
 #endif
 
 static const resource_int_t resources_int[] = {
@@ -688,6 +731,12 @@ static const cmdline_option_t statusbar_cmdline_options[] = {
     { "+statusbar", SET_RESOURCE, 0, NULL, NULL, "SDLStatusbar", (resource_value_t)0,
       USE_PARAM_STRING, USE_DESCRIPTION_STRING, IDCLS_UNUSED, IDCLS_UNUSED,
       NULL, "Disable statusbar" },
+    { "-kbdstatusbar", SET_RESOURCE, 0, NULL, NULL, "SDLKbdStatusbar", (resource_value_t)1,
+      USE_PARAM_STRING, USE_DESCRIPTION_STRING, IDCLS_UNUSED, IDCLS_UNUSED,
+      NULL, "Enable keyboard-status bar" },
+    { "+kbdstatusbar", SET_RESOURCE, 0, NULL, NULL, "SDLKbdStatusbar", (resource_value_t)0,
+      USE_PARAM_STRING, USE_DESCRIPTION_STRING, IDCLS_UNUSED, IDCLS_UNUSED,
+      NULL, "Disable keyboard-status bar" },
     CMDLINE_LIST_END
 };
 
@@ -792,7 +841,7 @@ void ui_update_menus(void)
 /* ----------------------------------------------------------------- */
 /* uicolor.h */
 
-int uicolor_alloc_color(unsigned int red, unsigned int green, unsigned int blue, unsigned long *color_pixel, BYTE *pixel_return)
+int uicolor_alloc_color(unsigned int red, unsigned int green, unsigned int blue, unsigned long *color_pixel, uint8_t *pixel_return)
 {
     DBG(("%s", __func__));
     return 0;
@@ -803,7 +852,7 @@ void uicolor_free_color(unsigned int red, unsigned int green, unsigned int blue,
     DBG(("%s", __func__));
 }
 
-void uicolor_convert_color_table(unsigned int colnr, BYTE *data, long color_pixel, void *c)
+void uicolor_convert_color_table(unsigned int colnr, uint8_t *data, long color_pixel, void *c)
 {
     DBG(("%s", __func__));
 }

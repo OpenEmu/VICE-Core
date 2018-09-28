@@ -1,13 +1,15 @@
+/** \file   x11ui.c
+ * \brief   Simple Xaw(3d)-based graphical user interface
+ *
+ * It uses widgets from the Free Widget Foundation and Robert W. McMullen.
+ *
+ * \author  Olaf Seibert <rhialto@falu.nl>
+ * \author  Ettore Perazzoli <ettore@comm2000.it>
+ * \author  Andre Fachat <fachat@physik.tu-chemnitz.de>
+ * \author  Andreas Boose <viceteam@t-online.de>
+ */
+
 /*
- * x11ui.c - Simple Xaw(3d)-based graphical user interface.  It uses widgets
- * from the Free Widget Foundation and Robert W. McMullen.
- *
- * Written by
- *  Olaf Seibert <rhialto@falu.nl>
- *  Ettore Perazzoli <ettore@comm2000.it>
- *  Andre Fachat <fachat@physik.tu-chemnitz.de>
- *  Andreas Boose <viceteam@t-online.de>
- *
  * Support for multiple visuals and depths by
  *  Teemu Rantanen <tvr@cs.hut.fi>
  *
@@ -102,6 +104,7 @@
 #include "ui.h"
 #include "uiapi.h"
 #include "uicolor.h"
+#include "uicommands.h"
 #include "uidrivestatus.h"
 #include "uihotkey.h"
 #include "uilib.h"
@@ -713,13 +716,6 @@ static void finish_prepare_wm_command(void)
     wm_command_type_atom = XInternAtom(display, "STRING", False);
 }
 
-void archdep_ui_init(int argc, char *argv[])
-{
-    if (console_mode) {
-        return;
-    }
-}
-
 /* Initialize the GUI and parse the command line. */
 int ui_init(int *argc, char **argv)
 {
@@ -1321,7 +1317,7 @@ int x11ui_fullscreen(int enable)
 
     if (strcmp(machine_name, "C128") == 0) {
         /* mode == 1 -> VICII, mode == 0 VDC */
-        resources_get_int("40/80ColumnKey", &mode); 
+        resources_get_int("C128ColumnKey", &mode); 
     } else {
         mode = 0;
     }
@@ -1724,7 +1720,7 @@ char *ui_select_file(const char *title, read_contents_func_type read_contents_fu
 
                 tmp = image_contents_to_string(contents, 1);
 
-#define BUFCAT(s) util_bufcat((BYTE *)buf, &buf_size, &max_buf_size, (BYTE *)(s), strlen(s))
+#define BUFCAT(s) util_bufcat((uint8_t *)buf, &buf_size, &max_buf_size, (uint8_t *)(s), strlen(s))
 
                 BUFCAT(tmp);
                 lib_free(tmp);

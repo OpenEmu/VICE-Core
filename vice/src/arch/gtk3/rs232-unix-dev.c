@@ -1,9 +1,17 @@
+/** \file   rs232-unix-dev.c
+ * \brief   RS232 Device emulation
+ *
+ * \author  Andre Fachat <a.fachat@physik.tu-chemnitz.de>
+ *
+ * The RS232 emulation captures the bytes sent to the RS232 interfaces
+ * available (currently ACIA 6551, std C64 and Daniel Dallmanns fast RS232
+ * with 9600 Baud).
+ * The characters captured are sent to a file or an attached process.
+ * Characters sent from a process are sent back to the
+ * chip emulations.
+ */
+
 /*
- * rs232-unix-dev.c - RS232 Device emulation.
- *
- * Written by
- *  Andre Fachat <a.fachat@physik.tu-chemnitz.de>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -24,19 +32,14 @@
  *
  */
 
-/*
- * The RS232 emulation captures the bytes sent to the RS232 interfaces
- * available (currently ACIA 6551, std C64 and Daniel Dallmanns fast RS232
- * with 9600 Baud).
- * The characters captured are sent to a file or an attached process.
- * Characters sent from a process are sent back to the
- * chip emulations.
- *
- */
 
 #undef DEBUG
 
+
+#include <stdint.h>
+
 #include "vice.h"
+
 
 #ifdef HAVE_RS232DEV
 
@@ -108,14 +111,16 @@
 #include "log.h"
 #include "resources.h"
 #include "rs232.h"
+#include "rs232dev.h"
 #include "translate.h"
 #include "types.h"
 
+
 #if defined(NEXTSTEP_COMPILE) || defined(OPENSTEP_COMPILE)
 int cfsetispeed(struct termios *t, int speed)
-{ 
-    t->c_ispeed = speed; 
-    return 0; 
+{
+    t->c_ispeed = speed;
+    return 0;
 }
 
 int cfsetospeed(struct termios *t, int speed)
@@ -417,7 +422,7 @@ void rs232dev_close(int fd)
 }
 
 /* sends a byte to the RS232 line */
-int rs232dev_putc(int fd, BYTE b)
+int rs232dev_putc(int fd, uint8_t b)
 {
     ssize_t n;
 
@@ -447,7 +452,7 @@ int rs232dev_putc(int fd, BYTE b)
 }
 
 /* gets a byte to the RS232 line, returns !=0 if byte received, byte in *b. */
-int rs232dev_getc(int fd, BYTE * b)
+int rs232dev_getc(int fd, uint8_t * b)
 {
     int ret;
     size_t n;

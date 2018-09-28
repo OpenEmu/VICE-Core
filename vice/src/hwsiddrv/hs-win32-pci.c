@@ -59,8 +59,8 @@
 #include "alarm.h"
 #include "archdep.h"
 #include "hardsid.h"
+#include "hs-win32.h"
 #include "log.h"
-#include "platform.h"
 #include "sid-resources.h"
 #include "types.h"
 #include "wininpoutp.h"
@@ -159,13 +159,13 @@ static DWORD hardsid_inl(unsigned int addrint)
     return 0;
 }
 
-int hs_pci_read(WORD addr, int chipno)
+int hs_pci_read(uint16_t addr, int chipno)
 {
-    BYTE ret = 0;
+    uint8_t ret = 0;
 
     if (chipno < MAXSID && hssids[chipno] != -1 && addr < 0x20) {
         hardsid_outb(io1 + 4, (BYTE)((chipno << 6) | (addr & 0x1f) | 0x20));
-        usleep(2);
+        vice_usleep(2);
         hardsid_outb(io2 + 2, 0x20);
         ret = hardsid_inb(io1);
         hardsid_outb(io2 + 2, 0x80);
@@ -173,12 +173,12 @@ int hs_pci_read(WORD addr, int chipno)
     return ret;
 }
 
-void hs_pci_store(WORD addr, BYTE outval, int chipno)
+void hs_pci_store(uint16_t addr, uint8_t outval, int chipno)
 {
     if (chipno < MAXSID && hssids[chipno] != -1 && addr < 0x20) {
         hardsid_outb(io1 + 3, outval);
         hardsid_outb(io1 + 4, (BYTE)((chipno << 6) | (addr & 0x1f)));
-        usleep(2);
+        vice_usleep(2);
     }
 }
 
@@ -292,16 +292,6 @@ static LONG RegOpenKeyEx3264(HKEY hKey, LPCTSTR lpSubKey, DWORD ulOptions, REGSA
     retval = RegOpenKeyEx(hKey, lpSubKey, ulOptions, samDesired, phkResult);
 
     return retval;
-}
-
-static int is_windows_nt(void)
-{
-    char *nt = platform_get_windows_runtime_os();
-
-    if (!strncmp(nt, "Windows NT", 10)) {
-        return 1;
-    }
-    return 0;
 }
 
 static int has_pci(void)

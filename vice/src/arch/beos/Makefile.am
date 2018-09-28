@@ -50,7 +50,6 @@ libarch_a_SOURCES = \
 	signals.c \
 	statusbar.cc \
 	statusbar.h \
-	types.h \
 	ui.cc \
 	ui.h \
 	ui_autostart.cc \
@@ -101,7 +100,6 @@ libarch_a_SOURCES = \
 	ui_vicii.h \
 	ui_video.cc \
 	ui_video.h \
-	uicmdline.c \
 	uimon.c \
 	vic20ui.cc \
 	viceapp.cc \

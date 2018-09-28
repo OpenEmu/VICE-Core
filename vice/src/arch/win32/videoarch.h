@@ -30,14 +30,9 @@
 
 /*  Nasty patch to avoid defining BYTE, WORD, DWORD more than once.  */
 
-#undef BYTE
-#undef WORD
-#undef DWORD
-
-#include "types.h"
 #include <windows.h>
 
-#include "msvc-d3d.h"
+#include "types.h"
 
 #if defined(HAVE_D3D9_H) && !defined(RC_INVOKED)
 #include <d3d9.h>

@@ -40,6 +40,7 @@
 #include "lib.h"
 #include "res.h"
 #include "sid.h"
+/* #include "tapecart.h" */
 #include "translate.h"
 #include "ui.h"
 #include "uiacia.h"
@@ -82,6 +83,7 @@
 #include "uisampler.h"
 #include "uisid.h"
 #include "uisoundexpander.h"
+#include "uitapecart.h"
 #include "uitapelog.h"
 #include "uiuserportrtc58321a.h"
 #include "uiuserportrtcds1307.h"
@@ -297,7 +299,7 @@ ui_menu_translation_table_t c64ui_menu_translation_table[] = {
     { IDM_DS12C887RTC_SETTINGS, IDS_MI_DS12C887RTC_SETTINGS },
     { IDM_C64BURSTMOD_SETTINGS, IDS_MI_C64BURSTMOD_SETTINGS },
     { IDM_IDE64_SETTINGS, IDS_MI_IDE64_SETTINGS },
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
     { IDM_ETHERNET_SETTINGS, IDS_MI_ETHERNET_SETTINGS },
     { IDM_ETHERNETCART_SETTINGS, IDS_MI_ETHERNETCART_SETTINGS },
 #endif
@@ -346,6 +348,7 @@ ui_menu_translation_table_t c64ui_menu_translation_table[] = {
     { IDM_TOGGLE_USERPORT_8BSS, IDS_MI_TOGGLE_USERPORT_8BSS },
     { IDM_TAPELOG_SETTINGS, IDS_MI_TAPELOG_SETTINGS },
     { IDM_CP_CLOCK_F83_SETTINGS, IDS_MI_CP_CLOCK_F83_SETTINGS },
+    { IDM_TAPECART_SETTINGS, IDS_MI_TAPECART_SETTINGS },
     { IDM_TOGGLE_DATASETTE, IDS_MI_TOGGLE_DATASETTE },
     { IDM_TOGGLE_TAPE_SENSE_DONGLE, IDS_MI_TOGGLE_TAPE_SENSE_DONGLE },
     { IDM_TOGGLE_DTL_BASIC_DONGLE, IDS_MI_TOGGLE_DTL_BASIC_DONGLE },
@@ -678,6 +681,9 @@ static void c64_ui_specific(WPARAM wparam, HWND hwnd)
         case IDM_TAPELOG_SETTINGS:
             ui_tapelog_settings_dialog(hwnd);
             break;
+        case IDM_TAPECART_SETTINGS:
+            ui_tapecart_settings_dialog(hwnd);
+            break;
         case IDM_CP_CLOCK_F83_SETTINGS:
             ui_cp_clock_f83_settings_dialog(hwnd);
             break;
@@ -706,7 +712,7 @@ static void c64_ui_specific(WPARAM wparam, HWND hwnd)
                                   c64_main_left_group, c64_main_middle_group, c64_main_right_group,
                                   c64_drive_left_group, c64_drive_middle_group, c64_drive_right_group);
             break;
-#ifdef HAVE_PCAP
+#ifdef HAVE_RAWNET
         case IDM_ETHERNET_SETTINGS:
            ui_ethernet_settings_dialog(hwnd);
            break;
@@ -773,6 +779,9 @@ int c64ui_init(void)
     ui_register_machine_specific(c64_ui_specific);
     ui_register_menu_toggles(c64_ui_menu_toggles);
     ui_register_translation_tables(c64ui_menu_translation_table, c64ui_popup_translation_table);
+#if 0
+    tapeport_devices_widget_set_tapecart_flush_func(tapecart_flush_tcrt);
+#endif
 
     return 0;
 }

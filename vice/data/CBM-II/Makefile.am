@@ -34,16 +34,19 @@ palettes = \
 	deekay.vpl \
 	rgb.vpl \
 	vice.vpl \
-	\
 	amber.vpl \
 	green.vpl \
 	white.vpl
 
 x11_keymaps = \
 	x11_sym.vkm \
-	x11_sym_de.vkm
+	x11_sym_de.vkm \
+	\
+	gtk3_sym.vkm \
+	gtk3_sym_de.vkm
 
 sdl_keymaps = \
+	sdl_hotkeys.vkm \
 	sdl_sym.vkm
 
 extra_keymaps = \
@@ -53,7 +56,6 @@ extra_keymaps = \
 	beos_buks.vkm \
 	dos_bukp.vkm \
 	dos_buks.vkm \
-	os2.vkm \
 	osx_pos_uk.vkm \
 	osx_sym_uk.vkm \
 	win_sym.vkm \

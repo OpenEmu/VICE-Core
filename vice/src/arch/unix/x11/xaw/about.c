@@ -56,13 +56,14 @@
 
 #include "info.h"
 #include "lib.h"
-#include "platform_discovery.h"
 #include "uiapi.h"
 #include "util.h"
 #include "version.h"
 #include "vicefeatures.h"
 #include "videoarch.h"
 #include "vsync.h"
+
+#include "uimenu.h"
 
 #ifdef USE_SVN_REVISION
 #include "svnversion.h"
@@ -196,15 +197,15 @@ UI_CALLBACK(ui_about)
         textlist[i++] = lib_stralloc("");
 #ifdef USE_SVN_REVISION
 #ifdef USE_XAW3D
-        textlist[i++] = lib_stralloc("Version " VERSION " rev " VICE_SVN_REV_STRING " (XAW3D " PLATFORM_CPU " " PLATFORM_OS " " PLATFORM_COMPILER ")");
+        textlist[i++] = lib_stralloc("Version " VERSION " rev " VICE_SVN_REV_STRING " (XAW3D)");
 #else
-        textlist[i++] = lib_stralloc("Version " VERSION " rev " VICE_SVN_REV_STRING " (XAW " PLATFORM_CPU " " PLATFORM_OS " " PLATFORM_COMPILER ")");
+        textlist[i++] = lib_stralloc("Version " VERSION " rev " VICE_SVN_REV_STRING " (XAW)");
 #endif
 #else
 #ifdef USE_XAW3D
-        textlist[i++] = lib_stralloc("Version " VERSION " (XAW3D " PLATFORM_CPU " " PLATFORM_OS " " PLATFORM_COMPILER ")");
+        textlist[i++] = lib_stralloc("Version " VERSION " (XAW3D)");
 #else
-        textlist[i++] = lib_stralloc("Version " VERSION " (XAW " PLATFORM_CPU " " PLATFORM_OS " " PLATFORM_COMPILER ")");
+        textlist[i++] = lib_stralloc("Version " VERSION " (XAW)");
 #endif
 #endif
 #ifdef UNSTABLE

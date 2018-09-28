@@ -108,6 +108,12 @@
 #include "mouse.h"
 #endif
 
+
+/** \brief  Delay in seconds before pasting -keybuf argument into the buffer
+ */
+#define KBDBUF_ALARM_DELAY   8
+
+
 machine_context_t machine_context;
 
 const char machine_name[] = "CBM-II";
@@ -152,23 +158,23 @@ kbdtype_info_t *machine_get_keyboard_info_list(void)
 
 /* ------------------------------------------------------------------------- */
 
-static joyport_port_props_t control_port_1 = 
+static joyport_port_props_t control_port_1 =
 {
     "Control port 1",
     IDGS_CONTROL_PORT_1,
-    1,				/* has a potentiometer connected to this port */
-    0,				/* officially has lightpen support on this port,
-					   but no lightpen support is in the cbm5x0 code */
-    1					/* port is always active */
+    1,                      /* has a potentiometer connected to this port */
+    0,                      /* officially has lightpen support on this port,
+                               but no lightpen support is in the cbm5x0 code */
+    1                       /* port is always active */
 };
 
-static joyport_port_props_t control_port_2 = 
+static joyport_port_props_t control_port_2 =
 {
     "Control port 2",
     IDGS_CONTROL_PORT_2,
-    1,				/* has a potentiometer connected to this port */
-    0,				/* has NO lightpen support on this port */
-    1					/* port is always active */
+    1,                      /* has a potentiometer connected to this port */
+    0,                      /* has NO lightpen support on this port */
+    1                       /* port is always active */
 };
 
 static int init_joyport_ports(void)
@@ -211,12 +217,17 @@ int machine_resources_init(void)
         init_resource_fail("drive");
         return -1;
     }
-    if (tapeport_resources_init() < 0) {
-        init_resource_fail("tapeport");
-        return -1;
-    }
+    /*
+     * This needs to be called before tapeport_resources_init(), otherwise
+     * the tapecart will fail to initialize due to the Datasette resource
+     * appearing after the Tapecart resources
+     */
     if (datasette_resources_init() < 0) {
         init_resource_fail("datasette");
+        return -1;
+    }
+    if (tapeport_resources_init() < 0) {
+        init_resource_fail("tapeport");
         return -1;
     }
     if (acia1_resources_init() < 0) {
@@ -324,12 +335,6 @@ int machine_resources_init(void)
         return -1;
     }
 #endif
-#endif
-#ifndef COMMON_KBD
-    if (pet_kbd_resources_init() < 0) {
-        init_resource_fail("pet kbd");
-        return -1;
-    }
 #endif
     if (debugcart_resources_init() < 0) {
         init_resource_fail("debug cart");
@@ -475,12 +480,6 @@ int machine_cmdline_options_init(void)
         return -1;
     }
 #endif
-#ifndef COMMON_KBD
-    if (pet_kbd_cmdline_options_init() < 0) {
-        init_cmdline_options_fail("pet kbd");
-        return -1;
-    }
-#endif
     if (debugcart_cmdline_options_init() < 0) {
         init_cmdline_options_fail("debug cart");
         return -1;
@@ -550,9 +549,9 @@ int cbm2_c500_snapshot_write_module(snapshot_t *p)
 
 int cbm2_c500_snapshot_read_module(snapshot_t *p)
 {
-    BYTE vmajor, vminor;
+    uint8_t vmajor, vminor;
     snapshot_module_t *m;
-    DWORD dword;
+    uint32_t dword;
 
     m = snapshot_module_open(p, module_name, &vmajor, &vminor);
     if (m == NULL) {
@@ -639,10 +638,10 @@ int machine_specific_init(void)
     /* initialize print devices */
     printer_init();
 
-#ifdef USE_BEOS_UI
+#if defined(USE_BEOS_UI) || defined (USE_NATIVE_GTK3)
     /* Pre-init CBM-II-specific parts of the menus before vicii_init()
        creates a canvas window with a menubar at the top. This could
-       also be used by other ports, e.g. GTK+...  */
+       also be used by other ports.  */
     cbm5x0ui_init_early();
 #endif
 
@@ -669,13 +668,6 @@ int machine_specific_init(void)
     tpi1_init(machine_context.tpi1);
     tpi2_init(machine_context.tpi2);
 
-#ifndef COMMON_KBD
-    /* Initialize the keyboard.  */
-    if (cbm2_kbd_init() < 0) {
-        return -1;
-    }
-#endif
-
     /* Initialize the datasette emulation.  */
     datasette_init();
 
@@ -700,10 +692,6 @@ int machine_specific_init(void)
     /* Initialize sound.  Notice that this does not really open the audio
        device yet.  */
     sound_init(machine_timing.cycles_per_sec, machine_timing.cycles_per_rfsh);
-
-    /* Initialize keyboard buffer.
-       This appears to work but doesn't account for banking. */
-    kbdbuf_init(939, 209, 10, (CLOCK)(machine_timing.rfsh_per_sec * machine_timing.cycles_per_rfsh));
 
     /* Initialize the CBM-II-specific part of the UI.  */
     if (!console_mode) {
@@ -737,6 +725,8 @@ int machine_specific_init(void)
 /* CBM-II-specific initialization.  */
 void machine_specific_reset(void)
 {
+    int delay;      /* delay in seconds for the kbduf_init() call */
+
     ciacore_reset(machine_context.cia1);
     tpicore_reset(machine_context.tpi1);
     tpicore_reset(machine_context.tpi2);
@@ -756,6 +746,35 @@ void machine_specific_reset(void)
     datasette_reset();
 
     mem_reset();
+
+    /* Initialize keyboard buffer.
+       This appears to work but doesn't account for banking
+     */
+    switch (ramsize) {
+        case 64:
+            delay = 8;
+            break;
+        case 128:
+            delay = 12;
+            break;
+        case 256:
+            delay = 20;
+            break;
+        case 512:
+            delay = 31;
+            break;
+        case 1024:
+            delay = 58;
+            break;
+        default:
+            /* invalid ramsize */
+            delay = 1;
+            break;
+    }
+    kbdbuf_init(0x03ab, 0x00d1, 10,
+            (CLOCK)(machine_timing.rfsh_per_sec *
+                machine_timing.cycles_per_rfsh * delay));
+
 
     sampler_reset();
 }
@@ -941,12 +960,12 @@ struct image_contents_s *machine_diskcontents_bus_read(unsigned int unit)
     return NULL;
 }
 
-BYTE machine_tape_type_default(void)
+uint8_t machine_tape_type_default(void)
 {
     return TAPE_CAS_TYPE_BAS;
 }
 
-BYTE machine_tape_behaviour(void)
+uint8_t machine_tape_behaviour(void)
 {
     return TAPE_BEHAVIOUR_NORMAL;
 }

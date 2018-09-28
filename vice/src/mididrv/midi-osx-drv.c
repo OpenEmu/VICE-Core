@@ -42,6 +42,7 @@
 #endif
 
 #include "cmdline.h"
+#include "lib.h"
 #include "log.h"
 #include "mididrv.h"
 #include "resources.h"
@@ -55,12 +56,12 @@ static log_t mididrv_log = LOG_ERR;
 #define OUT_BUF_LEN 3
 
 static int out_index = 0;
-static BYTE out_buf[OUT_BUF_LEN];
+static uint8_t out_buf[OUT_BUF_LEN];
 
 #define IN_BUF_LEN 1024
 static volatile unsigned int in_wi = 0;
 static volatile unsigned int in_ri = 0;
-static BYTE in_buf[IN_BUF_LEN];
+static uint8_t in_buf[IN_BUF_LEN];
 
 /* ----- MIDI Vars ----- */
 static int midi_client_usage = 0;
@@ -111,6 +112,9 @@ int mididrv_resources_init(void)
 
 void mididrv_resources_shutdown(void)
 {
+    lib_free(midi_name);
+    lib_free(midi_in_name);
+    lib_free(midi_out_name);
 }
 
 static const cmdline_option_t cmdline_options[] = {
@@ -145,7 +149,7 @@ static void reset_fifo(void)
     in_ri = 0;
 }
 
-static int write_fifo(BYTE data)
+static int write_fifo(uint8_t data)
 {
     if (((in_wi - in_ri) % IN_BUF_LEN) == (IN_BUF_LEN - 1)) {
         return 1;
@@ -156,7 +160,7 @@ static int write_fifo(BYTE data)
     return 0;
 }
 
-static int read_fifo(BYTE *data)
+static int read_fifo(uint8_t *data)
 {
     if (((in_wi - in_ri) % IN_BUF_LEN) != 0) {
         *data = in_buf[in_ri];
@@ -168,7 +172,7 @@ static int read_fifo(BYTE *data)
 
 /* ----- packetizing ----- */
 
-static int message_len(BYTE msg)
+static int message_len(uint8_t msg)
 {
     int len = 0;
 
@@ -394,7 +398,7 @@ void mididrv_out_close(void)
 }
 
 /* sends a byte to MIDI-Out */
-void mididrv_out(BYTE b)
+void mididrv_out(uint8_t b)
 {
     int thres;
     MIDIPacketList pktlist;
@@ -419,10 +423,6 @@ void mididrv_out(BYTE b)
     if (out_index >= thres) {
         out_index = 0;
 
-#ifdef DEBUG
-        log_message(mididrv_log, "flushing out %06x", data);
-#endif
-
 #ifdef USE_COREAUDIO
         UInt64 timestamp = AudioGetCurrentHostTime();
 #else
@@ -441,7 +441,7 @@ void mididrv_out(BYTE b)
 }
 
 /* gets a byte from MIDI-In, returns != 0 if byte received, byte in *b. */
-int mididrv_in(BYTE *b)
+int mididrv_in(uint8_t *b)
 {
     if (read_fifo(b)) {
 #ifdef DEBUG

@@ -46,6 +46,8 @@ TAPE PORT | PCF8583 | I/O
 #include "tapeport.h"
 #include "translate.h"
 
+#include "cp-clockf83.h"
+
 static int tapertc_enabled = 0;
 
 /* rtc context */
@@ -68,6 +70,7 @@ static tapeport_device_t tapertc_device = {
     IDGS_TAPE_RTC,
     0,
     "CPClockF83",
+    tapertc_resources_shutdown,
     NULL,
     tapertc_store_sda,
     tapertc_store_scl,
@@ -180,7 +183,7 @@ void tapertc_resources_shutdown(void)
 
 /* ---------------------------------------------------------------------*/
 
-static BYTE motor_state;
+static uint8_t motor_state;
 
 static void check_sense(void)
 {
@@ -202,13 +205,13 @@ static void tapertc_store_sda(int flag)
 {
     motor_state = flag;
 
-    pcf8583_set_data_line(tapertc_context, (BYTE)!motor_state);
+    pcf8583_set_data_line(tapertc_context, (uint8_t)!motor_state);
     check_sense();
 }
 
 static void tapertc_store_scl(int write_bit)
 {
-    BYTE val = write_bit ? 1 : 0;
+    uint8_t val = write_bit ? 1 : 0;
 
     pcf8583_set_clk_line(tapertc_context, val);
     check_sense();
@@ -248,7 +251,7 @@ static int tapertc_write_snapshot(struct snapshot_s *s, int write_image)
 
 static int tapertc_read_snapshot(struct snapshot_s *s)
 {
-    BYTE major_version, minor_version;
+    uint8_t major_version, minor_version;
     snapshot_module_t *m;
 
     /* enable device */

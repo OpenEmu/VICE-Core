@@ -53,7 +53,6 @@
 #include "catweaselmkiii.h"
 #include "cw-win32.h"
 #include "log.h"
-#include "platform.h"
 #include "sid-resources.h"
 #include "types.h"
 #include "wininpoutp.h"
@@ -132,6 +131,7 @@ static BYTE cw_inb(unsigned int addrint)
     return _inp(addr);
 #endif
 #endif
+    return 0;
 }
 
 static DWORD cw_inl(unsigned int addrint)
@@ -148,9 +148,10 @@ static DWORD cw_inl(unsigned int addrint)
     return _inpd(addr);
 #endif
 #endif
+    return 0;
 }
 
-int cw_pci_read(WORD addr, int chipno)
+int cw_pci_read(uint16_t addr, int chipno)
 {
     unsigned char cmd;
 
@@ -160,13 +161,13 @@ int cw_pci_read(WORD addr, int chipno)
             cmd |= 0x40;
         }
         cw_outb(base + CW_SID_CMD, cmd);
-        usleep(1);
+        vice_usleep(1);
         return cw_inb(base + CW_SID_DAT);
     }
     return 0;
 }
 
-void cw_pci_store(WORD addr, BYTE outval, int chipno)
+void cw_pci_store(uint16_t addr, uint8_t outval, int chipno)
 {
     unsigned char cmd;
 
@@ -177,7 +178,7 @@ void cw_pci_store(WORD addr, BYTE outval, int chipno)
         }
         cw_outb(base + CW_SID_DAT, outval);
         cw_outb(base + CW_SID_CMD, cmd);
-        usleep(1);
+        vice_usleep(1);
     }
 }
 
@@ -260,16 +261,6 @@ static LONG RegOpenKeyEx3264(HKEY hKey, LPCTSTR lpSubKey, DWORD ulOptions, REGSA
     retval = RegOpenKeyEx(hKey, lpSubKey, ulOptions, samDesired, phkResult);
 
     return retval;
-}
-
-static int is_windows_nt(void)
-{
-    char *nt = platform_get_windows_runtime_os();
-
-    if (!strncmp(nt, "Windows NT", 10)) {
-        return 1;
-    }
-    return 0;
 }
 
 static int has_pci(void)

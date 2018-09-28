@@ -28,11 +28,12 @@
 
 #include "info.h"
 #include "lib.h"
-#include "platform_discovery.h"
 #include "uiarch.h"
 #include "util.h"
 #include "version.h"
 #include "vicefeatures.h"
+
+#include <string.h>
 
 #ifdef USE_SVN_REVISION
 #include "svnversion.h"
@@ -57,16 +58,22 @@ static void contrib_cb(GtkWidget *w, GdkEvent *event, gpointer data)
     ui_show_text(_("Contributors to the VICE project"), info_contrib_text, 500, 300);
 }
 
+
 static void destroyed_cb(GtkWidget *self, GtkWidget** widget_pointer)
 {
     gchar **str;
+
+
+    printf("DESTROY CALLED\n");
+    abort();
     gtk_widget_destroyed(self, widget_pointer);
     lib_free(transl);
     str = authors;
-    while(*str) {
-        lib_free(*str);
+    while (*str != NULL) {
+        g_free(*str);
         ++str;
     }
+    printf("FREE THE AUTHORS!\n");
     lib_free(authors);
 }
 
@@ -131,6 +138,8 @@ static gchar *convert_text(char *text)
     return utf8_text;
 }
 
+
+/* FIXME: needs serious cleanup: either use stdlib, VICE's lib.c or GLib */
 static gchar **get_team(void)
 {
     vice_team_t *list;
@@ -228,11 +237,11 @@ void ui_about(gpointer data)
         about = g_object_new(GTK_TYPE_ABOUT_DIALOG,
                              "name", "V I C E",
 #ifdef USE_SVN_REVISION
-                             "version", VERSION " r" VICE_SVN_REV_STRING " (GTK+ " PLATFORM_CPU " " PLATFORM_OS " " PLATFORM_COMPILER ")",
+                             "version", VERSION " r" VICE_SVN_REV_STRING " (GTK+)",
 #else
-                             "version", VERSION " (GTK+ " PLATFORM_CPU " " PLATFORM_OS " " PLATFORM_COMPILER ")",
+                             "version", VERSION " (GTK+)",
 #endif
-                             "copyright", _("(c) 1998 - 2017 The VICE Team"),
+                             "copyright", _("(c) 1998 - 2018 The VICE Team"),
                              "comments", "Versatile Commodore Emulator",
                              "authors", authors,
                              "documenters", doc_team,

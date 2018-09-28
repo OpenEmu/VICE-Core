@@ -120,4 +120,8 @@ extern void archdep_workaround_nop(const char *otto);
 /* Keyword to use for a static prototype */
 #define STATIC_PROTOTYPE static
 
+extern void vice_usleep(uint64_t waitTime);
+
+extern int is_windows_nt(void);
+
 #endif

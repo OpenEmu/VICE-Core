@@ -46,7 +46,6 @@ extern "C" {
 #include "mousedrv.h"
 #include "lib.h"
 #include "machine.h"
-#include "platform.h"
 #include "resources.h"
 #include "ui.h"
 #include "util.h"
@@ -384,7 +383,7 @@ void ViceWindow::DirectConnected(direct_buffer_info *info)
             if (fclip_list) {
                 memcpy(fclip_list, info->clip_list, fcliplist_count * sizeof(clipping_rect));
             }
-            fbits = (BYTE *)info->bits;
+            fbits = (uint8_t *)info->bits;
             fbytes_per_row = info->bytes_per_row;
             fbits_per_pixel = info->bits_per_pixel;
             fbounds = info->window_bounds;

@@ -64,16 +64,16 @@
 */
 
 typedef struct {
-    BYTE exrom; /* exrom signal, 0 - active */
-    BYTE game;  /* game signal, 0 - active */
-    BYTE ultimax_phi1; /* flag for vic-ii, ultimax mode in phi1 phase */
-    BYTE ultimax_phi2; /* flag for vic-ii, ultimax mode in phi2 phase */
+    uint8_t exrom; /* exrom signal, 0 - active */
+    uint8_t game;  /* game signal, 0 - active */
+    uint8_t ultimax_phi1; /* flag for vic-ii, ultimax mode in phi1 phase */
+    uint8_t ultimax_phi2; /* flag for vic-ii, ultimax mode in phi2 phase */
 } export_t;
 
 extern export_t export;
 
 #define CARTRIDGE_INCLUDE_PUBLIC_API
-#include "cart/expert.h"
+#include "cart/expert.h"    /* provide defines for ExpertCartridgeMode resource */
 #undef CARTRIDGE_INCLUDE_PUBLIC_API
 
 #endif

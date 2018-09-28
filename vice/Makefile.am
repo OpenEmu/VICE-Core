@@ -163,10 +163,10 @@ ChangeLog:
 if AMIGA_COMPILE
 if SDL_COMPILE
 bindist:
-	$(SHELL) @ARCH_SRC_DIR@/make-bindist_amiga.sh $(STRIP) $(VICE_VERSION) $(host_cpu) $(host_os) @ENABLE_ARCH@ nozip $(X64SC_INCLUDED) $(top_srcdir) $(EXEEXT)
+	$(SHELL) @ARCH_SRC_DIR@/make-bindist_amiga.sh $(STRIP) $(VICE_VERSION) $(host_cpu) $(host_os) @ENABLE_ARCH@ nozip $(X64SC_INCLUDED) $(top_srcdir) $(SDL_VERSION) $(EXEEXT)
 
 bindistzip:
-	$(SHELL) @ARCH_SRC_DIR@/make-bindist_amiga.sh $(STRIP) $(VICE_VERSION) $(host_cpu) $(host_os) @ENABLE_ARCH@ zip $(X64SC_INCLUDED) $(top_srcdir) $(EXEEXT)
+	$(SHELL) @ARCH_SRC_DIR@/make-bindist_amiga.sh $(STRIP) $(VICE_VERSION) $(host_cpu) $(host_os) @ENABLE_ARCH@ zip $(X64SC_INCLUDED) $(top_srcdir) $(SDL_VERSION) $(EXEEXT)
 else
 bindist:
 	$(SHELL) @ARCH_SRC_DIR@/make-bindist.sh $(STRIP) $(VICE_VERSION) $(host_cpu) $(host_os) @ENABLE_ARCH@ nozip $(X64SC_INCLUDED) $(top_srcdir) $(EXEEXT)
@@ -179,10 +179,10 @@ endif
 if BEOS_COMPILE
 if SDL_COMPILE
 bindist:
-	$(SHELL) @ARCH_SRC_DIR@/make-bindist_beos.sh $(STRIP) $(VICE_VERSION) $(host_cpu) @ENABLE_ARCH@ nozip $(X64SC_INCLUDED) $(XSCPU64_INCLUDED) $(top_srcdir)
+	$(SHELL) @ARCH_SRC_DIR@/make-bindist_beos.sh $(STRIP) $(VICE_VERSION) $(host_cpu) $(host_os) @ENABLE_ARCH@ nozip $(XSCPU64_INCLUDED) $(top_srcdir) $(SDL_VERSION)
 
 bindistzip:
-	$(SHELL) @ARCH_SRC_DIR@/make-bindist_beos.sh $(STRIP) $(VICE_VERSION) $(host_cpu) @ENABLE_ARCH@ zip $(X64SC_INCLUDED) $(XSCPU64_INCLUDED) $(top_srcdir)
+	$(SHELL) @ARCH_SRC_DIR@/make-bindist_beos.sh $(STRIP) $(VICE_VERSION) $(host_cpu) $(host_os) @ENABLE_ARCH@ zip $(XSCPU64_INCLUDED) $(top_srcdir) $(SDL_VERSION)
 else
 bindist:
 	$(SHELL) @ARCH_SRC_DIR@/make-bindist.sh $(STRIP) $(VICE_VERSION) $(host_cpu) @ENABLE_ARCH@ nozip $(X64SC_INCLUDED) $(XSCPU64_INCLUDED) $(top_srcdir)
@@ -369,6 +369,13 @@ endif
 endif
 
 if WIN32_COMPILE
+if NATIVE_GTK3_COMPILE
+bindist:
+	$(SHELL) @ARCH_SRC_DIR@/make-bindist_win32.sh $(STRIP) $(VICE_VERSION) @ENABLE_ARCH@ nozip $(X64SC_INCLUDED) $(top_srcdir) $(host_cpu) $(abs_top_builddir)
+
+bindistzip:
+	$(SHELL) @ARCH_SRC_DIR@/make-bindist_win32.sh $(STRIP) $(VICE_VERSION) @ENABLE_ARCH@ zip $(X64SC_INCLUDED) $(top_srcdir) $(host_cpu) $(abs_top_builddir)
+else
 if SDL_COMPILE
 bindist:
 	$(SHELL) @ARCH_SRC_DIR@/make-bindist_win32.sh $(STRIP) $(VICE_VERSION) @ENABLE_ARCH@ nozip $(X64SC_INCLUDED) $(top_srcdir) $(host_cpu) $(SDL_VERSION)
@@ -388,6 +395,7 @@ bindist:
 
 bindistzip:
 	$(SHELL) @ARCH_SRC_DIR@/make-bindist.sh $(STRIP) $(VICE_VERSION) @ENABLE_ARCH@ zip $(X64SC_INCLUDED) $(top_srcdir) $(host_cpu) no
+endif
 endif
 endif
 endif

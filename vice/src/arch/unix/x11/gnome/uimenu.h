@@ -33,19 +33,19 @@
 #include "ui.h"
 #include "../x11menu.h"
 
-typedef enum { 
-    CB_NORMAL , 
-    CB_REFRESH 
+typedef enum {
+    CB_NORMAL ,
+    CB_REFRESH
 } ui_menu_cb_status;
 
 typedef struct {
-    void* value; 
+    void* value;
     ui_menu_cb_status status;
 } ui_menu_cb_obj;
 
 extern struct ui_menu_entry_s ui_menu_separator[];
 
-extern int ui_menu_init();
+extern int ui_menu_init(void);
 extern void ui_menu_shutdown(void);
 
 extern void ui_menu_set_sensitive(GtkWidget *w, int flag);
@@ -98,6 +98,7 @@ static UI_CALLBACK(toggle_##name)                   \
                                                     \
     _ui_menu_toggle_helper(w, event_data, #name);   \
 }
+
 
 /* Private helper functions for toggle and radio menu items.  */
 extern void _ui_menu_toggle_helper(GtkWidget *w, ui_callback_data_t event_data, const char *resource_name);
