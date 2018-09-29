@@ -9433,7 +9433,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/vice/src",
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -9472,7 +9475,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/vice/src",
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
@@ -9642,7 +9648,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/vice/src",
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -9653,7 +9662,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/vice/src",
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -9667,6 +9679,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/vice/src",
 					"$(SRCROOT)/vice/src/diag",
+					"$(SRCROOT)/Core/Classes/cfgfiles",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
@@ -9681,6 +9694,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/vice/src",
 					"$(SRCROOT)/vice/src/diag",
+					"$(SRCROOT)/Core/Classes/cfgfiles",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
@@ -9748,7 +9762,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/vice/src",
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -9759,7 +9776,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/vice/src",
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -9833,6 +9853,7 @@
 				HEADER_SEARCH_PATHS = (
 					/usr/local/Cellar/portaudio/19.6.0/include,
 					"$(SRCROOT)/vice/src",
+					"$(SRCROOT)/Core/Classes/cfgfiles",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
@@ -9847,6 +9868,7 @@
 				HEADER_SEARCH_PATHS = (
 					/usr/local/Cellar/portaudio/19.6.0/include,
 					"$(SRCROOT)/vice/src",
+					"$(SRCROOT)/Core/Classes/cfgfiles",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
@@ -10558,7 +10580,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/vice/src",
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
@@ -10569,7 +10594,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/vice/src";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/vice/src",
+					"$(SRCROOT)/Core/Classes/cfgfiles",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
 			};
