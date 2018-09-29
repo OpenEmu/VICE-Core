@@ -113,7 +113,7 @@ const char archdep_boot_path(void);
 {
     [self initializeEmulator];
 
-    autostart_autodetect([path cStringUsingEncoding:NSASCIIStringEncoding], NULL, 0, AUTOSTART_MODE_RUN);
+    autostart_autodetect(path.fileSystemRepresentation, NULL, 0, AUTOSTART_MODE_RUN);
 
     running = true;
 
@@ -221,7 +221,7 @@ static void emu_resume()
 
     emu_pause();
 
-    if (machine_write_snapshot([fileName cStringUsingEncoding:NSASCIIStringEncoding], 1, 1, 0) < 0) {
+    if (machine_write_snapshot(fileName.fileSystemRepresentation, 1, 1, 0) < 0) {
         //save snap failed
         res = FALSE;
     }
@@ -238,13 +238,13 @@ static void emu_resume()
     emu_pause();
 
     if (!BootComplete) {
-        autostart_snapshot([fileName cStringUsingEncoding:NSASCIIStringEncoding], NULL);
+        autostart_snapshot(fileName.fileSystemRepresentation, NULL);
 
         //Autostart functions use warp mode.  but autoload-sanpshot does not turn it off
         //   we need to make sure it is turned off or bad things end up happening
         resources_set_int("WarpMode", 0);
     } else {
-        if (machine_read_snapshot([fileName cStringUsingEncoding:NSASCIIStringEncoding], 0) < 0) {
+        if (machine_read_snapshot(fileName.fileSystemRepresentation, 0) < 0) {
             //load snap failed
             res = FALSE;
         }
