@@ -120,6 +120,11 @@ const char archdep_boot_path(void);
     return YES;
 }
 
+- (void)insertFileAtURL:(NSURL *)url
+{
+    // eject disk and pass url.fileSystemRepresentation to whatever load function
+}
+
 - (void)resetEmulation
 {
     machine_trigger_reset(MACHINE_RESET_MODE_HARD);

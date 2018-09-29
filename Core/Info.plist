@@ -36,6 +36,8 @@
 			<integer>3600</integer>
 			<key>OEGameCoreRewindInterval</key>
 			<integer>0</integer>
+			<key>OEGameCoreSupportsFileInsertion</key>
+			<true/>
 			<key>OEGameCoreSupportsRewinding</key>
 			<true/>
 		</dict>
