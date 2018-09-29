@@ -42,6 +42,8 @@
 #import "joystick.h"
 #import "keyboard.h"
 #import "vsync.h"
+#import "cartridge.h"
+#import "tape.h"
 
 #import <setjmp.h>
 
@@ -122,7 +124,29 @@ const char archdep_boot_path(void);
 
 - (void)insertFileAtURL:(NSURL *)url
 {
-    // eject disk and pass url.fileSystemRepresentation to whatever load function
+    NSString *fileExtension = url.pathExtension.lowercaseString;
+    NSArray *tape = @[@"tap", @"t64"];
+    NSArray *cart = @[@"crt", @"bin"];
+    NSArray *disk = @[@"d64", @"d67", @"d71", @"d80", @"d81", @"d82", @"g41", @"g64", @"g71", @"p64", @"x64", @"d1m", @"d2m", @"d4m"];
+
+    if([tape containsObject:fileExtension])
+    {
+        tape_image_detach(1);
+        tape_image_attach(1, url.fileSystemRepresentation);
+    }
+    else if([cart containsObject:fileExtension])
+    {
+        cartridge_detach_image(-1);
+        cartridge_attach_image(CARTRIDGE_CRT, url.fileSystemRepresentation);
+    }
+    else if([disk containsObject:fileExtension])
+    {
+        file_system_detach_disk(8);
+        //file_system_detach_disk(9);
+        //file_system_detach_disk(10);
+        //file_system_detach_disk(11);
+        file_system_attach_disk(8, url.fileSystemRepresentation);
+    }
 }
 
 - (void)resetEmulation
