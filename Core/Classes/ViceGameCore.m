@@ -27,6 +27,7 @@
 #import "ViceGameCore.h"
 #import "OEC64SystemResponderClient.h"
 #import <OpenGL/gl.h>
+#import <Carbon/Carbon.h>
 #import "main.h"
 #import "archdep+private.h"
 #import "sound.h"
@@ -52,6 +53,7 @@ static __unsafe_unretained ViceGameCore* core;
 uint32_t* OEvideobuffer;
 int vid_width = 384, vid_height = 272;
 jmp_buf emu_exit_jmp;
+const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
 
 static dispatch_semaphore_t sem_Core_pause, sem_CPU_pause, sem_vSync_hold;
 static bool running, pausestart, CPU_paused, vSync_held, BootComplete;
@@ -384,6 +386,27 @@ static void vSync_hold_trap(uint16_t a, void * b)
 
 - (oneway void)keyDown:(unsigned short)keyCode characters:(NSString *)characters charactersIgnoringModifiers:(NSString *)charactersIgnoringModifiers flags:(NSEventModifierFlags)flags
 {
+    if(keyCode == kVK_Function)
+        return;
+
+    switch (keyCode)
+    {
+        case kVK_F1:
+        case kVK_F2:
+        case kVK_F3:
+        case kVK_F4:
+        case kVK_F5:
+        case kVK_F6:
+        case kVK_F7:
+        case kVK_F8:
+        case kVK_F9:
+        case kVK_F10:
+        case kVK_F11:
+        case kVK_F12:
+            if (!(flags & OENSEventModifierFlagFunctionKey))
+                return;
+    }
+
     NSLog(@"keyDown: code=%03d, flags=%08x", keyCode, (uint32_t)flags);
     
     // Set the RunStopLock flag if Arrow up is pressed
@@ -394,6 +417,9 @@ static void vSync_hold_trap(uint16_t a, void * b)
 
 - (oneway void)keyUp:(unsigned short)keyCode characters:(NSString *)characters charactersIgnoringModifiers:(NSString *)charactersIgnoringModifiers flags:(NSEventModifierFlags)flags
 {
+    if(keyCode == kVK_Function)
+        return;
+
     NSLog(@"keyUp: code=%03d, flags=%08x", keyCode, (uint32_t)flags);
     
     // UnSet RunStopLock flag if Arrow up is released
