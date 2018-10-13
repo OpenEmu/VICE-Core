@@ -124,7 +124,7 @@ const char archdep_boot_path(void);
     return YES;
 }
 
-- (void)insertFileAtURL:(NSURL *)url
+- (void)insertFileAtURL:(NSURL *)url completionHandler:(void(^)(BOOL success, NSError *error))block
 {
     NSString *fileExtension = url.pathExtension.lowercaseString;
     NSArray *tape = @[@"tap", @"t64"];
@@ -149,6 +149,8 @@ const char archdep_boot_path(void);
         //file_system_detach_disk(11);
         file_system_attach_disk(8, url.fileSystemRepresentation);
     }
+
+    block(YES, nil);
 }
 
 - (void)resetEmulation
