@@ -77,7 +77,9 @@ static int init_c64()
     
     // configure vice
     resources_set_int("SoundFragmentSize", SOUND_FRAGMENT_MEDIUM);
-    
+    resources_set_int("VICIIDoubleSize", 0);
+    resources_set_int("VICIIFilter", VIDEO_FILTER_NONE);
+
     return 0;
 }
 

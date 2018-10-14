@@ -186,7 +186,7 @@ video_canvas_create(video_canvas_t* canvas,
 {
 
     //canvas->videoconfig->rendermode = VIDEO_RENDER_RGB_1X1;
-    canvas->videoconfig->filter = VIDEO_FILTER_NONE;
+    //canvas->videoconfig->filter = VIDEO_FILTER_NONE;
     pixelAspectRatio = canvas->geometry->pixel_aspect_ratio;
 
     // visible width/height seem to be the only sensible values here...
@@ -205,7 +205,7 @@ video_canvas_create(video_canvas_t* canvas,
     canvas->width = w;
     canvas->height = h;
     canvas->depth = 32;
-    canvas->pitch = w * 4;
+    canvas->pitch = w * 2;
 
     // init rendering
     video_canvas_set_palette(canvas,canvas->palette);
