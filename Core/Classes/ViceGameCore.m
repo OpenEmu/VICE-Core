@@ -54,6 +54,7 @@ uint32_t* OEvideobuffer;
 int vid_width = 384, vid_height = 272;
 jmp_buf emu_exit_jmp;
 const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
+double pixelAspectRatio;
 
 static dispatch_semaphore_t sem_Core_pause, sem_CPU_pause, sem_vSync_hold;
 static bool running, pausestart, CPU_paused, vSync_held, BootComplete;
@@ -327,7 +328,7 @@ static void vSync_hold_trap(uint16_t a, void * b)
 
 - (OEIntSize)aspectSize
 {
-    return OEIntSizeMake(4,3);
+    return OEIntSizeMake(vid_width * pixelAspectRatio, vid_height);
 }
 
 - (OEIntRect)screenRect

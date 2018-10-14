@@ -43,6 +43,7 @@
 
 extern uint32_t* OEvideobuffer;
 extern int vid_width, vid_height;
+extern double pixelAspectRatio;
 
 int oe_active_canvas_num = 0;
 static int oe_num_screens = 0;
@@ -186,6 +187,7 @@ video_canvas_create(video_canvas_t* canvas,
 
     //canvas->videoconfig->rendermode = VIDEO_RENDER_RGB_1X1;
     canvas->videoconfig->filter = VIDEO_FILTER_NONE;
+    pixelAspectRatio = canvas->geometry->pixel_aspect_ratio;
 
     // visible width/height seem to be the only sensible values here...
     struct draw_buffer_s *db = canvas->draw_buffer;
@@ -241,6 +243,8 @@ void video_canvas_refresh(video_canvas_t *canvas,
 
     w = MIN(w, canvas->width - xi);
     h = MIN(h, canvas->height - yi);
+
+    pixelAspectRatio = canvas->geometry->pixel_aspect_ratio;
 
     video_canvas_render(canvas, (uint8_t*)OEvideobuffer, w, h, xs, ys, xi, yi, canvas->pitch, canvas->depth);
 }
