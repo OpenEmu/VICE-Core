@@ -62,6 +62,7 @@ const char archdep_boot_path(void);
 @interface ViceGameCore() <OEC64SystemResponderClient>
 {
     NSThread *thread;
+    BOOL _isJoystickPortSwapped;
     bool RunStopLock;
 }
 
@@ -412,7 +413,7 @@ static void vSync_hold_trap(uint16_t a, void * b)
     NSLog(@"keyDown: code=%03d, flags=%08x", keyCode, (uint32_t)flags);
     
     // Set the RunStopLock flag if Arrow up is pressed
-    if (keyCode == 126) RunStopLock = true;
+    if (keyCode == kVK_UpArrow) RunStopLock = true;
     
     keyboard_key_pressed(keyCode);
 }
@@ -438,24 +439,42 @@ static uint8_t joystick_bits[] = {
     [OEC64ButtonFire]    = 0x10
 };
 
-const size_t joystick_len = sizeof(joystick_bits) / sizeof(joystick_bits[0]);
+- (oneway void)swapJoysticks
+{
+    // do port swap
+    _isJoystickPortSwapped = !_isJoystickPortSwapped;
+}
 
 - (oneway void)didPushC64Button:(OEC64Button)button forPlayer:(NSUInteger)player
 {
     // Avoid a RunStop Lock if the Arrow key is pressed, and up is pushed on a Joystick
-    if (RunStopLock && button == OEC64JoystickUp) keyboard_key_released(126);
-    
-    if (button < joystick_len) {
-        joystick_set_value_or((uint32_t)player, joystick_bits[button]);
-    }
+    if (RunStopLock && button == OEC64JoystickUp) keyboard_key_released(kVK_UpArrow);
+
+    if (button == OEC64ButtonJump) button = OEC64JoystickUp;
+
+    // Default to Port 2 for Player 1, since most C64 games use this
+    int port;
+    if (player == 1)
+        port = _isJoystickPortSwapped ? 1 : 2;
+    else
+        port = _isJoystickPortSwapped ? 2 : 1;
+
+    joystick_set_value_or(port, joystick_bits[button]);
 }
 
 - (oneway void)didReleaseC64Button:(OEC64Button)button forPlayer:(NSUInteger)player
 {
-    if (button < joystick_len) {
-        uint8_t val = 0xff & ~joystick_bits[button];
-        joystick_set_value_and((uint32_t)player, val);
-    }
+    if (button == OEC64ButtonJump) button = OEC64JoystickUp;
+
+    // Default to Port 2 for Player 1, since most C64 games use this
+    int port;
+    if (player == 1)
+        port = _isJoystickPortSwapped ? 1 : 2;
+    else
+        port = _isJoystickPortSwapped ? 2 : 1;
+
+    uint8_t val = 0xff & ~joystick_bits[button];
+    joystick_set_value_and(port, val);
 }
 
 #pragma mark sounddev
