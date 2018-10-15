@@ -69,7 +69,6 @@
 		3E1B25E11F16E2320022C2EF /* viciivsid-timing.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B252B1F16E0890022C2EF /* viciivsid-timing.c */; };
 		3E1B25E21F16E2320022C2EF /* viciivsid.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B252D1F16E0890022C2EF /* viciivsid.c */; };
 		3E1BCA181F16BE120022C2EF /* libdiag.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1BCA101F16BDD20022C2EF /* libdiag.a */; };
-		3E2693171F4A5108005DA425 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E2693161F4A5108005DA425 /* Info.plist */; };
 		3E3DDE851F4733E400639644 /* sound.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DDE841F4733E400639644 /* sound.c */; };
 		3E3DDE871F47352600639644 /* sound.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DDE841F4733E400639644 /* sound.c */; };
 		3E6E5E981F17BD79007FEF0A /* kbd.c in Sources */ = {isa = PBXBuildFile; fileRef = 0598D25C1C44DF9600E456A6 /* kbd.c */; };
@@ -514,7 +513,6 @@
 		3EDA96831F19560C0015CED2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 059611F81C3C47FD005C174C /* libz.tbd */; };
 		3EDA96841F19560C0015CED2 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 059611FA1C3C482C005C174C /* libstdc++.tbd */; };
 		3EDA96851F19560C0015CED2 /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0598D2561C44C38200E456A6 /* OpenEmuBase.framework */; };
-		3EDA96871F19560C0015CED2 /* VICE.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0598D24E1C44C2BB00E456A6 /* VICE.icns */; };
 		3EDA96891F19560C0015CED2 /* basic in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 3E1BCCE91F16DFB40022C2EF /* basic */; };
 		3EDA968A1F19560C0015CED2 /* c64hq.vpl in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 3E1BCCEC1F16DFB40022C2EF /* c64hq.vpl */; };
 		3EDA968B1F19560C0015CED2 /* c64mem.sym in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 3E1BCCED1F16DFB40022C2EF /* c64mem.sym */; };
@@ -1269,7 +1267,6 @@
 		059611FA1C3C482C005C174C /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		059611FC1C3C4846005C174C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		059611FE1C3C4866005C174C /* libedit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libedit.tbd; path = usr/lib/libedit.tbd; sourceTree = SDKROOT; };
-		0598D24E1C44C2BB00E456A6 /* VICE.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = VICE.icns; sourceTree = "<group>"; };
 		0598D2531C44C2FB00E456A6 /* ViceGameCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViceGameCore.h; sourceTree = "<group>"; };
 		0598D2541C44C2FB00E456A6 /* ViceGameCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViceGameCore.m; sourceTree = "<group>"; };
 		0598D2561C44C38200E456A6 /* OpenEmuBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenEmuBase.framework; path = "../OpenEmu-SDK/build/Debug/OpenEmuBase.framework"; sourceTree = "<group>"; };
@@ -3656,7 +3653,6 @@
 		3E2693131F4A509C005DA425 /* siddefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = siddefs.h; path = cfgfiles/siddefs.h; sourceTree = "<group>"; };
 		3E2693141F4A509C005DA425 /* siddtvdefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = siddtvdefs.h; path = cfgfiles/siddtvdefs.h; sourceTree = "<group>"; };
 		3E2693151F4A509C005DA425 /* translate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = translate.h; path = cfgfiles/translate.h; sourceTree = "<group>"; };
-		3E2693161F4A5108005DA425 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E3DDE7E1F46863A00639644 /* OEC64SystemResponderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OEC64SystemResponderClient.h; path = "../../OpenEmu/Commodore 64/OEC64SystemResponderClient.h"; sourceTree = "<group>"; };
 		3E3DDE841F4733E400639644 /* sound.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sound.c; sourceTree = "<group>"; };
 		3E3DDE861F4734BE00639644 /* OESound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OESound.h; sourceTree = "<group>"; };
@@ -3670,7 +3666,7 @@
 		3EA1AE5E1F16E45C00E4AE06 /* libsid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsid.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EA1AEEB1F16ED7600E4AE06 /* libimagecontents.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libimagecontents.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EC2128A1F16B1B100660C89 /* libviciivsid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libviciivsid.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		3EDA96DB1F19560C0015CED2 /* VICE C64.oecoreplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VICE C64.oecoreplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EDA96DB1F19560C0015CED2 /* VICE.oecoreplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VICE.oecoreplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EDA98AC1F197B540015CED2 /* OpenEmuBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenEmuBase.framework; path = "../../Library/Developer/Xcode/DerivedData/OpenEmu-daupfkdcntzkhycxsuyuvqosnsbs/Build/Products/Debug/OpenEmuBase.framework"; sourceTree = "<group>"; };
 		3EDA98AD1F197B540015CED2 /* OpenEmuSystem.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenEmuSystem.framework; path = "../../Library/Developer/Xcode/DerivedData/OpenEmu-daupfkdcntzkhycxsuyuvqosnsbs/Build/Products/Debug/OpenEmuSystem.framework"; sourceTree = "<group>"; };
 		3EDA98B01F197B770015CED2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -3678,6 +3674,7 @@
 		3EDED4951F1936BA00477292 /* libcartsystem.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcartsystem.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EE1A8461F16FBC0003D7C94 /* libvicecommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvicecommon.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EEBADA21F43793F00E0340A /* libCommon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCommon.a; path = "../../../../Library/Developer/Xcode/DerivedData/OpenEmu-aagogyswivhduzfmpefjfxkwlaav/Build/Products/Debug/libCommon.a"; sourceTree = "<group>"; };
+		87BEF9312175226000E38B38 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
 		EE0FD79120D452A200623D0A /* waasoft_dongle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = waasoft_dongle.c; sourceTree = "<group>"; };
 		EE0FD79220D452A300623D0A /* waasoft_dongle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = waasoft_dongle.h; sourceTree = "<group>"; };
 		EE0FD79520D452DA00623D0A /* tapecart.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tapecart.c; sourceTree = "<group>"; };
@@ -4004,6 +4001,7 @@
 			isa = PBXGroup;
 			children = (
 				0598D2471C44BE2000E456A6 /* Core */,
+				87BEF9302175212400E38B38 /* Resources */,
 				059612CF1C3CEE6A005C174C /* Frameworks */,
 				059603991C3B6E81005C174C /* Products */,
 				059603B41C3B6F49005C174C /* vice */,
@@ -4050,7 +4048,7 @@
 				3E6E5F3B1F192318007FEF0A /* libcart.a */,
 				3EDED48D1F1936AD00477292 /* libcartcommon.a */,
 				3EDED4951F1936BA00477292 /* libcartsystem.a */,
-				3EDA96DB1F19560C0015CED2 /* VICE C64.oecoreplugin */,
+				3EDA96DB1F19560C0015CED2 /* VICE.oecoreplugin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4086,10 +4084,8 @@
 		0598D2471C44BE2000E456A6 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				3E2693161F4A5108005DA425 /* Info.plist */,
 				3E3DDE7E1F46863A00639644 /* OEC64SystemResponderClient.h */,
 				0598D2521C44C2CB00E456A6 /* Classes */,
-				0598D24E1C44C2BB00E456A6 /* VICE.icns */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -7103,6 +7099,14 @@
 			name = ConfigFiles;
 			sourceTree = "<group>";
 		};
+		87BEF9302175212400E38B38 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				87BEF9312175226000E38B38 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -7989,9 +7993,9 @@
 			productReference = 3EC2128A1F16B1B100660C89 /* libviciivsid.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		3EDA96361F19560C0015CED2 /* VICE C64 */ = {
+		3EDA96361F19560C0015CED2 /* VICE */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3EDA96D81F19560C0015CED2 /* Build configuration list for PBXNativeTarget "VICE C64" */;
+			buildConfigurationList = 3EDA96D81F19560C0015CED2 /* Build configuration list for PBXNativeTarget "VICE" */;
 			buildPhases = (
 				3EDA967B1F19560C0015CED2 /* Sources */,
 				3EDA96801F19560C0015CED2 /* Frameworks */,
@@ -8036,9 +8040,9 @@
 				3EDA96771F19560C0015CED2 /* PBXTargetDependency */,
 				3EDA963B1F19560C0015CED2 /* PBXTargetDependency */,
 			);
-			name = "VICE C64";
+			name = VICE;
 			productName = VICE;
-			productReference = 3EDA96DB1F19560C0015CED2 /* VICE C64.oecoreplugin */;
+			productReference = 3EDA96DB1F19560C0015CED2 /* VICE.oecoreplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
 		3EDED4861F1936AD00477292 /* cartcommon */ = {
@@ -8125,7 +8129,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3EDA96361F19560C0015CED2 /* VICE C64 */,
+				3EDA96361F19560C0015CED2 /* VICE */,
 				059603AF1C3B6F3C005C174C /* C64 */,
 				0598D2791C44E5F400E456A6 /* Build and Install VICE */,
 				3EE1A83F1F16FBC0003D7C94 /* vicecommon */,
@@ -8173,8 +8177,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E2693171F4A5108005DA425 /* Info.plist in Resources */,
-				3EDA96871F19560C0015CED2 /* VICE.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8192,7 +8194,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "mkdir -p \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores\"\nrm -rf \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/$PROJECT_NAME C64.oecoreplugin\"{,.dSYM}\ncp -rf \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME C64.oecoreplugin\"{,.dSYM} \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/\"\n";
+			shellScript = "mkdir -p \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores\"\nrm -rf \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/$PROJECT_NAME.oecoreplugin\"{,.dSYM}\ncp -rf \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.oecoreplugin\"{,.dSYM} \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -9385,7 +9387,7 @@
 		};
 		3EEBAD9F1F4374EA00E0340A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3EDA96361F19560C0015CED2 /* VICE C64 */;
+			target = 3EDA96361F19560C0015CED2 /* VICE */;
 			targetProxy = 3EEBAD9E1F4374EA00E0340A /* PBXContainerItemProxy */;
 		};
 		3EFE03E81FBA1C9A006DAF0E /* PBXTargetDependency */ = {
@@ -9413,7 +9415,6 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -9441,6 +9442,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
@@ -9461,7 +9463,6 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -9482,6 +9483,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};
@@ -10686,7 +10688,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
-				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/Core/Classes/cfgfiles",
@@ -10706,13 +10707,14 @@
 					"\"$(SRCROOT)/vice/src/lib/p64\"",
 					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
 				);
-				INFOPLIST_FILE = Core/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "\"$(USER_LIBRARY_DIR)/Application Support/OpenEmu/Cores\"";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.openemu.VICEC64;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.openemu.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
+				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = oecoreplugin;
 			};
 			name = Debug;
@@ -10743,13 +10745,14 @@
 					"\"$(SRCROOT)/vice/src/lib/p64\"",
 					"\"$(SRCROOT)/vice/src/drive/iec/c64exp\"",
 				);
-				INFOPLIST_FILE = Core/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "\"$(USER_LIBRARY_DIR)/Application Support/OpenEmu/Cores\"";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.openemu.VICEC64;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.openemu.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Core";
+				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = oecoreplugin;
 			};
 			name = Release;
@@ -11197,7 +11200,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3EDA96D81F19560C0015CED2 /* Build configuration list for PBXNativeTarget "VICE C64" */ = {
+		3EDA96D81F19560C0015CED2 /* Build configuration list for PBXNativeTarget "VICE" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3EDA96D91F19560C0015CED2 /* Debug */,
