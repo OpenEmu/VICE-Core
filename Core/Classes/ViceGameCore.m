@@ -79,8 +79,8 @@ const char archdep_boot_path(void);
     if((self = [super init])) {
         core = self;
 
-        OEvideobuffer = (uint32_t*)malloc(384 * 272 * 4);
-        memset(OEvideobuffer, 0, 384 * 272 * 4);
+        OEvideobuffer = (uint32_t*)malloc(1024 * 1024 * 4);
+        memset(OEvideobuffer, 0, 1024 * 1024 * 4);
 
         running = false;
         CPU_paused  = false;
