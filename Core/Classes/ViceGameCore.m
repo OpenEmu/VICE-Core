@@ -65,6 +65,7 @@ const char archdep_boot_path(void);
     NSThread *thread;
     BOOL _isJoystickPortSwapped;
     bool RunStopLock;
+    NSArray *_availableDisplayModes;
 }
 
 - (void)initializeEmulator;
@@ -478,6 +479,53 @@ static uint8_t joystick_bits[] = {
     joystick_set_value_and(port, val);
 }
 
+- (NSArray <NSDictionary <NSString *, id> *> *)displayModes
+{
+    if (_availableDisplayModes.count == 0)
+    {
+        _availableDisplayModes = [NSArray array];
+
+        NSArray <NSDictionary <NSString *, id> *> *availableModesWithDefault =
+        @[
+          @{ @"OEGameCoreDisplayModesNameKey"  : @"NTSC",
+             @"OEGameCoreDisplayModesStateKey" : @NO
+             },
+          @{ @"OEGameCoreDisplayModesNameKey"  : @"PAL",
+             @"OEGameCoreDisplayModesStateKey" : @NO
+             },
+          ];
+
+        _availableDisplayModes = availableModesWithDefault;
+    }
+
+    return _availableDisplayModes;
+}
+
+- (void)changeDisplayWithMode:(NSString *)displayMode
+{
+    if (_availableDisplayModes.count == 0)
+        [self displayModes];
+
+    NSMutableArray *tempModesArray = [NSMutableArray array];
+    for(NSDictionary *modeDict in _availableDisplayModes)
+    {
+        NSString *mode = modeDict[OEGameCoreDisplayModesNameKey];
+        BOOL state = NO;
+
+        if ([mode isEqualToString:displayMode])
+            state = YES;
+
+        [tempModesArray addObject:@{OEGameCoreDisplayModesNameKey : mode, OEGameCoreDisplayModesStateKey : @(state)}];
+    }
+
+    if ([displayMode isEqualToString:@"NTSC"])
+        c64model_set(C64MODEL_C64C_NTSC);
+    else
+        c64model_set(C64MODEL_C64C_PAL);
+
+    _availableDisplayModes = tempModesArray;
+}
+
 #pragma mark sounddev
 
 static int openemu_init(const char *param, int *speed, int *fragsize, int *fragnr, int *channels)
@@ -519,6 +567,20 @@ int sound_init_openemu_device(void) {
     if (!initialized) {
         archdep_set_boot_path([[[self owner] bundle] resourcePath]);
         main_init();
+        // Use the last selected display mode or default to the appropriate for the user system locale
+        if ([self systemDisplayMode] == nil)
+        {
+            if ([[self systemRegion] isEqualToString: @"North America"] || [[self systemRegion] isEqualToString: @"Japan"])
+                [self changeDisplayWithMode:@"NTSC"];
+            else
+                [self changeDisplayWithMode:@"PAL"];
+        }
+        else
+        {
+            NSString *lastSelectedModeToSet = [self systemDisplayMode];
+            [self changeDisplayWithMode:lastSelectedModeToSet];
+
+        }
         initialized = true;
     }
 

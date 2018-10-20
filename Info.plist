@@ -30,6 +30,8 @@
 			<integer>3600</integer>
 			<key>OEGameCoreRewindInterval</key>
 			<integer>0</integer>
+			<key>OEGameCoreSupportsDisplayModeChange</key>
+			<true/>
 			<key>OEGameCoreSupportsFileInsertion</key>
 			<true/>
 			<key>OEGameCoreSupportsRewinding</key>
