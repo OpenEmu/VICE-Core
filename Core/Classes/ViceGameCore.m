@@ -487,11 +487,11 @@ static uint8_t joystick_bits[] = {
 
         NSArray <NSDictionary <NSString *, id> *> *availableModesWithDefault =
         @[
-          @{ @"OEGameCoreDisplayModesNameKey"  : @"NTSC",
-             @"OEGameCoreDisplayModesStateKey" : @NO
+          @{ OEGameCoreDisplayModesNameKey  : @"NTSC",
+             OEGameCoreDisplayModesStateKey : @NO
              },
-          @{ @"OEGameCoreDisplayModesNameKey"  : @"PAL",
-             @"OEGameCoreDisplayModesStateKey" : @NO
+          @{ OEGameCoreDisplayModesNameKey  : @"PAL",
+             OEGameCoreDisplayModesStateKey : @NO
              },
           ];
 
