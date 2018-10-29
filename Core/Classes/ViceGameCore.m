@@ -487,11 +487,13 @@ static uint8_t joystick_bits[] = {
 
         NSArray <NSDictionary <NSString *, id> *> *availableModesWithDefault =
         @[
-          @{ OEGameCoreDisplayModesNameKey  : @"NTSC",
-             OEGameCoreDisplayModesStateKey : @NO
+          @{ OEGameCoreDisplayModeNameKey        : @"NTSC",
+             OEGameCoreDisplayModePrefKeyNameKey : @"format",
+             OEGameCoreDisplayModeStateKey       : @NO
              },
-          @{ OEGameCoreDisplayModesNameKey  : @"PAL",
-             OEGameCoreDisplayModesStateKey : @NO
+          @{ OEGameCoreDisplayModeNameKey        : @"PAL",
+             OEGameCoreDisplayModePrefKeyNameKey : @"format",
+             OEGameCoreDisplayModeStateKey       : @NO
              },
           ];
 
@@ -509,13 +511,14 @@ static uint8_t joystick_bits[] = {
     NSMutableArray *tempModesArray = [NSMutableArray array];
     for(NSDictionary *modeDict in _availableDisplayModes)
     {
-        NSString *mode = modeDict[OEGameCoreDisplayModesNameKey];
+        NSString *mode = modeDict[OEGameCoreDisplayModeNameKey];
+        NSString *pref = modeDict[OEGameCoreDisplayModePrefKeyNameKey];
         BOOL state = NO;
 
         if ([mode isEqualToString:displayMode])
             state = YES;
 
-        [tempModesArray addObject:@{OEGameCoreDisplayModesNameKey : mode, OEGameCoreDisplayModesStateKey : @(state)}];
+        [tempModesArray addObject:@{OEGameCoreDisplayModeNameKey : mode, OEGameCoreDisplayModeStateKey : @(state), OEGameCoreDisplayModePrefKeyNameKey : pref}];
     }
 
     if ([displayMode isEqualToString:@"NTSC"])
@@ -568,16 +571,16 @@ int sound_init_openemu_device(void) {
         archdep_set_boot_path([[[self owner] bundle] resourcePath]);
         main_init();
         // Use the last selected display mode or default to the appropriate for the user system locale
-        if ([self systemDisplayMode] == nil)
+        if (self.displayModeInfo == nil)
         {
-            if ([[self systemRegion] isEqualToString: @"North America"] || [[self systemRegion] isEqualToString: @"Japan"])
+            if ([self.systemRegion isEqualToString: @"North America"] || [self.systemRegion isEqualToString: @"Japan"])
                 [self changeDisplayWithMode:@"NTSC"];
             else
                 [self changeDisplayWithMode:@"PAL"];
         }
         else
         {
-            NSString *lastSelectedModeToSet = [self systemDisplayMode];
+            NSString *lastSelectedModeToSet = self.displayModeInfo[@"format"];
             [self changeDisplayWithMode:lastSelectedModeToSet];
 
         }
