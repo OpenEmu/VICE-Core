@@ -45,6 +45,7 @@
 #import "vsync.h"
 #import "cartridge.h"
 #import "tape.h"
+#import "c64model.h"
 
 #import <setjmp.h>
 
