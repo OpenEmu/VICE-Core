@@ -63,6 +63,7 @@
 #include "menu_video.h"
 #include "resources.h"
 #include "ui.h"
+#include "uifonts.h"
 #include "uimenu.h"
 #include "vicii.h"
 #include "vkbd.h"
@@ -193,6 +194,19 @@ static void c64scui_set_menu_params(int index, menu_draw_t *menu_draw)
     sdl_ui_set_menu_params = NULL;
 }
 
+/** \brief  Pre-initialize the UI before the canvas window gets created
+ *
+ * \return  0 on success, -1 on failure
+ */
+int c64scui_init_early(void)
+{
+    return 0;
+}
+
+/** \brief  Initialize the UI
+ *
+ * \return  0 on success, -1 on failure
+ */
 int c64scui_init(void)
 {
 #ifdef SDL_DEBUG
@@ -213,7 +227,7 @@ int c64scui_init(void)
     uimedia_menu_create();
 
     sdl_ui_set_main_menu(x64sc_main_menu);
-    sdl_ui_set_menu_font(mem_chargen_rom + 0x800, 8, 8);
+    sdl_ui_vicii_font_init();
     sdl_vkbd_set_vkbd(&vkbd_c64);
 
 #ifdef HAVE_FFMPEG
@@ -243,4 +257,5 @@ void c64scui_shutdown(void)
 #ifdef HAVE_FFMPEG
     sdl_menu_ffmpeg_shutdown();
 #endif
+    sdl_ui_vicii_font_shutdown();
 }

@@ -40,7 +40,6 @@
 #include "printer.h"
 #include "resources.h"
 #include "serial.h"
-#include "translate.h"
 #include "types.h"
 
 #ifdef HAVE_OPENCBM
@@ -150,27 +149,20 @@ int interface_serial_init_resources(void)
     return resources_register_int(resources_int);
 }
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-device4", SET_RESOURCE, 1,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-device4", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "Printer4", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_TYPE, IDCLS_SET_DEVICE_TYPE_4,
-      NULL, NULL },
-    { "-device5", SET_RESOURCE, 1,
+      "<Type>", "Set device type for device #4 (0: None, 1: Filesystem, 2: Real)" },
+    { "-device5", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "Printer5", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_TYPE, IDCLS_SET_DEVICE_TYPE_5,
-      NULL, NULL },
-    { "-device6", SET_RESOURCE, 1,
+      "<Type>", "Set device type for device #5 (0: None, 1: Filesystem, 2: Real)" },
+    { "-device6", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "Printer6", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_TYPE, IDCLS_SET_DEVICE_TYPE_6,
-      NULL, NULL },
-    { "-device7", SET_RESOURCE, 1,
+      "<Type>", "Set device type for device #6 (0: None, 1: Filesystem, 2: Real)" },
+    { "-device7", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "Printer7", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_TYPE, IDCLS_SET_DEVICE_TYPE_7,
-      NULL, NULL },
+      "<Type>", "Set device type for device #7 (0: None, 2: Real)" },
     CMDLINE_LIST_END
 };
 

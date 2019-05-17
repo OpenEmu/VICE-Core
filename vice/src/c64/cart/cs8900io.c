@@ -51,7 +51,6 @@
 #include "rawnet.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "uiapi.h"
 #include "util.h"
 
@@ -234,7 +233,7 @@ int cs8900io_enable(char *owner)
             }
             cs8900io_enabled = 1;
         } else {
-            ui_error(translate_text(IDGS_CS8900_IN_USE_BY_S), cs8900io_owner);
+            ui_error("CS8900 already in use by %s.", cs8900io_owner);
             return -1;
         }
         cs8900io_reset();
@@ -341,11 +340,9 @@ void cs8900io_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-cs8900ioif", SET_RESOURCE, 1,
+    { "-cs8900ioif", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "ETHERNET_INTERFACE", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_ETHERNET_INTERFACE,
-      NULL, NULL },
+      "<Name>", "Set the system ethernet interface" },
     CMDLINE_LIST_END
 };
 

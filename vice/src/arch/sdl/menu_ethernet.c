@@ -74,7 +74,7 @@ void sdl_menu_ethernet_interface_free(void)
     }
 }
 
-UI_MENU_CALLBACK(ETHERNET_INTERFACE_dynmenu_callback)
+static UI_MENU_CALLBACK(ETHERNET_INTERFACE_dynmenu_callback)
 {
     char *pname;
     char *pdescription;
@@ -107,7 +107,7 @@ UI_MENU_CALLBACK(ETHERNET_INTERFACE_dynmenu_callback)
         ethernet_interface_dyn_menu[i].callback = NULL;
         ethernet_interface_dyn_menu[i].data = NULL;
     }
-    return "->";
+    return MENU_SUBMENU_STRING;
 }
 
 #define VICE_SDL_ETHERNET_ARCHDEP_ITEMS    \

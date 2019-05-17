@@ -83,7 +83,6 @@
 #include "resources.h"
 #include "screenshot.h"
 #include "sysfile.h"
-#include "translate.h"
 #include "traps.h"
 #include "types.h"
 #include "uiapi.h"
@@ -887,7 +886,7 @@ void mon_show_dir(const char *path)
     }
     mon_out("Displaying directory: `%s'\n", mpath);
 
-    dir = ioutil_opendir(mpath);
+    dir = ioutil_opendir(mpath, IOUTIL_OPENDIR_ALL_FILES);
     if (!dir) {
         mon_out("Couldn't open directory.\n");
         return;
@@ -1225,38 +1224,30 @@ int monitor_resources_init(void)
     return resources_register_int(resources_int);
 }
 
+/* FIXME: we should use a resource like MonitorLogFileName */
 static int set_monlog_name(const char *param, void *extra_param)
 {
     return mon_log_file_open(param);
 }
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-moncommands", CALL_FUNCTION, 1,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-moncommands", CALL_FUNCTION, CMDLINE_ATTRIB_NEED_ARGS,
       set_playback_name, NULL, NULL, NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_EXECUTE_MONITOR_FROM_FILE,
-      NULL, NULL },
-    { "-monlog", CALL_FUNCTION, 1,
+      "<Name>", "Execute monitor commands from file" },
+    { "-monlog", CALL_FUNCTION, CMDLINE_ATTRIB_NEED_ARGS,
       set_monlog_name, NULL, NULL, NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_WRITE_MONITOR_LOG_TO_FILE,
-      NULL, NULL },
-    { "-initbreak", CALL_FUNCTION, 1,
+      "<Name>", "Write monitor output also to file" },
+    { "-initbreak", CALL_FUNCTION, CMDLINE_ATTRIB_NEED_ARGS,
       monitor_set_initial_breakpoint, NULL, NULL, NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_VALUE, IDCLS_SET_INITIAL_BREAKPOINT,
-      NULL, NULL },
+      "<value>", "Set an initial breakpoint for the monitor" },
 #ifdef ARCHDEP_SEPERATE_MONITOR_WINDOW
-    { "-keepmonopen", SET_RESOURCE, 0,
+    { "-keepmonopen", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "KeepMonitorOpen", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_KEEP_MONITOR_OPEN,
-      NULL, NULL },
-    { "+keepmonopen", SET_RESOURCE, 0,
+      NULL, "Keep the monitor open" },
+    { "+keepmonopen", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "KeepMonitorOpen", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_KEEP_MONITOR_OPEN,
-      NULL, NULL },
+      NULL, "Do not keep the monitor open" },
 #endif
     CMDLINE_LIST_END
 };
@@ -2355,7 +2346,7 @@ static void monitor_close(int check)
         if (!monitor_is_remote()) {
             uimon_window_close();
         }
-        exit(0);
+        archdep_vice_exit(0);
     }
 
     exit_mon = 0;

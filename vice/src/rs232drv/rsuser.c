@@ -44,7 +44,6 @@
 #include "resources.h"
 #include "rs232drv.h"
 #include "rsuser.h"
-#include "translate.h"
 #include "types.h"
 
 static int fd = -1;
@@ -193,27 +192,20 @@ int rsuser_resources_init(void)
     return resources_register_int(resources_int);
 }
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-rsuser", SET_RESOURCE, 0,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-rsuser", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "RsUserEnable", (void *)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_RS232_USERPORT,
-      NULL, NULL },
-    { "+rsuser", SET_RESOURCE, 0,
+      NULL, "Enable RS232 userport emulation" },
+    { "+rsuser", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "RsUserEnable", (void *)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_RS232_USERPORT,
-      NULL, NULL },
-    { "-rsuserbaud", SET_RESOURCE, 1,
+      NULL, "Disable RS232 userport emulation" },
+    { "-rsuserbaud", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "RsUserBaud", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_BAUD, IDCLS_SET_BAUD_RS232_USERPORT,
-      NULL, NULL },
-    { "-rsuserdev", SET_RESOURCE, 1,
+      "<baud>", "Set the baud rate of the RS232 userport emulation." },
+    { "-rsuserdev", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "RsUserDev", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_SPECIFY_RS232_DEVICE_USERPORT,
-      "<0-3>", NULL },
+      "<0-3>", "Specify VICE RS232 device for userport" },
     CMDLINE_LIST_END
 };
 

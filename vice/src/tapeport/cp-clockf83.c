@@ -44,7 +44,6 @@ TAPE PORT | PCF8583 | I/O
 #include "resources.h"
 #include "snapshot.h"
 #include "tapeport.h"
-#include "translate.h"
 
 #include "cp-clockf83.h"
 
@@ -67,7 +66,6 @@ static int tapertc_read_snapshot(struct snapshot_s *s);
 static tapeport_device_t tapertc_device = {
     TAPEPORT_DEVICE_CP_CLOCK_F83,
     "Tape RTC (PCF8583)",
-    IDGS_TAPE_RTC,
     0,
     "CPClockF83",
     tapertc_resources_shutdown,
@@ -145,26 +143,18 @@ int tapertc_resources_init(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-cpclockf83", SET_RESOURCE, 0,
+    { "-cpclockf83", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "CPClockF83", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_TAPERTC,
-      NULL, NULL },
-    { "+cpclockf83", SET_RESOURCE, 0,
+      NULL, "Enable CP Clock F83 (PCF8583 RTC)" },
+    { "+cpclockf83", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "CPClockF83", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_TAPERTC,
-      NULL, NULL },
-    { "-cpclockf83save", SET_RESOURCE, 0,
+      NULL, "Disable CP Clock F83 (PCF8583 RTC)" },
+    { "-cpclockf83save", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "CPClockF83Save", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_TAPERTC_SAVE,
-      NULL, NULL },
-    { "+cpclockf83save", SET_RESOURCE, 0,
+      NULL, "Enable saving of the CP Clock F83 (PCF8583 RTC) data when changed." },
+    { "+cpclockf83save", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "CPClockF83Save", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_TAPERTC_SAVE,
-      NULL, NULL },
+      NULL, "Disable saving of the CP Clock F83 (PCF8583 RTC) data when changed." },
     CMDLINE_LIST_END
 };
 

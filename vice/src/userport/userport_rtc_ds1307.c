@@ -44,7 +44,6 @@ C64/C128 | CBM2 | PET | VIC20 | NAME
 #include "maincpu.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "uiapi.h"
 #include "userport.h"
 #include "userport_rtc_ds1307.h"
@@ -72,7 +71,6 @@ static int userport_rtc_read_snapshot_module(snapshot_t *s);
 static userport_device_t rtc_device = {
     USERPORT_DEVICE_RTC_DS1307,
     "Userport RTC (DS1307)",
-    IDGS_USERPORT_DS1307,
     userport_rtc_read_pbx,
     userport_rtc_store_pbx,
     NULL, /* NO pa2 read */
@@ -155,26 +153,18 @@ int userport_rtc_ds1307_resources_init(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-userportrtcds1307", SET_RESOURCE, 0,
+    { "-userportrtcds1307", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "UserportRTCDS1307", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_USERPORT_RTC_DS1307,
-      NULL, NULL },
-    { "+userportrtcds1307", SET_RESOURCE, 0,
+      NULL, "Enable Userport RTC (DS1307)" },
+    { "+userportrtcds1307", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "UserportRTCDS1307", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_USERPORT_RTC_DS1307,
-      NULL, NULL },
-    { "-userportrtcds1307save", SET_RESOURCE, 0,
+      NULL, "Disable Userport RTC (DS1307)" },
+    { "-userportrtcds1307save", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "UserportRTCDS1307Save", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_USERPORT_RTC_DS1307_SAVE,
-      NULL, NULL },
-    { "+userportrtcds1307save", SET_RESOURCE, 0,
+      NULL, "Enable saving of the Userport RTC (DS1307) data when changed." },
+    { "+userportrtcds1307save", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "UserportRTCDS1307Save", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_USERPORT_RTC_DS1307_SAVE,
-      NULL, NULL },
+      NULL, "Disable saving of the Userport RTC (DS1307) data when changed." },
     CMDLINE_LIST_END
 };
 

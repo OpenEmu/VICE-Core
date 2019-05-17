@@ -92,7 +92,7 @@ static void on_switch_state_set(GtkWidget *widget, gpointer user_data)
      * sync for some reason */
     if (state != current) {
 #if 0
-        debug_gtk3("setting %s to %s\n", resource, state ? "True": "False");
+        debug_gtk3("setting %s to %s.", resource, state ? "True": "False");
 #endif
         if (resources_set_int(resource, state ? 1 : 0) < 0) {
             log_error(LOG_ERR,
@@ -136,6 +136,13 @@ static GtkWidget *resource_switch_new_helper(GtkWidget *widget)
     gtk_switch_set_active(GTK_SWITCH(widget),
             state ? TRUE : FALSE);
 
+    /* register methods to be used by the resource widget manager */
+    resource_widget_register_methods(
+            widget,
+            vice_gtk3_resource_switch_reset,
+            vice_gtk3_resource_switch_factory,
+            vice_gtk3_resource_switch_sync,
+            vice_gtk3_resource_switch_apply);
     g_signal_connect(widget, "state-set", G_CALLBACK(on_switch_state_set),
             (gpointer)resource);
     g_signal_connect(widget, "destroy", G_CALLBACK(on_switch_destroy),
@@ -262,12 +269,60 @@ gboolean vice_gtk3_resource_switch_factory(GtkWidget *widget)
 
     resource = resource_widget_get_resource_name(widget);
     if (resources_get_default_value(resource, &value) < 0) {
-        debug_gtk3("failed to get factory value for resource '%s'\n", resource);
+        debug_gtk3("failed to get factory value for resource '%s'.", resource);
         return FALSE;
     }
 #if 0
-    debug_gtk3("resetting %s to factory value %s\n",
+    debug_gtk3("resetting %s to factory value %s.",
             resource, value ? "True" : "False");
 #endif
     return vice_gtk3_resource_switch_set(widget, (gboolean)value);
+}
+
+
+/** \brief  Synchronize \a widget with its associated resource value
+ *
+ * \param[in,out]   widget  resource switch widget
+ *
+ *
+ * \return bool
+ */
+gboolean vice_gtk3_resource_switch_sync(GtkWidget *widget)
+{
+    const char *resource;
+    gboolean widget_val;
+    int resource_val;
+
+    resource = resource_widget_get_resource_name(widget);
+    if (!vice_gtk3_resource_switch_get(widget, &widget_val)) {
+        log_error(LOG_ERR,
+                "failed to retrieve current widget state for resource '%s'",
+                resource);
+        return FALSE;
+    }
+    if (resources_get_int(resource, &resource_val) < 0) {
+        log_error(LOG_ERR,
+                "failed to retrieve current value for resource '%s'",
+                resource);
+        return FALSE;
+    }
+
+    /* update widget if required */
+    if (widget_val != (gboolean)resource_val) {
+        return vice_gtk3_resource_switch_set(widget, (gboolean)resource_val);
+    }
+    return TRUE;
+}
+
+
+/** \brief  Set resource to the widget's value
+ *
+ * \param[in,out]   widget  resource switch button widget
+ *
+ * \return  bool
+ */
+gboolean vice_gtk3_resource_switch_apply(GtkWidget *widget)
+{
+    NOT_IMPLEMENTED_WARN_ONLY();
+    return FALSE;
 }

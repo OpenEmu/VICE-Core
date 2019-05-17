@@ -49,7 +49,6 @@
 #include "monitor.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "util.h"
 
 #define EASYFLASH_N_BANK_BITS 6
@@ -253,36 +252,24 @@ void easyflash_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-easyflashjumper", SET_RESOURCE, 0,
+    { "-easyflashjumper", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "EasyFlashJumper", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_EASYFLASH_JUMPER,
-      NULL, NULL },
-    { "+easyflashjumper", SET_RESOURCE, 0,
+      NULL, "Enable EasyFlash jumper" },
+    { "+easyflashjumper", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "EasyFlashJumper", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_EASYFLASH_JUMPER,
-      NULL, NULL },
-    { "-easyflashcrtwrite", SET_RESOURCE, 0,
+      NULL, "Disable EasyFlash jumper" },
+    { "-easyflashcrtwrite", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "EasyFlashWriteCRT", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_EASYFLASH_CRT_WRITING,
-      NULL, NULL },
-    { "+easyflashcrtwrite", SET_RESOURCE, 0,
+      NULL, "Enable writing to EasyFlash .crt image" },
+    { "+easyflashcrtwrite", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "EasyFlashWriteCRT", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_EASYFLASH_CRT_WRITING,
-      NULL, NULL },
-    { "-easyflashcrtoptimize", SET_RESOURCE, 0,
+      NULL, "Disable writing to EasyFlash .crt image" },
+    { "-easyflashcrtoptimize", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "EasyFlashOptimizeCRT", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_EASYFLASH_CRT_OPTIMIZE,
-      NULL, NULL },
-    { "+easyflashcrtoptimize", SET_RESOURCE, 0,
+      NULL, "Enable EasyFlash .crt image optimize on write" },
+    { "+easyflashcrtoptimize", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "EasyFlashOptimizeCRT", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_EASYFLASH_CRT_OPTIMIZE,
-      NULL, NULL },
+      NULL, "Disable writing to EasyFlash .crt image" },
     CMDLINE_LIST_END
 };
 
@@ -383,11 +370,12 @@ void easyflash_config_setup(uint8_t *rawcart)
      * check for presence of EAPI
      */
     if (memcmp(&romh_banks[0x1800], "eapi", 4) == 0) {
-        char eapi[17]; int i;
-        for (i = 0; i < 16; i++) {
-            eapi[i] = romh_banks[0x1804 + i] & 0x7f;
+        char eapi[17];
+        int k;
+        for (k = 0; k < 16; k++) {
+            eapi[k] = romh_banks[0x1804 + k] & 0x7f;
         }
-        eapi[i] = 0;
+        eapi[k] = 0;
         log_message(LOG_DEFAULT, "EF: EAPI found (%s)", eapi);
     } else {
         log_warning(LOG_DEFAULT, "EF: EAPI not found! Are you sure this is a proper EasyFlash image?");

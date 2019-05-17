@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52
-     from ../../doc/vice.texi on 19 May 2018 -->
+     from ../../doc/vice.texi on 19 December 2018 -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <TITLE>VICE Manual - 14  cartconv</TITLE>
@@ -14,7 +14,7 @@ Go to the <A HREF="vice_1.html">first</A>, <A HREF="vice_13.html">previous</A>, 
 <P><HR><P>
 
 
-<H1><A NAME="SEC307" HREF="vice_toc.html#TOC307">14  cartconv</A></H1>
+<H1><A NAME="SEC288" HREF="vice_toc.html#TOC288">14  cartconv</A></H1>
 
 <P>
 The cartconv program is a cartridge conversion utility, it can convert
@@ -24,7 +24,7 @@ between binary and .crt images and it can 'insert' binary and/or
 </P>
 
 
-<H2><A NAME="SEC308" HREF="vice_toc.html#TOC308">14.1  cartconv command line options</A></H2>
+<H2><A NAME="SEC289" HREF="vice_toc.html#TOC289">14.1  cartconv command line options</A></H2>
 
 <P>
 The cartconv program has the following parameters:
@@ -34,60 +34,60 @@ The cartconv program has the following parameters:
 
 <DT><CODE>-i "input name"</CODE>
 <DD>
-<A NAME="IDX1905"></A>
+<A NAME="IDX1759"></A>
  
 This parameter is mandatory, it should contain the name of the binary/.crt
 file you want to convert. For the EPROM type of cartridges this parameter
 can be used multiple times to insert images into the resulting file.
-<A NAME="IDX1906"></A>
+<A NAME="IDX1760"></A>
 <DT><CODE>-o "output name"</CODE>
 <DD>
 This parameter is mandatory, it should contain the name of the binary/.crt
 file you want to convert the input file to.
-<A NAME="IDX1907"></A>
+<A NAME="IDX1761"></A>
 <DT><CODE>-t carttype</CODE>
 <DD>
 This parameter is optional. It is only needed when converting to a .crt
 file. See below for the supported cartridge types.
-<A NAME="IDX1908"></A>
+<A NAME="IDX1762"></A>
 <DT><CODE>-n "cart name"</CODE>
 <DD>
 This parameter is optional and is used as the cartridge name when creating
 a .crt file.
-<A NAME="IDX1909"></A>
+<A NAME="IDX1763"></A>
 <DT><CODE>-l loadaddress</CODE>
 <DD>
 This parameter is optional and is used as the load-address when converting
 a .crt file to a .prg file, or when converting to a generic type .crt
 file.
-<A NAME="IDX1910"></A>
+<A NAME="IDX1764"></A>
 <DT><CODE>-f "input name"</CODE>
 <DD>
 This parameter is optional, and is meant to output information about the
 named file. It can't be used in conjuction with any of the other parameters.
-<A NAME="IDX1911"></A>
+<A NAME="IDX1765"></A>
 <DT><CODE>-r</CODE>
 <DD>
 This parameter is optional, it enables repair mode (accept broken input files)
-<A NAME="IDX1912"></A>
+<A NAME="IDX1766"></A>
 <DT><CODE>-p</CODE>
 <DD>
 This parameter is optional, when it is given cartconv will accept input files that
 do not match the cartridge sizes (useful for development).
-<A NAME="IDX1913"></A>
+<A NAME="IDX1767"></A>
 <DT><CODE>-b</CODE>
 <DD>
 This parameter is optional, when it is given cartconv will not omit banks that
 are empty (filled with $ff).
-<A NAME="IDX1914"></A>
+<A NAME="IDX1768"></A>
 <DT><CODE>-q</CODE>
 <DD>
 This parameter is optional, it disables all non-error messages
-<A NAME="IDX1915"></A>
+<A NAME="IDX1769"></A>
 <DT><CODE>--types</CODE>
 <DD>
 This parameter is optional. It shows all supported cartridge types (see below).
-<A NAME="IDX1916"></A>
+<A NAME="IDX1770"></A>
 <DT><CODE>--version</CODE>
 <DD>
 Show cartconv version string and exit
@@ -302,7 +302,7 @@ Zaxxon .crt file
 
 
 
-<H2><A NAME="SEC309" HREF="vice_toc.html#TOC309">14.2  cartconv examples</A></H2>
+<H2><A NAME="SEC290" HREF="vice_toc.html#TOC290">14.2  cartconv examples</A></H2>
 
 <DL COMPACT>
 

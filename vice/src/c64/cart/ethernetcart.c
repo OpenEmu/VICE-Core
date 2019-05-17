@@ -46,7 +46,6 @@
 #include "rawnet.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "util.h"
 
 #define CARTRIDGE_INCLUDE_PRIVATE_API
@@ -418,41 +417,29 @@ static int set_rrnet_enable(const char *value, void *extra_param)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-ethernetcart", SET_RESOURCE, 0,
+    { "-ethernetcart", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "ETHERNETCART_ACTIVE", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_ETHERNETCART,
-      NULL, NULL },
-    { "+ethernetcart", SET_RESOURCE, 0,
+      NULL, "Enable the Ethernet Cartridge (TFE/RR-Net/64NIC/FB-NET)" },
+    { "+ethernetcart", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "ETHERNETCART_ACTIVE", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_ETHERNETCART,
-      NULL, NULL },
-    { "-tfe", CALL_FUNCTION, 0,
+      NULL, "Disable the Ethernet Cartridge (TFE/RR-Net/64NIC/FB-NET)" },
+    { "-tfe", CALL_FUNCTION, CMDLINE_ATTRIB_NONE,
       set_tfe_enable, NULL, NULL, NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_TFE,
-      NULL, NULL },
-    { "-rrnet", CALL_FUNCTION, 0,
+      NULL, "Enable the Ethernet Cartridge in TFE (\"The Final Ethernet\") compatible mode and set default I/O address" },
+    { "-rrnet", CALL_FUNCTION, CMDLINE_ATTRIB_NONE,
       set_rrnet_enable, NULL, NULL, NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_RRNET,
-      NULL, NULL },
-    { "-ethernetcartmode", SET_RESOURCE, 1,
+      NULL, "Enable the Ethernet Cartridge in RR-Net compatible mode and set default I/O address" },
+    { "-ethernetcartmode", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "ETHERNETCARTMode", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_MODE, IDCLS_ETHERNETCART_MODE,
-      NULL, NULL },
+      "<Mode>", "Mode of Ethernet Cartridge (0: TFE, 1: RR-Net)" },
     CMDLINE_LIST_END
 };
 
 static cmdline_option_t base_cmdline_options[] =
 {
-    { "-ethernetcartbase", SET_RESOURCE, 1,
+    { "-ethernetcartbase", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "ETHERNETCARTBase", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_COMBO,
-      IDCLS_P_BASE_ADDRESS, IDCLS_ETHERNETCART_BASE,
-      NULL, NULL },
+      "<Base address>", NULL },
     CMDLINE_LIST_END
 };
 
@@ -471,11 +458,11 @@ int ethernetcart_cmdline_options_init(void)
     if (machine_class == VICE_MACHINE_VIC20) {
         temp1 = util_gen_hex_address_list(0x9800, 0x9900, 0x10);
         temp2 = util_gen_hex_address_list(0x9c00, 0x9d00, 0x10);
-        ethernetcart_address_list = util_concat(". (", temp1, "/", temp2, ")", NULL);        
+        ethernetcart_address_list = util_concat("Base address of the Ethernet Cartridge. (", temp1, "/", temp2, ")", NULL);        
         lib_free(temp2);
     } else {
         temp1 = util_gen_hex_address_list(0xde00, 0xe000, 0x10);
-        ethernetcart_address_list = util_concat(". (", temp1, ")", NULL);
+        ethernetcart_address_list = util_concat("Base address of the Ethernet Cartridge. (", temp1, ")", NULL);
     }
     lib_free(temp1);
 

@@ -45,7 +45,6 @@
 #include "mididrv.h"
 
 #include "resources.h"
-#include "translate.h"
 
 #if 0
 #ifndef DWORD_PTR
@@ -109,22 +108,13 @@ void mididrv_resources_shutdown(void)
 {
 }
 
-#define DEFAULT_PARAM USE_PARAM_STRING
-#define DEFAULT_DESCR USE_DESCRIPTION_STRING
-#define IDS_P_NUMBER          IDCLS_UNUSED
-#define IDS_SPECIFY_MIDI_IN   IDCLS_UNUSED
-#define IDS_SPECIFY_MIDI_OUT  IDCLS_UNUSED
-
-static const cmdline_option_t cmdline_options[] = {
-    { "-midiin", SET_RESOURCE, 1,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-midiin", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "MIDIInDev", NULL,
-      DEFAULT_PARAM, DEFAULT_DESCR,
-      IDS_P_NUMBER, IDS_SPECIFY_MIDI_IN,
       "<number>", "Specify MIDI-In device" },
-    { "-midiout", SET_RESOURCE, 1,
+    { "-midiout", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "MIDIOutDev", NULL,
-      DEFAULT_PARAM, DEFAULT_DESCR,
-      IDS_P_NUMBER, IDS_SPECIFY_MIDI_OUT,
       "<number>", "Specify MIDI-Out device" },
     CMDLINE_LIST_END
 };
@@ -249,7 +239,7 @@ int mididrv_in_open(void)
     /* can theoretically return MMSYSERR_INVALHANDLE */
     ret = midiInStart(handle_in);
 
-    return (DWORD)handle_in;
+    return 0;
 }
 
 /* opens a MIDI-Out device, returns handle */
@@ -277,7 +267,7 @@ int mididrv_out_open(void)
     /* reset buffer */
     out_index = 0;
 
-    return (DWORD)handle_out;
+    return 0;
 }
 
 /* closes the MIDI-In device*/

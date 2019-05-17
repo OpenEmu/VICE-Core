@@ -29,7 +29,7 @@
 #ifndef VICE_TRANSLATE_H
 #define VICE_TRANSLATE_H
 
-#include "translate_funcs.h"
+//#include "translate_funcs.h"
 
 #define USE_PARAM_STRING   0
 #define USE_PARAM_ID       1

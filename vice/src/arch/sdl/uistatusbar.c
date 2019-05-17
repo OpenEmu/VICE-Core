@@ -115,7 +115,7 @@ static int paused = 0;
 static void display_speed(void)
 {
     int len;
-    char sep = paused ? ('P' | 0x80) : warp ? ('W' | 0x80) : '/';
+    unsigned char sep = paused ? ('P' | 0x80) : warp ? ('W' | 0x80) : '/';
 
     len = sprintf(&(statusbar_text[STATUSBAR_SPEED_POS]), "%3d%%%c%2dfps", per, sep, fps);
     statusbar_text[STATUSBAR_SPEED_POS + len] = ' ';
@@ -486,7 +486,7 @@ void ui_display_kbd_status(SDL_Event *e)
     char *p = &kbdstatusbar_text[KBDSTATUSENTRYLEN * 2];
 
     if (kbdstatusbar_enabled) {
-        memcpy(kbdstatusbar_text, &kbdstatusbar_text[KBDSTATUSENTRYLEN], 40);
+        memmove(kbdstatusbar_text, &kbdstatusbar_text[KBDSTATUSENTRYLEN], 40);
         sprintf(p, "%c%03d>%03d %c%04x    ", 
                 (e->type == SDL_KEYUP) ? 'U' : 'D',
                 e->key.keysym.sym & 0xffff, 

@@ -131,20 +131,20 @@ c1541_OBJECTS = $(am_c1541_OBJECTS)
 @HAVE_RAWDRIVE_TRUE@am__DEPENDENCIES_1 = @ARCH_DIR@/blockdev.o
 @HAVE_REALDEVICE_TRUE@am__DEPENDENCIES_2 = opencbmlib.o \
 @HAVE_REALDEVICE_TRUE@	@ARCH_DIR@/dynlib.o
-c1541_DEPENDENCIES = $(ARCH_EXTRA_OBJECTS) $(p64_lib) \
+c1541_DEPENDENCIES = $(ARCH_EXTRA_OBJECTS) $(archdep_lib) $(p64_lib) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_2) $(vdrive_lib) \
 	$(imagecontents_lib) $(fileio_lib) $(diskimage_lib) \
 	$(tape_lib) $(serial_lib) $(socketdrv_lib)
 am_cartconv_OBJECTS = cartconv.$(OBJEXT)
 cartconv_OBJECTS = $(am_cartconv_OBJECTS)
-cartconv_DEPENDENCIES =
+cartconv_LDADD = $(LDADD)
 am_petcat_OBJECTS = charset.$(OBJEXT) findpath.$(OBJEXT) \
 	ioutil.$(OBJEXT) lib.$(OBJEXT) log.$(OBJEXT) petcat.$(OBJEXT) \
 	rawfile.$(OBJEXT) resources.$(OBJEXT) util.$(OBJEXT) \
 	zfile.$(OBJEXT) zipcode.$(OBJEXT)
 petcat_OBJECTS = $(am_petcat_OBJECTS)
-petcat_DEPENDENCIES = $(ARCH_EXTRA_OBJECTS) $(fileio_lib) \
-	$(socketdrv_lib)
+petcat_DEPENDENCIES = $(ARCH_EXTRA_OBJECTS) $(archdep_lib) \
+	$(fileio_lib) $(socketdrv_lib)
 am__objects_1 = alarm.$(OBJEXT) attach.$(OBJEXT) autostart.$(OBJEXT) \
 	autostart-prg.$(OBJEXT) cbmdos.$(OBJEXT) cbmimage.$(OBJEXT) \
 	charset.$(OBJEXT) clipboard.$(OBJEXT) clkguard.$(OBJEXT) \
@@ -160,20 +160,20 @@ am__objects_1 = alarm.$(OBJEXT) attach.$(OBJEXT) autostart.$(OBJEXT) \
 	rawfile.$(OBJEXT) rawnet.$(OBJEXT) resources.$(OBJEXT) \
 	romset.$(OBJEXT) screenshot.$(OBJEXT) snapshot.$(OBJEXT) \
 	socket.$(OBJEXT) sound.$(OBJEXT) sysfile.$(OBJEXT) \
-	translate.$(OBJEXT) traps.$(OBJEXT) util.$(OBJEXT) \
-	vicefeatures.$(OBJEXT) vsync.$(OBJEXT) zfile.$(OBJEXT) \
-	zipcode.$(OBJEXT)
+	traps.$(OBJEXT) util.$(OBJEXT) vicefeatures.$(OBJEXT) \
+	vsync.$(OBJEXT) zfile.$(OBJEXT) zipcode.$(OBJEXT)
 am__objects_2 = midi.$(OBJEXT)
 am_vsid_OBJECTS = $(am__objects_1) $(am__objects_2)
 vsid_OBJECTS = $(am_vsid_OBJECTS)
 am__DEPENDENCIES_3 = @LIBOBJS@
 am__DEPENDENCIES_4 =
-am__DEPENDENCIES_5 = $(vsid_lib) $(sid_lib) $(monitor_lib) \
-	$(sounddrv_lib) $(mididrv_lib) $(socketdrv_lib) \
+am__DEPENDENCIES_5 = $(archdep_lib) $(vsid_lib) $(sid_lib) \
+	$(monitor_lib) $(sounddrv_lib) $(mididrv_lib) $(socketdrv_lib) \
 	$(hwsiddrv_lib) $(iodrv_lib) $(serial_lib) $(core_lib) \
 	$(viciivsid_lib) $(raster_lib) $(video_lib) \
 	$(am__DEPENDENCIES_3) $(am__DEPENDENCIES_4) \
-	$(am__DEPENDENCIES_4) $(joyport_lib)
+	$(am__DEPENDENCIES_4) $(joyport_lib) $(hvsc_lib)
+am__DEPENDENCIES_6 = $(archdep_lib)
 vsid_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(vsid_LDFLAGS) $(LDFLAGS) \
 	-o $@
 am_vsidow_OBJECTS = maincpu.$(OBJEXT)
@@ -181,16 +181,17 @@ vsidow_OBJECTS = $(am_vsidow_OBJECTS)
 vsidow_LDADD = $(LDADD)
 am_x128_OBJECTS = $(am__objects_1) $(am__objects_2)
 x128_OBJECTS = $(am_x128_OBJECTS)
-am__DEPENDENCIES_6 = $(tapeport_lib) $(c128_lib) $(tapeport_lib) \
-	$(c64cartsystem_lib) $(c64cart_lib) $(c64commoncart_lib) \
-	$(c64c128_lib) $(driveiec_lib) $(driveiec128dcr_lib) \
-	$(driveiecieee_lib) $(driveiecc64exp_lib) $(driveieee_lib) \
-	$(drive_lib) $(drivetcbm_lib) $(p64_lib) $(iecbus_lib) \
-	$(parallel_lib) $(vdrive_lib) $(sid_lib) $(monitor_lib) \
-	$(driver_libs) $(vicii_lib) $(vdc_lib) $(raster_lib) \
-	$(userport_lib) $(diag_lib) $(rtc_lib) $(video_lib) \
-	$(am__DEPENDENCIES_3) $(imagecontents_lib) \
-	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4)
+am__DEPENDENCIES_7 = $(archdep_lib) $(tapeport_lib) $(c128_lib) \
+	$(tapeport_lib) $(c64cartsystem_lib) $(c64cart_lib) \
+	$(c64commoncart_lib) $(c64c128_lib) $(driveiec_lib) \
+	$(driveiec128dcr_lib) $(driveiecieee_lib) \
+	$(driveiecc64exp_lib) $(driveieee_lib) $(drive_lib) \
+	$(drivetcbm_lib) $(p64_lib) $(iecbus_lib) $(parallel_lib) \
+	$(vdrive_lib) $(sid_lib) $(monitor_lib) $(driver_libs) \
+	$(vicii_lib) $(vdc_lib) $(raster_lib) $(userport_lib) \
+	$(diag_lib) $(rtc_lib) $(video_lib) $(am__DEPENDENCIES_3) \
+	$(imagecontents_lib) $(am__DEPENDENCIES_4) \
+	$(am__DEPENDENCIES_4) $(hvsc_lib)
 x128_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(x128_LDFLAGS) $(LDFLAGS) \
 	-o $@
 am_x128ow_OBJECTS = maincpu.$(OBJEXT)
@@ -198,28 +199,30 @@ x128ow_OBJECTS = $(am_x128ow_OBJECTS)
 x128ow_LDADD = $(LDADD)
 am_x64_OBJECTS = $(am__objects_1) $(am__objects_2)
 x64_OBJECTS = $(am_x64_OBJECTS)
-am__DEPENDENCIES_7 = $(tapeport_lib) $(c64_lib) $(tapeport_lib) \
-	$(c64cartsystem_lib) $(c64cart_lib) $(c64commoncart_lib) \
-	$(driveiec_lib) $(driveiecieee_lib) $(driveiecc64exp_lib) \
-	$(driveieee_lib) $(drive_lib) $(drivetcbm_lib) $(iecbus_lib) \
-	$(p64_lib) $(parallel_lib) $(vdrive_lib) $(sid_lib) \
-	$(monitor_lib) $(driver_libs) $(vicii_lib) $(raster_lib) \
-	$(userport_lib) $(diag_lib) $(rtc_lib) $(video_lib) \
-	$(am__DEPENDENCIES_3) $(imagecontents_lib) \
-	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4)
+am__DEPENDENCIES_8 = $(archdep_lib) $(tapeport_lib) $(c64_lib) \
+	$(tapeport_lib) $(c64cartsystem_lib) $(c64cart_lib) \
+	$(c64commoncart_lib) $(driveiec_lib) $(driveiecieee_lib) \
+	$(driveiecc64exp_lib) $(driveieee_lib) $(drive_lib) \
+	$(drivetcbm_lib) $(iecbus_lib) $(p64_lib) $(parallel_lib) \
+	$(vdrive_lib) $(sid_lib) $(monitor_lib) $(driver_libs) \
+	$(vicii_lib) $(raster_lib) $(userport_lib) $(diag_lib) \
+	$(rtc_lib) $(video_lib) $(am__DEPENDENCIES_3) \
+	$(imagecontents_lib) $(am__DEPENDENCIES_4) \
+	$(am__DEPENDENCIES_4) $(hvsc_lib)
 x64_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(x64_LDFLAGS) $(LDFLAGS) -o \
 	$@
 am__objects_3 = ps2mouse.$(OBJEXT)
 am_x64dtv_OBJECTS = $(am__objects_1) $(am__objects_3)
 x64dtv_OBJECTS = $(am_x64dtv_OBJECTS)
-am__DEPENDENCIES_8 = $(c64dtv_lib) $(c64c64dtv_lib) $(driveiec_lib) \
-	$(driveiecieee_lib) $(driveiecc64exp_lib) $(driveieee_lib) \
-	$(drive_lib) $(drivetcbm_lib) $(p64_lib) $(iecbus_lib) \
-	$(parallel_lib) $(userport_lib) $(diag_lib) $(vdrive_lib) \
-	$(sid_lib) $(monitor_lib) $(driver_libs) $(viciidtv_lib) \
-	$(raster_lib) $(rtc_lib) $(video_lib) $(am__DEPENDENCIES_3) \
-	$(imagecontents_lib) $(am__DEPENDENCIES_4) \
-	$(am__DEPENDENCIES_4) $(c64dtvstubs_lib) $(joyport_lib)
+am__DEPENDENCIES_9 = $(archdep_lib) $(c64dtv_lib) $(c64c64dtv_lib) \
+	$(driveiec_lib) $(driveiecieee_lib) $(driveiecc64exp_lib) \
+	$(driveieee_lib) $(drive_lib) $(drivetcbm_lib) $(p64_lib) \
+	$(iecbus_lib) $(parallel_lib) $(userport_lib) $(diag_lib) \
+	$(vdrive_lib) $(sid_dtv_lib) $(monitor_lib) $(driver_libs) \
+	$(viciidtv_lib) $(raster_lib) $(rtc_lib) $(video_lib) \
+	$(am__DEPENDENCIES_3) $(imagecontents_lib) \
+	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4) $(c64dtvstubs_lib) \
+	$(joyport_lib) $(hvsc_lib)
 x64dtv_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(x64dtv_LDFLAGS) \
 	$(LDFLAGS) -o $@
 am_x64dtvow_OBJECTS = maincpu.$(OBJEXT)
@@ -230,15 +233,16 @@ x64ow_OBJECTS = $(am_x64ow_OBJECTS)
 x64ow_LDADD = $(LDADD)
 am_x64sc_OBJECTS = $(am__objects_1) $(am__objects_2)
 x64sc_OBJECTS = $(am_x64sc_OBJECTS)
-am__DEPENDENCIES_9 = $(tapeport_lib) $(c64sc_lib) $(tapeport_lib) \
-	$(c64cartsystem_lib) $(c64cart_lib) $(c64commoncart_lib) \
-	$(driveiec_lib) $(driveiecieee_lib) $(driveiecc64exp_lib) \
-	$(driveieee_lib) $(drive_lib) $(drivetcbm_lib) $(p64_lib) \
-	$(iecbus_lib) $(parallel_lib) $(vdrive_lib) $(sid_lib) \
-	$(monitor_lib) $(driver_libs) $(viciisc_lib) $(raster_lib) \
-	$(userport_lib) $(diag_lib) $(rtc_lib) $(video_lib) \
-	$(am__DEPENDENCIES_3) $(imagecontents_lib) \
-	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4)
+am__DEPENDENCIES_10 = $(archdep_lib) $(tapeport_lib) $(c64sc_lib) \
+	$(tapeport_lib) $(c64cartsystem_lib) $(c64cart_lib) \
+	$(c64commoncart_lib) $(driveiec_lib) $(driveiecieee_lib) \
+	$(driveiecc64exp_lib) $(driveieee_lib) $(drive_lib) \
+	$(drivetcbm_lib) $(p64_lib) $(iecbus_lib) $(parallel_lib) \
+	$(vdrive_lib) $(sid_lib) $(monitor_lib) $(driver_libs) \
+	$(viciisc_lib) $(raster_lib) $(userport_lib) $(diag_lib) \
+	$(rtc_lib) $(video_lib) $(am__DEPENDENCIES_3) \
+	$(imagecontents_lib) $(am__DEPENDENCIES_4) \
+	$(am__DEPENDENCIES_4) $(hvsc_lib)
 x64sc_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(x64sc_LDFLAGS) \
 	$(LDFLAGS) -o $@
 am_x64scow_OBJECTS = maincpu.$(OBJEXT)
@@ -246,13 +250,14 @@ x64scow_OBJECTS = $(am_x64scow_OBJECTS)
 x64scow_LDADD = $(LDADD)
 am_xcbm2_OBJECTS = $(am__objects_1)
 xcbm2_OBJECTS = $(am_xcbm2_OBJECTS)
-am__DEPENDENCIES_10 = $(tapeport_lib) $(xcbm2_lib) $(diag_lib) \
-	$(driveiecieee_lib) $(driveieee_lib) $(drive_lib) \
+am__DEPENDENCIES_11 = $(archdep_lib) $(tapeport_lib) $(xcbm2_lib) \
+	$(diag_lib) $(driveiecieee_lib) $(driveieee_lib) $(drive_lib) \
 	$(driveiec_lib) $(drivetcbm_lib) $(p64_lib) $(parallel_lib) \
 	$(vdrive_lib) $(monitor_lib) $(sid_lib) $(driver_libs) \
 	$(crtc_lib) $(raster_lib) $(video_lib) $(userport_lib) \
 	$(am__DEPENDENCIES_3) $(imagecontents_lib) $(joyport_lib) \
-	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4) $(rtc_lib)
+	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4) $(rtc_lib) \
+	$(hvsc_lib)
 xcbm2_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(xcbm2_LDFLAGS) \
 	$(LDFLAGS) -o $@
 am_xcbm2ow_OBJECTS = maincpu.$(OBJEXT)
@@ -260,13 +265,14 @@ xcbm2ow_OBJECTS = $(am_xcbm2ow_OBJECTS)
 xcbm2ow_LDADD = $(LDADD)
 am_xcbm5x0_OBJECTS = $(am__objects_1)
 xcbm5x0_OBJECTS = $(am_xcbm5x0_OBJECTS)
-am__DEPENDENCIES_11 = $(tapeport_lib) $(xcbm5x0_lib) $(diag_lib) \
-	$(driveiecieee_lib) $(driveieee_lib) $(drive_lib) \
+am__DEPENDENCIES_12 = $(archdep_lib) $(tapeport_lib) $(xcbm5x0_lib) \
+	$(diag_lib) $(driveiecieee_lib) $(driveieee_lib) $(drive_lib) \
 	$(drivetcbm_lib) $(driveiec_lib) $(p64_lib) $(parallel_lib) \
 	$(vdrive_lib) $(monitor_lib) $(sid_lib) $(driver_libs) \
 	$(vicii_lib) $(raster_lib) $(rtc_lib) $(video_lib) \
 	$(userport_lib) $(am__DEPENDENCIES_3) $(imagecontents_lib) \
-	$(joyport_lib) $(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4)
+	$(joyport_lib) $(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4) \
+	$(hvsc_lib)
 xcbm5x0_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(xcbm5x0_LDFLAGS) \
 	$(LDFLAGS) -o $@
 am_xcbm5x0ow_OBJECTS = maincpu.$(OBJEXT)
@@ -274,13 +280,14 @@ xcbm5x0ow_OBJECTS = $(am_xcbm5x0ow_OBJECTS)
 xcbm5x0ow_LDADD = $(LDADD)
 am_xpet_OBJECTS = $(am__objects_1)
 xpet_OBJECTS = $(am_xpet_OBJECTS)
-am__DEPENDENCIES_12 = $(tapeport_lib) $(pet_lib) $(diag_lib) \
-	$(driveiecieee_lib) $(driveieee_lib) $(drive_lib) \
+am__DEPENDENCIES_13 = $(archdep_lib) $(tapeport_lib) $(pet_lib) \
+	$(diag_lib) $(driveiecieee_lib) $(driveieee_lib) $(drive_lib) \
 	$(driveiec_lib) $(drivetcbm_lib) $(p64_lib) $(parallel_lib) \
 	$(vdrive_lib) $(monitor_lib) $(sid_lib) $(driver_libs) \
 	$(crtc_lib) $(raster_lib) $(userport_lib) $(video_lib) \
 	$(am__DEPENDENCIES_3) $(imagecontents_lib) $(joyport_lib) \
-	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4) $(rtc_lib)
+	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4) $(rtc_lib) \
+	$(hvsc_lib)
 xpet_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(xpet_LDFLAGS) $(LDFLAGS) \
 	-o $@
 am_xpetow_OBJECTS = maincpu.$(OBJEXT)
@@ -288,14 +295,15 @@ xpetow_OBJECTS = $(am_xpetow_OBJECTS)
 xpetow_LDADD = $(LDADD)
 am_xplus4_OBJECTS = $(am__objects_1)
 xplus4_OBJECTS = $(am_xplus4_OBJECTS)
-am__DEPENDENCIES_13 = $(tapeport_lib) $(plus4_lib) $(diag_lib) \
-	$(driveiec_lib) $(driveiecieee_lib) $(driveiecplus4exp_lib) \
-	$(drivetcbm_lib) $(drive_lib) $(driveieee_lib) $(parallel_lib) \
-	$(driveieee_lib) $(p64_lib) $(iecbus_lib) $(vdrive_lib) \
-	$(monitor_lib) $(sid_lib) $(driver_libs) $(raster_lib) \
-	$(rtc_lib) $(userport_lib) $(video_lib) $(am__DEPENDENCIES_3) \
-	$(imagecontents_lib) $(joyport_lib) $(am__DEPENDENCIES_4) \
-	$(am__DEPENDENCIES_4)
+am__DEPENDENCIES_14 = $(archdep_lib) $(tapeport_lib) $(plus4_lib) \
+	$(diag_lib) $(driveiec_lib) $(driveiecieee_lib) \
+	$(driveiecplus4exp_lib) $(drivetcbm_lib) $(drive_lib) \
+	$(driveieee_lib) $(parallel_lib) $(driveieee_lib) $(p64_lib) \
+	$(iecbus_lib) $(vdrive_lib) $(monitor_lib) $(sid_lib) \
+	$(driver_libs) $(raster_lib) $(rtc_lib) $(userport_lib) \
+	$(video_lib) $(am__DEPENDENCIES_3) $(imagecontents_lib) \
+	$(joyport_lib) $(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4) \
+	$(hvsc_lib)
 xplus4_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(xplus4_LDFLAGS) \
 	$(LDFLAGS) -o $@
 am_xplus4ow_OBJECTS = maincpu.$(OBJEXT)
@@ -303,15 +311,16 @@ xplus4ow_OBJECTS = $(am_xplus4ow_OBJECTS)
 xplus4ow_LDADD = $(LDADD)
 am_xscpu64_OBJECTS = $(am__objects_1) $(am__objects_2)
 xscpu64_OBJECTS = $(am_xscpu64_OBJECTS)
-am__DEPENDENCIES_14 = $(scpu64_lib) $(c64cartsystem_lib) \
-	$(c64cart_lib) $(c64commoncart_lib) $(c64scpu64_lib) \
-	$(driveiec_lib) $(driveiecieee_lib) $(driveiecc64exp_lib) \
-	$(driveieee_lib) $(drive_lib) $(drivetcbm_lib) $(p64_lib) \
-	$(iecbus_lib) $(parallel_lib) $(vdrive_lib) $(sid_lib) \
-	$(monitor_lib) $(driver_libs) $(viciisc_lib) $(raster_lib) \
-	$(userport_lib) $(diag_lib) $(rtc_lib) $(video_lib) \
-	$(am__DEPENDENCIES_3) $(imagecontents_lib) \
-	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4)
+am__DEPENDENCIES_15 = $(archdep_lib) $(scpu64_lib) \
+	$(c64cartsystem_lib) $(c64cart_lib) $(c64commoncart_lib) \
+	$(c64scpu64_lib) $(driveiec_lib) $(driveiecieee_lib) \
+	$(driveiecc64exp_lib) $(driveieee_lib) $(drive_lib) \
+	$(drivetcbm_lib) $(p64_lib) $(iecbus_lib) $(parallel_lib) \
+	$(vdrive_lib) $(sid_lib) $(monitor_lib) $(driver_libs) \
+	$(viciisc_lib) $(raster_lib) $(userport_lib) $(diag_lib) \
+	$(rtc_lib) $(video_lib) $(am__DEPENDENCIES_3) \
+	$(imagecontents_lib) $(am__DEPENDENCIES_4) \
+	$(am__DEPENDENCIES_4) $(hvsc_lib)
 xscpu64_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(xscpu64_LDFLAGS) \
 	$(LDFLAGS) -o $@
 am_xscpu64ow_OBJECTS = maincpu.$(OBJEXT)
@@ -319,14 +328,15 @@ xscpu64ow_OBJECTS = $(am_xscpu64ow_OBJECTS)
 xscpu64ow_LDADD = $(LDADD)
 am_xvic_OBJECTS = $(am__objects_1) $(am__objects_2)
 xvic_OBJECTS = $(am_xvic_OBJECTS)
-am__DEPENDENCIES_15 = $(tapeport_lib) $(vic20cart_lib) $(vic20_lib) \
-	$(c64commoncart_lib) $(mascuerade_lib) $(driveiec_lib) \
-	$(driveiecieee_lib) $(driveieee_lib) $(drive_lib) \
-	$(drivetcbm_lib) $(p64_lib) $(iecbus_lib) $(parallel_lib) \
-	$(vdrive_lib) $(monitor_lib) $(sid_lib) $(driver_libs) \
-	$(raster_lib) $(userport_lib) $(diag_lib) $(rtc_lib) \
-	$(video_lib) $(am__DEPENDENCIES_3) $(imagecontents_lib) \
-	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_4)
+am__DEPENDENCIES_16 = $(archdep_lib) $(tapeport_lib) $(vic20cart_lib) \
+	$(vic20_lib) $(c64commoncart_lib) $(mascuerade_lib) \
+	$(driveiec_lib) $(driveiecieee_lib) $(driveieee_lib) \
+	$(drive_lib) $(drivetcbm_lib) $(p64_lib) $(iecbus_lib) \
+	$(parallel_lib) $(vdrive_lib) $(monitor_lib) $(sid_lib) \
+	$(driver_libs) $(raster_lib) $(userport_lib) $(diag_lib) \
+	$(rtc_lib) $(video_lib) $(am__DEPENDENCIES_3) \
+	$(imagecontents_lib) $(am__DEPENDENCIES_4) \
+	$(am__DEPENDENCIES_4) $(hvsc_lib)
 xvic_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(xvic_LDFLAGS) $(LDFLAGS) \
 	-o $@
 am_xvicow_OBJECTS = maincpu.$(OBJEXT)
@@ -462,10 +472,6 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
-CAIRO_CFLAGS = @CAIRO_CFLAGS@
-CAIRO_LIBS = @CAIRO_LIBS@
-CATALOGS = @CATALOGS@
-CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 CCAS = @CCAS@
 CCASDEPMODE = @CCASDEPMODE@
@@ -480,17 +486,14 @@ CXXCPP = @CXXCPP@
 CXXDEPMODE = @CXXDEPMODE@
 CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
-DATADIRNAME = @DATADIRNAME@
 DEBUGBUILD = @DEBUGBUILD@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
 DOS2UNIX = @DOS2UNIX@
-DOS_TFE_PCAP_LIB = @DOS_TFE_PCAP_LIB@
 DYNLIB_LIBS = @DYNLIB_LIBS@
 ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
-EDITLINE_LIBS = @EDITLINE_LIBS@
 EGREP = @EGREP@
 ENABLE_ARCH = @ENABLE_ARCH@
 EXEEXT = @EXEEXT@
@@ -508,19 +511,17 @@ FFMPEG_SWRESAMPLE_CFLAGS = @FFMPEG_SWRESAMPLE_CFLAGS@
 FFMPEG_SWRESAMPLE_LIBS = @FFMPEG_SWRESAMPLE_LIBS@
 FFMPEG_SWSCALE_CFLAGS = @FFMPEG_SWSCALE_CFLAGS@
 FFMPEG_SWSCALE_LIBS = @FFMPEG_SWSCALE_LIBS@
-FULLSCREEN_DRIVERS = @FULLSCREEN_DRIVERS@
-GENCAT = @GENCAT@
+FONTCONFIG_CFLAGS = @FONTCONFIG_CFLAGS@
+FONTCONFIG_LIBS = @FONTCONFIG_LIBS@
+FW_DIR = @FW_DIR@
 GFXOUTPUT_DRIVERS = @GFXOUTPUT_DRIVERS@
 GFXOUTPUT_LIBS = @GFXOUTPUT_LIBS@
 GLIB_CFLAGS = @GLIB_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
-GMOFILES = @GMOFILES@
-GMSGFMT = @GMSGFMT@
 GREP = @GREP@
-GTKGL_CFLAGS = @GTKGL_CFLAGS@
-GTKGL_LIBS = @GTKGL_LIBS@
 GTK_CFLAGS = @GTK_CFLAGS@
 GTK_LIBS = @GTK_LIBS@
+HAVE_CXX11 = @HAVE_CXX11@
 HAVE_READLINE = @HAVE_READLINE@
 HCRTF = @HCRTF@
 HHC = @HHC@
@@ -530,10 +531,6 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INSTOBJEXT = @INSTOBJEXT@
-INTLDEPS = @INTLDEPS@
-INTLLIBS = @INTLLIBS@
-INTLOBJS = @INTLOBJS@
 IPFC = @IPFC@
 JOY_LIBS = @JOY_LIBS@
 LAMEMP3SUB = @LAMEMP3SUB@
@@ -554,14 +551,8 @@ MAKERTF = @MAKERTF@
 MAX_INLINE_INSN_SINGLE = @MAX_INLINE_INSN_SINGLE@
 MKDIR_P = @MKDIR_P@
 MKFONTDIR_BIN = @MKFONTDIR_BIN@
-MKINSTALLDIRS = @MKINSTALLDIRS@
-MSGFMT = @MSGFMT@
 NATIVE_TOOLS_COMPILER = @NATIVE_TOOLS_COMPILER@
 NETPLAY_LIBS = @NETPLAY_LIBS@
-NLS_LOCALEDIR = @NLS_LOCALEDIR@
-OBJC = @OBJC@
-OBJCDEPMODE = @OBJCDEPMODE@
-OBJCFLAGS = @OBJCFLAGS@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
@@ -570,8 +561,6 @@ PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
-PANGO_CFLAGS = @PANGO_CFLAGS@
-PANGO_LIBS = @PANGO_LIBS@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 PDFTEX = @PDFTEX@
 PERL = @PERL@
@@ -579,8 +568,6 @@ PKG_CONFIG = @PKG_CONFIG@
 PLATFORM_DOX_FLAGS = @PLATFORM_DOX_FLAGS@
 PNG_CFLAGS = @PNG_CFLAGS@
 PNG_LIBS = @PNG_LIBS@
-POFILES = @POFILES@
-POSUB = @POSUB@
 QUICKTIME_INCLUDES = @QUICKTIME_INCLUDES@
 QUICKTIME_LIBS = @QUICKTIME_LIBS@
 RANLIB = @RANLIB@
@@ -616,40 +603,15 @@ TEXI2DVI = @TEXI2DVI@
 TEXI2IPF = @TEXI2IPF@
 TFE_LIBS = @TFE_LIBS@
 UI_LIBS = @UI_LIBS@
-UNIX_MACOSX_UITYPE = @UNIX_MACOSX_UITYPE@
-USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
-USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 VERSION_COMBINED = @VERSION_COMBINED@
 VERSION_RC = @VERSION_RC@
 VICEDIR = @VICEDIR@
-VICE_SYNC = @VICE_SYNC@
-VICE_UI_THREADS = @VICE_UI_THREADS@
 VICE_VERSION = @VICE_VERSION@
 VICE_VERSION_BUILD = @VICE_VERSION_BUILD@
 VICE_VERSION_MAJOR = @VICE_VERSION_MAJOR@
 VICE_VERSION_MINOR = @VICE_VERSION_MINOR@
-VSID_WINRES = @VSID_WINRES@
-VTE_CFLAGS = @VTE_CFLAGS@
-VTE_LIBS = @VTE_LIBS@
-WINDRES = @WINDRES@
-WRC = @WRC@
-X128_WINRES = @X128_WINRES@
-X64DTV_WINRES = @X64DTV_WINRES@
-X64_WINRES = @X64_WINRES@
 XA = @XA@
-XCBM2_WINRES = @XCBM2_WINRES@
-XCBM5X0_WINRES = @XCBM5X0_WINRES@
-XGETTEXT = @XGETTEXT@
-XMKMF = @XMKMF@
-XPET_WINRES = @XPET_WINRES@
-XPLUS4_WINRES = @XPLUS4_WINRES@
-XSCPU64_WINRES = @XSCPU64_WINRES@
-XVIC_WINRES = @XVIC_WINRES@
-X_CFLAGS = @X_CFLAGS@
-X_EXTRA_LIBS = @X_EXTRA_LIBS@
-X_LIBS = @X_LIBS@
-X_PRE_LIBS = @X_PRE_LIBS@
 YACC = @YACC@
 YASM = @YASM@
 ZLIB_LIBS = @ZLIB_LIBS@
@@ -693,6 +655,7 @@ localedir = @localedir@
 localstatedir = @localstatedir@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
+objdump = @objdump@
 oldincludedir = @oldincludedir@
 pdfdir = @pdfdir@
 prefix = @prefix@
@@ -768,8 +731,10 @@ CCLD = @LINKCC@
 @DUMMY_COMPILE_FALSE@	pet \
 @DUMMY_COMPILE_FALSE@	plus4 \
 @DUMMY_COMPILE_FALSE@	cbm2 \
+@DUMMY_COMPILE_FALSE@	arch/shared \
 @DUMMY_COMPILE_FALSE@	arch \
-@DUMMY_COMPILE_FALSE@	lib
+@DUMMY_COMPILE_FALSE@	lib \
+@DUMMY_COMPILE_FALSE@	hvsc
 
 @DUMMY_COMPILE_TRUE@SUBDIRS = buildtools
 DIST_SUBDIRS = \
@@ -819,7 +784,8 @@ DIST_SUBDIRS = \
 	@RESIDSUB@ \
 	@RESIDDTVSUB@ \
 	lib \
-	buildtools
+	buildtools \
+	hvsc
 
 AM_CPPFLAGS = \
 	@ARCH_INCLUDES@ \
@@ -841,7 +807,8 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/rtc \
 	-I$(top_srcdir)/src/tapeport \
 	-I$(top_srcdir)/src/tape \
-	-I$(top_srcdir)/src/socketdrv
+	-I$(top_srcdir)/src/socketdrv \
+	-I$(top_srcdir)/src/hvsc
 
 noinst_HEADERS = \
 	6510core.h \
@@ -955,9 +922,6 @@ noinst_HEADERS = \
 	tap.h \
 	tape.h \
 	tpi.h \
-	translate_funcs.h \
-	translate_languages.h \
-	translate_text.c \
 	traps.h \
 	types.h \
 	uiapi.h \
@@ -1034,7 +998,6 @@ base_sources = \
 	socket.c \
 	sound.c \
 	sysfile.c \
-	translate.c \
 	traps.c \
 	util.c \
 	vicefeatures.c \
@@ -1073,7 +1036,6 @@ COMMON_EXTRA_DIST = \
 	fixpoint.c \
 	piacore.c \
 	sedinfocontrib_h.sh \
-	translate.txt \
 	vice-version.sh \
 	vice-version.sh.in \
 	wrap-u-ar.sh
@@ -1172,7 +1134,7 @@ RESIDDTV_EXTRA_DIST = \
 
 @RESID_DIR_USED_FALSE@EXTRA_DIST = $(COMMON_EXTRA_DIST) $(RESID_EXTRA_DIST) $(RESIDDTV_EXTRA_DIST)
 @RESID_DIR_USED_TRUE@EXTRA_DIST = $(COMMON_EXTRA_DIST)
-@NATIVE_TOOLS_TRUE@GENFILES = $(builddir)/geninfocontrib $(builddir)/gentranslate bin2c palette2c
+@NATIVE_TOOLS_TRUE@GENFILES = $(builddir)/geninfocontrib bin2c palette2c
 @EMBEDDED_FALSE@EMBEDDED_H_FILES = 
 @EMBEDDED_TRUE@EMBEDDED_H_FILES = \
 @EMBEDDED_TRUE@	c128basic64.h \
@@ -1279,8 +1241,8 @@ RESIDDTV_EXTRA_DIST = \
 @OWCC_TRUE@OWCC_LIBS = owcc_libs_converted.h
 @USE_SVN_REVISION_FALSE@SVN_VERSION_HEADER = 
 @USE_SVN_REVISION_TRUE@SVN_VERSION_HEADER = svnversion.h
-@HAVE_TRANSLATION_FALSE@BUILT_SOURCES = translate.h $(EMBEDDED_H_FILES) $(OWCC_LIBS) $(SVN_VERSION_HEADER) infocontrib.h
-@HAVE_TRANSLATION_TRUE@BUILT_SOURCES = translate.h translate_table.h $(EMBEDDED_H_FILES) $(OWCC_LIBS) $(SVN_VERSION_HEADER) infocontrib.h
+BUILT_SOURCES = $(EMBEDDED_H_FILES) $(OWCC_LIBS) $(SVN_VERSION_HEADER) infocontrib.h
+archdep_lib = $(top_builddir)/src/arch/shared/libarchdep.a
 c128_lib = $(top_builddir)/src/c128/libc128.a
 c64_lib = $(top_builddir)/src/c64/libc64.a
 c64sc_lib = $(top_builddir)/src/c64/libc64sc.a
@@ -1309,6 +1271,7 @@ fsdevice_lib = $(top_builddir)/src/fsdevice/libfsdevice.a
 fileio_lib = $(top_builddir)/src/fileio/libfileio.a
 gfxoutputdrv_lib = $(top_builddir)/src/gfxoutputdrv/libgfxoutputdrv.a
 hwsiddrv_lib = $(top_builddir)/src/hwsiddrv/libhwsiddrv.a
+hvsc_lib = $(top_builddir)/src/hvsc/libhvsc.a
 iecbus_lib = $(top_builddir)/src/iecbus/libiecbus.a
 imagecontents_lib = $(top_builddir)/src/imagecontents/libimagecontents.a
 iodrv_lib = $(top_builddir)/src/iodrv/libiodrv.a
@@ -1327,6 +1290,7 @@ rtc_lib = $(top_builddir)/src/rtc/librtc.a
 samplerdrv_lib = $(top_builddir)/src/samplerdrv/libsamplerdrv.a
 serial_lib = $(top_builddir)/src/serial/libserial.a
 sid_lib = $(top_builddir)/src/sid/libsid.a
+sid_dtv_lib = $(top_builddir)/src/sid/libsid_dtv.a
 socketdrv_lib = $(top_builddir)/src/socketdrv/libsocketdrv.a
 sounddrv_lib = $(top_builddir)/src/sounddrv/libsounddrv.a
 tape_lib = $(top_builddir)/src/tape/libtape.a
@@ -1350,7 +1314,7 @@ resid_dtv_libs = @RESID_DTV_LIBS@
 ffmpeg_libs = @FFMPEG_LIBS@
 
 # external libraries required for all emulators
-emu_extlibs = @X_LIBS@ @UI_LIBS@ @SDL_EXTRA_LIBS@ @INTLLIBS@ @SOUND_LIBS@ @QUICKTIME_LIBS@ @JOY_LIBS@ @GFXOUTPUT_LIBS@ @ZLIB_LIBS@ @DYNLIB_LIBS@ @EDITLINE_LIBS@ @ARCH_LIBS@
+emu_extlibs = @UI_LIBS@ @SDL_EXTRA_LIBS@ @SOUND_LIBS@ @QUICKTIME_LIBS@ @JOY_LIBS@ @GFXOUTPUT_LIBS@ @ZLIB_LIBS@ @DYNLIB_LIBS@ @ARCH_LIBS@ $(archdep_lib)
 driver_libs = $(joyport_lib) $(samplerdrv_lib) $(sounddrv_lib) $(mididrv_lib) $(socketdrv_lib) $(hwsiddrv_lib) $(iodrv_lib) $(gfxoutputdrv_lib) $(printerdrv_lib) $(rs232drv_lib) $(diskimage_lib) $(fsdevice_lib) $(tape_lib) $(fileio_lib) $(serial_lib) $(core_lib)
 @HAVE_RAWDRIVE_FALSE@blockdev_lib = 
 @HAVE_RAWDRIVE_TRUE@blockdev_lib = @ARCH_DIR@/blockdev.o
@@ -1392,7 +1356,7 @@ xvicow_SOURCES = maincpu.c
 
 # vsid
 vsid_libs = \
-	@VSID_WINRES@ \
+	$(archdep_lib) \
 	$(vsid_lib) \
 	$(sid_lib) \
 	$(monitor_lib) \
@@ -1409,7 +1373,8 @@ vsid_libs = \
 	$(common_libs) \
 	$(resid_libs) \
 	$(ffmpeg_libs) \
-	$(joyport_lib)
+	$(joyport_lib) \
+	$(hvsc_lib)
 
 vsid_SOURCES = $(base_sources) $(midi_sources)
 vsid_LDADD = $(vsid_libs) $(emu_extlibs) @TFE_LIBS@ @NETPLAY_LIBS@ @READLINE_LIBS@
@@ -1417,7 +1382,7 @@ vsid_DEPENDENCIES = $(vsid_libs)
 
 # x64
 x64_libs = \
-	@X64_WINRES@ \
+	$(archdep_lib) \
 	$(tapeport_lib) \
 	$(c64_lib) \
 	$(tapeport_lib) \
@@ -1446,7 +1411,8 @@ x64_libs = \
 	$(common_libs) \
 	$(imagecontents_lib) \
 	$(resid_libs) \
-	$(ffmpeg_libs)
+	$(ffmpeg_libs) \
+	$(hvsc_lib)
 
 x64_SOURCES = $(base_sources) $(midi_sources)
 x64_LDADD = $(x64_libs) $(emu_extlibs) @TFE_LIBS@ @NETPLAY_LIBS@ @READLINE_LIBS@
@@ -1454,7 +1420,7 @@ x64_DEPENDENCIES = $(x64_libs)
 
 # x64sc
 x64sc_libs = \
-	@X64_WINRES@ \
+	$(archdep_lib) \
 	$(tapeport_lib) \
 	$(c64sc_lib) \
 	$(tapeport_lib) \
@@ -1483,7 +1449,8 @@ x64sc_libs = \
 	$(common_libs) \
 	$(imagecontents_lib) \
 	$(resid_libs) \
-	$(ffmpeg_libs)
+	$(ffmpeg_libs) \
+	$(hvsc_lib)
 
 x64sc_SOURCES = $(base_sources) $(midi_sources)
 x64sc_LDADD = $(x64sc_libs) $(emu_extlibs) @TFE_LIBS@ @NETPLAY_LIBS@ @READLINE_LIBS@
@@ -1492,7 +1459,7 @@ x64sc_LDFLAGS = @x64_LDFLAGS@
 
 # x64dtv
 x64dtv_libs = \
-	@X64DTV_WINRES@ \
+	$(archdep_lib) \
 	$(c64dtv_lib) \
 	$(c64c64dtv_lib) \
 	$(driveiec_lib) \
@@ -1507,7 +1474,7 @@ x64dtv_libs = \
 	$(userport_lib) \
 	$(diag_lib) \
 	$(vdrive_lib) \
-	$(sid_lib) \
+	$(sid_dtv_lib) \
 	$(monitor_lib) \
 	$(driver_libs) \
 	$(viciidtv_lib) \
@@ -1519,7 +1486,8 @@ x64dtv_libs = \
 	$(resid_dtv_libs) \
 	$(ffmpeg_libs) \
 	$(c64dtvstubs_lib) \
-	$(joyport_lib)
+	$(joyport_lib) \
+	$(hvsc_lib)
 
 x64dtv_SOURCES = $(base_sources) $(ps2mouse_sources)
 x64dtv_LDADD = $(x64dtv_libs) $(emu_extlibs) @TFE_LIBS@ @NETPLAY_LIBS@ @READLINE_LIBS@
@@ -1528,7 +1496,7 @@ x64dtv_LDFLAGS = @x64_LDFLAGS@
 
 # xscpu64
 xscpu64_libs = \
-	@XSCPU64_WINRES@ \
+	$(archdep_lib) \
 	$(scpu64_lib) \
 	$(c64cartsystem_lib) \
 	$(c64cart_lib) \
@@ -1556,7 +1524,8 @@ xscpu64_libs = \
 	$(common_libs) \
 	$(imagecontents_lib) \
 	$(resid_libs) \
-	$(ffmpeg_libs)
+	$(ffmpeg_libs) \
+	$(hvsc_lib)
 
 xscpu64_SOURCES = $(base_sources) $(midi_sources)
 xscpu64_LDADD = $(xscpu64_libs) $(emu_extlibs) @TFE_LIBS@ @NETPLAY_LIBS@ @READLINE_LIBS@
@@ -1564,7 +1533,7 @@ xscpu64_DEPENDENCIES = $(xscpu64_libs)
 
 # x128
 x128_libs = \
-	@X128_WINRES@ \
+	$(archdep_lib) \
 	$(tapeport_lib) \
 	$(c128_lib) \
 	$(tapeport_lib) \
@@ -1596,7 +1565,8 @@ x128_libs = \
 	$(common_libs) \
 	$(imagecontents_lib) \
 	$(resid_libs) \
-	$(ffmpeg_libs)
+	$(ffmpeg_libs) \
+	$(hvsc_lib)
 
 x128_SOURCES = $(base_sources) $(midi_sources)
 x128_LDADD = $(x128_libs) $(emu_extlibs) @TFE_LIBS@ @NETPLAY_LIBS@ @READLINE_LIBS@
@@ -1604,7 +1574,7 @@ x128_DEPENDENCIES = $(x128_libs)
 
 # xvic
 xvic_libs = \
-	@XVIC_WINRES@ \
+	$(archdep_lib) \
 	$(tapeport_lib) \
 	$(vic20cart_lib) \
 	$(vic20_lib) \
@@ -1625,12 +1595,13 @@ xvic_libs = \
 	$(raster_lib) \
 	$(userport_lib) \
 	$(diag_lib) \
-        $(rtc_lib) \
+	$(rtc_lib) \
 	$(video_lib) \
 	$(common_libs) \
 	$(imagecontents_lib) \
 	$(resid_libs) \
-	$(ffmpeg_libs)
+	$(ffmpeg_libs) \
+	$(hvsc_lib)
 
 xvic_SOURCES = $(base_sources) $(midi_sources)
 xvic_LDADD = $(xvic_libs) $(emu_extlibs) $(mascuerade_lib) @TFE_LIBS@ @NETPLAY_LIBS@ @READLINE_LIBS@
@@ -1638,7 +1609,7 @@ xvic_DEPENDENCIES = $(xvic_libs)
 
 # xpet
 xpet_libs = \
-	@XPET_WINRES@ \
+	$(archdep_lib) \
 	$(tapeport_lib) \
 	$(pet_lib) \
 	$(diag_lib) \
@@ -1662,7 +1633,8 @@ xpet_libs = \
 	$(joyport_lib) \
 	$(resid_libs) \
 	$(ffmpeg_libs) \
-	$(rtc_lib)
+	$(rtc_lib) \
+	$(hvsc_lib)
 
 xpet_SOURCES = $(base_sources)
 xpet_LDADD = $(xpet_libs) $(emu_extlibs) @TFE_LIBS@ @NETPLAY_LIBS@ @READLINE_LIBS@
@@ -1670,7 +1642,7 @@ xpet_DEPENDENCIES = $(xpet_libs)
 
 # xplus4
 xplus4_libs = \
-	@XPLUS4_WINRES@ \
+	$(archdep_lib) \
 	$(tapeport_lib) \
 	$(plus4_lib) \
 	$(diag_lib) \
@@ -1696,7 +1668,8 @@ xplus4_libs = \
 	$(imagecontents_lib) \
 	$(joyport_lib) \
 	$(resid_libs) \
-	$(ffmpeg_libs)
+	$(ffmpeg_libs) \
+	$(hvsc_lib)
 
 xplus4_SOURCES = $(base_sources)
 xplus4_LDADD = $(xplus4_libs) $(emu_extlibs) @TFE_LIBS@ @NETPLAY_LIBS@ @READLINE_LIBS@
@@ -1704,7 +1677,7 @@ xplus4_DEPENDENCIES = $(xplus4_libs)
 
 # xcbm2
 xcbm2_libs = \
-	@XCBM2_WINRES@ \
+	$(archdep_lib) \
 	$(tapeport_lib) \
 	$(xcbm2_lib) \
 	$(diag_lib) \
@@ -1728,7 +1701,8 @@ xcbm2_libs = \
 	$(joyport_lib) \
 	$(resid_libs) \
 	$(ffmpeg_libs) \
-	$(rtc_lib)
+	$(rtc_lib) \
+	$(hvsc_lib)
 
 xcbm2_SOURCES = $(base_sources)
 xcbm2_LDADD = $(xcbm2_libs) $(emu_extlibs) @TFE_LIBS@ @NETPLAY_LIBS@ @READLINE_LIBS@
@@ -1736,7 +1710,7 @@ xcbm2_DEPENDENCIES = $(xcbm2_libs)
 
 # xcbm5x0
 xcbm5x0_libs = \
-	@XCBM5X0_WINRES@ \
+	$(archdep_lib) \
 	$(tapeport_lib) \
 	$(xcbm5x0_lib) \
 	$(diag_lib) \
@@ -1760,7 +1734,8 @@ xcbm5x0_libs = \
 	$(imagecontents_lib) \
 	$(joyport_lib) \
 	$(resid_libs) \
-	$(ffmpeg_libs)
+	$(ffmpeg_libs) \
+	$(hvsc_lib)
 
 xcbm5x0_SOURCES = $(base_sources)
 xcbm5x0_LDADD = $(xcbm5x0_libs) $(emu_extlibs) @TFE_LIBS@ @NETPLAY_LIBS@ @READLINE_LIBS@
@@ -1793,6 +1768,7 @@ c1541_SOURCES = \
 # libs too then.
 c1541_LDADD = \
 	$(ARCH_EXTRA_OBJECTS) \
+	$(archdep_lib) \
 	$(p64_lib) \
 	$(blockdev_lib) \
 	$(realdevice_lib) \
@@ -1803,7 +1779,7 @@ c1541_LDADD = \
 	$(tape_lib) \
 	$(serial_lib) \
 	$(socketdrv_lib) \
-	@INTLLIBS@ @SDL_EXTRA_LIBS@ \
+	@SDL_EXTRA_LIBS@ \
 	@READLINE@ @READLINE_LIBS@ \
 	@ZLIB_LIBS@ @DYNLIB_LIBS@
 
@@ -1824,15 +1800,15 @@ petcat_SOURCES = \
 
 petcat_LDADD = \
 	$(ARCH_EXTRA_OBJECTS) \
+	$(archdep_lib) \
 	$(fileio_lib) \
 	$(socketdrv_lib) \
-	@INTLLIBS@ @SDL_EXTRA_LIBS@ \
+	@SDL_EXTRA_LIBS@ \
 	@ZLIB_LIBS@
 
 
 # cartconv
 cartconv_SOURCES = cartconv.c
-cartconv_LDADD = @INTLLIBS@
 
 # distclean
 DISTCLEANFILES = $(BUILT_SOURCES) $(GENFILES)
@@ -2052,7 +2028,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/socket.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sound.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sysfile.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/translate.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/traps.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/util.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vicefeatures.Po@am__quote@
@@ -2357,10 +2332,6 @@ uninstall-am: uninstall-binPROGRAMS
 .PRECIOUS: Makefile
 
 
-@HAVE_TRANSLATION_TRUE@@NATIVE_TOOLS_FALSE@translate_table.h:	$(srcdir)/translate.txt $(srcdir)/buildtools/gentranslatetable.sh
-@HAVE_TRANSLATION_TRUE@@NATIVE_TOOLS_FALSE@	@echo "generating translate_table.h..."
-@HAVE_TRANSLATION_TRUE@@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/gentranslatetable.sh <$(srcdir)/translate.txt >translate_table.h
-
 .PHONY: svnversion.h.indirect
 
 svnversion.h.indirect:
@@ -2373,12 +2344,11 @@ svnversion.h: svnversion.h.indirect
 
 @NATIVE_TOOLS_TRUE@infocontrib.h:	$(top_srcdir)/doc/vice.texi $(srcdir)/buildtools/infocontrib.sed $(builddir)/geninfocontrib
 @NATIVE_TOOLS_TRUE@	@echo "generating infocontrib.h..."
-@NATIVE_TOOLS_TRUE@	$(builddir)/geninfocontrib $(top_srcdir)/ ../ doc/vice.texi src/infocontrib.h src/buildtools/infocontrib.sed AUTHORS src/arch/unix/macosx/Resources/Credits.html README doc/html/index.html man/vice.1
+@NATIVE_TOOLS_TRUE@	$(builddir)/geninfocontrib $(top_srcdir)/ ../ doc/vice.texi src/infocontrib.h src/buildtools/infocontrib.sed AUTHORS README doc/html/index.html man/vice.1
 @NATIVE_TOOLS_FALSE@infocontrib.h:	$(top_srcdir)/doc/vice.texi $(srcdir)/buildtools/infocontrib.sed
 @NATIVE_TOOLS_FALSE@	@echo "generating infocontrib.h..."
 @NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/geninfocontrib_h.sh infocontrib.h <$(top_srcdir)/doc/vice.texi | $(srcdir)/sedinfocontrib_h.sh $(srcdir)/buildtools/infocontrib.sed >infocontrib.h
 @NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/geninfocontrib_h.sh AUTHORS | $(srcdir)/sedinfocontrib_h.sh $(srcdir)/buildtools/infocontrib.sed >../AUTHORS
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/geninfocontrib_h.sh OSXcreditshtml >arch/unix/macosx/Resources/Credits.html
 @NATIVE_TOOLS_FALSE@	sed -e 's/\\/@/g' -e 's/ /%/g' <$(top_srcdir)/README >./README.tmp
 @NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/geninfocontrib_h.sh README <README.tmp >README2.tmp
 @NATIVE_TOOLS_FALSE@	sed -e 's/@/\\/g' -e 's/%/ /g' <README2.tmp >../README
@@ -2391,16 +2361,6 @@ svnversion.h: svnversion.h.indirect
 @NATIVE_TOOLS_FALSE@	cat man2.tmp | $(srcdir)/sedinfocontrib_h.sh $(srcdir)/buildtools/infocontrib.sed >../man/vice.1
 @NATIVE_TOOLS_FALSE@	rm -f man*.tmp
 @NATIVE_TOOLS_FALSE@	rm -f team.tmp
-
-@NATIVE_TOOLS_TRUE@$(builddir)/gentranslate:	$(srcdir)/translate.txt $(srcdir)/buildtools/gentranslate.c
-@NATIVE_TOOLS_TRUE@	$(NATIVE_TOOLS_COMPILER) -o $(builddir)/gentranslate $(srcdir)/buildtools/gentranslate.c
-
-@NATIVE_TOOLS_TRUE@translate.h translate_table.h:	$(srcdir)/translate.txt $(builddir)/gentranslate
-@NATIVE_TOOLS_TRUE@	@echo "generating translate.h..."
-@NATIVE_TOOLS_TRUE@	$(builddir)/gentranslate $(srcdir)/translate.txt ./translate.h ./translate_table.h
-@NATIVE_TOOLS_FALSE@translate.h:	$(srcdir)/translate.txt $(srcdir)/buildtools/gentranslate_h.sh
-@NATIVE_TOOLS_FALSE@	@echo "generating translate.h..."
-@NATIVE_TOOLS_FALSE@	$(SHELL) $(srcdir)/buildtools/gentranslate_h.sh $(DEBUGBUILD) <$(srcdir)/translate.txt >translate.h
 
 @OWCC_TRUE@owcc_libs_converted.h:
 @OWCC_TRUE@	$(SHELL) $(srcdir)/buildtools/convert_owcc_libs.sh $(LIBS)
@@ -3016,11 +2976,13 @@ vsid-all: \
 	libsounddrv \
 	libmididrv \
 	libsocketdrv \
+	libhvsc \
 	libhwsiddrv \
 	libiodrv \
 	libviciivsid \
 	libvideo \
 	libarch \
+	libarchdep \
 	libmonitor \
 	libserial \
 	libcore \
@@ -3142,7 +3104,7 @@ x64dtv-all: \
 	libparallel \
 	libvdrive \
 	libraster \
-	libsid \
+	libsid_dtv \
 	libsamplerdrv \
 	libjoyport \
 	libsounddrv \
@@ -3512,13 +3474,17 @@ petcat-all: \
 	libpet libplus4 libcbm2 libcbm5x0 libdrive libvdrive libprinterdrv \
 	librs232drv libgfxoutputdrv libsamplerdrv libjoyport libsounddrv \
 	libmididrv libsocketdrv libhwsiddrv libiodrv libdiskimage libfsdevice \
-	libtape libarch libvicii libviciisc libviciidtv libviciivsid libvdc \
-	libsid libcrtc libvideo libserial libparallel libcore libiecbus \
-	libfileio librtc libuserport libtapeport libp64 libscpu64 libdiag \
+	libtape libarch libarchdep libvicii libviciisc libviciidtv \
+	libviciivsid libvdc libsid libcrtc libvideo libserial libparallel \
+	libcore libiecbus libfileio librtc libuserport libtapeport libp64 \
+	libscpu64 libdiag \
 	@RESID_DEP@ @RESID_DTV_DEP@ @FFMPEG_DEP@
 
 libarch:
 	@(cd arch && $(MAKE))
+libarchdep:
+	@(echo "making libarchdep.a")
+	@(cd arch/shared && $(MAKE))
 libc128:
 	@echo "making all in c128"
 	@(cd c128 && $(MAKE))
@@ -3604,6 +3570,9 @@ libfsdevice:
 libgfxoutputdrv:
 	@echo "making all in gfxoutputdrv"
 	@(cd gfxoutputdrv && $(MAKE))
+libhvsc:
+	@echo "making all in hvsc"
+	@(cd hvsc && $(MAKE))
 libhwsiddrv:
 	@echo "making all in hwsiddrv"
 	@(cd hwsiddrv && $(MAKE))
@@ -3623,8 +3592,8 @@ libmididrv:
 	@echo "making libmididrv.a in mididrv"
 	@(cd mididrv && $(MAKE) libmididrv.a)
 libmonitor:
-	@echo "making libmonitor.a in monitor"
-	@(cd monitor && $(MAKE) libmonitor.a)
+	@echo "making all in monitor"
+	@(cd monitor && $(MAKE))
 libparallel:
 	@echo "making all in parallel"
 	@(cd parallel && $(MAKE))
@@ -3647,8 +3616,8 @@ librtc:
 	@echo "making librtc.a in rtc"
 	@(cd rtc && $(MAKE) librtc.a)
 libresid:
-	@echo "making libresid.a in resid"
-	@(cd resid && $(MAKE) libresid.a)
+	@echo "making all in resid"
+	@(cd resid && $(MAKE))
 libresiddtv:
 	@echo "making libresiddtv.a in resid-dtv"
 	@(cd resid-dtv && $(MAKE) libresiddtv.a)
@@ -3664,6 +3633,9 @@ libserial:
 libsid:
 	@echo "making libsid.a in sid"
 	@(cd sid && $(MAKE) libsid.a)
+libsid_dtv:
+	@echo "making libsid_dtv.a in sid"
+	@(cd sid && $(MAKE) libsid_dtv.a)
 libsocketdrv:
 	@echo "making libsocketdrv.a in socketdrv"
 	@(cd socketdrv && $(MAKE) libsocketdrv.a)
@@ -3708,7 +3680,7 @@ libvideo:
 	@(cd video && $(MAKE))
 libvsid:
 	@echo "making libvsid.a in c64"
-	@(cd c64 && $(MAKE) libvsid.a)
+	@(cd c64 && $(MAKE) psiddrv.h libvsid.a)
 
 x64ow$(EXEEXT): x64$(EXEEXT)
 	wrc -fe=x64ow$(EXEEXT) arch/win32/resc64.res x64$(EXEEXT)

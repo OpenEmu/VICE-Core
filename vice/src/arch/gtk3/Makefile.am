@@ -1,12 +1,14 @@
-## Makefile.am for the native GTK3 version of `libarch.a'.
+
+
+- x128: Bring either VDC or VICII display to front depending on 40/80 col key## Makefile.am for the native GTK3 version of `libarch.a'.
 
 if WIN32_COMPILE
-extra_includes = -I$(top_srcdir)/src/arch/win32/mingw32/wpcap
+extra_includes = -I$(top_srcdir)/src/arch/mingw32-pcap/wpcap
 else
 extra_includes =
 endif
 
-SUBDIRS = widgets
+SUBDIRS = data novte widgets
 
 AM_CPPFLAGS = \
 	@ARCH_INCLUDES@ \
@@ -23,6 +25,8 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/vdc \
 	-I$(top_srcdir)/src/arch/gtk3/widgets \
 	-I$(top_srcdir)/src/arch/gtk3/widgets/base \
+	-I$(top_srcdir)/src/arch/gtk3/novte \
+	-I$(top_builddir)/src/arch/gtk3/novte \
 	-I$(top_srcdir)/src/c64 \
 	-I$(top_srcdir)/src/c64dtv \
 	-I$(top_srcdir)/src/c128 \
@@ -34,7 +38,9 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/samplerdrv \
 	-I$(top_srcdir)/src/c64/cart \
 	-I$(top_srcdir)/src/imagecontents \
-	-I$(top_srcdir)/src/tapeport
+	-I$(top_srcdir)/src/monitor \
+	-I$(top_srcdir)/src/tapeport \
+	-I$(top_srcdir)/src/hvsc
 
 
 noinst_LIBRARIES = libarch.a
@@ -49,7 +55,6 @@ libarch_a_SOURCES = \
 	cairo_renderer.c \
 	cbm2ui.c \
 	cbm5x0ui.c \
-	console.c \
 	coproc.c \
 	dynlib.c \
 	fullscreen.c \
@@ -63,6 +68,7 @@ libarch_a_SOURCES = \
 	joy-win32-dinput-handle.c \
 	joy-win32.c \
 	kbd.c \
+	linenoise.c \
 	mousedrv.c \
 	opengl_renderer.c \
 	petui.c \
@@ -78,6 +84,7 @@ libarch_a_SOURCES = \
 	uicmdline.c \
 	uicommands.c \
 	uicompiletimefeatures.c \
+	uidata.c \
 	uidatasette.c \
 	uidebug.c \
 	uidiskattach.c \
@@ -126,9 +133,10 @@ EXTRA_DIST = \
 	joy-win32.h \
 	joy.h \
 	kbd.h \
+	linenoise.h \
+	make-bindist_osx.sh \
 	make-bindist_win32.sh \
 	mousedrv.h \
-	not_implemented.h \
 	opengl_renderer.h \
 	quartz_renderer.h \
 	rawnetarch_unix.c \
@@ -141,6 +149,7 @@ EXTRA_DIST = \
 	uicmdline.h \
 	uicommands.h \
 	uicompiletimefeatures.h \
+	uidata.h \
 	uidatasette.h \
 	uidebug.h \
 	uidiskattach.h \
@@ -152,6 +161,7 @@ EXTRA_DIST = \
 	uimedia.h \
 	uimenu.h \
 	uimonarch.h \
+	uimon-fallback.h \
 	uinetplay.h \
 	uinetplay_new.h \
 	uisettings.h \
@@ -164,4 +174,9 @@ EXTRA_DIST = \
 	uivideo.h \
 	uivsidmenu.h \
 	uivsidwindow.h \
-	videoarch.h
+	videoarch.h \
+	winjoy.h \
+	Info.plist \
+	Resources/VICE.icns \
+	vice-launcher.sh \
+	x11-launcher.sh

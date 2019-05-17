@@ -51,10 +51,10 @@
 /** \brief  List of possible parallel cables for c64
  */
 static const vice_gtk3_combo_entry_int_t parallel_cables_c64[] = {
-    { "None", 0 },
-    { "Standard", 1 },
-    { "Professional DOS", 2 },
-    { "Formel 64", 3 },
+    { "None", DRIVE_PC_NONE },
+    { "Standard", DRIVE_PC_STANDARD },
+    { "Dolphin DOS 3", DRIVE_PC_DD3 },
+    { "Formel 64", DRIVE_PC_FORMEL64 },
     { NULL, -1 }
 };
 
@@ -62,8 +62,8 @@ static const vice_gtk3_combo_entry_int_t parallel_cables_c64[] = {
 /** \brief  List of possible parallel cables for Plus4
  */
 static const vice_gtk3_combo_entry_int_t parallel_cables_plus4[] = {
-    { "None", 0 },
-    { "Standard", 1 },
+    { "None", DRIVE_PC_NONE },
+    { "Standard", DRIVE_PC_STANDARD },
     { NULL, -1 }
 };
 
@@ -86,7 +86,7 @@ GtkWidget *drive_parallel_cable_widget_create(int unit)
     }
 
     grid = uihelpers_create_grid_with_label("Parallel cable", 1);
-    debug_gtk3("setting UnitNumber property to %d\n", unit);
+    debug_gtk3("setting UnitNumber property to %d.", unit);
     g_object_set_data(G_OBJECT(grid), "UnitNumber", GINT_TO_POINTER(unit));
 
     combo = vice_gtk3_resource_combo_box_int_new_sprintf(

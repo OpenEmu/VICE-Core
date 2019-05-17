@@ -5,6 +5,7 @@
  * \author  Michael C. Martin <mcmartin@gmail.com>
  * \author  Oliver Schaertel
  * \author  pottendo <pottendo@gmx.net>
+ * \author  Bas Wassink <b.wassink@ziggo.nl>
  */
 
 /*
@@ -32,13 +33,47 @@
 
 #include <stdio.h>
 #include <gtk/gtk.h>
+#include "debug_gtk3.h"
+#include "lib.h"
+#include "log.h"
+#include "ui.h"
 
 /* UNIX-specific; for kbd_arch_get_host_mapping */
 #include <locale.h>
 #include <string.h>
 
+
 #include "keyboard.h"
 #include "kbd.h"
+
+
+static gboolean kbd_hotkey_handle(GdkEvent *report);
+
+
+/** \brief  Initial size of the hotkeys array
+ */
+#define HOTKEYS_SIZE_INIT   64
+
+
+/** \brief  List of custom hotkeys
+ */
+static kbd_gtk3_hotkey_t *hotkeys_list = NULL;
+
+
+/** \brief  Size of the hotkeys array
+ *
+ * This will be HOTKEYS_SIZE_INIT element after initializing and will grow
+ * by doubling its size when the array is full.
+ */
+static int hotkeys_size = 0;
+
+
+/** \brief  Number of registered hotkeys
+ */
+static int hotkeys_count = 0;
+
+
+
 
 int kbd_arch_get_host_mapping(void)
 {
@@ -63,9 +98,24 @@ int kbd_arch_get_host_mapping(void)
     return KBD_MAPPING_US;
 }
 
+
+/** \brief  Initialize keyboard handling
+ */
 void kbd_arch_init(void)
 {
+    /* do NOT call kbd_hotkey_init(), keyboard.c calls this function *after*
+     * the UI init stuff is called, allocating the hotkeys array again and thus
+     * causing a memory leak
+     */
 }
+
+
+
+void kbd_arch_shutdown(void)
+{
+    /* Also don't call kbd_hotkey_shutdown() here */
+}
+
 
 signed long kbd_arch_keyname_to_keynum(char *keyname)
 {
@@ -113,6 +163,21 @@ static gboolean kbd_event_handler(GtkWidget *w, GdkEvent *report, gpointer gp)
             if (key == GDK_KEY_d && report->key.state & GDK_MOD1_MASK) {
                 return TRUE;
             }
+
+            /* check the custom hotkeys */
+            if (kbd_hotkey_handle(report)) {
+                return TRUE;
+            }
+
+#if 0
+            if ((key == GDK_KEY_p || key == GDK_KEY_P)
+                    && (report->key.state & GDK_MOD1_MASK)) {
+                debug_gtk3("Got Alt+P");
+                ui_toggle_pause();
+                return TRUE;
+            }
+#endif
+
             keyboard_key_pressed((signed long)key);
             return TRUE;
         case GDK_KEY_RELEASE:
@@ -140,4 +205,141 @@ void kbd_connect_handlers(GtkWidget *widget, void *data)
     g_signal_connect(G_OBJECT(widget), "key-release-event", G_CALLBACK(kbd_event_handler), data);
     g_signal_connect(G_OBJECT(widget), "enter-notify-event", G_CALLBACK(kbd_event_handler), data);
     g_signal_connect(G_OBJECT(widget), "leave-notify-event", G_CALLBACK(kbd_event_handler), data);
+}
+
+/*
+ * Hotkeys (keyboard shortcuts not connected to any GtkMenuItem) handling
+ */
+
+
+/** \brief  Initialize the hotkeys
+ *
+ * This allocates an initial hotkeys array of HOTKEYS_SIZE_INIT elements
+ */
+void kbd_hotkey_init(void)
+{
+    debug_gtk3("initializing hotkeys list.");
+    hotkeys_list = lib_malloc(HOTKEYS_SIZE_INIT * sizeof *hotkeys_list);
+    hotkeys_size = HOTKEYS_SIZE_INIT;
+    hotkeys_count = 0;
+}
+
+
+
+/** \brief  Clean up memory used by the hotkeys array
+ */
+void kbd_hotkey_shutdown(void)
+{
+    debug_gtk3("cleaning up memory used by the hotkeys.");
+    lib_free(hotkeys_list);
+}
+
+
+/** \brief  Find hotkey index
+ *
+ * \param[in]   code    key code
+ * \param[in]   mask    key mask
+ *
+ * \return  index in list, -1 when not found
+ */
+static int kbd_hotkey_get_index(guint code, guint mask)
+{
+    int i = 0;
+
+    while (i < hotkeys_count) {
+        if (hotkeys_list[i].code == code && hotkeys_list[i].mask) {
+            return i;
+        }
+        i++;
+    }
+    return -1;
+}
+
+
+/** \brief  Look up the requested hotkey and trigger its callback when found
+ *
+ * \param[in]   report  GDK key press event instance
+ *
+ * \return  TRUE when the key was found and the callback triggered,
+ *          FALSE otherwise
+ */
+static gboolean kbd_hotkey_handle(GdkEvent *report)
+{
+    int i = 0;
+    gint code = report->key.keyval;
+
+    while (i < hotkeys_count) {
+        if ((hotkeys_list[i].code == code)
+                && (report->key.state & hotkeys_list[i].mask)) {
+
+            debug_gtk3("triggering callback of hotkey with index %d.", i);
+            hotkeys_list[i].callback();
+            return TRUE;
+        }
+        i++;
+    }
+    return FALSE;
+}
+
+
+/** \brief  Add hotkey to the list
+ *
+ * \param[in]   code        GDK key code
+ * \param[in]   mask        GDK key modifier bitmask
+ * \param[in]   callback    function to call when hotkey is triggered
+ *
+ * \return  bool
+ */
+gboolean kbd_hotkey_add(guint code, guint mask, void (*callback)(void))
+{
+    if (callback == NULL) {
+        log_error(LOG_ERR, "Error: NULL passed as callback.");
+        return FALSE;
+    }
+    if (kbd_hotkey_get_index(code, mask) >= 0) {
+        log_error(LOG_ERR, "Error: hotkey already registered.");
+        return FALSE;
+    }
+
+    /* resize list? */
+    if (hotkeys_count == hotkeys_size) {
+        int new_size = hotkeys_size * 2;
+        debug_gtk3("Resizing hotkeys list to %d items.", new_size);
+        hotkeys_list = lib_realloc(
+                hotkeys_list,
+                (size_t)new_size * sizeof *hotkeys_list);
+        hotkeys_size = new_size;
+    }
+
+
+    /* register hotkey */
+    hotkeys_list[hotkeys_count].code = code;
+    hotkeys_list[hotkeys_count].mask = mask;
+    hotkeys_list[hotkeys_count].callback = callback;
+    hotkeys_count++;
+    return TRUE;
+}
+
+
+/** \brief  Add multiple hotkeys at once
+ *
+ * Adds multiple hotkeys from \a list. Terminate the list with NULL for the
+ * callback value.
+ *
+ * \param[in]   list    list of hotkeys
+ *
+ * \return  TRUE on success, FALSE if the list was exhausted or a hotkey
+ *          was already registered
+ */
+gboolean kbd_hotkey_add_list(kbd_gtk3_hotkey_t *list)
+{
+    int i = 0;
+
+    while (list[i].callback != NULL) {
+        if (!kbd_hotkey_add(list[i].code, list[i].mask, list[i].callback)) {
+            return FALSE;
+        }
+        i++;
+    }
+    return TRUE;
 }

@@ -43,7 +43,6 @@
 #include "vice.h"
 
 #include <gtk/gtk.h>
-#include <stdbool.h>
 #include <string.h>
 
 #include "debug_gtk3.h"
@@ -87,10 +86,12 @@ static void on_internal_toggled(GtkWidget *radio, gpointer data)
  */
 static void on_combo_changed(GtkComboBox *combo, gpointer user_data)
 {
+#ifdef HAVE_DEBUG_GTK3UI
     int index = gtk_combo_box_get_active(combo);
+#endif
     const char *id = gtk_combo_box_get_active_id(combo);
 
-    debug_gtk3("got combo index %d, id '%s'\n", index, id);
+    debug_gtk3("got combo index %d, id '%s'.", index, id);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(radio_external), TRUE);
     resources_set_string_sprintf("%sPaletteFile", id, chip_prefix);
     resources_set_int_sprintf("%sExternalPalette", 1, chip_prefix);
@@ -113,7 +114,7 @@ static void on_browse_clicked(GtkButton *button, gpointer user_data)
     filename = vice_gtk3_open_file_dialog("Open palette file",
             "Palette files", flist, NULL);
     if (filename != NULL) {
-        debug_gtk3("got palette file '%s'\n", filename);
+        debug_gtk3("got palette file '%s'.", filename);
         resources_set_string_sprintf("%sPaletteFile", filename, chip_prefix);
 
         /* add to combo box */
@@ -141,7 +142,7 @@ static GtkWidget *create_combo_box(void)
     palette_info_t *list;
     int row;
     const char *current;
-    bool found = false;
+    gboolean found = FALSE;
 
     if (resources_get_string_sprintf("%sPaletteFile",
                 &current, chip_prefix) < 0) {
@@ -158,7 +159,7 @@ static GtkWidget *create_combo_box(void)
                     list[index].file, list[index].name);
             if (current != NULL && strcmp(list[index].file, current) == 0) {
                 gtk_combo_box_set_active(GTK_COMBO_BOX(combo), row);
-                found = true;
+                found = TRUE;
             }
             row++;
         }
@@ -205,7 +206,7 @@ GtkWidget *video_palette_widget_create(const char *chip)
     chip_prefix = chip;
 
     resources_get_int_sprintf("%sExternalPalette", &external, chip);
-    debug_gtk3("%sExternalPalette is %s\n", chip, external ? "ON" : "OFF");
+    debug_gtk3("%sExternalPalette is %s.", chip, external ? "ON" : "OFF");
 
     grid = vice_gtk3_grid_new_spaced_with_label(-1, -1, "Palette settings", 4);
 

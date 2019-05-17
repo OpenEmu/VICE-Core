@@ -222,16 +222,17 @@ static void on_tapecart_browse_clicked(GtkWidget *widget, gpointer user_data)
  */
 static void on_tapecart_flush_clicked(GtkWidget *widget, gpointer data)
 {
-    debug_gtk3("Attempting to flush current tapecart image\n");
+    debug_gtk3("Attempting to flush current tapecart image.");
     if (tapecart_flush_func == NULL) {
+        /* TODO: change into UI error dialog */
         debug_gtk3("Failed: please set the tapecart flush function with "
-                "tapeport_devices_widget_set_tapecart_flush_func()\n");
+                "tapeport_devices_widget_set_tapecart_flush_func().");
         return;
     }
     if (tapecart_flush_func() == 0) {
-        debug_gtk3("OK\n");
+        debug_gtk3("OK.");
     } else {
-        debug_gtk3("Failed\n");
+        debug_gtk3("Failed.");
     }
 }
 
@@ -496,8 +497,8 @@ GtkWidget *tapeport_devices_widget_create(GtkWidget *parent)
             || machine_class == VICE_MACHINE_C128) {
 
         gtk_grid_attach(GTK_GRID(grid), create_tapecart_widget(), 0, 5, 1, 1);
-        gtk_widget_show_all(grid);
     }
+    gtk_widget_show_all(grid);
     return grid;
 }
 

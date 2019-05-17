@@ -40,6 +40,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "archdep.h"
 #include "widgethelpers.h"
 #include "resourcehelpers.h"
 #include "debug_gtk3.h"
@@ -65,7 +66,7 @@ static void on_radio_toggled(GtkWidget *radio, gpointer user_data)
          * button */
         device = resource_widget_get_int(radio, "DeviceNumber");
         type = (const char *)user_data;
-        debug_gtk3("setting Printer%dDriver to '%s'\n", device, type);
+        debug_gtk3("setting Printer%dDriver to '%s'.", device, type);
         resources_set_string_sprintf("Printer%dDriver", type, device);
     }
 }
@@ -158,7 +159,7 @@ GtkWidget *printer_driver_widget_create(int device)
     } else {
         fprintf(stderr, "%s:%d:%s(): invalid device #%d\n",
                 __FILE__, __LINE__, __func__, device);
-        exit(1);
+        archdep_vice_exit(1);
     }
 
 
@@ -220,7 +221,7 @@ void printer_driver_widget_update(GtkWidget *widget, const char *driver)
     } else {
         fprintf(stderr, "%s:%d:%s(): invalid printer device #%d\n",
                 __FILE__, __LINE__, __func__, device);
-        exit(1);
+        archdep_vice_exit(1);
     }
 
     /* now select the proper radio button */

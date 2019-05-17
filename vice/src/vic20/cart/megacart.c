@@ -43,7 +43,6 @@
 #include "monitor.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "types.h"
 #include "util.h"
 #include "vic20cart.h"
@@ -564,21 +563,15 @@ void megacart_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-mcnvramfile", SET_RESOURCE, 1,
+    { "-mcnvramfile", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "MegaCartNvRAMfilename", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SET_MEGACART_NVRAM_NAME,
-      NULL, NULL },
-    { "-mcnvramwriteback", SET_RESOURCE, 0,
+      "<Name>", "Set Mega-Cart NvRAM filename" },
+    { "-mcnvramwriteback", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MegaCartNvRAMWriteBack", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_MEGACART_NVRAM_WRITE,
-      NULL, NULL },
-    { "+mcnvramwriteback", SET_RESOURCE, 0,
+      NULL, "Enable Mega-Cart NvRAM writeback" },
+    { "+mcnvramwriteback", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MegaCartNvRAMWriteBack", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_MEGACART_NVRAM_WRITE,
-      NULL, NULL },
+      NULL, "Disable Mega-Cart NvRAM writeback" },
     CMDLINE_LIST_END
 };
 

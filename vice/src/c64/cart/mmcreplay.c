@@ -51,7 +51,6 @@
 #include "ser-eeprom.h"
 #include "snapshot.h"
 #include "spi-sdcard.h"
-#include "translate.h"
 #include "types.h"
 #include "util.h"
 #include "vicii-phi1.h"
@@ -2942,72 +2941,49 @@ void mmcreplay_resources_shutdown(void)
     clockport_device_names = NULL;
 }
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-mmcrrescue", SET_RESOURCE, 0,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-mmcrrescue", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MMCRRescueMode", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_MMC_REPLAY_RESCUE_MODE_ENABLE,
-      NULL, NULL },
-    { "+mmcrrescue", SET_RESOURCE, 0,
+      NULL, "Enable MMC Replay rescue mode" },
+    { "+mmcrrescue", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MMCRRescueMode", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_MMC_REPLAY_RESCUE_MODE_DISABLE,
-      NULL, NULL },
-    { "-mmcrimagerw", SET_RESOURCE, 0,
+      NULL, "Disable MMC Replay rescue mode" },
+    { "-mmcrimagerw", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MMCRImageWrite", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ALLOW_WRITING_TO_MMC_REPLAY_IMAGE,
-      NULL, NULL },
-    { "+mmcrimagerw", SET_RESOURCE, 0,
+      NULL, "Allow writing to MMC Replay image" },
+    { "+mmcrimagerw", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MMCRImageWrite", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DO_NOT_WRITE_TO_MMC_REPLAY_IMAGE,
-      NULL, NULL },
-    { "-mmcrcardimage", SET_RESOURCE, 1,
+      NULL, "Do not write to MMC Replay image" },
+    { "-mmcrcardimage", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "MMCRCardImage", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_FILE, IDCLS_SELECT_MMC_REPLAY_CARD_IMAGE_FILENAME,
-      NULL, NULL },
-    { "-mmcrcardrw", SET_RESOURCE, 0,
+      "<filename>", "Specify MMC Replay card image filename" },
+    { "-mmcrcardrw", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MMCRCardRW", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_MMC_REPLAY_CARD_WRITE_ENABLE,
-      NULL, NULL },
-    { "+mmcrcardrw", SET_RESOURCE, 0,
+      NULL, "Enable writes to MMC Replay card image" },
+    { "+mmcrcardrw", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MMCRCardRW", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_MMC_REPLAY_CARD_WRITE_DISABLE,
-      NULL, NULL },
-    { "-mmcreepromimage", SET_RESOURCE, 1,
+      NULL, "Disable writes to MMC Replay card image" },
+    { "-mmcreepromimage", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "MMCREEPROMImage", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_P_FILE, IDCLS_SELECT_MMC_REPLAY_EEPROM_IMAGE,
-      NULL, NULL },
-    { "-mmcreepromrw", SET_RESOURCE, 0,
+      "<filename>", "Specify MMC Replay EEPROM image filename" },
+    { "-mmcreepromrw", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MMCREEPROMRW", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_MMC_REPLAY_EEPROM_WRITE_ENABLE,
-      NULL, NULL },
-    { "+mmcreepromrw", SET_RESOURCE, 0,
+      NULL, "Enable writes to MMC Replay EEPROM image" },
+    { "+mmcreepromrw", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MMCREEPROMRW", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_MMC_REPLAY_EEPROM_WRITE_DISABLE,
-      NULL, NULL },
-    { "-mmcrsdtype", SET_RESOURCE, 1,
+      NULL, "Disable writes to MMC Replay EEPROM image" },
+    { "-mmcrsdtype", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "MMCRSDType", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_TYPE, IDCLS_SELECT_MMC_REPLAY_SD_TYPE,
-      NULL, NULL },
+      "<Type>", "Specify MMC Replay SD type (0: auto, 1: MMC, 2: SD, 3: SDHC)" },
     CMDLINE_LIST_END
 };
 
 static cmdline_option_t clockport_cmdline_options[] =
 {
-    { "-mmcrclockportdevice", SET_RESOURCE, 1,
+    { "-mmcrclockportdevice", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "MMCRClockPort", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_COMBO,
-      IDCLS_P_DEVICE, IDCLS_CLOCKPORT_DEVICE,
-      NULL, NULL },
+      "<device>", NULL },
     CMDLINE_LIST_END
 };
 
@@ -3023,7 +2999,7 @@ int mmcreplay_cmdline_options_init(void)
 
     sprintf(number, "%d", clockport_supported_devices[0].id);
 
-    clockport_device_names = util_concat(". (", number, ": ", clockport_supported_devices[0].name, NULL);
+    clockport_device_names = util_concat("Clockport device. (", number, ": ", clockport_supported_devices[0].name, NULL);
 
     for (i = 1; clockport_supported_devices[i].name; ++i) {
         tmp = clockport_device_names;

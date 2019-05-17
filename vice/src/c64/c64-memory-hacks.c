@@ -38,7 +38,6 @@
 #include "plus60k.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "types.h"
 #include "ui.h"
 
@@ -143,11 +142,9 @@ int memory_hacks_resources_init(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-memoryexphack", SET_RESOURCE, 1,
+    { "-memoryexphack", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "MemoryHack", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_DEVICE, IDCLS_SET_C64_MEMORY_HACK,
-      NULL, NULL },
+      "<device>", "Set the 'memory expansion hack' device (0: None, 1: C64 256K, 2: +60K, 3: +256K)" },
     CMDLINE_LIST_END
 };
 

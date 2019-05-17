@@ -39,22 +39,26 @@
 #include <stdio.h>
 #include <string.h>
 #include <gtk/gtk.h>
-#include <stdbool.h>
 
 #include "archdep.h"
 #include "resources.h"
 #include "debug_gtk3.h"
 #include "basedialogs.h"
 #include "drive.h"
+#include "log.h"
 #include "machine.h"
 #include "util.h"
 #include "vsync.h"
 
+#if 0
+#ifdef WIN32_COMPILE
+# include <windows.h>
+#endif
+#endif
+
 #include "ui.h"
 #include "uicommands.h"
-
-
-static bool crt_controls_enable = false;
+#include "uimachinewindow.h"
 
 
 /** \brief  Swap joysticks
@@ -141,6 +145,7 @@ static gboolean confirm_exit(void)
                                   "Do you really wish to exit VICE?")) {
         return TRUE;
     }
+    ui_set_ignore_mouse_hide(FALSE);
     return FALSE;
 }
 
@@ -186,14 +191,14 @@ void ui_main_window_destroy_callback(GtkWidget *widget, gpointer user_data)
 {
     GtkWidget *grid;
 
-    debug_gtk3("WINDOW DESTROY called on %p\n", widget);
+    debug_gtk3("WINDOW DESTROY called on %p.", widget);
 
     /*
      * This should not be needed, destroying a GtkWindow should trigger
      * destruction of all widgets it contains.
      */
     debug_gtk3("Manually calling destroy() on the CRT widgets. This should not"
-            " be necesarry, but right now it is\n");
+            " be necesarry, but right now it is.");
     grid = gtk_bin_get_child(GTK_BIN(widget));
     if (grid != NULL) {
         GtkWidget *crt = gtk_grid_get_child_at(GTK_GRID(grid), 0, 2);
@@ -222,10 +227,10 @@ gboolean ui_toggle_resource(GtkWidget *widget, gpointer resource)
 
         /* attempt to toggle resource */
         if (resources_toggle(res, &new_state) < 0) {
-            debug_gtk3("toggling resource %s failed\n", res);
+            debug_gtk3("toggling resource %s failed.", res);
             return FALSE;
         }
-        debug_gtk3("resource %s toggled to %s\n",
+        debug_gtk3("resource %s toggled to %s.",
                    res, new_state ? "True" : "False");
         return TRUE;
     }
@@ -233,23 +238,7 @@ gboolean ui_toggle_resource(GtkWidget *widget, gpointer resource)
 }
 
 
-gboolean ui_toggle_crt_controls(void)
-{
-    crt_controls_enable = !crt_controls_enable;
-
-    ui_enable_crt_controls(crt_controls_enable);
-    return TRUE;
-}
-
-
-gboolean ui_crt_controls_enabled(void)
-{
-    return crt_controls_enable;
-}
-
 /** \brief  Open the Manual
- *
- * \return  TRUE if succesful, FALSE otherwise
  */
 void ui_open_manual_callback(GtkWidget *widget, gpointer user_data)
 {
@@ -257,49 +246,117 @@ void ui_open_manual_callback(GtkWidget *widget, gpointer user_data)
     gboolean res;
     char *uri;
     const char *path;
-#if defined(WIN32_COMPILE)
-    const char *tpath;
-#endif
+    gchar *final_uri;
 
-#ifdef MACOSX_BUNDLE
-    /* On Macs the manual path is relative to the bundle. */
-    path = util_concat(archdep_boot_path(), "/../doc/", NULL);
-#elif defined(WIN32_COMPILE)
-    /* On Windows the manual path is relative to the .exe */
-    tpath = util_concat("/", archdep_boot_path(), "/doc/", NULL);
-    /* we need forward slashes in the uri */
-    path = util_subst(tpath, "\\", "/");
-    lib_free(tpath);
-    debug_gtk3("doc path: %s\n", path);
-#else
-    path = util_concat(DOCDIR, "/", NULL);
-#endif
+    /*
+     * Gget arch-dependent documentation dir (doesn't contain the HTML docs
+     * on Windows, but that's an other issue to fix.
+     */
+    path = archdep_get_vice_docsdir();
 
     /* first try opening the pdf */
-    uri = util_concat("file://", path, "vice.pdf", NULL);
-    debug_gtk3("pdf uri: %s\n", uri);
-    res = gtk_show_uri_on_window(NULL, uri, GDK_CURRENT_TIME, &error);
-    lib_free(uri);
-    g_clear_error(&error);
-    if (res) {
+    uri = archdep_join_paths(path, "vice.pdf", NULL);
+
+    debug_gtk3("URI before GTK3: %s", uri);
+
+    /*
+     * This should not be used, but rather a helper tool provided by Gtk:
+     * gspawn-winXX-helper-console.exe needs to be installed by the bindist
+     * script.
+     */
+#if 0
+#ifdef WIN32_COMPILE
+    /* Windows: the Gtk/GLib stuff fails whatever I do, so let's use actual
+     *          Windows code. --compyx
+     */
+    ShellExecuteA(NULL, "open", uri, NULL, NULL, SW_SHOW);
+    /* that's right: no error checking and no fallback to HTML */
+    return;
+#endif
+#endif
+
+    final_uri = g_filename_to_uri(uri, NULL, &error);
+    debug_gtk3("final URI (pdf): %s", final_uri);
+    if (final_uri == NULL) {
+        /*
+         * This is a fatal error, if a proper URI can't be built something is
+         * wrong and should be looked at. This is different from failing to
+         * load the PDF or not having a program to show the PDF
+         */
+        log_error(LOG_ERR, "failed to construct a proper URI from '%s',"
+                " not trying the HTML fallback, this is an error that"
+                " should not happen.",
+                uri);
+        g_clear_error(&error);
+        lib_free(uri);
         lib_free(path);
         return;
     }
-    /* try opening the html doc */
-#if defined(WIN32_COMPILE)
-    /* HACK: on windows the html files are in a seperate directory */
-    uri = util_concat("file://", path, "../html/vice_toc.html", NULL);
-#else
-    uri = util_concat("file://", path, "vice_toc.html", NULL);
-#endif
-    debug_gtk3("html uri: %s\n", uri);
-    res = gtk_show_uri_on_window(NULL, uri, GDK_CURRENT_TIME, &error);
+
+    debug_gtk3("pdf uri: '%s'.", final_uri);
+    res = gtk_show_uri_on_window(NULL, final_uri, GDK_CURRENT_TIME, &error);
+    if (!res) {
+        vice_gtk3_message_error(
+                "Failed to load PDF: %s.",
+                error != NULL ? error->message : "<no message>");
+    }
     lib_free(uri);
+    g_free(final_uri);
     g_clear_error(&error);
-    /* if (res) {
+    if (res) {
+        /* We succesfully managed to open the PDF application, but there's no
+         * way to determine if actually loading the PDF in that application
+         * worked. So we simply exit here to avoid also opening a HTML browser
+         * which on Windows at least seems to completely ignore the default and
+         * always starts fucking Internet Explorer.
+         *
+         * Also how do we close the PDF application if we could determine it
+         * failed to load the PDF? We don't get any reference to the application
+         * to be able to terminate it. Gtk3 is awesome!
+         *
+         * -- compyx
+         */
         lib_free(path);
         return;
-    } */
+    }
+
+    /* try opening the html doc */
+#if defined(WIN32_COMPILE)
+    /* HACK: on windows the html files are in a separate directory */
+    uri = archdep_join_paths(path, "..", "html", "vice_toc.html", NULL);
+#else
+    uri = archdep_join_paths(path, "vice_toc.html", NULL);
+#endif
+
+    final_uri = g_filename_to_uri(uri, NULL, &error);
+    if (final_uri == NULL) {
+        /*
+         * This is a fatal error, if a proper URI can't be built something is
+         * wrong and should be looked at. This is different from failing to
+         * load the PDF or not having a program to show the PDF
+         */
+        log_error(LOG_ERR,
+                "failed to construct a proper URI from '%s',"
+                " this is an error that should not happen.",
+                uri);
+        g_free(final_uri);
+        lib_free(uri);
+        lib_free(path);
+        return;
+    }
+
+    /*
+     * On Windows this does not respect the user's preferred browser. That is,
+     * it didn't respect my Firefox but decided to use Internet Explorer,
+     * which is an unspeakable act of cruelty.
+     */
+    debug_gtk3("html uri: '%s'.", final_uri);
+    res = gtk_show_uri_on_window(NULL, final_uri, GDK_CURRENT_TIME, &error);
+    if (!res && error != NULL) {
+        vice_gtk3_message_error("Failed to show URI", error->message);
+    }
+    lib_free(uri);
+    g_free(final_uri);
+    g_clear_error(&error);
     lib_free(path);
-    return;
 }

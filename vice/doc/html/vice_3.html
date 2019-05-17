@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52
-     from ../../doc/vice.texi on 19 May 2018 -->
+     from ../../doc/vice.texi on 19 December 2018 -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <TITLE>VICE Manual - 3  Invoking the emulators</TITLE>
@@ -71,19 +71,19 @@ The names of the available emulators are:
 
 <P>
 You can run each of them by simply typing the name from a shell or by configuring
-your window manager for example to use them to open disk images.  
+your window manager for example to use them to open disk images.
 
 </P>
 <P>
 If you want to look at the log output, or use the monitor in a port which does
-not have a dedicated monitor UI yet (such as the XAW port), you should always 
-run them from a terminal window such as <CODE>xterm</CODE> or <CODE>rxvt</CODE>.  For example, 
+not have a dedicated monitor UI yet, you should always
+run them from a terminal window such as <CODE>xterm</CODE> or <CODE>rxvt</CODE>.  For example,
 you could do
 
 </P>
 
 <PRE>
-xterm -e x64
+xterm -e x64sc
 </PRE>
 
 
@@ -93,7 +93,7 @@ xterm -e x64
 <P>
 There are several options you can specify on the command line.  Some of
 them are used to specify emulation settings and will be described in
-detail later (see section <A HREF="vice_6.html#SEC41">6  Settings and resources</A> for a complete list).  The
+detail later (see section <A HREF="vice_6.html#SEC42">6  Settings and resources</A> for a complete list).  The
 remaining options are used only to give usage information or to
 initialize the emulator in some way:
 
@@ -102,22 +102,36 @@ initialize the emulator in some way:
 
 <DT><CODE>-help</CODE>
 <DD>
-<A NAME="IDX6"></A>
+<A NAME="IDX4"></A>
  
-<A NAME="IDX7"></A>
+<A NAME="IDX5"></A>
 <DT><CODE>-?</CODE>
 <DD>
 List all the available command-line options and their meaning.
-<A NAME="IDX8"></A>
+
+<A NAME="IDX6"></A>
+<DT><CODE>-features</CODE>
+<DD>
+List all compile time features
+
+<A NAME="IDX7"></A>
 <DT><CODE>-default</CODE>
 <DD>
-Set default resources (see section <A HREF="vice_6.html#SEC41">6  Settings and resources</A>).  This will
+Set default resources (see section <A HREF="vice_6.html#SEC42">6  Settings and resources</A>).  This will
 override all the settings specified before, but not the settings
 specified afterwards on the command line.
-<A NAME="IDX9"></A>
+
+<A NAME="IDX8"></A>
 <DT><CODE>-config &#60;filename&#62;</CODE>
 <DD>
 Specify config file
+
+<A NAME="IDX9"></A>
+<DT><CODE>-dumpconfig &#60;filename&#62;</CODE>
+<DD>
+Write the complete config into file. Normally only resources that have been
+changed from their default value would be written to the config file, however
+with this option you can see all resources and their current values.
 
 <A NAME="IDX10"></A>
 <DT><CODE>-logfile &#60;name&#62;</CODE>
@@ -126,52 +140,72 @@ Specify log file name
 (<CODE>LogFileName</CODE>).
 
 <A NAME="IDX11"></A>
+<DT><CODE>-monlog &#60;name&#62;</CODE>
+<DD>
+Specify log file name for the monitor.
+
+<A NAME="IDX12"></A>
 <DT><CODE>-verbose</CODE>
 <DD>
 Enable verbose log output.
-<A NAME="IDX12"></A>
+
+<A NAME="IDX13"></A>
+<DT><CODE>-silent</CODE>
+<DD>
+Disable all log output (except errors).
+
+<A NAME="IDX14"></A>
 <DT><CODE>-keybuf &#60;string&#62;</CODE>
 <DD>
 Put the specified string into the keyboard buffer.
-<A NAME="IDX13"></A>
+
+<A NAME="IDX15"></A>
 <DT><CODE>-console</CODE>
 <DD>
-Console mode (for music playback)
-<A NAME="IDX14"></A>
+Console mode (for music playback, or for running the emulator test programs)
+
+<A NAME="IDX16"></A>
+<DT><CODE>-limitcycles &#60;cycles&#62;</CODE>
+<DD>
+Automatically exit the emulator after a given number of cycles.
+
+<A NAME="IDX17"></A>
 <DT><CODE>-chdir &#60;directory&#62;</CODE>
 <DD>
 Change the working directory.
-<A NAME="IDX15"></A>
+
+<A NAME="IDX18"></A>
 <DT><CODE>-autostart &#60;name&#62;</CODE>
 <DD>
 Autostart &#60;name&#62; (see section <A HREF="vice_3.html#SEC24">3.2  Autostarting programs from the command-line</A>).
-<A NAME="IDX16"></A>
+
+<A NAME="IDX19"></A>
 <DT><CODE>-autoload &#60;name&#62;</CODE>
 <DD>
 Attach and autoload tape/disk image &#60;name&#62;
 
-<A NAME="IDX17"></A>
+<A NAME="IDX20"></A>
 <DT><CODE>-1 &#60;Name&#62;</CODE>
 <DD>
 Attach &#60;Name&#62; as a tape image file.
-<A NAME="IDX18"></A>
+<A NAME="IDX21"></A>
 <DT><CODE>-8 &#60;Name&#62;</CODE>
 <DD>
-<A NAME="IDX19"></A>
+<A NAME="IDX22"></A>
 <DT><CODE>-9 &#60;Name&#62;</CODE>
 <DD>
-<A NAME="IDX20"></A>
+<A NAME="IDX23"></A>
 <DT><CODE>-10 &#60;Name&#62;</CODE>
 <DD>
-<A NAME="IDX21"></A>
+<A NAME="IDX24"></A>
 <DT><CODE>-11 &#60;Name&#62;</CODE>
 <DD>
 Attach &#60;Name&#62; as a disk image to device 8, 9, 10 or 11.
 
-<A NAME="IDX22"></A>
-<A NAME="IDX23"></A>
-<A NAME="IDX24"></A>
 <A NAME="IDX25"></A>
+<A NAME="IDX26"></A>
+<A NAME="IDX27"></A>
+<A NAME="IDX28"></A>
 <DT><CODE>-attach8ro</CODE>
 <DD>
 <DT><CODE>-attach9ro</CODE>
@@ -184,10 +218,10 @@ Attach disk image for drive #8-11 read only
 (<CODE>AttachDevice8Readonly=1</CODE>, <CODE>AttachDevice9Readonly=1</CODE>, <CODE>AttachDevice10Readonly=1</CODE>, <CODE>AttachDevice11Readonly=1</CODE>)
 (all emulators except vsid).
 
-<A NAME="IDX26"></A>
-<A NAME="IDX27"></A>
-<A NAME="IDX28"></A>
 <A NAME="IDX29"></A>
+<A NAME="IDX30"></A>
+<A NAME="IDX31"></A>
+<A NAME="IDX32"></A>
 <DT><CODE>-attach8rw</CODE>
 <DD>
 <DT><CODE>-attach9rw</CODE>
@@ -199,6 +233,18 @@ Attach disk image for drive #8-11 read only
 Attach disk image for drive #8-11 read write (if possible)
 (<CODE>AttachDevice8Readonly=0</CODE>, <CODE>AttachDevice9Readonly=0</CODE>, <CODE>AttachDevice10Readonly=0</CODE>, <CODE>AttachDevice11Readonly=0</CODE>)
 (all emulators except vsid).
+
+<A NAME="IDX33"></A>
+<DT><CODE>-exitscreenshot &#60;name&#62;</CODE>
+<DD>
+Specify name of a screenshot file that will be written when the emulator exits.
+(<CODE>ExitScreenshotName</CODE>).
+
+<A NAME="IDX34"></A>
+<DT><CODE>-exitscreenshotvicii &#60;name&#62;</CODE>
+<DD>
+Specify name of a screenshot file that will be written when the emulator exits.
+(<CODE>ExitScreenshotName1</CODE>). (x128)
 
 </DL>
 
@@ -214,11 +260,11 @@ command line, for example
 </P>
 
 <PRE>
-x64 lovelygame.x64.gz
+x64sc lovelygame.d64
 </PRE>
 
 <P>
-will start the C64 emulator, attaching <TT>`lovelygame.x64.gz'</TT> as a
+will start the C64 emulator, attaching <TT>`lovelygame.d64'</TT> as a
 disk image and running the first program on it.  You can also specify
 the name of the program on the fisk image by appending a colon
 (<SAMP>`:'</SAMP>) the name itself to the argument; for example
@@ -226,23 +272,23 @@ the name of the program on the fisk image by appending a colon
 </P>
 
 <PRE>
-x64 "lovelygame.x64.gz:run me"
+x64sc "lovelygame.d64:run me"
 </PRE>
 
 <P>
-will run the program named <TT>`run me'</TT> on <TT>`lovelygame.x64.gz'</TT>
+will run the program named <TT>`run me'</TT> on <TT>`lovelygame.d64'</TT>
 instead of the first one.
 
 </P>
 <P>
-<A NAME="IDX30"></A>
+<A NAME="IDX35"></A>
 Using the command-line option <CODE>-autostart</CODE> is equivalent; so the same
 result can be obtained with
 
 </P>
 
 <PRE>
-x64 -autostart "lovelygame.x64.gz:run me"
+x64sc -autostart "lovelygame.d64:run me"
 </PRE>
 
 <P>
@@ -254,7 +300,7 @@ requiring "true" drive emulation.
 
 </P>
 <P>
-See section <A HREF="vice_5.html#SEC35">5.5  Using disk and tape images</A>. for more information about images and
+See section <A HREF="vice_5.html#SEC36">5.5  Using disk and tape images</A>. for more information about images and
 autostart.
 
 </P>

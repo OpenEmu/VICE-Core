@@ -50,7 +50,6 @@
 #include "cbm2ui.h"
 #include "cia.h"
 #include "clkguard.h"
-#include "cmdline.h"
 #include "crtc.h"
 #include "datasette.h"
 #include "debug.h"
@@ -96,7 +95,6 @@
 #include "tape.h"
 #include "tapeport.h"
 #include "tpi.h"
-#include "translate.h"
 #include "traps.h"
 #include "types.h"
 #include "userport.h"
@@ -172,7 +170,6 @@ kbdtype_info_t *machine_get_keyboard_info_list(void)
 static joyport_port_props_t userport_joy_control_port_1 =
 {
     "Userport joystick adapter port 1",
-    IDGS_USERPORT_JOY_ADAPTER_PORT_1,
     0,                      /* has NO potentiometer connected to this port */
     0,                      /* has NO lightpen support on this port */
     0                       /* port can be switched on/off */
@@ -181,7 +178,6 @@ static joyport_port_props_t userport_joy_control_port_1 =
 static joyport_port_props_t userport_joy_control_port_2 =
 {
     "Userport joystick adapter port 2",
-    IDGS_USERPORT_JOY_ADAPTER_PORT_2,
     0,                      /* has NO potentiometer connected to this port */
     0,                      /* has NO lightpen support on this port */
     0                       /* port can be switched on/off */
@@ -420,7 +416,7 @@ int machine_cmdline_options_init(void)
         init_cmdline_options_fail("crtc");
         return -1;
     }
-    if (sid_cmdline_options_init() < 0) {
+    if (sid_cmdline_options_init(SIDTYPE_SID) < 0) {
         init_cmdline_options_fail("sid");
         return -1;
     }
@@ -630,12 +626,11 @@ int machine_specific_init(void)
     /* initialize print devices */
     printer_init();
 
-#if defined(USE_BEOS_UI) || defined (USE_NATIVE_GTK3)
     /* Pre-init CBM-II-specific parts of the menus before crtc_init()
-       creates a canvas window with a menubar at the top. This could
-       also be used by other ports.  */
-    cbm2ui_init_early();
-#endif
+       creates a canvas window with a menubar at the top. */
+    if (!console_mode) {
+        cbm2ui_init_early();
+    }
 
     if (crtc_init() == NULL) {
         return -1;
@@ -699,16 +694,6 @@ int machine_specific_init(void)
     /* Initialize the CBM2-specific I/O */
     cbm2io_init();
 
-#if defined (USE_XF86_EXTENSIONS) && (defined(USE_XF86_VIDMODE_EXT) || defined (HAVE_XRANDR))
-    {
-        /* set fullscreen if user used `-fullscreen' on cmdline */
-        int fs;
-        resources_get_int("UseFullscreen", &fs);
-        if (fs) {
-            resources_set_int("CRTCFullscreen", 1);
-        }
-    }
-#endif
     return 0;
 }
 

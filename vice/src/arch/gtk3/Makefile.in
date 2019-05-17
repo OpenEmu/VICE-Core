@@ -110,19 +110,19 @@ libarch_a_LIBADD =
 am_libarch_a_OBJECTS = archdep.$(OBJEXT) blockdev.$(OBJEXT) \
 	c128ui.$(OBJEXT) c64dtvui.$(OBJEXT) c64scui.$(OBJEXT) \
 	c64ui.$(OBJEXT) cairo_renderer.$(OBJEXT) cbm2ui.$(OBJEXT) \
-	cbm5x0ui.$(OBJEXT) console.$(OBJEXT) coproc.$(OBJEXT) \
-	dynlib.$(OBJEXT) fullscreen.$(OBJEXT) gtk3main.$(OBJEXT) \
-	joy-osx-hid.$(OBJEXT) joy-osx-hidmgr.$(OBJEXT) \
-	joy-osx-hidutil.$(OBJEXT) joy-osx.$(OBJEXT) \
-	joy-unix-usb.$(OBJEXT) joy-unix.$(OBJEXT) \
+	cbm5x0ui.$(OBJEXT) coproc.$(OBJEXT) dynlib.$(OBJEXT) \
+	fullscreen.$(OBJEXT) gtk3main.$(OBJEXT) joy-osx-hid.$(OBJEXT) \
+	joy-osx-hidmgr.$(OBJEXT) joy-osx-hidutil.$(OBJEXT) \
+	joy-osx.$(OBJEXT) joy-unix-usb.$(OBJEXT) joy-unix.$(OBJEXT) \
 	joy-win32-dinput-handle.$(OBJEXT) joy-win32.$(OBJEXT) \
-	kbd.$(OBJEXT) mousedrv.$(OBJEXT) opengl_renderer.$(OBJEXT) \
-	petui.$(OBJEXT) plus4ui.$(OBJEXT) quartz_renderer.$(OBJEXT) \
-	rawnetarch.$(OBJEXT) rs232dev.$(OBJEXT) scpu64ui.$(OBJEXT) \
-	signals.$(OBJEXT) ui.$(OBJEXT) uiabout.$(OBJEXT) \
-	uicart.$(OBJEXT) uicmdline.$(OBJEXT) uicommands.$(OBJEXT) \
-	uicompiletimefeatures.$(OBJEXT) uidatasette.$(OBJEXT) \
-	uidebug.$(OBJEXT) uidiskattach.$(OBJEXT) \
+	kbd.$(OBJEXT) linenoise.$(OBJEXT) mousedrv.$(OBJEXT) \
+	opengl_renderer.$(OBJEXT) petui.$(OBJEXT) plus4ui.$(OBJEXT) \
+	quartz_renderer.$(OBJEXT) rawnetarch.$(OBJEXT) \
+	rs232dev.$(OBJEXT) scpu64ui.$(OBJEXT) signals.$(OBJEXT) \
+	ui.$(OBJEXT) uiabout.$(OBJEXT) uicart.$(OBJEXT) \
+	uicmdline.$(OBJEXT) uicommands.$(OBJEXT) \
+	uicompiletimefeatures.$(OBJEXT) uidata.$(OBJEXT) \
+	uidatasette.$(OBJEXT) uidebug.$(OBJEXT) uidiskattach.$(OBJEXT) \
 	uidiskcreate.$(OBJEXT) uiedit.$(OBJEXT) uifliplist.$(OBJEXT) \
 	uimachinemenu.$(OBJEXT) uimachinewindow.$(OBJEXT) \
 	uimedia.$(OBJEXT) uimenu.$(OBJEXT) uimon-fallback.$(OBJEXT) \
@@ -247,10 +247,6 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
-CAIRO_CFLAGS = @CAIRO_CFLAGS@
-CAIRO_LIBS = @CAIRO_LIBS@
-CATALOGS = @CATALOGS@
-CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 CCAS = @CCAS@
 CCASDEPMODE = @CCASDEPMODE@
@@ -265,17 +261,14 @@ CXXCPP = @CXXCPP@
 CXXDEPMODE = @CXXDEPMODE@
 CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
-DATADIRNAME = @DATADIRNAME@
 DEBUGBUILD = @DEBUGBUILD@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
 DOS2UNIX = @DOS2UNIX@
-DOS_TFE_PCAP_LIB = @DOS_TFE_PCAP_LIB@
 DYNLIB_LIBS = @DYNLIB_LIBS@
 ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
-EDITLINE_LIBS = @EDITLINE_LIBS@
 EGREP = @EGREP@
 ENABLE_ARCH = @ENABLE_ARCH@
 EXEEXT = @EXEEXT@
@@ -293,19 +286,17 @@ FFMPEG_SWRESAMPLE_CFLAGS = @FFMPEG_SWRESAMPLE_CFLAGS@
 FFMPEG_SWRESAMPLE_LIBS = @FFMPEG_SWRESAMPLE_LIBS@
 FFMPEG_SWSCALE_CFLAGS = @FFMPEG_SWSCALE_CFLAGS@
 FFMPEG_SWSCALE_LIBS = @FFMPEG_SWSCALE_LIBS@
-FULLSCREEN_DRIVERS = @FULLSCREEN_DRIVERS@
-GENCAT = @GENCAT@
+FONTCONFIG_CFLAGS = @FONTCONFIG_CFLAGS@
+FONTCONFIG_LIBS = @FONTCONFIG_LIBS@
+FW_DIR = @FW_DIR@
 GFXOUTPUT_DRIVERS = @GFXOUTPUT_DRIVERS@
 GFXOUTPUT_LIBS = @GFXOUTPUT_LIBS@
 GLIB_CFLAGS = @GLIB_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
-GMOFILES = @GMOFILES@
-GMSGFMT = @GMSGFMT@
 GREP = @GREP@
-GTKGL_CFLAGS = @GTKGL_CFLAGS@
-GTKGL_LIBS = @GTKGL_LIBS@
 GTK_CFLAGS = @GTK_CFLAGS@
 GTK_LIBS = @GTK_LIBS@
+HAVE_CXX11 = @HAVE_CXX11@
 HAVE_READLINE = @HAVE_READLINE@
 HCRTF = @HCRTF@
 HHC = @HHC@
@@ -315,10 +306,6 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INSTOBJEXT = @INSTOBJEXT@
-INTLDEPS = @INTLDEPS@
-INTLLIBS = @INTLLIBS@
-INTLOBJS = @INTLOBJS@
 IPFC = @IPFC@
 JOY_LIBS = @JOY_LIBS@
 LAMEMP3SUB = @LAMEMP3SUB@
@@ -339,14 +326,8 @@ MAKERTF = @MAKERTF@
 MAX_INLINE_INSN_SINGLE = @MAX_INLINE_INSN_SINGLE@
 MKDIR_P = @MKDIR_P@
 MKFONTDIR_BIN = @MKFONTDIR_BIN@
-MKINSTALLDIRS = @MKINSTALLDIRS@
-MSGFMT = @MSGFMT@
 NATIVE_TOOLS_COMPILER = @NATIVE_TOOLS_COMPILER@
 NETPLAY_LIBS = @NETPLAY_LIBS@
-NLS_LOCALEDIR = @NLS_LOCALEDIR@
-OBJC = @OBJC@
-OBJCDEPMODE = @OBJCDEPMODE@
-OBJCFLAGS = @OBJCFLAGS@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
@@ -355,8 +336,6 @@ PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
-PANGO_CFLAGS = @PANGO_CFLAGS@
-PANGO_LIBS = @PANGO_LIBS@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 PDFTEX = @PDFTEX@
 PERL = @PERL@
@@ -364,8 +343,6 @@ PKG_CONFIG = @PKG_CONFIG@
 PLATFORM_DOX_FLAGS = @PLATFORM_DOX_FLAGS@
 PNG_CFLAGS = @PNG_CFLAGS@
 PNG_LIBS = @PNG_LIBS@
-POFILES = @POFILES@
-POSUB = @POSUB@
 QUICKTIME_INCLUDES = @QUICKTIME_INCLUDES@
 QUICKTIME_LIBS = @QUICKTIME_LIBS@
 RANLIB = @RANLIB@
@@ -401,40 +378,15 @@ TEXI2DVI = @TEXI2DVI@
 TEXI2IPF = @TEXI2IPF@
 TFE_LIBS = @TFE_LIBS@
 UI_LIBS = @UI_LIBS@
-UNIX_MACOSX_UITYPE = @UNIX_MACOSX_UITYPE@
-USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
-USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 VERSION_COMBINED = @VERSION_COMBINED@
 VERSION_RC = @VERSION_RC@
 VICEDIR = @VICEDIR@
-VICE_SYNC = @VICE_SYNC@
-VICE_UI_THREADS = @VICE_UI_THREADS@
 VICE_VERSION = @VICE_VERSION@
 VICE_VERSION_BUILD = @VICE_VERSION_BUILD@
 VICE_VERSION_MAJOR = @VICE_VERSION_MAJOR@
 VICE_VERSION_MINOR = @VICE_VERSION_MINOR@
-VSID_WINRES = @VSID_WINRES@
-VTE_CFLAGS = @VTE_CFLAGS@
-VTE_LIBS = @VTE_LIBS@
-WINDRES = @WINDRES@
-WRC = @WRC@
-X128_WINRES = @X128_WINRES@
-X64DTV_WINRES = @X64DTV_WINRES@
-X64_WINRES = @X64_WINRES@
 XA = @XA@
-XCBM2_WINRES = @XCBM2_WINRES@
-XCBM5X0_WINRES = @XCBM5X0_WINRES@
-XGETTEXT = @XGETTEXT@
-XMKMF = @XMKMF@
-XPET_WINRES = @XPET_WINRES@
-XPLUS4_WINRES = @XPLUS4_WINRES@
-XSCPU64_WINRES = @XSCPU64_WINRES@
-XVIC_WINRES = @XVIC_WINRES@
-X_CFLAGS = @X_CFLAGS@
-X_EXTRA_LIBS = @X_EXTRA_LIBS@
-X_LIBS = @X_LIBS@
-X_PRE_LIBS = @X_PRE_LIBS@
 YACC = @YACC@
 YASM = @YASM@
 ZLIB_LIBS = @ZLIB_LIBS@
@@ -478,6 +430,7 @@ localedir = @localedir@
 localstatedir = @localstatedir@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
+objdump = @objdump@
 oldincludedir = @oldincludedir@
 pdfdir = @pdfdir@
 prefix = @prefix@
@@ -504,8 +457,8 @@ xplus4_LDFLAGS = @xplus4_LDFLAGS@
 xscpu64_LDFLAGS = @xscpu64_LDFLAGS@
 xvic_LDFLAGS = @xvic_LDFLAGS@
 @WIN32_COMPILE_FALSE@extra_includes = 
-@WIN32_COMPILE_TRUE@extra_includes = -I$(top_srcdir)/src/arch/win32/mingw32/wpcap
-SUBDIRS = widgets
+@WIN32_COMPILE_TRUE@extra_includes = -I$(top_srcdir)/src/arch/mingw32-pcap/wpcap
+SUBDIRS = data novte widgets
 AM_CPPFLAGS = \
 	@ARCH_INCLUDES@ \
 	$(extra_includes) \
@@ -521,6 +474,8 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/vdc \
 	-I$(top_srcdir)/src/arch/gtk3/widgets \
 	-I$(top_srcdir)/src/arch/gtk3/widgets/base \
+	-I$(top_srcdir)/src/arch/gtk3/novte \
+	-I$(top_builddir)/src/arch/gtk3/novte \
 	-I$(top_srcdir)/src/c64 \
 	-I$(top_srcdir)/src/c64dtv \
 	-I$(top_srcdir)/src/c128 \
@@ -532,7 +487,9 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/samplerdrv \
 	-I$(top_srcdir)/src/c64/cart \
 	-I$(top_srcdir)/src/imagecontents \
-	-I$(top_srcdir)/src/tapeport
+	-I$(top_srcdir)/src/monitor \
+	-I$(top_srcdir)/src/tapeport \
+	-I$(top_srcdir)/src/hvsc
 
 noinst_LIBRARIES = libarch.a
 libarch_a_SOURCES = \
@@ -545,7 +502,6 @@ libarch_a_SOURCES = \
 	cairo_renderer.c \
 	cbm2ui.c \
 	cbm5x0ui.c \
-	console.c \
 	coproc.c \
 	dynlib.c \
 	fullscreen.c \
@@ -559,6 +515,7 @@ libarch_a_SOURCES = \
 	joy-win32-dinput-handle.c \
 	joy-win32.c \
 	kbd.c \
+	linenoise.c \
 	mousedrv.c \
 	opengl_renderer.c \
 	petui.c \
@@ -574,6 +531,7 @@ libarch_a_SOURCES = \
 	uicmdline.c \
 	uicommands.c \
 	uicompiletimefeatures.c \
+	uidata.c \
 	uidatasette.c \
 	uidebug.c \
 	uidiskattach.c \
@@ -622,9 +580,10 @@ EXTRA_DIST = \
 	joy-win32.h \
 	joy.h \
 	kbd.h \
+	linenoise.h \
+	make-bindist_osx.sh \
 	make-bindist_win32.sh \
 	mousedrv.h \
-	not_implemented.h \
 	opengl_renderer.h \
 	quartz_renderer.h \
 	rawnetarch_unix.c \
@@ -637,6 +596,7 @@ EXTRA_DIST = \
 	uicmdline.h \
 	uicommands.h \
 	uicompiletimefeatures.h \
+	uidata.h \
 	uidatasette.h \
 	uidebug.h \
 	uidiskattach.h \
@@ -648,6 +608,7 @@ EXTRA_DIST = \
 	uimedia.h \
 	uimenu.h \
 	uimonarch.h \
+	uimon-fallback.h \
 	uinetplay.h \
 	uinetplay_new.h \
 	uisettings.h \
@@ -660,7 +621,12 @@ EXTRA_DIST = \
 	uivideo.h \
 	uivsidmenu.h \
 	uivsidwindow.h \
-	videoarch.h
+	videoarch.h \
+	winjoy.h \
+	Info.plist \
+	Resources/VICE.icns \
+	vice-launcher.sh \
+	x11-launcher.sh
 
 all: all-recursive
 
@@ -719,7 +685,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cairo_renderer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cbm2ui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cbm5x0ui.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/console.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/coproc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dynlib.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fullscreen.Po@am__quote@
@@ -733,6 +698,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/joy-win32-dinput-handle.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/joy-win32.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/kbd.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/linenoise.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mousedrv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/opengl_renderer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/petui.Po@am__quote@
@@ -748,6 +714,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uicmdline.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uicommands.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uicompiletimefeatures.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uidata.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uidatasette.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uidebug.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uidiskattach.Po@am__quote@
@@ -1067,6 +1034,8 @@ uninstall-am:
 
 .PRECIOUS: Makefile
 
+
+- x128: Bring either VDC or VICII display to front depending on 40/80 col key## Makefile.am for the native GTK3 version of `libarch.a'.
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

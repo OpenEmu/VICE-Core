@@ -106,13 +106,13 @@
 #include "sid-cmdline-options.h"
 #include "sid-resources.h"
 #include "sid.h"
+#include "snespad.h"
 #include "sound.h"
 #include "tape.h"
 #include "tape_diag_586220_harness.h"
 #include "tapeport.h"
 #include "tapecart.h"
 #include "tpi.h"
-#include "translate.h"
 #include "traps.h"
 #include "types.h"
 #include "userport.h"
@@ -399,7 +399,7 @@ static io_source_t vicii_d200_device = {
     "VIC-IIe $D200-$D2FF mirrors",
     IO_DETACH_CART, /* dummy */
     NULL,           /* dummy */
-    0xd100, 0xd1ff, 0x7f,
+    0xd200, 0xd2ff, 0x7f,
     1, /* read is always valid */
     vicii_store,
     vicii_read,
@@ -414,7 +414,7 @@ static io_source_t vicii_d300_device = {
     "VIC-IIe $D300-$D3FF mirrors",
     IO_DETACH_CART, /* dummy */
     NULL,           /* dummy */
-    0xd100, 0xd1ff, 0x7f,
+    0xd300, 0xd3ff, 0x7f,
     1, /* read is always valid */
     vicii_store,
     vicii_read,
@@ -505,7 +505,6 @@ static void c128io_init(void)
 static joyport_port_props_t control_port_1 =
 {
     "Control port 1",
-    IDGS_CONTROL_PORT_1,
     1,                  /* has a potentiometer connected to this port */
     1,                  /* has lightpen support on this port */
     1                   /* port is always active */
@@ -514,7 +513,6 @@ static joyport_port_props_t control_port_1 =
 static joyport_port_props_t control_port_2 =
 {
     "Control port 2",
-    IDGS_CONTROL_PORT_2,
     1,                  /* has a potentiometer connected to this port */
     0,                  /* has NO lightpen support on this port */
     1                   /* port is always active */
@@ -523,7 +521,6 @@ static joyport_port_props_t control_port_2 =
 static joyport_port_props_t userport_joy_control_port_1 =
 {
     "Userport joystick adapter port 1",
-    IDGS_USERPORT_JOY_ADAPTER_PORT_1,
     0,                  /* has NO potentiometer connected to this port */
     0,                  /* has NO lightpen support on this port */
     0                   /* port can be switched on/off */
@@ -532,7 +529,6 @@ static joyport_port_props_t userport_joy_control_port_1 =
 static joyport_port_props_t userport_joy_control_port_2 =
 {
     "Userport joystick adapter port 2",
-    IDGS_USERPORT_JOY_ADAPTER_PORT_2,
     0,                  /* has NO potentiometer connected to this port */
     0,                  /* has NO lightpen support on this port */
     0                   /* port can be switched on/off */
@@ -638,6 +634,10 @@ int machine_resources_init(void)
     }
     if (joyport_waasoft_dongle_resources_init() <0) {
         init_resource_fail("joyport waasoft dongle");
+        return -1;
+    }
+    if (joyport_snespad_resources_init() < 0) {
+        init_resource_fail("joyport snespad");
         return -1;
     }
     if (joystick_resources_init() < 0) {
@@ -822,7 +822,7 @@ int machine_cmdline_options_init(void)
         init_cmdline_options_fail("vdc");
         return -1;
     }
-    if (sid_cmdline_options_init() < 0) {
+    if (sid_cmdline_options_init(SIDTYPE_SID) < 0) {
         init_cmdline_options_fail("sid");
         return -1;
     }
@@ -1074,12 +1074,11 @@ int machine_specific_init(void)
     }
     autostart_init((CLOCK)(delay * C128_PAL_RFSH_PER_SEC * C128_PAL_CYCLES_PER_RFSH), 1, 0xa27, 0xe0, 0xec, 0xee);
 
-#if defined(USE_BEOS_UI) || defined (USE_NATIVE_GTK3)
     /* Pre-init C128-specific parts of the menus before vdc_init() and
-       vicii_init() create canvas windows with menubars at the top. This
-       could also be used by other ports.  */
-    c128ui_init_early();
-#endif
+       vicii_init() create canvas windows with menubars at the top. */
+    if (!console_mode) {
+        c128ui_init_early();
+    }
 
     if (vdc_init() == NULL) {
         return -1;
@@ -1158,24 +1157,6 @@ int machine_specific_init(void)
     mmu_init();
 
     machine_drive_stub();
-
-#if defined (USE_XF86_EXTENSIONS) && (defined(USE_XF86_VIDMODE_EXT) || defined (HAVE_XRANDR))
-    {
-        /* set fullscreen if user used `-fullscreen' on cmdline
-           use VICII as default */
-        int fs;
-
-        resources_get_int("UseFullscreen", &fs);
-        if (fs) {
-            resources_get_int("C128ColumnKey", &fs);
-            if (fs == 1) {
-                resources_set_int("VICIIFullscreen", 1);
-            } else {
-                resources_set_int("VDCFullscreen", 1);
-            }
-        }
-    }
-#endif
 
     return 0;
 }
@@ -1429,10 +1410,50 @@ uint8_t machine_tape_behaviour(void)
     return TAPE_BEHAVIOUR_NORMAL;
 }
 
+/* this is currently only used by the autostart code */
 int machine_addr_in_ram(unsigned int addr)
 {
-    /* TODO check for carts */
-    return (addr < 0xe000 && !(addr >= 0xa000 && addr < 0xc000)) ? 1 : 0;
+    uint8_t mmucfg = mmu_peek(0);
+
+    if ((mmucfg == 0x3e) && (mmu_peek(5) == 0xb7)) {
+        /* c64 mode */
+        return ((addr < 0xe000 && !(addr >= 0xa000 && addr < 0xc000)));
+    }
+    /* FIXME: C128 is a special beast, as it would execute some stuff in system
+                RAM - which this special case hack checks.
+                without this check eg autostarting a prg file with autostartmode=
+                "disk image" will fail. (exit from ROM at $some RAM address)
+    */
+    if ((mmucfg & 0xc0) == 0x00) {
+        if ((addr >= 0x2a0) && (addr <= 0x3af)) {
+            return 0;
+        }
+    }
+
+    if ((addr >= 0xd000) && (addr <= 0xdfff)) { /* d000-dfff */
+        if ((mmucfg & 0x01) == 0x00) { /* 00000001 */
+            return 0; /* else what is selected by bits 4/5 */
+        }
+    }
+    if ((addr >= 0xc000) && (addr <= 0xffff))  { /* c000-ffff */
+        if ((mmucfg & 0x30) == 0x30) { /* 00110000 */
+            return 1;
+        }
+    }
+    if ((addr >= 0x8000) && (addr <= 0xbfff))  { /* 8000-bfff */
+        if ((mmucfg & 0xc0) == 0xc0) { /* 00001100 */
+            return 1;
+        }
+    }
+    if ((addr >= 0x4000) && (addr <= 0x7fff))  { /* 4000-7fff */
+        if ((mmucfg & 0x02) == 0x02) { /* 00000010 */
+            return 1;
+        }
+    }
+    if (/* (addr >= 0x0000) && */ (addr <= 0x3fff)) { /* 0000-3fff */
+        return 1;
+    }
+    return 0;
 }
 
 const char *machine_get_name(void)

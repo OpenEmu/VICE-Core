@@ -15,9 +15,6 @@
 /* Should we enable AmigaOS4 support. */
 #undef AMIGA_OS4
 
-/* Enable alternate OS4 includes. */
-#undef AMIGA_OS4_ALT
-
 /* Should we enable Amigaos support. */
 #undef AMIGA_SUPPORT
 
@@ -33,29 +30,8 @@
 /* Enable plain darwin compilation */
 #undef DARWIN_COMPILE
 
-/* NLS datadirname. */
-#undef DATADIRNAME
-
-/* Can we use the dos WATTCP library? */
-#undef DOS_TCP
-
-/* Can we use the dos PCAP library? */
-#undef DOS_TFE
-
-/* Is DWORD defined as long or int in the Windows header files? */
-#undef DWORD_IS_LONG
-
-/* Define if NLS support is enabled. */
-#undef ENABLE_NLS
-
-/* Enable support for the TextField widget. */
-#undef ENABLE_TEXTFIELD
-
 /* Use the 65xx cpu history feature. */
 #undef FEATURE_CPUMEMHISTORY
-
-/* Define to 1 if `TIOCGWINSZ' requires <sys/ioctl.h>. */
-#undef GWINSZ_IN_SYS_IOCTL
 
 /* Enable emulation for digital joysticks. */
 #undef HAS_DIGITAL_JOYSTICK
@@ -66,26 +42,11 @@
 /* Enable joystick emulation. */
 #undef HAS_JOYSTICK
 
-/* Support 64bit integer for Win32 performance counter */
-#undef HAS_LONGLONG_INTEGER
-
-/* Is only one canvas supported? */
-#undef HAS_SINGLE_CANVAS
-
-/* Enable internationalization support */
-#undef HAS_TRANSLATION
-
-/* Do we have UnlockResource()? */
-#undef HAS_UNLOCKRESOURCE
-
 /* Enable emulation for USB joysticks. */
 #undef HAS_USB_JOYSTICK
 
 /* Define to 1 if you have the `accept' function. */
 #undef HAVE_ACCEPT
-
-/* Define to 1 if you have the <allegro.h> header file. */
-#undef HAVE_ALLEGRO_H
 
 /* Define to 1 if you have the <alloca.h> header file. */
 #undef HAVE_ALLOCA_H
@@ -141,11 +102,8 @@
 /* Define to 1 if you have the <cwsid.h> header file. */
 #undef HAVE_CWSID_H
 
-/* Support for DirectX9. */
-#undef HAVE_D3D9_H
-
-/* Define to 1 if you have the `dcgettext' function. */
-#undef HAVE_DCGETTEXT
+/* define if the compiler supports basic C++11 syntax */
+#undef HAVE_CXX11
 
 /* Add native GTK3 UI debugging code. */
 #undef HAVE_DEBUG_GTK3UI
@@ -185,20 +143,17 @@
 /* Define to 1 if you have the <dmedia/audio.h> header file. */
 #undef HAVE_DMEDIA_AUDIO_H
 
-/* Can we use the dos NET library? */
-#undef HAVE_DOS_LIBNET
-
 /* dsound.lib or libdsound.a are present */
 #undef HAVE_DSOUND_LIB
 
 /* Support for dynamic library loading. */
 #undef HAVE_DYNLIB_SUPPORT
 
-/* Have editline library */
-#undef HAVE_EDITLINE
-
 /* Define to 1 if you have the <errno.h> header file. */
 #undef HAVE_ERRNO_H
+
+/* Define to 1 if you have the <execinfo.h> header file. */
+#undef HAVE_EXECINFO_H
 
 /* Define to 1 if you have the <fcntl.h> header file. */
 #undef HAVE_FCNTL_H
@@ -220,6 +175,9 @@
 
 /* Define to 1 if you have the <FLAC/stream_decoder.h> header file. */
 #undef HAVE_FLAC_STREAM_DECODER_H
+
+/* Use fontconfig for custom fonts. */
+#undef HAVE_FONTCONFIG
 
 /* Define to 1 if you have the `fork' function. */
 #undef HAVE_FORK
@@ -254,9 +212,6 @@
 /* Define to 1 if you have the `getrlimit' function. */
 #undef HAVE_GETRLIMIT
 
-/* Define if gettext if available. */
-#undef HAVE_GETTEXT
-
 /* Define to 1 if you have the `gettimeofday' function. */
 #undef HAVE_GETTIMEOFDAY
 
@@ -268,9 +223,6 @@
 
 /* Enable OpenGL support in GTK3 UI */
 #undef HAVE_GTK3_OPENGL
-
-/* Is the GUID lib of DX SDK present? */
-#undef HAVE_GUIDLIB
 
 /* Support for HardSID. */
 #undef HAVE_HARDSID
@@ -350,9 +302,6 @@
 /* Define to 1 if you have the `ieee1284' library (-lieee1284). */
 #undef HAVE_LIBIEEE1284
 
-/* use libintl for NLS. */
-#undef HAVE_LIBINTL_H
-
 /* Define to 1 if you have the `lzma' library (-llzma). */
 #undef HAVE_LIBLZMA
 
@@ -394,9 +343,6 @@
 
 /* Define to 1 if you have the `vorbisfile' library (-lvorbisfile). */
 #undef HAVE_LIBVORBISFILE
-
-/* Is libXpm available? */
-#undef HAVE_LIBXPM
 
 /* Enable lightpen support */
 #undef HAVE_LIGHTPEN
@@ -449,9 +395,6 @@
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
 
-/* Define to 1 if you have the <midasdll.h> header file. */
-#undef HAVE_MIDASDLL_H
-
 /* Enable MIDI emulation. */
 #undef HAVE_MIDI
 
@@ -488,9 +431,6 @@
 /* Support for OpenCBM (former CBM4Linux). */
 #undef HAVE_OPENCBM
 
-/* Enable openGL synchronization */
-#undef HAVE_OPENGL_SYNC
-
 /* Define to 1 if you have the `out8' function. */
 #undef HAVE_OUT8
 
@@ -502,9 +442,6 @@
 
 /* Define to 1 if you have the `outb_p' function. */
 #undef HAVE_OUTB_P
-
-/* Enable support for Pango */
-#undef HAVE_PANGO
 
 /* Support for ParSID. */
 #undef HAVE_PARSID
@@ -533,17 +470,8 @@
 /* Define to 1 if you have the <process.h> header file. */
 #undef HAVE_PROCESS_H
 
-/* Define to 1 if you have the <proto/cybergraphics.h> header file. */
-#undef HAVE_PROTO_CYBERGRAPHICS_H
-
 /* Define to 1 if you have the <proto/openpci.h> header file. */
 #undef HAVE_PROTO_OPENPCI_H
-
-/* Define to 1 if you have the <proto/Picasso96API.h> header file. */
-#undef HAVE_PROTO_PICASSO96API_H
-
-/* Define to 1 if you have the <proto/Picasso96.h> header file. */
-#undef HAVE_PROTO_PICASSO96_H
 
 /* Define to 1 if you have the <pulse/simple.h> header file. */
 #undef HAVE_PULSE_SIMPLE_H
@@ -560,7 +488,7 @@
 /* Support for CS8900A ethernet controller. */
 #undef HAVE_RAWNET
 
-/* Are we using the readline library replacement? */
+/* Enable the readline library */
 #undef HAVE_READLINE
 
 /* Define to 1 if you have the <readline/readline.h> header file. */
@@ -589,15 +517,6 @@
 
 /* Enable RS232 network support */
 #undef HAVE_RS232NET
-
-/* Define to 1 if you have the <SDL2/SDL_audio.h> header file. */
-#undef HAVE_SDL2_SDL_AUDIO_H
-
-/* Define to 1 if you have the <SDL2/SDL.h> header file. */
-#undef HAVE_SDL2_SDL_H
-
-/* Define to 1 if you have the <SDL2/SDL_main.h> header file. */
-#undef HAVE_SDL2_SDL_MAIN_H
 
 /* Enable SDLmain replacement */
 #undef HAVE_SDLMAIN
@@ -653,14 +572,8 @@
 /* Static linking for lame libs */
 #undef HAVE_STATIC_LAME
 
-/* Do we have an ISO C99 compliant vswprintf function? */
-#undef HAVE_STDC_VSWPRINTF
-
 /* Define to 1 if you have the <stdint.h> header file. */
 #undef HAVE_STDINT_H
-
-/* We are using stdlib.h */
-#undef HAVE_STDLIB
 
 /* Define to 1 if you have the <stdlib.h> header file. */
 #undef HAVE_STDLIB_H
@@ -799,9 +712,6 @@
 /* Define to 1 if you have the `vsnprintf' function. */
 #undef HAVE_VSNPRINTF
 
-/* Enable VTE support */
-#undef HAVE_VTE
-
 /* Define to 1 if you have the <wchar.h> header file. */
 #undef HAVE_WCHAR_H
 
@@ -814,44 +724,8 @@
 /* Define to 1 if `vfork' works. */
 #undef HAVE_WORKING_VFORK
 
-/* Use new XShm header */
-#undef HAVE_X11_EXTENSIONS_SHMPROTO_H
-
-/* Define to 1 if you have the <X11/IntrinsicI.h> header file. */
-#undef HAVE_X11_INTRINSICI_H
-
-/* Define to 1 if you have the <X11/Sunkeysym.h> header file. */
-#undef HAVE_X11_SUNKEYSYM_H
-
-/* Define to 1 if you have the <X11/XKlib.h> header file. */
-#undef HAVE_X11_XKLIB_H
-
-/* Define to 1 if you have the <X11/xpm.h> header file. */
-#undef HAVE_X11_XPM_H
-
-/* Define to 1 if you have the <xpm.h> header file. */
-#undef HAVE_XPM_H
-
-/* Enable XRandR extension. */
-#undef HAVE_XRANDR
-
-/* Enable XVideo support. */
-#undef HAVE_XVIDEO
-
 /* Can we use the ZLIB compression library? */
 #undef HAVE_ZLIB
-
-/* Define to 1 if you have the `_XlcCloseConverter' function. */
-#undef HAVE__XLCCLOSECONVERTER
-
-/* Define to 1 if you have the `_XlcConvert' function. */
-#undef HAVE__XLCCONVERT
-
-/* Define to 1 if you have the `_XlcCurrentLC' function. */
-#undef HAVE__XLCCURRENTLC
-
-/* Define to 1 if you have the `_XlcOpenConverter' function. */
-#undef HAVE__XLCOPENCONVERTER
 
 /* Enable support for Linux style joysticks. */
 #undef LINUX_JOYSTICK
@@ -859,32 +733,17 @@
 /* Enable Mac OS X application bundles. */
 #undef MACOSX_BUNDLE
 
-/* Use Cocoa on Macs. */
-#undef MACOSX_COCOA
-
 /* Enable Mac OS X specific code. */
 #undef MACOSX_SUPPORT
 
 /* Enable Mac Joystick support. */
 #undef MAC_JOYSTICK
 
-/* are we compiling under Minix-Vmd */
-#undef MINIXVMD
-
-/* Define if this version of minix has the recv and send prototypes */
-#undef MINIX_HAS_RECV_SEND
-
-/* do we need minix support */
-#undef MINIX_SUPPORT
-
 /* Whether struct sockaddr::__ss_family exists */
 #undef NEED_PREFIXED_SS_FAMILY
 
 /* Enable NextStep 3.x support */
 #undef NEXTSTEP_COMPILE
-
-/* NLS local directory. */
-#undef NLS_LOCALEDIR
 
 /* Enable SCO Openserver 5.x support */
 #undef OPENSERVER5_COMPILE
@@ -979,12 +838,6 @@
 /* Enable aRts support. */
 #undef USE_ARTS
 
-/* Are we using the BeOS native UI? */
-#undef USE_BEOS_UI
-
-/* Enable new color management code. */
-#undef USE_COLOR_MANAGEMENT
-
 /* Enable CoreAudio support. */
 #undef USE_COREAUDIO
 
@@ -1003,17 +856,8 @@
 /* Define when using gcc */
 #undef USE_GCC
 
-/* Use GNOME UI. */
-#undef USE_GNOMEUI
-
 /* Enable lamemp3 support. */
 #undef USE_LAMEMP3
-
-/* Use MIDAS Sound System instead of the Allegro library. */
-#undef USE_MIDAS_SOUND
-
-/* Enable MITSHM extensions. */
-#undef USE_MITSHM
 
 /* Enable mpg123 mp3 decoding support. */
 #undef USE_MPG123
@@ -1048,29 +892,11 @@
 /* define when using the svn revision in addition to the version */
 #undef USE_SVN_REVISION
 
-/* Enable multithreaded UI. */
-#undef USE_UI_THREADS
-
 /* Enable ogg/vorbis support. */
 #undef USE_VORBIS
 
-/* Enable Xaw3d. */
-#undef USE_XAW3D
-
-/* Are we using the Unix/X11/Xaw ui? */
-#undef USE_XAWUI
-
-/* Enable XF86 extensions. */
-#undef USE_XF86_EXTENSIONS
-
-/* Enable XF86 VidMode extensions. */
-#undef USE_XF86_VIDMODE_EXT
-
 /* Version number of package */
 #undef VERSION
-
-/* Win32 Version string. */
-#undef VERSION_RC
 
 /* Where should we lookup for data files? */
 #undef VICEDIR
@@ -1083,12 +909,6 @@
 
 /* Are we compiling for win32? */
 #undef WIN32_COMPILE
-
-/* Use WinNT Unicode API calls. */
-#undef WIN32_UNICODE_SUPPORT
-
-/* Have windres ignore code page pragmas */
-#undef WINDRES_CP_IGNORE
 
 /* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
    significant byte first (like Motorola and SPARC, unlike Intel). */
@@ -1104,12 +924,6 @@
 
 /* Define to 1 if aros can handle auto resolving of library bases. */
 #undef WORKING_AROS_AUTO
-
-/* Enable _Xlc_* functions. */
-#undef XLC_FUNCS_PRESENT
-
-/* Define to 1 if the X Window System is missing or not being used. */
-#undef X_DISPLAY_MISSING
 
 /* Define to 1 if `lex' declares `yytext' as a `char *' by default, not a
    `char[]'. */

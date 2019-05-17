@@ -30,20 +30,22 @@
 
 #include <stdio.h>
 
-#include "not_implemented.h"
+#include "debug_gtk3.h"
 
 #include "vice_gtk3.h"
 #include "machine.h"
-#include "psid.h"
 #include "ui.h"
 #include "uisidattach.h"
 #include "uivsidwindow.h"
 #include "vicii.h"
+#include "resources.h"
 
 #include "videomodelwidget.h"
 #include "vsidcontrolwidget.h"
 #include "vsidtuneinfowidget.h"
 #include "vsidmainwidget.h"
+
+#include "hvsc.h"
 
 #include "vsidui.h"
 
@@ -59,7 +61,8 @@ static const vice_gtk3_radiogroup_entry_t vsid_vicii_models[] = {
 
 void vsid_ui_close(void)
 {
-    NOT_IMPLEMENTED_WARN_ONLY();
+    hvsc_exit();
+    uisidattach_shutdown();
 }
 
 
@@ -224,8 +227,6 @@ void vsid_ui_set_data_size(uint16_t size)
 
 
 
-
-
 /** \brief  Identify the canvas used to create a window
  *
  * \return  window index on success, -1 on failure
@@ -258,9 +259,7 @@ int vsid_ui_init(void)
     ui_create_main_window(canvas);
     ui_display_main_window(canvas->window_index);
 
-    uisidattach_set_psid_init_func(psid_init_driver);
-    uisidattach_set_psid_play_func(machine_play_psid);
-
-    INCOMPLETE_IMPLEMENTATION();
+    /* for debugging */
+    debug_gtk3("libhvsc version: %s.", hvsc_lib_version_str());
     return 0;
 }

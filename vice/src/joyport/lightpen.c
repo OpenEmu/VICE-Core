@@ -31,7 +31,6 @@
 
 #if defined(HAVE_MOUSE) && defined(HAVE_LIGHTPEN)
 
-#include "cmdline.h"
 #include "joyport.h"
 #include "joystick.h"
 #include "machine.h"
@@ -39,7 +38,6 @@
 #include "lightpen.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 
 
 /* Control port <--> lightpen connections:
@@ -254,7 +252,6 @@ static uint8_t lightpen_read_button_x(void)
 
 static joyport_t lightpen_u_joyport_device = {
     "Light Pen (up trigger)",
-    IDGS_LIGHTPEN_UP,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_LIGHTPEN,
     JOYPORT_POT_OPTIONAL,
@@ -269,7 +266,6 @@ static joyport_t lightpen_u_joyport_device = {
 
 static joyport_t lightpen_l_joyport_device = {
     "Light Pen (left trigger)",
-    IDGS_LIGHTPEN_LEFT,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_LIGHTPEN,
     JOYPORT_POT_OPTIONAL,
@@ -284,7 +280,6 @@ static joyport_t lightpen_l_joyport_device = {
 
 static joyport_t lightpen_datel_joyport_device = {
     "Datel Light Pen",
-    IDGS_DATEL_LIGHTPEN,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_LIGHTPEN,
     JOYPORT_POT_OPTIONAL,
@@ -299,7 +294,6 @@ static joyport_t lightpen_datel_joyport_device = {
 
 static joyport_t magnum_light_phaser_joyport_device = {
     "Magnum Light Phaser",
-    IDGS_MAGNUM_LIGHT_PHASER,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_LIGHTPEN,
     JOYPORT_POT_OPTIONAL,
@@ -314,7 +308,6 @@ static joyport_t magnum_light_phaser_joyport_device = {
 
 static joyport_t stack_light_rifle_joyport_device = {
     "Stack Light Rifle",
-    IDGS_STACK_LIGHT_RIFLE,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_LIGHTPEN,
     JOYPORT_POT_OPTIONAL,
@@ -329,7 +322,6 @@ static joyport_t stack_light_rifle_joyport_device = {
 
 static joyport_t inkwell_lightpen_joyport_device = {
     "Inkwell Light Pen",
-    IDGS_INKWELL_LIGHTPEN,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_LIGHTPEN,
     JOYPORT_POT_OPTIONAL,

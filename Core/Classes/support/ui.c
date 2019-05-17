@@ -28,7 +28,7 @@
 #include <stdlib.h>
 #include "types.h"
 #include "uiapi.h"
-#include "archdep.h"
+//#include "archdep.h"
 #include "vice.h"
 #include "cmdline.h"
 #include "resources.h"

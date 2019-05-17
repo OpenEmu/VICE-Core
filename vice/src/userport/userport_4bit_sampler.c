@@ -45,7 +45,6 @@ C64/C128 | CBM2 | ADC | NOTES
 #include "resources.h"
 #include "sampler.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "userport.h"
 #include "userport_4bit_sampler.h"
 
@@ -64,7 +63,6 @@ static int userport_4bit_sampler_read_snapshot_module(snapshot_t *s);
 static userport_device_t sampler_device = {
     USERPORT_DEVICE_4BIT_SAMPLER,
     "Userport 4bit sampler",
-    IDGS_USERPORT_4BIT_SAMPLER,
     userport_4bit_sampler_read_pbx,
     NULL, /* NO pbx store */
     NULL, /* NO pa2 read */
@@ -133,16 +131,12 @@ int userport_4bit_sampler_resources_init(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-userport4bitsampler", SET_RESOURCE, 0,
+    { "-userport4bitsampler", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Userport4bitSampler", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_USERPORT_4BIT_SAMPLER,
-      NULL, NULL },
-    { "+userport4bitsampler", SET_RESOURCE, 0,
+      NULL, "Enable Userport 4bit sampler" },
+    { "+userport4bitsampler", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Userport4bitSampler", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_USERPORT_4BIT_SAMPLER,
-      NULL, NULL },
+      NULL, "Disable Userport 4bit sampler" },
     CMDLINE_LIST_END
 };
 

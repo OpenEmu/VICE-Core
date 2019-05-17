@@ -34,7 +34,6 @@
 #include "resources.h"
 #include "snapshot.h"
 #include "tapeport.h"
-#include "translate.h"
 
 #include "dtl-basic-dongle.h"
 
@@ -94,8 +93,7 @@ static int dtlbasic_read_snapshot(struct snapshot_s *s);
 
 static tapeport_device_t dtlbasic_dongle_device = {
     TAPEPORT_DEVICE_DTL_BASIC_DONGLE,
-    "Sense dongle",
-    IDGS_SENSE_DONGLE,
+    "DTL BASIC dongle",
     0,
     "DTLBasicDongle",
     NULL, /* no shutdown */
@@ -159,16 +157,12 @@ int dtlbasic_dongle_resources_init(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-dtlbasicdongle", SET_RESOURCE, 0,
+    { "-dtlbasicdongle", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "DTLBasicDongle", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_DTL_BASIC_DONGLE,
-      NULL, NULL },
-    { "+dtlbasicdongle", SET_RESOURCE, 0,
+      NULL, "Enable DTL Basic dongle" },
+    { "+dtlbasicdongle", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "DTLBasicDongle", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_DTL_BASIC_DONGLE,
-      NULL, NULL },
+      NULL, "Enable DTL Basic dongle" },
     CMDLINE_LIST_END
 };
 

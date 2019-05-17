@@ -51,7 +51,6 @@
 #include "network.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "types.h"
 #include "uiapi.h"
 #include "userport_joystick.h"
@@ -528,7 +527,6 @@ static int joystick_snapshot_read_module(snapshot_t *s, int port);
 
 static joyport_t joystick_device = {
     "Joystick",
-    IDGS_JOYSTICK,
     JOYPORT_RES_ID_NONE,
     JOYPORT_IS_NOT_LIGHTPEN,
     JOYPORT_POT_OPTIONAL,
@@ -676,27 +674,19 @@ int joystick_resources_init(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-joyopposite", SET_RESOURCE, 0,
+    { "-joyopposite", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "JoyOpposite", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_JOY_OPPOSITE,
-      NULL, NULL },
-    { "+joyopposite", SET_RESOURCE, 0,
+      NULL, "Enable opposite joystick directions" },
+    { "+joyopposite", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "JoyOpposite", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_JOY_OPPOSITE,
-      NULL, NULL },
+      NULL, "Disable opposite joystick directions" },
 #ifdef COMMON_JOYKEYS
-    { "-keyset", SET_RESOURCE, 0,
+    { "-keyset", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "KeySetEnable", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_KEYSET,
-      NULL, NULL },
-    { "+keyset", SET_RESOURCE, 0,
+      NULL, "Enable keyset" },
+    { "+keyset", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "KeySetEnable", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_KEYSET,
-      NULL, NULL },
+      NULL, "Disable keyset" },
 #endif
     CMDLINE_LIST_END
 };

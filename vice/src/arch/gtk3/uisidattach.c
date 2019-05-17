@@ -27,23 +27,17 @@
 #include "vice.h"
 
 #include <gtk/gtk.h>
-#include <stdbool.h>
 
 #include "debug_gtk3.h"
 #include "basedialogs.h"
 #include "filechooserhelpers.h"
-#include "machine.h"
+#include "lastdir.h"
 #include "lib.h"
-#include "psid.h"
 #include "ui.h"
 #include "uiapi.h"
-#include "vsync.h"
+#include "uivsidwindow.h"
 
 #include "uisidattach.h"
-
-
-/* forward declarations */
-/* static bool load_psid_handler(const char *filename); */
 
 
 /** \brief  File type filters for the dialog
@@ -55,36 +49,9 @@ static ui_file_filter_t filters[] = {
 };
 
 
-/* function pointers to work around the linking differences between VSID and
- * other emulators
- */
-static void (*psid_init_func)(void) = NULL;
-static void (*psid_play_func)(int) = NULL;
-
-
 /** \brief  Last used directory in dialog
  */
 static gchar *last_dir = NULL;
-
-
-/** \brief  Update the last directory reference
- *
- * \param[in]   widget  dialog
- */
-static void update_last_dir(GtkWidget *widget)
-{
-    gchar *new_dir;
-
-    new_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(widget));
-    debug_gtk3("new dir = '%s'\n", new_dir);
-    if (new_dir != NULL) {
-        /* clean up previous value */
-        if (last_dir != NULL) {
-            g_free(last_dir);
-        }
-        last_dir = new_dir;
-    }
-}
 
 
 /*
@@ -109,7 +76,7 @@ static void on_update_preview(GtkFileChooser *chooser, gpointer data)
     if (file != NULL) {
         path = g_file_get_path(file);
         if (path != NULL) {
-            debug_gtk3("called with '%s'\n", path);
+            debug_gtk3("called with '%s'.", path);
             /* TODO: show SID info */
             g_free(path);
         }
@@ -148,22 +115,21 @@ static void on_response(GtkWidget *widget, gint response_id, gpointer user_data)
 {
     gchar *filename;
     char *text;
-    int index;
-
-    index = GPOINTER_TO_INT(user_data);
-
-    debug_gtk3("got response ID %d, index %d\n", response_id, index);
+#ifdef HAVE_DEBUG_GTK3UI
+    int index = GPOINTER_TO_INT(user_data);
+#endif
+    debug_gtk3("got response ID %d, index %d.", response_id, index);
 
     switch (response_id) {
 
         /* 'Open' button, double-click on file */
         case GTK_RESPONSE_ACCEPT:
-            update_last_dir(widget);
+            lastdir_update(widget, &last_dir);
             filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(widget));
             text = lib_msprintf("Opening '%s'", filename);
-            ui_display_statustext(text, TRUE);
-            debug_gtk3("Loading SID file '%s'\n", filename);
-            load_psid_handler(filename);
+            debug_gtk3("Loading SID file '%s'.", filename);
+            ui_vsid_window_load_psid(filename);
+
             g_free(filename);
             lib_free(text);
             gtk_widget_destroy(widget);
@@ -176,29 +142,6 @@ static void on_response(GtkWidget *widget, gint response_id, gpointer user_data)
         default:
             break;
     }
-}
-
-
-/** \brief  Load and play PSID/SID file \a filename
- *
- * \param[in]   filename    file to play
- */
-bool load_psid_handler(const char *filename)
-{
-    vsync_suspend_speed_eval();
-
-    if (machine_autodetect_psid(filename) < 0) {
-        debug_gtk3("'%s' is not a valid PSID file", filename);
-        ui_error("'%s' is not a valid PSID file", filename);
-        return false;
-    }
-
-    if (psid_init_func != NULL && psid_play_func != NULL) {
-        psid_init_func();
-        psid_play_func(0);
-        machine_trigger_reset(MACHINE_RESET_MODE_SOFT);
-    }
-    return true;
 }
 
 
@@ -255,14 +198,12 @@ static GtkWidget *create_sid_attach_dialog(GtkWidget *parent)
             preview_widget);
 */
     /* set last used directory, if present */
-    if (last_dir != NULL) {
-        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
-    }
+    lastdir_set(dialog, &last_dir);
 
     /* add filters */
     for (i = 0; filters[i].name != NULL; i++) {
         gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog),
-                create_file_chooser_filter(filters[i], TRUE));
+                create_file_chooser_filter(filters[i], FALSE));
     }
 
     /* connect "reponse" handler: the `user_data` argument gets filled in when
@@ -286,30 +227,10 @@ void uisidattach_show_dialog(GtkWidget *widget, gpointer data)
 {
     GtkWidget *dialog;
 
-    debug_gtk3("called\n");
+    debug_gtk3("called.");
     dialog = create_sid_attach_dialog(widget);
     gtk_widget_show(dialog);
 
-}
-
-
-/** \brief  Set psid init function
- *
- * \param[in]   func    psid_init_driver() function
- */
-void uisidattach_set_psid_init_func(void (*func)(void))
-{
-    psid_init_func = func;
-}
-
-
-/** \brief  Set psid play function
-*
-* \param[in]   func    machine_play_psid() function
-*/
-void uisidattach_set_psid_play_func(void (*func)(int))
-{
-    psid_play_func = func;
 }
 
 
@@ -317,7 +238,5 @@ void uisidattach_set_psid_play_func(void (*func)(int))
  */
 void uisidattach_shutdown(void)
 {
-    if (last_dir != NULL) {
-        g_free(last_dir);
-    }
+    lastdir_shutdown(&last_dir);
 }

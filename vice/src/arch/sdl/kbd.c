@@ -47,7 +47,6 @@
 #include "monitor.h"
 #include "resources.h"
 #include "sysfile.h"
-#include "translate.h"
 #include "ui.h"
 #include "uihotkey.h"
 #include "uimenu.h"
@@ -112,11 +111,10 @@ void sdlkbd_resources_shutdown(void)
 
 /* ------------------------------------------------------------------------ */
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-hotkeyfile", SET_RESOURCE, 1,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-hotkeyfile", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "HotkeyFile", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
       "<name>", "Specify name of hotkey file" },
     CMDLINE_LIST_END
 };

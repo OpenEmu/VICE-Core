@@ -1,4 +1,4 @@
-/**
+/** \file   widgethelpers.h
  * \brief   GTK3 helper functions for widgets - header
  *
  * \author  Bas Wassink <b.wassink@ziggo.nl>
@@ -31,6 +31,27 @@
 #include <gtk/gtk.h>
 
 #include "basewidget_types.h"
+
+#ifdef MACOSX_SUPPORT
+
+/** \brief  Unicode text for the VICE_MOD_MASK (Alt/Command) modifier
+ * TODO: figure out actual codepoint for the MacOS command symbol
+ */
+# define VICE_MOD_MASK_TEXT "Bloemkool"
+
+/** \brief  HTML text for the MOD1_MASK (Winkey/Command) modifier
+ */
+# define VICE_MOD_MASK_HTML "&#8984;"
+
+#else
+
+# define VICE_MOD_MASK_TEXT "Alt"
+
+/** \brief  HTML text for the VICE_MOD_MASK (Alt/Command) modifier
+ */
+# define VICE_MOD_MASK_HTML "Alt"
+
+#endif
 
 
 /* XXX: either deprecated or needs renaming */

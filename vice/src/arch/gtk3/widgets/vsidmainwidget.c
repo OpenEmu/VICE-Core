@@ -36,16 +36,36 @@
 #include "machine.h"
 #include "lib.h"
 #include "log.h"
+#include "uivsidmenu.h"
 #include "vsidtuneinfowidget.h"
 #include "vsidcontrolwidget.h"
 #include "vsidmixerwidget.h"
+#include "vsidplaylistwidget.h"
+#include "hvscstilwidget.h"
 
 #include "vsidmainwidget.h"
 
+static GtkWidget *main_widget;
 
 static GtkWidget *tune_info_widget;
 static GtkWidget *control_widget;
 static GtkWidget *mixer_widget;
+static GtkWidget *stil_widget;
+
+/*
+ * Disable unfinished playlist widget
+ *
+ * I probably won't be able to work this into a proper functioning widget
+ * before the code freeze in about a week (2018-12-03), so until 3.3 is
+ * released this will be disabled. The Wiki contains items about "playlist"
+ * and "HVSC browser" support, so this should not be forgotten. And I also
+ * would like to properly implement those things, soon.
+ *
+ * --compyx
+ */
+#if 0
+static GtkWidget *playlist_widget;
+#endif
 
 
 /** \brief  Create VSID main widget
@@ -59,7 +79,10 @@ GtkWidget *vsid_main_widget_create(void)
     grid = vice_gtk3_grid_new_spaced(32, 32);
     g_object_set(G_OBJECT(grid),
             "margin-left", 16,
-            "margin-top", 16, NULL);
+            "margin-right", 16,
+            "margin-top", 16,
+            "margin-bottom", 16,
+            NULL);
 
     tune_info_widget = vsid_tune_info_widget_create();
     gtk_grid_attach(GTK_GRID(grid), tune_info_widget, 0, 0, 1, 1);
@@ -70,7 +93,16 @@ GtkWidget *vsid_main_widget_create(void)
     mixer_widget = vsid_mixer_widget_create();
     gtk_grid_attach(GTK_GRID(grid), mixer_widget, 0, 2, 1, 1);
 
+    stil_widget = hvsc_stil_widget_create();
+    gtk_widget_set_vexpand(stil_widget, TRUE);
+    gtk_grid_attach(GTK_GRID(grid), stil_widget, 1, 0, 1, 4);
+
+#if 0
+    playlist_widget = vsid_playlist_widget_create();
+    gtk_grid_attach(GTK_GRID(grid), playlist_widget, 2, 0, 1, 4);
+#endif
     gtk_widget_show_all(grid);
+    main_widget = grid;
     return grid;
 }
 
@@ -83,6 +115,7 @@ void vsid_main_widget_set_tune_count(int n)
 {
     vsid_control_widget_set_tune_count(n);
     vsid_tune_info_widget_set_tune_count(n);
+    ui_vsid_tune_menu_set_tune_count(n);
 }
 
 /** \brief  Set current tune
@@ -93,6 +126,14 @@ void vsid_main_widget_set_tune_current(int n)
 {
     vsid_control_widget_set_tune_current(n);
     vsid_tune_info_widget_set_tune_current(n);
+    ui_vsid_tune_set_tune_current(n);
+
+    /* update mixer widget to use the SID model of the current tune */
+    if (mixer_widget != NULL) {
+        gtk_widget_destroy(mixer_widget);
+        mixer_widget = vsid_mixer_widget_create();
+        gtk_grid_attach(GTK_GRID(main_widget), mixer_widget, 0, 2, 1, 1);
+    }
 }
 
 

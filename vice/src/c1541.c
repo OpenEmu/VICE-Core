@@ -104,6 +104,8 @@
 #include "vice-event.h"
 #include "zipcode.h"
 #include "p64.h"
+#include "fileio/p00.h"
+
 
 /* #define DEBUG_DRIVE */
 
@@ -141,8 +143,11 @@
  */
 #define UNIT_MAX        (UNIT_MIN + DRIVE_COUNT - 1)
 
-#define C1541_VERSION_MAJOR     4   /**< c1541 major version number */
-#define C1541_VERSION_MINOR     2   /**< c1541 minor version number */
+
+/** \brief  Magic bytes for a P00 header
+ */
+const char p00_header[] = "C64File";
+
 
 
 /* mostly useless crap, show go into c1541.h */
@@ -441,7 +446,9 @@ const command_t command_list[] = {
       "geosread <source> [<destination>]",
       "Read GEOS <source> from the disk image and copy it as a Convert file "
       "into \n<destination> in the file system.  If <destination> is not "
-      "specified, copy \nit into a file with the same name as <source>.",
+      "specified, copy \nit into a file with the same name as <source>."
+      "\nPlease note that due to GEOS using ASCII, not PETSCII, the name should"
+      " be\bentered in inverted case (ie to read 'rEADmE', use 'ReadMe'",
       1, 2,
       read_geos_cmd },
     { "geoswrite",
@@ -2241,9 +2248,42 @@ static int delete_cmd(int nargs, char **args)
 }
 
 
+#define P00_HDR_LEN         0x1a
+#define P00_HDR_MAGIC       0x00
+#define P00_HDR_MAGIC_LEN   0x08
+#define P00_HDR_NAME        0x08
+#define P00_HDR_NAME_LEN    0x10
+#define P00_HDR_REL_RECLEN  0x19
+
+
+static int write_p00_header(FILE *fd, const uint8_t *petname)
+{
+    uint8_t hdr[P00_HDR_LEN];
+    int i;
+
+    /* copy "C64File" and nul char as magic */
+    memcpy(hdr + P00_HDR_MAGIC, p00_header, P00_HDR_MAGIC_LEN);
+    /* copy CBMDOS filename in PETSCII */
+    memcpy(hdr + P00_HDR_NAME, petname, P00_HDR_NAME_LEN);
+    /* fix up name padding, P00 uses 0x00 for padding instead of the standard
+     * 0xa0 padding of CBMDOS
+     */
+    i = P00_HDR_NAME_LEN - 1;
+    while (i >=0 && hdr[P00_HDR_NAME + i] == 0xa0) {
+        hdr[P00_HDR_NAME + i] = 0;
+        i--;
+    }
+    /* REL file info, unsupported for now */
+    hdr[0x18] = 0;  /* always 0 */
+    hdr[P00_HDR_REL_RECLEN] = 0;
+
+    return fwrite(hdr, 1U, P00_HDR_LEN, fd) == P00_HDR_LEN;
+}
+
+
 /* Extract all files <gwesp@cosy.sbg.ac.at>.  */
 /* FIXME: This does not work with non-standard file names.  */
-
+/* FIXME: I added P00 support, but it's a little shitty */
 static int extract_cmd_common(int nargs, char **args, int geos)
 {
     int dnr = 0;
@@ -2251,6 +2291,7 @@ static int extract_cmd_common(int nargs, char **args, int geos)
     vdrive_t *floppy;
     uint8_t *buf, *str;
     unsigned int channel = 2;
+    char *p00_name = NULL;
 
     if (nargs == 2) {
         if (arg_to_int(args[1], &dnr) < 0) {
@@ -2318,7 +2359,6 @@ static int extract_cmd_common(int nargs, char **args, int geos)
                 }
 
                 charset_petconvstring((uint8_t *)name, 1);
-                printf("%s\n", name);
 
                 /* translate illegal chars for the host OS to '_' */
                 archdep_sanitize_filename((char *)name);
@@ -2329,7 +2369,14 @@ static int extract_cmd_common(int nargs, char **args, int geos)
                             name, dnr + UNIT_MIN);
                     continue;
                 }
-                fd = fopen((char *)name, MODE_WRITE);
+
+                if (p00save[dnr]) {
+                    p00_name = p00_filename_create((const char *)name,
+                            file_type & 7);
+                    fd = fopen(p00_name, "wb");
+                } else {
+                    fd = fopen((char *)name, MODE_WRITE);
+                }
                 if (fd == NULL) {
                     fprintf(stderr, "cannot create file `%s': %s.",
                             name, strerror(errno));
@@ -2339,10 +2386,21 @@ static int extract_cmd_common(int nargs, char **args, int geos)
                 if (geos) {
                     status = internal_read_geos_file(dnr, fd, (char *)name);
                 } else {
+                    /* do we have P00save? */
+                    if (p00save[dnr]) {
+                        if (!write_p00_header(fd, cbm_name)) {
+                            fprintf(stderr, "failed to write P00 header\n");
+                            lib_free(p00_name);
+                            return FD_WRTERR;
+                        }
+                    }
                     do {
                         status = vdrive_iec_read(floppy, &c, 0);
                         fputc(c, fd);
                     } while (status == SERIAL_OK);
+                }
+                if (p00_name != NULL) {
+                    lib_free(p00_name);
                 }
 
                 vdrive_iec_close(floppy, 0);
@@ -3389,7 +3447,12 @@ static int read_geos_cmd(int nargs, char **args)
             dest_name_ascii[l] = 0;
             l--;
         }
+        /*
+         * Don't convert, GEOS uses ASCII
+         */
+#if 0
         charset_petconvstring((uint8_t *)dest_name_ascii, 1);
+#endif
     }
 
     outf = fopen(dest_name_ascii, MODE_WRITE);
@@ -3919,7 +3982,8 @@ static int tape_cmd(int nargs, char **args)
             uint8_t *buf;
             size_t name_len;
             uint16_t file_size;
-            int i, retval;
+            int i;
+            int retval;
 
             /* Ignore traling spaces and 0xa0's.  */
             name_len = strlen((char *)(rec->name));
@@ -3936,11 +4000,12 @@ static int tape_cmd(int nargs, char **args)
             charset_petconvstring((uint8_t *)dest_name_ascii, 1);
 
             if (nargs > 2) {
-                int i, found;
+                int k;
+                int found;
 
-                for (i = 2, found = 0; i < nargs; i++) {
-                    if (name_len == strlen(args[i])
-                        && memcmp(args[i], dest_name_ascii, name_len) == 0) {
+                for (k = 2, found = 0; k < nargs; k++) {
+                    if (name_len == strlen(args[k])
+                        && memcmp(args[k], dest_name_ascii, name_len) == 0) {
                         found = 1;
                         break;
                     }
@@ -4374,12 +4439,11 @@ static int validate_cmd(int nargs, char **args)
 static int version_cmd(int nargs, char **args)
 {
 #ifdef USE_SVN_REVISION
-    printf("c1541 V%d.%d (VICE %s svn r%d)\n",
-            C1541_VERSION_MAJOR, C1541_VERSION_MINOR,
+    printf("c1541 (VICE %s SVN r%d)\n",
             VERSION, VICE_SVN_REV_NUMBER);
 #else
-    printf("c1541 V%d.%d (VICE %s)\n",
-            C1541_VERSION_MAJOR, C1541_VERSION_MINOR, VERSION);
+    printf("c1541 (VICE %s)\n",
+            VERSION);
 #endif
     return FD_OK;
 }
@@ -4400,6 +4464,7 @@ static int write_cmd(int nargs, char **args)
     unsigned int dest_len;
     char *p;
     fileio_info_t *finfo;
+    char *src_name;
 
     if (nargs == 3) {
         /* write <source> <dest> */
@@ -4436,13 +4501,17 @@ static int write_cmd(int nargs, char **args)
         return FD_NOTREADY;
     }
 
-    finfo = fileio_open(args[1], NULL, FILEIO_FORMAT_RAW | FILEIO_FORMAT_P00,
+    /* ~ expand path on Unix */
+    archdep_expand_path(&src_name, args[1]);
+
+    finfo = fileio_open(src_name, NULL, FILEIO_FORMAT_RAW | FILEIO_FORMAT_P00,
                         FILEIO_COMMAND_READ | FILEIO_COMMAND_FSNAME,
                         FILEIO_TYPE_PRG);
 
     if (finfo == NULL) {
         fprintf(stderr, "cannot read file `%s': %s\n", args[1],
                 strerror(errno));
+        lib_free(src_name);
         return FD_NOTRD;
     }
 
@@ -4459,6 +4528,7 @@ static int write_cmd(int nargs, char **args)
                 finfo->name);
         fileio_close(finfo);
         lib_free(dest_name);
+        lib_free(src_name);
         return FD_WRTERR;
     }
 
@@ -4486,7 +4556,7 @@ static int write_cmd(int nargs, char **args)
     vdrive_iec_close(drives[dnr], 1);
 
     lib_free(dest_name);
-
+    lib_free(src_name);
     return FD_OK;
 }
 
@@ -4780,6 +4850,8 @@ int main(int argc, char **argv)
 /** \brief  Enable\disable saving of files as P00
  *
  * Syntax: p00save \<enable> [\<unit>]
+ *
+ * Where \a enable is either 0 or 1.
  *
  * \param[in]   nargs   argument count
  * \param[in]   args    argument list

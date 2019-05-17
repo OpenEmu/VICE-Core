@@ -47,7 +47,6 @@
 #include "monitor.h"
 #include "resources.h"
 #include "reu.h"
-#include "translate.h"
 #include "types.h"
 #include "vdc.h"
 #include "vicii.h"
@@ -103,27 +102,20 @@ int mmu_resources_init(void)
     return resources_register_int(resources_int);
 }
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-40col", SET_RESOURCE, 0,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-40col", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "C128ColumnKey", (resource_value_t) 1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ACTIVATE_40_COL_MODE,
-      NULL, NULL },
-    { "-80col", SET_RESOURCE, 0,
+      NULL, "Activate 40 column mode" },
+    { "-80col", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "C128ColumnKey", (resource_value_t) 0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ACTIVATE_80_COL_MODE,
-      NULL, NULL },
-    { "-go64", SET_RESOURCE, 0,
+      NULL, "Activate 80 column mode" },
+    { "-go64", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Go64Mode", (resource_value_t) 1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_GO64_MODE,
-      NULL, NULL },
-    { "+go64", SET_RESOURCE, 0,
+      NULL, "Always switch to C64 mode on reset" },
+    { "+go64", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Go64Mode", (resource_value_t) 0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_GO128_MODE,
-      NULL, NULL },
+      NULL, "Always switch to C128 mode on reset" },
     CMDLINE_LIST_END
 };
 

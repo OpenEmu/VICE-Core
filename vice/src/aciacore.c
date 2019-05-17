@@ -42,7 +42,6 @@
 #include "resources.h"
 #include "rs232drv.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "types.h"
 
 
@@ -497,12 +496,11 @@ int myacia_init_resources(void)
 }
 
 /*! \brief the command-line options available for the ACIA */
-static const cmdline_option_t cmdline_options[] = {
-    { "-myaciadev", SET_RESOURCE, 1,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-myaciadev", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, MYACIA "Dev", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_SPECIFY_ACIA_RS232_DEVICE,
-      "<0-3>", NULL },
+      "<0-3>", "Specify RS232 device this ACIA should work on" },
     CMDLINE_LIST_END
 };
 
@@ -749,16 +747,15 @@ int myacia_snapshot_write_module(snapshot_t *p)
         aar = 0;
     }
 
-    if (0
-        || SMW_B(m, acia.txdata) < 0
-        || SMW_B(m, acia.rxdata) < 0
-        || SMW_B(m, (uint8_t)(acia_get_status() | (acia.irq ? ACIA_SR_BITS_IRQ : 0))) < 0
-        || SMW_B(m, acia.cmd) < 0
-        || SMW_B(m, acia.ctrl) < 0
-        || SMW_B(m, (uint8_t)(acia.in_tx)) < 0
-        || SMW_DW(m, act) < 0
-     /* new with VICE 2.0.9 */
-        || SMW_DW(m, aar) < 0) {
+    if (SMW_B(m, acia.txdata) < 0
+            || SMW_B(m, acia.rxdata) < 0
+            || SMW_B(m, (uint8_t)(acia_get_status()
+                    | (acia.irq ? ACIA_SR_BITS_IRQ : 0))) < 0
+            || SMW_B(m, acia.cmd) < 0
+            || SMW_B(m, acia.ctrl) < 0
+            || SMW_B(m, (uint8_t)(acia.in_tx)) < 0
+            || SMW_DW(m, act) < 0
+            || SMW_DW(m, aar) < 0) {
         snapshot_module_close(m);
         return -1;
     }
@@ -815,14 +812,13 @@ int myacia_snapshot_read_module(snapshot_t *p)
         return -1;
     }
 
-    if (0
-        || SMR_B(m, &acia.txdata) < 0
-        || SMR_B(m, &acia.rxdata) < 0
-        || SMR_B(m, &acia.status) < 0
-        || SMR_B(m, &acia.cmd) < 0
-        || SMR_B(m, &acia.ctrl) < 0
-        || SMR_B(m, &byte) < 0
-        || SMR_DW(m, &dword1) < 0) {
+    if (SMR_B(m, &acia.txdata) < 0
+            || SMR_B(m, &acia.rxdata) < 0
+            || SMR_B(m, &acia.status) < 0
+            || SMR_B(m, &acia.cmd) < 0
+            || SMR_B(m, &acia.ctrl) < 0
+            || SMR_B(m, &byte) < 0
+            || SMR_DW(m, &dword1) < 0) {
         snapshot_module_close(m);
         return -1;
     }

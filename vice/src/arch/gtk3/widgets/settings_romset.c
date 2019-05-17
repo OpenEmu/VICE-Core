@@ -28,6 +28,7 @@
  * $VICERES ChargenFRName       x128
  * $VICERES ChargenSEName       x128
  * $VICERES ChargenCHName       x128
+ * $VICERES ChargenNOName       x128
  * $VICERES FunctionLowName     xplus4
  * $VICERES FunctionHighName    xplus4
  * $VICERES c1loName            xplus4
@@ -95,6 +96,7 @@
 #include <gtk/gtk.h>
 
 #include "vice_gtk3.h"
+#include "debug_gtk3.h"
 #include "resourcehelpers.h"
 #include "machine.h"
 #include "diskimage.h"
@@ -210,6 +212,7 @@ static const romset_entry_t c128_chargen_roms[] = {
     { "ChargenFRName",  "French Chargen",           NULL },
     { "ChargenSEName",  "Swedish Chargen",          NULL },
     { "ChargenCHName",  "Swiss Chargen",            NULL },
+    { "ChargenNOName",  "Norwegian Chargen",        NULL },
     { NULL,             NULL,                       NULL }
 };
 
@@ -303,8 +306,9 @@ static const romset_entry_t c128_drive_roms[] = {
 
 static const romset_entry_t c64_c128_drive_exp_roms[] = {
     { "DriveProfDOS1571Name",   "ProfDOS 1571", NULL },
-    { "DriveSuperCardName",     "SuperCard", NULL },
-    { "DriveStarDosName",       "StarDOS", NULL }
+    { "DriveSuperCardName",     "SuperCard",    NULL },
+    { "DriveStarDosName",       "StarDOS",      NULL },
+    { NULL,                     NULL,           NULL }
 };
 
 
@@ -362,11 +366,11 @@ static GtkWidget *child_rom_archives = NULL;
 #if 0
 static void on_default_romset_load_clicked(void)
 {
-    debug_gtk3("trying to load '%s' ..", ROMSET_DEFAULT);
+    debug_gtk3("trying to load '%s'.", ROMSET_DEFAULT);
     if (machine_romset_file_load(ROMSET_DEFAULT) < 0) {
-        debug_gtk3("FAILED!\n");
+        debug_gtk3("FAILED!");
     } else {
-        debug_gtk3("OK\n");
+        debug_gtk3("OK.");
     }
 }
 #endif
@@ -377,7 +381,7 @@ static void on_pet_select_chargen(GtkWidget *widget, gpointer data)
     const char *chargen = (const char*)data;
     GtkWidget *browser;
 
-    debug_gtk3("Setting chargen to '%s'\n", chargen);
+    debug_gtk3("Setting chargen to '%s'.", chargen);
 
     browser = gtk_grid_get_child_at(GTK_GRID(child_machine_roms), 1, 3);
     if (GTK_IS_GRID(browser)) {
@@ -548,11 +552,12 @@ static GtkWidget *create_cbm2_roms_widget(void)
 static void unload_pet_rom(GtkWidget *widget, gpointer data)
 {
     GtkWidget *browser = data;
-    const char *resource;
 
-    resource = resource_widget_get_resource_name(browser);
+#ifdef HAVE_DEBUG_GTK3UI
+    const char *resource = resource_widget_get_resource_name(browser);
+    debug_gtk3("unloading ROM '%s'.", resource);
+#endif
 
-    debug_gtk3("unloading ROM '%s'\n", resource);
     vice_gtk3_resource_browser_set(browser, NULL);
 
 }

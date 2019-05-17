@@ -37,7 +37,6 @@
 #include "functionrom.h"
 #include "lib.h"
 #include "resources.h"
-#include "translate.h"
 #include "types.h"
 #include "util.h"
 
@@ -102,6 +101,7 @@ static int set_internal_function_rom_enabled(int val, void *param)
     switch (val) {
         case INT_FUNCTION_RTC:
             rtc1_context = bq4830y_init("IFR");
+            /* fall through */
         case INT_FUNCTION_RAM:
             memset(int_function_rom, 0, sizeof(int_function_rom));
             break;
@@ -153,6 +153,7 @@ static int set_external_function_rom_enabled(int val, void *param)
     switch (val) {
         case EXT_FUNCTION_RTC:
             rtc2_context = bq4830y_init("EFR");
+            /* fall through */
         case EXT_FUNCTION_RAM:
             memset(ext_function_rom, 0, sizeof(ext_function_rom));
             break;
@@ -228,47 +229,32 @@ void functionrom_resources_shutdown(void)
     lib_free(external_function_rom_name);
 }
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-intfrom", SET_RESOURCE, 1,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-intfrom", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "InternalFunctionName", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SPECIFY_INT_FUNC_ROM_NAME,
-      NULL, NULL },
-    { "-extfrom", SET_RESOURCE, 1,
+      "<Name>", "Specify name of internal Function ROM image" },
+    { "-extfrom", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "ExternalFunctionName", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SPECIFY_EXT_FUNC_ROM_NAME,
-      NULL, NULL },
-    { "-intfunc", SET_RESOURCE, 1,
+      "<Name>", "Specify name of external Function ROM image" },
+    { "-intfunc", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "InternalFunctionROM", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_TYPE, IDCLS_ENABLE_INT_FUNC_ROM,
-      NULL, NULL },
-    { "-extfunc", SET_RESOURCE, 1,
+      "<Type>", "Type of internal Function ROM: (0: None, 1: ROM, 2: RAM, 3: RTC)" },
+    { "-extfunc", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "ExternalFunctionROM", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_P_TYPE, IDCLS_ENABLE_EXT_FUNC_ROM,
-      NULL, NULL },
-    { "-intfuncrtcsave", SET_RESOURCE, 0,
+      "<Type>", "Type of external Function ROM: (0: None, 1: ROM, 2: RAM, 3: RTC)" },
+    { "-intfuncrtcsave", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "InternalFunctionROMRTCSave", (resource_value_t)1,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_INT_FUNC_RTC_SAVE,
-      NULL, NULL },
-    { "+intfuncrtcsave", SET_RESOURCE, 0,
+      NULL, "Enable saving of the internal function RTC data when changed." },
+    { "+intfuncrtcsave", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "InternalFunctionROMRTCSave", (resource_value_t)0,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_INT_FUNC_RTC_SAVE,
-      NULL, NULL },
-    { "-extfuncrtcsave", SET_RESOURCE, 0,
+      NULL, "Disable saving of the internal function RTC data when changed." },
+    { "-extfuncrtcsave", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "ExternalFunctionROMRTCSave", (resource_value_t)1,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_EXT_FUNC_RTC_SAVE,
-      NULL, NULL },
-    { "+extfuncrtcsave", SET_RESOURCE, 0,
+      NULL, "Enable saving of the external function RTC data when changed." },
+    { "+extfuncrtcsave", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "ExternalFunctionROMRTCSave", (resource_value_t)0,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_EXT_FUNC_RTC_SAVE,
-      NULL, NULL },
+      NULL, "Disable saving of the external function RTC data when changed." },
     CMDLINE_LIST_END
 };
 

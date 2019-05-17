@@ -30,12 +30,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "cmdline.h"
 #include "joyport.h"
 #include "paperclip64.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 
 /* Control port <--> paperclip64 connections:
 
@@ -168,7 +166,6 @@ static int paperclip64_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t joyport_paperclip64_device = {
     "Paperclip64 dongle",
-    IDGS_PAPERCLIP64_DONGLE,
     JOYPORT_RES_ID_PAPERCLIP64,
     JOYPORT_IS_NOT_LIGHTPEN,
     JOYPORT_POT_OPTIONAL,

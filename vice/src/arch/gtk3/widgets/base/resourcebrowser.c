@@ -2,6 +2,26 @@
  * \brief   Text entry with label and browse button connected to a resource
  *
  * \author  Bas Wassink <b.wassink@ziggo.nl>
+ *
+ * This class presents a text entry box and a "Browse ..." button to update
+ * a resource, optionally providing a label before the text entry. It is meant
+ * as a widget to set a resource that represents a file, such as a kernal image.
+ *
+ * Internally this widget is a GtkGrid, so when a dialog/widget needs multiple
+ * instances of this class, the best thing to do is to set the label to `NULL`
+ * and add the labels manually in another GtkGrid or other container to keep
+ * things aligned.
+ *
+ * The constructor is slightly convoluted, but flexible, see
+ * #vice_gtk3_resource_browser_new
+ * (todo: figure out how to get Doxygen to print the functio prototype here)
+ *
+ * The first argument is required, it's the VICE resource we wish to change, for
+ * example "Kernal".
+ * The second argument is a list of strings representing file name globbing
+ * patterns, for example <tt>{"*.bin", "*.rom", NULL}</tt>
+ *
+ *
  */
 
 /*
@@ -45,14 +65,15 @@
 /** \brief  Object keeping track of the state of the widget
  */
 typedef struct resource_browser_state_s {
-    char *res_name; /**< resource name */
-    char *res_orig; /**< resource value at widget creation */
-    char **patterns;    /**< file matching patterns */
-    char *pattern_name; /**< name to display for the file patterns */
-    char *browser_title;    /**< title to display for the file browser */
-    void (*callback)(GtkWidget *, gpointer);    /**< optional callback */
-    GtkWidget *entry;   /**< GtkEntry reference */
-    GtkWidget *button;  /**< GtkButton reference */
+    char *res_name;             /**< resource name */
+    char *res_orig;             /**< resource value at widget creation */
+    char **patterns;            /**< file matching patterns */
+    char *pattern_name;         /**< name to display for the file patterns */
+    char *browser_title;        /**< title to display for the file browser */
+    void (*callback)(GtkWidget *,
+                     gpointer); /**< optional callback */
+    GtkWidget *entry;           /**< GtkEntry reference */
+    GtkWidget *button;          /**< GtkButton reference */
 } resource_browser_state_t;
 
 
@@ -87,6 +108,7 @@ static void on_resource_browser_destroy(GtkWidget *widget, gpointer data)
         lib_free(state->browser_title);
     }
     lib_free(state);
+    resource_widget_free_resource_name(widget);
 }
 
 
@@ -108,7 +130,7 @@ static void on_resource_browser_browse_clicked(GtkWidget *widget, gpointer data)
     filename = vice_gtk3_open_file_dialog(state->browser_title,
             state->pattern_name, (const char **)(state->patterns), NULL);
     if (filename != NULL) {
-        debug_gtk3("got image name '%s'\n", filename);
+        debug_gtk3("got image name '%s'.", filename);
         if (!vice_gtk3_resource_entry_full_set(state->entry, filename)){
             log_error(LOG_ERR,
                     "failed to set resource %s to '%s', reverting\n",
@@ -116,6 +138,11 @@ static void on_resource_browser_browse_clicked(GtkWidget *widget, gpointer data)
             /* restore resource to original state */
             resources_set_string(state->res_name, state->res_orig);
             gtk_entry_set_text(GTK_ENTRY(state->entry), state->res_orig);
+        } else {
+            if (state->callback != NULL) {
+                debug_gtk3("triggering user-defined callback.");
+                state->callback(widget, (gpointer)filename);
+            }
         }
         g_free(filename);
     }
@@ -204,10 +231,11 @@ GtkWidget *vice_gtk3_resource_browser_new(
 
     /* copy resource name */
     state->res_name = lib_stralloc(resource);
+    resource_widget_set_resource_name(grid, resource);
 
     /* get current value of resource */
     if (resources_get_string(resource, &orig) < 0) {
-        debug_gtk3("failed to retrieve current value for resource '%s'\n",
+        debug_gtk3("failed to retrieve current value for resource '%s'.",
                 resource);
         orig = "";
     } else if (orig == NULL) {
@@ -259,6 +287,14 @@ GtkWidget *vice_gtk3_resource_browser_new(
 
     /* store the state object in the widget */
     g_object_set_data(G_OBJECT(grid), "ViceState", (gpointer)state);
+
+    /* register methods to be used by the resource widget manager */
+    resource_widget_register_methods(
+            grid,
+            vice_gtk3_resource_browser_reset,
+            vice_gtk3_resource_browser_factory,
+            vice_gtk3_resource_browser_sync,
+            vice_gtk3_resource_browser_apply);
 
     /* connect signal handlers */
     g_signal_connect(state->button, "clicked",
@@ -383,4 +419,17 @@ gboolean vice_gtk3_resource_browser_factory(GtkWidget *widget)
         return FALSE;
     }
     return vice_gtk3_resource_browser_set(widget, value);
+}
+
+
+/** \brief  Apply the widget's setting to its resource
+ *
+ * \param[in]   resource browser widget
+ *
+ * \return  bool
+ */
+gboolean vice_gtk3_resource_browser_apply(GtkWidget *widget)
+{
+    NOT_IMPLEMENTED_WARN_ONLY();
+    return FALSE;
 }

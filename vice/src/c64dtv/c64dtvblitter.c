@@ -47,7 +47,6 @@
 #include "maincpu.h"
 #include "interrupt.h"
 #include "snapshot.h"
-#include "translate.h"
 
 #ifdef DEBUG
 static log_t c64dtvblitter_log = LOG_ERR;
@@ -572,22 +571,16 @@ void c64dtvblitter_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-dtvrev", SET_RESOURCE, 1,
+    { "-dtvrev", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "DtvRevision", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_REVISION, IDCLS_SPECIFY_DTV_REVISION,
-      NULL, NULL },
+      "<Revision>", "Specify DTV Revision (2: DTV2, 3: DTV3)" },
 #ifdef DEBUG
-    { "-dtvblitterlog", SET_RESOURCE, 0,
+    { "-dtvblitterlog", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "DtvBlitterLog", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_DTV_BLITTER_LOG,
-      NULL, NULL },
-    { "+dtvblitterlog", SET_RESOURCE, 0,
+      NULL, "Enable DTV blitter logs." },
+    { "+dtvblitterlog", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "DtvBlitterLog", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_DTV_BLITTER_LOG,
-      NULL, NULL },
+      NULL, "Disable DTV blitter logs." },
 #endif
     CMDLINE_LIST_END
 };

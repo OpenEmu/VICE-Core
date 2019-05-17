@@ -37,8 +37,10 @@
 #include "contentpreviewwidget.h"
 #include "filechooserhelpers.h"
 #include "imagecontents.h"
+#include "lastdir.h"
 #include "tapecontents.h"
 #include "ui.h"
+#include "uimachinewindow.h"
 
 #include "uitapeattach.h"
 
@@ -63,26 +65,6 @@ static GtkWidget *preview_widget = NULL;
 static gchar *last_dir = NULL;
 
 
-/** \brief  Update the last directory reference
- *
- * \param[in]   widget  dialog
- */
-static void update_last_dir(GtkWidget *widget)
-{
-    gchar *new_dir;
-
-    new_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(widget));
-    debug_gtk3("new dir = '%s'\n", new_dir);
-    if (new_dir != NULL) {
-        /* clean up previous value */
-        if (last_dir != NULL) {
-            g_free(last_dir);
-        }
-        last_dir = new_dir;
-    }
-}
-
-
 /** \brief  Handler for the "update-preview" event
  *
  * \param[in]   chooser file chooser dialog
@@ -97,7 +79,7 @@ static void on_update_preview(GtkFileChooser *chooser, gpointer data)
     if (file != NULL) {
         path = g_file_get_path(file);
         if (path != NULL) {
-            debug_gtk3("called with '%s'\n", path);
+            debug_gtk3("called with '%s'.", path);
 
             content_preview_widget_set_image(preview_widget, path);
            g_free(path);
@@ -117,26 +99,10 @@ static void on_hidden_toggled(GtkWidget *widget, gpointer user_data)
     int state;
 
     state = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
-    debug_gtk3("show hidden files: %s\n", state ? "enabled" : "disabled");
+    debug_gtk3("show hidden files: %s.", state ? "enabled" : "disabled");
 
     gtk_file_chooser_set_show_hidden(GTK_FILE_CHOOSER(user_data), state);
 }
-
-
-#if 0
-/** \brief  Handler for the 'toggled' event of the 'show preview' checkbox
- *
- * \param[in]   widget      checkbox triggering the event
- * \param[in]   user_data   data for the event (unused)
- */
-static void on_preview_toggled(GtkWidget *widget, gpointer user_data)
-{
-    int state;
-
-    state = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
-    debug_gtk3("preview %s\n", state ? "enabled" : "disabled");
-}
-#endif
 
 
 /** \brief  Handler for 'response' event of the dialog
@@ -159,22 +125,22 @@ static void on_response(GtkWidget *widget, gint response_id,
 
     index = GPOINTER_TO_INT(user_data);
 
-    debug_gtk3("got response ID %d, index %d\n", response_id, index);
+    debug_gtk3("got response ID %d, index %d.", response_id, index);
 
     switch (response_id) {
 
         /* 'Open' button, double-click on file */
         case GTK_RESPONSE_ACCEPT:
-            update_last_dir(widget);
+            lastdir_update(widget, &last_dir);
             filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(widget));
             /* ui_message("Opening file '%s' ...", filename); */
-            debug_gtk3("Attaching file '%s' to tape unit\n", filename);
+            debug_gtk3("Attaching file '%s' to tape unit.", filename);
 
             /* copied from Gtk2: I fail to see how brute-forcing your way
              * through file types is 'smart', but hell, it works */
             if (tape_image_attach(1, filename) < 0) {
                 /* failed */
-                debug_gtk3("tape attach failed\n");
+                debug_gtk3("tape attach failed.");
             }
             g_free(filename);
             gtk_widget_destroy(widget);
@@ -182,16 +148,16 @@ static void on_response(GtkWidget *widget, gint response_id,
 
         /* 'Autostart' button clicked */
         case VICE_RESPONSE_AUTOSTART:
-            update_last_dir(widget);
+            lastdir_update(widget, &last_dir);
             filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(widget));
-            debug_gtk3("Autostarting file '%s'\n", filename);
+            debug_gtk3("Autostarting file '%s'.", filename);
             if (autostart_tape(
                         filename,
                         NULL,   /* program name */
                         index,
                         AUTOSTART_MODE_RUN) < 0) {
                 /* oeps */
-                debug_gtk3("autostart tape attach failed\n");
+                debug_gtk3("autostart tape attach failed.");
             }
             g_free(filename);
             gtk_widget_destroy(widget);
@@ -204,6 +170,8 @@ static void on_response(GtkWidget *widget, gint response_id,
         default:
             break;
     }
+
+    ui_set_ignore_mouse_hide(FALSE);
 }
 
 
@@ -255,6 +223,8 @@ static GtkWidget *create_tape_attach_dialog(GtkWidget *parent)
     GtkWidget *dialog;
     size_t i;
 
+    ui_set_ignore_mouse_hide(TRUE);
+
     /* create new dialog */
     dialog = gtk_file_chooser_dialog_new(
             "Attach a tape image",
@@ -266,10 +236,11 @@ static GtkWidget *create_tape_attach_dialog(GtkWidget *parent)
             "Close", GTK_RESPONSE_REJECT,
             NULL, NULL);
 
+    /* set modal so mouse-grab doesn't get triggered */
+    gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
+
     /* set last directory */
-    if (last_dir != NULL) {
-        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
-    }
+    lastdir_set(dialog, &last_dir);
 
     /* add 'extra' widget: 'readonly' and 'show preview' checkboxes */
     gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(dialog),
@@ -283,7 +254,7 @@ static GtkWidget *create_tape_attach_dialog(GtkWidget *parent)
     /* add filters */
     for (i = 0; filters[i].name != NULL; i++) {
         gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog),
-                create_file_chooser_filter(filters[i], TRUE));
+                create_file_chooser_filter(filters[i], FALSE));
     }
 
     /* connect "reponse" handler: the `user_data` argument gets filled in when
@@ -308,7 +279,7 @@ void ui_tape_attach_callback(GtkWidget *widget, gpointer user_data)
 {
     GtkWidget *dialog;
 
-    debug_gtk3("called\n");
+    debug_gtk3("called.");
     dialog = create_tape_attach_dialog(widget);
     gtk_widget_show(dialog);
 
@@ -333,7 +304,5 @@ void ui_tape_detach_callback(GtkWidget *widget, gpointer user_data)
  */
 void ui_tape_attach_shutdown(void)
 {
-    if (last_dir != NULL) {
-        g_free(last_dir);
-    }
+    lastdir_shutdown(&last_dir);
 }

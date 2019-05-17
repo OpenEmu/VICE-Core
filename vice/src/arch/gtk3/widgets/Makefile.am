@@ -25,7 +25,8 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/userport \
 	-I$(top_srcdir)/src/arch/gtk3/widgets \
 	-I$(top_srcdir)/src/arch/gtk3/widgets/base \
-	-I$(top_srcdir)/src/samplerdrv
+	-I$(top_srcdir)/src/samplerdrv \
+	-I$(top_srcdir)/src/hvsc
 
 noinst_LIBRARIES = libwidgets.a
 
@@ -43,8 +44,10 @@ libwidgets_a_SOURCES = \
 	contentpreviewwidget.c \
 	cpmwidget.c \
 	crtcontrolwidget.c \
+	crtpreviewwidget.c \
 	cwdwidget.c \
 	digimaxwidget.c \
+	dirmenupopup.c \
 	dqbbwidget.c \
 	drivedoswidget.c \
 	driveextendpolicywidget.c \
@@ -64,13 +67,15 @@ libwidgets_a_SOURCES = \
 	ffmpegwidget.c \
 	finalexpansionwidget.c \
 	gmod2widget.c \
-	htmlbrowserwidget.c \
+	hvscsettingswidget.c \
+	hvscstilwidget.c \
 	ide64widget.c \
 	ieee488widget.c \
 	isepicwidget.c \
 	jamactionwidget.c \
 	jamdialog.c \
 	joystickdevicewidget.c \
+	joystickmenupopup.c \
 	joystickuserportadapterwidget.c \
 	kbdlayoutwidget.c \
 	kbdmappingwidget.c \
@@ -80,6 +85,7 @@ libwidgets_a_SOURCES = \
 	magicvoicewidget.c \
 	megacartwidget.c \
 	midiwidget.c \
+	mixerwidget.c \
 	mmc64widget.c \
 	mmcrwidget.c \
 	petcolourgraphicswidget.c \
@@ -117,6 +123,7 @@ libwidgets_a_SOURCES = \
 	settings_joystick.c \
 	settings_keyboard.c \
 	settings_misc.c \
+	settings_mixer.c \
 	settings_model.c \
 	settings_monitor.c \
 	settings_mouse.c \
@@ -143,6 +150,7 @@ libwidgets_a_SOURCES = \
 	soundsuspendtimewidget.c \
 	soundsyncwidget.c \
 	speedwidget.c \
+	statusbarspeedwidget.c \
 	superpetwidget.c \
 	supersnapshotwidget.c \
 	tapeportdeviceswidget.c \
@@ -163,6 +171,7 @@ libwidgets_a_SOURCES = \
 	vsidcontrolwidget.c \
 	vsidmainwidget.c \
 	vsidmixerwidget.c \
+	vsidplaylistwidget.c \
 	vsidtuneinfowidget.c
 
 EXTRA_DIST = \
@@ -179,7 +188,9 @@ EXTRA_DIST = \
 	contentpreviewwidget.h \
 	cpmwidget.h \
 	crtcontrolwidget.h \
+	crtpreviewwidget.h \
 	cwdwidget.h \
+	dirmenupopup.h \
 	digimaxwidget.h \
 	dqbbwidget.h \
 	drivedoswidget.h \
@@ -200,13 +211,15 @@ EXTRA_DIST = \
 	ffmpegwidget.h \
 	finalexpansionwidget.h \
 	gmod2widget.h \
-	htmlbrowserwidget.h \
+	hvscsettingswidget.h \
+	hvscstilwidget.h \
 	ide64widget.h \
 	ieee488widget.h \
 	isepicwidget.h \
 	jamactionwidget.h \
 	jamdialog.h \
 	joystickdevicewidget.h \
+	joystickmenupopup.h \
 	joystickuserportadapterwidget.h \
 	kbdlayoutwidget.h \
 	kbdmappingwidget.h \
@@ -216,6 +229,7 @@ EXTRA_DIST = \
 	magicvoicewidget.h \
 	megacartwidget.h \
 	midiwidget.h \
+	mixerwidget.h \
 	mmc64widget.h \
 	mmcrwidget.h \
 	petcolourgraphicswidget.h \
@@ -253,6 +267,7 @@ EXTRA_DIST = \
 	settings_joystick.h \
 	settings_keyboard.h \
 	settings_misc.h \
+	settings_mixer.h \
 	settings_model.h \
 	settings_monitor.h \
 	settings_mouse.h \
@@ -279,6 +294,7 @@ EXTRA_DIST = \
 	soundsuspendtimewidget.h \
 	soundsyncwidget.h \
 	speedwidget.h \
+	statusbarspeedwidget.h \
 	superpetwidget.h \
 	supersnapshotwidget.h \
 	tapeportdeviceswidget.h \
@@ -299,4 +315,5 @@ EXTRA_DIST = \
 	vsidcontrolwidget.h \
 	vsidmainwidget.h \
 	vsidmixerwidget.h \
+	vsidplaylistwidget.h \
 	vsidtuneinfowidget.h

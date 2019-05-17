@@ -58,7 +58,6 @@
 #include "mousedrv.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "vsyncapi.h"
 #include "clkguard.h"
 #include "ds1202_1302.h"
@@ -686,7 +685,6 @@ static int paddles_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t paddles_joyport_device = {
     "Paddles",
-    IDGS_PADDLES,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_NOT_LIGHTPEN,
     JOYPORT_POT_REQUIRED,
@@ -705,7 +703,6 @@ static int mouse_1351_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t mouse_1351_joyport_device = {
     "Mouse (1351)",
-    IDGS_MOUSE_1351,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_NOT_LIGHTPEN,
     JOYPORT_POT_REQUIRED,
@@ -749,7 +746,6 @@ static int mouse_neos_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t mouse_neos_joyport_device = {
     "Mouse (NEOS)",
-    IDGS_MOUSE_NEOS,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_NOT_LIGHTPEN,
     JOYPORT_POT_OPTIONAL,
@@ -786,7 +782,6 @@ static int mouse_amiga_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t mouse_amiga_joyport_device = {
     "Mouse (Amiga)",
-    IDGS_MOUSE_AMIGA,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_NOT_LIGHTPEN,
     JOYPORT_POT_OPTIONAL,
@@ -805,7 +800,6 @@ static int mouse_cx22_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t mouse_cx22_joyport_device = {
     "Trackball (Atari CX-22)",
-    IDGS_MOUSE_CX22,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_NOT_LIGHTPEN,
     JOYPORT_POT_OPTIONAL,
@@ -824,7 +818,6 @@ static int mouse_st_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t mouse_st_joyport_device = {
     "Mouse (Atari ST)",
-    IDGS_MOUSE_ATARI_ST,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_NOT_LIGHTPEN,
     JOYPORT_POT_OPTIONAL,
@@ -856,7 +849,6 @@ static int mouse_smart_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t mouse_smart_joyport_device = {
     "Mouse (SmartMouse)",
-    IDGS_MOUSE_SMART,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_NOT_LIGHTPEN,
     JOYPORT_POT_REQUIRED,
@@ -888,7 +880,6 @@ static int mouse_micromys_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t mouse_micromys_joyport_device = {
     "Mouse (Micromys)",
-    IDGS_MOUSE_MICROMYS,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_NOT_LIGHTPEN,
     JOYPORT_POT_REQUIRED,
@@ -912,7 +903,6 @@ static int koalapad_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t koalapad_joyport_device = {
     "KoalaPad",
-    IDGS_KOALAPAD,
     JOYPORT_RES_ID_MOUSE,
     JOYPORT_IS_NOT_LIGHTPEN,
     JOYPORT_POT_REQUIRED,
@@ -1029,31 +1019,25 @@ int mouse_resources_init(void)
     return mousedrv_resources_init(&mouse_funcs);
 }
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-mouse", SET_RESOURCE, 0,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-mouse", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Mouse", (void *)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_MOUSE_GRAB,
-      NULL, NULL },
-    { "+mouse", SET_RESOURCE, 0,
+      NULL, "Enable mouse grab" },
+    { "+mouse", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Mouse", (void *)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_MOUSE_GRAB,
-      NULL, NULL },
+      NULL, "Disable mouse grab" },
     CMDLINE_LIST_END
 };
 
-static const cmdline_option_t cmdline_extra_option[] = {
-    { "-smartmousertcsave", SET_RESOURCE, 0,
+static const cmdline_option_t cmdline_extra_option[] =
+{
+    { "-smartmousertcsave", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "SmartMouseRTCSave", (void *)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_SMART_MOUSE_RTC_SAVE,
-      NULL, NULL },
-    { "+smartmousertcsave", SET_RESOURCE, 0,
+      NULL, "Enable saving of smart mouse RTC data when changed." },
+    { "+smartmousertcsave", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "SmartMouseRTCSave", (void *)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_SMART_MOUSE_RTC_SAVE,
-      NULL, NULL },
+      NULL, "Disable saving of smart mouse RTC data when changed." },
     CMDLINE_LIST_END
 };
 

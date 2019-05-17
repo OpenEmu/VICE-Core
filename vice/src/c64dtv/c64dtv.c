@@ -96,7 +96,6 @@
 #include "sound.h"
 #include "tape.h"
 #include "tapeport.h"
-#include "translate.h"
 #include "traps.h"
 #include "types.h"
 #include "userport.h"
@@ -252,7 +251,6 @@ static const trap_t c64dtv_flash_traps[] = {
 static joyport_port_props_t control_port_1 =
 {
     "Control port 1",
-    IDGS_CONTROL_PORT_1,
     0,                  /* has NO potentiometer connected to this port */
     0,                  /* has NO lightpen support on this port */
     1                   /* port is always active */
@@ -261,7 +259,6 @@ static joyport_port_props_t control_port_1 =
 static joyport_port_props_t control_port_2 =
 {
     "Control port 2",
-    IDGS_CONTROL_PORT_2,
     0,                  /* has NO potentiometer connected to this port */
     0,                  /* has NO lightpen support on this port */
     1                   /* port is always active */
@@ -270,7 +267,6 @@ static joyport_port_props_t control_port_2 =
 static joyport_port_props_t userport_joy_control_port =
 {
     "Userport joystick adapter port 1",
-    IDGS_USERPORT_JOY_ADAPTER_PORT_1,
     0,                  /* has NO potentiometer connected to this port */
     0,                  /* has NO lightpen support on this port */
     0                   /* port can be switched on/off */
@@ -474,7 +470,7 @@ int machine_cmdline_options_init(void)
         init_cmdline_options_fail("vicii");
         return -1;
     }
-    if (sid_cmdline_options_init() < 0) {
+    if (sid_cmdline_options_init(SIDTYPE_SIDDTV) < 0) {
         init_cmdline_options_fail("sid");
         return -1;
     }
@@ -661,14 +657,11 @@ int machine_specific_init(void)
     autostart_init((CLOCK)(delay * C64_PAL_RFSH_PER_SEC * C64_PAL_CYCLES_PER_RFSH),
                    1, 0xcc, 0xd1, 0xd3, 0xd5);
 
-#if defined(USE_BEOS_UI) || defined (USE_NATIVE_GTK3)
     /* Pre-init C64DTV-specific parts of the menus before vicii_init()
-       creates a canvas window with a menubar at the top. This could
-       also be used by other ports.  */
+       creates a canvas window with a menubar at the top. */
     if (!console_mode) {
         c64dtvui_init_early();
     }
-#endif
 
     if (vicii_init(VICII_DTV) == NULL && !console_mode) {
         return -1;
@@ -721,16 +714,6 @@ int machine_specific_init(void)
     c64fastiec_init();
 
     machine_drive_stub();
-#if defined (USE_XF86_EXTENSIONS) && (defined(USE_XF86_VIDMODE_EXT) || defined (HAVE_XRANDR))
-    {
-        /* set fullscreen if user used `-fullscreen' on cmdline */
-        int fs;
-        resources_get_int("UseFullscreen", &fs);
-        if (fs) {
-            resources_set_int("VICIIFullscreen", 1);
-        }
-    }
-#endif
 
     return 0;
 }

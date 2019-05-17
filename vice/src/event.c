@@ -31,7 +31,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
 
 #include "alarm.h"
 #include "archdep.h"
@@ -53,7 +52,6 @@
 #include "resources.h"
 #include "snapshot.h"
 #include "tape.h"
-#include "translate.h"
 #include "types.h"
 #include "uiapi.h"
 #include "util.h"
@@ -253,7 +251,7 @@ static void event_playback_attach_image(void *data, unsigned int size)
             crc_to_attach = crc32_from_le(data + 3);
             crc32_to_le(crc_file, crc_to_attach);
 
-            while (true) {
+            while (1) {
                 uint32_t file_crc;
 
                 filename = ui_get_file(
@@ -265,7 +263,7 @@ static void event_playback_attach_image(void *data, unsigned int size)
 
                 /* get CRC32 of current file */
                 file_crc = crc32_file(filename);
-                /* translate crc32 to little endian */
+                /* convert crc32 to little endian */
                 crc32_to_le(crc_snap, file_crc);
                 /* check CRC32 */
                 if (memcmp(crc_snap, crc_file, CRC32_SIZE) != 0) {
@@ -287,12 +285,12 @@ static void event_playback_attach_image(void *data, unsigned int size)
             fd = archdep_mkstemp_fd(&filename, MODE_WRITE);
 
             if (fd == NULL) {
-                ui_error(translate_text(IDGS_CANNOT_CREATE_IMAGE), filename);
+                ui_error("Cannot create image file!", filename);
                 goto error;
             }
 
             if (fwrite((char*)data + strlen(orig_filename) + 3, file_len, 1, fd) != 1) {
-                ui_error(translate_text(IDGS_CANNOT_WRITE_IMAGE_FILE_S), filename);
+                ui_error("Cannot write image file %s", filename);
                 goto error;
             }
 
@@ -300,7 +298,7 @@ static void event_playback_attach_image(void *data, unsigned int size)
             event_image_append(orig_filename, &filename, 1);
         } else {
             if (event_image_append(orig_filename, &filename, 0) != 0) {
-                ui_error(translate_text(IDGS_CANNOT_FIND_MAPPED_NAME_S), orig_filename);
+                ui_error("Cannot find mapped name for %s", orig_filename);
                 return;
             }
         }
@@ -681,8 +679,7 @@ static void event_record_start_trap(uint16_t addr, void *data)
         case EVENT_START_MODE_FILE_SAVE:
             if (machine_write_snapshot(event_snapshot_path(event_start_snapshot),
                                        1, 1, 0) < 0) {
-                ui_error(translate_text(IDGS_CANT_CREATE_START_SNAP_S),
-                         event_snapshot_path(event_start_snapshot));
+                ui_error("Could not create start snapshot file %s.", event_snapshot_path(event_start_snapshot));
                 ui_display_recording(0);
                 return;
             }
@@ -694,10 +691,8 @@ static void event_record_start_trap(uint16_t addr, void *data)
             current_timestamp = 0;
             break;
         case EVENT_START_MODE_FILE_LOAD:
-            if (machine_read_snapshot(
-                    event_snapshot_path(event_end_snapshot), 1) < 0) {
-                ui_error(translate_text(IDGS_ERROR_READING_END_SNAP_S),
-                         event_snapshot_path(event_end_snapshot));
+            if (machine_read_snapshot(event_snapshot_path(event_end_snapshot), 1) < 0) {
+                ui_error("Error reading end snapshot file %s.", event_snapshot_path(event_end_snapshot));
                 return;
             }
             warp_end_list();
@@ -760,10 +755,8 @@ int event_record_start(void)
 
 static void event_record_stop_trap(uint16_t addr, void *data)
 {
-    if (machine_write_snapshot(
-            event_snapshot_path(event_end_snapshot), 1, 1, 1) < 0) {
-        ui_error(translate_text(IDGS_CANT_CREATE_END_SNAP_S),
-                 event_snapshot_path(event_end_snapshot));
+    if (machine_write_snapshot(event_snapshot_path(event_end_snapshot), 1, 1, 1) < 0) {
+        ui_error("Could not create end snapshot file %s.", event_snapshot_path(event_end_snapshot));
         return;
     }
     record_active = 0;
@@ -816,7 +809,11 @@ void event_reset_ack(void)
     }
 }
 
-static void event_playback_start_trap(uint16_t addr, void *data)
+/* XXX: the 'unused' (prev. 'data') param is only passed from one function:
+ * 	interrupt_maincpu_trigger_trap(), and that one passes (void*)0, ie NULL.
+ * 	So fixing the shadowing of 'data' should be fine.
+ */
+static void event_playback_start_trap(uint16_t addr, void *unused)
 {
     snapshot_t *s;
     uint8_t minor, major;
@@ -827,8 +824,7 @@ static void event_playback_start_trap(uint16_t addr, void *data)
         event_snapshot_path(event_end_snapshot), &major, &minor, machine_get_name());
 
     if (s == NULL) {
-        ui_error(translate_text(IDGS_CANT_OPEN_END_SNAP_S),
-                 event_snapshot_path(event_end_snapshot));
+        ui_error("Could not open end snapshot file %s.", event_snapshot_path(event_end_snapshot));
         ui_display_playback(0, NULL);
         return;
     }
@@ -838,7 +834,7 @@ static void event_playback_start_trap(uint16_t addr, void *data)
 
     if (event_snapshot_read_module(s, 1) < 0) {
         snapshot_close(s);
-        ui_error(translate_text(IDGS_CANT_FIND_SECTION_END_SNAP));
+        ui_error("Could not find event section in end snapshot file.");
         ui_display_playback(0, NULL);
         return;
     }
@@ -857,8 +853,7 @@ static void event_playback_start_trap(uint16_t addr, void *data)
                     && machine_read_snapshot(
                         event_snapshot_path(event_start_snapshot), 0) < 0) {
                     char *st = lib_stralloc(event_snapshot_path((char *)(&data[1])));
-                    ui_error(translate_text(IDGS_ERROR_READING_START_SNAP_TRIED),
-                             st, event_snapshot_path(event_start_snapshot));
+                    ui_error("Error reading start snapshot file. Tried %s and %s", st, event_snapshot_path(event_start_snapshot));
                     lib_free(st);
                     ui_display_playback(0, NULL);
                     return;
@@ -883,9 +878,8 @@ static void event_playback_start_trap(uint16_t addr, void *data)
                 break;
         }
     } else {
-        if (machine_read_snapshot(
-                event_snapshot_path(event_start_snapshot), 0) < 0) {
-            ui_error(translate_text(IDGS_ERROR_READING_START_SNAP));
+        if (machine_read_snapshot(event_snapshot_path(event_start_snapshot), 0) < 0) {
+            ui_error("Error reading start snapshot file.");
             ui_display_playback(0, NULL);
             return;
         }
@@ -936,8 +930,7 @@ int event_playback_stop(void)
 static void event_record_set_milestone_trap(uint16_t addr, void *data)
 {
     if (machine_write_snapshot(event_snapshot_path(event_end_snapshot), 1, 1, 1) < 0) {
-        ui_error(translate_text(IDGS_CANT_CREATE_END_SNAP_S),
-                 event_snapshot_path(event_end_snapshot));
+        ui_error("Could not create end snapshot file %s.", event_snapshot_path(event_end_snapshot));
     } else {
         milestone_timestamp_alarm = next_timestamp_clk;
         milestone_timestamp = current_timestamp;
@@ -966,8 +959,7 @@ static void event_record_reset_milestone_trap(uint16_t addr, void *data)
 
     if (machine_read_snapshot(
             event_snapshot_path(event_end_snapshot), 1) < 0) {
-        ui_error(translate_text(IDGS_ERROR_READING_END_SNAP_S),
-                 event_snapshot_path(event_end_snapshot));
+        ui_error("Error reading end snapshot file %s.", event_snapshot_path(event_end_snapshot));
         return;
     }
     warp_end_list();
@@ -1267,42 +1259,29 @@ static int cmdline_help(const char *param, void *extra_param)
     return event_playback_start();
 }
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-playback", CALL_FUNCTION, 0,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-playback", CALL_FUNCTION, CMDLINE_ATTRIB_NONE,
       cmdline_help, NULL, NULL, NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_PLAYBACK_RECORDED_EVENTS,
-      NULL, NULL },
-    { "-eventsnapshotdir", SET_RESOURCE, 1,
+      NULL, "Playback recorded events" },
+    { "-eventsnapshotdir", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "EventSnapshotDir", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SET_EVENT_SNAPSHOT_DIR,
-      NULL, NULL },
-    { "-eventstartsnapshot", SET_RESOURCE, 1,
+      "<Name>", "Set event snapshot directory" },
+    { "-eventstartsnapshot", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "EventStartSnapshot", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SET_EVENT_START_SNAPSHOT,
-      NULL, NULL },
-    { "-eventendsnapshot", SET_RESOURCE, 1,
+      "<Name>", "Set event start snapshot" },
+    { "-eventendsnapshot", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "EventEndSnapshot", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SET_EVENT_END_SNAPSHOT,
-      NULL, NULL },
-    { "-eventstartmode", SET_RESOURCE, 1,
+      "<Name>", "Set event end snapshot" },
+    { "-eventstartmode", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "EventStartMode", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_MODE, IDCLS_SET_EVENT_START_MODE,
-      NULL, NULL },
-    { "-eventimageinc", SET_RESOURCE, 0,
+      "<Mode>", "Set event start mode (0: file save, 1: file load, 2: reset, 3: playback)" },
+    { "-eventimageinc", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "EventImageInclude", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_EVENT_IMAGE_INCLUDE,
-      NULL, NULL },
-    { "+eventimageinc", SET_RESOURCE, 0,
+      NULL, "Enable including disk images" },
+    { "+eventimageinc", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "EventImageInclude", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_EVENT_IMAGE_INCLUDE,
-      NULL, NULL },
+      NULL, "Disable including disk images" },
     CMDLINE_LIST_END
 };
 

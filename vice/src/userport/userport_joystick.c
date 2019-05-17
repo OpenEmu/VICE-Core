@@ -36,7 +36,6 @@
 #include "machine.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "types.h"
 #include "userport.h"
 #include "userport_joystick.h"
@@ -210,7 +209,6 @@ static int userport_joystick_starbyte_read_snapshot_module(snapshot_t *s);
 static userport_device_t cga_device = {
     USERPORT_DEVICE_JOYSTICK_CGA,
     "CGA userport joy adapter",
-    IDGS_CGA_JOY_ADAPTER,
     userport_joystick_cga_read_pbx,
     userport_joystick_cga_store_pbx,
     NULL, /* NO pa2 read */
@@ -238,7 +236,6 @@ static userport_snapshot_t cga_snapshot = {
 static userport_device_t pet_device = {
     USERPORT_DEVICE_JOYSTICK_PET,
     "PET userport joy adapter",
-    IDGS_PET_JOY_ADAPTER,
     userport_joystick_pet_read_pbx,
     userport_joystick_pet_hit_store_pbx,
     NULL, /* NO pa2 read */
@@ -266,7 +263,6 @@ static userport_snapshot_t pet_snapshot = {
 static userport_device_t hummer_device = {
     USERPORT_DEVICE_JOYSTICK_HUMMER,
     "Hummer userport joy adapter",
-    IDGS_HUMMER_JOY_ADAPTER,
     userport_joystick_hummer_read_pbx,
     userport_joystick_hummer_store_pbx,
     NULL, /* NO pa2 read */
@@ -294,7 +290,6 @@ static userport_snapshot_t hummer_snapshot = {
 static userport_device_t oem_device = {
     USERPORT_DEVICE_JOYSTICK_OEM,
     "OEM userport joy adapter",
-    IDGS_OEM_JOY_ADAPTER,
     userport_joystick_oem_read_pbx,
     userport_joystick_oem_store_pbx,
     NULL, /* NO pa2 read */
@@ -322,7 +317,6 @@ static userport_snapshot_t oem_snapshot = {
 static userport_device_t hit_device = {
     USERPORT_DEVICE_JOYSTICK_HIT,
     "HIT userport joy adapter",
-    IDGS_HIT_JOY_ADAPTER,
     userport_joystick_hit_read_pbx,
     userport_joystick_pet_hit_store_pbx,
     userport_joystick_hit_read_pa2,
@@ -350,7 +344,6 @@ static userport_snapshot_t hit_snapshot = {
 static userport_device_t kingsoft_device = {
     USERPORT_DEVICE_JOYSTICK_KINGSOFT,
     "KingSoft userport joy adapter",
-    IDGS_KINGSOFT_JOY_ADAPTER,
     userport_joystick_kingsoft_read_pbx,
     userport_joystick_kingsoft_store_pbx,
     userport_joystick_kingsoft_read_pa2,
@@ -378,7 +371,6 @@ static userport_snapshot_t kingsoft_snapshot = {
 static userport_device_t starbyte_device = {
     USERPORT_DEVICE_JOYSTICK_STARBYTE,
     "StarByte userport joy adapter",
-    IDGS_STARBYTE_JOY_ADAPTER,
     userport_joystick_starbyte_read_pbx,
     userport_joystick_starbyte_store_pbx,
     userport_joystick_starbyte_read_pa2,
@@ -546,26 +538,20 @@ int userport_joystick_resources_init(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-userportjoy", SET_RESOURCE, 0,
+    { "-userportjoy", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "UserportJoy", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_USERPORT_JOY,
-      NULL, NULL },
-    { "+userportjoy", SET_RESOURCE, 0,
+      NULL, "Enable Userport joystick adapter" },
+    { "+userportjoy", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "UserportJoy", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_USERPORT_JOY,
-      NULL, NULL },
+      NULL, "Disable Userport joystick adapter" },
     CMDLINE_LIST_END
 };
 
 static const cmdline_option_t cmdline_options_type[] =
 {
-    { "-userportjoytype", SET_RESOURCE, 1,
+    { "-userportjoytype", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "UserportJoyType", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_TYPE, IDCLS_SET_USERPORT_JOY_TYPE,
-      NULL, NULL },
+      "<Type>", "Set Userport joystick adapter type (0: CGA/Protovision, 1: PET, 2: Hummer, 3: OEM, 4: DXS/HIT, 5: Kingsoft, 6: Starbyte)" },
     CMDLINE_LIST_END
 };
 

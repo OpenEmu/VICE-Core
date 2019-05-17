@@ -45,7 +45,6 @@
 #include "resources.h"
 #include "sound.h"
 #include "t6721.h"
-#include "translate.h"
 #include "types.h"
 #include "util.h"
 
@@ -226,7 +225,7 @@ static void update_dtrd(int d)
 }
 
 /* hooked to callback of t6721 chip */
-static uint8_t read_bit_from_fifo(t6721_state *t6721, unsigned int *bit)
+static uint8_t read_bit_from_fifo(t6721_state *state, unsigned int *bit)
 {
     *bit = 0;
 
@@ -310,21 +309,21 @@ static void write_data_nibble(uint8_t nibble)
 }
 
 /* hooked to callback of t6721 chip */
-static void set_dtrd(t6721_state *t6721)
+static void set_dtrd(t6721_state *state)
 {
     static int old;
-    if (old != t6721->dtrd) {
-        DTRD = t6721->dtrd;
-        old = t6721->dtrd;
+    if (old != state->dtrd) {
+        DTRD = state->dtrd;
+        old = state->dtrd;
         /* DBG(("SPEECH: irq assert dtrd:%x masked:%x\n", DTRD, DTRD & irq_enable)); */
         latch_set_irq(IRQNUM_DTRD, DTRD);
     }
 }
 
 /* hooked to callback of t6721 chip */
-static void set_apd(t6721_state *t6721)
+static void set_apd(t6721_state *state)
 {
-    if (t6721->apd) {
+    if (state->apd) {
         fifo_reset = 1; /* set FIFO reset condition */
 
         /* reset FIFO */
@@ -337,14 +336,15 @@ static void set_apd(t6721_state *t6721)
 }
 
 /* hooked to callback of t6721 chip */
-static void set_eos(t6721_state *t6721)
+static void set_eos(t6721_state *state)
 {
-    static int last;
-    if (last != t6721->eos) {
-        DBG(("SPEECH: set EOS: %d\n", t6721->eos));
-        latch_set_irq(IRQNUM_EOS, t6721->eos);
+    static int lst;
+
+    if (lst != state->eos) {
+        DBG(("SPEECH: set EOS: %d\n", state->eos));
+        latch_set_irq(IRQNUM_EOS, state->eos);
     }
-    last = t6721->eos;
+    lst = state->eos;
 }
 
 /*
@@ -467,7 +467,7 @@ static int speech_dump(void)
     return 0;
 }
 
-void speech_setup_context(machine_context_t *machine_context)
+void speech_setup_context(machine_context_t *machine_ctx)
 {
     DBG(("SPEECH: speech_setup_context\n"));
     /* init t6721 chip */
@@ -643,21 +643,15 @@ static int set_speech_rom(const char *name, void *param)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-speech", SET_RESOURCE, 0,
+    { "-speech", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "SpeechEnabled", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_PLUS4SPEECH,
-      NULL, NULL },
-    { "+speech", SET_RESOURCE, 0,
+      NULL, "Enable the v364 speech add-on" },
+    { "+speech", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "SpeechEnabled", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_PLUS4SPEECH,
-      NULL, NULL },
-    { "-speechrom", CALL_FUNCTION, 1,
+      NULL, "Disable the v364 speech add-on" },
+    { "-speechrom", CALL_FUNCTION, CMDLINE_ATTRIB_NEED_ARGS,
       set_speech_rom, NULL, NULL, NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_ATTACH_SPEECH_ROM_IMAGE,
-      NULL, NULL },
+      "<Name>", "Attach Speech ROM image" },
     CMDLINE_LIST_END
 };
 

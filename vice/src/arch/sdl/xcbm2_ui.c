@@ -62,6 +62,7 @@
 #include "menu_video.h"
 #include "resources.h"
 #include "ui.h"
+#include "uifonts.h"
 #include "uimenu.h"
 #include "videoarch.h"
 #include "vkbd.h"
@@ -278,12 +279,9 @@ static const ui_menu_entry_t xcbm5x0_main_menu[] = {
     SDL_MENU_LIST_END
 };
 
-static uint8_t *cbm2_font_14 = NULL;
-static uint8_t *cbm2_font_8 = NULL;
-
 static void cbm2ui_set_menu_params(int index, menu_draw_t *menu_draw)
 {
-    int model, i, j;
+    int model;
 
     resources_get_int("ModelLine", &model);
 
@@ -292,20 +290,8 @@ static void cbm2ui_set_menu_params(int index, menu_draw_t *menu_draw)
 
     if (model == 0) {
         menu_draw->extra_y = 8;
-        for (i = 0; i < 256; i++) {
-            for (j = 0; j < 14; j++) {
-                cbm2_font_14[(i * 14) + j] = mem_chargen_rom[(i * 16) + j + 1];
-            }
-        }
-        sdl_ui_set_menu_font(cbm2_font_14, 8, 14);
     } else {
         menu_draw->extra_y = 32;
-        for (i = 0; i < 256; i++) {
-            for (j = 0; j < 8; j++) {
-                cbm2_font_8[(i * 8) + j] = mem_chargen_rom[(i * 16) + j];
-            }
-        }
-        sdl_ui_set_menu_font(cbm2_font_8, 8, 8);
     }
 
     /* CRTC */
@@ -321,10 +307,21 @@ static void cbm2ui_set_menu_params(int index, menu_draw_t *menu_draw)
     return;
 }
 
+/** \brief  Pre-initialize the UI before the canvas window gets created
+ *
+ * \return  0 on success, -1 on failure
+ */
+int cbm2ui_init_early(void)
+{
+    return 0;
+}
+
+/** \brief  Initialize the UI
+ *
+ * \return  0 on success, -1 on failure
+ */
 int cbm2ui_init(void)
 {
-    cbm2_font_8 = lib_malloc(8 * 256);
-    cbm2_font_14 = lib_malloc(14 * 256);
 
     uijoyport_menu_create(0, 0, 1, 1, 0);
     uikeyboard_menu_create();
@@ -333,6 +330,7 @@ int cbm2ui_init(void)
 
     sdl_ui_set_menu_params = cbm2ui_set_menu_params;
     sdl_ui_set_main_menu(xcbm6x0_7x0_main_menu);
+    sdl_ui_cbm2_font_init();
 
     sdl_vkbd_set_vkbd(&vkbd_cbm2);
 
@@ -357,8 +355,7 @@ void cbm2ui_shutdown(void)
     uisid_menu_shutdown();
     uijoyport_menu_shutdown();
 
-    lib_free(cbm2_font_14);
-    lib_free(cbm2_font_8);
+    sdl_ui_cbm2_font_shutdown();
 }
 
 static void cbm5x0ui_set_menu_params(int index, menu_draw_t *menu_draw)
@@ -376,10 +373,21 @@ static void cbm5x0ui_set_menu_params(int index, menu_draw_t *menu_draw)
     sdl_ui_set_menu_params = NULL;
 }
 
+/** \brief  Pre-initialize the UI before the canvas window gets created
+ *
+ * \return  0 on success, -1 on failure
+ */
+int cbm5x0ui_init_early(void)
+{
+    return 0;
+}
+
+/** \brief  Initialize the UI
+ *
+ * \return  0 on success, -1 on failure
+ */
 int cbm5x0ui_init(void)
 {
-    cbm2_font_8 = lib_malloc(8 * 256);
-
     sdl_ui_set_menu_params = cbm5x0ui_set_menu_params;
 
     uijoyport_menu_create(1, 1, 0, 0, 0);
@@ -390,9 +398,9 @@ int cbm5x0ui_init(void)
     uisid_menu_create();
     uimedia_menu_create();
 
-    sdl_ui_set_menu_font(mem_chargen_rom + 0x800, 8, 8);
     sdl_ui_set_main_menu(xcbm5x0_main_menu);
     sdl_video_canvas_switch(1);
+    sdl_ui_vicii_font_init();
 
     sdl_vkbd_set_vkbd(&vkbd_cbm2);
 
@@ -417,5 +425,4 @@ void cbm5x0ui_shutdown(void)
 #ifdef HAVE_FFMPEG
     sdl_menu_ffmpeg_shutdown();
 #endif
-    lib_free(cbm2_font_8);
 }

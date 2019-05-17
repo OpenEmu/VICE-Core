@@ -32,7 +32,6 @@
 
 #include "joyport.h"
 #include "keyboard.h"
-#include "translate.h"
 
 #include "cardkey.h"
 
@@ -231,7 +230,6 @@ static uint8_t cardkey_read_pot(void)
 
 static joyport_t joyport_cardkey_device = {
     "Cardco Cardkey 1 keypad",
-    IDGS_CARDKEY,
     JOYPORT_RES_ID_KEYPAD,
     JOYPORT_IS_NOT_LIGHTPEN,
     JOYPORT_POT_REQUIRED,

@@ -38,7 +38,6 @@
 #include "lib.h"
 #include "log.h"
 #include "resources.h"
-#include "translate.h"
 #include "util.h"
 
 #ifdef DBGLOGGING
@@ -171,22 +170,17 @@ void log_resources_shutdown(void)
     lib_free(log_file_name);
 }
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-logfile", CALL_FUNCTION, 1,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-logfile", CALL_FUNCTION, CMDLINE_ATTRIB_NEED_ARGS,
       log_logfile_opt, NULL, NULL, NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SPECIFY_LOG_FILE_NAME,
-      NULL, NULL },
-    { "-verbose", CALL_FUNCTION, 0,
+      "<Name>", "Specify log file name" },
+    { "-verbose", CALL_FUNCTION, CMDLINE_ATTRIB_NONE,
       log_verbose_opt, (void*)1, NULL, NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_VERBOSE_LOG_OUTPUT,
-      NULL, NULL },
-    { "-silent", CALL_FUNCTION, 0,
+      NULL, "Enable verbose log output." },
+    { "-silent", CALL_FUNCTION, CMDLINE_ATTRIB_NONE,
       log_silent_opt, (void*)1, NULL, NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_LOG_OUTPUT,
-      NULL, NULL },
+      NULL, "Disable verbose log output." },
     CMDLINE_LIST_END
 };
 

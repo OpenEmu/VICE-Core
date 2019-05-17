@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52
-     from ../../doc/vice.texi on 19 May 2018 -->
+     from ../../doc/vice.texi on 19 December 2018 -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <TITLE>VICE Manual - 16  The emulator file formats</TITLE>
@@ -14,7 +14,7 @@ Go to the <A HREF="vice_1.html">first</A>, <A HREF="vice_15.html">previous</A>, 
 <P><HR><P>
 
 
-<H1><A NAME="SEC313" HREF="vice_toc.html#TOC313">16  The emulator file formats</A></H1>
+<H1><A NAME="SEC294" HREF="vice_toc.html#TOC294">16  The emulator file formats</A></H1>
 
 <P>
 This chapter gives a technical description of the various files
@@ -24,7 +24,7 @@ supported by the emulators.
 
 
 
-<H2><A NAME="SEC314" HREF="vice_toc.html#TOC314">16.1  The T64 tape image format</A></H2>
+<H2><A NAME="SEC295" HREF="vice_toc.html#TOC295">16.1  The T64 tape image format</A></H2>
 
 <P>
 (This section was taken from the C64S distribution.)
@@ -38,7 +38,7 @@ the C64S emulator.  It is easy to use and allows future extensions.
 
 
 
-<H3><A NAME="SEC315" HREF="vice_toc.html#TOC315">16.1.1  T64 File structure</A></H3>
+<H3><A NAME="SEC296" HREF="vice_toc.html#TOC296">16.1.1  T64 File structure</A></H3>
 
 <TABLE BORDER>
 
@@ -65,7 +65,7 @@ the C64S emulator.  It is easy to use and allows future extensions.
 
 
 
-<H3><A NAME="SEC316" HREF="vice_toc.html#TOC316">16.1.2  Tape Record</A></H3>
+<H3><A NAME="SEC297" HREF="vice_toc.html#TOC297">16.1.2  Tape Record</A></H3>
 
 <TABLE BORDER>
 
@@ -107,7 +107,7 @@ the C64S emulator.  It is easy to use and allows future extensions.
 
 
 
-<H3><A NAME="SEC317" HREF="vice_toc.html#TOC317">16.1.3  File record</A></H3>
+<H3><A NAME="SEC298" HREF="vice_toc.html#TOC298">16.1.3  File record</A></H3>
 
 <TABLE BORDER>
 
@@ -211,10 +211,10 @@ are rarely  used).
 
 
 
-<H2><A NAME="SEC318" HREF="vice_toc.html#TOC318">16.2  The G64 GCR-encoded disk image format</A></H2>
+<H2><A NAME="SEC299" HREF="vice_toc.html#TOC299">16.2  The G64 GCR-encoded disk image format</A></H2>
 
 
-<H3><A NAME="SEC319" HREF="vice_toc.html#TOC319">16.2.1  The original format</A></H3>
+<H3><A NAME="SEC300" HREF="vice_toc.html#TOC300">16.2.1  The original format</A></H3>
 
 <P>
 (This section was contributed by Peter Schepers and slightly edited by
@@ -620,10 +620,10 @@ beginning of the image.
 </P>
 
 
-<H3><A NAME="SEC320" HREF="vice_toc.html#TOC320">16.2.2  An extension for double sided disks (Commodore VIC 1571)</A></H3>
+<H3><A NAME="SEC301" HREF="vice_toc.html#TOC301">16.2.2  An extension for double sided disks (Commodore VIC 1571)</A></H3>
 
 <P>
-Given that a Commodore VIC 1541/1570/1571 can read/write at most 42 
+Given that a Commodore VIC 1541/1570/1571 can read/write at most 42
 tracks per side, it is quite natural to use the half-tracks from 1
 to 84 for the first side and the following 84 half-tracks (i. e.
 halg.track 85 to 168) for the second size.
@@ -635,32 +635,32 @@ number of tracks) usually contains 168 for double sided disks.
 
 </P>
 <P>
-To make identifying such images easy, the fiel signature in the first 8 bytes of 
+To make identifying such images easy, the fiel signature in the first 8 bytes of
 such files will be <CODE>GCR-1571</CODE>).
 
 </P>
 
 
-<H2><A NAME="SEC321" HREF="vice_toc.html#TOC321">16.3  The P64 NRZI flux pulse disk image format</A></H2>
+<H2><A NAME="SEC302" HREF="vice_toc.html#TOC302">16.3  The P64 NRZI flux pulse disk image format</A></H2>
 
 <P>
-This section is taken from "P64 file format specification" by Benjamin 'BeRo' 
+This section is taken from "P64 file format specification" by Benjamin 'BeRo'
 Rosseaux.
 
 </P>
 <P>
-All values are in little endian order ! 
+All values are in little endian order !
 
 </P>
 
 
-<H3><A NAME="SEC322" HREF="vice_toc.html#TOC322">16.3.1  P64 Header Layout</A></H3>
+<H3><A NAME="SEC303" HREF="vice_toc.html#TOC303">16.3.1  P64 Header Layout</A></H3>
 
 
 <PRE>
         0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
       +---------------------------------------------------------------+
-0000: |'P'|'6'|'4'|'-'|'1'|'5'|'4'|'1'|    Version    |     Flags     |   
+0000: |'P'|'6'|'4'|'-'|'1'|'5'|'4'|'1'|    Version    |     Flags     |
       +---------------+---------------+-------------------------------+
 0010: |     Size      | CRC32Checksum |
       +-------------------------------+
@@ -668,74 +668,92 @@ All values are in little endian order !
 
 <P>
          Version:  File format version, current is 0x00000000
-      
+
+</P>
+<P>
             Size   Size of the following whole chunk content stream
-      
+
+</P>
+<P>
            Flags:  Bit    0 = Write protect
                    Bit    1 = Number of sides (0 for single sided,
                               1 for double sided)
-                   Bit 2-31 = Reserved, all set to 0 when creating a file, 
+                   Bit 2-31 = Reserved, all set to 0 when creating a file,
                               preserve existing value when updating
-       
-   CRC32CheckSum:  CRC32 checksum of the following whole chunk content stream                
+
+</P>
+<P>
+   CRC32CheckSum:  CRC32 checksum of the following whole chunk content stream
 
 </P>
 
 
-<H3><A NAME="SEC323" HREF="vice_toc.html#TOC323">16.3.2  P64 Chunk Header Layout</A></H3>
+<H3><A NAME="SEC304" HREF="vice_toc.html#TOC304">16.3.2  P64 Chunk Header Layout</A></H3>
 
 
 <PRE>
         0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
       +-----------------------------------------------+
-0000: |Chunk Signature|      Size     | CRC32Checksum |   
+0000: |Chunk Signature|      Size     | CRC32Checksum |
       +-----------------------------------------------+
 </PRE>
 
 <P>
  Chunk signature:  Signature of chunk
-      
+
+</P>
+<P>
             Size:  Size of the chunk data
-      
-   CRC32CheckSum:  CRC32 checksum of the chunk data                
+
+</P>
+<P>
+   CRC32CheckSum:  CRC32 checksum of the chunk data
 
 </P>
 
 
-<H3><A NAME="SEC324" HREF="vice_toc.html#TOC324">16.3.3  P64 Chunk 'HTPx' Layout</A></H3>
+<H3><A NAME="SEC305" HREF="vice_toc.html#TOC305">16.3.3  P64 Chunk 'HTPx' Layout</A></H3>
 
 <P>
                           | x = half track index byte |
                           +---------------------------+
        Bit 7 of the half track index byte contains the side.
-                          
+
+</P>
+<P>
        Track 18 = Half track 36 = Half track index byte decimal value 36
-                          
-              Half track NRZI transition flux pulse data chunk block                          
-                                                                                         
+
+</P>
+<P>
+              Half track NRZI transition flux pulse data chunk block
+
+</P>
 
 <PRE>
         0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
       +---------------------------------------------------------------+
-0000: |  Count pulses |     Size      | ..... Range-encoded data .... |    
+0000: |  Count pulses |     Size      | ..... Range-encoded data .... |
       +---------------------------------------------------------------+
 </PRE>
 
 <P>
-    Count pulses:  Count of the NRZI transition flux pulses in half track 
-      
+    Count pulses:  Count of the NRZI transition flux pulses in half track
+
+</P>
+<P>
             Size:  Size of the range-encoded data
-            
+
+</P>
 
 
-<H3><A NAME="SEC325" HREF="vice_toc.html#TOC325">16.3.4  'HTPx' Range encoded data format</A></H3>
+<H3><A NAME="SEC306" HREF="vice_toc.html#TOC306">16.3.4  'HTPx' Range encoded data format</A></H3>
 
 <P>
              Hint: For a working C implememtation see p64.c and p64.h
 
 </P>
 <P>
-The range coder is a FPAQ0-style range coder combined with 12-bit 0-order 
+The range coder is a FPAQ0-style range coder combined with 12-bit 0-order
 models, one model per byte with one bit per byte processing.
 
 </P>
@@ -746,11 +764,11 @@ models, one model per byte with one bit per byte processing.
  +------------------+-----------------+------------------+------------------+
  |     Position     |        4        |      65536       |        32        |
  +------------------+-----------------+------------------+------------------+
- |     Strength     |        4        |      65536       |        32        | 
+ |     Strength     |        4        |      65536       |        32        |
  +------------------+-----------------+------------------+------------------+
  |   Position flag  |        1        |        2         |        1         |
  +------------------+-----------------+------------------+------------------+
- |   Strenth flag   |        1        |        2         |        1         | 
+ |   Strenth flag   |        1        |        2         |        1         |
  +------------------+-----------------+------------------+------------------+
  +===Total models===|        10       |==================|==================|
  +--------------------------------------------------------------------------+
@@ -758,31 +776,39 @@ models, one model per byte with one bit per byte processing.
 
 <P>
 All initial model state values are initialized with zero.
- 
-All initial model probability values are initialized with 2048. 
+
+</P>
+<P>
+All initial model probability values are initialized with 2048.
 
 </P>
 <P>
 These model probability values will be updating in a adaptive way on the
-fly and not precalculated before the encoding and even not loaded before 
+fly and not precalculated before the encoding and even not loaded before
 the decoding, see pseudo code below.
 
 </P>
 <P>
-16000000 Hz / 5 rotations per second at 300 RPM = maximal 3200000 flux pulses 
-        
-So NRZI transition flux pulse positions are in the 0 .. 3199999 value range, 
-which is also a exact single rotation, where each time unit is a cycle at 
-16 MHz with 300 RPM as a mapping for the ideal case.    
-  
+16000000 Hz / 5 rotations per second at 300 RPM = maximal 3200000 flux pulses
+
+</P>
+<P>
+So NRZI transition flux pulse positions are in the 0 .. 3199999 value range,
+which is also a exact single rotation, where each time unit is a cycle at
+16 MHz with 300 RPM as a mapping for the ideal case.
+
+</P>
+<P>
 The NRZI transition flux pulse stength are in the 0x00000000 .. 0xffffffff
-value range, where 0xffffffff indices a strong flux pulse, that always 
-triggers, and 0x00000001 indices a weak flux pulse, that almost never 
-triggers, and 0x00000000 indices a flux pulse, that absolutly never 
-triggers.            
-        
-For 32-bit values, the model sub streams are subdivided byte wide in a 
-little-endian manner, and each byte is processed bitwise with model 
+value range, where 0xffffffff indices a strong flux pulse, that always
+triggers, and 0x00000001 indices a weak flux pulse, that almost never
+triggers, and 0x00000000 indices a flux pulse, that absolutly never
+triggers.
+
+</P>
+<P>
+For 32-bit values, the model sub streams are subdivided byte wide in a
+little-endian manner, and each byte is processed bitwise with model
 probability shifting of 4 bits, just as:
 
 </P>
@@ -790,27 +816,27 @@ probability shifting of 4 bits, just as:
 Pascal-Style pseudo code:
 
 <PRE>
-procedure WriteDWord(Model, Value : longword);                             
-var ByteValue, ByteIndex, Context, Bit : longword;                         
-begin                                                                      
-  for ByteIndex := 0 to 3 do begin                                         
-    ByteValue := (Value shr (ByteIndex shl 3)) and $ff;                    
-    Context := 1;                                                          
-    for Bit := 7 downto 0 do begin                                         
-      Context := (Context shl 1) or RangeCoderEncodeBit(                   
-                    RangeCoderProbabilities[                               
-                     RangeCoderProbabilityOffsets[Model + ByteIndex] +     
-                     (((RangeCoderProbabilityStates[Model + ByteIndex]      
-                     shl 8) or Context) and $ffff)], 4, (ByteValue shr     
-                     Bit) and 1);                                          
-    end;                                                                   
-    RangeCoderProbabilityStates[Model+ByteIndex] := ByteValue;             
-  end;                                                                     
-end;                                                                       
+procedure WriteDWord(Model, Value : longword);
+var ByteValue, ByteIndex, Context, Bit : longword;
+begin
+  for ByteIndex := 0 to 3 do begin
+    ByteValue := (Value shr (ByteIndex shl 3)) and $ff;
+    Context := 1;
+    for Bit := 7 downto 0 do begin
+      Context := (Context shl 1) or RangeCoderEncodeBit(
+                    RangeCoderProbabilities[
+                     RangeCoderProbabilityOffsets[Model + ByteIndex] +
+                     (((RangeCoderProbabilityStates[Model + ByteIndex]
+                     shl 8) or Context) and $ffff)], 4, (ByteValue shr
+                     Bit) and 1);
+    end;
+    RangeCoderProbabilityStates[Model+ByteIndex] := ByteValue;
+  end;
+end;
 </PRE>
 
 <P>
-And for 1-bit flag values it is much simpler, but also with model probability 
+And for 1-bit flag values it is much simpler, but also with model probability
 shifting of 4 bits, just as:
 
 </P>
@@ -818,19 +844,19 @@ shifting of 4 bits, just as:
 Pascal-Style pseudo code:
 
 <PRE>
-procedure WriteBit(Model, Value : longword);                               
-begin                                                                      
-   RangeCoderProbabilityStates[Model] :=                                   
-     RangeCoderEncodeBit(RangeCoderProbabilities[                          
-       RangeCoderProbabilityOffsets[Model] +                               
-         RangeCoderProbabilityStates[Model]], 4, Value and 1);             
-end;                                                                       
+procedure WriteBit(Model, Value : longword);
+begin
+   RangeCoderProbabilityStates[Model] :=
+     RangeCoderEncodeBit(RangeCoderProbabilities[
+       RangeCoderProbabilityOffsets[Model] +
+         RangeCoderProbabilityStates[Model]], 4, Value and 1);
+end;
 </PRE>
 
 <P>
-The position and strength values are delta-encoded. If a value is equal to 
+The position and strength values are delta-encoded. If a value is equal to
 the last previous value, then the value will not encoded, instead, a flag for
-this will encoded. First the position value will encoded, then the stength 
+this will encoded. First the position value will encoded, then the stength
 value. If the last position delta is 0, then it is a track stream end marker.
 
 </P>
@@ -838,42 +864,43 @@ value. If the last position delta is 0, then it is a track stream end marker.
 Pascal-Style pseudo code:
 
 <PRE>
-LastPosition := 0;                                                         
-PreviousDeltaPosition := 0                                                 
-                                                                           
-LastStrength := 0;                                                         
-                                                                           
-for PulseIndex := 0 to PulseCount - 1 do begin                             
-                                                                           
-  DeltaPosition := Pulses[PulseIndex].Position - LastPosition;             
-  if PreviousDeltaPosition &#60;&#62; DeltaPosition then begin                     
-    PreviousDeltaPosition := DeltaPosition;                                
-    WriteBit(ModelPositionFlag, 1)                                         
-    WriteDWord(ModelPosition, DeltaPosition);                              
-  end else begin                                                           
-    WriteBit(ModelPositionFlag, 0);                                        
-  end;                                                                     
-  LastPosition := Pulses[PulseIndex].Position;                              
-                                                                           
-  if LastStrength &#60;&#62; Pulses[PulseIndex].Strength then begin                
-    WriteBit(ModelStrengthFlag, 1)                                         
-    WriteDWord(ModelStrength, Pulses[PulseIndex].Strength - LastStrength);   
-  end else begin                                                           
-    WriteBit(ModelStrengthFlag, 0);                                         
-  end;                                                                       
-  LastStrength := Pulses^[PulseIndex].Strength;                            
-                                                                           
-end;                                                                       
-                                                                           
-// End code                                                                
-WriteBit(ModelPositionFlag, 1);                                            
-WriteDWord(ModelPosition, 0);                                              
+LastPosition := 0;
+PreviousDeltaPosition := 0
+
+LastStrength := 0;
+
+for PulseIndex := 0 to PulseCount - 1 do begin
+
+  DeltaPosition := Pulses[PulseIndex].Position - LastPosition;
+  if PreviousDeltaPosition &#60;&#62; DeltaPosition then begin
+    PreviousDeltaPosition := DeltaPosition;
+    WriteBit(ModelPositionFlag, 1)
+    WriteDWord(ModelPosition, DeltaPosition);
+  end else begin
+    WriteBit(ModelPositionFlag, 0);
+  end;
+  LastPosition := Pulses[PulseIndex].Position;
+
+  if LastStrength &#60;&#62; Pulses[PulseIndex].Strength then begin
+    WriteBit(ModelStrengthFlag, 1)
+    WriteDWord(ModelStrength, Pulses[PulseIndex].Strength - LastStrength);
+  end else begin
+    WriteBit(ModelStrengthFlag, 0);
+  end;
+  LastStrength := Pulses^[PulseIndex].Strength;
+
+end;
+
+// End code
+WriteBit(ModelPositionFlag, 1);
+WriteDWord(ModelPosition, 0);
 </PRE>
 
 <P>
- 
 The decoding is simply just in the another direction way.
-  
+
+</P>
+<P>
 Pseudo code for a FPAQ0-style carryless range coder:
 
 </P>
@@ -881,94 +908,95 @@ Pseudo code for a FPAQ0-style carryless range coder:
 Pascal-Style pseudo code:
 
 <PRE>
-procedure RangeCoderInit; // At encoding and decoding start                
-begin                                                                      
-  RangeCode := 0;                                                          
-  RangeLow := 0;                                                           
-  RangeHigh := $ffffffff;                                                  
-end;                                                                       
-                                                                           
-procedure RangeCoderStart; // At decoding start                            
-var Counter : longword;                                                       
-begin                                                                      
-  for Counter := 1 to 4 do begin                                           
-   RangeCode := (RangeCode shl 8) or ReadByteFromInput;                    
-  end;                                                                     
-end;                                                                       
-                                                                           
-procedure RangeCoderFlush; // At encoding end                              
-var Counter : longword;                                                      
-begin                                                                      
-  for Counter := 1 to 4 do begin                                           
-    WriteByteToOutput(RangeHigh shr 24);                                   
-    RangeHigh := RangeHigh shl 8;                                          
-  end;                                                                     
-end;                                                                        
-                                                                           
-procedure RangeCoderEncodeNormalize;                                          
-begin                                                                      
-  while ((RangeLow xor RangeHigh) and $ff000000) = 0 do begin              
-   WriteByteToOutput(RangeHigh shr 24);                                    
-   RangeLow := RangeLow shl 8;                                             
-   RangeHigh := (RangeHigh shl 8) or $ff;                                    
-  end;                                                                      
-end;                                                                        
-                                                                           
-function RangeCoderEncodeBit(var Probability : longword; Shift,            
-                             BitValue : longword) : longword;               
-begin                                                                      
-  RangeMiddle := RangeLow + (((RangeHigh - RangeLow) shr 12) *             
-                              Probability);                                  
-  if BitValue &#60;&#62; 0 then begin                                               
-    inc(Probability, ($fff - Probability) shr Shift);                      
-    RangeHigh := RangeMiddle;                                                
-  end else begin                                                           
-    dec(Probability, Probability shr Shift);                               
-    RangeLow := RangeMiddle + 1;                                           
-  end;                                                                     
-  RangeCoderEncodeNormalize;                                               
-  result := BitValue;                                                      
-end;                                                                       
-                                                                            
-procedure RangeCoderDecodeNormalize;                                        
-begin                                                                      
-  while ((RangeLow xor RangeHigh) and $ff000000) = 0 do begin              
-    RangeLow := RangeLow shl 8;                                            
-    RangeHigh := (RangeHigh shl 8) or $ff;                                 
-    RangeCode := (RangeCode shl 8) or ReadByteFromInput;                   
-  end;                                                                     
-end;                                                                       
-                                                                            
-function RangeCoderDecodeBit(var Probability : longword;                   
-                             Shift : longword) : longword;                 
-begin                                                                      
-  RangeMiddle := RangeLow + (((RangeHigh - RangeLow) shr 12) *             
-                             Probability);                                 
-  if RangeCode &#60;= RangeMiddle then begin                                   
-    inc(Probability, ($fff - Probability) shr Shift);                      
-    RangeHigh := RangeMiddle;                                              
-    result := 1;                                                           
-  end else begin                                                           
-    dec(Probability, Probability shr Shift);                               
-    RangeLow := RangeMiddle + 1;                                           
-    result := 0;                                                           
-  end;                                                                     
-  RangeCoderDecodeNormalize;                                               
-end;                                                                       
+procedure RangeCoderInit; // At encoding and decoding start
+begin
+  RangeCode := 0;
+  RangeLow := 0;
+  RangeHigh := $ffffffff;
+end;
+
+procedure RangeCoderStart; // At decoding start
+var Counter : longword;
+begin
+  for Counter := 1 to 4 do begin
+   RangeCode := (RangeCode shl 8) or ReadByteFromInput;
+  end;
+end;
+
+procedure RangeCoderFlush; // At encoding end
+var Counter : longword;
+begin
+  for Counter := 1 to 4 do begin
+    WriteByteToOutput(RangeHigh shr 24);
+    RangeHigh := RangeHigh shl 8;
+  end;
+end;
+
+procedure RangeCoderEncodeNormalize;
+begin
+  while ((RangeLow xor RangeHigh) and $ff000000) = 0 do begin
+   WriteByteToOutput(RangeHigh shr 24);
+   RangeLow := RangeLow shl 8;
+   RangeHigh := (RangeHigh shl 8) or $ff;
+  end;
+end;
+
+function RangeCoderEncodeBit(var Probability : longword; Shift,
+                             BitValue : longword) : longword;
+begin
+  RangeMiddle := RangeLow + (((RangeHigh - RangeLow) shr 12) *
+                              Probability);
+  if BitValue &#60;&#62; 0 then begin
+    inc(Probability, ($fff - Probability) shr Shift);
+    RangeHigh := RangeMiddle;
+  end else begin
+    dec(Probability, Probability shr Shift);
+    RangeLow := RangeMiddle + 1;
+  end;
+  RangeCoderEncodeNormalize;
+  result := BitValue;
+end;
+
+procedure RangeCoderDecodeNormalize;
+begin
+  while ((RangeLow xor RangeHigh) and $ff000000) = 0 do begin
+    RangeLow := RangeLow shl 8;
+    RangeHigh := (RangeHigh shl 8) or $ff;
+    RangeCode := (RangeCode shl 8) or ReadByteFromInput;
+  end;
+end;
+
+function RangeCoderDecodeBit(var Probability : longword;
+                             Shift : longword) : longword;
+begin
+  RangeMiddle := RangeLow + (((RangeHigh - RangeLow) shr 12) *
+                             Probability);
+  if RangeCode &#60;= RangeMiddle then begin
+    inc(Probability, ($fff - Probability) shr Shift);
+    RangeHigh := RangeMiddle;
+    result := 1;
+  end else begin
+    dec(Probability, Probability shr Shift);
+    RangeLow := RangeMiddle + 1;
+    result := 0;
+  end;
+  RangeCoderDecodeNormalize;
+end;
 </PRE>
 
 <P>
-The probability may be never zero! But that can't happen here with this 
+The probability may be never zero! But that can't happen here with this
 adaptive model in this P64 file format, since the adaptive model uses a
-shift factor of 4 bits and initial probabilities value of 2048, so the 
-probability has a value range from 15 up to 4080 here. If you do want to use 
-the above range coder routines for other stuff with other probability models, 
-then you must to ensure that the probability output value is never zero, for 
-example with  "probability |= (probability &#60; 1); " in C.     
-  
+shift factor of 4 bits and initial probabilities value of 2048, so the
+probability has a value range from 15 up to 4080 here. If you do want to use
+the above range coder routines for other stuff with other probability models,
+then you must to ensure that the probability output value is never zero, for
+example with  "probability |= (probability &#60; 1); " in C.
+
+</P>
 
 
-<H3><A NAME="SEC326" HREF="vice_toc.html#TOC326">16.3.5  P64 Chunk 'DONE' Layout</A></H3>
+<H3><A NAME="SEC307" HREF="vice_toc.html#TOC307">16.3.5  P64 Chunk 'DONE' Layout</A></H3>
 
 <P>
 This is the last empty chunk for to signalize that the correct file end is
@@ -978,7 +1006,7 @@ reached.
 
 
 
-<H2><A NAME="SEC327" HREF="vice_toc.html#TOC327">16.4  The D64 disk image format</A></H2>
+<H2><A NAME="SEC308" HREF="vice_toc.html#TOC308">16.4  The D64 disk image format</A></H2>
 
 <P>
 (This section was contributed by Peter Schepers and slightly edited by
@@ -1522,7 +1550,7 @@ Assuming a starting track/sector of 17/0, the chain would run
 </P>
 
 
-<H3><A NAME="SEC328" HREF="vice_toc.html#TOC328">16.4.1  Non-Standard &#38; Long Directories</A></H3>
+<H3><A NAME="SEC309" HREF="vice_toc.html#TOC309">16.4.1  Non-Standard &#38; Long Directories</A></H3>
 
 <P>
 Most Commdore floppy disk drives use a single dedicated
@@ -1567,7 +1595,7 @@ validate routine will loop endlessly.
 </P>
 
 
-<H3><A NAME="SEC329" HREF="vice_toc.html#TOC329">16.4.2  BAM layout</A></H3>
+<H3><A NAME="SEC310" HREF="vice_toc.html#TOC310">16.4.2  BAM layout</A></H3>
 
 <P>
 The layout of the BAM area (sector 18/0) is a bit more complicated...
@@ -1799,7 +1827,7 @@ point the last sector occupies from bytes $02-$34.
 
 
 
-<H3><A NAME="SEC330" HREF="vice_toc.html#TOC330">16.4.3  Variations on the D64 layout</A></H3>
+<H3><A NAME="SEC311" HREF="vice_toc.html#TOC311">16.4.3  Variations on the D64 layout</A></H3>
 
 <P>
 These are some variations of the D64 layout:
@@ -2052,7 +2080,7 @@ of starting at $90.
 
 
 
-<H3><A NAME="SEC331" HREF="vice_toc.html#TOC331">16.4.4  Error codes</A></H3>
+<H3><A NAME="SEC312" HREF="vice_toc.html#TOC312">16.4.4  Error codes</A></H3>
 
 <P>
 Here is the meaning of the error bytes added onto the end of
@@ -2394,7 +2422,7 @@ many books explaining the disk layout and the internals of the
 </P>
 
 
-<H2><A NAME="SEC332" HREF="vice_toc.html#TOC332">16.5  The X64 disk image format</A></H2>
+<H2><A NAME="SEC313" HREF="vice_toc.html#TOC313">16.5  The X64 disk image format</A></H2>
 
 <P>
 (This section was contributed by Peter Schepers and slightly edited by
@@ -2586,7 +2614,7 @@ emulator don't use bytes $08-$3F.
 </P>
 
 
-<H2><A NAME="SEC333" HREF="vice_toc.html#TOC333">16.6  The D71 disk image format</A></H2>
+<H2><A NAME="SEC314" HREF="vice_toc.html#TOC314">16.6  The D71 disk image format</A></H2>
 
 <P>
 (This section was contributed by Peter Schepers and slightly edited by
@@ -3295,7 +3323,7 @@ interleave of 3.
 </P>
 
 
-<H3><A NAME="SEC334" HREF="vice_toc.html#TOC334">16.6.1  Non-Standard &#38; Long Directories</A></H3>
+<H3><A NAME="SEC315" HREF="vice_toc.html#TOC315">16.6.1  Non-Standard &#38; Long Directories</A></H3>
 
 <P>
 Most Commodore floppy disk drives use a single dedicated
@@ -3341,8 +3369,9 @@ directory chain then the validate routine will loop endlessly.
 </P>
 
 
-<H3><A NAME="SEC335" HREF="vice_toc.html#TOC335">16.6.2  Bam layout The BAM is somewhat different as it now has to</A></H3>
+<H3><A NAME="SEC316" HREF="vice_toc.html#TOC316">16.6.2  Bam layout</A></H3>
 <P>
+The BAM is somewhat different as it now has to
 take 35 new tracks into account. In order to do this, most of
 the extra BAM information is stored on track 53/0, and the
 remaining sectors on track 53 are marked in the BAM as
@@ -3553,7 +3582,7 @@ the file size is 351062 bytes.
 </P>
 
 
-<H2><A NAME="SEC336" HREF="vice_toc.html#TOC336">16.7  The D81 disk image format</A></H2>
+<H2><A NAME="SEC317" HREF="vice_toc.html#TOC317">16.7  The D81 disk image format</A></H2>
 
 <P>
 (This section was contributed by Peter Schepers and slightly edited by
@@ -4402,7 +4431,7 @@ Values 6-15 are illegal, but if used will produce very strange results.
 </P>
 
 
-<H3><A NAME="SEC337" HREF="vice_toc.html#TOC337">16.7.1  Non-Standard &#38; Long Directories</A></H3>
+<H3><A NAME="SEC318" HREF="vice_toc.html#TOC318">16.7.1  Non-Standard &#38; Long Directories</A></H3>
 
 <P>
 Most Commdore floppy disk drives use a single dedicated directory
@@ -4425,7 +4454,7 @@ operations.
 </P>
 
 
-<H3><A NAME="SEC338" HREF="vice_toc.html#TOC338">16.7.2  BAM layout</A></H3>
+<H3><A NAME="SEC319" HREF="vice_toc.html#TOC319">16.7.2  BAM layout</A></H3>
 
 <P>
 The BAM is located on 40/1 (for side 0, tracks 1-40) and 40/2
@@ -4561,8 +4590,9 @@ should be set to $00/$FF, indicating there is no next sector.
 </P>
 
 
-<H3><A NAME="SEC339" HREF="vice_toc.html#TOC339">16.7.3  REL files The REL filetype requires some extra explaining.</A></H3>
+<H3><A NAME="SEC320" HREF="vice_toc.html#TOC320">16.7.3  REL files</A></H3>
 <P>
+The REL filetype requires some extra explaining.
 It was designed to make access to data *anywhere* on the disk
 very fast. Take a look at this directory entry...
 
@@ -4657,7 +4687,7 @@ $10-$FF: T/S chains of *each* sector of the data portion. When we
 
 
 
-<H3><A NAME="SEC340" HREF="vice_toc.html#TOC340">16.7.4  1581 Partitions and Sub-directories</A></H3>
+<H3><A NAME="SEC321" HREF="vice_toc.html#TOC321">16.7.4  1581 Partitions and Sub-directories</A></H3>
 
 <P>
 At the beginning of this section it was stated that the 1581 can
@@ -4788,7 +4818,7 @@ to in the allocated area.
 </P>
 
 
-<H3><A NAME="SEC341" HREF="vice_toc.html#TOC341">16.7.5  AUTO-BOOT LOADER</A></H3>
+<H3><A NAME="SEC322" HREF="vice_toc.html#TOC322">16.7.5  AUTO-BOOT LOADER</A></H3>
 
 <P>
 If byte $07 in the BAM is set, then when the drive is reset
@@ -4814,7 +4844,7 @@ $03-($03+SZ-1): Program data
 
 
 
-<H2><A NAME="SEC342" HREF="vice_toc.html#TOC342">16.8  The D80 disk image format</A></H2>
+<H2><A NAME="SEC323" HREF="vice_toc.html#TOC323">16.8  The D80 disk image format</A></H2>
 
 <P>
 (This section was contributed by Peter Schepers and slightly edited by
@@ -5631,7 +5661,7 @@ Values 5-15 are illegal, but if used will produce very strange results.
 </P>
 
 
-<H3><A NAME="SEC343" HREF="vice_toc.html#TOC343">16.8.1  Non-Standard &#38; Long Directories</A></H3>
+<H3><A NAME="SEC324" HREF="vice_toc.html#TOC324">16.8.1  Non-Standard &#38; Long Directories</A></H3>
 
 <P>
 Most Commdore floppy disk drives use a single dedicated
@@ -5654,7 +5684,7 @@ default directory track for operations.
 </P>
 
 
-<H3><A NAME="SEC344" HREF="vice_toc.html#TOC344">16.8.2  BAM layout</A></H3>
+<H3><A NAME="SEC325" HREF="vice_toc.html#TOC325">16.8.2  BAM layout</A></H3>
 
 <P>
 The BAM only occupies up to four sectors on track 38, so the
@@ -5843,7 +5873,7 @@ F0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 
 
 
-<H2><A NAME="SEC345" HREF="vice_toc.html#TOC345">16.9  The D82 disk image format</A></H2>
+<H2><A NAME="SEC326" HREF="vice_toc.html#TOC326">16.9  The D82 disk image format</A></H2>
 
 <P>
 (This section was contributed by Peter Schepers and slightly edited by
@@ -7143,7 +7173,7 @@ Values 5-15 are illegal, but if used will produce very strange results.
 </P>
 
 
-<H3><A NAME="SEC346" HREF="vice_toc.html#TOC346">16.9.1  Non-Standard &#38; Long Directories</A></H3>
+<H3><A NAME="SEC327" HREF="vice_toc.html#TOC327">16.9.1  Non-Standard &#38; Long Directories</A></H3>
 
 <P>
 Most Commdore floppy disk drives use a single dedicated
@@ -7166,7 +7196,7 @@ default directory track for operations.
 </P>
 
 
-<H3><A NAME="SEC347" HREF="vice_toc.html#TOC347">16.9.2  BAM layout</A></H3>
+<H3><A NAME="SEC328" HREF="vice_toc.html#TOC328">16.9.2  BAM layout</A></H3>
 
 <P>
 The BAM only occupies up to four sectors on track 38, so the
@@ -7482,7 +7512,7 @@ Fourth BAM block 38/9
 
 
 
-<H2><A NAME="SEC348" HREF="vice_toc.html#TOC348">16.10  The P00 image format</A></H2>
+<H2><A NAME="SEC329" HREF="vice_toc.html#TOC329">16.10  The P00 image format</A></H2>
 
 <P>
 (This section was contributed by Peter Schepers and slightly edited by
@@ -7564,7 +7594,7 @@ load anything else.
 
 
 
-<H2><A NAME="SEC349" HREF="vice_toc.html#TOC349">16.11  The CRT cartridge image format</A></H2>
+<H2><A NAME="SEC330" HREF="vice_toc.html#TOC330">16.11  The CRT cartridge image format</A></H2>
 
 <P>
 This chapter is based on CRT.txt (rev1.14) compiled by Peter Schepers, with
@@ -7592,7 +7622,7 @@ special hardware features it uses.
 </P>
 
 
-<H3><A NAME="SEC350" HREF="vice_toc.html#TOC350">16.11.1  Header contents</A></H3>
+<H3><A NAME="SEC331" HREF="vice_toc.html#TOC331">16.11.1  Header contents</A></H3>
 
 <P>
   Here is a dump of a sample 8K normal cartridge,  "Attack  Of  The  Mutant
@@ -7708,7 +7738,7 @@ Camels"...
 </P>
 
 
-<H3><A NAME="SEC351" HREF="vice_toc.html#TOC351">16.11.2  CHIP Contents</A></H3>
+<H3><A NAME="SEC332" HREF="vice_toc.html#TOC332">16.11.2  CHIP Contents</A></H3>
 
 <P>
   The following is the contents of the CHIP packet, from position $0040  on
@@ -7812,11 +7842,11 @@ $8000-9FFF and $E000-FFFF.
 </P>
 
 
-<H3><A NAME="SEC352" HREF="vice_toc.html#TOC352">16.11.3  Cartridge Specifics</A></H3>
+<H3><A NAME="SEC333" HREF="vice_toc.html#TOC333">16.11.3  Cartridge Specifics</A></H3>
 
 
 
-<H4><A NAME="SEC353" HREF="vice_toc.html#TOC353">16.11.3.1  0 - Normal cartridge</A></H4>
+<H4><A NAME="SEC334" HREF="vice_toc.html#TOC334">16.11.3.1  0 - Normal cartridge</A></H4>
 
 <TABLE BORDER>
 
@@ -7932,7 +7962,7 @@ $8000-9FFF and $E000-FFFF.
 
 
 
-<H4><A NAME="SEC354" HREF="vice_toc.html#TOC354">16.11.3.2  1 - Action Replay</A></H4>
+<H4><A NAME="SEC335" HREF="vice_toc.html#TOC335">16.11.3.2  1 - Action Replay</A></H4>
 
 <TABLE BORDER>
 
@@ -7993,7 +8023,7 @@ $8000-9FFF and $E000-FFFF.
 
 
 
-<H4><A NAME="SEC355" HREF="vice_toc.html#TOC355">16.11.3.3  2 - KCS Power Cartridge</A></H4>
+<H4><A NAME="SEC336" HREF="vice_toc.html#TOC336">16.11.3.3  2 - KCS Power Cartridge</A></H4>
 
 <TABLE BORDER>
 
@@ -8032,7 +8062,7 @@ $8000-9FFF and $E000-FFFF.
 
 
 
-<H4><A NAME="SEC356" HREF="vice_toc.html#TOC356">16.11.3.4  3 - Final Cartridge III</A></H4>
+<H4><A NAME="SEC337" HREF="vice_toc.html#TOC337">16.11.3.4  3 - Final Cartridge III</A></H4>
 
 <TABLE BORDER>
 
@@ -8142,7 +8172,7 @@ C080: A2 06 BD DD 85 95 05 CA 10 F8 AE A0 02 E8 EC A2   .??.…•?.??® ???.
 
 
 
-<H4><A NAME="SEC357" HREF="vice_toc.html#TOC357">16.11.3.5  4 - Simons' Basic</A></H4>
+<H4><A NAME="SEC338" HREF="vice_toc.html#TOC338">16.11.3.5  4 - Simons' Basic</A></H4>
 
 <TABLE BORDER>
 
@@ -8197,7 +8227,7 @@ C080: A2 06 BD DD 85 95 05 CA 10 F8 AE A0 02 E8 EC A2   .??.…•?.??® ???.
 
 
 
-<H4><A NAME="SEC358" HREF="vice_toc.html#TOC358">16.11.3.6  5 - Ocean type 1</A></H4>
+<H4><A NAME="SEC339" HREF="vice_toc.html#TOC339">16.11.3.6  5 - Ocean type 1</A></H4>
 
 <TABLE BORDER>
 
@@ -8286,7 +8316,7 @@ C080: A2 06 BD DD 85 95 05 CA 10 F8 AE A0 02 E8 EC A2   .??.…•?.??® ???.
 
 
 
-<H4><A NAME="SEC359" HREF="vice_toc.html#TOC359">16.11.3.7  6 - Expert Cartridge</A></H4>
+<H4><A NAME="SEC340" HREF="vice_toc.html#TOC340">16.11.3.7  6 - Expert Cartridge</A></H4>
 
 <TABLE BORDER>
 
@@ -8321,7 +8351,7 @@ C080: A2 06 BD DD 85 95 05 CA 10 F8 AE A0 02 E8 EC A2   .??.…•?.??® ???.
 
 
 
-<H4><A NAME="SEC360" HREF="vice_toc.html#TOC360">16.11.3.8  7 - Fun Play, Power Play</A></H4>
+<H4><A NAME="SEC341" HREF="vice_toc.html#TOC341">16.11.3.8  7 - Fun Play, Power Play</A></H4>
 
 <TABLE BORDER>
 
@@ -8413,7 +8443,7 @@ C080: A2 06 BD DD 85 95 05 CA 10 F8 AE A0 02 E8 EC A2   .??.…•?.??® ???.
 
 
 
-<H4><A NAME="SEC361" HREF="vice_toc.html#TOC361">16.11.3.9  8 - Super Games</A></H4>
+<H4><A NAME="SEC342" HREF="vice_toc.html#TOC342">16.11.3.9  8 - Super Games</A></H4>
 
 <TABLE BORDER>
 
@@ -8474,14 +8504,16 @@ C080: D5 F9 F0 C1 D5 F7 F0 BD E8 B5 02 F0 FB C9 05 30   .??..????µ??..?0
     ---   -------
      0    bank bit 0
      1    bank bit 1
-     2    mode (0 = EXROM/GAME (bridged on the same wire - 16k config) 1 = cartridge disabled)
-     3    write-protect-latch  (1 = no more changes are possible until the next hardware-reset )
+     2    mode (0 = EXROM/GAME (bridged on the same wire - 16k config) 
+                1 = cartridge disabled)
+     3    write-protect-latch  (1 = no more changes are possible until 
+                                    the next hardware-reset )
     4-7   unused
 </PRE>
 
 
 
-<H4><A NAME="SEC362" HREF="vice_toc.html#TOC362">16.11.3.10  9 - Atomic Power</A></H4>
+<H4><A NAME="SEC343" HREF="vice_toc.html#TOC343">16.11.3.10  9 - Atomic Power</A></H4>
 
 <TABLE BORDER>
 
@@ -8561,7 +8593,7 @@ C080: D5 F9 F0 C1 D5 F7 F0 BD E8 B5 02 F0 FB C9 05 30   .??..????µ??..?0
 
 
 
-<H4><A NAME="SEC363" HREF="vice_toc.html#TOC363">16.11.3.11  10 - Epyx Fastload</A></H4>
+<H4><A NAME="SEC344" HREF="vice_toc.html#TOC344">16.11.3.11  10 - Epyx Fastload</A></H4>
 
 <TABLE BORDER>
 
@@ -8608,7 +8640,7 @@ C080: D5 F9 F0 C1 D5 F7 F0 BD E8 B5 02 F0 FB C9 05 30   .??..????µ??..?0
 </P>
 
 
-<H4><A NAME="SEC364" HREF="vice_toc.html#TOC364">16.11.3.12  11 - Westermann Learning</A></H4>
+<H4><A NAME="SEC345" HREF="vice_toc.html#TOC345">16.11.3.12  11 - Westermann Learning</A></H4>
 
 <TABLE BORDER>
 
@@ -8648,7 +8680,7 @@ C080: D5 F9 F0 C1 D5 F7 F0 BD E8 B5 02 F0 FB C9 05 30   .??..????µ??..?0
 
 
 
-<H4><A NAME="SEC365" HREF="vice_toc.html#TOC365">16.11.3.13  12 - Rex Utility</A></H4>
+<H4><A NAME="SEC346" HREF="vice_toc.html#TOC346">16.11.3.13  12 - Rex Utility</A></H4>
 
 <TABLE BORDER>
 
@@ -8689,7 +8721,7 @@ C080: D5 F9 F0 C1 D5 F7 F0 BD E8 B5 02 F0 FB C9 05 30   .??..????µ??..?0
 
 
 
-<H4><A NAME="SEC366" HREF="vice_toc.html#TOC366">16.11.3.14  13 - Final Cartridge I</A></H4>
+<H4><A NAME="SEC347" HREF="vice_toc.html#TOC347">16.11.3.14  13 - Final Cartridge I</A></H4>
 
 <TABLE BORDER>
 
@@ -8733,7 +8765,7 @@ C080: D5 F9 F0 C1 D5 F7 F0 BD E8 B5 02 F0 FB C9 05 30   .??..????µ??..?0
 </P>
 
 
-<H4><A NAME="SEC367" HREF="vice_toc.html#TOC367">16.11.3.15  14 - Magic Formel</A></H4>
+<H4><A NAME="SEC348" HREF="vice_toc.html#TOC348">16.11.3.15  14 - Magic Formel</A></H4>
 
 <TABLE BORDER>
 
@@ -8789,7 +8821,7 @@ E0C0: 4D 46 37 8D 00 DF 60 8D 01 DF 60 8D 02 DF 60 8D  MF7??`??`??`
 
 
 
-<H4><A NAME="SEC368" HREF="vice_toc.html#TOC368">16.11.3.16  15 - C64 Game System, System 3</A></H4>
+<H4><A NAME="SEC349" HREF="vice_toc.html#TOC349">16.11.3.16  15 - C64 Game System, System 3</A></H4>
 
 <TABLE BORDER>
 
@@ -8863,7 +8895,7 @@ E0C0: 4D 46 37 8D 00 DF 60 8D 01 DF 60 8D 02 DF 60 8D  MF7??`??`??`
 
 
 
-<H4><A NAME="SEC369" HREF="vice_toc.html#TOC369">16.11.3.17  16 - Warp Speed</A></H4>
+<H4><A NAME="SEC350" HREF="vice_toc.html#TOC350">16.11.3.17  16 - Warp Speed</A></H4>
 
 <TABLE BORDER>
 
@@ -8908,7 +8940,7 @@ E0C0: 4D 46 37 8D 00 DF 60 8D 01 DF 60 8D 02 DF 60 8D  MF7??`??`??`
 
 
 
-<H4><A NAME="SEC370" HREF="vice_toc.html#TOC370">16.11.3.18  17 - Dinamic</A></H4>
+<H4><A NAME="SEC351" HREF="vice_toc.html#TOC351">16.11.3.18  17 - Dinamic</A></H4>
 
 <TABLE BORDER>
 
@@ -8977,7 +9009,7 @@ E0C0: 4D 46 37 8D 00 DF 60 8D 01 DF 60 8D 02 DF 60 8D  MF7??`??`??`
 
 
 
-<H4><A NAME="SEC371" HREF="vice_toc.html#TOC371">16.11.3.19  18 - Zaxxon, Super Zaxxon (SEGA)</A></H4>
+<H4><A NAME="SEC352" HREF="vice_toc.html#TOC352">16.11.3.19  18 - Zaxxon, Super Zaxxon (SEGA)</A></H4>
 
 <TABLE BORDER>
 
@@ -9037,7 +9069,7 @@ E0C0: 4D 46 37 8D 00 DF 60 8D 01 DF 60 8D 02 DF 60 8D  MF7??`??`??`
 
 
 
-<H4><A NAME="SEC372" HREF="vice_toc.html#TOC372">16.11.3.20  19 - Magic Desk, Domark, HES Australia</A></H4>
+<H4><A NAME="SEC353" HREF="vice_toc.html#TOC353">16.11.3.20  19 - Magic Desk, Domark, HES Australia</A></H4>
 
 <TABLE BORDER>
 
@@ -9113,7 +9145,7 @@ E0C0: 4D 46 37 8D 00 DF 60 8D 01 DF 60 8D 02 DF 60 8D  MF7??`??`??`
 
 
 
-<H4><A NAME="SEC373" HREF="vice_toc.html#TOC373">16.11.3.21  20 - Super Snapshot V5</A></H4>
+<H4><A NAME="SEC354" HREF="vice_toc.html#TOC354">16.11.3.21  20 - Super Snapshot V5</A></H4>
 
 <TABLE BORDER>
 
@@ -9178,7 +9210,7 @@ C080: 50 DE BC FE C3 C2 CD 38 30 85 07 20 1A AD A5 76  P.?....80…???­¥v
 
 
 
-<H4><A NAME="SEC374" HREF="vice_toc.html#TOC374">16.11.3.22  21 - Comal-80</A></H4>
+<H4><A NAME="SEC355" HREF="vice_toc.html#TOC355">16.11.3.22  21 - Comal-80</A></H4>
 
 <TABLE BORDER>
 
@@ -9241,7 +9273,7 @@ C080: 7B C8 7E C8 C3 C2 CD 38 30 43 4F 4D 41 4C 80 93  ..~....80COMAL..
 
 
 
-<H4><A NAME="SEC375" HREF="vice_toc.html#TOC375">16.11.3.23  22 - Structured Basic</A></H4>
+<H4><A NAME="SEC356" HREF="vice_toc.html#TOC356">16.11.3.23  22 - Structured Basic</A></H4>
 
 <TABLE BORDER>
 
@@ -9280,7 +9312,7 @@ C080: 7B C8 7E C8 C3 C2 CD 38 30 43 4F 4D 41 4C 80 93  ..~....80COMAL..
 
 
 
-<H4><A NAME="SEC376" HREF="vice_toc.html#TOC376">16.11.3.24  23 - Ross</A></H4>
+<H4><A NAME="SEC357" HREF="vice_toc.html#TOC357">16.11.3.24  23 - Ross</A></H4>
 
 <TABLE BORDER>
 
@@ -9324,7 +9356,7 @@ C080: 7B C8 7E C8 C3 C2 CD 38 30 43 4F 4D 41 4C 80 93  ..~....80COMAL..
 
 
 
-<H4><A NAME="SEC377" HREF="vice_toc.html#TOC377">16.11.3.25  24 - Dela EP64</A></H4>
+<H4><A NAME="SEC358" HREF="vice_toc.html#TOC358">16.11.3.25  24 - Dela EP64</A></H4>
 
 <TABLE BORDER>
 
@@ -9406,7 +9438,7 @@ C080: 7B C8 7E C8 C3 C2 CD 38 30 43 4F 4D 41 4C 80 93  ..~....80COMAL..
 
 
 
-<H4><A NAME="SEC378" HREF="vice_toc.html#TOC378">16.11.3.26  25 - Dela EP7x8</A></H4>
+<H4><A NAME="SEC359" HREF="vice_toc.html#TOC359">16.11.3.26  25 - Dela EP7x8</A></H4>
 
 <TABLE BORDER>
 
@@ -9473,7 +9505,7 @@ C080: 7B C8 7E C8 C3 C2 CD 38 30 43 4F 4D 41 4C 80 93  ..~....80COMAL..
 
 
 
-<H4><A NAME="SEC379" HREF="vice_toc.html#TOC379">16.11.3.27  26 - Dela EP256</A></H4>
+<H4><A NAME="SEC360" HREF="vice_toc.html#TOC360">16.11.3.27  26 - Dela EP256</A></H4>
 
 <TABLE BORDER>
 
@@ -9547,7 +9579,7 @@ C080: 7B C8 7E C8 C3 C2 CD 38 30 43 4F 4D 41 4C 80 93  ..~....80COMAL..
 
 
 
-<H4><A NAME="SEC380" HREF="vice_toc.html#TOC380">16.11.3.28  27 - Rex EP256</A></H4>
+<H4><A NAME="SEC361" HREF="vice_toc.html#TOC361">16.11.3.28  27 - Rex EP256</A></H4>
 
 <TABLE BORDER>
 
@@ -9624,7 +9656,7 @@ C080: 7B C8 7E C8 C3 C2 CD 38 30 43 4F 4D 41 4C 80 93  ..~....80COMAL..
 </P>
 
 
-<H4><A NAME="SEC381" HREF="vice_toc.html#TOC381">16.11.3.29  28 - Mikro Assembler</A></H4>
+<H4><A NAME="SEC362" HREF="vice_toc.html#TOC362">16.11.3.29  28 - Mikro Assembler</A></H4>
 
 <TABLE BORDER>
 
@@ -9664,7 +9696,7 @@ C080: 7B C8 7E C8 C3 C2 CD 38 30 43 4F 4D 41 4C 80 93  ..~....80COMAL..
 </P>
 
 
-<H4><A NAME="SEC382" HREF="vice_toc.html#TOC382">16.11.3.30  29 - Final Cartridge Plus</A></H4>
+<H4><A NAME="SEC363" HREF="vice_toc.html#TOC363">16.11.3.30  29 - Final Cartridge Plus</A></H4>
 
 <TABLE BORDER>
 
@@ -9714,7 +9746,7 @@ C080: 7B C8 7E C8 C3 C2 CD 38 30 43 4F 4D 41 4C 80 93  ..~....80COMAL..
 </P>
 
 
-<H4><A NAME="SEC383" HREF="vice_toc.html#TOC383">16.11.3.31  30 - Action Replay 4</A></H4>
+<H4><A NAME="SEC364" HREF="vice_toc.html#TOC364">16.11.3.31  30 - Action Replay 4</A></H4>
 
 <TABLE BORDER>
 
@@ -9779,7 +9811,7 @@ C080: 7B C8 7E C8 C3 C2 CD 38 30 43 4F 4D 41 4C 80 93  ..~....80COMAL..
 </P>
 
 
-<H4><A NAME="SEC384" HREF="vice_toc.html#TOC384">16.11.3.32  31 - Stardos</A></H4>
+<H4><A NAME="SEC365" HREF="vice_toc.html#TOC365">16.11.3.32  31 - Stardos</A></H4>
 
 <TABLE BORDER>
 
@@ -9836,7 +9868,7 @@ C080: 7B C8 7E C8 C3 C2 CD 38 30 43 4F 4D 41 4C 80 93  ..~....80COMAL..
 </P>
 
 
-<H4><A NAME="SEC385" HREF="vice_toc.html#TOC385">16.11.3.33  32 - EasyFlash</A></H4>
+<H4><A NAME="SEC366" HREF="vice_toc.html#TOC366">16.11.3.33  32 - EasyFlash</A></H4>
 
 <TABLE BORDER>
 
@@ -9901,7 +9933,7 @@ C080: 7B C8 7E C8 C3 C2 CD 38 30 43 4F 4D 41 4C 80 93  ..~....80COMAL..
 </P>
 
 
-<H4><A NAME="SEC386" HREF="vice_toc.html#TOC386">16.11.3.34  33 - EasyFlash Xbank</A></H4>
+<H4><A NAME="SEC367" HREF="vice_toc.html#TOC367">16.11.3.34  33 - EasyFlash Xbank</A></H4>
 
 <TABLE BORDER>
 
@@ -9930,7 +9962,7 @@ load files of this type.
 </P>
 
 
-<H4><A NAME="SEC387" HREF="vice_toc.html#TOC387">16.11.3.35  34 - Capture</A></H4>
+<H4><A NAME="SEC368" HREF="vice_toc.html#TOC368">16.11.3.35  34 - Capture</A></H4>
 
 <TABLE BORDER>
 
@@ -9990,7 +10022,7 @@ load files of this type.
 
 
 
-<H4><A NAME="SEC388" HREF="vice_toc.html#TOC388">16.11.3.36  35 - Action Replay 3</A></H4>
+<H4><A NAME="SEC369" HREF="vice_toc.html#TOC369">16.11.3.36  35 - Action Replay 3</A></H4>
 
 <TABLE BORDER>
 
@@ -10045,7 +10077,7 @@ load files of this type.
 
 
 
-<H4><A NAME="SEC389" HREF="vice_toc.html#TOC389">16.11.3.37  36 - Retro Replay</A></H4>
+<H4><A NAME="SEC370" HREF="vice_toc.html#TOC370">16.11.3.37  36 - Retro Replay</A></H4>
 
 <TABLE BORDER>
 
@@ -10212,7 +10244,7 @@ load files of this type.
 
 
 
-<H4><A NAME="SEC390" HREF="vice_toc.html#TOC390">16.11.3.38  37 - MMC64</A></H4>
+<H4><A NAME="SEC371" HREF="vice_toc.html#TOC371">16.11.3.38  37 - MMC64</A></H4>
 
 <TABLE BORDER>
 
@@ -10339,7 +10371,7 @@ load files of this type.
 </P>
 
 
-<H4><A NAME="SEC391" HREF="vice_toc.html#TOC391">16.11.3.39  38 - MMC Replay</A></H4>
+<H4><A NAME="SEC372" HREF="vice_toc.html#TOC372">16.11.3.39  38 - MMC Replay</A></H4>
 
 <TABLE BORDER>
 
@@ -10500,7 +10532,7 @@ load files of this type.
 </P>
 
 
-<H4><A NAME="SEC392" HREF="vice_toc.html#TOC392">16.11.3.40  39 - IDE64</A></H4>
+<H4><A NAME="SEC373" HREF="vice_toc.html#TOC373">16.11.3.40  39 - IDE64</A></H4>
 
 <TABLE BORDER>
 
@@ -10573,7 +10605,7 @@ load files of this type.
 
 
 
-<H4><A NAME="SEC393" HREF="vice_toc.html#TOC393">16.11.3.41  40 - Super Snapshot V4</A></H4>
+<H4><A NAME="SEC374" HREF="vice_toc.html#TOC374">16.11.3.41  40 - Super Snapshot V4</A></H4>
 
 <TABLE BORDER>
 
@@ -10660,7 +10692,7 @@ load files of this type.
 </P>
 
 
-<H4><A NAME="SEC394" HREF="vice_toc.html#TOC394">16.11.3.42  41 - IEEE-488</A></H4>
+<H4><A NAME="SEC375" HREF="vice_toc.html#TOC375">16.11.3.42  41 - IEEE-488</A></H4>
 
 <TABLE BORDER>
 
@@ -10712,7 +10744,7 @@ load files of this type.
 
 
 
-<H4><A NAME="SEC395" HREF="vice_toc.html#TOC395">16.11.3.43  42 - Game Killer</A></H4>
+<H4><A NAME="SEC376" HREF="vice_toc.html#TOC376">16.11.3.43  42 - Game Killer</A></H4>
 
 <TABLE BORDER>
 
@@ -10755,7 +10787,7 @@ load files of this type.
 </P>
 
 
-<H4><A NAME="SEC396" HREF="vice_toc.html#TOC396">16.11.3.44  43 - Prophet64</A></H4>
+<H4><A NAME="SEC377" HREF="vice_toc.html#TOC377">16.11.3.44  43 - Prophet64</A></H4>
 
 <TABLE BORDER>
 
@@ -10803,7 +10835,7 @@ load files of this type.
 
 
 
-<H4><A NAME="SEC397" HREF="vice_toc.html#TOC397">16.11.3.45  44 - EXOS</A></H4>
+<H4><A NAME="SEC378" HREF="vice_toc.html#TOC378">16.11.3.45  44 - EXOS</A></H4>
 
 <TABLE BORDER>
 
@@ -10844,7 +10876,7 @@ load files of this type.
 </P>
 
 
-<H4><A NAME="SEC398" HREF="vice_toc.html#TOC398">16.11.3.46  45 - Freeze Frame</A></H4>
+<H4><A NAME="SEC379" HREF="vice_toc.html#TOC379">16.11.3.46  45 - Freeze Frame</A></H4>
 
 <TABLE BORDER>
 
@@ -10885,7 +10917,7 @@ load files of this type.
 </P>
 
 
-<H4><A NAME="SEC399" HREF="vice_toc.html#TOC399">16.11.3.47  46 - Freeze Machine</A></H4>
+<H4><A NAME="SEC380" HREF="vice_toc.html#TOC380">16.11.3.47  46 - Freeze Machine</A></H4>
 
 <TABLE BORDER>
 
@@ -10944,7 +10976,7 @@ load files of this type.
 
 
 
-<H4><A NAME="SEC400" HREF="vice_toc.html#TOC400">16.11.3.48  47 - Snapshot 64</A></H4>
+<H4><A NAME="SEC381" HREF="vice_toc.html#TOC381">16.11.3.48  47 - Snapshot 64</A></H4>
 
 <TABLE BORDER>
 
@@ -10990,7 +11022,7 @@ load files of this type.
 
 
 
-<H4><A NAME="SEC401" HREF="vice_toc.html#TOC401">16.11.3.49  48 - Super Explode V5.0</A></H4>
+<H4><A NAME="SEC382" HREF="vice_toc.html#TOC382">16.11.3.49  48 - Super Explode V5.0</A></H4>
 
 <TABLE BORDER>
 
@@ -11041,7 +11073,7 @@ load files of this type.
 
 
 
-<H4><A NAME="SEC402" HREF="vice_toc.html#TOC402">16.11.3.50  49 - Magic Voice</A></H4>
+<H4><A NAME="SEC383" HREF="vice_toc.html#TOC383">16.11.3.50  49 - Magic Voice</A></H4>
 
 <TABLE BORDER>
 
@@ -11117,7 +11149,7 @@ load files of this type.
 
 
 
-<H4><A NAME="SEC403" HREF="vice_toc.html#TOC403">16.11.3.51  50 - Action Replay 2</A></H4>
+<H4><A NAME="SEC384" HREF="vice_toc.html#TOC384">16.11.3.51  50 - Action Replay 2</A></H4>
 
 <TABLE BORDER>
 
@@ -11171,7 +11203,7 @@ load files of this type.
 </P>
 
 
-<H4><A NAME="SEC404" HREF="vice_toc.html#TOC404">16.11.3.52  51 - MACH 5</A></H4>
+<H4><A NAME="SEC385" HREF="vice_toc.html#TOC385">16.11.3.52  51 - MACH 5</A></H4>
 
 <TABLE BORDER>
 
@@ -11218,7 +11250,7 @@ load files of this type.
 
 
 
-<H4><A NAME="SEC405" HREF="vice_toc.html#TOC405">16.11.3.53  52 - Diashow maker</A></H4>
+<H4><A NAME="SEC386" HREF="vice_toc.html#TOC386">16.11.3.53  52 - Diashow maker</A></H4>
 
 <TABLE BORDER>
 
@@ -11264,7 +11296,7 @@ load files of this type.
 
 
 
-<H4><A NAME="SEC406" HREF="vice_toc.html#TOC406">16.11.3.54  53 - Pagefox</A></H4>
+<H4><A NAME="SEC387" HREF="vice_toc.html#TOC387">16.11.3.54  53 - Pagefox</A></H4>
 
 <TABLE BORDER>
 
@@ -11346,7 +11378,7 @@ C080: 1E 03 14 82 09 05 09 0F 0C 0D 0F 05 09 09 0B 0A  ???‚????????????
 </P>
 
 
-<H4><A NAME="SEC407" HREF="vice_toc.html#TOC407">16.11.3.55  54 - Kingsoft</A></H4>
+<H4><A NAME="SEC388" HREF="vice_toc.html#TOC388">16.11.3.55  54 - Kingsoft</A></H4>
 
 <TABLE BORDER>
 
@@ -11411,7 +11443,7 @@ C080: 1E 03 14 82 09 05 09 0F 0C 0D 0F 05 09 09 0B 0A  ???‚????????????
 
 
 
-<H4><A NAME="SEC408" HREF="vice_toc.html#TOC408">16.11.3.56  55 - Silverrock 128</A></H4>
+<H4><A NAME="SEC389" HREF="vice_toc.html#TOC389">16.11.3.56  55 - Silverrock 128</A></H4>
 
 <TABLE BORDER>
 
@@ -11472,7 +11504,7 @@ C080: 1E 03 14 82 09 05 09 0F 0C 0D 0F 05 09 09 0B 0A  ???‚????????????
 100D0: 01 01 B9 D1 0D 15 89 55 65 45 41 C5 01 45 45 A8  ??¹.??‰UeEA.?EE?
 ...
 120D0: 43 48 49 50 00 00 20 10 00 00 00 09 80 00 20 00  CHIP????????.???
-120E0: 01 21 0C C7 29 54 41 29 4D C5 06 24 C7 24 8F 81  ???.?TA?M.??.?  
+120E0: 01 21 0C C7 29 54 41 29 4D C5 06 24 C7 24 8F 81  ???.?TA?M.??.?
 ...
 140E0: 43 48 49 50 00 00 20 10 00 00 00 0A 80 00 20 00  CHIP????????.???
 140F0: 01 41 EA 87 7A AF 95 67 BD F7 00 7D 6E C4 5D A6  ?A..z»•g???.n.]?
@@ -11572,7 +11604,7 @@ the right bank. Hence the valid address range is 0xDE00-0xDE0F
 </P>
 
 
-<H4><A NAME="SEC409" HREF="vice_toc.html#TOC409">16.11.3.57  56 - Formel 64</A></H4>
+<H4><A NAME="SEC390" HREF="vice_toc.html#TOC390">16.11.3.57  56 - Formel 64</A></H4>
 
 <TABLE BORDER>
 
@@ -11634,7 +11666,8 @@ rom bank 0x00 - 0x03 (0x04) 8192* 4 32k mapped to e000
 MC6821 registers mapped to io2 at dfc0..dfc4
 
 - press reset and hold delete to get the main menu
-- press reset and hold control to skip cbm80 check (dont start additional cartridge)
+- press reset and hold control to skip cbm80 check 
+  (dont start additional cartridge)
 
 - press RESTORE, then...
   - left arrow, return  show disk directory
@@ -11664,7 +11697,7 @@ bit0    ?
 
 
 
-<H4><A NAME="SEC410" HREF="vice_toc.html#TOC410">16.11.3.58  57 - RGCD</A></H4>
+<H4><A NAME="SEC391" HREF="vice_toc.html#TOC391">16.11.3.58  57 - RGCD</A></H4>
 
 <TABLE BORDER>
 
@@ -11736,7 +11769,7 @@ E0C0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ????????????????
 
 
 
-<H4><A NAME="SEC411" HREF="vice_toc.html#TOC411">16.11.3.59  58 - RR-Net MK3</A></H4>
+<H4><A NAME="SEC392" HREF="vice_toc.html#TOC392">16.11.3.59  58 - RR-Net MK3</A></H4>
 
 <TABLE BORDER>
 
@@ -11787,7 +11820,7 @@ E0C0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ????????????????
 
 
 
-<H4><A NAME="SEC412" HREF="vice_toc.html#TOC412">16.11.3.60  59 - EasyCalc</A></H4>
+<H4><A NAME="SEC393" HREF="vice_toc.html#TOC393">16.11.3.60  59 - EasyCalc</A></H4>
 
 <TABLE BORDER>
 
@@ -11849,7 +11882,7 @@ The bank at $A000-$BFFF is selected by bit 0 of the address of a write access to
 
 
 
-<H4><A NAME="SEC413" HREF="vice_toc.html#TOC413">16.11.3.61  60 - GMod2</A></H4>
+<H4><A NAME="SEC394" HREF="vice_toc.html#TOC394">16.11.3.61  60 - GMod2</A></H4>
 
 <TABLE BORDER>
 
@@ -11915,7 +11948,7 @@ and has a 2K serial EEPROM (m93C86).
 
 
 
-<H2><A NAME="SEC414" HREF="vice_toc.html#TOC414">16.12  The PSID image format for ripped SID tunes</A></H2>
+<H2><A NAME="SEC395" HREF="vice_toc.html#TOC395">16.12  The PSID image format for ripped SID tunes</A></H2>
 
 <P>
 This section describes the SID file format used for SID tunes in the HVSC
@@ -11928,7 +11961,7 @@ and last not least tweaked a bit by Groepaz to fit into the VICE documentation.
 </P>
 <P>
 The original documentation maintained by the HVSC team can be found here:
-<A HREF="http://www.hvsc.de/download/C64Music/DOCUMENTS/SID_file_format.txt">http://www.hvsc.de/download/C64Music/DOCUMENTS/SID_file_format.txt</A>
+ <A HREF="http://www.hvsc.de/download/C64Music/DOCUMENTS/SID_file_format.txt">http://www.hvsc.de/download/C64Music/DOCUMENTS/SID_file_format.txt</A>
 
 </P>
 <P>
@@ -11952,7 +11985,7 @@ used a machine code monitor, a disassembler, or a hexadecimal editor.
 
 
 
-<H3><A NAME="SEC415" HREF="vice_toc.html#TOC415">16.12.1  The SID file header v1</A></H3>
+<H3><A NAME="SEC396" HREF="vice_toc.html#TOC396">16.12.1  The SID file header v1</A></H3>
 
 <P>
 The detailed structure of the SID header looks like the following. Header
@@ -12228,7 +12261,7 @@ starts here.
 </P>
 
 
-<H3><A NAME="SEC416" HREF="vice_toc.html#TOC416">16.12.2  The SID file header v2, v3 and v4</A></H3>
+<H3><A NAME="SEC397" HREF="vice_toc.html#TOC397">16.12.2  The SID file header v2, v3 and v4</A></H3>
 
 <P>
 Version 2, 3 and 4 of the header incorporates the v1 header fields and provides
@@ -12497,7 +12530,7 @@ might indicate.
 </P>
 
 
-<H3><A NAME="SEC417" HREF="vice_toc.html#TOC417">16.12.3  The SID file environment</A></H3>
+<H3><A NAME="SEC398" HREF="vice_toc.html#TOC398">16.12.3  The SID file environment</A></H3>
 
 <P>
 Before the data of a SID file is loaded in memory of a C64, certain addresses

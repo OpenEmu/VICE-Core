@@ -43,6 +43,7 @@
 static menu_draw_t *menu_draw;
 static char *last_selected_file = NULL;
 /* static int last_selected_pos = 0; */ /* ? */
+int last_selected_image_pos = 0;    /* FIXME: global variable. ugly. */
 
 #define SDL_FILEREQ_META_FILE 0
 #define SDL_FILEREQ_META_PATH 1
@@ -108,6 +109,7 @@ static char* sdl_ui_get_file_selector_entry(ioutil_dir_t *directory, int offset,
     if (offset == SDL_FILEREQ_META_FILE) {
         switch (mode) {
             case FILEREQ_MODE_CHOOSE_FILE:
+            case FILEREQ_MODE_CHOOSE_FILE_IN_IMAGE:
             case FILEREQ_MODE_SAVE_FILE:
                 return "<enter filename>";
 
@@ -364,6 +366,12 @@ static char * display_drive_menu(void)
 /* ------------------------------------------------------------------ */
 /* External UI interface */
 
+#ifdef UNIX_COMPILE
+#define SDL_FILESELECTOR_DIRMODE    IOUTIL_OPENDIR_NO_DOTFILES
+#else
+#define SDL_FILESELECTOR_DIRMODE    IOUTIL_OPENDIR_ALL_FILES
+#endif
+
 char* sdl_ui_file_selection_dialog(const char* title, ui_menu_filereq_mode_t mode)
 {
     int total, dirs, files, menu_max;
@@ -378,6 +386,8 @@ char* sdl_ui_file_selection_dialog(const char* title, ui_menu_filereq_mode_t mod
     char *inputstring;
     unsigned int maxpathlen;
 
+    last_selected_image_pos = 0;
+
     menu_draw = sdl_ui_get_menu_param();
     maxpathlen = ioutil_maxpathlen();
     current_dir = lib_malloc(maxpathlen);
@@ -385,7 +395,7 @@ char* sdl_ui_file_selection_dialog(const char* title, ui_menu_filereq_mode_t mod
     ioutil_getcwd(current_dir, maxpathlen);
     backup_dir = lib_stralloc(current_dir);
 
-    directory = ioutil_opendir(current_dir);
+    directory = ioutil_opendir(current_dir, SDL_FILESELECTOR_DIRMODE);
     if (directory == NULL) {
         return NULL;
     }
@@ -395,7 +405,7 @@ char* sdl_ui_file_selection_dialog(const char* title, ui_menu_filereq_mode_t mod
     total = dirs + files + SDL_FILEREQ_META_NUM;
     menu_max = menu_draw->max_text_y - (MENU_FIRST_Y + SDL_FILEREQ_META_NUM);
 
-    if (mode == FILEREQ_MODE_CHOOSE_FILE) {
+    if ((mode == FILEREQ_MODE_CHOOSE_FILE) || (mode == FILEREQ_MODE_CHOOSE_FILE_IN_IMAGE)) {
         offset = sdl_ui_file_selector_recall_location(directory);
     }
 
@@ -413,6 +423,25 @@ char* sdl_ui_file_selection_dialog(const char* title, ui_menu_filereq_mode_t mod
         sdl_ui_refresh();
 
         switch (sdl_ui_menu_poll_input()) {
+            case MENU_ACTION_HOME:
+                cur_old = cur;
+                cur = 0;
+                offset = 0;
+                redraw = 1;
+                break;
+
+            case MENU_ACTION_END:
+                cur_old = cur;
+                if (total < (menu_max - 1)) {
+                    cur = total - 1;
+                    offset = 0;
+                } else {
+                    cur = menu_max - 1;
+                    offset = total - menu_max;
+                }
+                redraw = 1;
+                break;
+
             case MENU_ACTION_UP:
                 if (cur > 0) {
                     cur_old = cur;
@@ -425,6 +454,7 @@ char* sdl_ui_file_selection_dialog(const char* title, ui_menu_filereq_mode_t mod
                 }
                 break;
 
+            case MENU_ACTION_PAGEUP:
             case MENU_ACTION_LEFT:
                 offset -= menu_max;
                 if (offset < 0) {
@@ -449,6 +479,7 @@ char* sdl_ui_file_selection_dialog(const char* title, ui_menu_filereq_mode_t mod
                 }
                 break;
 
+            case MENU_ACTION_PAGEDOWN:
             case MENU_ACTION_RIGHT:
                 offset += menu_max;
                 if (offset >= total) {
@@ -465,7 +496,7 @@ char* sdl_ui_file_selection_dialog(const char* title, ui_menu_filereq_mode_t mod
             case MENU_ACTION_SELECT:
                 switch (offset + cur) {
                     case SDL_FILEREQ_META_FILE:
-                        if ((mode == FILEREQ_MODE_CHOOSE_FILE) || (mode == FILEREQ_MODE_SAVE_FILE)) {
+                        if ((mode == FILEREQ_MODE_CHOOSE_FILE) || (mode == FILEREQ_MODE_CHOOSE_FILE_IN_IMAGE) || (mode == FILEREQ_MODE_SAVE_FILE)) {
                             inputstring = sdl_ui_text_input_dialog("Enter filename", NULL);
                             if (inputstring == NULL) {
                                 redraw = 1;
@@ -490,7 +521,7 @@ char* sdl_ui_file_selection_dialog(const char* title, ui_menu_filereq_mode_t mod
                             lib_free(inputstring);
                             ioutil_closedir(directory);
                             ioutil_getcwd(current_dir, maxpathlen);
-                            directory = ioutil_opendir(current_dir);
+                            directory = ioutil_opendir(current_dir, SDL_FILESELECTOR_DIRMODE);
                             offset = 0;
                             cur_old = -1;
                             cur = 0;
@@ -509,7 +540,7 @@ char* sdl_ui_file_selection_dialog(const char* title, ui_menu_filereq_mode_t mod
                             lib_free(inputstring);
                             ioutil_closedir(directory);
                             ioutil_getcwd(current_dir, maxpathlen);
-                            directory = ioutil_opendir(current_dir);
+                            directory = ioutil_opendir(current_dir, SDL_FILESELECTOR_DIRMODE);
                             offset = 0;
                             cur_old = -1;
                             cur = 0;
@@ -522,10 +553,11 @@ char* sdl_ui_file_selection_dialog(const char* title, ui_menu_filereq_mode_t mod
 #endif
                     default:
                         if (offset + cur < (dirs + SDL_FILEREQ_META_NUM)) {
+                            /* enter subdirectory */
                             ioutil_chdir(directory->dirs[offset + cur - SDL_FILEREQ_META_NUM].name);
                             ioutil_closedir(directory);
                             ioutil_getcwd(current_dir, maxpathlen);
-                            directory = ioutil_opendir(current_dir);
+                            directory = ioutil_opendir(current_dir, SDL_FILESELECTOR_DIRMODE);
                             offset = 0;
                             cur_old = -1;
                             cur = 0;
@@ -535,12 +567,25 @@ char* sdl_ui_file_selection_dialog(const char* title, ui_menu_filereq_mode_t mod
                             redraw = 1;
                         } else {
                             char *selected_file = directory->files[offset + cur - dirs - SDL_FILEREQ_META_NUM].name;
-                            if (mode == FILEREQ_MODE_CHOOSE_FILE) {
+                            if ((mode == FILEREQ_MODE_CHOOSE_FILE) || (mode == FILEREQ_MODE_CHOOSE_FILE_IN_IMAGE) || (mode == FILEREQ_MODE_CHOOSE_FILE_IN_IMAGE)) {
                                 lib_free(last_selected_file);
                                 last_selected_file = lib_stralloc(selected_file);
                             }
                             retval = util_concat(current_dir, FSDEV_DIR_SEP_STR, selected_file, NULL);
-                            active = 0;
+
+                            if (mode == FILEREQ_MODE_CHOOSE_FILE_IN_IMAGE) {
+                                /* browse image */
+                                int retval2;
+                                retval2 = sdl_ui_image_file_selection_dialog(retval, mode);
+                                if (retval2 != -1) {
+                                    active = 0;
+                                }
+                                last_selected_image_pos = retval2;
+                                redraw = 1;
+                            } else {
+                                active = 0;
+                                last_selected_image_pos = 0;
+                            }
                         }
                         break;
                 }

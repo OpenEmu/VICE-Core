@@ -29,11 +29,12 @@
 
 #include <stdio.h>
 
-#include "not_implemented.h"
+#include "debug_gtk3.h"
 
 #include "vsyncapi.h"
 #include "mouse.h"
 #include "mousedrv.h"
+#include "uimachinewindow.h"
 
 
 /** \brief The callbacks registered for mouse buttons being pressed or
@@ -96,6 +97,7 @@ int mousedrv_get_y(void)
 
 void mouse_move(float dx, float dy)
 {
+#if 0
     mouse_x += dx;
     mouse_y -= dy;  /* why ? */
 
@@ -112,6 +114,10 @@ void mouse_move(float dx, float dy)
     while (mouse_y >= 65536.0) {
         mouse_y -= 65536.0;
     }
+#endif
+
+    mouse_x = (float)((int)(mouse_x + dx) % 0xffff);
+    mouse_y = (float)((int)(mouse_y - dy) % 0xffff);
 
     mouse_timestamp = vsyncarch_gettime();
 }
@@ -158,7 +164,13 @@ void mousedrv_mouse_changed(void)
 {
     /** \todo Tell UI level to capture mouse cursor if necessary and
      *        permitted */
-    fprintf(stderr, "GTK3MOUSE: Status changed\n");
+    fprintf(stderr, "GTK3MOUSE: Status changed: %d (%s)\n", 
+            _mouse_enabled, _mouse_enabled ? "enabled" : "disabled");
+    if (_mouse_enabled) {
+        ui_mouse_grab_pointer();
+    } else {
+        ui_mouse_ungrab_pointer();
+    }
 }
 
 int mousedrv_resources_init(mouse_func_t *funcs)

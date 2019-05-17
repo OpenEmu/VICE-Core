@@ -97,6 +97,10 @@ char *util_concat(const char *s, ...)
     *ptr = '\0';
     va_end(ap);
 
+    /* FIXME:   util_concat() is a generic function to join strings together,
+     *          so any Amiga-specific path handling should not be here at all.
+     *          If you need to build paths, use archdep_join_paths() --compyx
+     */
 #ifdef AMIGA_SUPPORT
     /* util_concat is often used to build complete paths, but the AmigaOS paths
      * are a little special as they should look like <device>:<directory>/<file>
@@ -106,10 +110,13 @@ char *util_concat(const char *s, ...)
      *     An alternative would be to override the fopen commands to make it
      * possible to make this change as needed when opening the file.
      */
-
+#if 0
     while ((ptr = strstr(newp, ":/")) != NULL) {
         strcpy(ptr + 1, ptr + 2);
     }
+#else
+    log_error(LOG_ERR, "%s(): Amiga-specific-hack removed.", __func__);
+#endif
 
 #endif
     DBG(("util_concat %p - %s\n", newp, newp));
@@ -1396,7 +1403,6 @@ char *util_add_extension_const(const char *filename, const char *extension)
 
 /* like util_add_extension(), but using a var[MAXPATH] type string
    without using realloc if extension is not present. */
-
 void util_add_extension_maxpath(char *name, const char *extension, unsigned int maxpath)
 {
     size_t name_len, ext_len;
@@ -1421,7 +1427,8 @@ void util_add_extension_maxpath(char *name, const char *extension, unsigned int 
         return;
     }
 
-    sprintf(name, "%s%c%s", name, FSDEV_EXT_SEP_CHR, extension);
+    name[name_len] = FSDEV_EXT_SEP_CHR;
+    memcpy(name + name_len + 1, extension, ext_len + 1);
 }
 
 char *util_get_extension(char *filename)

@@ -48,7 +48,6 @@
 #include "log.h"
 #include "resources.h"
 #include "sysfile.h"
-#include "translate.h"
 #include "util.h"
 #include "uihotkey.h"
 #include "uimenu.h"
@@ -207,61 +206,57 @@ static const resource_int_t resources_int[] = {
 /* Command-line options.  */
 
 #ifdef HAVE_SDL_NUMJOYSTICKS
-static const cmdline_option_t cmdline_options[] = {
-    { "-joymap", SET_RESOURCE, 1, NULL, NULL, "JoyMapFile", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING, IDCLS_UNUSED, IDCLS_UNUSED,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-joymap", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
+      NULL, NULL, "JoyMapFile", NULL,
       "<name>", "Specify name of joystick map file" },
-    { "-joythreshold", SET_RESOURCE, 1, NULL, NULL, "JoyThreshold", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING, IDCLS_UNUSED, IDCLS_UNUSED,
+    { "-joythreshold", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
+      NULL, NULL, "JoyThreshold", NULL,
       "<0-32767>", "Set joystick threshold" },
-    { "-joyfuzz", SET_RESOURCE, 1, NULL, NULL, "JoyFuzz", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING, IDCLS_UNUSED, IDCLS_UNUSED,
+    { "-joyfuzz", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
+      NULL, NULL, "JoyFuzz", NULL,
       "<0-32767>", "Set joystick fuzz" },
     CMDLINE_LIST_END
 };
 #endif
 
-static const cmdline_option_t joydev1cmdline_options[] = {
-    { "-joydev1", SET_RESOURCE, 1,
+static const cmdline_option_t joydev1cmdline_options[] =
+{
+    { "-joydev1", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyDevice1", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
       JOYDEV_RANGE_TEXT, JOYDEV_DESCRIPTION_1 },
     CMDLINE_LIST_END
 };
 
-static const cmdline_option_t joydev2cmdline_options[] = {
-    { "-joydev2", SET_RESOURCE, 1,
+static const cmdline_option_t joydev2cmdline_options[] =
+{
+    { "-joydev2", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyDevice2", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
       JOYDEV_RANGE_TEXT, JOYDEV_DESCRIPTION_2 },
     CMDLINE_LIST_END
 };
 
-static const cmdline_option_t joydev3cmdline_options[] = {
-    { "-extrajoydev1", SET_RESOURCE, 1,
+static const cmdline_option_t joydev3cmdline_options[] =
+{
+    { "-extrajoydev1", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyDevice3", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
       JOYDEV_RANGE_TEXT, JOYDEV_DESCRIPTION_3 },
     CMDLINE_LIST_END
 };
 
-static const cmdline_option_t joydev4cmdline_options[] = {
-    { "-extrajoydev2", SET_RESOURCE, 1,
+static const cmdline_option_t joydev4cmdline_options[] =
+{
+    { "-extrajoydev2", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyDevice4", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
       JOYDEV_RANGE_TEXT, JOYDEV_DESCRIPTION_4 },
     CMDLINE_LIST_END
 };
 
-static const cmdline_option_t joydev5cmdline_options[] = {
-    { "-extrajoydev3", SET_RESOURCE, 1,
+static const cmdline_option_t joydev5cmdline_options[] =
+{
+    { "-extrajoydev3", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyDevice5", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
       JOYDEV_RANGE_TEXT, JOYDEV_DESCRIPTION_5 },
     CMDLINE_LIST_END
 };

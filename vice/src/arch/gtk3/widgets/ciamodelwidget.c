@@ -55,18 +55,35 @@ static const vice_gtk3_radiogroup_entry_t cia_models[] = {
 /** \brief  Reference to machine model widget
  *
  * Used to update the machine model widget when a CIA model is changed
+ *
+ * XXX: Not sure this is needed anymore since any model changes/updates go
+ *      through callbacks/event handlers.
  */
 static GtkWidget *machine_widget = NULL;
 
+static GtkWidget *cia1_group;
+static GtkWidget *cia2_group;
 
-/** \brief  CIA1 model widget
+static void (*cia_model_callback)(int, int);
+
+
+
+/** \brief  Handler for the radiogroup callbacks for the CIA models
+ *
+ * Triggers the callback set with cia_model_widget_set_callback()
+ *
+ * \param[in]   widget  CIA radiogroup widget triggering the event
+ * \param[in]   model   CIA model ID
  */
-static GtkWidget *cia1_widget = NULL;
+static void on_cia_model_callback_internal(GtkWidget *widget, int model)
+{
+    debug_gtk3("got value %d.", model);
+    if (cia_model_callback != NULL) {
+        cia_model_callback(widget == cia1_group ? 1 : 2, model);
+    }
+}
 
 
-/** \brief  CIA2 model widget
- */
-static GtkWidget *cia2_widget = NULL;
 
 
 /** \brief  Create a widget for CIA \a num
@@ -92,6 +109,13 @@ static GtkWidget *create_cia_widget(int num)
 
     radio_group = vice_gtk3_resource_radiogroup_new_sprintf(
             "CIA%dModel", cia_models, GTK_ORIENTATION_HORIZONTAL, num);
+    vice_gtk3_resource_radiogroup_add_callback(radio_group,
+            on_cia_model_callback_internal);
+    if (num == 1) {
+        cia1_group = radio_group;
+    } else {
+        cia2_group = radio_group;
+    }
     gtk_grid_attach(GTK_GRID(grid), radio_group, 1, 0, 1, 1);
 
     gtk_widget_show_all(grid);
@@ -113,6 +137,8 @@ static GtkWidget *create_cia_widget(int num)
 GtkWidget *cia_model_widget_create(GtkWidget *machine_model_widget, int count)
 {
     GtkWidget *grid;
+    GtkWidget *cia1_widget;
+    GtkWidget *cia2_widget;
 
     machine_widget = machine_model_widget;
 
@@ -129,43 +155,27 @@ GtkWidget *cia_model_widget_create(GtkWidget *machine_model_widget, int count)
 }
 
 
-/** \brief  Update CIA model widget
+/** \brief  Synchronize CIA model widgets with their current resources
  *
  * Only updates the widget if the widget is out of sync with the resources,
  * this will avoid having the machine model widget and the CIA model widget
  * triggering each others' event handlers.
  *
- * \note    This will break if the CIA_MODEL_6526(A) defines are changed
- *
  * \param[in,out]   widget  CIA model widget
  */
-void cia_model_widget_update(GtkWidget *widget)
+void cia_model_widget_sync(GtkWidget *widget)
 {
-    int old_model;
-    int new_model;
-    GtkWidget *radio;
-
-    /* CIA1 */
-    radio = gtk_grid_get_child_at(GTK_GRID(cia1_widget), 1, 0);
-    old_model = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(radio))
-        ? CIA_MODEL_6526 : CIA_MODEL_6526A;
-    resources_get_int("CIA1Model", &new_model);
-    if (old_model != new_model) {
-        radio = gtk_grid_get_child_at(GTK_GRID(cia1_widget), 1 + new_model, 0);
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(radio), TRUE);
+    if (cia1_group != NULL) {
+        vice_gtk3_resource_radiogroup_sync(cia1_group);
     }
-
-    if (cia2_widget == NULL) {
-        return;
+    if (cia2_group != NULL) {
+        vice_gtk3_resource_radiogroup_sync(cia2_group);
     }
+}
 
-    /* CIA2 */
-    radio = gtk_grid_get_child_at(GTK_GRID(cia2_widget), 1, 0);
-    old_model = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(radio))
-        ? CIA_MODEL_6526 : CIA_MODEL_6526A;
-    resources_get_int("CIA2Model", &new_model);
-    if (old_model != new_model) {
-        radio = gtk_grid_get_child_at(GTK_GRID(cia2_widget), 1 + new_model, 0);
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(radio), TRUE);
-    }
+
+void cia_model_widget_set_callback(GtkWidget *widget,
+                                   void (*func)(int cia_num, int cia_model))
+{
+    cia_model_callback = func;
 }

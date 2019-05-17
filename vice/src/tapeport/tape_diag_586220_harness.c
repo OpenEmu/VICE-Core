@@ -52,7 +52,6 @@ F-6 |   4   | loops to 6 (SENSE <-> READ)
 #include "snapshot.h"
 #include "tape_diag_586220_harness.h"
 #include "tapeport.h"
-#include "translate.h"
 #include "util.h"
 
 /* Device enabled */
@@ -69,7 +68,6 @@ static void tape_diag_586220_harness_set_read_out(int val);
 static tapeport_device_t tape_diag_586220_harness_device = {
     TAPEPORT_DEVICE_TAPE_DIAG_586220_HARNESS,
     "Tape 586220 diagnostics harness module",
-    IDGS_TAPE_DIAG_586220_HARNESS,
     0,
     "TapeDiag586220Harness",
     NULL, /* no shutdown */
@@ -149,16 +147,12 @@ int tape_diag_586220_harness_resources_init(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-tapediag586220harness", SET_RESOURCE, 0,
+    { "-tapediag586220harness", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "TapeDiag586220Harness", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_TAPE_DIAG_586220_HARNESS,
-      NULL, NULL },
-    { "+tapediag586220harness", SET_RESOURCE, 0,
+      NULL, "Enable the tape part of the 586220 diagnostics harness" },
+    { "+tapediag586220harness", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "TapeDiag586220Harness", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_TAPE_DIAG_586220_HARNESS,
-      NULL, NULL },
+      NULL, "Disable the tape part of the 586220 diagnostics harness" },
     CMDLINE_LIST_END
 };
 

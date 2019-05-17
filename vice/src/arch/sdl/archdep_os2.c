@@ -102,109 +102,10 @@
 #include "vsyncapi.h"
 
 
-/** \brief  Tokens that are illegal in a path/filename
- *
- * FIXME: taken from win32
- */
-static const char *illegal_name_tokens = "/\\?*:|\"<>";
-
-
 static char *argv0;
 
-static char *program_name = NULL;
 
-char *archdep_program_name(void)
-{
-    if (program_name == NULL) {
-        char *s, *e;
-        int len;
-
-        s = strrchr(argv0, '\\');
-        if (s == NULL) {
-            s = argv0;
-        } else {
-            s++;
-        }
-        e = strchr(s, '.');
-        if (e == NULL) {
-            e = argv0 + strlen(argv0);
-        }
-        len = (int)(e - s + 1);
-        program_name = lib_malloc(len);
-        memcpy(program_name, s, len - 1);
-        program_name[len - 1] = 0;
-    }
-
-    return program_name;
-}
-
-const char *archdep_boot_path(void)
-{
-    static char *boot_path;
-
-    if (boot_path == NULL) {
-        util_fname_split(argv0, &boot_path, NULL);
-
-        /* This should not happen, but you never know...  */
-        if (boot_path == NULL) {
-            boot_path = lib_stralloc("./");
-        }
-    }
-
-    return boot_path;
-}
-
-char *archdep_default_sysfile_pathlist(const char *emu_id)
-{
-    static char *pathlist = NULL;
-
-    if (!pathlist) {
-        pathlist = util_concat(emu_id, ARCHDEP_FINDPATH_SEPARATOR_STRING, "DRIVES", ARCHDEP_FINDPATH_SEPARATOR_STRING, "PRINTER", NULL);
-    }
-    return pathlist;
-}
-
-/* Return a malloc'ed backup file name for file `fname'.  */
-char *archdep_make_backup_filename(const char *fname)
-{
-    return util_concat(fname, "~", NULL);
-}
-
-char *archdep_default_save_resource_file_name(void)
-{
-    return archdep_default_resource_file_name();
-}
-
-char *archdep_default_resource_file_name(void)
-{
-    return util_concat(archdep_boot_path(), "\\sdl-vice.ini", NULL);
-}
-
-
-/** \brief  Get path to VICE session file
- *
- * The 'session file' is a file that is used to store settings between VICE
- * runs, storing things like the last used directory.
- *
- * \return  path to session file
- */
-char *archdep_default_session_file_name(void)
-{
-    return util_concat(archdep_boot_path(), "\\sdl-vice-session.ini", NULL);
-}
-
-
-
-char *archdep_default_fliplist_file_name(void)
-{
-    return util_concat(archdep_boot_path(), "\\fliplist-", machine_get_name(), ".vfl", NULL);
-}
-
-char *archdep_default_rtc_file_name(void)
-{
-    return util_concat(archdep_boot_path(), "\\sdl-vice.rtc", NULL);
-}
-
+#if 0
 char *archdep_default_autostart_disk_image_file_name(void)
 {
     const char *home;
@@ -212,6 +113,7 @@ char *archdep_default_autostart_disk_image_file_name(void)
     home = archdep_boot_path();
     return util_concat(home, "\\autostart-", machine_get_name(), ".d64", NULL);
 }
+#endif
 
 char *archdep_default_hotkey_file_name(void)
 {
@@ -223,6 +125,7 @@ char *archdep_default_joymap_file_name(void)
     return util_concat(archdep_boot_path(), "\\sdl-joymap-", machine_get_name(), ".vjm", NULL);
 }
 
+#if 0
 FILE *archdep_open_default_log_file(void)
 {
     char *fname;
@@ -234,6 +137,7 @@ FILE *archdep_open_default_log_file(void)
 
     return f;
 }
+#endif
 
 int archdep_default_logger(const char *lvl, const char *txt)
 {
@@ -243,10 +147,6 @@ int archdep_default_logger(const char *lvl, const char *txt)
     return 0;
 }
 
-int archdep_path_is_relative(const char *path)
-{
-    return !(isalpha(path[0]) && path[1] == ':' && (path[2] == '/' || path[2] == '\\') || (path[0] == '/' || path[0] == '\\'));
-}
 
 static int archdep_search_path(const char *name, char *pBuf, int lBuf)
 {
@@ -265,6 +165,7 @@ static int archdep_search_path(const char *name, char *pBuf, int lBuf)
 
     return 0;
 }
+
 
 static char *archdep_cmdline(const char *name, char **argv, const char *sout, const char *serr)
 {
@@ -297,6 +198,7 @@ static char *archdep_cmdline(const char *name, char **argv, const char *sout, co
     return res;
 }
 
+
 static void archdep_create_mutex_sem(HMTX *hmtx, const char *pszName, int fState)
 {
     APIRET rc;
@@ -307,6 +209,7 @@ static void archdep_create_mutex_sem(HMTX *hmtx, const char *pszName, int fState
 
     rc = DosCreateMutexSem(sem, hmtx, 0, fState);
 }
+
 
 static HMTX hmtxSpawn;
 
@@ -385,56 +288,12 @@ int archdep_spawn(const char *name, char **argv, char **pstdout_redir, const cha
     return rc;
 }
 
-/* return malloc'd version of full pathname of orig_name */
-int archdep_expand_path(char **return_path, const char *filename)
-{
-    if (filename[0] == '\\' || filename[1] == ':') {
-        *return_path = lib_stralloc(filename);
-    } else {
-        char *p = (char *)malloc(512);
-        while (getcwd(p, 512) == NULL) {
-            return 0;
-        }
-
-        *return_path = util_concat(p, "\\", filename, NULL);
-        lib_free(p);
-    }
-    return 0;
-}
-
-void archdep_startup_log_error(const char *format, ...)
-{
-    char *tmp;
-    va_list args;
-
-    va_start(args, format);
-    tmp = lib_mvsprintf(format, args);
-    va_end(args);
-
-    WinMessageBox(HWND_DESKTOP, HWND_DESKTOP, tmp, "SDLVICE/2 Startup Error", 0, MB_OK);
-    lib_free(tmp);
-}
-
-char *archdep_quote_parameter(const char *name)
-{
-    return util_concat("\"", name, "\"", NULL);
-}
-
-char *archdep_filename_parameter(const char *name)
-{
-    char *exp;
-    char *a;
-
-    archdep_expand_path(&exp, name);
-    a = archdep_quote_parameter(exp);
-    lib_free(exp);
-    return a;
-}
-
+#if 0
 char *archdep_tmpnam(void)
 {
     return lib_stralloc(tmpnam(NULL));
 }
+#endif
 
 FILE *archdep_mkstemp_fd(char **filename, const char *mode)
 {
@@ -454,50 +313,6 @@ FILE *archdep_mkstemp_fd(char **filename, const char *mode)
     return fd;
 }
 
-
-int archdep_mkdir(const char *pathname, int mode)
-{
-    return mkdir((char*)pathname);
-}
-
-int archdep_rmdir(const char *pathname)
-{
-    return rmdir(pathname);
-}
-
-int archdep_stat(const char *file_name, unsigned int *len, unsigned int *isdir)
-{
-    struct stat statbuf;
-
-    if (stat(file_name, &statbuf) < 0) {
-        return -1;
-    }
-
-    *len = statbuf.st_size;
-    *isdir = statbuf.st_mode & S_IFDIR;
-
-    return 0;
-}
-
-/* set permissions of given file to rw, respecting current umask */
-int archdep_fix_permissions(const char *file_name)
-{
-    return 0;
-}
-
-int archdep_file_is_blockdev(const char *name)
-{
-    return 0;
-}
-
-int archdep_file_is_chardev(const char *name)
-{
-    if (strcmp(name, "/dev/cbm") == 0) {
-        return 1;
-    }
-
-    return 0;
-}
 
 #ifdef SDL_CHOOSE_DRIVES
 char **archdep_list_drives(void)
@@ -560,10 +375,6 @@ int archdep_require_vkbd(void)
     return 0;
 }
 
-int archdep_rename(const char *oldpath, const char *newpath)
-{
-    return rename(oldpath, newpath);
-}
 
 #ifndef HAVE_GETTIMEOFDAY
 int archdep_rtc_get_centisecond(void)

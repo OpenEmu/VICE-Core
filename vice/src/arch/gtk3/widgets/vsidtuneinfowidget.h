@@ -1,4 +1,4 @@
-/** \file   vsidmainwidget.h
+/** \file   vsidtuneinfowidget.h
  * \brief   GTK3 tune info widget for VSID - header
  *
  * \author  Bas Wassink <b.wassink@ziggo.nl>
@@ -31,6 +31,7 @@
 #include "vice.h"
 #include <gtk/gtk.h>
 
+
 GtkWidget *vsid_tune_info_widget_create(void);
 
 void vsid_tune_info_widget_set_name(const char *name);
@@ -50,5 +51,11 @@ void vsid_tune_info_widget_set_init_addr(uint16_t addr);
 void vsid_tune_info_widget_set_play_addr(uint16_t addr);
 void vsid_tune_info_widget_set_data_size(uint16_t size);
 
+int  vsid_tune_info_widget_set_song_lengths(const char *sid);
+int  vsid_tune_info_widget_get_song_lengths(long **dest);
+
+
+/* TODO: move and rename */
+gchar *convert_to_utf8(const char *s);
 
 #endif

@@ -41,7 +41,6 @@
 
 #include "joyport.h"
 #include "keyboard.h"
-#include "translate.h"
 
 #include "waasoft_dongle.h"
 
@@ -101,7 +100,6 @@ static void waasoft_dongle_store_dig(uint8_t val)
 
 static joyport_t joyport_waasoft_dongle_device = {
     "WaaSoft dongle",
-    IDGS_WAASOFT_DONGLE,
     JOYPORT_RES_ID_WAASOFT,
     JOYPORT_IS_NOT_LIGHTPEN,
     JOYPORT_POT_REQUIRED,

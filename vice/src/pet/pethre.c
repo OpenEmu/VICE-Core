@@ -41,7 +41,6 @@
 #include "pets.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "types.h"
 
 /*
@@ -133,16 +132,12 @@ void pethre_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-pethre", SET_RESOURCE, 0,
+    { "-pethre", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "PETHRE", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_HIRES_EMULATION_BOARD,
-      NULL, NULL },
-    { "+pethre", SET_RESOURCE, 0,
+      NULL, "Enable HiRes Emulation Board" },
+    { "+pethre", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "PETHRE", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_HIRES_EMULATION_BOARD,
-      NULL, NULL },
+      NULL, "Disable HiRes Emulation Board" },
     CMDLINE_LIST_END
 };
 

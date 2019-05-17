@@ -27,9 +27,9 @@
 #include "vice.h"
 
 #ifdef UNIX_COMPILE
-#include "../unix/rs232dev.c"
+#include "rs232dev-unix.c"
 #endif
 
 #ifdef WIN32_COMPILE
-#include "../win32/rs232dev.c"
+#include "rs232dev-win32.c"
 #endif

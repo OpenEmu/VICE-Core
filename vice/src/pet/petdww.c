@@ -47,7 +47,6 @@
 #include "ram.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "types.h"
 #include "util.h"
 
@@ -294,21 +293,15 @@ void petdww_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-petdww", SET_RESOURCE, 0,
+    { "-petdww", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "PETDWW", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_PETDWW,
-      NULL, NULL },
-    { "+petdww", SET_RESOURCE, 0,
+      NULL, "Enable the PET DWW hi-res board" },
+    { "+petdww", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "PETDWW", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_PETDWW,
-      NULL, NULL },
-    { "-petdwwimage", SET_RESOURCE, 1,
+      NULL, "Disable the PET DWW hi-res board" },
+    { "-petdwwimage", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "PETDWWfilename", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SPECIFY_PETDWW_NAME,
-      NULL, NULL },
+      "<Name>", "Specify name of PET DWW image" },
     CMDLINE_LIST_END
 };
 

@@ -38,7 +38,6 @@
 #include "monitor.h"
 #include "petmem.h"
 #include "resources.h"
-#include "translate.h"
 #include "types.h"
 #include "uiapi.h"
 #include "util.h"
@@ -122,7 +121,7 @@ static void io_source_msg_detach_all(uint16_t addr, int amount, io_source_list_t
 
             /* first part of the message "read collision at x from" */
             if (found == 0) {
-                old_msg = lib_stralloc(translate_text(IDGS_IO_READ_COLL_AT_X_FROM));
+                old_msg = lib_stralloc("I/O read collision at %X from ");
                 new_msg = util_concat(old_msg, current->device->name, NULL);
                 lib_free(old_msg);
             }
@@ -133,7 +132,7 @@ static void io_source_msg_detach_all(uint16_t addr, int amount, io_source_list_t
             }
             if (found == amount - 1) {
                 old_msg = new_msg;
-                new_msg = util_concat(old_msg, translate_text(IDGS_AND), current->device->name, translate_text(IDGS_ALL_DEVICES_DETACHED), NULL);
+                new_msg = util_concat(old_msg, " and ", current->device->name, ".\nAll the named devices will be detached.", NULL);
                 lib_free(old_msg);
             }
             found++;
@@ -194,7 +193,7 @@ static void io_source_msg_detach_last(uint16_t addr, int amount, io_source_list_
 
             /* first part of the message "read collision at x from" */
             if (found == 0) {
-                old_msg = lib_stralloc(translate_text(IDGS_IO_READ_COLL_AT_X_FROM));
+                old_msg = lib_stralloc("I/O read collision at %X from ");
                 new_msg = util_concat(old_msg, current->device->name, NULL);
                 lib_free(old_msg);
             }
@@ -205,7 +204,7 @@ static void io_source_msg_detach_last(uint16_t addr, int amount, io_source_list_
             }
             if (found == amount - 1) {
                 old_msg = new_msg;
-                new_msg = util_concat(old_msg, translate_text(IDGS_AND), current->device->name, translate_text(IDGS_ALL_DEVICES_EXCEPT), first_cart, translate_text(IDGS_WILL_BE_DETACHED), NULL);
+                new_msg = util_concat(old_msg, " and ", current->device->name, ".\nAll devices except ", first_cart, " will be detached.", NULL);
                 lib_free(old_msg);
             }
             found++;
@@ -256,7 +255,7 @@ static void io_source_log_collisions(uint16_t addr, int amount, io_source_list_t
 
             /* first part of the message "read collision at x from" */
             if (found == 0) {
-                old_msg = lib_stralloc(translate_text(IDGS_IO_READ_COLL_AT_X_FROM));
+                old_msg = lib_stralloc("I/O read collision at %X from ");
                 new_msg = util_concat(old_msg, current->device->name, NULL);
                 lib_free(old_msg);
             }
@@ -267,7 +266,7 @@ static void io_source_log_collisions(uint16_t addr, int amount, io_source_list_t
             }
             if (found == amount - 1) {
                 old_msg = new_msg;
-                new_msg = util_concat(old_msg, translate_text(IDGS_AND), current->device->name, NULL);
+                new_msg = util_concat(old_msg, " and ", current->device->name, NULL);
                 lib_free(old_msg);
             }
             found++;
@@ -939,12 +938,11 @@ int cartio_resources_init(void)
     return resources_register_int(resources_int);
 }
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-iocollision", SET_RESOURCE, 1,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-iocollision", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "IOCollisionHandling", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_METHOD, IDCLS_SELECT_CONFLICT_HANDLING,
-      NULL, NULL },
+      "<method>", "Select the way the I/O collisions should be handled, (0: error message and detach all involved carts, 1: error message and detach last attached involved carts, 2: warning in log and 'AND' the valid return values" },
     CMDLINE_LIST_END
 };
 

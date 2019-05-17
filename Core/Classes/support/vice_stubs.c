@@ -42,7 +42,6 @@
 #include "resources.h"
 #include "sysfile.h"
 #include "log.h"
-#include "archdep.h"
 #include "palette.h"
 #include "c64model.h"
 #include "keyboard.h"
@@ -263,3 +262,9 @@ int cmdline_init() { return 0; }
 void cmdline_shutdown() { }
 int initcmdline_init() { return 0; }
 #endif
+
+
+int c64ui_init_early(void)
+{
+    return 0;
+}

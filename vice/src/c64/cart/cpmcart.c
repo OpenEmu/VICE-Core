@@ -48,7 +48,6 @@
 #include "monitor.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "types.h"
 #include "z80regs.h"
 
@@ -260,16 +259,12 @@ int cpmcart_resources_init(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-cpmcart", SET_RESOURCE, 0,
+    { "-cpmcart", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "CPMCart", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_CPM_CART,
-      NULL, NULL },
-    { "+cpmcart", SET_RESOURCE, 0,
+      NULL, "Enable the CP/M cartridge" },
+    { "+cpmcart", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "CPMCart", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_CPM_CART,
-      NULL, NULL },
+      NULL, "Disable the CP/M cartridge" },
     CMDLINE_LIST_END
 };
 

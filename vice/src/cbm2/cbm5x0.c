@@ -49,7 +49,6 @@
 #include "cbm2ui.h"
 #include "cia.h"
 #include "clkguard.h"
-#include "cmdline.h"
 #include "datasette.h"
 #include "debug.h"
 #include "debugcart.h"
@@ -94,7 +93,6 @@
 #include "tape.h"
 #include "tapeport.h"
 #include "tpi.h"
-#include "translate.h"
 #include "traps.h"
 #include "types.h"
 #include "vice-event.h"
@@ -161,7 +159,6 @@ kbdtype_info_t *machine_get_keyboard_info_list(void)
 static joyport_port_props_t control_port_1 =
 {
     "Control port 1",
-    IDGS_CONTROL_PORT_1,
     1,                      /* has a potentiometer connected to this port */
     0,                      /* officially has lightpen support on this port,
                                but no lightpen support is in the cbm5x0 code */
@@ -171,7 +168,6 @@ static joyport_port_props_t control_port_1 =
 static joyport_port_props_t control_port_2 =
 {
     "Control port 2",
-    IDGS_CONTROL_PORT_2,
     1,                      /* has a potentiometer connected to this port */
     0,                      /* has NO lightpen support on this port */
     1                       /* port is always active */
@@ -382,7 +378,7 @@ int machine_cmdline_options_init(void)
         init_cmdline_options_fail("vicii");
         return -1;
     }
-    if (sid_cmdline_options_init() < 0) {
+    if (sid_cmdline_options_init(SIDTYPE_SID) < 0) {
         init_cmdline_options_fail("sid");
         return -1;
     }
@@ -638,12 +634,11 @@ int machine_specific_init(void)
     /* initialize print devices */
     printer_init();
 
-#if defined(USE_BEOS_UI) || defined (USE_NATIVE_GTK3)
     /* Pre-init CBM-II-specific parts of the menus before vicii_init()
-       creates a canvas window with a menubar at the top. This could
-       also be used by other ports.  */
-    cbm5x0ui_init_early();
-#endif
+       creates a canvas window with a menubar at the top. */
+    if (!console_mode) {
+        cbm5x0ui_init_early();
+    }
 
     if (vicii_init(VICII_STANDARD) == NULL) {
         return -1;
@@ -709,16 +704,6 @@ int machine_specific_init(void)
     /* Initialize the CBM5x0-specific I/O */
     cbm5x0io_init();
 
-#if defined (USE_XF86_EXTENSIONS) && (defined(USE_XF86_VIDMODE_EXT) || defined (HAVE_XRANDR))
-    {
-        /* set fullscreen if user used `-fullscreen' on cmdline */
-        int fs;
-        resources_get_int("UseFullscreen", &fs);
-        if (fs) {
-            resources_set_int("VICIIFullscreen", 1);
-        }
-    }
-#endif
     return 0;
 }
 

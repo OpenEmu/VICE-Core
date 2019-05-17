@@ -56,7 +56,6 @@
 #include "mem.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "types.h"
 #include "util.h"
 
@@ -523,36 +522,24 @@ void reu_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-reu", SET_RESOURCE, 0,
+    { "-reu", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "REU", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_REU,
-      NULL, NULL },
-    { "+reu", SET_RESOURCE, 0,
+      NULL, "Enable the RAM Expansion Unit" },
+    { "+reu", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "REU", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_REU,
-      NULL, NULL },
-    { "-reusize", SET_RESOURCE, 1,
+      NULL, "Disable the RAM Expansion Unit" },
+    { "-reusize", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "REUsize", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_SIZE_IN_KB, IDCLS_REU_SIZE,
-      NULL, NULL },
-    { "-reuimage", SET_RESOURCE, 1,
+      "<size in KB>", "Size of the RAM expansion unit. (128/256/512/1024/2048/4096/8192/16384)" },
+    { "-reuimage", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "REUfilename", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SPECIFY_REU_NAME,
-      NULL, NULL },
-    { "-reuimagerw", SET_RESOURCE, 0,
+      "<Name>", "Specify name of REU image" },
+    { "-reuimagerw", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "REUImageWrite", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ALLOW_WRITING_TO_REU_IMAGE,
-      NULL, NULL },
-    { "+reuimagerw", SET_RESOURCE, 0,
+      NULL, "Allow writing to REU image" },
+    { "+reuimagerw", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "REUImageWrite", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DO_NOT_WRITE_TO_REU_IMAGE,
-      NULL, NULL },
+      NULL, "Do not write to REU image" },
     CMDLINE_LIST_END
 };
 

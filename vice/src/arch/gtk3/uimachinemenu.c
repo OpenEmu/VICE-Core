@@ -41,9 +41,13 @@
 #include <stdlib.h>
 #include <gtk/gtk.h>
 
+#include "vice_gtk3.h"
+#include "archdep.h"
+#include "debug_gtk3.h"
 #include "datasette.h"
 #include "debug.h"
 #include "machine.h"
+#include "resources.h"
 #include "ui.h"
 #include "uiabout.h"
 #include "uicart.h"
@@ -117,6 +121,72 @@ static GtkWidget *debug_submenu = NULL;
 /** \brief  Help submenu
  */
 static GtkWidget *help_submenu = NULL;
+
+
+/** \brief  Load settings from default file
+ *
+ * \param[in]   widget  menu item triggering the event (ignored)
+ * \param[in]   data    extra even data (ignored)
+ */
+static void settings_load_callback(GtkWidget *widget, gpointer data)
+{
+    if (resources_load(NULL) != 0) {
+        vice_gtk3_message_error("VICE core error",
+                "Failed to load default settings file");
+    }
+}
+
+
+/** \brief  Load settings from user-specified file
+ *
+ * \param[in]   widget  menu item triggering the event (ignored)
+ * \param[in]   data    extra even data (ignored)
+ */
+static void settings_load_custom_callback(GtkWidget *widget, gpointer data)
+{
+    gchar *filename = vice_gtk3_open_file_dialog("Load settings file",
+            NULL, NULL, NULL);
+    if (filename!= NULL) {
+        if (resources_load(filename) != 0) {
+            vice_gtk3_message_error("VICE core error",
+                    "Failed to load settings from '%s'", filename);
+        }
+    }
+}
+
+
+/** \brief  Save settings to default file
+ *
+ * \param[in]   widget  menu item triggering the event (ignored)
+ * \param[in]   data    extra even data (ignored)
+ */
+static void settings_save_callback(GtkWidget *widget, gpointer data)
+{
+    if (resources_save(NULL) != 0) {
+        vice_gtk3_message_error("VICE core error",
+                "Failed to save default settings file");
+    }
+}
+
+
+/** \brief  Save settings to user-specified file
+ *
+ * \param[in]   widget  menu item triggering the event (ignored)
+ * \param[in]   data    extra even data (ignored)
+ */
+static void settings_save_custom_callback(GtkWidget *widget, gpointer data)
+{
+    gchar *filename = vice_gtk3_save_file_dialog("Save settings as ...",
+            NULL, TRUE, NULL);
+    if (filename!= NULL) {
+        if (resources_save(filename) != 0) {
+            vice_gtk3_message_error("VICE core error",
+                    "Failed to save settings as '%s'", filename);
+        }
+        g_free(filename);
+    }
+}
+
 
 
 /** \brief  File->Detach disk submenu
@@ -470,8 +540,8 @@ static ui_menu_item_t settings_menu_head[] = {
         GDK_KEY_B, VICE_MOD_MASK },
 #endif
 
+#if 0
     UI_MENU_SEPARATOR,
-
     { "Toggle warp mode", UI_MENU_TYPE_ITEM_CHECK,
         "warp", (void *)(ui_toggle_resource), (void *)"WarpMode",
         GDK_KEY_W, VICE_MOD_MASK },
@@ -481,11 +551,7 @@ static ui_menu_item_t settings_menu_head[] = {
     { "Advance frame", UI_MENU_TYPE_ITEM_ACTION,
         "frame-advance", (void *)(ui_advance_frame), NULL,
         GDK_KEY_P, VICE_MOD_MASK | GDK_SHIFT_MASK },
-
-    { "Toggle CRT controls", UI_MENU_TYPE_ITEM_ACTION,
-        "crt-controes", (void *)ui_toggle_crt_controls, NULL,
-        0, 0, },
-
+#endif
     UI_MENU_SEPARATOR,
 
     UI_MENU_TERMINATOR
@@ -566,7 +632,19 @@ static ui_menu_item_t settings_menu_tail[] = {
 
     /* the settings dialog */
     { "Settings ...", UI_MENU_TYPE_ITEM_ACTION,
-        "settings", ui_settings_dialog_create, NULL,
+        "settings", (void *)ui_settings_dialog_create, NULL,
+        GDK_KEY_O, VICE_MOD_MASK },
+    { "Load settings", UI_MENU_TYPE_ITEM_ACTION,
+        "settings-load", settings_load_callback, NULL,
+        0, 0 },
+    { "Load custom settings ...", UI_MENU_TYPE_ITEM_ACTION,
+        "settings-load-custom", settings_load_custom_callback, NULL,
+        0, 0 },
+    { "Save settings", UI_MENU_TYPE_ITEM_ACTION,
+        "settings-save", settings_save_callback, NULL,
+        0, 0 },
+    { "Save custom settings ...", UI_MENU_TYPE_ITEM_ACTION,
+        "settings-save-custom", settings_save_custom_callback, NULL,
         0, 0 },
     UI_MENU_TERMINATOR
 };
@@ -751,7 +829,7 @@ GtkWidget *ui_machine_menu_bar_create(void)
             settings_menu_joy_section = settings_menu_userport_joy;
             break;
         case VICE_MACHINE_VSID:
-            exit(1);
+            archdep_vice_exit(1);
             break;
         default:
             break;

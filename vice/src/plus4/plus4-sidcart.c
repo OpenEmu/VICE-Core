@@ -42,7 +42,6 @@
 #include "sid-resources.h"
 #include "sidcart.h"
 #include "sound.h"
-#include "translate.h"
 #include "types.h"
 #include "uiapi.h"
 
@@ -264,43 +263,32 @@ int sidcart_resources_init(void)
 
 /* ------------------------------------------------------------------------- */
 
-static const cmdline_option_t sidcart_cmdline_options[] = {
-    { "-sidcart", SET_RESOURCE, 0,
+static const cmdline_option_t sidcart_cmdline_options[] =
+{
+    { "-sidcart", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "SidCart", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_SIDCART,
-      NULL, NULL },
-    { "+sidcart", SET_RESOURCE, 0,
+      NULL, "Enable the SID cartridge" },
+    { "+sidcart", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "SidCart", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_SIDCART,
-      NULL, NULL },
-    { "-sidcartjoy", SET_RESOURCE, 0,
+      NULL, "Disable the SID cartridge" },
+    { "-sidcartjoy", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "SIDCartJoy", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_SIDCARTJOY,
-      NULL, NULL },
-    { "+sidcartjoy", SET_RESOURCE, 0,
+      NULL, "Enable SID cartridge joystick" },
+    { "+sidcartjoy", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "SIDCartJoy", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_SIDCARTJOY,
-      NULL, NULL },
-    { "-sidcartaddress", SET_RESOURCE, 1,
+      NULL, "Disable SID cartridge joystick" },
+    { "-sidcartaddress", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "SidAddress", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_ADDRESS, IDCLS_PLUS4_SIDCART_ADDRESS,
-      NULL, NULL },
-    { "-sidcartclock", SET_RESOURCE, 1,
+      "<address>", "SID cartridge address (0xFD40/0xFE80)" },
+    { "-sidcartclock", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "SidClock", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_CLOCK, IDCLS_PLUS4_SIDCART_CLOCK,
-      NULL, NULL },
+      "<clock>", "SID cartridge clock (0: C64 clock, 1: PLUS4 clock)" },
     CMDLINE_LIST_END
 };
 
 int sidcart_cmdline_options_init(void)
 {
-    if (sid_cmdline_options_init() < 0) {
+    if (sid_cmdline_options_init(SIDTYPE_SIDCART) < 0) {
         return -1;
     }
     return cmdline_register_options(sidcart_cmdline_options);

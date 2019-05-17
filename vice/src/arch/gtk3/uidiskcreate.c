@@ -359,7 +359,8 @@ static GtkWidget *create_extra_widget(GtkWidget *parent, int unit)
     /* add 'set drive type for attached image' checkbox */
     set_drive_type = gtk_check_button_new_with_label(
             "Set proper drive type when attaching image");
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(set_drive_type), TRUE);
+    /* disable by default */
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(set_drive_type), FALSE);
     gtk_grid_attach(GTK_GRID(grid), set_drive_type, 0, 1, 4, 1);
 
     gtk_widget_show_all(grid);
@@ -377,6 +378,7 @@ void uidiskcreate_dialog_show(GtkWidget *parent, gpointer data)
     int unit;
 
     unit = GPOINTER_TO_INT(data);
+    /* TODO: stuff some UNIT_MIN/UNIT_MAX defines in some file */
     if (unit < 8 || unit > 11) {
         unit = 8;
     }
@@ -397,7 +399,7 @@ void uidiskcreate_dialog_show(GtkWidget *parent, gpointer data)
     gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER(dialog),
             TRUE);
 
-    filter = create_file_chooser_filter(file_chooser_filter_disk, TRUE);
+    filter = create_file_chooser_filter(file_chooser_filter_disk, FALSE);
     gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
 
     g_signal_connect(dialog, "response", G_CALLBACK(on_response), NULL);

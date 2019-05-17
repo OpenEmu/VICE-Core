@@ -59,16 +59,17 @@
 #include "psid.h"
 #include "resources.h"
 #include "screenshot.h"
-#include "serial.h"
 #include "sid-cmdline-options.h"
 #include "sid-resources.h"
 #include "sid.h"
 #include "viciivsid.h"
 #include "vicii-mem.h"
 #include "video.h"
+#include "vsid-cmdline-options.h"
 #include "vsidui.h"
 #include "vsid-debugcart.h"
 #include "vsync.h"
+
 
 machine_context_t machine_context;
 
@@ -132,13 +133,17 @@ void machine_resources_shutdown(void)
 /* C64-specific command-line option initialization.  */
 int machine_cmdline_options_init(void)
 {
+    if (vsid_cmdline_options_init() < 0) {
+        init_cmdline_options_fail("c64");
+        return -1;
+    }
 #if defined(USE_SDLUI) || defined(USE_SDLUI2)
     if (vicii_cmdline_options_init() < 0) {
         init_cmdline_options_fail("vicii");
         return -1;
     }
 #endif
-    if (sid_cmdline_options_init() < 0) {
+    if (sid_cmdline_options_init(SIDTYPE_SID) < 0) {
         init_cmdline_options_fail("sid");
         return -1;
     }

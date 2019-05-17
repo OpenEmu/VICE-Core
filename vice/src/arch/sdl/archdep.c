@@ -60,53 +60,53 @@ static void archdep_shutdown_extra(void);
 #define SDL_REALINIT SDL_Init
 #endif
 
+/*
+ * XXX: this will get fixed once the code in this file is moved into
+ *      src/arch/shared
+ */
+#include "../shared/archdep_atexit.h"
+#include "../shared/archdep_create_user_config_dir.h"
+
+
+
 int archdep_init(int *argc, char **argv)
 {
+    archdep_program_path_set_argv0(argv[0]);
+
+    archdep_create_user_config_dir();
+
     if (SDL_REALINIT(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0) {
         fprintf(stderr, "SDL error: %s\n", SDL_GetError());
         return 1;
     }
 
+    /*
+     * Call SDL_Quit() via atexit() to avoid segfaults on exit.
+     * See: https://wiki.libsdl.org/SDL_Quit
+     * I'm not sure this actually registers SDL_Quit() as the last atexit()
+     * call, but it appears to work at least (BW)
+     */
+    if (archdep_vice_atexit(SDL_Quit) != 0) {
+        log_error(LOG_ERR,
+                "failed to register SDL_Quit() with archdep_vice_atexit().");
+        archdep_vice_exit(1);
+    }
+
     return archdep_init_extra(argc, argv);
 }
 
-static char *extra_title_text = NULL;
 
 void archdep_shutdown(void)
 {
-    SDL_Quit();
+    archdep_program_name_free();
+    archdep_program_path_free();
+    archdep_boot_path_free();
+    archdep_home_path_free();
+    archdep_default_sysfile_pathlist_free();
+
 #ifdef HAVE_NETWORK
     archdep_network_shutdown();
 #endif
     archdep_shutdown_extra();
-    if (extra_title_text) {
-        lib_free(extra_title_text);
-    }
+    archdep_extra_title_text_free();
 }
-
-char *archdep_extra_title_text(void)
-{
-    extra_title_text = util_concat(", press \"", kbd_get_menu_keyname(), "\" for the menu.", NULL);
-    return extra_title_text;
-}
-
-
-/** \brief  Sanitize \a name by removing invalid characters for the current OS
- *
- * \param[in,out]   name    0-terminated string
- */
-void archdep_sanitize_filename(char *name)
-{
-    while (*name != '\0') {
-        int i = 0;
-        while (illegal_name_tokens[i] != '\0') {
-            if (illegal_name_tokens[i] == *name) {
-                *name = '_';
-                break;
-            }
-            i++;
-        }
-        name++;
-    }
-}
-

@@ -38,6 +38,22 @@
 #include "uicmdline.h"
 
 
+/** \brief  Handler for the 'response' event of the dialog
+ *
+ * \param[in,out]   dialog      dialog triggering the event
+ * \param[in]       response_id response ID
+ * \param[in]       user_data   extra event data (unused)
+ */
+static void on_response(GtkDialog *dialog,
+                        gint response_id,
+                        gpointer user_data)
+{
+    if (response_id == GTK_RESPONSE_CLOSE) {
+        gtk_widget_destroy(GTK_WIDGET(dialog));
+    }
+}
+
+
 /** \brief  Create textview with scrollbars
  *
  * \return  GtkScrolledWindow
@@ -57,11 +73,7 @@ static GtkWidget *create_content_widget(void)
     view = gtk_text_view_new();
     gtk_text_view_set_editable(GTK_TEXT_VIEW(view), FALSE);
     gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW(view), FALSE);
-    /* FIXME: There is probably a way to get monospaced fonts that
-       doesn't require GTK+ 3.16. */
-#if GTK_CHECK_VERSION(3,16,0)
     gtk_text_view_set_monospace(GTK_TEXT_VIEW(view), TRUE);
-#endif
     gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(view), GTK_WRAP_WORD_CHAR);
     gtk_text_view_set_left_margin(GTK_TEXT_VIEW(view),16);
     gtk_text_view_set_right_margin(GTK_TEXT_VIEW(view),16);
@@ -140,14 +152,13 @@ void uicmdline_dialog_show(GtkWidget *widget, gpointer user_data)
     dialog = gtk_dialog_new_with_buttons(title,
             ui_get_active_window(),
             GTK_DIALOG_MODAL,
-            "Close", GTK_RESPONSE_ACCEPT,
+            "Close", GTK_RESPONSE_CLOSE,
             NULL);
 
     content = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
     gtk_box_pack_start(GTK_BOX(content), create_content_widget(),
             TRUE, TRUE, 0);
 
-
-    gtk_dialog_run(GTK_DIALOG(dialog));
-    gtk_widget_destroy(dialog);
+    g_signal_connect(dialog, "response", G_CALLBACK(on_response), NULL);
+    gtk_widget_show_all(dialog);
 }

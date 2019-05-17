@@ -41,10 +41,10 @@
 #include "vice.h"
 
 #include <gtk/gtk.h>
-#include <stdbool.h>
 #include <stdlib.h>
 
 #include "vice_gtk3.h"
+#include "debug_gtk3.h"
 #include "lib.h"
 #include "ui.h"
 #include "machine.h"
@@ -105,7 +105,7 @@ static void on_swap_joysticks_clicked(GtkWidget *button, gpointer user_data)
         return; /* cannot swap */
     }
 
-    debug_gtk3("swapping joystick #1 and joystick #2\n");
+    debug_gtk3("swapping joystick #1 and joystick #2.");
 
     /* get current values */
     resources_get_int_sprintf("JoyDevice%d", &joy1, 1);
@@ -136,7 +136,7 @@ static void on_swap_userport_joysticks_clicked(GtkWidget *button,
         return; /* cannot swap */
     }
 
-    debug_gtk3("swapping userport joystick #1 and userport joystick #2\n");
+    debug_gtk3("swapping userport joystick #1 and userport joystick #2.");
 
     /* get current values */
     resources_get_int_sprintf("JoyDevice%d", &joy3, 3);

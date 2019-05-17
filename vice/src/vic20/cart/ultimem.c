@@ -48,7 +48,6 @@
 #include "monitor.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "types.h"
 #include "util.h"
 #include "ultimem.h"
@@ -720,16 +719,12 @@ void vic_um_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-umwriteback", SET_RESOURCE, 0,
+    { "-umwriteback", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "UltiMemWriteBack", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_VIC_UM_ROM_WRITE,
-      NULL, NULL },
-    { "+umwriteback", SET_RESOURCE, 0,
+      NULL, "Enable UltiMem write back to ROM file" },
+    { "+umwriteback", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "UltiMemWriteBack", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_VIC_UM_ROM_WRITE,
-      NULL, NULL },
+      NULL, "Disable UltiMem write back to ROM file" },
     CMDLINE_LIST_END
 };
 

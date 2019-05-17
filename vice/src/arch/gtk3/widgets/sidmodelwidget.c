@@ -42,6 +42,7 @@
 #include "resources.h"
 #include "machine.h"
 #include "machinemodelwidget.h"
+#include "mixerwidget.h"
 
 #include "sidmodelwidget.h"
 
@@ -97,6 +98,33 @@ static const vice_gtk3_radiogroup_entry_t sid_models_cbm5x0[] = {
     { NULL, -1 }
 };
 
+/** \brief  Handler for the "toggled" event of the SID type radio buttons
+ *
+ * \param[in]   widget      radio button triggering the event
+ * \param[in]   user_data   sid type
+ */
+static void on_sid_model_toggled(GtkWidget *widget, int user_data)
+{
+    GtkWidget *parent;
+    void (*callback)(int);
+
+
+    if (widget == NULL) {
+        debug_gtk3("WIDGET IS NUL!!!!!\n\n\n\n\n");
+    }
+
+    /* sync mixer widget */
+    mixer_widget_sid_type_changed();
+
+    parent = gtk_widget_get_parent(widget);
+    callback = g_object_get_data(G_OBJECT(parent), "ExtraCallback");
+    if (callback != NULL) {
+        debug_gtk3("calling extra callback");
+        callback(user_data);
+    } else {
+        debug_gtk3("No ExtraCallback!");
+    }
+}
 
 /** \brief  Reference to the machine model widget
  *
@@ -158,6 +186,7 @@ GtkWidget *sid_model_widget_create(GtkWidget *machine_model_widget)
             "SidModel", models, GTK_ORIENTATION_VERTICAL);
     g_object_set(group, "margin-left", 16, NULL);
     gtk_grid_attach(GTK_GRID(grid), group, 0, 1, 1, 1);
+    vice_gtk3_resource_radiogroup_add_callback(group, on_sid_model_toggled);
 
     /* SID cards for the Plus4, PET or VIC20:
      *
@@ -200,4 +229,30 @@ GtkWidget *sid_model_widget_create(GtkWidget *machine_model_widget)
 void sid_model_widget_update(GtkWidget *widget, int model)
 {
     vice_gtk3_radiogroup_set_index(widget, model);
+    mixer_widget_sid_type_changed();
+}
+
+
+
+void sid_model_widget_sync(GtkWidget *widget)
+{
+    int model;
+
+    if (resources_get_int("SidModel", &model) < 0) {
+        debug_gtk3("failed to get SidModel resource");
+        return;
+    }
+    sid_model_widget_update(widget, model);
+}
+
+
+
+/** \brief  Set extra callback to trigger when the model changes
+ *
+ * \param[in]   widget      the SID model widget
+ * \param[in]   callback    function to call on model change
+ */
+void sid_model_widget_set_callback(GtkWidget *widget, void (*callback)(int))
+{
+    g_object_set_data(G_OBJECT(widget), "ExtraCallback", (gpointer)callback);
 }

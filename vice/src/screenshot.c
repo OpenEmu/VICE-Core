@@ -41,7 +41,6 @@
 #include "palette.h"
 #include "resources.h"
 #include "screenshot.h"
-#include "translate.h"
 #include "uiapi.h"
 #include "video.h"
 
@@ -196,7 +195,7 @@ int screenshot_save(const char *drvname, const char *filename,
     }
 
     if (recording_driver == drv) {
-        ui_error(translate_text(IDGS_SORRY_NO_MULTI_RECORDING));
+        ui_error("Sorry. Multiple recording is not supported.");
         return -1;
     }
 

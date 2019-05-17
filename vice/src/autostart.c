@@ -37,7 +37,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "archapi.h"
 #include "archdep.h"
 #include "autostart.h"
 #include "autostart-prg.h"
@@ -46,6 +45,7 @@
 #include "charset.h"
 #include "cmdline.h"
 #include "datasette.h"
+#include "diskimage.h"
 #include "drive.h"
 #include "fileio.h"
 #include "fsdevice.h"
@@ -67,7 +67,6 @@
 #include "resources.h"
 #include "snapshot.h"
 #include "tape.h"
-#include "translate.h"
 #include "types.h"
 #include "uiapi.h"
 #include "util.h"
@@ -339,71 +338,45 @@ void autostart_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-basicload", SET_RESOURCE, 0,
+    { "-basicload", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "AutostartBasicLoad", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_AUTOSTART_LOAD_TO_BASIC_START,
-      NULL, NULL },
-    { "+basicload", SET_RESOURCE, 0,
+      NULL, "On autostart, load to BASIC start (without ',1')" },
+    { "+basicload", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "AutostartBasicLoad", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_AUTOSTART_LOAD_WITH_1,
-      NULL, NULL },
-    { "-autostartwithcolon", SET_RESOURCE, 0,
+      NULL, "On autostart, load with ',1'" },
+    { "-autostartwithcolon", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "AutostartRunWithColon", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_AUTOSTARTWITHCOLON,
-      NULL, NULL },
-    { "+autostartwithcolon", SET_RESOURCE, 0,
+      NULL, "On autostart, use the 'RUN' command with a colon, i.e., 'RUN:'" },
+    { "+autostartwithcolon", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "AutostartRunWithColon", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_AUTOSTARTWITHCOLON,
-      NULL, NULL },
-    { "-autostart-handle-tde", SET_RESOURCE, 0,
+      NULL, "On autostart, do not use the 'RUN' command with a colon; i.e., 'RUN'" },
+    { "-autostart-handle-tde", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "AutostartHandleTrueDriveEmulation", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_AUTOSTART_HANDLE_TDE,
-      NULL, NULL },
-    { "+autostart-handle-tde", SET_RESOURCE, 0,
+      NULL, "Handle True Drive Emulation on autostart" },
+    { "+autostart-handle-tde", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "AutostartHandleTrueDriveEmulation", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_AUTOSTART_HANDLE_TDE,
-      NULL, NULL },
-    { "-autostart-warp", SET_RESOURCE, 0,
+      NULL, "Do not handle True Drive Emulation on autostart" },
+    { "-autostart-warp", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "AutostartWarp", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_WARP_MODE_AUTOSTART,
-      NULL, NULL },
-    { "+autostart-warp", SET_RESOURCE, 0,
+      NULL, "Enable warp mode during autostart" },
+    { "+autostart-warp", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "AutostartWarp", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_WARP_MODE_AUTOSTART,
-      NULL, NULL },
-    { "-autostartprgmode", SET_RESOURCE, 1,
+      NULL, "Disable warp mode during autostart" },
+    { "-autostartprgmode", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "AutostartPrgMode", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_MODE, IDCLS_SET_AUTOSTART_MODE_FOR_PRG,
-      NULL, NULL },
-    { "-autostartprgdiskimage", SET_RESOURCE, 1,
+      "<Mode>", "Set autostart mode for PRG files (0: VirtualFS, 1: Inject, 2: Disk image)" },
+    { "-autostartprgdiskimage", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "AutostartPrgDiskImage", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SET_DISK_IMAGE_FOR_AUTOSTART_PRG,
-      NULL, NULL },
-    { "-autostart-delay", SET_RESOURCE, 1,
+      "<Name>", "Set disk image for autostart of PRG files" },
+    { "-autostart-delay", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "AutostartDelay", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_FRAMES, IDCLS_SET_AUTOSTART_DELAY,
-      NULL, NULL },
-    { "-autostart-delay-random", SET_RESOURCE, 0,
+      "<frames>", "Set initial autostart delay (0: use default)" },
+    { "-autostart-delay-random", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "AutostartDelayRandom", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_AUTOSTART_RANDOM_DELAY,
-      NULL, NULL },
-    { "+autostart-delay-random", SET_RESOURCE, 0,
+      NULL, "Enable random initial autostart delay." },
+    { "+autostart-delay-random", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "AutostartDelayRandom", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_AUTOSTART_RANDOM_DELAY,
-      NULL, NULL },
+      NULL, "Disable random initial autostart delay." },
     CMDLINE_LIST_END
 };
 
@@ -539,17 +512,7 @@ static void check_rom_area(void)
         /* special case for auto-starters: ROM left. We also consider
          * BASIC area to be ROM, because it's responsible for writing "READY."
          */
-        /* FIXME: C128 is a special beast, as it would execute some stuff in system
-                  RAM - which this special case hack checks. a better check might
-                  be to look at the current bank too.
-                  without this check eg autostarting a prg file with autostartmode=
-                  "disk image" will fail. (exit from ROM at $some RAM address)
-        */
-        if (((machine_class == VICE_MACHINE_C128) && 
-             !((reg_pc >= 0x2a0) && (reg_pc <= 0x3af)) && 
-             !((reg_pc >= 0x4300) && (reg_pc <= 0x4fff)) && 
-             machine_addr_in_ram(reg_pc)) ||
-            ((machine_class != VICE_MACHINE_C128) && (machine_addr_in_ram(reg_pc)))) {
+        if (machine_addr_in_ram(reg_pc)) {
             log_message(autostart_log, "Left ROM for $%04x", reg_pc);
             disable_warp_if_was_requested();
             autostart_done();
@@ -572,21 +535,21 @@ static void load_snapshot_trap(uint16_t unused_addr, void *unused_data)
 /* ------------------------------------------------------------------------- */
 
 /* Reset autostart.  */
-void autostart_reinit(CLOCK _min_cycles, int _handle_drive_true_emulation,
-                      int _blnsw, int _pnt, int _pntr, int _lnmx)
+void autostart_reinit(CLOCK min_cycles_, int handle_tde,
+                      int blnsw_, int pnt_, int pntr_, int lnmx_)
 {
-    blnsw = (uint16_t)(_blnsw);
-    pnt = _pnt;
-    pntr = _pntr;
-    lnmx = _lnmx;
+    blnsw = (uint16_t)(blnsw_);
+    pnt = pnt_;
+    pntr = pntr_;
+    lnmx = lnmx_;
 
-    min_cycles = _min_cycles;
+    min_cycles = min_cycles_;
 
-    handle_drive_true_emulation_by_machine = _handle_drive_true_emulation;
+    handle_drive_true_emulation_by_machine = handle_tde;
 
     set_handle_true_drive_emulation_state();
 
-    if (_min_cycles) {
+    if (min_cycles_) {
         autostart_enabled = 1;
     } else {
         autostart_enabled = 0;
@@ -594,13 +557,12 @@ void autostart_reinit(CLOCK _min_cycles, int _handle_drive_true_emulation,
 }
 
 /* Initialize autostart.  */
-int autostart_init(CLOCK _min_cycles, int handle_drive_true_emulation,
-                   int blnsw, int pnt, int pntr, int lnmx)
+int autostart_init(CLOCK min_cycles_, int handle_drive_true_emulation,
+                   int blnsw_, int pnt_, int pntr_, int lnmx_)
 {
     autostart_prg_init();
 
-    autostart_reinit(_min_cycles, handle_drive_true_emulation, blnsw, pnt,
-                     pntr, lnmx);
+    autostart_reinit(min_cycles_, handle_drive_true_emulation, blnsw_, pnt_, pntr_, lnmx_);
 
     if (autostart_log == LOG_ERR) {
         autostart_log = log_open("AUTOSTART");
@@ -866,6 +828,8 @@ static void advance_hasdisk(void)
             autostart_disable();
             break;
         case NOT_YET:
+            /* leave autostart and disable warp if ROM area was left */
+            check_rom_area();
             break;
     }
 }
@@ -901,6 +865,8 @@ static void advance_waitsearchingfor(void)
             autostart_disable();
             break;
         case NOT_YET:
+            /* leave autostart and disable warp if ROM area was left */
+            check_rom_area();
             break;
     }
 }
@@ -924,6 +890,8 @@ static void advance_waitloading(void)
             autostart_disable();
             break;
         case NOT_YET:
+            /* leave autostart and disable warp if ROM area was left */
+            check_rom_area();
             break;
     }
 }
@@ -1206,8 +1174,47 @@ int autostart_disk(const char *file_name, const char *program_name,
     if (name) {
         autostart_disk_cook_name(&name);
         if (!(file_system_attach_disk(8, file_name) < 0)) {
+
+#if 0
+            vdrive_t *vdrive;
+            struct disk_image_s *diskimg;
+#endif
+
             log_message(autostart_log,
                         "Attached file `%s' as a disk image.", file_name);
+
+            /*
+             * Simple attempt at implementing setting the current drive type
+             * based on the image type as per feature request #319.
+             *
+             * I'm leaving this commented out since I don't think I'll be able
+             * properly implement this AND properly test it before the code
+             * freeze on 2018-12-3 (I have a lot of other stuff to do). I will
+             * pick this up again after 3.3 has been released.
+             *
+             * --compyx
+             */
+#if 0
+            /* shitty code, we really need to extend the drive API to
+             * get at these sorts for things without breaking into core code
+             */
+            vdrive = file_system_get_vdrive(8);
+            if (vdrive == NULL) {
+                log_error(LOG_ERR, "Failed to get vdrive reference for unit 8.");
+            } else {
+                diskimg = vdrive->image;
+                if (diskimg == NULL) {
+                    log_error(LOG_ERR, "Failed to get disk image for unit 8.");
+                } else {
+                    printf("\nGOT IMAGE TYPE %u.\n\n", diskimg->type);
+                    if (resources_set_int("Drive8Type", diskimg->type) < 0) {
+                        log_error(LOG_ERR, "Failed to set drive type.");
+                    }
+                    drive_cpu_trigger_reset(0);
+                }
+            }
+#endif
+
             reboot_for_autostart(name, AUTOSTART_HASDISK, runmode);
             lib_free(name);
 

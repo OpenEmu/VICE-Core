@@ -120,7 +120,7 @@ static const char CHIP_HEADER[] = "CHIP";
 /*
     Open a crt file and read header, return NULL on fault, fd otherwise
 */
-static FILE *crt_open(const char *filename, crt_header_t *header)
+FILE *crt_open(const char *filename, crt_header_t *header)
 {
     uint8_t crt_header[0x40];
     uint32_t skip;
@@ -157,7 +157,8 @@ static FILE *crt_open(const char *filename, crt_header_t *header)
         header->exrom = crt_header[0x18];
         header->game = crt_header[0x19];
         memset(header->name, 0, sizeof(header->name));
-        strncpy(header->name, (char*)&crt_header[0x20], sizeof(header->name) - 1);
+        strncpy(header->name, (char *)(crt_header + 0x20),
+                sizeof(header->name) - 1);
 
         fseek(fd, skip, SEEK_CUR); /* skip the rest */
 
@@ -187,7 +188,12 @@ int crt_getid(const char *filename)
 }
 
 /*
-    Read and pharse chip header, return -1 on fault
+    Read and parse chip header, return -1 on fault
+
+XXX:    The skip member of a crt_chip_header_t will always be 0, instead of
+        what the CHIP header indicates.
+        So the chip member is complete bollocks,
+        -- compyx
 */
 int crt_read_chip_header(crt_chip_header_t *header, FILE *fd)
 {
@@ -200,18 +206,22 @@ int crt_read_chip_header(crt_chip_header_t *header, FILE *fd)
         return -1; /* invalid header signature */
     }
 
+    /* 1: grab size of chip packet + chip header */
     header->skip = util_be_buf_to_dword(&chipheader[4]);
 
     if (header->skip < sizeof(chipheader)) {
         return -1; /* invalid packet size */
     }
+    /* 2: subtract header size, we now have the rom size */
     header->skip -= sizeof(chipheader); /* without header */
 
     header->size = util_be_buf_to_word(&chipheader[14]);
     if (header->size > header->skip) {
         return -1; /* rom bigger then total size?! */
     }
+    /* 3: subtract ROM size -> 0, WTF? */
     header->skip -= header->size; /* skip size after image */
+
     header->type = util_be_buf_to_word(&chipheader[8]);
     header->bank = util_be_buf_to_word(&chipheader[10]);
     header->start = util_be_buf_to_word(&chipheader[12]);
@@ -286,7 +296,7 @@ FILE *crt_create(const char *filename, int type, int exrom, int game, const char
     util_word_to_be_buf(&crt_header[0x16], (uint16_t)type);
     crt_header[0x18] = exrom ? 1 : 0;
     crt_header[0x19] = game ? 1 : 0;
-    strncpy((char*)&crt_header[0x20], name, sizeof(crt_header) - 0x20);
+    strncpy((char*)(crt_header + 0x20), name, sizeof(crt_header) - 0x20 - 1);
 
     if (fwrite(crt_header, sizeof(crt_header), 1, fd) < 1) {
         fclose(fd);

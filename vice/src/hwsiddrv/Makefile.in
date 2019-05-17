@@ -111,7 +111,6 @@ libhwsiddrv_a_AR = $(AR) $(ARFLAGS)
 libhwsiddrv_a_LIBADD =
 am_libhwsiddrv_a_OBJECTS = catweaselmkiii-amiga-drv.$(OBJEXT) \
 	catweaselmkiii-beos-drv.$(OBJEXT) \
-	catweaselmkiii-dos-drv.$(OBJEXT) \
 	catweaselmkiii-unix-drv.$(OBJEXT) \
 	catweaselmkiii-win32-drv.$(OBJEXT) \
 	cw-amiga-clockport.$(OBJEXT) cw-amiga-device.$(OBJEXT) \
@@ -119,22 +118,19 @@ am_libhwsiddrv_a_OBJECTS = catweaselmkiii-amiga-drv.$(OBJEXT) \
 	cw-amiga-zorro.$(OBJEXT) cw-unix-device.$(OBJEXT) \
 	cw-unix-pci.$(OBJEXT) cw-win32-dll.$(OBJEXT) \
 	cw-win32-pci.$(OBJEXT) hardsid-amiga-drv.$(OBJEXT) \
-	hardsid-beos-drv.$(OBJEXT) hardsid-dos-drv.$(OBJEXT) \
-	hardsid-unix-drv.$(OBJEXT) hardsid-win32-drv.$(OBJEXT) \
-	hs-amiga-gg2isa.$(OBJEXT) hs-amiga-openpci.$(OBJEXT) \
-	hs-amiga-os4.$(OBJEXT) hs-beos-isa.$(OBJEXT) \
-	hs-beos-pci.$(OBJEXT) hs-dos-isa.$(OBJEXT) \
-	hs-dos-pci.$(OBJEXT) hs-unix-isa.$(OBJEXT) \
-	hs-unix-linux.$(OBJEXT) hs-unix-pci.$(OBJEXT) \
-	hs-win32-dll.$(OBJEXT) hs-win32-isa.$(OBJEXT) \
-	hs-win32-pci.$(OBJEXT) parsid-beos-drv.$(OBJEXT) \
-	parsid-dos-drv.$(OBJEXT) parsid-unix-drv.$(OBJEXT) \
+	hardsid-beos-drv.$(OBJEXT) hardsid-unix-drv.$(OBJEXT) \
+	hardsid-win32-drv.$(OBJEXT) hs-amiga-gg2isa.$(OBJEXT) \
+	hs-amiga-openpci.$(OBJEXT) hs-amiga-os4.$(OBJEXT) \
+	hs-beos-isa.$(OBJEXT) hs-beos-pci.$(OBJEXT) \
+	hs-unix-isa.$(OBJEXT) hs-unix-linux.$(OBJEXT) \
+	hs-unix-pci.$(OBJEXT) hs-win32-dll.$(OBJEXT) \
+	hs-win32-isa.$(OBJEXT) hs-win32-pci.$(OBJEXT) \
+	parsid-beos-drv.$(OBJEXT) parsid-unix-drv.$(OBJEXT) \
 	parsid-win32-drv.$(OBJEXT) ps-ieee1284.$(OBJEXT) \
 	ps-unix-file.$(OBJEXT) ps-unix-io.$(OBJEXT) \
 	ps-win32-dll.$(OBJEXT) ps-win32-io.$(OBJEXT) \
 	ssi2001-amiga-drv.$(OBJEXT) ssi2001-beos-drv.$(OBJEXT) \
-	ssi2001-dos-drv.$(OBJEXT) ssi2001-unix-drv.$(OBJEXT) \
-	ssi2001-win32-drv.$(OBJEXT)
+	ssi2001-unix-drv.$(OBJEXT) ssi2001-win32-drv.$(OBJEXT)
 libhwsiddrv_a_OBJECTS = $(am_libhwsiddrv_a_OBJECTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -207,10 +203,6 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
-CAIRO_CFLAGS = @CAIRO_CFLAGS@
-CAIRO_LIBS = @CAIRO_LIBS@
-CATALOGS = @CATALOGS@
-CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 CCAS = @CCAS@
 CCASDEPMODE = @CCASDEPMODE@
@@ -225,17 +217,14 @@ CXXCPP = @CXXCPP@
 CXXDEPMODE = @CXXDEPMODE@
 CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
-DATADIRNAME = @DATADIRNAME@
 DEBUGBUILD = @DEBUGBUILD@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
 DOS2UNIX = @DOS2UNIX@
-DOS_TFE_PCAP_LIB = @DOS_TFE_PCAP_LIB@
 DYNLIB_LIBS = @DYNLIB_LIBS@
 ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
-EDITLINE_LIBS = @EDITLINE_LIBS@
 EGREP = @EGREP@
 ENABLE_ARCH = @ENABLE_ARCH@
 EXEEXT = @EXEEXT@
@@ -253,19 +242,17 @@ FFMPEG_SWRESAMPLE_CFLAGS = @FFMPEG_SWRESAMPLE_CFLAGS@
 FFMPEG_SWRESAMPLE_LIBS = @FFMPEG_SWRESAMPLE_LIBS@
 FFMPEG_SWSCALE_CFLAGS = @FFMPEG_SWSCALE_CFLAGS@
 FFMPEG_SWSCALE_LIBS = @FFMPEG_SWSCALE_LIBS@
-FULLSCREEN_DRIVERS = @FULLSCREEN_DRIVERS@
-GENCAT = @GENCAT@
+FONTCONFIG_CFLAGS = @FONTCONFIG_CFLAGS@
+FONTCONFIG_LIBS = @FONTCONFIG_LIBS@
+FW_DIR = @FW_DIR@
 GFXOUTPUT_DRIVERS = @GFXOUTPUT_DRIVERS@
 GFXOUTPUT_LIBS = @GFXOUTPUT_LIBS@
 GLIB_CFLAGS = @GLIB_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
-GMOFILES = @GMOFILES@
-GMSGFMT = @GMSGFMT@
 GREP = @GREP@
-GTKGL_CFLAGS = @GTKGL_CFLAGS@
-GTKGL_LIBS = @GTKGL_LIBS@
 GTK_CFLAGS = @GTK_CFLAGS@
 GTK_LIBS = @GTK_LIBS@
+HAVE_CXX11 = @HAVE_CXX11@
 HAVE_READLINE = @HAVE_READLINE@
 HCRTF = @HCRTF@
 HHC = @HHC@
@@ -275,10 +262,6 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INSTOBJEXT = @INSTOBJEXT@
-INTLDEPS = @INTLDEPS@
-INTLLIBS = @INTLLIBS@
-INTLOBJS = @INTLOBJS@
 IPFC = @IPFC@
 JOY_LIBS = @JOY_LIBS@
 LAMEMP3SUB = @LAMEMP3SUB@
@@ -299,14 +282,8 @@ MAKERTF = @MAKERTF@
 MAX_INLINE_INSN_SINGLE = @MAX_INLINE_INSN_SINGLE@
 MKDIR_P = @MKDIR_P@
 MKFONTDIR_BIN = @MKFONTDIR_BIN@
-MKINSTALLDIRS = @MKINSTALLDIRS@
-MSGFMT = @MSGFMT@
 NATIVE_TOOLS_COMPILER = @NATIVE_TOOLS_COMPILER@
 NETPLAY_LIBS = @NETPLAY_LIBS@
-NLS_LOCALEDIR = @NLS_LOCALEDIR@
-OBJC = @OBJC@
-OBJCDEPMODE = @OBJCDEPMODE@
-OBJCFLAGS = @OBJCFLAGS@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
@@ -315,8 +292,6 @@ PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
-PANGO_CFLAGS = @PANGO_CFLAGS@
-PANGO_LIBS = @PANGO_LIBS@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 PDFTEX = @PDFTEX@
 PERL = @PERL@
@@ -324,8 +299,6 @@ PKG_CONFIG = @PKG_CONFIG@
 PLATFORM_DOX_FLAGS = @PLATFORM_DOX_FLAGS@
 PNG_CFLAGS = @PNG_CFLAGS@
 PNG_LIBS = @PNG_LIBS@
-POFILES = @POFILES@
-POSUB = @POSUB@
 QUICKTIME_INCLUDES = @QUICKTIME_INCLUDES@
 QUICKTIME_LIBS = @QUICKTIME_LIBS@
 RANLIB = @RANLIB@
@@ -361,40 +334,15 @@ TEXI2DVI = @TEXI2DVI@
 TEXI2IPF = @TEXI2IPF@
 TFE_LIBS = @TFE_LIBS@
 UI_LIBS = @UI_LIBS@
-UNIX_MACOSX_UITYPE = @UNIX_MACOSX_UITYPE@
-USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
-USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 VERSION_COMBINED = @VERSION_COMBINED@
 VERSION_RC = @VERSION_RC@
 VICEDIR = @VICEDIR@
-VICE_SYNC = @VICE_SYNC@
-VICE_UI_THREADS = @VICE_UI_THREADS@
 VICE_VERSION = @VICE_VERSION@
 VICE_VERSION_BUILD = @VICE_VERSION_BUILD@
 VICE_VERSION_MAJOR = @VICE_VERSION_MAJOR@
 VICE_VERSION_MINOR = @VICE_VERSION_MINOR@
-VSID_WINRES = @VSID_WINRES@
-VTE_CFLAGS = @VTE_CFLAGS@
-VTE_LIBS = @VTE_LIBS@
-WINDRES = @WINDRES@
-WRC = @WRC@
-X128_WINRES = @X128_WINRES@
-X64DTV_WINRES = @X64DTV_WINRES@
-X64_WINRES = @X64_WINRES@
 XA = @XA@
-XCBM2_WINRES = @XCBM2_WINRES@
-XCBM5X0_WINRES = @XCBM5X0_WINRES@
-XGETTEXT = @XGETTEXT@
-XMKMF = @XMKMF@
-XPET_WINRES = @XPET_WINRES@
-XPLUS4_WINRES = @XPLUS4_WINRES@
-XSCPU64_WINRES = @XSCPU64_WINRES@
-XVIC_WINRES = @XVIC_WINRES@
-X_CFLAGS = @X_CFLAGS@
-X_EXTRA_LIBS = @X_EXTRA_LIBS@
-X_LIBS = @X_LIBS@
-X_PRE_LIBS = @X_PRE_LIBS@
 YACC = @YACC@
 YASM = @YASM@
 ZLIB_LIBS = @ZLIB_LIBS@
@@ -438,6 +386,7 @@ localedir = @localedir@
 localstatedir = @localstatedir@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
+objdump = @objdump@
 oldincludedir = @oldincludedir@
 pdfdir = @pdfdir@
 prefix = @prefix@
@@ -475,7 +424,6 @@ noinst_LIBRARIES = libhwsiddrv.a
 libhwsiddrv_a_SOURCES = \
 	catweaselmkiii-amiga-drv.c \
 	catweaselmkiii-beos-drv.c \
-	catweaselmkiii-dos-drv.c \
 	catweaselmkiii-unix-drv.c \
 	catweaselmkiii-win32-drv.c \
 	cw-amiga.h \
@@ -492,7 +440,6 @@ libhwsiddrv_a_SOURCES = \
 	cw-win32-pci.c \
 	hardsid-amiga-drv.c \
 	hardsid-beos-drv.c \
-	hardsid-dos-drv.c \
 	hardsid-unix-drv.c \
 	hardsid-win32-drv.c \
 	hs-amiga.h \
@@ -502,9 +449,6 @@ libhwsiddrv_a_SOURCES = \
 	hs-beos.h \
 	hs-beos-isa.c \
 	hs-beos-pci.c \
-	hs-dos.h \
-	hs-dos-isa.c \
-	hs-dos-pci.c \
 	hs-unix.h \
 	hs-unix-isa.c \
 	hs-unix-linux.c \
@@ -514,7 +458,6 @@ libhwsiddrv_a_SOURCES = \
 	hs-win32-isa.c \
 	hs-win32-pci.c \
 	parsid-beos-drv.c \
-	parsid-dos-drv.c \
 	parsid-unix-drv.c \
 	parsid-win32-drv.c \
 	ps-ieee1284.c \
@@ -526,7 +469,6 @@ libhwsiddrv_a_SOURCES = \
 	ps-win32-io.c \
 	ssi2001-amiga-drv.c \
 	ssi2001-beos-drv.c \
-	ssi2001-dos-drv.c \
 	ssi2001-unix-drv.c \
 	ssi2001-win32-drv.c \
 	wininpoutp.h
@@ -581,7 +523,6 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/catweaselmkiii-amiga-drv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/catweaselmkiii-beos-drv.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/catweaselmkiii-dos-drv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/catweaselmkiii-unix-drv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/catweaselmkiii-win32-drv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cw-amiga-clockport.Po@am__quote@
@@ -595,7 +536,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cw-win32-pci.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hardsid-amiga-drv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hardsid-beos-drv.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hardsid-dos-drv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hardsid-unix-drv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hardsid-win32-drv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hs-amiga-gg2isa.Po@am__quote@
@@ -603,8 +543,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hs-amiga-os4.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hs-beos-isa.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hs-beos-pci.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hs-dos-isa.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hs-dos-pci.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hs-unix-isa.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hs-unix-linux.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hs-unix-pci.Po@am__quote@
@@ -612,7 +550,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hs-win32-isa.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hs-win32-pci.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/parsid-beos-drv.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/parsid-dos-drv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/parsid-unix-drv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/parsid-win32-drv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ps-ieee1284.Po@am__quote@
@@ -622,7 +559,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ps-win32-io.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ssi2001-amiga-drv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ssi2001-beos-drv.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ssi2001-dos-drv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ssi2001-unix-drv.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ssi2001-win32-drv.Po@am__quote@
 

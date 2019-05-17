@@ -49,7 +49,6 @@
 #include "tape.h"
 #include "tape-snapshot.h"
 #include "tapeport.h"
-#include "translate.h"
 #include "types.h"
 #include "uiapi.h"
 #include "vice-event.h"
@@ -138,7 +137,6 @@ static int datasette_read_snapshot(snapshot_t *s);
 static tapeport_device_t datasette_device = {
     TAPEPORT_DEVICE_DATASETTE,
     "Datasette",
-    IDGS_DATASETTE,
     0,
     "Datasette",
     NULL, /* no shutdown */
@@ -264,42 +262,29 @@ int datasette_resources_init(void)
     Commandline options
  ******************************************************************************/
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-datasette", SET_RESOURCE, 0,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-datasette", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Datasette", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_DATASETTE,
-      NULL, NULL },
-    { "+datasette", SET_RESOURCE, 0,
+      NULL, "Enable Datasette" },
+    { "+datasette", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Datasette", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_DATASETTE,
-      NULL, NULL },
-    { "-dsresetwithcpu", SET_RESOURCE, 0,
+      NULL, "Disable Datasette" },
+    { "-dsresetwithcpu", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "DatasetteResetWithCPU", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_AUTO_DATASETTE_RESET,
-      NULL, NULL },
-    { "+dsresetwithcpu", SET_RESOURCE, 0,
+      NULL, "Enable automatic Datasette-Reset" },
+    { "+dsresetwithcpu", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "DatasetteResetWithCPU", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_AUTO_DATASETTE_RESET,
-      NULL, NULL },
-    { "-dszerogapdelay", SET_RESOURCE, 1,
+      NULL, "Disable automatic Datasette-Reset" },
+    { "-dszerogapdelay", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "DatasetteZeroGapDelay", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_VALUE, IDCLS_SET_ZERO_TAP_DELAY,
-      NULL, NULL },
-    { "-dsspeedtuning", SET_RESOURCE, 1,
+      "<value>", "Set delay in cycles for a zero in the tap" },
+    { "-dsspeedtuning", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "DatasetteSpeedTuning", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_VALUE, IDCLS_SET_CYCLES_ADDED_GAP_TAP,
-      NULL, NULL },
-    { "-dstapewobble", SET_RESOURCE, 1,
+      "<value>", "Set number of cycles added to each gap in the tap" },
+    { "-dstapewobble", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "DatasetteTapeWobble", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_VALUE, IDCLS_SET_TAPE_WOBBLE,
-      NULL, NULL },
+      "<value>", "Set maximum random number of cycles added to each gap in the tap" },
     CMDLINE_LIST_END
 };
 
@@ -872,6 +857,7 @@ static void datasette_control_internal(int command)
                 break;
             case DATASETTE_CONTROL_RESET:
                 datasette_internal_reset();
+                /* falls through */
             case DATASETTE_CONTROL_STOP:
                 current_image->mode = DATASETTE_CONTROL_STOP;
                 if (datasette_list_item) {
@@ -929,6 +915,7 @@ static void datasette_control_internal(int command)
                 break;
             case DATASETTE_CONTROL_RESET:
                 datasette_internal_reset();
+                /* falls through */
             case DATASETTE_CONTROL_STOP:
                 notape_mode = DATASETTE_CONTROL_STOP;
                 if (datasette_list_item) {

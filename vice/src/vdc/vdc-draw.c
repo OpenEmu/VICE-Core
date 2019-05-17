@@ -56,6 +56,22 @@ static uint32_t pdh_table[16 * 16 * 16];
 /* solid cursor (no blink), no cursor, 1/16 refresh blink, 1/32 refresh blink */
 static const uint8_t crsrblink[4] = { 0x01, 0x00, 0x08, 0x10 };
 
+/* bit mask used for register 22, to determine the number of pixels in a char actually displayed */
+static const uint8_t mask[16] = {
+    0x80, 0xC0, 0xE0, 0xF0, 0xF8, 0xFC, 0xFE, 0xFF,
+    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
+};
+/* Tables to help with semigraphics mode, which extends the rightmost active bit across the rest of the character and into any inter character gap */
+static const uint8_t semigfxtest[16] = {
+    0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+};
+static const uint8_t semigfxmask[16] = {
+    0x7F, 0x3F, 0x1F, 0x0F, 0x07, 0x03, 0x01, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+};
+
+
 /* These functions draw the background from `start_pixel' to `end_pixel'.  */
 /*
 static void draw_std_background(unsigned int start_pixel,
@@ -118,23 +134,9 @@ curpos = where in the screen memory the cursor is
 index = where in the screen memory we are, to check against the cursor */
 {
     uint8_t data;
-    /* bit mask used for register 22, to determine the number of pixels in a char actually displayed */
-    /* The 8th value is 0x00 (no pixels) instead of 0xFF (all pixels) as might be expected as this results in blank chars on real VDC */
-    static const uint8_t mask[16] = {
-        0x80, 0xC0, 0xE0, 0xF0, 0xF8, 0xFC, 0xFE, 0x00,
-        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
-    };
-    static const uint8_t semigfxtest[16] = {
-        0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-    };
-    static const uint8_t semigfxmask[16] = {
-        0x7F, 0x3F, 0x1F, 0x0F, 0x07, 0x03, 0x01, 0x00,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-    };
     if (a & VDC_ALTCHARSET_ATTR) {
         /* swich to alternate charset if appropriate attribute bit set */
-        char_mem += 0x1000;
+        char_mem += 0x100 * vdc.bytes_per_char; /* 0x1000 or 0x2000, depending on character height */
     }
 
     if (l > (signed)vdc.regs[23]) {
@@ -179,7 +181,11 @@ index = where in the screen memory we are, to check against the cursor */
         /* invert anything at all? */
         if ((vdc.frame_counter | 1) & crsrblink[(vdc.regs[10] >> 5) & 3]) {
             /* invert current byte of the character? */
-            if ((l >= (signed)(vdc.regs[10] & 0x1F)) && (l < (signed)(vdc.regs[11] & 0x1F))) {
+            if (
+            ((l >= (vdc.regs[10] & 0x1F)) && (l < (vdc.regs[11] & 0x1F)))
+            || ((l == (vdc.regs[10] & 0x1F)) && (l == (vdc.regs[11] & 0x1F)))
+            || (((vdc.regs[10] & 0x1F) > (vdc.regs[11] & 0x1F)) && ((l >= (vdc.regs[10] & 0x1F)) || (l < (vdc.regs[11] & 0x1F))))
+            ) {
                 /* The VDC cursor reverses the char */
                 data ^= 0xFF;
             }
@@ -428,20 +434,28 @@ static void draw_std_text_cached(raster_cache_t *cache, unsigned int xs,
                                  unsigned int xe)
 /* aka raster_modes_draw_line_cached() in raster */
 {
-    uint8_t *p;
+    uint8_t *p, *q;
     uint32_t *table_ptr, *pdl_ptr, *pdh_ptr;
 
     unsigned int i, charwidth;
+    int icsi = -1;  /* Inter Character Spacing Index - used as a combo flag/index as to whether there is any intercharacter gap to render */
+    
     if (vdc.regs[25] & 0x10) { /* double pixel a.k.a 40column mode */
         charwidth = 2 * (vdc.regs[22] >> 4);
+        if (charwidth > 16) {   /* Is there inter character spacing to render? */
+            icsi = charwidth / 2 - 8;
+        }
     } else { /* 80 column mode */
         charwidth = 1 + (vdc.regs[22] >> 4);
+        if (charwidth > 8) {    /* Is there inter character spacing to render? */
+            icsi = charwidth - 8;
+        }
     }
     p = vdc.raster.draw_buffer_ptr
         + vdc.border_width
-        - (vdc.regs[22] >> 4)
-        + ((vdc.regs[25] & 0x10) ? 1 : 0)
-        + vdc.xsmooth
+        + ((vdc.regs[25] & 0x10) ? 2 : 0)
+        + vdc.xsmooth * ((vdc.regs[25] & 0x10) ? 2 : 1)
+        - (vdc.regs[22] >> 4) * ((vdc.regs[25] & 0x10) ? 2 : 1)
         + xs * charwidth;
     table_ptr = hr_table + ((vdc.regs[26] & 0x0f) << 4);
     pdl_ptr = pdl_table + ((vdc.regs[26] & 0x0f) << 4);
@@ -456,6 +470,24 @@ static void draw_std_text_cached(raster_cache_t *cache, unsigned int xs,
             *((uint32_t *)p + 1) = *(pdwl + (d >> 4));
             *((uint32_t *)p + 2) = *(pdwh + (d & 0x0f));
             *((uint32_t *)p + 3) = *(pdwl + (d & 0x0f));
+            if (icsi >= 0) {    /* if there's inter character spacing, then render it */
+                q = p + 16;
+                if ((vdc.regs[25] & 0x20) && (d & semigfxtest[vdc.regs[22] & 0x0F])) { /* If semi-graphics mode and the rightmost active bit is set */
+                    d = mask[icsi];   /* .. figure out how big it is based on the width of the gap */
+                } else { /* otherwise just draw the background */
+                    d = 0;
+                }
+                if (cache->color_data_1[i] & VDC_REVERSE_ATTR) { /* reverse if the reverse attribute is set for this char */
+                    d ^= 0xff;
+                }
+                if (vdc.regs[24] & VDC_REVERSE_ATTR) {  /* whole screen reverse */
+                    d ^= 0xff;
+                }
+                *((uint32_t *)q) = *(pdwh + (d >> 4));
+                *((uint32_t *)q + 1) = *(pdwl + (d >> 4));
+                *((uint32_t *)q + 2) = *(pdwh + (d & 0x0f));
+                *((uint32_t *)q + 3) = *(pdwl + (d & 0x0f));
+            }
         }
     } else { /* normal text size */
         for (i = xs; i <= (unsigned int)xe; i++, p += charwidth) { /* FIXME rendering in the intercharacter gap when charwidth >8 */
@@ -463,6 +495,22 @@ static void draw_std_text_cached(raster_cache_t *cache, unsigned int xs,
             int d = cache->foreground_data[i];
             *((uint32_t *)p) = *(ptr + (d >> 4));
             *((uint32_t *)p + 1) = *(ptr + (d & 0x0f));
+            if (icsi >= 0) {    /* if there's inter character spacing, then render it */
+                q = p + 8;
+                if ((vdc.regs[25] & 0x20) && (d & semigfxtest[vdc.regs[22] & 0x0F])) { /* If semi-graphics mode and the rightmost active bit is set */
+                    d = mask[icsi];   /* .. figure out how big it is based on the width of the gap */
+                } else { /* otherwise just draw the background */
+                    d = 0;
+                }
+                if (cache->color_data_1[i] & VDC_REVERSE_ATTR) { /* reverse if the reverse attribute is set for this char */
+                    d ^= 0xff;
+                }
+                if (vdc.regs[24] & VDC_REVERSE_ATTR) {  /* whole screen reverse */
+                    d ^= 0xff;
+                }
+                *((uint32_t *)q) = *(ptr + (d >> 4));
+                *((uint32_t *)q + 1) = *(ptr + (d & 0x0f));
+            }
         }
     }
 
@@ -480,20 +528,33 @@ static void draw_std_text(void)
    (vdc.raster.draw_buffer_ptr), which is one byte per pixel, based on the VDC
    screen, attr(ibute) and char(set) ram (which are one byte per 8 pixels */
 {
-    uint8_t *p;
+    uint8_t *p, *q;
     uint32_t *table_ptr, *pdl_ptr, *pdh_ptr;
     uint8_t *attr_ptr, *screen_ptr, *char_ptr;
 
-    unsigned int i, d;
+    unsigned int i, d, charwidth;
     unsigned int cpos = 0xffff;
-
+    int icsi = -1;  /* Inter Character Spacing Index - used as a combo flag/index as to whether there is any intercharacter gap to render */
+    
     cpos = vdc.crsrpos - vdc.screen_adr - vdc.mem_counter;
 
+    if(vdc.regs[25] & 0x10) { /* double pixel a.k.a 40column mode */
+        charwidth = 2 * (vdc.regs[22] >> 4);
+        if (charwidth > 16) {   /* Is there inter character spacing to render? */
+            icsi = charwidth / 2 - 8;
+        }
+    } else { /* 80 column mode */
+        charwidth = 1 + (vdc.regs[22] >> 4);
+        if (charwidth > 8) {    /* Is there inter character spacing to render? */
+            icsi = charwidth - 8;
+        }
+    }
+    
     p = vdc.raster.draw_buffer_ptr
         + vdc.border_width
-        - (vdc.regs[22] >> 4)
-        + ((vdc.regs[25] & 0x10) ? 1 : 0)
-        + vdc.xsmooth;
+        + ((vdc.regs[25] & 0x10) ? 2 : 0)
+        + vdc.xsmooth * ((vdc.regs[25] & 0x10) ? 2 : 1)
+        - (vdc.regs[22] >> 4) * ((vdc.regs[25] & 0x10) ? 2 : 1);
 
     attr_ptr = vdc.ram + vdc.attribute_adr + vdc.mem_counter;
     screen_ptr = vdc.ram + vdc.screen_adr + vdc.mem_counter;
@@ -505,11 +566,18 @@ static void draw_std_text(void)
         table_ptr = hr_table + ((vdc.regs[26] & 0x0f) << 4);
         pdl_ptr = pdl_table + ((vdc.regs[26] & 0x0f) << 4);
         pdh_ptr = pdh_table + ((vdc.regs[26] & 0x0f) << 4);
-        for (i = 0; i < vdc.screen_text_cols; i++, p += ((vdc.regs[25] & 0x10) ? 16 : 8)) {
-            d = *(char_ptr
-                  + ((*(attr_ptr + i) & VDC_ALTCHARSET_ATTR) ? 0x1000 : 0)
+        for (i = 0; i < vdc.screen_text_cols; i++, p += charwidth) {
+            if (vdc.raster.ycounter > (signed)vdc.regs[23]) {
+                /* Return nothing if > Vertical Character Size */
+                d = 0x00;
+            } else {
+                d = *(char_ptr
+                  + ((*(attr_ptr + i) & VDC_ALTCHARSET_ATTR) ? 0x100 * vdc.bytes_per_char : 0) /* the offset to the alternate character set is either 0x1000 or 0x2000, depending on the character size (16 or 32) */
                   + (*(screen_ptr + i) * vdc.bytes_per_char));
-
+            }
+            /* mask against r[22] - pixels per char mask */
+            d &= mask[vdc.regs[22] & 0x0F];
+                  
             /* set underline if the underline attrib is set for this char */
             if ((vdc.raster.ycounter == vdc.regs[29]) && (*(attr_ptr + i) & VDC_UNDERLINE_ATTR)) {
                 /* TODO - figure out if the pixels per char applies to the underline */
@@ -521,6 +589,15 @@ static void draw_std_text(void)
                 d = 0x00;
             }
 
+            if (vdc.regs[25] & 0x20) {
+                /* Semi-graphics mode */
+                if (d & semigfxtest[vdc.regs[22] & 0x0F]) {
+                /* if the far right pixel is on.. */
+                    d |= semigfxmask[vdc.regs[22] & 0x0F];
+                    /* .. mask the rest of the right hand side on */
+                }
+            }
+            
             /* reverse if the reverse attribute is set for this char */
             if (*(attr_ptr + i) & VDC_REVERSE_ATTR) {
                 d ^= 0xff;
@@ -529,8 +606,11 @@ static void draw_std_text(void)
             if (cpos == i) { /* handle cursor if this is the cursor */
                 if ((vdc.frame_counter | 1) & crsrblink[(vdc.regs[10] >> 5) & 3]) {
                     /* invert current byte of the character if we are within the cursor area */
-                    if ((vdc.raster.ycounter >= (unsigned)(vdc.regs[10] & 0x1F)) /* top of cursor */
-                    && (vdc.raster.ycounter < (unsigned)(vdc.regs[11] & 0x1F))) { /* bottom of cursor */
+                    if (
+                    ((vdc.raster.ycounter >= (vdc.regs[10] & 0x1F)) && (vdc.raster.ycounter < (vdc.regs[11] & 0x1F)))
+                    || ((vdc.raster.ycounter == (vdc.regs[10] & 0x1F)) && (vdc.raster.ycounter == (vdc.regs[11] & 0x1F)))
+                    || (((vdc.regs[10] & 0x1F) > (vdc.regs[11] & 0x1F)) && ((vdc.raster.ycounter >= (vdc.regs[10] & 0x1F)) || (vdc.raster.ycounter < (vdc.regs[11] & 0x1F))))
+                    ) {
                         /* The VDC cursor reverses the char */
                         d ^= 0xFF;
                     }
@@ -549,10 +629,44 @@ static void draw_std_text(void)
                 *((uint32_t *)p + 1) = *(pdwl + (d >> 4));
                 *((uint32_t *)p + 2) = *(pdwh + (d & 0x0f));
                 *((uint32_t *)p + 3) = *(pdwl + (d & 0x0f));
+                if (icsi >= 0) {    /* if there's inter character spacing, then render it */
+                    q = p + 16;
+                    if ((vdc.regs[25] & 0x20) && (d & semigfxtest[vdc.regs[22] & 0x0F])) { /* If semi-graphics mode and the rightmost active bit is set */
+                        d = mask[icsi];   /* .. figure out how big it is based on the width of the gap */
+                    } else { /* otherwise just draw the background */
+                        d = 0;
+                    }    
+                    if (*(attr_ptr + i) & VDC_REVERSE_ATTR) { /* reverse if the reverse attribute is set for this char */
+                        d ^= 0xff;
+                    }
+                    if (vdc.regs[24] & VDC_REVERSE_ATTR) {  /* whole screen reverse */
+                        d ^= 0xff;
+                    }
+                    *((uint32_t *)q) = *(pdwh + (d >> 4));
+                    *((uint32_t *)q + 1) = *(pdwl + (d >> 4));
+                    *((uint32_t *)q + 2) = *(pdwh + (d & 0x0f));
+                    *((uint32_t *)q + 3) = *(pdwl + (d & 0x0f));
+                }
             } else { /* normal text size */
                 uint32_t *ptr = table_ptr + ((*(attr_ptr + i) & 0x0f) << 8);
                 *((uint32_t *)p) = *(ptr + (d >> 4));
                 *((uint32_t *)p + 1) = *(ptr + (d & 0x0f));
+                if (icsi >= 0) {    /* if there's inter character spacing, then render it */
+                    q = p + 8;
+                    if ((vdc.regs[25] & 0x20) && (d & semigfxtest[vdc.regs[22] & 0x0F])) { /* If semi-graphics mode and the rightmost active bit is set */
+                        d = mask[icsi];   /* .. figure out how big it is based on the width of the gap */
+                    } else { /* otherwise just draw the background */
+                        d = 0;
+                    }    
+                    if (*(attr_ptr + i) & VDC_REVERSE_ATTR) { /* reverse if the reverse attribute is set for this char */
+                        d ^= 0xff;
+                    }
+                    if (vdc.regs[24] & VDC_REVERSE_ATTR) { /* whole screen reverse */
+                        d ^= 0xff;
+                    }
+                    *((uint32_t *)q) = *(ptr + (d >> 4));
+                    *((uint32_t *)q + 1) = *(ptr + (d & 0x0f));
+                }
             }
         }
     } else {
@@ -560,14 +674,29 @@ static void draw_std_text(void)
         uint32_t *ptr = hr_table + (vdc.regs[26] << 4);
         uint32_t *pdwl = pdl_table + (vdc.regs[26] << 4);  /* Pointers into the lookup tables */
         uint32_t *pdwh = pdh_table + (vdc.regs[26] << 4);
-        for (i = 0; i < vdc.screen_text_cols; i++, p += ((vdc.regs[25] & 0x10) ? 16 : 8)) {
+        for (i = 0; i < vdc.screen_text_cols; i++, p += charwidth) {
             d = *(char_ptr + (*(screen_ptr + i) * vdc.bytes_per_char));
+            
+            /* mask against r[22] - pixels per char mask */
+            d &= mask[vdc.regs[22] & 0x0F];
 
+            if (vdc.regs[25] & 0x20) {
+                /* Semi-graphics mode */
+                if (d & semigfxtest[vdc.regs[22] & 0x0F]) {
+                /* if the far right pixel is on.. */
+                    d |= semigfxmask[vdc.regs[22] & 0x0F];
+                    /* .. mask the rest of the right hand side on */
+                }
+            }
+            
             if (cpos == i) { /* handle cursor if this is the cursor */
                 if ((vdc.frame_counter | 1) & crsrblink[(vdc.regs[10] >> 5) & 3]) {
                     /* invert current byte of the character if we are within the cursor area */
-                    if ((vdc.raster.ycounter >= (unsigned)(vdc.regs[10] & 0x1F)) /* top of cursor */
-                    && (vdc.raster.ycounter < (unsigned)(vdc.regs[11] & 0x1F))) { /* bottom of cursor */
+                    if (
+                    ((vdc.raster.ycounter >= (vdc.regs[10] & 0x1F)) && (vdc.raster.ycounter < (vdc.regs[11] & 0x1F)))
+                    || ((vdc.raster.ycounter == (vdc.regs[10] & 0x1F)) && (vdc.raster.ycounter == (vdc.regs[11] & 0x1F)))
+                    || (((vdc.regs[10] & 0x1F) > (vdc.regs[11] & 0x1F)) && ((vdc.raster.ycounter >= (vdc.regs[10] & 0x1F)) || (vdc.raster.ycounter < (vdc.regs[11] & 0x1F))))
+                    ) {
                         /* The VDC cursor reverses the char */
                         d ^= 0xFF;
                     }
@@ -584,9 +713,37 @@ static void draw_std_text(void)
                 *((uint32_t *)p + 1) = *(pdwl + (d >> 4));
                 *((uint32_t *)p + 2) = *(pdwh + (d & 0x0f));
                 *((uint32_t *)p + 3) = *(pdwl + (d & 0x0f));
+                if (icsi >= 0) {    /* if there's inter character spacing, then render it */
+                    q = p + 16;
+                    if ((vdc.regs[25] & 0x20) && (d & semigfxtest[vdc.regs[22] & 0x0F])) { /* If semi-graphics mode and the rightmost active bit is set */
+                        d = mask[icsi];   /* .. figure out how big it is based on the width of the gap */
+                    } else { /* otherwise just draw the background */
+                        d = 0;
+                    }    
+                    if (vdc.regs[24] & VDC_REVERSE_ATTR) { /* whole screen reverse */
+                        d ^= 0xff;
+                    }
+                    *((uint32_t *)q) = *(pdwh + (d >> 4));
+                    *((uint32_t *)q + 1) = *(pdwl + (d >> 4));
+                    *((uint32_t *)q + 2) = *(pdwh + (d & 0x0f));
+                    *((uint32_t *)q + 3) = *(pdwl + (d & 0x0f));
+                }
             } else { /* normal text size */
                 *((uint32_t *)p) = *(ptr + (d >> 4));
                 *((uint32_t *)p + 1) = *(ptr + (d & 0x0f));
+                if (icsi >= 0) {    /* if there's inter character spacing, then render it */
+                    q = p + 8;
+                    if ((vdc.regs[25] & 0x20) && (d & semigfxtest[vdc.regs[22] & 0x0F])) { /* If semi-graphics mode and the rightmost active bit is set */
+                        d = mask[icsi];   /* .. figure out how big it is based on the width of the gap */
+                    } else { /* otherwise just draw the background */
+                        d = 0;
+                    }
+                    if (vdc.regs[24] & VDC_REVERSE_ATTR) { /* whole screen reverse */
+                        d ^= 0xff;
+                    }
+                    *((uint32_t *)q) = *(ptr + (d >> 4));
+                    *((uint32_t *)q + 1) = *(ptr + (d & 0x0f));
+                }
             }
         }
     }
@@ -647,9 +804,9 @@ static void draw_std_bitmap_cached(raster_cache_t *cache, unsigned int xs,
     }
     p = vdc.raster.draw_buffer_ptr
         + vdc.border_width
-        + vdc.xsmooth
-        - (vdc.regs[22] >> 4)
-        + ((vdc.regs[25] & 0x10) ? 1 : 0)
+        + ((vdc.regs[25] & 0x10) ? 2 : 0)
+        + vdc.xsmooth * ((vdc.regs[25] & 0x10) ? 2 : 1)
+        - (vdc.regs[22] >> 4) * ((vdc.regs[25] & 0x10) ? 2 : 1)
         + xs * charwidth;
 
     /* TODO: See if we even need to split these renderers between attr/mono, because the attr data is filled either way. draw_std_text_cached mode() doesn't differentiate */
@@ -738,18 +895,24 @@ static void draw_std_bitmap(void)
     uint8_t *p;
     uint8_t *attr_ptr, *bitmap_ptr;
 
-    unsigned int i, d, j, fg, bg;
-
+    unsigned int i, d, j, fg, bg, charwidth;
+    
+    if(vdc.regs[25] & 0x10) { /* double pixel a.k.a 40column mode */
+        charwidth = 2 * (vdc.regs[22] >> 4);
+    } else { /* 80 column mode */
+        charwidth = 1 + (vdc.regs[22] >> 4);
+    }
+    
     p = vdc.raster.draw_buffer_ptr
         + vdc.border_width
-        - (vdc.regs[22] >> 4)
-        + ((vdc.regs[25] & 0x10) ? 1 : 0)
-        + vdc.xsmooth;
+        + ((vdc.regs[25] & 0x10) ? 2 : 0)
+        + vdc.xsmooth * ((vdc.regs[25] & 0x10) ? 2 : 1)
+        - (vdc.regs[22] >> 4) * ((vdc.regs[25] & 0x10) ? 2 : 1);
 
     attr_ptr = vdc.ram + vdc.attribute_adr + vdc.mem_counter + vdc.attribute_offset;
     bitmap_ptr = vdc.ram + vdc.screen_adr + vdc.bitmap_counter;
 
-    for (i = 0; i < vdc.mem_counter_inc; i++, p += ((vdc.regs[25] & 0x10) ? 16 : 8)) {
+    for (i = 0; i < vdc.mem_counter_inc; i++, p += charwidth) {
         uint32_t *ptr, *pdwl, *pdwh;
 
         if (vdc.regs[25] & 0x40) {

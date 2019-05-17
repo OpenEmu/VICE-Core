@@ -47,7 +47,7 @@
 
 /* <sys/select.h> is required for select(2) and fd_set */
 #if defined(HAVE_SYS_SELECT_H) || \
-    defined(MINIX_SUPPORT) || defined(OPENSERVER6_COMPILE) || \
+    defined(OPENSERVER6_COMPILE) || \
     (defined(__QNX__) && !defined(__QNXNTO__))
 #include <sys/select.h>
 #endif
@@ -66,7 +66,6 @@
 #include "log.h"
 #include "mididrv.h"
 #include "resources.h"
-#include "translate.h"
 #include "types.h"
 #include "util.h"
 
@@ -200,13 +199,7 @@ static int mididrv_oss_in(uint8_t *b)
     FD_SET(fd_in, &rdset);
     ti.tv_sec = ti.tv_usec = 0;
 
-#ifndef MINIXVMD
-    /* for now this change will break MIDI support on Minix-vmd
-       till I can implement the same functionality using the
-       poll() function */
-
     ret = select(fd_in + 1, &rdset, NULL, NULL, &ti);
-#endif
 
     if (ret && (FD_ISSET(fd_in, &rdset))) {
         n = read(fd_in, b, 1);
@@ -666,23 +659,18 @@ void mididrv_resources_shutdown(void)
     lib_free(midi_out_dev);
 }
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-midiin", SET_RESOURCE, -1,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-midiin", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS | CMDLINE_ATTRIB_NEED_BRACKETS,
       NULL, NULL, "MIDIInDev", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      N_("<Name>"), N_("Specify MIDI-In device") },
-    { "-midiout", SET_RESOURCE, -1,
+      "<Name>", "Specify MIDI-In device" },
+    { "-midiout", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS | CMDLINE_ATTRIB_NEED_BRACKETS,
       NULL, NULL, "MIDIOutDev", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      N_("<Name>"), N_("Specify MIDI-Out device") },
+      "<Name>", "Specify MIDI-Out device" },
 #ifdef USE_ALSA
-    { "-mididrv", SET_RESOURCE, -1,
+    { "-mididrv", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS | CMDLINE_ATTRIB_NEED_BRACKETS,
       NULL, NULL, "MIDIDriver", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      N_("<Driver>"), N_("Specify MIDI driver (0 = OSS, 1 = ALSA)") },
+      "<Driver>", "Specify MIDI driver (0 = OSS, 1 = ALSA)" },
 #endif
     CMDLINE_LIST_END
 };

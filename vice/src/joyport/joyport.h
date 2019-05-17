@@ -65,8 +65,9 @@
 #define JOYPORT_ID_SCRIPT64_DONGLE    26
 #define JOYPORT_ID_VIZAWRITE64_DONGLE 27
 #define JOYPORT_ID_WAASOFT_DONGLE     28
+#define JOYPORT_ID_SNESPAD            29
 
-#define JOYPORT_MAX_DEVICES           29
+#define JOYPORT_MAX_DEVICES           30
 
 #define JOYPORT_RES_ID_NONE        0
 #define JOYPORT_RES_ID_MOUSE       1
@@ -97,7 +98,6 @@
 
 typedef struct joyport_s {
     char *name;
-    int trans_name;
     int resource_id;
     int is_lp;
     int pot_optional;
@@ -112,13 +112,11 @@ typedef struct joyport_s {
 
 typedef struct joyport_desc_s {
     char *name;
-    int trans_name;
     int id;
 } joyport_desc_t;
 
 typedef struct joyport_port_props_s {
     char *name;
-    int trans_name;
     int has_pot;
     int has_lp_support;
     int active;
@@ -142,7 +140,6 @@ extern joyport_desc_t *joyport_get_valid_devices(int port);
 
 extern void joyport_display_joyport(int id, uint8_t status);
 
-extern int joyport_get_port_trans_name(int port);
 extern char *joyport_get_port_name(int port);
 
 extern void joyport_clear_devices(void);

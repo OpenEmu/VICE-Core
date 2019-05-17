@@ -39,7 +39,6 @@
 #include "maincpu.h"
 #include "clkguard.h"
 #include "serial-iec-bus.h"
-#include "translate.h"
 
 void serial_iec_device_enable(unsigned int devnr);
 void serial_iec_device_disable(unsigned int devnr);
@@ -97,87 +96,56 @@ int serial_iec_device_resources_init(void)
     return resources_register_int(resources_int);
 }
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-iecdevice4", SET_RESOURCE, 0,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-iecdevice4", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "IECDevice4", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_IEC_4,
-      NULL, NULL },
-    { "+iecdevice4", SET_RESOURCE, 0,
+      NULL, "Enable IEC device emulation for device #4" },
+    { "+iecdevice4", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "IECDevice4", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_IEC_4,
-      NULL, NULL },
-    { "-iecdevice5", SET_RESOURCE, 0,
+      NULL, "Disable IEC device emulation for device #4" },
+    { "-iecdevice5", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "IECDevice5", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_IEC_5,
-      NULL, NULL },
-    { "+iecdevice5", SET_RESOURCE, 0,
+      NULL, "Enable IEC device emulation for device #5" },
+    { "+iecdevice5", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "IECDevice5", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_IEC_5,
-      NULL, NULL },
-    { "-iecdevice6", SET_RESOURCE, 0,
+      NULL, "Disable IEC device emulation for device #5" },
+    { "-iecdevice6", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "IECDevice6", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_IEC_5,
-      NULL, NULL },
-    { "+iecdevice6", SET_RESOURCE, 0,
+      NULL, "Enable IEC device emulation for device #6" },
+    { "+iecdevice6", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "IECDevice6", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_IEC_6,
-      NULL, NULL },
-    { "-iecdevice7", SET_RESOURCE, 0,
+      NULL, "Disable IEC device emulation for device #6" },
+    { "-iecdevice7", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "IECDevice7", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_IEC_7,
-      NULL, NULL },
-    { "+iecdevice7", SET_RESOURCE, 0,
+      NULL, "Enable IEC device emulation for device #7" },
+    { "+iecdevice7", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "IECDevice7", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_IEC_7,
-      NULL, NULL },
-    { "-iecdevice8", SET_RESOURCE, 0,
+      NULL, "Disable IEC device emulation for device #7" },
+    { "-iecdevice8", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "IECDevice8", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_IEC_8,
-      NULL, NULL },
-    { "+iecdevice8", SET_RESOURCE, 0,
+      NULL, "Enable IEC device emulation for device #8" },
+    { "+iecdevice8", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "IECDevice8", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_IEC_8,
-      NULL, NULL },
-    { "-iecdevice9", SET_RESOURCE, 0,
+      NULL, "Disable IEC device emulation for device #8" },
+    { "-iecdevice9", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "IECDevice9", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_IEC_9,
-      NULL, NULL },
-    { "+iecdevice9", SET_RESOURCE, 0,
+      NULL, "Enable IEC device emulation for device #9" },
+    { "+iecdevice9", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "IECDevice9", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_IEC_9,
-      NULL, NULL },
-    { "-iecdevice10", SET_RESOURCE, 0,
+      NULL, "Disable IEC device emulation for device #9" },
+    { "-iecdevice10", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "IECDevice10", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_IEC_10,
-      NULL, NULL },
-    { "+iecdevice10", SET_RESOURCE, 0,
+      NULL, "Enable IEC device emulation for device #10" },
+    { "+iecdevice10", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "IECDevice10", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_IEC_10,
-      NULL, NULL },
-    { "-iecdevice11", SET_RESOURCE, 0,
+      NULL, "Disable IEC device emulation for device #10" },
+    { "-iecdevice11", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "IECDevice11", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_IEC_11,
-      NULL, NULL },
-    { "+iecdevice11", SET_RESOURCE, 0,
+      NULL, "Enable IEC device emulation for device #11" },
+    { "+iecdevice11", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "IECDevice11", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_IEC_11,
-      NULL, NULL },
+      NULL, "Disable IEC device emulation for device #11" },
     CMDLINE_LIST_END
 };
 
@@ -675,9 +643,13 @@ static void serial_iec_device_exec_main(unsigned int devnr, CLOCK clk_value)
                     iecbus_device_write(devnr, (uint8_t)(IECBUS_DEVICE_WRITE_CLK
                                                       | IECBUS_DEVICE_WRITE_DATA));
                     iec->state = P_READY;
-                    /* FIXME: is this the correct place for the break? */
-                    break;
                 }
+                /*
+                 * This break used to be inside the if(), but since code further
+                 * up has the break like this in a P_PRE1 case, I think this
+                 * is the proper place. -- Compyx
+                 */
+                break;
             case P_READY:
                 if (bus & IECBUS_DEVICE_READ_DATA) {
                     /* receiver signaled "ready-for-data" (DATA=1) */

@@ -32,14 +32,11 @@
 #include <gtk/gtk.h>
 
 #include "debug_gtk3.h"
-#include "not_implemented.h"
 
-#include "cmdline.h"
 #include "kbd.h"
 #include "lib.h"
 #include "machine.h"
 #include "resources.h"
-#include "translate.h"
 #include "uiapi.h"
 #include "uiabout.h"
 #include "uistatusbar.h"
@@ -47,11 +44,17 @@
 
 #include "uimenu.h"
 
+
+/** \brief  Menu accelerator object
+ */
 typedef struct ui_accel_data_s {
-    GtkWidget *widget;
-    ui_menu_item_t *item;
+    GtkWidget *widget;      /**< widget connected to the accelerator */
+    ui_menu_item_t *item;   /**< menu item connected to the accelerator */
 } ui_accel_data_t;
 
+
+/** \brief  Reference to the accelerator group
+ */
 static GtkAccelGroup *accel_group = NULL;
 
 
@@ -96,7 +99,11 @@ static void ui_accel_data_delete(gpointer data, GClosure *closure)
 
 /** \brief  Callback that forwards accelerator codes.
  */
-static void handle_accelerator(GtkAccelGroup *accel_group, GObject *acceleratable, guint keyval, GdkModifierType modifier, gpointer user_data)
+static void handle_accelerator(GtkAccelGroup *accel_grp,
+                               GObject *acceleratable,
+                               guint keyval,
+                               GdkModifierType modifier,
+                               gpointer user_data)
 {
     ui_accel_data_t *accel_data = (ui_accel_data_t *)user_data;
     accel_data->item->callback(accel_data->widget, accel_data->item->data);

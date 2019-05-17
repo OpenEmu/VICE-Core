@@ -118,6 +118,14 @@ static GtkWidget *resource_scale_int_new_helper(GtkWidget *widget)
 
     gtk_range_set_value(GTK_RANGE(widget), (gdouble)value);
 
+    /* register methods to be used by the resource widget manager */
+    resource_widget_register_methods(
+            widget,
+            vice_gtk3_resource_scale_int_reset,
+            vice_gtk3_resource_scale_int_factory,
+            vice_gtk3_resource_scale_int_sync,
+            vice_gtk3_resource_scale_int_apply);
+
     g_signal_connect(widget, "value-changed", G_CALLBACK(on_scale_int_changed),
             NULL);
     g_signal_connect(widget, "destroy", G_CALLBACK(on_scale_int_destroy), NULL);
@@ -269,4 +277,17 @@ gboolean vice_gtk3_resource_scale_int_sync(GtkWidget *widget)
         return FALSE;
     }
     return vice_gtk3_resource_scale_int_set(widget, current);
+}
+
+
+/** \brief  Set resource to the widget's value
+ *
+ * \param[in,out]   widget  resource int scale widget
+ *
+ * \return  bool
+ */
+gboolean vice_gtk3_resource_scale_int_apply(GtkWidget *widget)
+{
+    NOT_IMPLEMENTED_WARN_ONLY();
+    return FALSE;
 }

@@ -132,6 +132,10 @@ typedef enum {
     MENU_ACTION_CANCEL,
     MENU_ACTION_EXIT,
     MENU_ACTION_MAP,
+    MENU_ACTION_PAGEUP,
+    MENU_ACTION_PAGEDOWN,
+    MENU_ACTION_HOME,
+    MENU_ACTION_END,
     MENU_ACTION_NUM,
     MENU_ACTION_NONE_RELEASE,
     MENU_ACTION_UP_RELEASE,
@@ -141,12 +145,15 @@ typedef enum {
     MENU_ACTION_SELECT_RELEASE,
     MENU_ACTION_CANCEL_RELEASE,
     MENU_ACTION_EXIT_RELEASE,
-    MENU_ACTION_MAP_RELEASE
+    MENU_ACTION_MAP_RELEASE,
+    MENU_ACTION_PAGEUP_RELEASE,
+    MENU_ACTION_PAGEDOWN_RELEASE,
+    MENU_ACTION_HOME_RELEASE,
+    MENU_ACTION_END_RELEASE,
 } ui_menu_action_t;
 
 extern void sdl_ui_set_main_menu(const ui_menu_entry_t *menu);
 extern ui_menu_entry_t *sdl_ui_get_main_menu(void);
-extern void sdl_ui_set_menu_font(uint8_t *font, int w, int h);
 extern menu_draw_t *sdl_ui_get_menu_param(void);
 extern menufont_t *sdl_ui_get_menu_font(void);
 extern void (*sdl_ui_set_menu_params)(int index, menu_draw_t *menu_draw);
@@ -180,5 +187,7 @@ extern int sdl_ui_reset_tickmark_colors(uint8_t color);
 extern int sdl_ui_set_toggle_colors(int state);
 extern int sdl_ui_set_default_colors(void);
 extern void sdl_ui_menu_shutdown(void);
+
+extern const char *sdl_ui_menu_video_slider_helper(int activated, ui_callback_data_t param, const char *resource_name, const int min, const int max);
 
 #endif

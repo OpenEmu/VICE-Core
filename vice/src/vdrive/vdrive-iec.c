@@ -47,6 +47,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "archdep.h"
 #include "cbmdos.h"
 #include "diskimage.h"
 #include "lib.h"
@@ -850,7 +851,7 @@ int vdrive_iec_write(vdrive_t *vdrive, uint8_t data, unsigned int secondary)
             break;
         default:
             log_error(vdrive_iec_log, "Fatal: Unknown write mode.");
-            exit(-1);
+            archdep_vice_exit(-1);
     }
     return SERIAL_OK;
 }

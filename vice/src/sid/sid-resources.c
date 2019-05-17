@@ -59,6 +59,9 @@ static int sid_resid_sampling;
 static int sid_resid_passband;
 static int sid_resid_gain;
 static int sid_resid_filter_bias;
+static int sid_resid_8580_passband;
+static int sid_resid_8580_gain;
+static int sid_resid_8580_filter_bias;
 #endif
 int sid_stereo = 0;
 int checking_sid_stereo;
@@ -294,6 +297,45 @@ static int set_sid_resid_filter_bias(int i, void *param)
     return 0;
 }
 
+static int set_sid_resid_8580_passband(int i, void *param)
+{
+    if (i < 0) {
+        i = 0;
+    } else if (i > 90) {
+        i = 90;
+    }
+
+    sid_resid_8580_passband = i;
+    sid_state_changed = 1;
+    return 0;
+}
+
+static int set_sid_resid_8580_gain(int i, void *param)
+{
+    if (i < 90) {
+        i = 90;
+    } else if (i > 100) {
+        i = 100;
+    }
+
+    sid_resid_8580_gain = i;
+    sid_state_changed = 1;
+    return 0;
+}
+
+static int set_sid_resid_8580_filter_bias(int i, void *param)
+{
+    if (i < -5000) {
+        i = -5000;
+    } else if (i > 5000) {
+        i = 5000;
+    }
+
+    sid_resid_8580_filter_bias = i;
+    sid_state_changed = 1;
+    return 0;
+}
+
 #endif
 
 #ifdef HAVE_HARDSID
@@ -345,6 +387,12 @@ static const resource_int_t resid_resources_int[] = {
       &sid_resid_gain, set_sid_resid_gain, NULL },
     { "SidResidFilterBias", 500, RES_EVENT_NO, NULL,
       &sid_resid_filter_bias, set_sid_resid_filter_bias, NULL },
+    { "SidResid8580Passband", 90, RES_EVENT_NO, NULL,
+      &sid_resid_8580_passband, set_sid_resid_8580_passband, NULL },
+    { "SidResid8580Gain", 97, RES_EVENT_NO, NULL,
+      &sid_resid_8580_gain, set_sid_resid_8580_gain, NULL },
+    { "SidResid8580FilterBias", -3000, RES_EVENT_NO, NULL,
+      &sid_resid_8580_filter_bias, set_sid_resid_8580_filter_bias, NULL },
     RESOURCE_INT_LIST_END
 };
 #endif
@@ -357,14 +405,18 @@ static const resource_int_t common_resources_int[] = {
       &sid_filters_enabled, set_sid_filters_enabled, NULL },
     { "SidModel", SID_MODEL_DEFAULT, RES_EVENT_SAME, NULL,
       &sid_model, set_sid_model, NULL },
+    RESOURCE_INT_LIST_END
+};
+
 #ifdef HAVE_HARDSID
+static const resource_int_t hardsid_resources_int[] = {
     { "SidHardSIDMain", 0, RES_EVENT_STRICT, (resource_value_t)0,
       &sid_hardsid_main, set_sid_hardsid_main, NULL },
     { "SidHardSIDRight", 1, RES_EVENT_NO, NULL,
       &sid_hardsid_right, set_sid_hardsid_right, NULL },
-#endif
     RESOURCE_INT_LIST_END
 };
+#endif
 
 static const resource_int_t stereo_resources_int[] = {
     { "SidStereo", 0, RES_EVENT_SAME, NULL,
@@ -374,6 +426,13 @@ static const resource_int_t stereo_resources_int[] = {
 
 int sid_common_resources_init(void)
 {
+#ifdef HAVE_HARDSID
+    if (hardsid_available()) {
+        if (resources_register_int(hardsid_resources_int) < 0) {
+            return -1;
+        }
+    }
+#endif
     return resources_register_int(common_resources_int);
 }
 

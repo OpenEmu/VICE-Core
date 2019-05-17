@@ -1,9 +1,10 @@
-/**
+/** \file   petmiscwidget.h
  * \brief   Widget to set the PET Crtc and EoiBlank resources - header
  *
- * Written by
- *  Bas Wassink <b.wassink@ziggo.nl>
- *
+ * \author  Bas Wassink <b.wassink@ziggo.nl>
+ */
+
+/*
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -30,6 +31,11 @@
 #include "vice.h"
 #include <gtk/gtk.h>
 
-GtkWidget *pet_misc_widget_create(void);
+GtkWidget * pet_misc_widget_create(void);
+void        pet_misc_widget_set_crtc_callback(GtkWidget *widget,
+                                              void (*func)(int));
+void        pet_misc_widget_set_blank_callback(GtkWidget *widget,
+                                               void (*func)(int));
 
+void        pet_misc_widget_sync(GtkWidget *widget);
 #endif

@@ -37,7 +37,6 @@
 #include "lib.h"
 #include "log.h"
 #include "resources.h"
-#include "translate.h"
 #include "types.h"
 #include "uiapi.h"
 #include "util.h"
@@ -131,68 +130,45 @@ int debug_resources_init(void)
     return resources_register_int(resources_int);
 }
 
-static const cmdline_option_t cmdline_options[] = {
+static const cmdline_option_t cmdline_options[] =
+{
 #ifdef DEBUG
-    { "-trace_maincpu", SET_RESOURCE, 0,
+    { "-trace_maincpu", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MainCPU_TRACE", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_TRACE_MAIN_CPU,
-      NULL, NULL },
-    { "+trace_maincpu", SET_RESOURCE, 0,
+      NULL, "Trace the main CPU" },
+    { "+trace_maincpu", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MainCPU_TRACE", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DONT_TRACE_MAIN_CPU,
-      NULL, NULL },
-    { "-trace_drive0", SET_RESOURCE, 0,
+      NULL, "Do not trace the main CPU" },
+    { "-trace_drive0", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Drive0CPU_TRACE", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_TRACE_DRIVE0_CPU,
-      NULL, NULL },
-    { "+trace_drive0", SET_RESOURCE, 0,
+      NULL, "Trace the drive0 CPU" },
+    { "+trace_drive0", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Drive0CPU_TRACE", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DONT_TRACE_DRIVE0_CPU,
-      NULL, NULL },
-    { "-trace_drive1", SET_RESOURCE, 0,
+      NULL, "Do not trace the drive0 CPU" },
+    { "-trace_drive1", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Drive1CPU_TRACE", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_TRACE_DRIVE1_CPU,
-      NULL, NULL },
-    { "+trace_drive1", SET_RESOURCE, 0,
+      NULL, "Trace the drive1 CPU" },
+    { "+trace_drive1", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Drive1CPU_TRACE", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DONT_TRACE_DRIVE1_CPU,
-      NULL, NULL },
-    { "-trace_drive2", SET_RESOURCE, 0,
+      NULL, "Do not trace the drive1 CPU" },
+    { "-trace_drive2", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Drive2CPU_TRACE", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_TRACE_DRIVE2_CPU,
-      NULL, NULL },
-    { "+trace_drive2", SET_RESOURCE, 0,
+      NULL, "Trace the drive2 CPU" },
+    { "+trace_drive2", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Drive2CPU_TRACE", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DONT_TRACE_DRIVE2_CPU,
-      NULL, NULL },
-    { "-trace_drive3", SET_RESOURCE, 0,
+      NULL, "Do not trace the drive2 CPU" },
+    { "-trace_drive3", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Drive3CPU_TRACE", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_TRACE_DRIVE3_CPU,
-      NULL, NULL },
-    { "+trace_drive3", SET_RESOURCE, 0,
+      NULL, "Trace the drive3 CPU" },
+    { "+trace_drive3", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Drive3CPU_TRACE", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DONT_TRACE_DRIVE3_CPU,
-      NULL, NULL },
-    { "-trace_mode", SET_RESOURCE, 1,
+      NULL, "Do not trace the drive3 CPU" },
+    { "-trace_mode", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "TraceMode", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_VALUE, IDCLS_TRACE_MODE,
-      NULL, NULL },
-    { "-autoplaybackframes", SET_RESOURCE, 1,
+      "<value>", "Trace mode (0=normal 1=small 2=history)" },
+    { "-autoplaybackframes", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "AutoPlaybackFrames", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_FRAMES, IDCLS_SET_AUTO_PLAYBACK_FRAMES,
-      NULL, NULL },
+      "<frames>", "Set the amount of automatic playback frames" },
 #endif
     CMDLINE_LIST_END
 };
@@ -473,7 +449,8 @@ inline static void debug_history_step(const char *st)
     }
 
     if (event_playback_active()) {
-        char tempstr[DEBUG_MAXLINELEN];
+        /* +1 for the terminating nul char */
+        char tempstr[DEBUG_MAXLINELEN + 1];
         int line_len = sprintf(tempstr, "%s\n", st);
 
         if (debug_buffer_ptr >= debug_buffer_size) {
@@ -484,8 +461,7 @@ inline static void debug_history_step(const char *st)
 
         if (strncmp(st, debug_buffer + debug_buffer_ptr, strlen(st)) != 0) {
             event_playback_stop();
-            ui_error(translate_text(IDGS_PLAYBACK_ERROR_DIFFERENT)
-                     , st, debug_file_line, debug_file_current - 1);
+            ui_error("Playback error: %s different from line %d of file debug%06d", st, debug_file_line, debug_file_current - 1);
         }
 
         debug_buffer_ptr += line_len;

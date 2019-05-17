@@ -44,7 +44,6 @@
 #include "sound.h"
 #include "uiapi.h"
 #include "util.h"
-#include "translate.h"
 
 #include "digimaxcore.c"
 
@@ -148,14 +147,6 @@ static int set_digimax_base(int val, void *param)
         return 0;
     }
 
-    if (addr == 0xffff) {
-        if (machine_class == VICE_MACHINE_VIC20) {
-            addr = 0x9800;
-        } else {
-            addr = 0xde00;
-        }
-    }
-
     if (old) {
         set_digimax_enabled(0, NULL);
     }
@@ -251,9 +242,13 @@ void digimax_detach(void)
 
 /* ---------------------------------------------------------------------*/
 
-static const resource_int_t resources_int[] = {
+static resource_int_t resources_int[] = {
     { "DIGIMAX", 0, RES_EVENT_STRICT, (resource_value_t)0,
       &digimax_sound_chip.chip_enabled, set_digimax_enabled, NULL },
+    /*
+     * The 'factory_value' gets set a proper default value for the current
+     * emu in digimix_resource_init()
+     */
     { "DIGIMAXbase", 0xffff, RES_EVENT_NO, NULL,
       &digimax_address, set_digimax_base, NULL },
     RESOURCE_INT_LIST_END
@@ -261,6 +256,11 @@ static const resource_int_t resources_int[] = {
 
 int digimax_resources_init(void)
 {
+    if (machine_class == VICE_MACHINE_VIC20) {
+        resources_int[1].factory_value = 0x9800;
+    } else {
+        resources_int[1].factory_value = 0xde00;
+    }
     return resources_register_int(resources_int);
 }
 
@@ -275,26 +275,20 @@ void digimax_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-digimax", SET_RESOURCE, 0,
+    { "-digimax", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "DIGIMAX", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_DIGIMAX,
-      NULL, NULL },
-    { "+digimax", SET_RESOURCE, 0,
+      NULL, "Enable the DigiMAX cartridge" },
+    { "+digimax", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "DIGIMAX", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_DIGIMAX,
-      NULL, NULL },
+      NULL, "Disable the DigiMAX cartridge" },
     CMDLINE_LIST_END
 };
 
 static cmdline_option_t base_cmdline_options[] =
 {
-    { "-digimaxbase", SET_RESOURCE, 1,
+    { "-digimaxbase", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "DIGIMAXbase", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_COMBO,
-      IDCLS_P_BASE_ADDRESS, IDCLS_DIGIMAX_BASE,
-      NULL, NULL },
+      "<Base address>", NULL },
     CMDLINE_LIST_END
 };
 
@@ -309,11 +303,11 @@ int digimax_cmdline_options_init(void)
     if (machine_class == VICE_MACHINE_VIC20) {
         temp1 = util_gen_hex_address_list(0x9800, 0x9900, 0x20);
         temp2 = util_gen_hex_address_list(0x9c00, 0x9d00, 0x20);
-        digimax_address_list = util_concat(". (", temp1, "/", temp2, ")", NULL);        
+        digimax_address_list = util_concat("Base address of the DigiMAX cartridge. (", temp1, "/", temp2, ")", NULL);        
         lib_free(temp2);
     } else {
         temp1 = util_gen_hex_address_list(0xde00, 0xe000, 0x20);
-        digimax_address_list = util_concat(". (", temp1, ")", NULL);
+        digimax_address_list = util_concat("Base address of the DigiMAX cartridge. (", temp1, ")", NULL);
     }
     lib_free(temp1);
 

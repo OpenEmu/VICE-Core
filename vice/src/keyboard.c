@@ -56,7 +56,6 @@
 #include "resources.h"
 #include "snapshot.h"
 #include "sysfile.h"
-#include "translate.h"
 #include "types.h"
 #include "util.h"
 #include "vice-event.h"
@@ -91,7 +90,7 @@ static log_t keyboard_log = LOG_DEFAULT;
 
 static keyboard_machine_func_t keyboard_machine_func = NULL;
 
-static CLOCK keyboard_delay;
+static CLOCK keyboard_delay = 0;
 
 static int keyboard_clear = 0;
 
@@ -503,8 +502,8 @@ void keyboard_key_pressed(signed long key)
     if (latch) {
         keyboard_set_latch_keyarr(key_latch_row, key_latch_column, 1);
         if (network_connected()) {
-            CLOCK keyboard_delay = KEYBOARD_RAND();
-            network_event_record(EVENT_KEYBOARD_DELAY, (void *)&keyboard_delay, sizeof(keyboard_delay));
+            CLOCK delay = KEYBOARD_RAND();
+            network_event_record(EVENT_KEYBOARD_DELAY, (void *)&delay, sizeof(delay));
             network_event_record(EVENT_KEYBOARD_MATRIX, (void *)latch_keyarr, sizeof(latch_keyarr));
         } else {
             alarm_set(keyboard_alarm, maincpu_clk + KEYBOARD_RAND());
@@ -632,8 +631,8 @@ void keyboard_key_released(signed long key)
 
     if (latch) {
         if (network_connected()) {
-            CLOCK keyboard_delay = KEYBOARD_RAND();
-            network_event_record(EVENT_KEYBOARD_DELAY, (void *)&keyboard_delay, sizeof(keyboard_delay));
+            CLOCK delay = KEYBOARD_RAND();
+            network_event_record(EVENT_KEYBOARD_DELAY, (void *)&delay, sizeof(delay));
             network_event_record(EVENT_KEYBOARD_MATRIX, (void *)latch_keyarr, sizeof(latch_keyarr));
         } else {
             alarm_set(keyboard_alarm, maincpu_clk + KEYBOARD_RAND());
@@ -1442,11 +1441,13 @@ int keyboard_get_num_mappings(void)
     return KBD_MAPPING_NUM;
 }
 
+/* (keep in sync with constants in keyboard.c) */
 static mapping_info_t kbdinfo[KBD_MAPPING_NUM + 1] = {
     { "American (us)", KBD_MAPPING_US, "" },
     { "British (uk)", KBD_MAPPING_UK, "uk" },
     { "German (de)", KBD_MAPPING_DE, "de" },
     { "Danish (da)", KBD_MAPPING_DA, "da" },
+    { "Dutch (nl)", KBD_MAPPING_NL, "nl" },
     { "Norwegian (no)", KBD_MAPPING_NO, "no" },
     { "Finnish (fi)", KBD_MAPPING_FI, "fi" },
     { "Italian (it)", KBD_MAPPING_IT, "it" },
@@ -1475,7 +1476,7 @@ static int try_set_keymap_file(int atidx, int idx, int mapping, int type)
         tstr = machine_get_keyboard_type_name(type);
     }
     mapname = keyboard_get_mapping_name(mapping);
-#if 1
+
     /* <port>_<type>_<idx>_<mapping>.vkm */
     if ((mapping == 0) && (tstr == NULL)) {
         name = util_concat(KBD_PORT_PREFIX, "_", sympos[idx], ".vkm", NULL);
@@ -1486,9 +1487,7 @@ static int try_set_keymap_file(int atidx, int idx, int mapping, int type)
     } else if ((mapping != 0) && (tstr != NULL)) {
         name = util_concat(KBD_PORT_PREFIX, "_", tstr, "_", sympos[idx], "_", mapname, ".vkm", NULL);
     }
-#else
-    /* FIXME: alternative solution for targets with 8.3 filenames */
-#endif
+
     DBG(("try_set_keymap_file: (port:%s type:%s idx:%d mapping:%d) '%s' = '%s'\n",
                 KBD_PORT_PREFIX, tstr ? tstr : "-", idx, mapping,
                 idx ? "KeymapPosFile" : "KeymapSymFile", name));
@@ -1704,33 +1703,23 @@ static void keyboard_resources_shutdown(void)
 
 static cmdline_option_t const cmdline_options[] =
 {
-    { "-keymap", SET_RESOURCE, 1,
+    { "-keymap", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "KeymapIndex", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NUMBER, IDCLS_SPECIFY_KEYMAP_FILE_INDEX,
-      NULL, NULL },
+      "<number>", "Specify index of keymap file (0=symbolic, 1=positional, 2=symbolic (user), 3=positional (user))" },
 /* FIXME: build description dynamically */
-    { "-keyboardmapping", SET_RESOURCE, 1,
+    { "-keyboardmapping", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "KeyboardMapping", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NUMBER, IDCLS_SPECIFY_KEYBOARD_MAPPING,
-      NULL, NULL },
+      "<number>", "Specify host keyboard layout" },
 /* FIXME: build description dynamically */
-    { "-keyboardtype", SET_RESOURCE, 1,
+    { "-keyboardtype", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "KeyboardType", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NUMBER, IDCLS_SPECIFY_KEYBOARD_TYPE,
-      NULL, NULL },
-    { "-symkeymap", SET_RESOURCE, 1,
+      "<number>", "Specify emulated keyboard type" },
+    { "-symkeymap", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "KeymapUserSymFile", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SPECIFY_SYM_KEYMAP_FILE_NAME,
-      NULL, NULL },
-    { "-poskeymap", SET_RESOURCE, 1,
+      "<Name>", "Specify name of symbolic keymap file" },
+    { "-poskeymap", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "KeymapUserPosFile", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SPECIFY_POS_KEYMAP_FILE_NAME,
-      NULL, NULL },
+      "<Name>", "Specify name of positional keymap file" },
     CMDLINE_LIST_END
 };
 

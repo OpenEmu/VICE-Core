@@ -34,6 +34,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "debug_gtk3.h"
 #include "info.h"
 #include "lib.h"
 #include "ui.h"
@@ -41,6 +42,7 @@
 #ifdef USE_SVN_REVISION
 #include "svnversion.h"
 #endif
+#include "uidata.h"
 
 #include "uiabout.h"
 
@@ -110,29 +112,15 @@ static void destroy_current_team_list(char **list)
     lib_free(list);
 }
 
-#if 0
+
 /** \brief  Create VICE logo
  *
  * \return  GdkPixbuf instance
  */
 static GdkPixbuf *get_vice_logo(void)
 {
-    GdkPixbuf *logo;
-    GError *err = NULL;
-
-    /* TODO:    use sysfile.c to locate logo file, probably needs adjusting
-     *          archdep_default_sysfile_pathlist()
-     */
-    logo = gdk_pixbuf_new_from_file(
-            "/usr/local/lib64/vice/doc/vice-logo-small.png", &err);
-    if (logo == NULL || err != NULL) {
-#ifdef HAVE_DEBUG_GTK3UI
-        g_print("[debug-gtk3ui] %s(): %s\n", __func__, err->message);
-#endif
-    }
-    return logo;
+    return uidata_get_pixbuf("vice-logo-black.svg");
 }
-#endif
 
 /** \brief  Handler for the "destroy" event
  *
@@ -185,9 +173,7 @@ static void about_response_callback(GtkWidget *widget, gint response_id,
 void ui_about_dialog_callback(GtkWidget *widget, gpointer user_data)
 {
     GtkWidget *about = gtk_about_dialog_new();
-#if 0
     GdkPixbuf *logo = get_vice_logo();
-#endif
 
 #ifdef HAVE_DEBUG_GTK3UI
     g_print("[debug-gtk3ui] %s() called\n", __func__);
@@ -224,23 +210,16 @@ void ui_about_dialog_callback(GtkWidget *widget, gpointer user_data)
     gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(about),
             "Copyright 1996-2018 VICE TEAM");
 
-#if 0
-    /* set logo. XXX: find proper logo */
+    /* set logo */
     gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(about), logo);
-#endif
+
     /*
      * hook up event handlers
      */
 
     /* destroy callback, called when the dialog is closed through the 'X',
      * but NOT when clicking 'Close' */
-#if 0
-    g_signal_connect(about, "destroy", G_CALLBACK(about_destroy_callback),
-            (gpointer)logo);
-#else
-    g_signal_connect(about, "destroy", G_CALLBACK(about_destroy_callback),
-            NULL);
-#endif
+    g_signal_connect(about, "destroy", G_CALLBACK(about_destroy_callback), (gpointer)logo);
 
     /* set up a generic handler for various buttons, this makes sure the
      * 'Close' button is handled properly */

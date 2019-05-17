@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52
-     from ../../doc/vice.texi on 19 May 2018 -->
+     from ../../doc/vice.texi on 19 December 2018 -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <TITLE>VICE Manual - 2  About VICE</TITLE>
@@ -29,7 +29,7 @@ file formats.
 8-bit computer is, or have questions about how these machines are used,
 how the file formats work or anything else that is not strictly
 related to VICE, you should read the appropriate FAQs <EM>first</EM>, as
-that kind of information is not available here.  See section <A HREF="vice_19.html#SEC420">19  Contact information</A>. for
+that kind of information is not available here.  See section <A HREF="vice_19.html#SEC401">19  Contact information</A>. for
 information about how to retrieve the FAQs.
 
 </P>
@@ -79,7 +79,7 @@ the basic features are implemented as well as most of the complex ones
 including synchronisation, ring modulation and filters.  There are two
 emulators of the SID chip available: first is the "standard" VICE
 emulator, available since VICE 0.12; the second is Dag Lem's reSID
-engine. The reSID engine is a lot more accurate than the standard engine, 
+engine. The reSID engine is a lot more accurate than the standard engine,
 but it is also a lot slower, and only suitable for faster machines.
 
 </P>
@@ -132,14 +132,14 @@ graphical effects will work correctly.
 <P>
 Sound support is implemented, but is still at an experimental stage.  If
 you think it could be improved and know how to do so, feel
-free to contact us (see section <A HREF="vice_19.html#SEC420">19  Contact information</A>).
+free to contact us (see section <A HREF="vice_19.html#SEC401">19  Contact information</A>).
 
 </P>
 <P>
 The VIC20 emulator now allows the use of the VIC1112 IEEE488
 interface. You have to enable the hardware (by menu, resource, or
 commandline option) and then load the IEEE488 ROM (see for
-example <CODE>http://www.funet.fi/pub/cbm/schematics/cartridges/vic20/ieee-488/325329-04.bin</CODE>, but you have to double the size to 4k for now).
+example <A HREF="http://www.funet.fi/pub/cbm/schematics/cartridges/vic20/ieee-488/325329-04.bin">http://www.funet.fi/pub/cbm/schematics/cartridges/vic20/ieee-488/325329-04.bin</A>, but you have to double the size to 4k for now).
 The IEEE-488 code is then started by <CODE>SYS45065</CODE>.
 
 </P>
@@ -234,7 +234,7 @@ addresses.
 To select which model to run, specify it on the
 command line with the <CODE>-model MODEL</CODE> option, where
 <CODE>MODEL</CODE> can be one of a list of PET model numbers, all
-described in see section <A HREF="vice_7.html#SEC177">7.7.1  Changing PET model settings</A>
+described in see section <A HREF="vice_7.html#SEC191">7.7.1  Changing PET model settings</A>
 
 </P>
 
@@ -291,7 +291,7 @@ emulated as well.
 
 </P>
 <P>
-The different settings are described in see section <A HREF="vice_7.html#SEC196">7.8.1  Changing CBM-II model</A>.
+The different settings are described in see section <A HREF="vice_7.html#SEC210">7.8.1  Changing CBM-II model</A>.
 
 </P>
 
@@ -605,7 +605,7 @@ VICE supports the most popular Commodore file formats:
 
 <LI>
 
-<CODE>X64</CODE> (preferred) or <CODE>D64</CODE> disk image files; Used by the 1541, 2031, 3040, 4040 drives.
+<CODE>X64</CODE> or <CODE>D64</CODE> disk image files; Used by the 1541, 2031, 3040, 4040 drives.
 
 <LI>
 
@@ -613,7 +613,7 @@ VICE supports the most popular Commodore file formats:
 
 <LI>
 
-<CODE>P64</CODE> NRZI flux pulse disk image files
+<CODE>P64</CODE> lowlevel NRZI flux pulse disk image files
 
 <LI>
 
@@ -649,7 +649,11 @@ VICE supports the most popular Commodore file formats:
 
 <LI>
 
-<CODE>T64</CODE> tape image files (read-only)
+<CODE>T64</CODE> tape container files (read-only)
+
+<LI>
+
+<CODE>TAP</CODE> lowlevel tape image files
 
 <LI>
 
@@ -662,7 +666,7 @@ VICE supports the most popular Commodore file formats:
 </UL>
 
 <P>
-An utility (<CODE>c1541</CODE>, see section <A HREF="vice_13.html#SEC301">13  c1541</A>) is provided to allow transfers
+An utility (<CODE>c1541</CODE>, see section <A HREF="vice_13.html#SEC282">13  c1541</A>) is provided to allow transfers
 and conversions between these formats.
 
 </P>
@@ -682,7 +686,7 @@ dd bs=64 skip=1 if=IMAGE.X64 of=IMAGE.D64
 </PRE>
 
 <P>
-See section <A HREF="vice_16.html#SEC313">16  The emulator file formats</A>. for a technical description of the supported file
+See section <A HREF="vice_16.html#SEC294">16  The emulator file formats</A>. for a technical description of the supported file
 formats.
 
 </P>
@@ -701,10 +705,23 @@ and how to resolve them.
 <H3><A NAME="SEC18" HREF="vice_toc.html#TOC18">2.12.1  Sound problems</A></H3>
 
 <P>
-VICE should compile and run without major problems on many UNIX systems,
-but there are some known issues related to the sound driver.  In fact,
-the sound code is the least portable part of the emulator and has not
-yet been thoroughly tested on all the supported platforms.
+VICE should compile and run without major problems on many systems,
+but there are some known issues related to the sound driver.
+
+</P>
+<P>
+If you are having sound problems, such as skipping, first monitor how much CPU
+time the respective emulator is taking on your system. To run smoothly, on a
+modern system, it should really never go over 50% or so, except for very short
+peaks that should also stay well beyond 90%. If you see it takes more, try
+disabling some of the most CPU intense features (disable CRT emulation, use
+fastsid instead of reSID, disable true drive emulation).
+
+</P>
+<P>
+If the CPU usage is ok, try using a different sound driver. You may also try
+increasing the sound buffer size (although the default should be ok for modern
+systems).
 
 </P>
 <P>
@@ -712,6 +729,19 @@ Linux, AIX and SGI systems should play sound without any problems; if
 you are running Linux please use a 2.x kernel, as VICE needs some
 features that were not implemented in older versions of the Linux sound
 driver.
+
+</P>
+<P>
+Windows should play sound ok.
+
+</P>
+<P>
+macOS is currently untested.
+
+</P>
+<P>
+All platforms that can run the SDL port (like Amiga, BeOS, etc) should be able
+to play sound via SDL.
 
 </P>
 <P>
@@ -732,44 +762,13 @@ completely wrong.  This is not a VICE bug, but rather an OSS bug.
 </P>
 
 
-
-<H3><A NAME="SEC19" HREF="vice_toc.html#TOC19">2.12.2  Shared memory problems</A></H3>
-
-<P>
-<A NAME="IDX4"></A>
-<A NAME="IDX5"></A>
-If you cannot start VICE because you get errors about shared memory, try
-to run it with the <SAMP>`+mitshm'</SAMP> command-line option.
- This will completely disable usage of the MITSHM extensions,
-that are normally used to speed up the emulation window updates.  Of
-course, this will also result in a big loss in speed.
-
-</P>
-<P>
-Reasons for this failure could be:
-
-</P>
-
-<UL>
-<LI>
-
-IPC support has been disabled at the system level; some system
-administrators disable this for security reasons.  If <EM>you</EM> are the
-system administrator, use a kernel that has IPC support compiled in and
-enabled.
-<LI>
-
-You are attempting to run the emulator across the network (i.e., the
-emulator runs on one machine, and the output is displayed on another
-machine that works as an X terminal) and for some reason VICE does not
-recognize this fact.  In this case, you have found a bug, so please report it
-to us.
-</UL>
+<H3><A NAME="SEC19" HREF="vice_toc.html#TOC19">2.12.2  Video problems</A></H3>
 
 <P>
-If you want to avoid running the emulator with <SAMP>`+mitshm'</SAMP> every
-time, run it once with <SAMP>`+mitshm'</SAMP> and then choose "Save settings"
-from the right-button menu.
+Due to the way VICE currently handles its main loop, a common problem with
+video sync occurs when the real (the monitors) frame rate is very close to, 
+equal, or lower than the framerate of the emulated machine. We recommend to
+use a framerate which is slightly higher than that (eg 51Hz for the C64).
 
 </P>
 

@@ -1,4 +1,4 @@
-/**\ file   ciamodelwidget.h
+/** \file   ciamodelwidget.h
  * \brief   Widget to set the CIA model - header
  *
  * \author  Bas Wassink <b.wassink@ziggo.nl>
@@ -33,6 +33,7 @@
 
 
 GtkWidget * cia_model_widget_create(GtkWidget *machine_model_widget, int count);
-void        cia_model_widget_update(GtkWidget *widget);
-
+void        cia_model_widget_sync(GtkWidget *widget);
+void        cia_model_widget_set_callback(GtkWidget *widget,
+                                          void (*func)(int cia_num, int cia_model));
 #endif

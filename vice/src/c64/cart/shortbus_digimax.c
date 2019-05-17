@@ -37,7 +37,6 @@
 #include "resources.h"
 #include "snapshot.h"
 #include "sound.h"
-#include "translate.h"
 #include "util.h"
 
 #include "digimaxcore.c"
@@ -214,26 +213,20 @@ void shortbus_digimax_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-sbdigimax", SET_RESOURCE, 0,
+    { "-sbdigimax", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "SBDIGIMAX", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_SHORTBUS_DIGIMAX,
-      NULL, NULL },
-    { "+sbdigimax", SET_RESOURCE, 0,
+      NULL, "Enable the Short Bus DigiMAX expansion" },
+    { "+sbdigimax", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "SBDIGIMAX", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_SHORTBUS_DIGIMAX,
-      NULL, NULL },
+      NULL, "Disable the Short Bus DigiMAX expansion" },
     CMDLINE_LIST_END
 };
 
 static cmdline_option_t base_cmdline_options[] =
 {
-    { "-sbdigimaxbase", SET_RESOURCE, 1,
+    { "-sbdigimaxbase", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "SBDIGIMAXbase", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_COMBO,
-      IDCLS_P_BASE_ADDRESS, IDCLS_SHORTBUS_DIGIMAX_BASE,
-      NULL, NULL },
+      "<Base address>", NULL },
     CMDLINE_LIST_END
 };
 
@@ -246,7 +239,7 @@ int shortbus_digimax_cmdline_options_init(void)
     }
 
     temp1 = util_gen_hex_address_list(0xde40, 0xde50, 8);
-    shortbus_digimax_address_list = util_concat(". (", temp1, ")", NULL);
+    shortbus_digimax_address_list = util_concat("Base address of the Short Bus DigiMAX expansion. (", temp1, ")", NULL);
     lib_free(temp1);
 
     base_cmdline_options[0].description = shortbus_digimax_address_list;

@@ -285,7 +285,7 @@ static char *try_uncompress_with_bzip(const char *name)
     char *argv[4];
 
     /* Check whether the name sounds like a bzipped file by checking the
-       extension.  MSDOS and UNIX variants of bzip v2 use the extension
+       extension.  UNIX variants of bzip v2 use the extension
        '.bz2'.  bzip v1 is obsolete.  */
     if (l < 5 || strcasecmp(name + l - 4, ".bz2") != 0) {
         return NULL;
@@ -481,16 +481,12 @@ static char *try_uncompress_archive(const char *name, int write_mode,
         l = strlen(tmp);
         while (l > 0) {
             tmp[--l] = 0;
-            if ((/* (nameoffset == SIZE_MAX) || */ (nameoffset > 1024)) && l >= len &&
-                /* XXX: what the hell does this do/mean? First off, strcasecmp()
-                 *      does NOT return a boolean, but if you add parentheses:
-                 *      "!(strcasecmp(blabla) != 0)" it still doesn't make any
-                 *      sense, might as well write "strcasecmp(blabla) == 0"
-                 *      -- compyx */
-                !strcasecmp(tmp + l - len, search) != 0) {
+            if (((nameoffset == SIZE_MAX) || (nameoffset > 1024)) && l >= len
+                    && strcasecmp(tmp + l - len, search) == 0) {
                 nameoffset = l - 4;
             }
-            if (/* nameoffset >= 0 && */ nameoffset <= 1024 && is_valid_extension(tmp, l, nameoffset)) {
+            if (nameoffset <= 1024
+                    && is_valid_extension(tmp, l, nameoffset)) {
                 ZDEBUG(("try_uncompress_archive: found `%s'.",
                         tmp + nameoffset));
                 found = 1;
@@ -744,7 +740,6 @@ struct valid_archives_s {
 typedef struct valid_archives_s valid_archives_t;
 
 static const valid_archives_t valid_archives[] = {
-#ifndef __MSDOS__
     { "unzip",   "-l",   "-p",    ".zip",    "Name" },
     { "lha",     "lv",   "pq",    ".lzh",    NULL },
     { "lha",     "lv",   "pq",    ".lha",    NULL },
@@ -757,10 +752,6 @@ static const valid_archives_t valid_archives[] = {
     { "tar",     "-ztf", "-zxOf", ".tgz",    NULL },
     /* this might be overkill, but adding this was sooo easy...  */
     { "zoo",     "lf1q", "xpq",   ".zoo",    NULL },
-#else
-    { "unzip",   "-l",   "-p",    ".zip",    "Name" },
-    { "lha",     "l",    "p",     ".lzh",    "Name" },
-#endif
     { NULL, NULL, NULL, NULL, NULL }
 };
 

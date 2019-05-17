@@ -31,6 +31,7 @@ libbasewidgets_a_SOURCES = \
 	cartimagewidget.c \
 	clockportdevicewidget.c \
 	filechooserhelpers.c \
+	lastdir.c \
 	openfiledialog.c \
 	resourcebrowser.c \
 	resourcecheckbutton.c \
@@ -41,6 +42,7 @@ libbasewidgets_a_SOURCES = \
 	resourcescale.c \
 	resourcespinbutton.c \
 	resourceswitch.c \
+	resourcewidgetmanager.c \
 	savefiledialog.c \
 	selectdirectorydialog.c \
 	widgethelpers.c
@@ -53,6 +55,7 @@ EXTRA_DIST = \
 	cartimagewidget.h \
 	clockportdevicewidget.h \
 	filechooserhelpers.h \
+	lastdir.h \
 	openfiledialog.h \
 	resourcebrowser.h \
 	resourcecheckbutton.h \
@@ -63,6 +66,7 @@ EXTRA_DIST = \
 	resourcescale.h \
 	resourcespinbutton.h \
 	resourceswitch.h \
+	resourcewidgetmanager.h \
 	savefiledialog.h \
 	selectdirectorydialog.h \
 	vice_gtk3.h \

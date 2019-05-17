@@ -32,7 +32,6 @@
 
 #include "joyport.h"
 #include "keyboard.h"
-#include "translate.h"
 
 #include "coplin_keypad.h"
 
@@ -184,7 +183,6 @@ static uint8_t coplin_keypad_read(int port)
 
 static joyport_t joyport_coplin_keypad_device = {
     "Coplin Keypad",
-    IDGS_COPLIN_KEYPAD,
     JOYPORT_RES_ID_KEYPAD,
     JOYPORT_IS_NOT_LIGHTPEN,
     JOYPORT_POT_OPTIONAL,

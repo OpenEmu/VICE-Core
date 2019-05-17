@@ -35,7 +35,6 @@
 #include "joyport.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 
 #include "bbrtc.h"
 
@@ -121,7 +120,6 @@ static int bbrtc_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t joyport_bbrtc_device = {
     "BBRTC",
-    IDGS_BBRTC,
     JOYPORT_RES_ID_RTC,
     JOYPORT_IS_NOT_LIGHTPEN,
     JOYPORT_POT_OPTIONAL,
@@ -172,16 +170,12 @@ void joyport_bbrtc_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-bbrtcsave", SET_RESOURCE, 0,
+    { "-bbrtcsave", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "BBRTCSave", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_BBRTC_SAVE,
-      NULL, NULL },
-    { "+bbrtcsave", SET_RESOURCE, 0,
+      NULL, "Enable saving of the BBRTC data when changed." },
+    { "+bbrtcsave", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "BBRTCSave", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_BBRTC_SAVE,
-      NULL, NULL },
+      NULL, "Disable saving of the BBRTC data when changed." },
     CMDLINE_LIST_END
 };
 

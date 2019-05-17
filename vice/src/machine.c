@@ -63,7 +63,6 @@
 #include "sysfile.h"
 #include "tape.h"
 #include "traps.h"
-#include "translate.h"
 #include "types.h"
 #include "uiapi.h"
 #include "util.h"
@@ -73,8 +72,12 @@
 
 /* #define DEBUGMACHINE */
 
-#ifdef HAS_JOYSTICK
-#include "joy.h"
+#ifdef WIN32_COMPILE
+# include "joy.h"
+#else
+# ifdef HAS_JOYSTICK
+#  include "joy.h"
+#  endif
 #endif
 
 #ifndef EXIT_SUCCESS
@@ -95,11 +98,13 @@ int machine_keymap_index;
 static char *ExitScreenshotName = NULL;
 static char *ExitScreenshotName1 = NULL;
 
+
+
 unsigned int machine_jam(const char *format, ...)
 {
     char *str;
     va_list ap;
-    ui_jam_action_t ret;
+    ui_jam_action_t ret = JAM_NONE;
 
     if (ignore_jam > 0) {
         return JAM_NONE;
@@ -118,7 +123,7 @@ unsigned int machine_jam(const char *format, ...)
             ret = ui_jam_dialog(str);
         }
     } else if (jam_action == MACHINE_JAM_ACTION_QUIT) {
-        exit(EXIT_SUCCESS);
+        archdep_vice_exit(EXIT_SUCCESS);
     } else {
         int actions[4] = {
             -1, UI_JAM_MONITOR, UI_JAM_RESET, UI_JAM_HARD_RESET
@@ -288,11 +293,9 @@ void machine_shutdown(void)
     machine_specific_shutdown();
 
     autostart_shutdown();
-
 #ifdef HAS_JOYSTICK
     joystick_close();
 #endif
-
     sound_close();
 
     printer_shutdown();
@@ -434,33 +437,36 @@ void machine_common_resources_shutdown(void)
     lib_free(ExitScreenshotName1);
 }
 
-static const cmdline_option_t cmdline_options_c128[] = {
-    { "-jamaction", SET_RESOURCE, 1, NULL, NULL, "JAMAction", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID, IDCLS_P_TYPE, IDCLS_SET_MACHINE_JAM_ACTION,
-      NULL, NULL },
-    { "-exitscreenshot", SET_RESOURCE, 1, NULL, NULL, "ExitScreenshotName", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID, IDCLS_P_NAME, IDCLS_SET_EXIT_SCREENSHOT,
-      NULL, NULL },
-    { "-exitscreenshotvicii", SET_RESOURCE, 1, NULL, NULL, "ExitScreenshotName1", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID, IDCLS_P_NAME, IDCLS_SET_EXIT_SCREENSHOT,
-      NULL, NULL },
+static const cmdline_option_t cmdline_options_c128[] =
+{
+    { "-jamaction", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
+      NULL, NULL, "JAMAction", NULL,
+      "<Type>", "Set action on CPU JAM: (0: Ask, 1: continue, 2: Monitor, 3: Reset, 4: Hard Reset, 5: Quit Emulator)" },
+    { "-exitscreenshot", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
+      NULL, NULL, "ExitScreenshotName", NULL,
+      "<Name>", "Set name of screenshot to save when emulator exits." },
+    { "-exitscreenshotvicii", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
+      NULL, NULL, "ExitScreenshotName1", NULL,
+      "<Name>", "Set name of screenshot to save when emulator exits." },
     CMDLINE_LIST_END
 };
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-jamaction", SET_RESOURCE, 1, NULL, NULL, "JAMAction", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID, IDCLS_P_TYPE, IDCLS_SET_MACHINE_JAM_ACTION,
-      NULL, NULL },
-    { "-exitscreenshot", SET_RESOURCE, 1, NULL, NULL, "ExitScreenshotName", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID, IDCLS_P_NAME, IDCLS_SET_EXIT_SCREENSHOT,
-      NULL, NULL },
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-jamaction", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
+      NULL, NULL, "JAMAction", NULL,
+      "<Type>", "Set action on CPU JAM: (0: Ask, 1: continue, 2: Monitor, 3: Reset, 4: Hard Reset, 5: Quit Emulator)" },
+    { "-exitscreenshot", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
+      NULL, NULL, "ExitScreenshotName", NULL,
+      "<Name>", "Set name of screenshot to save when emulator exits." },
     CMDLINE_LIST_END
 };
 
-static const cmdline_option_t cmdline_options_vsid[] = {
-    { "-jamaction", SET_RESOURCE, 1, NULL, NULL, "JAMAction", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID, IDCLS_P_TYPE, IDCLS_SET_MACHINE_JAM_ACTION,
-      NULL, NULL },
+static const cmdline_option_t cmdline_options_vsid[] =
+{
+    { "-jamaction", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
+      NULL, NULL, "JAMAction", NULL,
+      "<Type>", "Set action on CPU JAM: (0: Ask, 1: continue, 2: Monitor, 3: Reset, 4: Hard Reset, 5: Quit Emulator)" },
     CMDLINE_LIST_END
 };
 
@@ -474,4 +480,3 @@ int machine_common_cmdline_options_init(void)
         return cmdline_register_options(cmdline_options);
     }
 }
-

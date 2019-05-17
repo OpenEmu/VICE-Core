@@ -59,41 +59,15 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#ifndef VMS
 #include <termios.h>
-#else
-#include "vmstermios.h"
-#endif
 
 #include <unistd.h>
 
 /* <sys/select.h> is required for select(2) and fd_set */
 #if defined(HAVE_SYS_SELECT_H) || \
-    defined(MINIX_SUPPORT) || defined(OPENSERVER6_COMPILE) || \
+    defined(OPENSERVER6_COMPILE) || \
     (defined(__QNX__) && !defined(__QNXNTO__))
 #include <sys/select.h>
-#endif
-
-#ifdef __minix_vmd
-#define _MINIX_SOURCE
-#include <time.h>
-#include <sys/nbio.h>
-#define fd_set fd_set_t
-#define select nbio_select
-
-#ifndef FD_ZERO
-#define FD_ZERO(p)                                 \
-    do {                                           \
-        size_t __i;                                \
-        char *__tmp = (char *)p;                   \
-        for (__i = 0; __i < sizeof(*(p)); ++__i) { \
-            *__tmp++ = 0;                          \
-        }                                          \
-    } while (0)
-#endif
-
-#ifndef FD_SET
-#define FD_SET(n, p) ((p)->fds_bits[(n)/NFDBITS] |= (1L << ((n) % NFDBITS)))
 #endif
 
 #ifndef FD_ISSET
@@ -112,7 +86,6 @@
 #include "resources.h"
 #include "rs232.h"
 #include "rs232dev.h"
-#include "translate.h"
 #include "types.h"
 
 
@@ -192,27 +165,20 @@ void rs232dev_resources_shutdown(void)
 {
 }
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-rsdev1baud", SET_RESOURCE, -1,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-rsdev1baud", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS | CMDLINE_ATTRIB_NEED_BRACKETS,
       NULL, NULL, "RsDevice1Baud", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      N_("<baudrate>"), N_("Specify baudrate of first RS232 device") },
-    { "-rsdev2baud", SET_RESOURCE, -1,
+      "<baudrate>", "Specify baudrate of first RS232 device" },
+    { "-rsdev2baud", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS | CMDLINE_ATTRIB_NEED_BRACKETS,
       NULL, NULL, "RsDevice2Baud", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      N_("<baudrate>"), N_("Specify baudrate of second RS232 device") },
-    { "-rsdev3baud", SET_RESOURCE, -1,
+      "<baudrate>", "Specify baudrate of second RS232 device" },
+    { "-rsdev3baud", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS | CMDLINE_ATTRIB_NEED_BRACKETS,
       NULL, NULL, "RsDevice3Baud", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      N_("<baudrate>"), N_("Specify baudrate of third RS232 device") },
-    { "-rsdev4baud", SET_RESOURCE, -1,
+      "<baudrate>", "Specify baudrate of third RS232 device" },
+    { "-rsdev4baud", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS | CMDLINE_ATTRIB_NEED_BRACKETS,
       NULL, NULL, "RsDevice4Baud", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      N_("<baudrate>"), N_("Specify baudrate of fourth RS232 device") },
+      "<baudrate>", "Specify baudrate of fourth RS232 device" },
     CMDLINE_LIST_END
 };
 
@@ -360,7 +326,8 @@ int rs232dev_open(int device)
 #endif
 
     if (rs232_devfile[device][0] == '|') {
-#if defined(MINIX_SUPPORT) || defined(OPENSTEP_COMPILE) || defined(RHAPSODY_COMPILE) || defined(NEXTSTEP_COMPILE)
+#if defined(OPENSTEP_COMPILE) || defined(RHAPSODY_COMPILE) \
+        || defined(NEXTSTEP_COMPILE)
         log_error(rs232dev_log, "Forking not supported on this platform.");
         return -1;
 #else
@@ -476,13 +443,7 @@ int rs232dev_getc(int fd, uint8_t * b)
     FD_SET(fds[fd].fd_r, &rdset);
     ti.tv_sec = ti.tv_usec = 0;
 
-#ifndef MINIXVMD
-    /* for now this change will break rs232 support on Minix-vmd
-       till I can implement the same functionality using the
-       poll() function */
-
     ret = select(fds[fd].fd_r + 1, &rdset, NULL, NULL, &ti);
-#endif
 
     if (ret && (FD_ISSET(fds[fd].fd_r, &rdset))) {
         n = read(fds[fd].fd_r, b, 1);
@@ -510,4 +471,3 @@ enum rs232handshake_in rs232dev_get_status(int fd)
 void rs232dev_set_bps(int fd, unsigned int bps)
 {
 }
-#endif

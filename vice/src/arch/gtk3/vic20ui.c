@@ -30,10 +30,10 @@
 
 #include <stdio.h>
 
+#include "debug_gtk3.h"
 #include "crtcontrolwidget.h"
 #include "machine.h"
 #include "machinemodelwidget.h"
-#include "not_implemented.h"
 #include "sampler.h"
 #include "ui.h"
 #include "uimachinewindow.h"
@@ -93,7 +93,7 @@ static int identify_canvas(video_canvas_t *canvas)
  */
 static GtkWidget *create_crt_widget(int target_window)
 {
-    return crt_control_widget_create(NULL, "VIC");
+    return crt_control_widget_create(NULL, "VIC", TRUE);
 }
 
 /** \brief  Pre-initialize the UI before the canvas window gets created
@@ -105,8 +105,6 @@ int vic20ui_init_early(void)
     ui_machine_window_init();
     ui_set_identify_canvas_func(identify_canvas);
     ui_set_create_controls_widget_func(create_crt_widget);
-
-    INCOMPLETE_IMPLEMENTATION();
     return 0;
 }
 
@@ -136,9 +134,7 @@ int vic20ui_init(void)
     uicart_set_attach_func(cartridge_attach_image);
 /*    uicart_set_freeze_func(cartridge_trigger_freeze); */
     uicart_set_detach_func(cartridge_detach_image);
-
-
-    INCOMPLETE_IMPLEMENTATION();
+    uicart_set_default_func(cartridge_set_default);
     return 0;
 }
 
@@ -147,5 +143,5 @@ int vic20ui_init(void)
  */
 void vic20ui_shutdown(void)
 {
-    INCOMPLETE_IMPLEMENTATION();
+    /* NOP */
 }

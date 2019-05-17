@@ -37,24 +37,43 @@
 #include "vice.h"
 
 #include <gtk/gtk.h>
-#include <stdbool.h>
 #include <stdlib.h>
 
 #include "vice_gtk3.h"
+#include "debug_gtk3.h"
 #include "lib.h"
+#include "log.h"
 #include "machine.h"
 #include "resources.h"
 #include "joyport.h"
+#include "resourcewidgetmanager.h"
+#include "uisettings.h"
 
 #include "settings_controlport.h"
 
 
+/*
+ * Forward declarations
+ */
+
 static void joyport_devices_list_shutdown(void);
+static void free_combo_list(int port);
+
+
+/** \brief  Resource widget manager object
+ */
+resource_widget_manager_t manager;
+
 
 
 /** \brief  Lists of valid devices for each joyport
  */
 static joyport_desc_t *joyport_devices[JOYPORT_MAX_PORTS];
+
+
+/** \brief  Combo box entry lists for each joyport
+ */
+static vice_gtk3_combo_entry_int_t *joyport_combo_lists[JOYPORT_MAX_PORTS];
 
 
 /** \brief  Handler for the "destroy" event of the main widget
@@ -64,10 +83,82 @@ static joyport_desc_t *joyport_devices[JOYPORT_MAX_PORTS];
  */
 static void on_destroy(GtkWidget *widget, gpointer user_data)
 {
+    int port;
+
     joyport_devices_list_shutdown();
+    for (port = 0; port < JOYPORT_MAX_PORTS; port++) {
+        free_combo_list(port);
+    }
+
+    vice_resource_widget_manager_exit(&manager);
 }
 
 
+
+static gboolean create_combo_list(int port)
+{
+    int num;
+    int i;
+    joyport_desc_t *dev;
+#if 0
+    debug_gtk3("Creating a combo box list for port #%d", port + 1);
+#endif
+    dev = joyport_devices[port];
+    if (dev == NULL) {
+        joyport_combo_lists[port] = NULL;
+        return FALSE;
+    }
+
+    /* calculate size of list to create */
+    num = 0;
+    while (dev->name != NULL) {
+        debug_gtk3("name: %s, id: %d", dev->name, dev->id);
+        dev++;
+        num++;
+    }
+#if 0
+    debug_gtk3("Got %d entries", num);
+    debug_gtk3("Allocating memory for combo box entries");
+#endif
+    /* allocate memory for list */
+    joyport_combo_lists[port] = lib_malloc((size_t)(num + 1) *
+            sizeof *joyport_combo_lists[port]);
+
+    /* populate list */
+#if 0
+    debug_gtk3("Populating list");
+#endif
+    i = 0;
+    dev = joyport_devices[port];
+    while (dev->name != NULL) {
+#if 0
+        debug_gtk3("adding '%s' (%d)", dev->name, dev->id);
+#endif
+        joyport_combo_lists[port][i].name = dev->name;
+        joyport_combo_lists[port][i].id = dev->id;
+        dev++;
+        i++;
+    }
+    /* terminate list */
+    joyport_combo_lists[port][i].name = NULL;
+    joyport_combo_lists[port][i].id = -1;
+    return TRUE;
+}
+
+
+/** \brief  Free memory used by the combo box entry list for \a port
+ *
+ * \param[in]   port    index in the combo box lists (0 == JoyPort1Device)
+ */
+static void free_combo_list(int port)
+{
+    if (joyport_combo_lists[port] != NULL) {
+        lib_free(joyport_combo_lists[port]);
+    }
+}
+
+
+#if 0
 /** \brief  Handler for the "changed" event of a combo box
  *
  * \param[in]   combo       combo box
@@ -83,9 +174,10 @@ static void on_joyport_changed(GtkComboBoxText *combo, gpointer user_data)
     id_str = gtk_combo_box_get_active_id(GTK_COMBO_BOX(combo));
     id = (int)strtol(id_str, &endptr, 10);
 
-    debug_gtk3("changing JoyPort%dDevice to %d\n", port + 1, id);
+    debug_gtk3("changing JoyPort%dDevice to %d.", port + 1, id);
     resources_set_int_sprintf("JoyPort%dDevice", id, port + 1);
 }
+#endif
 
 
 /** \brief  Create combo box for joyport \a port
@@ -99,35 +191,29 @@ static GtkWidget *create_joyport_widget(int port, const char *title)
 {
     GtkWidget *grid;
     GtkWidget *combo;
-    joyport_desc_t *dev = joyport_devices[port];
-    int current;
 
-    resources_get_int_sprintf("JoyPort%dDevice", &current, port + 1);
-
-    grid = uihelpers_create_grid_with_label(title, 1);
-    if (dev == NULL) {
-        fprintf(stderr, "error: no devices list\n");
-        return grid;
+    /* generate combo box list */
+    if (!create_combo_list(port)) {
+        log_error(LOG_ERR,
+                "failed to generate joyport devices list for port %d",
+                port + 1);
+        return NULL;
     }
 
-    combo = gtk_combo_box_text_new();
+    grid = uihelpers_create_grid_with_label(title, 1);
+
+    combo = vice_gtk3_resource_combo_box_int_new_sprintf(
+            "JoyPort%dDevice",
+            joyport_combo_lists[port],
+            port + 1);
     g_object_set(combo, "margin-left", 16, NULL);
     gtk_widget_set_hexpand(combo, TRUE);
 
-    while (dev->name != NULL) {
-        char id[32];
-
-        g_snprintf(id, 32, "%d", dev->id);
-        gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(combo), id, dev->name);
-        if (current == dev->id) {
-            gtk_combo_box_set_active_id(GTK_COMBO_BOX(combo), id);
-        }
-        dev++;
-    }
     gtk_grid_attach(GTK_GRID(grid), combo, 0, 1, 1, 1);
 
-    g_signal_connect(combo, "changed", G_CALLBACK(on_joyport_changed),
-            GINT_TO_POINTER(port));
+    /* add widget to the resource manager */
+    vice_resource_widget_manager_add_widget(&manager, combo, NULL,
+            NULL, NULL, NULL);
 
     gtk_widget_show_all(grid);
     return grid;
@@ -170,7 +256,7 @@ static void joyport_devices_list_shutdown(void)
 {
     int i;
 
-    debug_gtk3("called: free memory used by joyport devices list\n");
+    debug_gtk3("called: free memory used by joyport devices list.");
 
     for (i = 0; i < JOYPORT_MAX_PORTS; i++) {
         if (joyport_devices[i] != NULL) {
@@ -357,6 +443,9 @@ GtkWidget *settings_controlport_widget_create(GtkWidget *parent)
 
     joyport_devices_list_init();
 
+    vice_resource_widget_manager_init(&manager);
+    ui_settings_set_resource_widget_manager(&manager);
+
     layout = gtk_grid_new();
     gtk_grid_set_column_spacing(GTK_GRID(layout), 8);
     gtk_grid_set_row_spacing(GTK_GRID(layout), 8);
@@ -392,7 +481,11 @@ GtkWidget *settings_controlport_widget_create(GtkWidget *parent)
 
     /* add BBRTC checkbox */
     if (rows > 0) {
-        gtk_grid_attach(GTK_GRID(layout), create_bbrtc_widget(), 0, rows, 2, 1);
+        GtkWidget *bbrtc_widget = create_bbrtc_widget();
+
+        gtk_grid_attach(GTK_GRID(layout), bbrtc_widget, 0, rows, 2, 1);
+        vice_resource_widget_manager_add_widget(&manager, bbrtc_widget, NULL,
+                NULL, NULL, NULL);
     }
 
     g_signal_connect(layout, "destroy", G_CALLBACK(on_destroy), NULL);

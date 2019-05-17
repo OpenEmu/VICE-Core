@@ -1,4 +1,4 @@
-/** \brief  uismartattach.c
+/** \file   uismartattach.c
  * \brief   GTK3 smart-attach dialog
  *
  * \author  Bas Wassink <b.wassink@ziggo.nl>
@@ -38,6 +38,8 @@
 #include "tapecontents.h"
 #include "filechooserhelpers.h"
 #include "ui.h"
+#include "uimachinewindow.h"
+#include "lastdir.h"
 
 #include "uismartattach.h"
 
@@ -59,9 +61,17 @@ static ui_file_filter_t filters[] = {
  */
 static GtkWidget *preview_widget = NULL;
 
+
+/** \brief  Last directory used
+ *
+ * When an image is attached, this is set to the directory of that file. Since
+ * it's heap-allocated by Gtk3, it must be freed with a call to
+ * ui_smart_attach_shutdown() on emulator shutdown.
+ */
 static gchar *last_dir = NULL;
 
 
+#if 0
 /** \brief  Update the last directory reference
  *
  * \param[in]   widget  dialog
@@ -71,7 +81,7 @@ static void update_last_dir(GtkWidget *widget)
     gchar *new_dir;
 
     new_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(widget));
-    debug_gtk3("new dir = '%s'\n", new_dir);
+    debug_gtk3("new dir = '%s'.", new_dir);
     if (new_dir != NULL) {
         /* clean up previous value */
         if (last_dir != NULL) {
@@ -80,6 +90,45 @@ static void update_last_dir(GtkWidget *widget)
         last_dir = new_dir;
     }
 }
+#endif
+
+
+/** \brief  Tigger autostart
+ *
+ * \param[in]   widget  dialog
+ */
+static void do_autostart(GtkWidget *widget, gpointer data)
+{
+    gchar *filename;
+    int index = GPOINTER_TO_INT(data);
+
+    lastdir_update(widget, &last_dir);
+    filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(widget));
+    debug_gtk3("Autostarting file '%s'.", filename);
+    /* if this function exists, why is there no attach_autodetect()
+     * or something similar? -- compyx */
+    if (autostart_autodetect(
+                filename,
+                NULL,   /* program name */
+                index,  /* Program number? Probably used when clicking
+                           in the preview widget to load the proper
+                           file in an image */
+                AUTOSTART_MODE_RUN) < 0) {
+        /* oeps */
+        debug_gtk3("autostart-smart-attach failed.");
+    }
+    g_free(filename);
+    gtk_widget_destroy(widget);
+}
+
+
+
+static void on_file_activated(GtkWidget *chooser, gpointer data)
+{
+    debug_gtk3("I haz called.");
+    do_autostart(chooser, data);
+}
+
 
 
 /** \brief  Handler for the "update-preview" event
@@ -96,7 +145,7 @@ static void on_update_preview(GtkFileChooser *chooser, gpointer data)
     if (file != NULL) {
         path = g_file_get_path(file);
         if (path != NULL) {
-            debug_gtk3("called with '%s'\n", path);
+            debug_gtk3("called with '%s'.", path);
 
             content_preview_widget_set_image(preview_widget, path);
            g_free(path);
@@ -115,7 +164,7 @@ static void on_hidden_toggled(GtkWidget *widget, gpointer user_data)
     int state;
 
     state = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
-    debug_gtk3("show hidden files: %s\n", state ? "enabled" : "disabled");
+    debug_gtk3("show hidden files: %s.", state ? "enabled" : "disabled");
 
     gtk_file_chooser_set_show_hidden(GTK_FILE_CHOOSER(user_data), state);
 }
@@ -129,10 +178,11 @@ static void on_hidden_toggled(GtkWidget *widget, gpointer user_data)
  */
 static void on_preview_toggled(GtkWidget *widget, gpointer user_data)
 {
-    int state;
-
-    state = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
-    debug_gtk3("preview %s\n", state ? "enabled" : "disabled");
+#ifdef HAVE_DEBUG_GTK3UI
+    int state = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+#endif
+    debug_gtk3("preview %s.", state ? "enabled" : "disabled");
+    /* TODO: actually disable the preview widget and resize the dialog */
 }
 
 
@@ -151,17 +201,20 @@ static void on_preview_toggled(GtkWidget *widget, gpointer user_data)
 static void on_response(GtkWidget *widget, gint response_id, gpointer user_data)
 {
     gchar *filename;
+    int index;
 
-    debug_gtk3("got response ID %d\n", response_id);
+    index = GPOINTER_TO_INT(user_data);
+
+    debug_gtk3("got response ID %d, index %d.", response_id, index);
 
     switch (response_id) {
 
         /* 'Open' button, double-click on file */
         case GTK_RESPONSE_ACCEPT:
-            update_last_dir(widget);
+            lastdir_update(widget, &last_dir);
             filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(widget));
             /* ui_message("Opening file '%s' ...", filename); */
-            debug_gtk3("Opening file '%s'\n", filename);
+            debug_gtk3("Opening file '%s'.", filename);
 
             /* copied from Gtk2: I fail to see how brute-forcing your way
              * through file types is 'smart', but hell, it works */
@@ -170,7 +223,7 @@ static void on_response(GtkWidget *widget, gint response_id, gpointer user_data)
                     && autostart_snapshot(filename, NULL) < 0
                     && autostart_prg(filename, AUTOSTART_MODE_LOAD) < 0) {
                 /* failed */
-                debug_gtk3("smart attach failed\n");
+                debug_gtk3("smart attach failed.");
             }
 
             g_free(filename);
@@ -179,23 +232,26 @@ static void on_response(GtkWidget *widget, gint response_id, gpointer user_data)
 
         /* 'Autostart' button clicked */
         case VICE_RESPONSE_AUTOSTART:
-            update_last_dir(widget);
+            do_autostart(widget, user_data);
+#if 0
+            lastdir_update(widget, &last_dir);
             filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(widget));
-            debug_gtk3("Autostarting file '%s'\n", filename);
+            debug_gtk3("Autostarting file '%s'.", filename);
             /* if this function exists, why is there no attach_autodetect()
              * or something similar? -- compyx */
             if (autostart_autodetect(
                         filename,
                         NULL,   /* program name */
-                        0,      /* Program number? Probably used when clicking
+                        index,  /* Program number? Probably used when clicking
                                    in the preview widget to load the proper
                                    file in an image */
                         AUTOSTART_MODE_RUN) < 0) {
                 /* oeps */
-                debug_gtk3("autostart-smart-attach failed\n");
+                debug_gtk3("autostart-smart-attach failed.");
             }
             g_free(filename);
             gtk_widget_destroy(widget);
+#endif
             break;
 
         /* 'Close'/'X' button */
@@ -205,6 +261,8 @@ static void on_response(GtkWidget *widget, gint response_id, gpointer user_data)
         default:
             break;
     }
+
+    ui_set_ignore_mouse_hide(FALSE);
 }
 
 
@@ -274,6 +332,8 @@ static GtkWidget *create_smart_attach_dialog(GtkWidget *parent)
     GtkWidget *dialog;
     size_t i;
 
+    ui_set_ignore_mouse_hide(TRUE);
+
     /* create new dialog */
     dialog = gtk_file_chooser_dialog_new(
             "Smart-attach a file",
@@ -285,10 +345,11 @@ static GtkWidget *create_smart_attach_dialog(GtkWidget *parent)
             "Close", GTK_RESPONSE_REJECT,
             NULL, NULL);
 
+    /* set modal so mouse-grab doesn't get triggered */
+    gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
+
     /* set last used directory */
-    if (last_dir != NULL) {
-        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), last_dir);
-    }
+    lastdir_set(dialog, &last_dir);
 
     /* add 'extra' widget: 'readony' and 'show preview' checkboxes */
     gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(dialog),
@@ -302,7 +363,7 @@ static GtkWidget *create_smart_attach_dialog(GtkWidget *parent)
     /* add filters */
     for (i = 0; filters[i].name != NULL; i++) {
         gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog),
-                create_file_chooser_filter(filters[i], TRUE));
+                create_file_chooser_filter(filters[i], FALSE));
     }
 
     /* connect "reponse" handler: the `user_data` argument gets filled in when
@@ -310,6 +371,8 @@ static GtkWidget *create_smart_attach_dialog(GtkWidget *parent)
     g_signal_connect(dialog, "response", G_CALLBACK(on_response), NULL);
     g_signal_connect(dialog, "update-preview",
             G_CALLBACK(on_update_preview), NULL);
+    g_signal_connect(dialog, "file-activated",
+            G_CALLBACK(on_file_activated), NULL);
 
     return dialog;
 
@@ -327,7 +390,7 @@ void ui_smart_attach_callback(GtkWidget *widget, gpointer user_data)
 {
     GtkWidget *dialog;
 
-    debug_gtk3("called\n");
+    debug_gtk3("called.");
 
     dialog = create_smart_attach_dialog(widget);
 
@@ -340,7 +403,5 @@ void ui_smart_attach_callback(GtkWidget *widget, gpointer user_data)
  */
 void ui_smart_attach_shutdown(void)
 {
-    if (last_dir != NULL) {
-        g_free(last_dir);
-    }
+    lastdir_shutdown(&last_dir);
 }

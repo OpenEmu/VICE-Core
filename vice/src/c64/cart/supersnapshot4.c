@@ -177,7 +177,7 @@ void supersnapshot_v4_io2_store(uint16_t addr, uint8_t value)
 #ifdef DBGSS4
         if (value & ~(0x80 | 0x08 | 0x04 | 0x02 | 0x01)) {
             DBG(("poof!\n"));
-            exit(-1);
+            archdep_vice_exit(-1);
         }
 #endif
         mode |= ((ramconfig == 0) ? CMODE_EXPORT_RAM : 0);

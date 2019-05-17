@@ -42,7 +42,7 @@
 #include <stdio.h>
 #include <gtk/gtk.h>
 
-#include "not_implemented.h"
+#include "debug_gtk3.h"
 
 #include "vice_gtk3.h"
 #include "datasette.h"
@@ -52,17 +52,49 @@
 #include "machine.h"
 #include "resources.h"
 #include "types.h"
+#include "ui.h"
 #include "uiapi.h"
 #include "uidatasette.h"
 #include "uidiskattach.h"
 #include "uifliplist.h"
+#include "uisettings.h"
 #include "userport/userport_joystick.h"
 
+#include "diskcontents.h"
+#include "drive.h"
+#include "drivetypes.h"
+#include "diskimage.h"
+#include "diskimage/fsimage.h"
+#include "autostart.h"
+#include "tapecontents.h"
+
+#include "contentpreviewwidget.h"
+#include "dirmenupopup.h"
+#include "joystickmenupopup.h"
+#include "statusbarspeedwidget.h"
+
 #include "uistatusbar.h"
+
 
 /** \brief The maximum number of status bars we will permit to exist
  *         at once. */
 #define MAX_STATUS_BARS 3
+
+
+/** \brief  Status bar column indici
+ *
+ * These values assume a proper emulator statusbar (ie not VSID).
+ */
+enum {
+    SB_COL_SPEED = 0,   /**< message widget */
+    SB_COL_SEP_MSG ,    /**< separator between message and ctr/mixer widgets */
+    SB_COL_CRT,         /**< crt and mixer widgets */
+    SB_COL_SEP_CRT,     /**< separator between crt/mixer and tape widgets */
+    SB_COL_TAPE,        /**< tape and joysticks widget */
+    SB_COL_SEP_TAPE,    /**< separator between tape and joysticks widgets */
+    SB_COL_DRIVE        /**< drives widgets */
+};
+
 
 /** \brief Global data that custom status bar widgets base their rendering
  *         on.
@@ -135,8 +167,22 @@ typedef struct ui_statusbar_s {
      *  This is the widget the rest of the UI code will store and pack
      *  into windows. */
     GtkWidget *bar;
+#if 0
     /** \brief The status message widget. */
     GtkLabel *msg;
+#endif
+    /** \brief  Widget displaying CPU speed and FPS
+     *
+     * Also used to set refresh rate, CPU speed, pause, warp and adv-frame
+     */
+    GtkWidget *speed;
+
+    /** \brief CRT control widget checkbox */
+    GtkWidget *crt;
+
+    /** \brief  Mixer control widget checkbox */
+    GtkWidget *mixer;
+
     /** \brief The Tape Status widget. */
     GtkWidget *tape;
     /** \brief The Tape Status widget's popup menu. */
@@ -157,6 +203,11 @@ typedef struct ui_statusbar_s {
  *  Inactive status bars have a NULL pointer for their "bar" field. */
 static ui_statusbar_t allocated_bars[MAX_STATUS_BARS];
 
+
+/* Forward decl. */
+static void tape_dir_autostart_callback(const char *image, int index);
+
+
 /** \brief Initialize the status bar subsystem.
  *
  *  \warning This function _must_ be called before any call to
@@ -169,7 +220,9 @@ void ui_statusbar_init(void)
 
     for (i = 0; i < MAX_STATUS_BARS; ++i) {
         allocated_bars[i].bar = NULL;
-        allocated_bars[i].msg = NULL;
+        allocated_bars[i].speed = NULL;
+        allocated_bars[i].crt = NULL;
+        allocated_bars[i].mixer = NULL;
         allocated_bars[i].tape = NULL;
         allocated_bars[i].tape_menu = NULL;
         allocated_bars[i].joysticks = NULL;
@@ -215,9 +268,9 @@ static int compute_drives_enabled_mask(void)
 {
     int unit, mask;
     int result = 0;
-    for (unit = 0, mask=1; unit < 4; ++unit, mask <<= 1) {
+    for (unit = 0, mask = 1; unit < 4; ++unit, mask <<= 1) {
         int status = 0, value = 0;
-        status = resources_get_int_sprintf("Drive%dType", &value, unit+8);
+        status = resources_get_int_sprintf("Drive%dType", &value, unit + 8);
         if (status == 0 && value != 0) {
             result |= mask;
         }
@@ -320,6 +373,34 @@ static gboolean draw_tape_icon_cb(GtkWidget *widget, cairo_t *cr, gpointer data)
 
     return FALSE;
 }
+
+
+/** \brief  Handler for the 'activate' event of the 'Configure drives' item
+ *
+ * Opens the settings UI at the drive settings "page".
+ *
+ * \param[in]   widget  menu item triggering the event (unused)
+ * \param[in]   data    extra event data (unused)
+ */
+static void on_drive_configure_activate(GtkWidget *widget, gpointer data)
+{
+    ui_settings_dialog_create_and_activate_node("peripheral/drive");
+}
+
+
+/** \brief  Handler for the 'activate' event of the 'Reset drive #X' item
+ *
+ * Triggers a reset for drive ((int)data + 8)
+ *
+ * \param[in]   widget  menu item triggering the event (unused)
+ * \param[in]   data    drive number (0-3)
+ */
+static void on_drive_reset_clicked(GtkWidget *widget, gpointer data)
+{
+    debug_gtk3("Resetting drive %d", GPOINTER_TO_INT(data) + 8);
+    drive_cpu_trigger_reset(GPOINTER_TO_INT(data));
+}
+
 
 /** \brief Draw the LED associated with some drive's LED state.
  *
@@ -449,8 +530,8 @@ static GtkWidget *ui_drive_widget_create(int unit)
     gtk_orientable_set_orientation(GTK_ORIENTABLE(grid), GTK_ORIENTATION_HORIZONTAL);
     gtk_widget_set_hexpand(grid, FALSE);
 
-    snprintf(drive_id, 4, "%d:", unit+8);
-    drive_id[3]=0;
+    snprintf(drive_id, 4, "%d:", unit + 8);
+    drive_id[3] = 0;
     number = gtk_label_new(drive_id);
     gtk_widget_set_halign(number, GTK_ALIGN_START);
 
@@ -471,6 +552,7 @@ static GtkWidget *ui_drive_widget_create(int unit)
     return grid;
 }
 
+
 /** \brief Respond to mouse clicks on the tape status widget.
  *
  *  This displays the tape control popup menu.
@@ -484,36 +566,177 @@ static GtkWidget *ui_drive_widget_create(int unit)
  *
  *  \todo This callback and the way it is configured both will need to
  *        be significantly reworked to manage multiple tape drives.
- *
- *  \todo This function uses GTK3 version checking to avoid deprecated
- *        functions on version 3.22 and to avoid nonexistent functions
- *        on version 3.16 through 3.20. Once 3.22 becomes a
- *        requirement, this version checking should be eliminated.
  */
 static gboolean ui_do_datasette_popup(GtkWidget *widget, GdkEvent *event, gpointer data)
 {
     int i = GPOINTER_TO_INT(data);
-    if (allocated_bars[i].tape && allocated_bars[i].tape_menu && event->type == GDK_BUTTON_PRESS) {
-        /* 3.22 isn't available on the latest stable version of all
-         * distros yet. This is expected to change when Ubuntu 18.04
-         * is released. Since popup handling is the only thing 3.22
-         * requires be done differently than its predecessors, this is
-         * the only place we should rely on version checks. */
-#if GTK_CHECK_VERSION(3,22,0)
-        gtk_menu_popup_at_widget(GTK_MENU(allocated_bars[i].tape_menu),
-                                 allocated_bars[i].tape,
+
+    if (((GdkEventButton *)event)->button == GDK_BUTTON_PRIMARY) {
+        if (allocated_bars[i].tape && allocated_bars[i].tape_menu
+                && event->type == GDK_BUTTON_PRESS) {
+            gtk_menu_popup_at_widget(GTK_MENU(allocated_bars[i].tape_menu),
+                                     allocated_bars[i].tape,
+                                     GDK_GRAVITY_NORTH_EAST,
+                                     GDK_GRAVITY_SOUTH_EAST,
+                                     event);
+        }
+        return TRUE;
+    } else if (((GdkEventButton *)event)->button == GDK_BUTTON_SECONDARY) {
+        GtkWidget *dir_menu;
+        debug_gtk3("Got SECONDARY BUTTON");
+
+        dir_menu = dir_menu_popup_create(-1, tapecontents_read,
+                tape_dir_autostart_callback);
+        gtk_menu_popup_at_widget(GTK_MENU(dir_menu),
+                                 widget,
                                  GDK_GRAVITY_NORTH_EAST,
                                  GDK_GRAVITY_SOUTH_EAST,
                                  event);
-#else
-        GdkEventButton *buttonEvent = (GdkEventButton *)event;
-        gtk_menu_popup(GTK_MENU(allocated_bars[i].tape_menu),
-                       NULL, NULL, NULL, NULL,
-                       buttonEvent->button, buttonEvent->time);
-#endif
+        return TRUE;
     }
-    return TRUE;
+    return FALSE;
 }
+
+#if 0
+/** \brief  Handler for the "response" event of the directory dialog
+ *
+ * \param[in,out]   dialog      dialog triggering the event
+ * \param[in]       response_id response ID
+ * \param[in]       user_data   extra event data (unused)
+ */
+static void on_response_dir_widget(GtkDialog *dialog,
+                                   gint response_id,
+                                   gpointer user_data)
+{
+    debug_gtk3("got response ID = %d.", response_id);
+    switch (response_id) {
+        case GTK_RESPONSE_CLOSE:
+            gtk_widget_destroy(GTK_WIDGET(dialog));
+            break;
+        default:
+            debug_gtk3("unhandled response ID %d,", response_id);
+    }
+}
+#endif
+
+#if 0
+/** \brief  Handler for the double-click event of the directory listing
+ *
+ * \param[in,out]   dialog      dialog triggering the event
+ * \param[in]       autostart   autostart flag (FIXME: unused, this is due to
+ *                              a hack in the other widgets that use the content
+ *                              preview widget)
+ * \param[in]       dir_index   directory index of the file to autosart
+ */
+static void on_dir_widget_selected(GtkWidget *widget,
+                                   gint autostart,
+                                   gpointer dir_index)
+{
+    int index = GPOINTER_TO_INT(dir_index);
+    debug_gtk3("called with file index %d.", index);
+    autostart_disk(autostart_diskimage, NULL, index,
+            AUTOSTART_MODE_RUN);
+    gtk_widget_destroy(widget);
+}
+#endif
+
+
+static void disk_dir_autostart_callback(const char *image, int index)
+{
+    const char *autostart_image;
+
+    debug_gtk3("Got image '%s', file index %d to autostart",
+            image, index);
+    /* make a copy of the image name since autostart will reattach the disk
+     * image, freeing memory used by the image name passed to us in the process
+     */
+    autostart_image = lib_stralloc(image);
+    autostart_disk(autostart_image, NULL, index + 1, AUTOSTART_MODE_RUN);
+    lib_free(autostart_image);
+}
+
+
+
+static void tape_dir_autostart_callback(const char *image, int index)
+{
+    const char *autostart_image;
+
+    debug_gtk3("Got image '%s', file index %d to autostart",
+            image, index);
+    /* make a copy of the image name since autostart will reattach the tape
+     * image, freeing memory used by the image name passed to us in the process
+     */
+    autostart_image = lib_stralloc(image);
+    autostart_tape(autostart_image, NULL, index + 1, AUTOSTART_MODE_RUN);
+    lib_free(autostart_image);
+}
+
+
+#if 0
+/** \brief  Show dialog to run a file of the image attached to \a unit
+ *
+ * Double clicking on a file will autorun that file. Clicking on Cancel or the
+ * 'X' in the Window will cancel the operation.
+ *
+ * \param[in]   dev     drive index (0-3)
+ *
+ * \return  GtkDialog
+ */
+static GtkWidget *ui_statusbar_dir_dialog_create(int dev)
+{
+    GtkWidget *dialog;
+    GtkWidget *content;
+    GtkWidget *preview;
+    struct drive_context_s *drv_ctx;
+    struct drive_s *drv_s;
+    struct disk_image_s *image;
+
+    autostart_diskimage = NULL;
+
+    debug_gtk3("Got drive index #%d", dev);
+    dialog = gtk_dialog_new_with_buttons(
+            "Select file to autostart",
+            ui_get_active_window(),
+            GTK_DIALOG_MODAL,
+            "Cancel", GTK_RESPONSE_CLOSE,
+            NULL);
+
+    content = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+    preview = content_preview_widget_create(GTK_WIDGET(dialog),
+            diskcontents_filesystem_read,
+            on_dir_widget_selected);
+    gtk_widget_set_size_request(preview, 300, 500);
+
+    /*
+     * The following is complete horseshit, this needs to be implemented in a
+     * function in drive/vdrive somehow. This much dereferencing in UI code
+     * is not normal method.
+     */
+    drv_ctx = drive_context[dev];
+    if (drv_ctx != NULL) {
+        drv_s = drv_ctx->drive;
+        if (drv_s != NULL) {
+            image = drv_s->image;
+            if (image != NULL) {
+                /* this assumes fsimage, not real-image */
+                struct fsimage_s *fsimg = image->media.fsimage;
+                if (fsimg != NULL) {
+                    autostart_diskimage = fsimg->name;
+                }
+            }
+        }
+    }
+
+    debug_gtk3("reading dir of '%s'", autostart_diskimage);
+    if (autostart_diskimage != NULL) {
+        content_preview_widget_set_image(preview, autostart_diskimage);
+    }
+
+    gtk_container_add(GTK_CONTAINER(content), preview);
+    return dialog;
+}
+#endif
+
 
 /** \brief Respond to mouse clicks on a disk drive status widget.
  *
@@ -535,29 +758,67 @@ static gboolean ui_do_drive_popup(GtkWidget *widget, GdkEvent *event, gpointer d
 {
     int i = GPOINTER_TO_INT(data);
     GtkWidget *drive_menu = allocated_bars[0].drive_popups[i];
+    GtkWidget *drive_menu_item;
+    gchar buffer[256];
 
-    ui_populate_fliplist_menu(drive_menu, i+8, 0);
+    ui_populate_fliplist_menu(drive_menu, i + 8, 0);
+
+    /* XXX: this code is a duplicate of the drive_menu creation code, so we
+     *      should probably refactor this a bit
+     */
+    gtk_container_add(GTK_CONTAINER(drive_menu),
+            gtk_separator_menu_item_new());
+    drive_menu_item = gtk_menu_item_new_with_label("Configure drives ...");
+    g_signal_connect(drive_menu_item, "activate",
+            G_CALLBACK(on_drive_configure_activate), NULL);
+    gtk_container_add(GTK_CONTAINER(drive_menu), drive_menu_item);
+
+    /*
+     * Add drive reset item
+     */
+    g_snprintf(buffer, 256, "Reset drive #%d", i + 8);
+    drive_menu_item = gtk_menu_item_new_with_label(buffer);
+    g_signal_connect(drive_menu_item, "activate",
+            G_CALLBACK(on_drive_reset_clicked), GINT_TO_POINTER(i));
+    gtk_container_add(GTK_CONTAINER(drive_menu), drive_menu_item);
+
     gtk_widget_show_all(drive_menu);
     /* 3.22 isn't available on the latest stable version of all
      * distros yet. This is expected to change when Ubuntu 18.04 is
      * released. Since popup handling is the only thing 3.22 requires
      * be done differently than its predecessors, this is the only
      * place we should rely on version checks. */
-#if GTK_CHECK_VERSION(3,22,0)
-    gtk_menu_popup_at_widget(GTK_MENU(drive_menu),
-                             widget,
-                             GDK_GRAVITY_NORTH_EAST,
-                             GDK_GRAVITY_SOUTH_EAST,
-                             event);
-#else
-    {
-        GdkEventButton *buttonEvent = (GdkEventButton *)event;
 
-        gtk_menu_popup(GTK_MENU(drive_menu),
-                       NULL, NULL, NULL, NULL,
-                       buttonEvent->button, buttonEvent->time);
-    }
+    if (((GdkEventButton *)event)->button == GDK_BUTTON_PRIMARY) {
+        /* show popup for attaching/detaching disk images */
+        gtk_menu_popup_at_widget(GTK_MENU(drive_menu),
+                                 widget,
+                                 GDK_GRAVITY_NORTH_EAST,
+                                 GDK_GRAVITY_SOUTH_EAST,
+                                 event);
+    } else if (((GdkEventButton *)event)->button == GDK_BUTTON_SECONDARY) {
+        /* show popup to run file in currently attached image */
+        GtkWidget *dir_menu = dir_menu_popup_create(
+                i,
+                diskcontents_filesystem_read,
+                disk_dir_autostart_callback);
+#if 0
+        GtkWidget *dialog;
+
+        debug_gtk3("Got secondary button click event");
+        dialog = ui_statusbar_dir_dialog_create(i);
+        g_signal_connect(dialog, "response",
+                G_CALLBACK(on_response_dir_widget), NULL);
+        gtk_widget_show_all(dialog);
 #endif
+        /* show popup for selecting file in currently attached image */
+        gtk_menu_popup_at_widget(GTK_MENU(dir_menu),
+                                 widget,
+                                 GDK_GRAVITY_NORTH_EAST,
+                                 GDK_GRAVITY_SOUTH_EAST,
+                                 event);
+    }
+
     return TRUE;
 }
 
@@ -573,7 +834,7 @@ static GtkWidget *ui_tape_widget_create(void)
     grid = gtk_grid_new();
     gtk_orientable_set_orientation(GTK_ORIENTABLE(grid), GTK_ORIENTATION_HORIZONTAL);
     gtk_widget_set_hexpand(grid, FALSE);
-    header = gtk_label_new(_("Tape:"));
+    header = gtk_label_new("Tape:");
     gtk_widget_set_hexpand(header, TRUE);
     gtk_widget_set_halign(header, GTK_ALIGN_START);
 
@@ -676,10 +937,14 @@ static void vice_gtk3_update_joyport_layout(void)
         int j;
         sb_state.joyports_enabled = new_joyport_mask;
         for (j = 0; j < MAX_STATUS_BARS; ++j) {
-            GtkWidget *joyports_grid = allocated_bars[j].joysticks;
-            if (!joyports_grid) {
+            GtkWidget *joyports_grid;
+
+            if (allocated_bars[j].joysticks == NULL) {
                 continue;
             }
+            joyports_grid =  gtk_bin_get_child(
+                    GTK_BIN(allocated_bars[j].joysticks));
+
             /* Hide and show the joystick ports as required */
             for (i = 0; i < JOYPORT_MAX_PORTS; ++i) {
                 GtkWidget *child = gtk_grid_get_child_at(GTK_GRID(joyports_grid), 1+i, 0);
@@ -697,6 +962,83 @@ static void vice_gtk3_update_joyport_layout(void)
     }
 }
 
+
+/** \brief  Cursor used when hovering over the joysticks widgets
+ *
+ * TODO:    figure out if I need to clean this up or that Gtk will?
+ */
+static GdkCursor *joywidget_mouse_ptr = NULL;
+
+
+/** \brief  Handler for the enter/leave-notify events of the joysticks widget
+ *
+ * \param[in]   widget      widget triggering the event
+ * \param[in]   event       event reference
+ * \param[in]   user_data   extra event data (unused)
+ *
+ * \return  bool    (FALSE = keep propagating event, TRUE = stop)
+ */
+static gboolean on_joystick_widget_hover(GtkWidget *widget, GdkEvent *event,
+                                         gpointer user_data)
+{
+    if (event != NULL) {
+        GdkDisplay *display = gtk_widget_get_display(widget);
+        GdkWindow *window = gtk_widget_get_window(widget);
+        GdkCursor *cursor;
+
+        if (display == NULL) {
+            debug_gtk3("failed to retrieve GdkDisplay.");
+            return FALSE;
+        }
+        if (window == NULL) {
+            debug_gtk3("failed to retrieve GdkWindow.");
+            return FALSE;
+        }
+
+        if (event->type == GDK_ENTER_NOTIFY) {
+            debug_gtk3("Entered joystick widget area.");
+            if (joywidget_mouse_ptr == NULL) {
+                joywidget_mouse_ptr = gdk_cursor_new_from_name(display, "pointer");
+            }
+            cursor = joywidget_mouse_ptr;
+
+        } else {
+            debug_gtk3("Left joystick widget area.");
+            cursor = NULL;
+        }
+        gdk_window_set_cursor(window, cursor);
+    }
+    return FALSE;
+}
+
+
+/** \brief  Handler for button-press events of the joysticks widget
+ *
+ * \param[in]   widget      widget triggering the event
+ * \param[in]   event       event reference
+ * \param[in]   user_data   extra event data (unused)
+ *
+ * \return  TRUE to stop other handlers, FALSE to propagate event further
+ */
+static gboolean on_joystick_widget_button_press(GtkWidget *widget,
+                                                GdkEvent *event,
+                                                gpointer user_data)
+{
+    debug_gtk3("Got button click");
+
+    if (((GdkEventButton *)event)->button == GDK_BUTTON_PRIMARY) {
+        GtkWidget *menu = joystick_menu_popup_create();
+        gtk_menu_popup_at_widget(GTK_MENU(menu), widget,
+                GDK_GRAVITY_NORTH_WEST, GDK_GRAVITY_SOUTH_WEST,
+                event);
+        return TRUE;
+    }
+    return FALSE;
+}
+
+
+
+
 /** \brief Create a master joyport widget for inclusion in the status
  *         bar.
  *
@@ -709,25 +1051,50 @@ static void vice_gtk3_update_joyport_layout(void)
  */
 static GtkWidget *ui_joystick_widget_create(void)
 {
-    GtkWidget *grid, *label;
+    GtkWidget *grid;
+    GtkWidget *label;
+    GtkWidget *event_box;
     int i;
+
     grid = gtk_grid_new();
     gtk_orientable_set_orientation(GTK_ORIENTABLE(grid), GTK_ORIENTATION_HORIZONTAL);
     gtk_widget_set_hexpand(grid, FALSE);
-    label = gtk_label_new(_("Joysticks:"));
+    label = gtk_label_new("Joysticks:");
     gtk_widget_set_halign(label, GTK_ALIGN_START);
     gtk_widget_set_hexpand(label, TRUE);
     gtk_container_add(GTK_CONTAINER(grid), label);
     /* Create all possible joystick displays */
     for (i = 0; i < JOYPORT_MAX_PORTS; ++i) {
         GtkWidget *joyport = gtk_drawing_area_new();
+        /* add events it should respond to */
+        gtk_widget_add_events(joyport,
+                GDK_BUTTON_PRESS_MASK|GDK_BUTTON_RELEASE_MASK|GDK_ENTER_NOTIFY_MASK|GDK_LEAVE_NOTIFY_MASK);
         gtk_widget_set_size_request(joyport,20,20);
         gtk_container_add(GTK_CONTAINER(grid), joyport);
         g_signal_connect(joyport, "draw", G_CALLBACK(draw_joyport_cb), GINT_TO_POINTER(i));
         gtk_widget_set_no_show_all(joyport, TRUE);
         gtk_widget_hide(joyport);
     }
-    return grid;
+
+    /*
+     * Pack the joystick grid into an event box so we can have a popup menu and
+     * also change the cursor shape to indicate to the user the joystick widget
+     * is clickable.
+     */
+    event_box = gtk_event_box_new();
+    gtk_event_box_set_visible_window(GTK_EVENT_BOX(event_box), FALSE);
+    gtk_container_add(GTK_CONTAINER(event_box), grid);
+
+
+
+    g_signal_connect(event_box, "button-press-event",
+            G_CALLBACK(on_joystick_widget_button_press), NULL);
+    g_signal_connect(event_box, "enter-notify-event",
+            G_CALLBACK(on_joystick_widget_hover), NULL);
+    g_signal_connect(event_box, "leave-notify-event",
+            G_CALLBACK(on_joystick_widget_hover), NULL);
+
+    return event_box;
 }
 
 /** Event handler for hovering over a clickable part of the status bar.
@@ -800,7 +1167,7 @@ static void layout_statusbar_drives(int bar_index)
      * elements of the status bar. */
     for (i = 0; i < ((DRIVE_NUM + 1) / 2) * 2; ++i) {
         for (j = 0; j < 2; ++j) {
-            GtkWidget *child = gtk_grid_get_child_at(GTK_GRID(bar), 3+i, j);
+            GtkWidget *child = gtk_grid_get_child_at(GTK_GRID(bar), 6+i, j);
             if (child) {
                 /* Fun GTK3 fact! If you destroy an event box, then
                  * even if the thing it contains still has references
@@ -826,9 +1193,11 @@ static void layout_statusbar_drives(int bar_index)
             GtkWidget *drive = allocated_bars[bar_index].drives[i];
             GtkWidget *event_box = gtk_event_box_new();
             int row = enabled_drive_index % 2;
-            int column = (enabled_drive_index / 2) * 2 + 4;
+            int column = (enabled_drive_index / 2) * 2 + SB_COL_DRIVE;
             if (row == 0) {
-                gtk_grid_attach(GTK_GRID(bar), gtk_separator_new(GTK_ORIENTATION_VERTICAL), column-1, 0, 1, 2);
+                gtk_grid_attach(GTK_GRID(bar),
+                        gtk_separator_new(GTK_ORIENTATION_VERTICAL),
+                        column - 1, 0, 1, 2);
             }
             gtk_container_add(GTK_CONTAINER(event_box), drive);
             gtk_event_box_set_visible_window(GTK_EVENT_BOX(event_box), FALSE);
@@ -864,9 +1233,24 @@ static void destroy_statusbar_cb(GtkWidget *sb, gpointer ignored)
     for (i = 0; i < MAX_STATUS_BARS; ++i) {
         if (allocated_bars[i].bar == sb) {
             allocated_bars[i].bar = NULL;
+#if 0
             if (allocated_bars[i].msg) {
                 g_object_unref(G_OBJECT(allocated_bars[i].msg));
                 allocated_bars[i].msg = NULL;
+            }
+#endif
+            if (allocated_bars[i].speed != NULL) {
+                g_object_unref(G_OBJECT(allocated_bars[i].speed));
+                allocated_bars[i].speed = NULL;
+            }
+
+            if (allocated_bars[i].crt != NULL) {
+                g_object_unref(G_OBJECT(allocated_bars[i].crt));
+                allocated_bars[i].crt = NULL;
+            }
+            if (allocated_bars[i].mixer != NULL) {
+                g_object_unref(G_OBJECT(allocated_bars[i].mixer));
+                allocated_bars[i].mixer = NULL;
             }
             if (allocated_bars[i].tape) {
                 g_object_unref(G_OBJECT(allocated_bars[i].tape));
@@ -896,6 +1280,40 @@ static void destroy_statusbar_cb(GtkWidget *sb, gpointer ignored)
     }
 }
 
+
+/** \brief  Handler for the 'toggled' event of the CRT controls checkbox
+ *
+ * Toggles the display state of the CRT controls
+ *
+ * \param[in]   widget  checkbox triggering the event
+ * \param[in]   data    extra event data (unused
+ */
+static void on_crt_toggled(GtkWidget *widget, gpointer data)
+{
+    gboolean state;
+
+    state = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+    ui_enable_crt_controls((gboolean)state);
+}
+
+
+/** \brief  Handler for the 'toggled' event of the mixer controls checkbox
+ *
+ * Toggles the display state of the mixer controls
+ *
+ * \param[in]   widget  checkbox triggering the event
+ * \param[in]   data    extra event data (unused
+ */
+static void on_mixer_toggled(GtkWidget *widget, gpointer data)
+{
+    gboolean state;
+
+    state = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+    ui_enable_mixer_controls((gboolean)state);
+}
+
+
+
 /** \brief Create a popup menu to attach to a disk drive widget.
  *
  *  \param unit The index of the drive, 0-3 for drives 8-11.
@@ -907,20 +1325,33 @@ static GtkWidget *ui_drive_menu_create(int unit)
     char buf[128];
     GtkWidget *drive_menu = gtk_menu_new();
     GtkWidget *drive_menu_item;
-    snprintf(buf, 128, _("Attach to drive #%d..."), unit + 8);
+
+    snprintf(buf, 128, "Attach disk to drive #%d...", unit + 8);
     buf[127] = 0;
+
     drive_menu_item = gtk_menu_item_new_with_label(buf);
-    g_signal_connect(drive_menu_item, "activate", G_CALLBACK(ui_disk_attach_callback), GINT_TO_POINTER(unit+8));
+    g_signal_connect(drive_menu_item, "activate",
+            G_CALLBACK(ui_disk_attach_callback), GINT_TO_POINTER(unit + 8));
     gtk_container_add(GTK_CONTAINER(drive_menu), drive_menu_item);
-    snprintf(buf, 128, _("Detach disk from drive #%d"), unit + 8);
+    snprintf(buf, 128, "Detach disk from drive #%d", unit + 8);
     buf[127] = 0;
     drive_menu_item = gtk_menu_item_new_with_label(buf);
-    g_signal_connect(drive_menu_item, "activate", G_CALLBACK(ui_disk_detach_callback), GINT_TO_POINTER(unit+8));
+    g_signal_connect(drive_menu_item, "activate",
+            G_CALLBACK(ui_disk_detach_callback), GINT_TO_POINTER(unit + 8));
     gtk_container_add(GTK_CONTAINER(drive_menu), drive_menu_item);
     /* GTK2/GNOME UI put TDE and Read-only checkboxes here, but that
      * seems excessive or possibly too fine-grained, so skip that for
      * now */
-    ui_populate_fliplist_menu(drive_menu, unit+8, 0);
+    ui_populate_fliplist_menu(drive_menu, unit + 8, 0);
+
+
+    gtk_container_add(GTK_CONTAINER(drive_menu),
+            gtk_separator_menu_item_new());
+    drive_menu_item = gtk_menu_item_new_with_label("Configure drives ...");
+    g_signal_connect(drive_menu_item, "activate",
+            G_CALLBACK(on_drive_configure_activate), NULL);
+    gtk_container_add(GTK_CONTAINER(drive_menu), drive_menu_item);
+
     gtk_widget_show_all(drive_menu);
     return drive_menu;
 }
@@ -935,7 +1366,9 @@ static GtkWidget *ui_drive_menu_create(int unit)
  */
 GtkWidget *ui_statusbar_create(void)
 {
-    GtkWidget *sb, *msg, *tape, *tape_events, *joysticks;
+    GtkWidget *sb, *speed, *tape, *tape_events, *joysticks;
+    GtkWidget *crt = NULL;
+    GtkWidget *mixer = NULL;
     int i, j;
 
     for (i = 0; i < MAX_STATUS_BARS; ++i) {
@@ -956,20 +1389,49 @@ GtkWidget *ui_statusbar_create(void)
      * extra dereference in ui_statusbar_destroy() so nothing should
      * leak. */
     sb = vice_gtk3_grid_new_spaced(8, 0);
-    /* First column: messages */
-    msg = gtk_label_new(NULL);
-    g_object_ref_sink(G_OBJECT(msg));
-    gtk_widget_set_halign(msg, GTK_ALIGN_START);
-    gtk_widget_set_hexpand(msg, TRUE);
-    gtk_label_set_ellipsize(GTK_LABEL(msg), PANGO_ELLIPSIZE_END);
-    g_object_set(msg, "margin-left", 8, NULL);
+
+    /* First column: CPU/FPS */
+
+    speed = statusbar_speed_widget_create();
+    g_object_ref_sink(G_OBJECT(speed));
+    g_object_set(speed, "margin-left", 8, NULL);
+
+    /* don't add CRT or Mixer controls when VSID */
+    if (machine_class != VICE_MACHINE_VSID) {
+        crt = gtk_check_button_new_with_label("CRT controls");
+        gtk_widget_set_can_focus(crt, FALSE);
+        g_object_ref_sink(G_OBJECT(crt));
+        gtk_widget_set_halign(crt, GTK_ALIGN_START);
+        gtk_widget_show_all(crt);
+        g_signal_connect(crt, "toggled", G_CALLBACK(on_crt_toggled), NULL);
+
+        mixer = gtk_check_button_new_with_label("Mixer controls");
+        gtk_widget_set_can_focus(mixer, FALSE);
+        g_object_ref_sink(G_OBJECT(mixer));
+        gtk_widget_set_halign(mixer, GTK_ALIGN_START);
+        gtk_widget_show_all(mixer);
+        g_signal_connect(mixer, "toggled", G_CALLBACK(on_mixer_toggled), NULL);
+    }
 
     g_signal_connect(sb, "destroy", G_CALLBACK(destroy_statusbar_cb), NULL);
     allocated_bars[i].bar = sb;
-    allocated_bars[i].msg = GTK_LABEL(msg);
-    gtk_grid_attach(GTK_GRID(sb), msg, 0, 0, 1, 2);
-    /* Second column: Tape and joysticks */
-    gtk_grid_attach(GTK_GRID(sb), gtk_separator_new(GTK_ORIENTATION_VERTICAL), 1, 0, 1, 2);
+    allocated_bars[i].speed = speed;
+    gtk_grid_attach(GTK_GRID(sb), speed, SB_COL_SPEED, 0, 1, 2);
+
+    /* Second column: separator */
+    gtk_grid_attach(GTK_GRID(sb), gtk_separator_new(GTK_ORIENTATION_VERTICAL),
+            SB_COL_SEP_MSG, 0, 1, 2);
+
+    /* TODO: skip VSID and add another separator after the checkbox */
+    if (machine_class != VICE_MACHINE_VSID) {
+        allocated_bars[i].crt = crt;
+        gtk_grid_attach(GTK_GRID(sb), crt, SB_COL_CRT, 0, 1, 1);
+        allocated_bars[i].mixer = mixer;
+        gtk_grid_attach(GTK_GRID(sb), mixer, SB_COL_CRT, 1, 1, 1);
+        /* add separator */
+        gtk_grid_attach(GTK_GRID(sb), gtk_separator_new(GTK_ORIENTATION_VERTICAL),
+                SB_COL_SEP_CRT, 0, 1, 2);
+    }
 
     if ((machine_class != VICE_MACHINE_C64DTV)
             && (machine_class != VICE_MACHINE_VSID)) {
@@ -981,7 +1443,7 @@ GtkWidget *ui_statusbar_create(void)
         tape_events = gtk_event_box_new();
         gtk_event_box_set_visible_window(GTK_EVENT_BOX(tape_events), FALSE);
         gtk_container_add(GTK_CONTAINER(tape_events), tape);
-        gtk_grid_attach(GTK_GRID(sb), tape_events, 2, 0, 1, 1);
+        gtk_grid_attach(GTK_GRID(sb), tape_events, SB_COL_TAPE, 0, 1, 1);
         allocated_bars[i].tape = tape;
         allocated_bars[i].tape_menu = ui_create_datasette_control_menu();
         g_object_ref_sink(G_OBJECT(allocated_bars[i].tape_menu));
@@ -997,7 +1459,7 @@ GtkWidget *ui_statusbar_create(void)
         joysticks = ui_joystick_widget_create();
         g_object_ref(joysticks);
         gtk_widget_set_halign(joysticks, GTK_ALIGN_END);
-        gtk_grid_attach(GTK_GRID(sb), joysticks, 2, 1, 1, 1);
+        gtk_grid_attach(GTK_GRID(sb), joysticks, SB_COL_TAPE, 1, 1, 1);
         allocated_bars[i].joysticks = joysticks;
     }
 
@@ -1030,6 +1492,10 @@ GtkWidget *ui_statusbar_create(void)
  *
  *  \todo This function is not implemented and its API is not
  *        understood.
+ *
+ * \note    Since the statusbar message display widget has been removed, we
+ *          have some space to implement a widget to display information
+ *          regarding playback/recording.
  */
 void ui_display_event_time(unsigned int current, unsigned int total)
 {
@@ -1043,6 +1509,10 @@ void ui_display_event_time(unsigned int current, unsigned int total)
  *
  *  \todo This function is not implemented and its API is not
  *        understood.
+ *
+ * \note    Since the statusbar message display widget has been removed, we
+ *          have some space to implement a widget to display information
+ *          regarding playback/recording.
  */
 void ui_display_playback(int playback_status, char *version)
 {
@@ -1055,12 +1525,17 @@ void ui_display_playback(int playback_status, char *version)
  *
  *  \todo This function is not implemented and its API is not
  *        understood.
+ *
+ * \note    Since the statusbar message display widget has been removed, we
+ *          have some space to implement a widget to display information
+ *          regarding playback/recording.
  */
 void ui_display_recording(int recording_status)
 {
     NOT_IMPLEMENTED_WARN_ONLY();
 }
 
+#if 0
 /** \brief Directly and unconditionally set the status bar message text.
  *
  *  \param text The text to display in the status bar.
@@ -1068,14 +1543,18 @@ void ui_display_recording(int recording_status)
 static void
 display_statustext_internal(const char *text)
 {
+#if 0
     int i;
     for (i = 0; i < MAX_STATUS_BARS; ++i) {
         if (allocated_bars[i].msg) {
             gtk_label_set_text(allocated_bars[i].msg, text);
         }
     }
+#endif
 }
+#endif
 
+#if 0
 /** \brief Timeout callback for messages in the status bar.
  *
  *  If the message ID associated with this callback matches the
@@ -1094,6 +1573,7 @@ static gboolean ui_statustext_fadeout(gpointer data)
     }
     return FALSE;
 }
+#endif
 
 /** \brief Statusbar API function to display a message in the status bar.
  *
@@ -1103,20 +1583,32 @@ static gboolean ui_statustext_fadeout(gpointer data)
  */
 void ui_display_statustext(const char *text, int fade_out)
 {
+    /*
+     * No longer used, but needs to remain here since it's called from
+     * src/network.c
+     */
+#if 0
     ++sb_state.statustext_msgid;
     display_statustext_internal(text);
     if (fade_out) {
-        g_timeout_add(5000, ui_statustext_fadeout, GINT_TO_POINTER(sb_state.statustext_msgid));
+        g_timeout_add(5000, ui_statustext_fadeout,
+                GINT_TO_POINTER(sb_state.statustext_msgid));
     }
+#endif
 }
 
-/** \brief Statusbar API function to display current volume.
- *  \param vol The new volumen level.
- *  \todo This function is not implemented. */
+/** \brief Statusbar API function to display current volume
+ *
+ * This function is a NOP since the volume can be checked and altered via the
+ * Mixer Controls via the statusbar.
+ *
+ * \param[in]   vol     new volume level
+ */
 void ui_display_volume(int vol)
 {
-    NOT_IMPLEMENTED_WARN_ONLY();
+    /* NOP */
 }
+
 
 /** \brief Statusbar API function to display current joyport inputs.
  *  \param joyport An array of bytes of size at least
@@ -1141,7 +1633,11 @@ void ui_display_joyport(uint8_t *joyport)
             sb_state.current_joyports[i] = joyport[i+1];
             for (j = 0; j < MAX_STATUS_BARS; ++j) {
                 if (allocated_bars[j].joysticks) {
-                    GtkWidget *widget = gtk_grid_get_child_at(GTK_GRID(allocated_bars[j].joysticks), i+1, 0);
+                    GtkWidget *grid;
+                    GtkWidget *widget;
+
+                    grid = gtk_bin_get_child(GTK_BIN(allocated_bars[j].joysticks));
+                    widget = gtk_grid_get_child_at(GTK_GRID(grid), i + 1, 0);
                     if (widget) {
                         gtk_widget_queue_draw(widget);
                     }
@@ -1241,15 +1737,17 @@ void ui_set_tape_status(int tape_status)
  */
 void ui_display_tape_current_image(const char *image)
 {
+#if 0
     char buf[256];
     if (image && *image) {
-        snprintf(buf, 256, _("Attached %s to tape unit"), image);
+        snprintf(buf, 256, "Attached %s to tape unit", image);
     } else {
-        snprintf(buf, 256, _("Tape unit is empty"));
+        snprintf(buf, 256, "Tape unit is empty");
     }
 
-    buf[255]=0;
+    buf[255] = 0;
     ui_display_statustext(buf, 1);
+#endif
 }
 
 /** \brief Statusbar API function to report changes in drive LED
@@ -1382,12 +1880,99 @@ void ui_enable_drive_status(ui_drive_enable_t state, int *drive_led_color)
  */
 void ui_display_drive_current_image(unsigned int drive_number, const char *image)
 {
+#if 0
     char buf[256];
     if (image && *image) {
-        snprintf(buf, 256, _("Attached %s to unit %d"), image, drive_number+8);
+        snprintf(buf, 256, "Attached %s to unit %d", image, drive_number + 8);
     } else {
-        snprintf(buf, 256, _("Unit %d is empty"), drive_number+8);
+        snprintf(buf, 256, "Unit %d is empty", drive_number + 8);
     }
-    buf[255]=0;
+    buf[255] = 0;
     ui_display_statustext(buf, 1);
+#endif
+}
+
+
+/** \brief  Determine if the CRT controls widget is enabled in \a window
+ *
+ * \param[in]   window  GtkWindow instance
+ *
+ * \return  bool
+ */
+gboolean ui_statusbar_crt_controls_enabled(GtkWidget *window)
+{
+    GtkWidget *bin;
+    GtkWidget *bar;
+    GtkWidget *check;
+    gboolean active;
+
+    debug_gtk3("called.");
+    bin = gtk_bin_get_child(GTK_BIN(window));
+    if (bin != NULL) {
+        bar = gtk_grid_get_child_at(GTK_GRID(bin), 0, 2);  /* FIX */
+        if (bar != NULL) {
+            check = gtk_grid_get_child_at(GTK_GRID(bar), SB_COL_CRT, 0);
+            if (check != NULL) {
+                active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check));
+                debug_gtk3("CRT controls enabled = %s.",
+                        active ? "TRUE" : "FALSE");
+                return active;
+            } else {
+                debug_gtk3("Couldn't get Checkbox.");
+            }
+        } else {
+            debug_gtk3("Couldn't get statusbar.");
+        }
+    } else {
+        debug_gtk3("Couldn't get BIN.");
+    }
+    debug_gtk3("OOPS!");
+    return FALSE;
+}
+
+
+/** \brief  Determine if the mixer controls widget is enabled in \a window
+ *
+ * \param[in]   window  GtkWindow instance
+ *
+ * \return  bool
+ */
+gboolean ui_statusbar_mixer_controls_enabled(GtkWidget *window)
+{
+    GtkWidget *bin;
+    GtkWidget *bar;
+    GtkWidget *check;
+    gboolean active;
+
+    debug_gtk3("called.");
+    bin = gtk_bin_get_child(GTK_BIN(window));
+    if (bin != NULL) {
+        bar = gtk_grid_get_child_at(GTK_GRID(bin), 0, 2);  /* FIX */
+        if (bar != NULL) {
+            check = gtk_grid_get_child_at(GTK_GRID(bar), SB_COL_CRT, 1);
+            if (check != NULL) {
+                active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check));
+                debug_gtk3("Mixer controls enabled = %s.",
+                        active ? "TRUE" : "FALSE");
+                return active;
+            }
+        }
+    }
+    debug_gtk3("OOPS!");
+    return FALSE;
+}
+
+
+void ui_display_speed(float percent, float framerate, int warp_flag)
+{
+    GtkWidget *speed;
+
+    speed = allocated_bars[0].speed;
+    if (speed != NULL) {
+        statusbar_speed_widget_update(speed, percent, framerate, warp_flag);
+    }
+    speed = allocated_bars[1].speed;
+    if (speed != NULL) {
+        statusbar_speed_widget_update(speed, percent, framerate, warp_flag);
+    }
 }

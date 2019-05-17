@@ -116,7 +116,8 @@ am_libwidgets_a_OBJECTS = aciawidget.$(OBJEXT) \
 	cbm2memorysizewidget.$(OBJEXT) cbm2rammappingwidget.$(OBJEXT) \
 	ciamodelwidget.$(OBJEXT) contentpreviewwidget.$(OBJEXT) \
 	cpmwidget.$(OBJEXT) crtcontrolwidget.$(OBJEXT) \
-	cwdwidget.$(OBJEXT) digimaxwidget.$(OBJEXT) \
+	crtpreviewwidget.$(OBJEXT) cwdwidget.$(OBJEXT) \
+	digimaxwidget.$(OBJEXT) dirmenupopup.$(OBJEXT) \
 	dqbbwidget.$(OBJEXT) drivedoswidget.$(OBJEXT) \
 	driveextendpolicywidget.$(OBJEXT) \
 	drivefsdevicewidget.$(OBJEXT) driveidlemethodwidget.$(OBJEXT) \
@@ -127,22 +128,24 @@ am_libwidgets_a_OBJECTS = aciawidget.$(OBJEXT) \
 	easyflashwidget.$(OBJEXT) ethernetcartwidget.$(OBJEXT) \
 	expertwidget.$(OBJEXT) ffmpegwidget.$(OBJEXT) \
 	finalexpansionwidget.$(OBJEXT) gmod2widget.$(OBJEXT) \
-	htmlbrowserwidget.$(OBJEXT) ide64widget.$(OBJEXT) \
-	ieee488widget.$(OBJEXT) isepicwidget.$(OBJEXT) \
-	jamactionwidget.$(OBJEXT) jamdialog.$(OBJEXT) \
-	joystickdevicewidget.$(OBJEXT) \
+	hvscsettingswidget.$(OBJEXT) hvscstilwidget.$(OBJEXT) \
+	ide64widget.$(OBJEXT) ieee488widget.$(OBJEXT) \
+	isepicwidget.$(OBJEXT) jamactionwidget.$(OBJEXT) \
+	jamdialog.$(OBJEXT) joystickdevicewidget.$(OBJEXT) \
+	joystickmenupopup.$(OBJEXT) \
 	joystickuserportadapterwidget.$(OBJEXT) \
 	kbdlayoutwidget.$(OBJEXT) kbdmappingwidget.$(OBJEXT) \
 	kernalrevisionwidget.$(OBJEXT) keysetdialog.$(OBJEXT) \
 	machinemodelwidget.$(OBJEXT) magicvoicewidget.$(OBJEXT) \
 	megacartwidget.$(OBJEXT) midiwidget.$(OBJEXT) \
-	mmc64widget.$(OBJEXT) mmcrwidget.$(OBJEXT) \
-	petcolourgraphicswidget.$(OBJEXT) petdiagpinwidget.$(OBJEXT) \
-	petdwwwidget.$(OBJEXT) pethrewidget.$(OBJEXT) \
-	petiosizewidget.$(OBJEXT) petkeyboardtypewidget.$(OBJEXT) \
-	petmiscwidget.$(OBJEXT) petramsizewidget.$(OBJEXT) \
-	petreuwidget.$(OBJEXT) petvideosizewidget.$(OBJEXT) \
-	plus4aciawidget.$(OBJEXT) plus4digiblasterwidget.$(OBJEXT) \
+	mixerwidget.$(OBJEXT) mmc64widget.$(OBJEXT) \
+	mmcrwidget.$(OBJEXT) petcolourgraphicswidget.$(OBJEXT) \
+	petdiagpinwidget.$(OBJEXT) petdwwwidget.$(OBJEXT) \
+	pethrewidget.$(OBJEXT) petiosizewidget.$(OBJEXT) \
+	petkeyboardtypewidget.$(OBJEXT) petmiscwidget.$(OBJEXT) \
+	petramsizewidget.$(OBJEXT) petreuwidget.$(OBJEXT) \
+	petvideosizewidget.$(OBJEXT) plus4aciawidget.$(OBJEXT) \
+	plus4digiblasterwidget.$(OBJEXT) \
 	plus4memoryexpansionwidget.$(OBJEXT) \
 	printerdriverwidget.$(OBJEXT) \
 	printeremulationtypewidget.$(OBJEXT) \
@@ -157,13 +160,14 @@ am_libwidgets_a_OBJECTS = aciawidget.$(OBJEXT) \
 	settings_io_c64_memhacks.$(OBJEXT) \
 	settings_io_georam.$(OBJEXT) settings_joystick.$(OBJEXT) \
 	settings_keyboard.$(OBJEXT) settings_misc.$(OBJEXT) \
-	settings_model.$(OBJEXT) settings_monitor.$(OBJEXT) \
-	settings_mouse.$(OBJEXT) settings_printer.$(OBJEXT) \
-	settings_ramreset.$(OBJEXT) settings_romset.$(OBJEXT) \
-	settings_rs232.$(OBJEXT) settings_sampler.$(OBJEXT) \
-	settings_snapshot.$(OBJEXT) settings_sound.$(OBJEXT) \
-	settings_soundchip.$(OBJEXT) settings_speed.$(OBJEXT) \
-	settings_video.$(OBJEXT) sfxsoundexpanderwidget.$(OBJEXT) \
+	settings_mixer.$(OBJEXT) settings_model.$(OBJEXT) \
+	settings_monitor.$(OBJEXT) settings_mouse.$(OBJEXT) \
+	settings_printer.$(OBJEXT) settings_ramreset.$(OBJEXT) \
+	settings_romset.$(OBJEXT) settings_rs232.$(OBJEXT) \
+	settings_sampler.$(OBJEXT) settings_snapshot.$(OBJEXT) \
+	settings_sound.$(OBJEXT) settings_soundchip.$(OBJEXT) \
+	settings_speed.$(OBJEXT) settings_video.$(OBJEXT) \
+	sfxsoundexpanderwidget.$(OBJEXT) \
 	sfxsoundsamplerwidget.$(OBJEXT) sidcartwidget.$(OBJEXT) \
 	sidmodelwidget.$(OBJEXT) sidsoundwidget.$(OBJEXT) \
 	soundbuffersizewidget.$(OBJEXT) sounddriverwidget.$(OBJEXT) \
@@ -171,9 +175,10 @@ am_libwidgets_a_OBJECTS = aciawidget.$(OBJEXT) \
 	soundoutputmodewidget.$(OBJEXT) \
 	soundsampleratewidget.$(OBJEXT) \
 	soundsuspendtimewidget.$(OBJEXT) soundsyncwidget.$(OBJEXT) \
-	speedwidget.$(OBJEXT) superpetwidget.$(OBJEXT) \
-	supersnapshotwidget.$(OBJEXT) tapeportdeviceswidget.$(OBJEXT) \
-	ultimemwidget.$(OBJEXT) userportdeviceswidget.$(OBJEXT) \
+	speedwidget.$(OBJEXT) statusbarspeedwidget.$(OBJEXT) \
+	superpetwidget.$(OBJEXT) supersnapshotwidget.$(OBJEXT) \
+	tapeportdeviceswidget.$(OBJEXT) ultimemwidget.$(OBJEXT) \
+	userportdeviceswidget.$(OBJEXT) \
 	userportprinterwidget.$(OBJEXT) v364speechwidget.$(OBJEXT) \
 	vdcmodelwidget.$(OBJEXT) vfliwidget.$(OBJEXT) \
 	vic20memoryexpansionwidget.$(OBJEXT) vicflashwidget.$(OBJEXT) \
@@ -181,7 +186,8 @@ am_libwidgets_a_OBJECTS = aciawidget.$(OBJEXT) \
 	videobordermodewidget.$(OBJEXT) videomodelwidget.$(OBJEXT) \
 	videopalettewidget.$(OBJEXT) videorenderfilterwidget.$(OBJEXT) \
 	vsidcontrolwidget.$(OBJEXT) vsidmainwidget.$(OBJEXT) \
-	vsidmixerwidget.$(OBJEXT) vsidtuneinfowidget.$(OBJEXT)
+	vsidmixerwidget.$(OBJEXT) vsidplaylistwidget.$(OBJEXT) \
+	vsidtuneinfowidget.$(OBJEXT)
 libwidgets_a_OBJECTS = $(am_libwidgets_a_OBJECTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -296,10 +302,6 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
-CAIRO_CFLAGS = @CAIRO_CFLAGS@
-CAIRO_LIBS = @CAIRO_LIBS@
-CATALOGS = @CATALOGS@
-CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 CCAS = @CCAS@
 CCASDEPMODE = @CCASDEPMODE@
@@ -314,17 +316,14 @@ CXXCPP = @CXXCPP@
 CXXDEPMODE = @CXXDEPMODE@
 CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
-DATADIRNAME = @DATADIRNAME@
 DEBUGBUILD = @DEBUGBUILD@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
 DOS2UNIX = @DOS2UNIX@
-DOS_TFE_PCAP_LIB = @DOS_TFE_PCAP_LIB@
 DYNLIB_LIBS = @DYNLIB_LIBS@
 ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
-EDITLINE_LIBS = @EDITLINE_LIBS@
 EGREP = @EGREP@
 ENABLE_ARCH = @ENABLE_ARCH@
 EXEEXT = @EXEEXT@
@@ -342,19 +341,17 @@ FFMPEG_SWRESAMPLE_CFLAGS = @FFMPEG_SWRESAMPLE_CFLAGS@
 FFMPEG_SWRESAMPLE_LIBS = @FFMPEG_SWRESAMPLE_LIBS@
 FFMPEG_SWSCALE_CFLAGS = @FFMPEG_SWSCALE_CFLAGS@
 FFMPEG_SWSCALE_LIBS = @FFMPEG_SWSCALE_LIBS@
-FULLSCREEN_DRIVERS = @FULLSCREEN_DRIVERS@
-GENCAT = @GENCAT@
+FONTCONFIG_CFLAGS = @FONTCONFIG_CFLAGS@
+FONTCONFIG_LIBS = @FONTCONFIG_LIBS@
+FW_DIR = @FW_DIR@
 GFXOUTPUT_DRIVERS = @GFXOUTPUT_DRIVERS@
 GFXOUTPUT_LIBS = @GFXOUTPUT_LIBS@
 GLIB_CFLAGS = @GLIB_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
-GMOFILES = @GMOFILES@
-GMSGFMT = @GMSGFMT@
 GREP = @GREP@
-GTKGL_CFLAGS = @GTKGL_CFLAGS@
-GTKGL_LIBS = @GTKGL_LIBS@
 GTK_CFLAGS = @GTK_CFLAGS@
 GTK_LIBS = @GTK_LIBS@
+HAVE_CXX11 = @HAVE_CXX11@
 HAVE_READLINE = @HAVE_READLINE@
 HCRTF = @HCRTF@
 HHC = @HHC@
@@ -364,10 +361,6 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INSTOBJEXT = @INSTOBJEXT@
-INTLDEPS = @INTLDEPS@
-INTLLIBS = @INTLLIBS@
-INTLOBJS = @INTLOBJS@
 IPFC = @IPFC@
 JOY_LIBS = @JOY_LIBS@
 LAMEMP3SUB = @LAMEMP3SUB@
@@ -388,14 +381,8 @@ MAKERTF = @MAKERTF@
 MAX_INLINE_INSN_SINGLE = @MAX_INLINE_INSN_SINGLE@
 MKDIR_P = @MKDIR_P@
 MKFONTDIR_BIN = @MKFONTDIR_BIN@
-MKINSTALLDIRS = @MKINSTALLDIRS@
-MSGFMT = @MSGFMT@
 NATIVE_TOOLS_COMPILER = @NATIVE_TOOLS_COMPILER@
 NETPLAY_LIBS = @NETPLAY_LIBS@
-NLS_LOCALEDIR = @NLS_LOCALEDIR@
-OBJC = @OBJC@
-OBJCDEPMODE = @OBJCDEPMODE@
-OBJCFLAGS = @OBJCFLAGS@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
@@ -404,8 +391,6 @@ PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
-PANGO_CFLAGS = @PANGO_CFLAGS@
-PANGO_LIBS = @PANGO_LIBS@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 PDFTEX = @PDFTEX@
 PERL = @PERL@
@@ -413,8 +398,6 @@ PKG_CONFIG = @PKG_CONFIG@
 PLATFORM_DOX_FLAGS = @PLATFORM_DOX_FLAGS@
 PNG_CFLAGS = @PNG_CFLAGS@
 PNG_LIBS = @PNG_LIBS@
-POFILES = @POFILES@
-POSUB = @POSUB@
 QUICKTIME_INCLUDES = @QUICKTIME_INCLUDES@
 QUICKTIME_LIBS = @QUICKTIME_LIBS@
 RANLIB = @RANLIB@
@@ -450,40 +433,15 @@ TEXI2DVI = @TEXI2DVI@
 TEXI2IPF = @TEXI2IPF@
 TFE_LIBS = @TFE_LIBS@
 UI_LIBS = @UI_LIBS@
-UNIX_MACOSX_UITYPE = @UNIX_MACOSX_UITYPE@
-USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
-USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 VERSION_COMBINED = @VERSION_COMBINED@
 VERSION_RC = @VERSION_RC@
 VICEDIR = @VICEDIR@
-VICE_SYNC = @VICE_SYNC@
-VICE_UI_THREADS = @VICE_UI_THREADS@
 VICE_VERSION = @VICE_VERSION@
 VICE_VERSION_BUILD = @VICE_VERSION_BUILD@
 VICE_VERSION_MAJOR = @VICE_VERSION_MAJOR@
 VICE_VERSION_MINOR = @VICE_VERSION_MINOR@
-VSID_WINRES = @VSID_WINRES@
-VTE_CFLAGS = @VTE_CFLAGS@
-VTE_LIBS = @VTE_LIBS@
-WINDRES = @WINDRES@
-WRC = @WRC@
-X128_WINRES = @X128_WINRES@
-X64DTV_WINRES = @X64DTV_WINRES@
-X64_WINRES = @X64_WINRES@
 XA = @XA@
-XCBM2_WINRES = @XCBM2_WINRES@
-XCBM5X0_WINRES = @XCBM5X0_WINRES@
-XGETTEXT = @XGETTEXT@
-XMKMF = @XMKMF@
-XPET_WINRES = @XPET_WINRES@
-XPLUS4_WINRES = @XPLUS4_WINRES@
-XSCPU64_WINRES = @XSCPU64_WINRES@
-XVIC_WINRES = @XVIC_WINRES@
-X_CFLAGS = @X_CFLAGS@
-X_EXTRA_LIBS = @X_EXTRA_LIBS@
-X_LIBS = @X_LIBS@
-X_PRE_LIBS = @X_PRE_LIBS@
 YACC = @YACC@
 YASM = @YASM@
 ZLIB_LIBS = @ZLIB_LIBS@
@@ -527,6 +485,7 @@ localedir = @localedir@
 localstatedir = @localstatedir@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
+objdump = @objdump@
 oldincludedir = @oldincludedir@
 pdfdir = @pdfdir@
 prefix = @prefix@
@@ -576,7 +535,8 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/userport \
 	-I$(top_srcdir)/src/arch/gtk3/widgets \
 	-I$(top_srcdir)/src/arch/gtk3/widgets/base \
-	-I$(top_srcdir)/src/samplerdrv
+	-I$(top_srcdir)/src/samplerdrv \
+	-I$(top_srcdir)/src/hvsc
 
 noinst_LIBRARIES = libwidgets.a
 libwidgets_a_SOURCES = \
@@ -593,8 +553,10 @@ libwidgets_a_SOURCES = \
 	contentpreviewwidget.c \
 	cpmwidget.c \
 	crtcontrolwidget.c \
+	crtpreviewwidget.c \
 	cwdwidget.c \
 	digimaxwidget.c \
+	dirmenupopup.c \
 	dqbbwidget.c \
 	drivedoswidget.c \
 	driveextendpolicywidget.c \
@@ -614,13 +576,15 @@ libwidgets_a_SOURCES = \
 	ffmpegwidget.c \
 	finalexpansionwidget.c \
 	gmod2widget.c \
-	htmlbrowserwidget.c \
+	hvscsettingswidget.c \
+	hvscstilwidget.c \
 	ide64widget.c \
 	ieee488widget.c \
 	isepicwidget.c \
 	jamactionwidget.c \
 	jamdialog.c \
 	joystickdevicewidget.c \
+	joystickmenupopup.c \
 	joystickuserportadapterwidget.c \
 	kbdlayoutwidget.c \
 	kbdmappingwidget.c \
@@ -630,6 +594,7 @@ libwidgets_a_SOURCES = \
 	magicvoicewidget.c \
 	megacartwidget.c \
 	midiwidget.c \
+	mixerwidget.c \
 	mmc64widget.c \
 	mmcrwidget.c \
 	petcolourgraphicswidget.c \
@@ -667,6 +632,7 @@ libwidgets_a_SOURCES = \
 	settings_joystick.c \
 	settings_keyboard.c \
 	settings_misc.c \
+	settings_mixer.c \
 	settings_model.c \
 	settings_monitor.c \
 	settings_mouse.c \
@@ -693,6 +659,7 @@ libwidgets_a_SOURCES = \
 	soundsuspendtimewidget.c \
 	soundsyncwidget.c \
 	speedwidget.c \
+	statusbarspeedwidget.c \
 	superpetwidget.c \
 	supersnapshotwidget.c \
 	tapeportdeviceswidget.c \
@@ -713,6 +680,7 @@ libwidgets_a_SOURCES = \
 	vsidcontrolwidget.c \
 	vsidmainwidget.c \
 	vsidmixerwidget.c \
+	vsidplaylistwidget.c \
 	vsidtuneinfowidget.c
 
 EXTRA_DIST = \
@@ -729,7 +697,9 @@ EXTRA_DIST = \
 	contentpreviewwidget.h \
 	cpmwidget.h \
 	crtcontrolwidget.h \
+	crtpreviewwidget.h \
 	cwdwidget.h \
+	dirmenupopup.h \
 	digimaxwidget.h \
 	dqbbwidget.h \
 	drivedoswidget.h \
@@ -750,13 +720,15 @@ EXTRA_DIST = \
 	ffmpegwidget.h \
 	finalexpansionwidget.h \
 	gmod2widget.h \
-	htmlbrowserwidget.h \
+	hvscsettingswidget.h \
+	hvscstilwidget.h \
 	ide64widget.h \
 	ieee488widget.h \
 	isepicwidget.h \
 	jamactionwidget.h \
 	jamdialog.h \
 	joystickdevicewidget.h \
+	joystickmenupopup.h \
 	joystickuserportadapterwidget.h \
 	kbdlayoutwidget.h \
 	kbdmappingwidget.h \
@@ -766,6 +738,7 @@ EXTRA_DIST = \
 	magicvoicewidget.h \
 	megacartwidget.h \
 	midiwidget.h \
+	mixerwidget.h \
 	mmc64widget.h \
 	mmcrwidget.h \
 	petcolourgraphicswidget.h \
@@ -803,6 +776,7 @@ EXTRA_DIST = \
 	settings_joystick.h \
 	settings_keyboard.h \
 	settings_misc.h \
+	settings_mixer.h \
 	settings_model.h \
 	settings_monitor.h \
 	settings_mouse.h \
@@ -829,6 +803,7 @@ EXTRA_DIST = \
 	soundsuspendtimewidget.h \
 	soundsyncwidget.h \
 	speedwidget.h \
+	statusbarspeedwidget.h \
 	superpetwidget.h \
 	supersnapshotwidget.h \
 	tapeportdeviceswidget.h \
@@ -849,6 +824,7 @@ EXTRA_DIST = \
 	vsidcontrolwidget.h \
 	vsidmainwidget.h \
 	vsidmixerwidget.h \
+	vsidplaylistwidget.h \
 	vsidtuneinfowidget.h
 
 all: all-recursive
@@ -912,8 +888,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/contentpreviewwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cpmwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crtcontrolwidget.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crtpreviewwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cwdwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/digimaxwidget.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dirmenupopup.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dqbbwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/drivedoswidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/driveextendpolicywidget.Po@am__quote@
@@ -933,13 +911,15 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ffmpegwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/finalexpansionwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gmod2widget.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/htmlbrowserwidget.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hvscsettingswidget.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hvscstilwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ide64widget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ieee488widget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/isepicwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jamactionwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jamdialog.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/joystickdevicewidget.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/joystickmenupopup.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/joystickuserportadapterwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/kbdlayoutwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/kbdmappingwidget.Po@am__quote@
@@ -949,6 +929,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/magicvoicewidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/megacartwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/midiwidget.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mixerwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mmc64widget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mmcrwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/petcolourgraphicswidget.Po@am__quote@
@@ -986,6 +967,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/settings_joystick.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/settings_keyboard.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/settings_misc.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/settings_mixer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/settings_model.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/settings_monitor.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/settings_mouse.Po@am__quote@
@@ -1012,6 +994,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/soundsuspendtimewidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/soundsyncwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speedwidget.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/statusbarspeedwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/superpetwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/supersnapshotwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tapeportdeviceswidget.Po@am__quote@
@@ -1032,6 +1015,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vsidcontrolwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vsidmainwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vsidmixerwidget.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vsidplaylistwidget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vsidtuneinfowidget.Po@am__quote@
 
 .c.o:

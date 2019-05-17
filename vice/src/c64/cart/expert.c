@@ -45,7 +45,6 @@
 #include "lib.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "types.h"
 #include "util.h"
 #include "crt.h"
@@ -907,36 +906,24 @@ int expert_snapshot_read_module(snapshot_t *s)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-expert", SET_RESOURCE, 0,
+    { "-expert", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "ExpertCartridgeEnabled", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_EXPERT_CART,
-      NULL, NULL },
-    { "+expert", SET_RESOURCE, 0,
+      NULL, "Enable the Expert Cartridge" },
+    { "+expert", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "ExpertCartridgeEnabled", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_EXPERT_CART,
-      NULL, NULL },
-    { "-expertimagename", SET_RESOURCE, 1,
+      NULL, "Disable the Expert Cartridge" },
+    { "-expertimagename", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "Expertfilename", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SET_EXPERT_FILENAME,
-      NULL, NULL },
-    { "-expertimagerw", SET_RESOURCE, 0,
+      "<Name>", "Set Expert Cartridge image name" },
+    { "-expertimagerw", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "ExpertImageWrite", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ALLOW_WRITING_TO_EXPERT_IMAGE,
-      NULL, NULL },
-    { "+expertimagerw", SET_RESOURCE, 0,
+      NULL, "Allow writing to Expert Cartridge image" },
+    { "+expertimagerw", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "ExpertImageWrite", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DO_NOT_WRITE_TO_EXPERT_IMAGE,
-      NULL, NULL },
-    { "-expertmode", SET_RESOURCE, 1,
+      NULL, "Do not write to Expert Cartridge image" },
+    { "-expertmode", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "ExpertCartridgeMode", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_MODE, IDCLS_SET_EXPERT_MODE,
-      NULL, NULL },
+      "<Mode>", "Set Expert Cartridge mode (0: Off, 1: Prg, 2: On)" },
     CMDLINE_LIST_END
 };
 

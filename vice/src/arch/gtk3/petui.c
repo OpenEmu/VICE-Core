@@ -30,17 +30,18 @@
 
 #include <stdio.h>
 
+#include "debug_gtk3.h"
 #include "crtc.h"
 #include "crtcontrolwidget.h"
 #include "machine.h"
 #include "machinemodelwidget.h"
-#include "not_implemented.h"
 #include "petkeyboardtypewidget.h"
 #include "petmodel.h"
 #include "sampler.h"
 #include "ui.h"
 #include "uimachinewindow.h"
 #include "settings_sampler.h"
+#include "settings_model.h"
 
 #include "petui.h"
 
@@ -85,7 +86,7 @@ static int identify_canvas(video_canvas_t *canvas)
  */
 static GtkWidget *create_crt_widget(int target_window)
 {
-    return crt_control_widget_create(NULL, "CRTC");
+    return crt_control_widget_create(NULL, "CRTC", TRUE);
 }
 
 /** \brief  Pre-initialize the UI before the canvas window gets created
@@ -97,8 +98,6 @@ int petui_init_early(void)
     ui_machine_window_init();
     ui_set_identify_canvas_func(identify_canvas);
     ui_set_create_controls_widget_func(create_crt_widget);
-
-    INCOMPLETE_IMPLEMENTATION();
     return 0;
 }
 
@@ -118,7 +117,7 @@ int petui_init(void)
 
     settings_sampler_set_devices_getter(sampler_get_devices);
 
-    INCOMPLETE_IMPLEMENTATION();
+    settings_model_widget_set_model_func(petmodel_get);
     return 0;
 }
 
@@ -127,5 +126,5 @@ int petui_init(void)
  */
 void petui_shutdown(void)
 {
-    INCOMPLETE_IMPLEMENTATION();
+    /* NOP */
 }

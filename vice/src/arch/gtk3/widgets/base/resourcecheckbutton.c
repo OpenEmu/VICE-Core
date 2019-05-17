@@ -80,34 +80,8 @@ static void on_check_button_destroy(GtkWidget *check, gpointer user_data)
  */
 static void on_check_button_toggled(GtkWidget *check, gpointer user_data)
 {
-    const char *resource;
-    int state;
-    int current;
-
-    resource = resource_widget_get_resource_name(check);
-    state = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(check));
-    if (resources_get_int(resource, &current) < 0) {
-        /* invalid resource, exit */
-        log_error(LOG_ERR, "invalid resource name'%s'\n", resource);
-        return;
-    }
-
-    /* make sure we don't update a resource when the UI happens to be out of
-     * sync for some reason */
-    if (state != current) {
-#if 0
-        debug_gtk3("setting %s to %s\n", resource, state ? "True": "False");
-#endif
-        if (resources_set_int(resource, state ? 1 : 0) < 0) {
-            log_error(LOG_ERR,
-                    "setting %s to %s failed\n",
-                    resource, state ? "True": "False");
-            /* get current resource value (validity of the name has been
-             * checked already */
-            resources_get_int(resource, &current);
-            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(check),
-                    current ? TRUE : FALSE);
-        }
+    if (resource_widget_get_auto_update(check)) {
+        vice_gtk3_resource_check_button_apply(check);
     }
 }
 
@@ -137,8 +111,19 @@ static GtkWidget *resource_check_button_new_helper(GtkWidget *check)
     /* remember original state for the reset() method */
     resource_widget_set_int(check, "ResourceOrig", state);
 
+    /* set auto-update to true */
+    resource_widget_set_auto_update(check, TRUE);
+
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(check),
             state ? TRUE : FALSE);
+
+    /* register methods to be used by the resource widget manager */
+    resource_widget_register_methods(
+            check,
+            vice_gtk3_resource_check_button_reset,
+            vice_gtk3_resource_check_button_factory,
+            vice_gtk3_resource_check_button_sync,
+            vice_gtk3_resource_check_button_apply);
 
     g_signal_connect(check, "toggled", G_CALLBACK(on_check_button_toggled),
             (gpointer)resource);
@@ -244,7 +229,7 @@ gboolean vice_gtk3_resource_check_button_get(GtkWidget *widget, gboolean *dest)
 
     resource = resource_widget_get_resource_name(widget);
     if (resources_get_int(resource, &value) < 0) {
-        debug_gtk3("failed to get resource value for %s\n", resource);
+        debug_gtk3("failed to get resource value for %s.", resource);
         *dest = FALSE;
         return FALSE;
     }
@@ -267,7 +252,7 @@ gboolean vice_gtk3_resource_check_button_factory(GtkWidget *widget)
         return FALSE;
     }
 #if 0
-    debug_gtk3("resetting %s to factory value %s\n",
+    debug_gtk3("resetting %s to factory value %s.",
             resource, value ? "True" : "False");
 #endif
     return vice_gtk3_resource_check_button_set(widget, (gboolean)value);
@@ -308,7 +293,7 @@ gboolean vice_gtk3_resource_check_button_sync(GtkWidget *widget)
     /* get resource state */
     resource_name = resource_widget_get_resource_name(widget);
     if (resources_get_int(resource_name, &resource_val) < 0) {
-        debug_gtk3("failed to get value for resource %s\n", resource_name);
+        debug_gtk3("failed to get value for resource '%s'.", resource_name);
         return FALSE;
     }
 
@@ -319,3 +304,55 @@ gboolean vice_gtk3_resource_check_button_sync(GtkWidget *widget)
     }
     return TRUE;
 }
+
+
+/** \brief  Set resource to the widget's value
+ *
+ * \param[in,out]   widget  resource check button
+ *
+ * \return  bool
+ */
+gboolean vice_gtk3_resource_check_button_apply(GtkWidget *widget)
+{
+    const char *resource;
+    int state;
+    int current;
+
+    resource = resource_widget_get_resource_name(widget);
+    state = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+    if (resources_get_int(resource, &current) < 0) {
+        /* invalid resource, exit */
+        log_error(LOG_ERR, "invalid resource name'%s'\n", resource);
+        return FALSE;
+    }
+
+    /* make sure we don't update a resource when the UI happens to be out of
+     * sync for some reason */
+    if (state != current) {
+#if 0
+        debug_gtk3("setting %s to %s.", resource, state ? "True": "False");
+#endif
+        if (resources_set_int(resource, state ? 1 : 0) < 0) {
+            log_error(LOG_ERR,
+                    "setting %s to %s failed\n",
+                    resource, state ? "True": "False");
+            /* get current resource value (validity of the name has been
+             * checked already */
+            resources_get_int(resource, &current);
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget),
+                    current ? TRUE : FALSE);
+        }
+    }
+    return TRUE;
+}
+
+
+/** \brief  Disable the auto updating of the bound resource
+ *
+ * \param[in,out]   widget  resource check button widget
+ */
+void vice_gtk3_resource_check_button_disable_auto_update(GtkWidget *widget)
+{
+    resource_widget_set_auto_update(widget, FALSE);
+}
+

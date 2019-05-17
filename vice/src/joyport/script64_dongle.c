@@ -32,7 +32,6 @@
 
 #include "joyport.h"
 #include "keyboard.h"
-#include "translate.h"
 
 #include "script64_dongle.h"
 
@@ -75,7 +74,6 @@ static uint8_t script64_dongle_read_poty(void)
 
 static joyport_t joyport_script64_dongle_device = {
     "Script 64 dongle",
-    IDGS_SCRIPT64_DONGLE,
     JOYPORT_RES_ID_SCRIPT64,
     JOYPORT_IS_NOT_LIGHTPEN,
     JOYPORT_POT_REQUIRED,

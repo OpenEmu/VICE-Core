@@ -50,7 +50,6 @@ C64/C128 | CBM2 | ADC0820-1 | ADC0820-2 | NOTES
 #include "resources.h"
 #include "sampler.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "userport.h"
 #include "userport_8bss.h"
 
@@ -69,7 +68,6 @@ static int userport_8bss_read_snapshot_module(snapshot_t *s);
 static userport_device_t sampler_device = {
     USERPORT_DEVICE_8BSS,
     "Userport 8bit stereo sampler",
-    IDGS_USERPORT_8BSS,
     userport_8bss_read_pbx,
     NULL, /* NO pbx store */
     NULL, /* NO pa2 read */
@@ -138,16 +136,12 @@ int userport_8bss_resources_init(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-userport8bss", SET_RESOURCE, 0,
+    { "-userport8bss", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Userport8BSS", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_USERPORT_8BSS,
-      NULL, NULL },
-    { "+userport8bss", SET_RESOURCE, 0,
+      NULL, "Enable Userport 8bit stereo sampler" },
+    { "+userport8bss", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Userport8BSS", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_USERPORT_8BSS,
-      NULL, NULL },
+      NULL, "Disable Userport 8bit stereo sampler" },
     CMDLINE_LIST_END
 };
 

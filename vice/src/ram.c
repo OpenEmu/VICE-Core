@@ -34,7 +34,6 @@
 #include "machine.h"
 #include "ram.h"
 #include "resources.h"
-#include "translate.h"
 #include "types.h"
 
 static int start_value = 0;
@@ -85,22 +84,17 @@ int ram_resources_init(void)
     return 0;
 }
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-raminitstartvalue", SET_RESOURCE, 1,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-raminitstartvalue", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "RAMInitStartValue", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_VALUE, IDCLS_SET_FIRST_RAM_ADDRESS_VALUE,
-      NULL, NULL },
-    { "-raminitvalueinvert", SET_RESOURCE, 1,
+      "<value>", "Set the value for the very first RAM address after powerup" },
+    { "-raminitvalueinvert", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "RAMInitValueInvert", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NUM_OF_BYTES, IDCLS_LENGTH_BLOCK_SAME_VALUE,
-      NULL, NULL },
-    { "-raminitpatterninvert", SET_RESOURCE, 1,
+      "<num of bytes>", "Length of memory block initialized with the same value" },
+    { "-raminitpatterninvert", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "RAMInitPatternInvert", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NUM_OF_BYTES, IDCLS_LENGTH_BLOCK_SAME_PATTERN,
-      NULL, NULL },
+      "<num of bytes>", "Length of memory block initialized with the same pattern" },
     CMDLINE_LIST_END
 };
 

@@ -1,4 +1,4 @@
-/** \file   vsidmainwidget.c
+/** \file   vsidtuneinfowidget.c
  * \brief   GTK3 tune info widget for VSID
  *
  * Displays (sub)tune information of a PSID file
@@ -33,9 +33,14 @@
 #include <gtk/gtk.h>
 
 #include "vice_gtk3.h"
+#include "debug_gtk3.h"
 #include "machine.h"
 #include "lib.h"
 #include "util.h"
+
+
+#include "hvsc.h"
+#include "vsidcontrolwidget.h"
 
 #include "vsidtuneinfowidget.h"
 
@@ -47,7 +52,7 @@ enum {
     DRV_INFO_DRIVER_ADDR,
     DRV_INFO_LOAD_ADDR,
     DRV_INFO_INIT_ADDR,
-    DRV_INFO_PLAY_ADDR
+    DRV_INFO_PLAY_ADDR,
 };
 
 
@@ -92,6 +97,38 @@ static GtkWidget *sync_widget;
 static GtkWidget *runtime_widget;
 static GtkWidget *driver_info_widget;
 
+#if 0
+/* temporary for testing: */
+static GtkWidget *sldb_widget;
+#endif
+
+
+/** \brief  List of song lenghts
+ */
+static long *song_lengths;
+
+
+/** \brief  Number of songs
+ */
+static int song_lengths_count;
+
+
+/** \brief  Handler for the 'destroy' event of the widget
+ *
+ * Clean up memory used.
+ *
+ * \param[in]   widget  tune info widget (unused)
+ * \param[in]   data    extra event data (unused)
+ */
+static void on_destroy(GtkWidget *widget, gpointer data)
+{
+    if (song_lengths != NULL) {
+        free(song_lengths);
+        song_lengths = NULL;
+        song_lengths_count = 0;
+    }
+}
+
 
 /** \brief  Create left aligned label, \a text can use HTML markup
  *
@@ -116,14 +153,14 @@ static GtkWidget *create_left_aligned_label(const char *text)
  *
  * \note    the string returned needs to be freed with g_free()
  */
-static gchar *convert_to_utf8(const char *s)
+gchar *convert_to_utf8(const char *s)
 {
     GError *err = NULL;
     gchar *utf8;
 
     utf8 = g_convert(s, -1, "UTF-8", "ISO-8859-1", NULL, NULL, &err);
     if (err != NULL) {
-        debug_gtk3("GError: %d: %s\n", err->code, err->message);
+        debug_gtk3("GError: %d: %s.", err->code, err->message);
         g_free(utf8);
         utf8 = g_strdup(s);
     }
@@ -261,7 +298,20 @@ static void update_runtime_widget(unsigned int sec)
 
     /* don't use lib_msprintf() here, this function gets called a lot and
      * malloc() isn't fast */
-    g_snprintf(buffer, 256, "%u:%02u:%02u", h, m, s);
+
+    if (song_lengths != NULL) {
+
+        unsigned long total = song_lengths[tune_current - 1];
+        unsigned int ts = (unsigned int)(total % 60);
+        unsigned int tm = (unsigned int)(total / 60);
+        unsigned int th = (unsigned int)(total / 60 / 60);
+
+
+        g_snprintf(buffer, 256, "%u:%02u:%02u / %u:%02u:%02u",
+                h, m, s, th, tm, ts);
+    } else {
+        g_snprintf(buffer, 256, "%u:%02u:%02u", h, m, s);
+    }
     gtk_label_set_text(GTK_LABEL(runtime_widget), buffer);
 }
 
@@ -317,7 +367,7 @@ static GtkWidget *create_driver_info_widget(void)
 }
 
 
-/** \brief  Set a label in the driver info grid at \a row to \addr
+/** \brief  Set a label in the driver info grid at \a row to a \addr
  *
  * \param[in]   row     row in the grid
  * \param[in]   addr    16-bit address
@@ -352,6 +402,24 @@ static void driver_info_set_image(void)
 }
 
 
+#if 0
+/** \brief  Create temp songlength widget
+ *
+ * \return  GtkLabel
+ */
+static GtkWidget *create_sldb_widget(void)
+{
+    GtkWidget *label;
+
+    label = gtk_label_new("N/A");
+    gtk_widget_set_halign(label, GTK_ALIGN_START);
+    gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
+    gtk_widget_show_all(label);
+    return label;
+}
+#endif
+
+
 /** \brief  Create widget to show tune information
  *
  * \return  GtkGrid
@@ -360,63 +428,91 @@ GtkWidget *vsid_tune_info_widget_create(void)
 {
     GtkWidget *grid;
     GtkWidget *label;
+    int row = 0;
 
     grid = vice_gtk3_grid_new_spaced(VICE_GTK3_DEFAULT, VICE_GTK3_DEFAULT);
+
+    /* widget title */
+    label = gtk_label_new(NULL);
+    gtk_label_set_markup(GTK_LABEL(label), "<b>SID file info:</b>");
+    gtk_widget_set_halign(label, GTK_ALIGN_START);
+    g_object_set(G_OBJECT(label), "margin-bottom", 16, NULL);
+    gtk_grid_attach(GTK_GRID(grid), label, 0, row, 2, 1);
+    row++;
 
     /* title */
     label = create_left_aligned_label("Name:");
     name_widget = create_readonly_entry();
-    gtk_grid_attach(GTK_GRID(grid), label, 0, 0, 1, 1);
-    gtk_grid_attach(GTK_GRID(grid), name_widget, 1, 0, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), label, 0, row, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), name_widget, 1, row, 1, 1);
+    row++;
 
     /* author */
     label = create_left_aligned_label("Author:");
     author_widget = create_readonly_entry();
-    gtk_grid_attach(GTK_GRID(grid), label, 0, 1, 1, 1);
-    gtk_grid_attach(GTK_GRID(grid), author_widget, 1, 1, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), label, 0, row, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), author_widget, 1, row, 1, 1);
+    row++;
 
     /* copyright */
-    label = create_left_aligned_label("Copyright:");
+    label = create_left_aligned_label("(C):");
     copyright_widget = create_readonly_entry();
-    gtk_grid_attach(GTK_GRID(grid), label, 0, 2, 1, 1);
-    gtk_grid_attach(GTK_GRID(grid), copyright_widget, 1, 2, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), label, 0, row, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), copyright_widget, 1, row, 1, 1);
+    row++;
 
     /* tune number (x of x) */
     label = create_left_aligned_label("Tune:");
     tune_num_widget = create_tune_num_widget();
-    gtk_grid_attach(GTK_GRID(grid), label, 0, 3, 1, 1);
-    gtk_grid_attach(GTK_GRID(grid), tune_num_widget, 1, 3, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), label, 0, row, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), tune_num_widget, 1, row, 1, 1);
+    row++;
 
     /* model widget */
     label = create_left_aligned_label("Model:");
     model_widget = create_model_widget();
-    gtk_grid_attach(GTK_GRID(grid), label, 0, 4, 1, 1);
-    gtk_grid_attach(GTK_GRID(grid), model_widget, 1, 4, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), label, 0, row, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), model_widget, 1, row, 1, 1);
+    row++;
 
     /* IRQ widget */
     label = create_left_aligned_label("IRQ:");
     irq_widget = create_irq_widget();
-    gtk_grid_attach(GTK_GRID(grid), label, 0, 5, 1, 1);
-    gtk_grid_attach(GTK_GRID(grid), irq_widget, 1, 5, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), label, 0, row, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), irq_widget, 1, row, 1, 1);
+    row++;
 
     /* sync widget */
-    label = create_left_aligned_label("Synchronization:");
+    label = create_left_aligned_label("Sync:");
     sync_widget = create_sync_widget();
-    gtk_grid_attach(GTK_GRID(grid), label, 0, 6, 1, 1);
-    gtk_grid_attach(GTK_GRID(grid), sync_widget, 1, 6, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), label, 0, row, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), sync_widget, 1, row, 1, 1);
+    row++;
 
     /* runtime widget */
     label = create_left_aligned_label("Run time:");
     runtime_widget = create_runtime_widget();
-    gtk_grid_attach(GTK_GRID(grid), label, 0, 7, 1, 1);
-    gtk_grid_attach(GTK_GRID(grid), runtime_widget, 1, 7, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), label, 0, row, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), runtime_widget, 1, row, 1, 1);
+    row ++;
 
     /* driver info */
-    label = create_left_aligned_label("Driver info:");
+    label = create_left_aligned_label("Driver:");
     gtk_widget_set_valign(label, GTK_ALIGN_START);
     driver_info_widget = create_driver_info_widget();
-    gtk_grid_attach(GTK_GRID(grid), label, 0, 8, 1, 1);
-    gtk_grid_attach(GTK_GRID(grid), driver_info_widget, 1,8, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), label, 0, row, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), driver_info_widget, 1, row, 1, 1);
+    row++;
+
+#if 0
+    /* song length info */
+    label = create_left_aligned_label("Song lengths:");
+    gtk_widget_set_valign(label, GTK_ALIGN_START);
+    sldb_widget = create_sldb_widget();
+    gtk_grid_attach(GTK_GRID(grid), label, 0, 9, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), sldb_widget, 1, 9, 1, 1);
+#endif
+    g_signal_connect(grid, "destroy", G_CALLBACK(on_destroy), NULL);
 
     gtk_widget_show_all(grid);
     tune_info_grid = grid;
@@ -531,11 +627,37 @@ void vsid_tune_info_widget_set_irq(const char *irq)
 
 /** \brief  Set current run time
  *
+ * Also sets progress in current tune and handles skipping to the next tune
+ * if HVSC SLDB is found. So it probably does too much.
+ *
  * \param[in]   sec run time in seconds
  */
 void vsid_tune_info_widget_set_time(unsigned int sec)
 {
+    long total;
+    gdouble fraction;
+
     update_runtime_widget(sec);
+
+    /* HVSC support? */
+    if (song_lengths != NULL) {
+        /* get song length in seconds */
+        total = song_lengths[tune_current - 1];
+        /* determine progress bar value */
+        fraction = 1.0 - ((gdouble)(total - sec) / (gdouble)total);
+        if (fraction < 0.0) {
+            fraction = 1.0;
+            /* skip to next tune, if repeat is off */
+            if (!vsid_control_widget_get_repeat()) {
+                vsid_control_widget_next_tune();
+                fraction = 0.0;
+            }
+        }
+        vsid_control_widget_set_progress(fraction);
+    } else {
+        /* non-HVSC fallback: fill progress bar */
+        vsid_control_widget_set_progress(1.0);
+    }
 }
 
 
@@ -608,3 +730,66 @@ void vsid_tune_info_widget_set_data_size(uint16_t size)
     driver_info_set_image();
 }
 
+/** \brief  Set song lengths for each sub-tune
+ *
+ * For now this is more of a debugging/test function, the idea is to allow
+ * tunes to automatically skip to the next song when their time is up.
+ *
+ * \param[in]   SID file
+ *
+ * \return  bool
+ */
+int vsid_tune_info_widget_set_song_lengths(const char *psid)
+{
+    int num;
+#if 0
+    int i;
+    char **lstr;
+    char *display;
+#endif
+    debug_gtk3("trying to get song lengths for '%s'.", psid);
+
+    num = hvsc_sldb_get_lengths(psid, &song_lengths);
+    if (num < 0) {
+        debug_gtk3("failed to get song lengths.");
+#if 0
+        gtk_label_set_text(GTK_LABEL(sldb_widget), "Failed to get SLDB info");
+#endif
+        return 0;
+    }
+    song_lengths_count = num;
+    return 1;
+#if 0
+    /* alloc memory for strings */
+    lstr = lib_malloc((size_t)(num + 1) * sizeof *lstr);
+    /* convert each timestamp to string */
+    for (i = 0; i < num; i++) {
+        lstr[i] = lib_msprintf("#%d: %ld:%02ld",
+                i + 1,
+                song_lengths[i] / 60, song_lengths[i] % 60);
+    }
+    lstr[i] = NULL; /* terminate list */
+
+    /* join strings */
+
+    /* Here be dragons: the cast should not be required: */
+    display = util_strjoin((const char **)lstr, ", ");
+    if (sldb_widget != NULL) {
+        gtk_label_set_text(GTK_LABEL(sldb_widget), display);
+    }
+
+    lib_free(display);
+    for (i = 0; i < num; i++) {
+        lib_free(lstr[i]);
+    }
+    lib_free(lstr);
+    return 1;
+#endif
+}
+
+
+int vsid_tune_info_widget_get_song_lengths(long **dest)
+{
+    *dest = song_lengths;
+    return song_lengths_count;
+}

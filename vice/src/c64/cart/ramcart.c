@@ -45,7 +45,6 @@
 #include "monitor.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "types.h"
 #include "util.h"
 #include "vicii-phi1.h"
@@ -486,46 +485,30 @@ void ramcart_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-ramcart", SET_RESOURCE, 0,
+    { "-ramcart", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "RAMCART", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_RAMCART,
-      NULL, NULL },
-    { "+ramcart", SET_RESOURCE, 0,
+      NULL, "Enable the RamCart expansion" },
+    { "+ramcart", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "RAMCART", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_RAMCART,
-      NULL, NULL },
-    { "-ramcartsize", SET_RESOURCE, 1,
+      NULL, "Disable the RamCart expansion" },
+    { "-ramcartsize", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "RAMCARTsize", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_SIZE_IN_KB, IDCLS_RAMCART_SIZE,
-      NULL, NULL },
-    { "-ramcartimage", SET_RESOURCE, 1,
+      "<size in KB>", "Size of the RAMCART expansion. (64/128)" },
+    { "-ramcartimage", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "RAMCARTfilename", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SPECIFY_RAMCART_NAME,
-      NULL, NULL },
-    { "-ramcartimagerw", SET_RESOURCE, 0,
+      "<Name>", "Specify name of RAMCART image" },
+    { "-ramcartimagerw", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "RAMCARTImageWrite", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ALLOW_WRITING_TO_RAMCART_IMAGE,
-      NULL, NULL },
-    { "+ramcartimagerw", SET_RESOURCE, 0,
+      NULL, "Allow writing to RAMCart image" },
+    { "+ramcartimagerw", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "RAMCARTImageWrite", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DO_NOT_WRITE_TO_RAMCART_IMAGE,
-      NULL, NULL },
-    { "-ramcartro", SET_RESOURCE, 0,
+      NULL, "Do not write to RAMCart image" },
+    { "-ramcartro", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "RAMCART_RO", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_RAMCART_READ_ONLY,
-      NULL, NULL },
-    { "-ramcartrw", SET_RESOURCE, 0,
+      NULL, "Set the RAMCart switch to read-only" },
+    { "-ramcartrw", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "RAMCART_RO", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_RAMCART_READ_WRITE,
-      NULL, NULL },
+      NULL, "Set the RAMCart switch to read/write" },
     CMDLINE_LIST_END
 };
 

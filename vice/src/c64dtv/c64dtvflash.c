@@ -43,7 +43,6 @@
 #include "util.h"
 #include "sysfile.h"
 #include "resources.h"
-#include "translate.h"
 
 #include "c64dtvflash.h"
 
@@ -369,7 +368,7 @@ void c64dtvflash_create_blank_image(char *filename, int copyroms)
 #ifdef DEBUG
         log_message(c64dtvflash_log, "No file name given for create_blank_image.");
 #endif
-        ui_error(translate_text(IDGS_NO_FILENAME));
+        ui_error("No filename!");
         return;
     }
 
@@ -377,7 +376,7 @@ void c64dtvflash_create_blank_image(char *filename, int copyroms)
 #ifdef DEBUG
         log_message(c64dtvflash_log, "Illegal filename in create_blank_image.");
 #endif
-        ui_error(translate_text(IDGS_ILLEGAL_FILENAME));
+        ui_error("Illegal filename!");
         return;
     }
 
@@ -397,7 +396,7 @@ void c64dtvflash_create_blank_image(char *filename, int copyroms)
 #ifdef DEBUG
         log_message(c64dtvflash_log, "Error creating file %s in create_blank_image.", filename);
 #endif
-        ui_error(translate_text(IDGS_ERROR_CREATING_FILE_S), filename);
+        ui_error("Error creating file %s!", filename);
         return;
     }
 
@@ -407,7 +406,7 @@ void c64dtvflash_create_blank_image(char *filename, int copyroms)
 #ifdef DEBUG
             log_message(c64dtvflash_log, "Error while writing to file %s in create_blank_image.", filename);
 #endif
-            ui_error(translate_text(IDGS_ERROR_WRITING_TO_FILE_S), filename);
+            ui_error("Error writing to file %s!", filename);
             fclose(fd);
             return;
         }
@@ -416,7 +415,7 @@ void c64dtvflash_create_blank_image(char *filename, int copyroms)
         }
     }
 
-    ui_message(translate_text(IDGS_DTV_ROM_CREATED));
+    ui_message("DTV ROM image created successfully");
 
     fclose(fd);
 
@@ -628,32 +627,22 @@ void c64dtvflash_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-c64dtvromimage", SET_RESOURCE, 1,
+    { "-c64dtvromimage", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "c64dtvromfilename", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SPECIFY_C64DTVROM_NAME,
-      NULL, NULL },
-    { "-c64dtvromrw", SET_RESOURCE, 0,
+      "<Name>", "Specify name of C64DTV ROM image" },
+    { "-c64dtvromrw", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "c64dtvromrw", (void *)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_C64DTVROM_RW,
-      NULL, NULL },
-    { "+c64dtvromrw", SET_RESOURCE, 0,
+      NULL, "Enable writes to C64DTV ROM image" },
+    { "+c64dtvromrw", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "c64dtvromrw", (void *)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_C64DTVROM_RW,
-      NULL, NULL },
+      NULL, "Disable writes to C64DTV ROM image" },
 #ifdef DEBUG
-    { "-dtvflashlog", SET_RESOURCE, 0,
+    { "-dtvflashlog", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "DtvFlashLog", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_DTV_FLASH_LOG,
-      NULL, NULL },
-    { "+dtvflashlog", SET_RESOURCE, 0,
+      NULL, "Enable DTV flash chip logs." },
+    { "+dtvflashlog", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "DtvFlashLog", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_DTV_FLASH_LOG,
-      NULL, NULL },
+      NULL, "Disable DTV flash chip logs." },
 #endif
     CMDLINE_LIST_END
 };

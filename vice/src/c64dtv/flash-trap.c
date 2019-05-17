@@ -1,14 +1,14 @@
-/*
- * flash-trap.c
+/** \file   flash-trap.c
  *
- * Written by
- *  Daniel Kahlin <daniel@kahlin.net>
+ * @author  Daniel Kahlin <daniel@kahlin.net>
  *
  * Based on code from serial by
  *  Teemu Rantanen <tvr@cs.hut.fi>
  *  Andreas Boose <viceteam@t-online.de>
  *  Ettore Perazzoli <ettore@comm2000.it>
- *
+ */
+
+/*
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -50,7 +50,6 @@
 #include "types.h"
 #include "util.h"
 #include "resources.h"
-#include "translate.h"
 
 /* Flag: Have traps been installed?  */
 static int traps_installed = 0;
@@ -278,9 +277,9 @@ void flash_traps_reset(void)
 
 /* ------------------------------------------------------------------------- */
 
-static int set_flash_trap_fsflashdir(const char *name, void *param)
+static int set_flash_trap_fsflashdir(const char *dirname, void *param)
 {
-    util_string_set(&flash_trap_fsflashdir, name);
+    util_string_set(&flash_trap_fsflashdir, dirname);
 
     return 0;
 }
@@ -321,21 +320,15 @@ void flash_trap_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-fsflash", SET_RESOURCE, 1,
+    { "-fsflash", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "FSFlashDir", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_USE_AS_DIRECTORY_FLASH_FS,
-      NULL, NULL },
-    { "-trueflashfs", SET_RESOURCE, 0,
+      "<Name>", "Use <name> as directory for flash file system device" },
+    { "-trueflashfs", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "FlashTrueFS", (void *)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_TRUE_FLASH_FS,
-      NULL, NULL },
-    { "+trueflashfs", SET_RESOURCE, 0,
+      NULL, "Enable true hardware flash file system" },
+    { "+trueflashfs", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "FlashTrueFS", (void *)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_TRUE_FLASH_FS,
-      NULL, NULL },
+      NULL, "Disable true hardware flash file system" },
     CMDLINE_LIST_END
 };
 

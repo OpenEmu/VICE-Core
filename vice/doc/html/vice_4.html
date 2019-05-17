@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52
-     from ../../doc/vice.texi on 19 May 2018 -->
+     from ../../doc/vice.texi on 19 December 2018 -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <TITLE>VICE Manual - 4  System files</TITLE>
@@ -106,7 +106,7 @@ System files can still be installed in a different directory if you
 specify a complete path instead of just a file name.  For example, if
 you specify <TT>`./kernal'</TT> as the kernal image name, the kernal image
 will be loaded from the current directory.  This can be done by using
-command-line options or by modifying resource values (see section <A HREF="vice_6.html#SEC42">6.1  Format of resource files</A>).
+command-line options or by modifying resource values (see section <A HREF="vice_6.html#SEC43">6.1  Format of resource files</A>).
 
 </P>
 
@@ -667,6 +667,30 @@ resource). This also means that if you have a setting for
 <CODE>Directory</CODE> in it, its effect is limited to the Romset file itself.
 
 </P>
+
+
+<H3><A NAME="SEC30" HREF="vice_toc.html#TOC30">4.4.1  Romset command line options</A></H3>
+
+<DL COMPACT>
+
+<DT><CODE>-romsetfile &#60;File&#62;</CODE>
+<DD>
+<A NAME="IDX36"></A>
+ 
+load the given romset file
+
+<A NAME="IDX37"></A>
+<DT><CODE>-romsetarchive &#60;File&#62;</CODE>
+<DD>
+load the given romset archive
+
+<A NAME="IDX38"></A>
+<DT><CODE>-romsetarchiveselect &#60;Item number&#62;</CODE>
+<DD>
+select the given item from the current romset archive
+
+</DL>
+
 <P><HR><P>
 Go to the <A HREF="vice_1.html">first</A>, <A HREF="vice_3.html">previous</A>, <A HREF="vice_5.html">next</A>, <A HREF="vice_22.html">last</A> section, <A HREF="vice_toc.html">table of contents</A>.
 </BODY>

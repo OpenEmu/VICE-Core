@@ -41,7 +41,6 @@
 #include "machine.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 
 /* the order must match the enum in c64-midi.h */
 midi_interface_t midi_interface[] = {
@@ -225,12 +224,11 @@ int c64_midi_resources_init(void)
 
 /* ---------------------------------------------------------------------*/
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-miditype", SET_RESOURCE, 1,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-miditype", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "MIDIMode", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_SPECIFY_C64_MIDI_TYPE,
-      "<0-4>", NULL },
+      "<0-4>", "MIDI interface type (0: Sequential, 1: Passport, 2: DATEL, 3: Namesoft, 4: Maplin)" },
     CMDLINE_LIST_END
 };
 

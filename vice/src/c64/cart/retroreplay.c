@@ -47,7 +47,6 @@
 #include "maincpu.h"
 #include "monitor.h"
 #include "resources.h"
-#include "translate.h"
 #include "snapshot.h"
 #include "types.h"
 #include "util.h"
@@ -617,13 +616,13 @@ void retroreplay_romh_store(uint16_t addr, uint8_t value)
     }
 }
 
-int retroreplay_peek_mem(export_t *export, uint16_t addr, uint8_t *value)
+int retroreplay_peek_mem(export_t *ex, uint16_t addr, uint8_t *value)
 {
     if (addr >= 0x8000 && addr <= 0x9fff) {
         *value = retroreplay_roml_read(addr);
         return CART_READ_VALID;
     }
-    if (!(export->exrom) && (export->game)) {
+    if (!(ex->exrom) && (ex->game)) {
         if (addr >= 0xe000) {
             *value = retroreplay_romh_read(addr);
             return CART_READ_VALID;
@@ -944,51 +943,35 @@ void retroreplay_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-rrbioswrite", SET_RESOURCE, 0,
+    { "-rrbioswrite", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "RRBiosWrite", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_SAVE_RR_ROM_AT_EXIT,
-      NULL, NULL },
-    { "+rrbioswrite", SET_RESOURCE, 0,
+      NULL, "Enable saving of the RR ROM at exit" },
+    { "+rrbioswrite", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "RRBiosWrite", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_SAVE_RR_ROM_AT_EXIT,
-      NULL, NULL },
-    { "-rrbankjumper", SET_RESOURCE, 0,
+      NULL, "Disable saving of the RR ROM at exit" },
+    { "-rrbankjumper", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "RRBankJumper", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_SET_RR_BANK_JUMPER,
-      NULL, NULL },
-    { "+rrbankjumper", SET_RESOURCE, 0,
+      NULL, "Set RR Bank Jumper" },
+    { "+rrbankjumper", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "RRBankJumper", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_UNSET_RR_BANK_JUMPER,
-      NULL, NULL },
-    { "-rrflashjumper", SET_RESOURCE, 0,
+      NULL, "Unset RR Bank Jumper" },
+    { "-rrflashjumper", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "RRFlashJumper", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_SET_RR_FLASH_JUMPER,
-      NULL, NULL },
-    { "+rrflashjumper", SET_RESOURCE, 0,
+      NULL, "Set RR Flash Jumper" },
+    { "+rrflashjumper", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "RRFlashJumper", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_UNSET_RR_FLASH_JUMPER,
-      NULL, NULL },
-    { "-rrrev", SET_RESOURCE, 1,
+      NULL, "Unset RR Bank Jumper" },
+    { "-rrrev", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "RRrevision", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_REVISION, IDCLS_RR_REVISION,
-      NULL, NULL },
+      "<Revision>", "Set RR Revision (0: Retro Replay, 1: Nordic Replay)" },
     CMDLINE_LIST_END
 };
 
 static cmdline_option_t clockport_cmdline_options[] =
 {
-    { "-rrclockportdevice", SET_RESOURCE, 1,
+    { "-rrclockportdevice", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "RRClockPort", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_COMBO,
-      IDCLS_P_DEVICE, IDCLS_CLOCKPORT_DEVICE,
-      NULL, NULL },
+      "<device>", NULL },
     CMDLINE_LIST_END
 };
 
@@ -1004,7 +987,7 @@ int retroreplay_cmdline_options_init(void)
 
     sprintf(number, "%d", clockport_supported_devices[0].id);
 
-    clockport_device_names = util_concat(". (", number, ": ", clockport_supported_devices[0].name, NULL);
+    clockport_device_names = util_concat("Clockport device. (", number, ": ", clockport_supported_devices[0].name, NULL);
 
     for (i = 1; clockport_supported_devices[i].name; ++i) {
         tmp = clockport_device_names;

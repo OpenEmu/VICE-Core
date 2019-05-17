@@ -45,7 +45,6 @@
 #include "mididrv.h"
 #include "snapshot.h"
 #include "resources.h"
-#include "translate.h"
 #include "types.h"
 #include "util.h"
 
@@ -211,17 +210,14 @@ void midi_resources_shutdown(void)
     mididrv_resources_shutdown();
 }
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-midi", SET_RESOURCE, 0,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-midi", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MIDIEnable", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_MIDI_EMU,
-      NULL, NULL },
-    { "+midi", SET_RESOURCE, 0,
+      NULL, "Enable MIDI emulation" },
+    { "+midi", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MIDIEnable", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_MIDI_EMU,
-      NULL, NULL },
+      NULL, "Disable MIDI emulation" },
     CMDLINE_LIST_END
 };
 

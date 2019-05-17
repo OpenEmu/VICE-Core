@@ -64,6 +64,7 @@
 #include "menu_video.h"
 #include "resources.h"
 #include "ui.h"
+#include "uifonts.h"
 #include "uimenu.h"
 #include "videoarch.h"
 #include "vkbd.h"
@@ -205,6 +206,19 @@ static void c128ui_set_menu_params(int index, menu_draw_t *menu_draw)
     }
 }
 
+/** \brief  Pre-initialize the UI before the canvas window gets created
+ *
+ * \return  0 on success, -1 on failure
+ */
+int c128ui_init_early(void)
+{
+    return 0;
+}
+
+/** \brief  Initialize the UI
+ *
+ * \return  0 on success, -1 on failure
+ */
 int c128ui_init(void)
 {
     int columns_key;
@@ -228,7 +242,7 @@ int c128ui_init(void)
     uiclockport_ide64_menu_create();
     uimedia_menu_create();
     sdl_ui_set_main_menu(x128_main_menu);
-    sdl_ui_set_menu_font(mem_chargen_rom + 0x800, 8, 8);
+    sdl_ui_vicii_font_init();
     sdl_vkbd_set_vkbd(&vkbd_c128);
 
 #ifdef HAVE_FFMPEG
@@ -258,4 +272,5 @@ void c128ui_shutdown(void)
 #ifdef HAVE_FFMPEG
     sdl_menu_ffmpeg_shutdown();
 #endif
+    sdl_ui_vicii_font_shutdown();
 }

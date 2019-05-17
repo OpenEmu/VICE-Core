@@ -41,7 +41,6 @@
 #include "monitor.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "util.h"
 
 #include "shortbus_etfe.h"
@@ -92,8 +91,6 @@ static int shortbus_etfe_expansion_active = 0;
 
 /* ETFE address */
 static int shortbus_etfe_address;
-
-static char *shortbus_etfe_address_list = NULL;
 
 /* ---------------------------------------------------------------------*/
 
@@ -220,36 +217,26 @@ int shortbus_etfe_resources_init(void)
 void shortbus_etfe_resources_shutdown(void)
 {
     cs8900io_resources_shutdown();
-
-    if (shortbus_etfe_address_list) {
-        lib_free(shortbus_etfe_address_list);
-    }
 }
 
 /* ---------------------------------------------------------------------*/
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-sbetfe", SET_RESOURCE, 0,
+    { "-sbetfe", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "SBETFE", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_SHORTBUS_ETFE,
-      NULL, NULL },
-    { "+sbtfe", SET_RESOURCE, 0,
+      NULL, "Enable the Short Bus ETFE expansion" },
+    { "+sbtfe", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "SBTFE", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_SHORTBUS_ETFE,
-      NULL, NULL },
+      NULL, "Disable the Short Bus ETFE expansion" },
     CMDLINE_LIST_END
 };
 
 static cmdline_option_t base_cmdline_options[] =
 {
-    { "-sbtfebase", SET_RESOURCE, 1,
+    { "-sbtfebase", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "SBTFEbase", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_COMBO,
-      IDCLS_P_BASE_ADDRESS, IDCLS_SHORTBUS_ETFE_BASE,
-      NULL, NULL },
+      "<Base address>", "Base address of the Short Bus ETFE expansion. (56832: $de00, 56848: $de10, 57088: $df00)" },
     CMDLINE_LIST_END
 };
 
@@ -258,10 +245,6 @@ int shortbus_etfe_cmdline_options_init(void)
     if (cmdline_register_options(cmdline_options) < 0) {
         return -1;
     }
-
-    shortbus_etfe_address_list = lib_stralloc(". (56832: $de00, 56848: $de10, 57088: $df00)");
-
-    base_cmdline_options[0].description = shortbus_etfe_address_list;
 
     if (cs8900io_cmdline_options_init() < 0) {
         return -1;

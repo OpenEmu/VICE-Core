@@ -109,11 +109,51 @@ am__v_AR_0 = @echo "  AR      " $@;
 am__v_AR_1 = 
 libarch_a_AR = $(AR) $(ARFLAGS)
 libarch_a_LIBADD =
+am__libarch_a_SOURCES_DIST = archdep.c archdep.h blockdev.c console.c \
+	console_unix.c coproc.c coproc.h dynlib.c fullscreen.c \
+	fullscreenarch.h icon.c icon.h joy.c joy.h kbd.c kbd.h \
+	lightpendrv.c lightpendrv.h menu_c128hw.c menu_c128hw.h \
+	menu_c64cart.c menu_c64cart.h menu_c64_common_expansions.c \
+	menu_c64_common_expansions.h menu_c64_expansions.c \
+	menu_c64_expansions.h menu_c64dtvhw.c menu_c64dtvhw.h \
+	menu_c64hw.c menu_c64hw.h menu_c64model.c menu_c64model.h \
+	menu_cbm2cart.c menu_cbm2cart.h menu_cbm2hw.c menu_cbm2hw.h \
+	menu_common.c menu_common.h menu_debug.c menu_debug.h \
+	menu_drive.c menu_drive.h menu_drive_rom.c menu_drive_rom.h \
+	menu_edit.c menu_edit.h menu_ethernet.c menu_ethernet.h \
+	menu_ethernetcart.c menu_ethernetcart.h menu_ffmpeg.c \
+	menu_ffmpeg.h menu_help.c menu_help.h menu_jam.c menu_jam.h \
+	menu_joyport.c menu_joyport.h menu_joystick.c menu_joystick.h \
+	menu_media.c menu_media.h menu_midi.c menu_midi.h \
+	menu_monitor.c menu_monitor.h menu_mouse.c menu_mouse.h \
+	menu_network.c menu_network.h menu_petcart.c menu_petcart.h \
+	menu_pethw.c menu_pethw.h menu_plus4cart.c menu_plus4cart.h \
+	menu_plus4hw.c menu_plus4hw.h menu_printer.c menu_printer.h \
+	menu_ram.c menu_ram.h menu_reset.c menu_reset.h menu_rom.c \
+	menu_rom.h menu_rs232.c menu_rs232.h menu_sampler.c \
+	menu_sampler.h menu_scpu64hw.c menu_scpu64hw.h \
+	menu_screenshot.c menu_screenshot.h menu_settings.c \
+	menu_settings.h menu_sid.c menu_sid.h menu_snapshot.c \
+	menu_snapshot.h menu_sound.c menu_sound.h menu_speed.c \
+	menu_speed.h menu_tape.c menu_tape.h menu_vic20cart.c \
+	menu_vic20cart.h menu_vic20hw.c menu_vic20hw.h menu_video.c \
+	menu_video.h mousedrv.c mousedrv.h rawnetarch.c rs232dev.c \
+	sdlmain.c signals.c ui.c ui.h uifontscbm2.c uifontscrtc.c \
+	uifontsted.c uifontsvic.c uifontsvicii.c uifonts.c uifonts.h \
+	uifilereq.c uiimagefilereq.c uifilereq.h uihotkey.c uihotkey.h \
+	uimenu.c uimenu.h uimon.c uimsgbox.c uimsgbox.h uipause.c \
+	uipoll.c uipoll.h uistatusbar.c uistatusbar.h video_sdl1.c \
+	video_sdl2.c videoarch.h vkbd.c vkbd.h vsidui.c vsidui_sdl.h \
+	vsyncarch.c x128_ui.c x64_ui.c x64dtv_ui.c x64sc_ui.c \
+	xcbm2_ui.c xpet_ui.c xplus4_ui.c xscpu64_ui.c xvic_ui.c
+@SDL2_COMPILE_FALSE@am__objects_1 = video_sdl1.$(OBJEXT)
+@SDL2_COMPILE_TRUE@am__objects_1 = video_sdl2.$(OBJEXT)
 am_libarch_a_OBJECTS = archdep.$(OBJEXT) blockdev.$(OBJEXT) \
 	console.$(OBJEXT) console_unix.$(OBJEXT) coproc.$(OBJEXT) \
-	dynlib.$(OBJEXT) fullscreen.$(OBJEXT) joy.$(OBJEXT) \
-	kbd.$(OBJEXT) lightpendrv.$(OBJEXT) menu_c128hw.$(OBJEXT) \
-	menu_c64cart.$(OBJEXT) menu_c64_common_expansions.$(OBJEXT) \
+	dynlib.$(OBJEXT) fullscreen.$(OBJEXT) icon.$(OBJEXT) \
+	joy.$(OBJEXT) kbd.$(OBJEXT) lightpendrv.$(OBJEXT) \
+	menu_c128hw.$(OBJEXT) menu_c64cart.$(OBJEXT) \
+	menu_c64_common_expansions.$(OBJEXT) \
 	menu_c64_expansions.$(OBJEXT) menu_c64dtvhw.$(OBJEXT) \
 	menu_c64hw.$(OBJEXT) menu_c64model.$(OBJEXT) \
 	menu_cbm2cart.$(OBJEXT) menu_cbm2hw.$(OBJEXT) \
@@ -136,14 +176,16 @@ am_libarch_a_OBJECTS = archdep.$(OBJEXT) blockdev.$(OBJEXT) \
 	menu_vic20cart.$(OBJEXT) menu_vic20hw.$(OBJEXT) \
 	menu_video.$(OBJEXT) mousedrv.$(OBJEXT) rawnetarch.$(OBJEXT) \
 	rs232dev.$(OBJEXT) sdlmain.$(OBJEXT) signals.$(OBJEXT) \
-	ui.$(OBJEXT) uifilereq.$(OBJEXT) uihotkey.$(OBJEXT) \
-	uimenu.$(OBJEXT) uimon.$(OBJEXT) uimsgbox.$(OBJEXT) \
-	uipause.$(OBJEXT) uipoll.$(OBJEXT) uistatusbar.$(OBJEXT) \
-	video.$(OBJEXT) vkbd.$(OBJEXT) vsidui.$(OBJEXT) \
-	vsyncarch.$(OBJEXT) x128_ui.$(OBJEXT) x64_ui.$(OBJEXT) \
-	x64dtv_ui.$(OBJEXT) x64sc_ui.$(OBJEXT) xcbm2_ui.$(OBJEXT) \
-	xpet_ui.$(OBJEXT) xplus4_ui.$(OBJEXT) xscpu64_ui.$(OBJEXT) \
-	xvic_ui.$(OBJEXT)
+	ui.$(OBJEXT) uifontscbm2.$(OBJEXT) uifontscrtc.$(OBJEXT) \
+	uifontsted.$(OBJEXT) uifontsvic.$(OBJEXT) \
+	uifontsvicii.$(OBJEXT) uifonts.$(OBJEXT) uifilereq.$(OBJEXT) \
+	uiimagefilereq.$(OBJEXT) uihotkey.$(OBJEXT) uimenu.$(OBJEXT) \
+	uimon.$(OBJEXT) uimsgbox.$(OBJEXT) uipause.$(OBJEXT) \
+	uipoll.$(OBJEXT) uistatusbar.$(OBJEXT) $(am__objects_1) \
+	vkbd.$(OBJEXT) vsidui.$(OBJEXT) vsyncarch.$(OBJEXT) \
+	x128_ui.$(OBJEXT) x64_ui.$(OBJEXT) x64dtv_ui.$(OBJEXT) \
+	x64sc_ui.$(OBJEXT) xcbm2_ui.$(OBJEXT) xpet_ui.$(OBJEXT) \
+	xplus4_ui.$(OBJEXT) xscpu64_ui.$(OBJEXT) xvic_ui.$(OBJEXT)
 libarch_a_OBJECTS = $(am_libarch_a_OBJECTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -174,7 +216,7 @@ am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
 SOURCES = $(libarch_a_SOURCES)
-DIST_SOURCES = $(libarch_a_SOURCES)
+DIST_SOURCES = $(am__libarch_a_SOURCES_DIST)
 RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \
 	ctags-recursive dvi-recursive html-recursive info-recursive \
 	install-data-recursive install-dvi-recursive \
@@ -258,10 +300,6 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
-CAIRO_CFLAGS = @CAIRO_CFLAGS@
-CAIRO_LIBS = @CAIRO_LIBS@
-CATALOGS = @CATALOGS@
-CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 CCAS = @CCAS@
 CCASDEPMODE = @CCASDEPMODE@
@@ -276,17 +314,14 @@ CXXCPP = @CXXCPP@
 CXXDEPMODE = @CXXDEPMODE@
 CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
-DATADIRNAME = @DATADIRNAME@
 DEBUGBUILD = @DEBUGBUILD@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
 DOS2UNIX = @DOS2UNIX@
-DOS_TFE_PCAP_LIB = @DOS_TFE_PCAP_LIB@
 DYNLIB_LIBS = @DYNLIB_LIBS@
 ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
-EDITLINE_LIBS = @EDITLINE_LIBS@
 EGREP = @EGREP@
 ENABLE_ARCH = @ENABLE_ARCH@
 EXEEXT = @EXEEXT@
@@ -304,19 +339,17 @@ FFMPEG_SWRESAMPLE_CFLAGS = @FFMPEG_SWRESAMPLE_CFLAGS@
 FFMPEG_SWRESAMPLE_LIBS = @FFMPEG_SWRESAMPLE_LIBS@
 FFMPEG_SWSCALE_CFLAGS = @FFMPEG_SWSCALE_CFLAGS@
 FFMPEG_SWSCALE_LIBS = @FFMPEG_SWSCALE_LIBS@
-FULLSCREEN_DRIVERS = @FULLSCREEN_DRIVERS@
-GENCAT = @GENCAT@
+FONTCONFIG_CFLAGS = @FONTCONFIG_CFLAGS@
+FONTCONFIG_LIBS = @FONTCONFIG_LIBS@
+FW_DIR = @FW_DIR@
 GFXOUTPUT_DRIVERS = @GFXOUTPUT_DRIVERS@
 GFXOUTPUT_LIBS = @GFXOUTPUT_LIBS@
 GLIB_CFLAGS = @GLIB_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
-GMOFILES = @GMOFILES@
-GMSGFMT = @GMSGFMT@
 GREP = @GREP@
-GTKGL_CFLAGS = @GTKGL_CFLAGS@
-GTKGL_LIBS = @GTKGL_LIBS@
 GTK_CFLAGS = @GTK_CFLAGS@
 GTK_LIBS = @GTK_LIBS@
+HAVE_CXX11 = @HAVE_CXX11@
 HAVE_READLINE = @HAVE_READLINE@
 HCRTF = @HCRTF@
 HHC = @HHC@
@@ -326,10 +359,6 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INSTOBJEXT = @INSTOBJEXT@
-INTLDEPS = @INTLDEPS@
-INTLLIBS = @INTLLIBS@
-INTLOBJS = @INTLOBJS@
 IPFC = @IPFC@
 JOY_LIBS = @JOY_LIBS@
 LAMEMP3SUB = @LAMEMP3SUB@
@@ -350,14 +379,8 @@ MAKERTF = @MAKERTF@
 MAX_INLINE_INSN_SINGLE = @MAX_INLINE_INSN_SINGLE@
 MKDIR_P = @MKDIR_P@
 MKFONTDIR_BIN = @MKFONTDIR_BIN@
-MKINSTALLDIRS = @MKINSTALLDIRS@
-MSGFMT = @MSGFMT@
 NATIVE_TOOLS_COMPILER = @NATIVE_TOOLS_COMPILER@
 NETPLAY_LIBS = @NETPLAY_LIBS@
-NLS_LOCALEDIR = @NLS_LOCALEDIR@
-OBJC = @OBJC@
-OBJCDEPMODE = @OBJCDEPMODE@
-OBJCFLAGS = @OBJCFLAGS@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
@@ -366,8 +389,6 @@ PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
-PANGO_CFLAGS = @PANGO_CFLAGS@
-PANGO_LIBS = @PANGO_LIBS@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 PDFTEX = @PDFTEX@
 PERL = @PERL@
@@ -375,8 +396,6 @@ PKG_CONFIG = @PKG_CONFIG@
 PLATFORM_DOX_FLAGS = @PLATFORM_DOX_FLAGS@
 PNG_CFLAGS = @PNG_CFLAGS@
 PNG_LIBS = @PNG_LIBS@
-POFILES = @POFILES@
-POSUB = @POSUB@
 QUICKTIME_INCLUDES = @QUICKTIME_INCLUDES@
 QUICKTIME_LIBS = @QUICKTIME_LIBS@
 RANLIB = @RANLIB@
@@ -412,40 +431,15 @@ TEXI2DVI = @TEXI2DVI@
 TEXI2IPF = @TEXI2IPF@
 TFE_LIBS = @TFE_LIBS@
 UI_LIBS = @UI_LIBS@
-UNIX_MACOSX_UITYPE = @UNIX_MACOSX_UITYPE@
-USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
-USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 VERSION_COMBINED = @VERSION_COMBINED@
 VERSION_RC = @VERSION_RC@
 VICEDIR = @VICEDIR@
-VICE_SYNC = @VICE_SYNC@
-VICE_UI_THREADS = @VICE_UI_THREADS@
 VICE_VERSION = @VICE_VERSION@
 VICE_VERSION_BUILD = @VICE_VERSION_BUILD@
 VICE_VERSION_MAJOR = @VICE_VERSION_MAJOR@
 VICE_VERSION_MINOR = @VICE_VERSION_MINOR@
-VSID_WINRES = @VSID_WINRES@
-VTE_CFLAGS = @VTE_CFLAGS@
-VTE_LIBS = @VTE_LIBS@
-WINDRES = @WINDRES@
-WRC = @WRC@
-X128_WINRES = @X128_WINRES@
-X64DTV_WINRES = @X64DTV_WINRES@
-X64_WINRES = @X64_WINRES@
 XA = @XA@
-XCBM2_WINRES = @XCBM2_WINRES@
-XCBM5X0_WINRES = @XCBM5X0_WINRES@
-XGETTEXT = @XGETTEXT@
-XMKMF = @XMKMF@
-XPET_WINRES = @XPET_WINRES@
-XPLUS4_WINRES = @XPLUS4_WINRES@
-XSCPU64_WINRES = @XSCPU64_WINRES@
-XVIC_WINRES = @XVIC_WINRES@
-X_CFLAGS = @X_CFLAGS@
-X_EXTRA_LIBS = @X_EXTRA_LIBS@
-X_LIBS = @X_LIBS@
-X_PRE_LIBS = @X_PRE_LIBS@
 YACC = @YACC@
 YASM = @YASM@
 ZLIB_LIBS = @ZLIB_LIBS@
@@ -489,6 +483,7 @@ localedir = @localedir@
 localstatedir = @localstatedir@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
+objdump = @objdump@
 oldincludedir = @oldincludedir@
 pdfdir = @pdfdir@
 prefix = @prefix@
@@ -515,7 +510,7 @@ xplus4_LDFLAGS = @xplus4_LDFLAGS@
 xscpu64_LDFLAGS = @xscpu64_LDFLAGS@
 xvic_LDFLAGS = @xvic_LDFLAGS@
 @WIN32_COMPILE_FALSE@extra_includes = 
-@WIN32_COMPILE_TRUE@extra_includes = -I$(top_srcdir)/src/arch/win32/mingw32/wpcap
+@WIN32_COMPILE_TRUE@extra_includes = -I$(top_srcdir)/src/arch/mingw32-pcap/wpcap
 @DUMMY_COMPILE_TRUE@SUBDIRS = \
 @DUMMY_COMPILE_TRUE@	qnx4 \
 @DUMMY_COMPILE_TRUE@	sortix-files \
@@ -546,9 +541,16 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/joyport \
 	-I$(top_srcdir)/src/gfxoutputdrv \
 	-I$(top_srcdir)/src/tapeport \
+	-I$(top_srcdir)/src/imagecontents \
 	-I$(top_srcdir)/src
 
 noinst_LIBRARIES = libarch.a
+@SDL2_COMPILE_FALSE@libarch_a_VERDEP_SOURCES = \
+@SDL2_COMPILE_FALSE@	video_sdl1.c
+
+@SDL2_COMPILE_TRUE@libarch_a_VERDEP_SOURCES = \
+@SDL2_COMPILE_TRUE@	video_sdl2.c
+
 libarch_a_SOURCES = \
 	archdep.c \
 	archdep.h \
@@ -560,6 +562,8 @@ libarch_a_SOURCES = \
 	dynlib.c \
 	fullscreen.c \
 	fullscreenarch.h \
+	icon.c \
+	icon.h \
 	joy.c \
 	joy.h \
 	kbd.c \
@@ -668,7 +672,15 @@ libarch_a_SOURCES = \
 	signals.c \
 	ui.c \
 	ui.h \
+	uifontscbm2.c \
+	uifontscrtc.c \
+	uifontsted.c \
+	uifontsvic.c \
+	uifontsvicii.c \
+	uifonts.c \
+	uifonts.h \
 	uifilereq.c \
+	uiimagefilereq.c \
 	uifilereq.h \
 	uihotkey.c \
 	uihotkey.h \
@@ -682,7 +694,7 @@ libarch_a_SOURCES = \
 	uipoll.h \
 	uistatusbar.c \
 	uistatusbar.h \
-	video.c \
+	$(libarch_a_VERDEP_SOURCES) \
 	videoarch.h \
 	vkbd.c \
 	vkbd.h \
@@ -713,13 +725,17 @@ EXTRA_DIST = \
 	console_amiga.c \
 	console_sdl.c \
 	console_unix.c \
+	dynlib-unix.c \
+	dynlib-win32.c \
 	make-bindist_amiga.sh \
 	make-bindist_beos.sh \
 	make-bindist_qnx6.sh \
 	make-bindist_scosol.sh \
 	make-bindist_skyos.sh \
 	make-bindist_syllable.sh \
-	make-bindist_win32.sh
+	make-bindist_win32.sh \
+	rs232dev-unix.c \
+	rs232dev-win32.c
 
 all: all-recursive
 
@@ -776,6 +792,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/coproc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dynlib.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fullscreen.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/icon.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/joy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/kbd.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lightpendrv.Po@am__quote@
@@ -833,14 +850,22 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/signals.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uifilereq.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uifonts.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uifontscbm2.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uifontscrtc.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uifontsted.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uifontsvic.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uifontsvicii.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uihotkey.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uiimagefilereq.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uimenu.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uimon.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uimsgbox.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uipause.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uipoll.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uistatusbar.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/video.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/video_sdl1.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/video_sdl2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vkbd.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vsidui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vsyncarch.Po@am__quote@

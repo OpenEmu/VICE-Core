@@ -100,7 +100,6 @@
 #include "ted-resources.h"
 #include "ted-sound.h"
 #include "ted.h"
-#include "translate.h"
 #include "traps.h"
 #include "types.h"
 #include "userport.h"
@@ -297,7 +296,6 @@ static double rfsh_per_sec = PLUS4_PAL_RFSH_PER_SEC;
 static joyport_port_props_t control_port_1 =
 {
     "Control port 1",
-    IDGS_CONTROL_PORT_1,
     0,                  /* has NO potentiometer connected to this port */
     0,                  /* has NO lightpen support on this port */
     1                   /* port is always active */
@@ -306,7 +304,6 @@ static joyport_port_props_t control_port_1 =
 static joyport_port_props_t control_port_2 =
 {
     "Control port 2",
-    IDGS_CONTROL_PORT_2,
     0,                  /* has NO potentiometer connected to this port */
     0,                  /* has NO lightpen support on this port */
     1                   /* port is always active */
@@ -315,7 +312,6 @@ static joyport_port_props_t control_port_2 =
 static joyport_port_props_t userport_joy_control_port_1 =
 {
     "Userport joystick adapter port 1",
-    IDGS_USERPORT_JOY_ADAPTER_PORT_1,
     0,                  /* has NO potentiometer connected to this port */
     0,                  /* has NO lightpen support on this port */
     0                   /* port can be switched on/off */
@@ -324,7 +320,6 @@ static joyport_port_props_t userport_joy_control_port_1 =
 static joyport_port_props_t userport_joy_control_port_2 =
 {
     "Userport joystick adapter port 2",
-    IDGS_USERPORT_JOY_ADAPTER_PORT_2,
     0,                  /* has NO potentiometer connected to this port */
     0,                  /* has NO lightpen support on this port */
     0                   /* port can be switched on/off */
@@ -333,7 +328,6 @@ static joyport_port_props_t userport_joy_control_port_2 =
 static joyport_port_props_t sidcard_port =
 {
     "SIDCard control port",
-    IDGS_SIDCARD_CONTROL_PORT,
     1,                  /* has a potentiometer connected to this port */
     0,                  /* has NO lightpen support on this port */
     0                   /* port can be switched on/off */
@@ -831,12 +825,11 @@ int machine_specific_init(void)
        device yet.  */
     sound_init(machine_timing.cycles_per_sec, machine_timing.cycles_per_rfsh);
 
-#if defined(USE_BEOS_UI) || defined (USE_NATIVE_GTK3)
     /* Pre-init Plus4-specific parts of the menus before ted_init()
-       creates a canvas window with a menubar at the top. This could
-       also be used by other ports.  */
-    plus4ui_init_early();
-#endif
+       creates a canvas window with a menubar at the top. */
+    if (!console_mode) {
+        plus4ui_init_early();
+    }
 
     if (ted_init() == NULL) {
         return -1;
@@ -874,16 +867,6 @@ int machine_specific_init(void)
     /* Initialize the machine specific I/O */
     plus4io_init();
 
-#if defined (USE_XF86_EXTENSIONS) && (defined(USE_XF86_VIDMODE_EXT) || defined (HAVE_XRANDR))
-    {
-        /* set fullscreen if user used `-fullscreen' on cmdline */
-        int fs;
-        resources_get_int("UseFullscreen", &fs);
-        if (fs) {
-            resources_set_int("TEDFullscreen", 1);
-        }
-    }
-#endif
     return 0;
 }
 

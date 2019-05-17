@@ -33,8 +33,8 @@
 #include <string.h>
 
 #include "debug_gtk3.h"
-#include "not_implemented.h"
 
+#include "archdep.h"
 #include "cmdline.h"
 #include "lib.h"
 #include "log.h"
@@ -42,7 +42,6 @@
 #include "palette.h"
 #include "raster.h"
 #include "resources.h"
-#include "translate.h"
 #include "ui.h"
 #include "videoarch.h"
 
@@ -114,26 +113,19 @@ static int set_display_depth(int val, void *param)
 
 /** \brief  Command line options related to generic video output
  */
-static const cmdline_option_t cmdline_options[] = {
-    { "-trueaspect", SET_RESOURCE, 0,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-trueaspect", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "TrueAspectRatio", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
       NULL, "Enable true aspect ratio" },
-    { "+trueaspect", SET_RESOURCE, 0,
+    { "+trueaspect", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "TrueAspectRatio", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
       NULL, "Disable true aspect ratio" },
-    { "-keepaspect", SET_RESOURCE, 0,
+    { "-keepaspect", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "KeepAspectRatio", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
       NULL, "Keep aspect ratio when scaling" },
-    { "+keepaspect", SET_RESOURCE, 0,
+    { "+keepaspect", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "KeepAspectRatio", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
       NULL, "Do not keep aspect ratio when scaling (freescale)" },
     CMDLINE_LIST_END
 };
@@ -157,7 +149,6 @@ static const resource_int_t resources_int[] = {
  */
 void video_arch_canvas_init(struct video_canvas_s *canvas)
 {
-    VICE_GTK3_FUNC_ENTERED();
     canvas->video_draw_buffer_callback = NULL;
 }
 
@@ -168,7 +159,6 @@ void video_arch_canvas_init(struct video_canvas_s *canvas)
  */
 int video_arch_cmdline_options_init(void)
 {
-    VICE_GTK3_FUNC_ENTERED();
     if (machine_class != VICE_MACHINE_VSID) {
         return cmdline_register_options(cmdline_options);
     }
@@ -182,7 +172,6 @@ int video_arch_cmdline_options_init(void)
  */
 int video_arch_resources_init(void)
 {
-    VICE_GTK3_FUNC_ENTERED();
     if (machine_class != VICE_MACHINE_VSID) {
         return resources_register_int(resources_int);
     }
@@ -217,7 +206,6 @@ video_canvas_t *video_canvas_create(video_canvas_t *canvas,
                                     unsigned int *width, unsigned int *height,
                                     int mapped)
 {
-    VICE_GTK3_FUNC_ENTERED();
     canvas->initialized = 0;
     canvas->created = 0;
     canvas->renderer_context = NULL;
@@ -317,7 +305,7 @@ void video_canvas_resize(struct video_canvas_s *canvas, char resize_canvas)
         /* Set the palette */
         if (video_canvas_set_palette(canvas, canvas->palette) < 0) {
             fprintf(stderr, "Setting palette for this mode failed. (Try 16/24/32 bpp.)");
-            exit(-1);
+            archdep_vice_exit(-1);
         }
     }
 }

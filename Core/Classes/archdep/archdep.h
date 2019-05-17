@@ -133,7 +133,7 @@ exit(1)
 const char *archdep_home_path(void);
 
 ///* set this path to customize the preference storage */
-//const char *archdep_pref_path;
+static const char *archdep_pref_path;
 
 #define LIBDIR VICEDIR
 

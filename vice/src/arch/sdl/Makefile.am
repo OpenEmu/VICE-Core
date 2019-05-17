@@ -1,11 +1,11 @@
 # Makefile.am for the SDL version of `libarch.a'.
 
 if WIN32_COMPILE
-extra_includes = -I$(top_srcdir)/src/arch/win32/mingw32/wpcap
+extra_includes = -I$(top_srcdir)/src/arch/mingw32-pcap/wpcap
 else
 extra_includes =
 endif
-
+ 
 if DUMMY_COMPILE
 SUBDIRS = \
 	qnx4 \
@@ -38,9 +38,22 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/src/joyport \
 	-I$(top_srcdir)/src/gfxoutputdrv \
 	-I$(top_srcdir)/src/tapeport \
+	-I$(top_srcdir)/src/imagecontents \
 	-I$(top_srcdir)/src
 
 noinst_LIBRARIES = libarch.a
+
+if SDL2_COMPILE
+
+libarch_a_VERDEP_SOURCES = \
+	video_sdl2.c
+
+else
+
+libarch_a_VERDEP_SOURCES = \
+	video_sdl1.c
+
+endif
 
 libarch_a_SOURCES = \
 	archdep.c \
@@ -53,6 +66,8 @@ libarch_a_SOURCES = \
 	dynlib.c \
 	fullscreen.c \
 	fullscreenarch.h \
+	icon.c \
+	icon.h \
 	joy.c \
 	joy.h \
 	kbd.c \
@@ -161,7 +176,15 @@ libarch_a_SOURCES = \
 	signals.c \
 	ui.c \
 	ui.h \
+	uifontscbm2.c \
+	uifontscrtc.c \
+	uifontsted.c \
+	uifontsvic.c \
+	uifontsvicii.c \
+	uifonts.c \
+	uifonts.h \
 	uifilereq.c \
+	uiimagefilereq.c \
 	uifilereq.h \
 	uihotkey.c \
 	uihotkey.h \
@@ -175,7 +198,7 @@ libarch_a_SOURCES = \
 	uipoll.h \
 	uistatusbar.c \
 	uistatusbar.h \
-	video.c \
+	$(libarch_a_VERDEP_SOURCES) \
 	videoarch.h \
 	vkbd.c \
 	vkbd.h \
@@ -206,10 +229,14 @@ EXTRA_DIST = \
 	console_amiga.c \
 	console_sdl.c \
 	console_unix.c \
+	dynlib-unix.c \
+	dynlib-win32.c \
 	make-bindist_amiga.sh \
 	make-bindist_beos.sh \
 	make-bindist_qnx6.sh \
 	make-bindist_scosol.sh \
 	make-bindist_skyos.sh \
 	make-bindist_syllable.sh \
-	make-bindist_win32.sh
+	make-bindist_win32.sh \
+	rs232dev-unix.c \
+	rs232dev-win32.c

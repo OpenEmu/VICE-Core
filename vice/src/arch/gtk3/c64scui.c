@@ -30,10 +30,10 @@
 
 #include <stdio.h>
 
+#include "debug_gtk3.h"
 #include "c64model.h"
 #include "crtcontrolwidget.h"
 #include "machinemodelwidget.h"
-#include "not_implemented.h"
 #include "sampler.h"
 #include "ui.h"
 #include "uimachinewindow.h"
@@ -62,8 +62,11 @@
 #include "carthelpers.h"
 #include "tapecart.h"
 #include "tapeportdeviceswidget.h"
+#include "settings_model.h"
 #include "c64ui.h"
-
+#include "crt.h"
+#include "cartridge.h"
+#include "crtpreviewwidget.h"
 
 /** \brief  List of C64 models
  *
@@ -97,6 +100,8 @@ static const vice_gtk3_radiogroup_entry_t c64sc_vicii_models[] = {
 
 /** \brief  Identify the canvas used to create a window
  *
+ * \param[in]   canvas  video canvas
+ *
  * \return  window index on success, -1 on failure
  */
 static int identify_canvas(video_canvas_t *canvas)
@@ -110,11 +115,13 @@ static int identify_canvas(video_canvas_t *canvas)
 
 /** \brief  Create CRT controls widget for \a target window
  *
+ * \param[in]   target_window   target window index
+ *
  * \return  GtkGrid
  */
 static GtkWidget *create_crt_widget(int target_window)
 {
-    return crt_control_widget_create(NULL, "VICII");
+    return crt_control_widget_create(NULL, "VICII", TRUE);
 }
 
 /** \brief  Pre-initialize the UI before the canvas window gets created
@@ -126,8 +133,6 @@ int c64scui_init_early(void)
     ui_machine_window_init();
     ui_set_identify_canvas_func(identify_canvas);
     ui_set_create_controls_widget_func(create_crt_widget);
-
-    INCOMPLETE_IMPLEMENTATION();
     return 0;
 }
 
@@ -163,11 +168,19 @@ int c64scui_init(void)
     uicart_set_attach_func(cartridge_attach_image);
     uicart_set_freeze_func(cartridge_trigger_freeze);
     uicart_set_detach_func(cartridge_detach_image);
+    uicart_set_default_func(cartridge_set_default);
+    uicart_set_filename_func(cartridge_current_filename);
+    uicart_set_wipe_func(cartridge_wipe_filename);
 
     /* set tapecart flush function */
     tapeport_devices_widget_set_tapecart_flush_func(tapecart_flush_tcrt);
 
-    INCOMPLETE_IMPLEMENTATION();
+    /* set C64 model_get function */
+    settings_model_widget_set_model_func(c64model_get);
+
+    /* crt preview widget functions */
+    crt_preview_widget_set_open_func(crt_open);
+    crt_preview_widget_set_chip_func(crt_read_chip_header);
     return 0;
 }
 
@@ -176,5 +189,5 @@ int c64scui_init(void)
  */
 void c64scui_shutdown(void)
 {
-    INCOMPLETE_IMPLEMENTATION();
+    /* NOP */
 }

@@ -33,7 +33,6 @@
 #include "lib.h"
 #include "resources.h"
 #include "sampler.h"
-#include "translate.h"
 #include "uiapi.h"
 #include "util.h"
 
@@ -57,7 +56,10 @@ static int sampler_status = SAMPLER_CLOSED;
 /* sampler gain in % */
 static int sampler_gain = 100;
 
-static sampler_device_t devices[SAMPLER_MAX_DEVICES];
+/* The rest of VICE treats this code such that the list is terminated
+ * by an entry where the name field is NULL. Reserve an extra entry
+ * here to make sure there's room for that terminator. */
+static sampler_device_t devices[SAMPLER_MAX_DEVICES + 1];
 
 sampler_device_t *sampler_get_devices(void)
 {
@@ -108,7 +110,7 @@ void sampler_reset(void)
 void sampler_start(int channels, char *devname)
 {
     if (current_sampler_device) {
-        ui_error(translate_text(IDGS_SAMPLER_USED_BY), current_sampler_device);
+        ui_error("Sampler system already in use by %s.", current_sampler_device);
     } else {
         if (devices[current_sampler].open) {
             devices[current_sampler].open(channels);
@@ -242,19 +244,14 @@ void sampler_resources_shutdown(void)
 
 /* ------------------------------------------------------------------------- */
 
-
 static cmdline_option_t cmdline_options[] =
 {
-    { "-samplerdev", SET_RESOURCE, 1,
+    { "-samplerdev", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "SamplerDevice", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_COMBO,
-      IDGS_DEVICE, IDCLS_SPECIFY_SAMPLER_DEVICE,
-      NULL, NULL },
-    { "-samplergain", SET_RESOURCE, 1,
+      "Device", NULL },
+    { "-samplergain", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "SamplerGain", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_GAIN, IDCLS_SAMPLER_GAIN_IN_PERCENT,
-      NULL, NULL },
+      "<Sampler gain>", "Specify sampler gain in percent (1%-200%)" },
     CMDLINE_LIST_END
 };
 
@@ -265,7 +262,7 @@ int sampler_cmdline_options_init(void)
     char *temp = NULL;
     char number[4];
 
-    cmdline_devices = lib_stralloc(". (");
+    cmdline_devices = lib_stralloc("Specify sampler device. (");
 
     for (i = 0; i < SAMPLER_MAX_DEVICES; ++i) {
         if (devices[i].name) {

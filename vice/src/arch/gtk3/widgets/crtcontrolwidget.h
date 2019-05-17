@@ -31,6 +31,10 @@
 #include "vice.h"
 #include <gtk/gtk.h>
 
-GtkWidget *crt_control_widget_create(GtkWidget *parent, const char *chip);
+GtkWidget * crt_control_widget_create(GtkWidget *parent,
+                                      const char *chip,
+                                      gboolean minimal);
+
+gboolean    crt_control_widget_reset(GtkWidget *widget);
 
 #endif

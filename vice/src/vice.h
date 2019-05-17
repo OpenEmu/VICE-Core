@@ -114,50 +114,7 @@ typedef int ssize_t;
 #define SDL_UI_SUPPORT
 #endif
 
-/* Which OS is using those ugly scale source coordinates.  */
-#if defined(__MSDOS__)
-#define VIDEO_SCALE_SOURCE
-#endif
-
 /* ------------------------------------------------------------------------- */
-
-/* Internationalization stuff */
-#if defined(ENABLE_NLS) && defined(HAVE_LIBINTL_H)
-#    include <libintl.h>
-#    define _(String) gettext (String)
-#    ifdef gettext_noop
-#        define N_(String) gettext_noop (String)
-#    else
-#        define N_(String) (String)
-#    endif
-#else
-/* Stubs that do something close enough.  */
-#    define _(String) (String)
-#    define N_(String) (String)
-#endif /* ENABLE_NLS */
-
-/* T_() is just an indicator for new common text which needs
-   to be added to the translate.* translation tables. */
-#define T_(String) (String)
-
-#if defined(WIN32_COMPILE) && (defined(UNICODE) || defined(_UNICODE))
-/* enable WinNT Unicode support in VICE. */
-#ifndef WIN32_UNICODE_SUPPORT
-#define WIN32_UNICODE_SUPPORT
-#endif
-#endif
-
-#ifdef WIN32_UNICODE_SUPPORT
-/* enable WinNT Unicode API calls. */
-#ifndef UNICODE
-#define UNICODE
-#endif
-
-/* enable Unicode support in tchar.h. */
-#ifndef _UNICODE
-#define _UNICODE
-#endif
-#endif
 
 #ifdef __OS2__
 int yyparse (void);
@@ -192,7 +149,8 @@ static int noop;
 
 
 #if defined(USE_NATIVE_GTK3) && defined(WIN32_COMPILE) && !defined(__cplusplus)
-#define atexit vice_atexit
+extern int vice_atexit(void (*function)(void));
+extern void vice_exit(int excode);
 #endif
 
 #endif

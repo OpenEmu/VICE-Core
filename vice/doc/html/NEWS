@@ -17,8 +17,270 @@ Before reporting bugs, always try with a clean config (run emulator with
 -default or use "restore default config" in the UI).
 
 
+* Changes in VICE 3.3
+=====================
+
+This release stabilizes and introduces the GTK3 UI as the primary user interface 
+for all major ports. For "lesser" platforms we still have the SDL1/SDL2 based 
+interface. All other user interfaces have been removed. RIP
+
+We are still looking for dedicated maintainers for the Windows- and macOS ports,
+if you want to help improving these and/or want to provide binaries, please get
+in touch.
+
+** General
+----------
+
+- Old, unmaintained, ports removed:
+  * MacOS Cocoa: use SDL or Gtk3
+  * WinVice: use SDL or Gtk3
+  * BeOS/Haiku: use SDL
+  * AmigaOS: use SDL
+  * Unix Xaw: use SDL or Gtk3
+  * Unix Gtk2: use SDL or Gtk3
+  * OS/2: use SDL
+
+- Fix building against external ffmpeg >= 4.0
+
+- Fix errors in multi-SID code
+
+- added single SNES pad emulation (compatible to Ninjas adapter/TrapThem64)
+
+- Make VICE much faster by using -O3 vs -O2
+
+- add a slot number before the literal name of a game-controller, which is less 
+  confusing when more than one controller of the same type is used
+
+- fix parsing of the commandline with -config first
+
+- added dutch to list of keyboard mappings
+
+  
+** Unix fixes
+-------------
+
+- the sleep function was not handling timer overflows properly, which happens
+  every 4 seconds on a 32bit machine with nanosleep()
+
+  
+** macOS fixes
+--------------
+
+- Enabled the use of the CoreAudio driver in macOS SDL builds.
+- Removed the legacy requirement for X11.app when launching VICE.app
+
+
+** ReSID fixes
+--------------
+
+- tweak uCox value
+- correctly emulate filter cutoff transistor both in triode and saturation mode
+- Split ReSID resource into 6581/8580-specific resources (passthrough/gain/bias)
+- various envelope generator fixes
+- use different timing on 6581/8580 for noise register reset when testbit is set
+- noise shift register is clocked once after reset
+
+
+** VIC fixes
+---------------
+
+- corrected green color angle according to colodore website
+- fix lumas according to 'colodore'
+
+
+** VIC-II fixes
+---------------
+
+- corrected green color angle according to colodore website
+- fix lumas according to 'colodore'
+- added ChristopherJam palette
+
+
+** TED fixes
+---------------
+
+- corrected color angles according to colodore website
+- fix lumas according to 'colodore'
+
+
+** VIA fixes
+------------
+
+- fixed initial state of the I/O ports
+
+
+** CIA fixes
+------------
+
+- fixed initial state of the I/O ports
+
+
+** Monitor
+----------
+
+- io d600 (x128 VDC register dump) expanded
+
+- in memory dump limit the number of bytes per line to a power of two.
+
+- instead of limiting disassembler output to a number of bytes, limit it to the 
+  height of the current terminal
+
+  
+** c1541
+--------
+
+- Fix `geosread` command
+- Add tilde (~) expansion in `write` command (Unix only)
+- Add P00Save support to `extract` command
+
+
+** Drive changes
+----------------
+
+- Fix WD1770 formatting issues
+
+- fix mapping of sfd-1001 ram
+
+- Fix trap_rom offset for 2040/4040
+
+
+** C64 changes
+--------------
+
+- support extra 64k eprom on the comal80 cartridge
+
+- added symbolic keymaps for dutch keyboard layout
+
+
+** C128 changes
+---------------
+
+- Autostart fixes
+
+- Stability improvements
+
+- VIC mirroring fixed
+
+- VDC emulation improvements
+  * Interlace mode is supported in text and graphics modes
+    (renderers still need work to handle the interlace effect properly)
+  * STATUS flag is partially emulated
+  * Rendering unusual character widths and in the inter-character gap
+  * Semi-graphics mode fixes
+  * Alternate character set fixes
+  * Cursor rendering
+  * Smooth scrolling in 40 column (pixel double) mode
+  * vertical positioning (include register 5)
+
+- added norwegian c128 chargen
+
+
+** Gtk3 UI
+----------
+
+- Remember last used settings "page" in the settings UI
+
+- Remember last used directory for various file dialogs
+
+- Popup menus for the drive widgets in the status bar:
+  * Show directory of currently attached disk image
+  * Add menu shortcut to the drive settings UI
+  * Add Reset drive #X item
+
+- Mixer/CRT widgets: various fixes
+
+- Move cpu/fps display to the statusbar from the title bar
+
+- Add popup menu to the cpu/fps display widget to control refresh rate, speed,
+  warp and pause/advance frame
+
+- Add popup menu to the joystick widget to allow swapping joysticks and
+  userport joysticks, add shortcut menu item to joystick settings UI
+
+- Add cartridge content preview to the cart-attach dialog
+  (x64/x64sc/xscpu64/x128)
+
+- Dynamically load CBM font
+
+- Don't allow the mouse cursor to 'escape' during mouse grab
+
+- Unhide mouse pointer in dialogs during mouse grab
+
+- Add setting a cartridge as default
+
+- Improve model settings UI behaviour
+
+- Add "Fullscreen on boot" checkbutton and -fullscreen command line option
+
+- x128: Bring either VDC or VICII display to front depending on 40/80 col key
+
+- VTE pulled into the sourcetree, which allows using the same monitor window
+  in all ports
+
+- Terminal- or GUI based monitor can be selected at runtime in all ports
+
+- introduced new VICE logo provided by Bjoern Odendahl (thanks!)
+
+- fix assignment of user keymaps
+
+
+** SDL UI
+---------
+
+- Add toggle button in x128 for the Go64Mode
+
+- ignore 'dotfiles' in the fileselector on *nix
+
+- added browsing inside disk and tape images.
+
+- added pageup/pagedown/home/end key mappings, and support them in the menus, 
+  file-selector and text viewer
+
+- Terminal- or UI based monitor can be selected at runtime in all ports
+
+- added a hack to get rid of spurious keyup/keydown events after switching 
+  from/to fullscreen
+  
+- generate suitable fonts for the ui at startup, use some custom gfx for the ui. 
+  fixes the problem that the ui chars will screw up when the user selects a 
+  japanese chargen :)
+  
+- when changing color- or crt emulation settings, print a color matrix on screen 
+  and update the resources in realtime
+  
+- UI cosmetics:
+  - fix slider length, use custom chars for slider
+  - make screen all black before entering the UI
+  - added basic default window icon
+  - fix display of literal key names for SDL2
+
+- major rework of SDL2 video renderer to work natively with all supported
+  graphics acceleration technologies (OpenGL ES, DX11, Metal, etc). Fullscreen
+  support and resized windows now preserve aspect ratio properly on any screen
+  size.
+
+- SDL2 now respects "GL" filter mode. As a bonus it does so even when the
+  renderer is not OpenGL.
+
+
+** VSID (Gtk3)
+--------------
+
+- Remember last-used-directory for the open file dialog
+- Add drag'n'drop support
+- Add HVSC support:
+    * Support SLDB
+    * Support STIL
+
+
+** VSID (SDL)
+--------------
+
+- implemented drag'n'drop
+
+
 * Changes in VICE 3.2
-======================
+=====================
 
 ** General
 ----------

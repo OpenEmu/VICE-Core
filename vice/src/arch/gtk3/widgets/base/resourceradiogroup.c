@@ -84,7 +84,7 @@ static void on_radio_toggled(GtkWidget *radio, gpointer user_data)
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(radio))
             && (old_val != new_val)) {
 #if 0
-        debug_gtk3("setting %s to %d\n", resource, new_val);
+        debug_gtk3("setting %s to %d.", resource, new_val);
 #endif
         if (resources_set_int(resource, new_val) < 0) {
             log_error(LOG_ERR, "failed to set resource '%s' to %d\n",
@@ -94,7 +94,7 @@ static void on_radio_toggled(GtkWidget *radio, gpointer user_data)
 
             callback = g_object_get_data(G_OBJECT(parent), "ExtraCallback");
             if (callback != NULL) {
-                callback(radio, new_val);
+                callback(parent, new_val);
             }
         }
     }
@@ -122,7 +122,7 @@ static GtkWidget *resource_radiogroup_new_helper(
 
     resource = resource_widget_get_resource_name(grid);
     if (resources_get_int(resource, &current) < 0) {
-        debug_gtk3("failed to get value for resource '%s', defaulting to 0\n",
+        debug_gtk3("failed to get value for resource '%s', defaulting to 0.",
                 resource);
         current = 0;
     }
@@ -160,6 +160,13 @@ static GtkWidget *resource_radiogroup_new_helper(
         last = GTK_RADIO_BUTTON(radio);
     }
 
+    /* register methods to be used by the resource widget manager */
+    resource_widget_register_methods(
+            grid,
+            vice_gtk3_resource_radiogroup_reset,
+            vice_gtk3_resource_radiogroup_factory,
+            vice_gtk3_resource_radiogroup_sync,
+            vice_gtk3_resource_radiogroup_apply);
     g_signal_connect(grid, "destroy", G_CALLBACK(on_radiogroup_destroy), NULL);
 
     gtk_widget_show_all(grid);
@@ -291,7 +298,7 @@ gboolean vice_gtk3_resource_radiogroup_get(GtkWidget *widget, int *id)
     const char *resource = resource_widget_get_resource_name(widget);
 
     if (resources_get_int(resource, id) < 0) {
-        debug_gtk3("failed to get value for resource '%s'\n", resource);
+        debug_gtk3("failed to get value for resource '%s'.", resource);
         *id = 0;
         return FALSE;
     }
@@ -312,7 +319,7 @@ gboolean vice_gtk3_resource_radiogroup_sync(GtkWidget *widget)
 
     resource = resource_widget_get_resource_name(widget);
     if (resources_get_int(resource, &value) < 0) {
-        debug_gtk3("failed to get value for resource '%s'\n", resource);
+        debug_gtk3("failed to get value for resource '%s'.", resource);
         return FALSE;
     }
     return vice_gtk3_resource_radiogroup_set(widget, value);
@@ -332,11 +339,11 @@ gboolean vice_gtk3_resource_radiogroup_factory(GtkWidget *widget)
 
     resource = resource_widget_get_resource_name(widget);
     if (resources_get_default_value(resource, &value) < 0) {
-        debug_gtk3("failed to get factory value for resource '%s'\n", resource);
+        debug_gtk3("failed to get factory value for resource '%s'.", resource);
         return FALSE;
     }
 #if 0
-    debug_gtk3("resetting %s to factory value %d\n", resource, value);
+    debug_gtk3("resetting %s to factory value %d.", resource, value);
 #endif
     return vice_gtk3_resource_radiogroup_set(widget, value);
 }
@@ -352,6 +359,19 @@ gboolean vice_gtk3_resource_radiogroup_reset(GtkWidget *widget)
 {
     int orig = resource_widget_get_int(widget, "ResourceOrig");
     return vice_gtk3_resource_radiogroup_set(widget, orig);
+}
+
+
+/** \brief  Set resource to widget's value
+ *
+ * \param[in,out]   widget  resource radiogroup widget
+ *
+ * \return  bool
+ */
+gboolean vice_gtk3_resource_radiogroup_apply(GtkWidget *widget)
+{
+    NOT_IMPLEMENTED_WARN_ONLY();
+    return FALSE;
 }
 
 

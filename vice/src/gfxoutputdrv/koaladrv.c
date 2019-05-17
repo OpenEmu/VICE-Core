@@ -41,7 +41,6 @@
 #include "palette.h"
 #include "resources.h"
 #include "screenshot.h"
-#include "translate.h"
 #include "types.h"
 #include "uiapi.h"
 #include "util.h"
@@ -194,35 +193,30 @@ static int koaladrv_resources_init(void)
     return resources_register_int(resources_int);
 }
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-koalaoversize", SET_RESOURCE, 1,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-koalaoversize", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "KoalaOversizeHandling", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_METHOD, IDCLS_OVERSIZED_HANDLING,
-      NULL, NULL },
-    { "-koalaundersize", SET_RESOURCE, 1,
+      "<method>", "Select the way the oversized input should be handled, (0: scale down, 1: crop left top, 2: crop center top,  3: crop right top, 4: crop left center, 5: crop center, 6: crop right center, 7: crop left bottom, 8: crop center bottom, 9:  crop right bottom)" },
+    { "-koalaundersize", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "KoalaUndersizeHandling", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_METHOD, IDCLS_UNDERSIZED_HANDLING,
-      NULL, NULL },
+      "<method>", "Select the way the undersized input should be handled, (0: scale up, 1: borderize)" },
     CMDLINE_LIST_END
 };
 
-static const cmdline_option_t cmdline_options_plus4[] = {
-    { "-koalatedlum", SET_RESOURCE, 1,
+static const cmdline_option_t cmdline_options_plus4[] =
+{
+    { "-koalatedlum", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "KoalaTEDLumHandling", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_METHOD, IDCLS_TED_LUM_HANDLING,
-      NULL, NULL },
+      "<method>", "Select the way the TED luminosity should be handled, (0: ignore, 1: dither)" },
     CMDLINE_LIST_END
 };
 
-static const cmdline_option_t cmdline_options_crtc[] = {
-    { "-koalacrtctextcolor", SET_RESOURCE, 1,
+static const cmdline_option_t cmdline_options_crtc[] =
+{
+    { "-koalacrtctextcolor", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "KoalaCRTCTextColor", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_COLOR, IDCLS_CRTC_TEXT_COLOR,
-      NULL, NULL },
+      "<color>", "Select the CRTC text color (0: white, 1: amber, 2: green)" },
     CMDLINE_LIST_END
 };
 

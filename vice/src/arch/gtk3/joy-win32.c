@@ -28,7 +28,7 @@
 
 #include "vice.h"
 
-#include "not_implemented.h"
+#include "debug_gtk3.h"
 
 #ifdef WIN32_COMPILE
 
@@ -47,13 +47,9 @@
 #include "joystick.h"
 #include "keyboard.h"
 #include "maincpu.h"
-/* #include "res.h" */
-#include "translate.h"
 #include "types.h"
 #include "ui.h"
-/* XXX: this probably needs a buildsystem fix */
-#include "../win32/winjoy.h"
-/* #include "winmain.h" */
+#include "winjoy.h"
 
 
 static enum {
@@ -215,9 +211,9 @@ static void joystick_release_joysticks(void)
     }
 }
 
-int joystick_di_open(int port_idx, int dev)
+static int joystick_di_open(int port_idx, int dev)
 {
-#if 1 /* FIXME */
+#if 0 /* FIXME */
     NOT_IMPLEMENTED();
 #else
     JoyInfo *joy = joystick_list;
@@ -293,10 +289,12 @@ int joystick_di_open(int port_idx, int dev)
         i++;
     }
     if (joy) {
+        HINSTANCE ui_active_window = GetModuleHandle(NULL); /* FIXME */
         IDirectInput_CreateDevice(di, &joy->guid, &joystick_di_devices[port_idx], NULL);
         IDirectInputDevice_QueryInterface(joystick_di_devices[port_idx], &IID_IDirectInputDevice2, (LPVOID*)&joystick_di_devices2[port_idx]);
         IDirectInputDevice_SetDataFormat(joystick_di_devices[port_idx], data_format);
-        IDirectInputDevice_SetCooperativeLevel(joystick_di_devices[port_idx], ui_active_window, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND);
+        IDirectInputDevice_SetCooperativeLevel(joystick_di_devices[port_idx],
+                (HWND)ui_active_window, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND);
         IDirectInputDevice_Acquire(joystick_di_devices[port_idx]);
         if (joy->axes) {
             joystick_release_axes(joy->axes);
@@ -317,7 +315,7 @@ int joystick_di_open(int port_idx, int dev)
 #endif
 }
 
-void joystick_di_close(int port_idx)
+static void joystick_di_close(int port_idx)
 {
     if (joystick_di_devices[port_idx]) {
         IDirectInputDevice_Unacquire(joystick_di_devices[port_idx]);
@@ -343,7 +341,7 @@ int joy_arch_set_device(int port_idx, int new_dev)
 {
     int old_dev = joystick_port_map[port_idx];
 
-#if 0
+#if 1
     //  FIXME: this assumes there are 2 hardware joysticks when
     //  the real number may be more or less.
     switch (new_dev) {
@@ -528,74 +526,51 @@ int joy_arch_resources_init(void)
 
 /* FIXME: fix the resource references */
 
+/* These don't appear to used anywhere */
+#if 0
 static const cmdline_option_t joydev1cmdline_options[] = {
-    { "-joydev1", SET_RESOURCE, 1,
+    { "-joydev1", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyDevice1", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-#if 0 /* FIXME */
-      IDS_P_NUMBER, IDS_SET_INPUT_JOYSTICK_1,
-#else
-      0,0,
-#endif
+      /* FIXME */
       NULL, NULL },
     CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev2cmdline_options[] = {
-    { "-joydev2", SET_RESOURCE, 1,
+    { "-joydev2", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyDevice2", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-#if 0 /* FIXME */
-      IDS_P_NUMBER, IDS_SET_INPUT_JOYSTICK_2,
-#else
-      0,0,
-#endif
+      /* FIXME */
       NULL, NULL },
     CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev3cmdline_options[] = {
-    { "-extrajoydev1", SET_RESOURCE, 1,
+    { "-extrajoydev1", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyDevice3", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-#if 0 /* FIXME */
-      IDS_P_NUMBER, IDS_SET_INPUT_EXTRA_JOYSTICK_1,
-#else
-      0,0,
-#endif
+      /* FIXME */
       NULL, NULL },
     CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev4cmdline_options[] = {
-    { "-extrajoydev2", SET_RESOURCE, 1,
+    { "-extrajoydev2", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyDevice4", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-#if 0 /* FIXME */
-      IDS_P_NUMBER, IDS_SET_INPUT_EXTRA_JOYSTICK_2,
-#else
-      0,0,
-#endif
+      /* FIXME */
       NULL, NULL },
     CMDLINE_LIST_END
 };
 
 static const cmdline_option_t joydev5cmdline_options[] = {
-    { "-extrajoydev3", SET_RESOURCE, 1,
+    { "-extrajoydev3", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyDevice5", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-#if 0 /* FIXME */
-      IDS_P_NUMBER, IDS_SET_INPUT_EXTRA_JOYSTICK_3,
-#else
-      0,0,
-#endif
+      /* FIXME */
       NULL, NULL },
     CMDLINE_LIST_END
 };
+#endif
 
 int joy_arch_cmdline_options_init(void)
 {
-    NOT_IMPLEMENTED_WARN_ONLY();
 #if 0 /* FIXME */
     if (joyport_get_port_name(JOYPORT_1)) {
         if (cmdline_register_options(joydev1cmdline_options) < 0) {
@@ -622,6 +597,8 @@ int joy_arch_cmdline_options_init(void)
             return -1;
         }
     }
+#else
+    NOT_IMPLEMENTED_WARN_ONLY();
 #endif /* FIXME */
     return 0;
 }
@@ -1050,31 +1027,54 @@ void joystick_calibrate(HWND hwnd)
 }
 #endif
 
-void joystick_ui_get_device_list(HWND joy_hwnd)
+static JoyInfo *joydx = NULL;
+static joy_winmm_priv_t* joywmm = NULL;
+static int joystickid = JOYDEV_HW1;
+
+static char joyname[1024];
+
+
+void joystick_ui_reset_device_list(void)
 {
 #ifdef HAVE_DINPUT
     if (joystick_inited == WIN_JOY_DINPUT) {
-        JoyInfo *joy = joystick_list;
-
-        while (joy) {
-            SendMessage(joy_hwnd, CB_ADDSTRING, 0, (LPARAM)joy->name);
-            joy = joy->next;
-        }
+        joydx = joystick_list;
     } else
 #endif
     if (joystick_inited == WIN_JOY_WINMM) {
-        joy_winmm_priv_t* joy = joy_winmm_list;
-
-        while (joy) {
-            char joyname[1024];
-
-            snprintf(joyname, sizeof(joyname), "PC joystick #%u", joy->uJoyID);
-            SendMessage(joy_hwnd, CB_ADDSTRING, 0, (LPARAM)joyname);
-            joy = joy->next;
-        }
+        joywmm = joy_winmm_list;
     }
+    joystickid = JOYDEV_HW1;
 }
 
+const char *joystick_ui_get_next_device_name(int *id)
+{
+    char *name = NULL;
+#ifdef HAVE_DINPUT
+    if (joystick_inited == WIN_JOY_DINPUT) {
+        if (joydx == NULL) {
+            return NULL;
+        }
+        name = joydx->name;
+        *id = joystickid;
+        joydx = joydx->next;
+        joystickid++;
+    } else
+#endif
+    if (joystick_inited == WIN_JOY_WINMM) {
+        if (joywmm == NULL) {
+            return NULL;
+        }
+        snprintf(joyname, sizeof(joyname), "PC joystick #%u", joywmm->uJoyID);
+        name = joyname;
+        *id = joystickid;
+        joywmm = joywmm->next;
+        joystickid++;
+    }
+    return name;
+}
+
+#if 0
 void joystick_ui_get_autofire_axes(HWND joy_hwnd, int device)
 {
 #ifdef HAVE_DINPUT
@@ -1142,8 +1142,9 @@ void joystick_ui_get_autofire_buttons(HWND joy_hwnd, int device)
         SendMessage(joy_hwnd, CB_ADDSTRING, 0, (LPARAM)"Button 8");
     }
 }
+#endif
 
-char joystick_uses_direct_input(void)
+int joystick_uses_direct_input(void)
 {
 #ifdef HAVE_DINPUT
     return (joystick_inited == WIN_JOY_DINPUT);

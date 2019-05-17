@@ -63,7 +63,7 @@
  */
 
 static void set_button_text(GtkWidget *button, int row, int col);
-
+static gboolean set_keyset_resources(void);
 
 
 /** \brief  Keyset index
@@ -95,7 +95,35 @@ static const char *keyset_labels[3][3] = {
  *
  * There can be only one (active)
  */
-static GtkWidget *keyset_buttons[3][3] = { NULL };
+static GtkWidget *keyset_buttons[3][3];
+
+
+/** \brief  Handler for the 'response' event of the dialog
+ *
+ * \param[in,out]   dialog      dialog triggering the event
+ * \param[in]       response_id response ID
+ * \param[in]       user_data   extra event data (unused)
+ */
+static void on_response(GtkDialog *dialog,
+                        gint response_id,
+                        gpointer user_data)
+{
+    switch (response_id) {
+        case GTK_RESPONSE_ACCEPT:
+            /* update keyset resources */
+            set_keyset_resources();
+            /* fall through */
+
+        case GTK_RESPONSE_REJECT:
+            gtk_widget_destroy(GTK_WIDGET(dialog));
+            break;
+
+        default:
+            debug_gtk3("Unhandled response ID %d", response_id);
+            break;
+    }
+}
+
 
 
 /** \brief  Handler for the "toggled" event of the keyset buttons
@@ -320,7 +348,6 @@ void keyset_dialog_show(GtkWindow *parent, int keyset)
 {
     GtkWidget *dialog;
     GtkWidget *content;
-    gint response;
     gchar title[256];
 
     if (keyset < 1 || keyset > 2) {
@@ -344,8 +371,8 @@ void keyset_dialog_show(GtkWindow *parent, int keyset)
      */
     dialog = gtk_dialog_new_with_buttons(
             title, parent, GTK_DIALOG_MODAL,
-            _("OK"), GTK_RESPONSE_ACCEPT,
-            _("Cancel"), GTK_RESPONSE_REJECT,
+            "OK", GTK_RESPONSE_ACCEPT,
+            "Cancel", GTK_RESPONSE_REJECT,
             NULL);
 
     /* add the keyset buttons */
@@ -356,11 +383,7 @@ void keyset_dialog_show(GtkWindow *parent, int keyset)
     /* connect key events handler */
     g_signal_connect(dialog, "key-press-event", G_CALLBACK(on_key_pressed), NULL);
 
-    /* wait for the dialog to emit either OK or Cancel */
-    response = gtk_dialog_run(GTK_DIALOG(dialog));
-    if (response == GTK_RESPONSE_ACCEPT) {
-        /* update keyset resources */
-        set_keyset_resources();
-    }
-    gtk_widget_destroy(dialog);
+    /* connect reponse handler and show dialog */
+    g_signal_connect(dialog, "response", G_CALLBACK(on_response), NULL);
+    gtk_widget_show_all(dialog);
 }

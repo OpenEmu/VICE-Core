@@ -52,7 +52,6 @@ C64/C128 | CBM2 | PET | PLUS4 | VIC20 | NAME
 #include "resources.h"
 #include "snapshot.h"
 #include "sound.h"
-#include "translate.h"
 #include "uiapi.h"
 #include "userport.h"
 #include "userport_dac.h"
@@ -108,7 +107,6 @@ static int userport_dac_read_snapshot_module(snapshot_t *s);
 static userport_device_t dac_device = {
     USERPORT_DEVICE_DAC,
     "Userport DAC",
-    IDGS_USERPORT_DAC,
     NULL, /* NO pbx read */
     userport_dac_store_pbx,
     NULL, /* NO pa2 read */
@@ -175,16 +173,12 @@ int userport_dac_resources_init(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-userportdac", SET_RESOURCE, 0,
+    { "-userportdac", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "UserportDAC", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_USERPORT_DAC,
-      NULL, NULL },
-    { "+userportdac", SET_RESOURCE, 0,
+      NULL, "Enable Userport DAC for sound output" },
+    { "+userportdac", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "UserportDAC", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_USERPORT_DAC,
-      NULL, NULL },
+      NULL, "Disable Userport DAC for sound output" },
     CMDLINE_LIST_END
 };
 

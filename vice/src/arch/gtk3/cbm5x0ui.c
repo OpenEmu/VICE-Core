@@ -30,18 +30,22 @@
 
 #include <stdio.h>
 
+#include "debug_gtk3.h"
 #include "cbm2model.h"
+#include "cartridge.h"
+#include "carthelpers.h"
 #include "crtcontrolwidget.h"
 #include "machine.h"
 #include "machinemodelwidget.h"
-#include "not_implemented.h"
 #include "sampler.h"
 #include "ui.h"
+#include "uicart.h"
 #include "uimachinewindow.h"
 #include "settings_sampler.h"
 #include "vicii.h"
 #include "videomodelwidget.h"
 #include "widgethelpers.h"
+#include "settings_model.h"
 
 #include "cbm2ui.h"
 
@@ -68,6 +72,8 @@ static const vice_gtk3_radiogroup_entry_t cbm5x0_vicii_models[] = {
 
 /** \brief  Identify the canvas used to create a window
  *
+ * \param[in]   canvas  video canvas
+ *
  * \return  window index on success, -1 on failure
  */
 static int identify_canvas(video_canvas_t *canvas)
@@ -79,13 +85,16 @@ static int identify_canvas(video_canvas_t *canvas)
     return PRIMARY_WINDOW;
 }
 
+
 /** \brief  Create CRT controls widget for \a target window
+ *
+ * \param[in]   target_window   target window index
  *
  * \return  GtkGrid
  */
 static GtkWidget *create_crt_widget(int target_window)
 {
-    return crt_control_widget_create(NULL, "VICII");
+    return crt_control_widget_create(NULL, "VICII", TRUE);
 }
 
 /** \brief  Pre-initialize the UI before the canvas window gets created
@@ -97,8 +106,6 @@ int cbm5x0ui_init_early(void)
     ui_machine_window_init();
     ui_set_identify_canvas_func(identify_canvas);
     ui_set_create_controls_widget_func(create_crt_widget);
-
-    INCOMPLETE_IMPLEMENTATION();
     return 0;
 }
 
@@ -119,7 +126,13 @@ int cbm5x0ui_init(void)
 
     settings_sampler_set_devices_getter(sampler_get_devices);
 
-    INCOMPLETE_IMPLEMENTATION();
+    /* uicart_set_detect_func(cartridge_detect); only cbm2/plus4 */
+    /*uicart_set_list_func(cartridge_get_info_list);*/
+    uicart_set_attach_func(cartridge_attach_image);
+    /*uicart_set_freeze_func(cartridge_trigger_freeze);*/
+    uicart_set_detach_func(cartridge_detach_image);
+
+    settings_model_widget_set_model_func(cbm2model_get);
     return 0;
 }
 
@@ -128,5 +141,5 @@ int cbm5x0ui_init(void)
  */
 void cbm5x0ui_shutdown(void)
 {
-    INCOMPLETE_IMPLEMENTATION();
+    /* NOP */
 }

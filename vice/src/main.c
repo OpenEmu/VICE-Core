@@ -38,14 +38,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifdef ENABLE_NLS
-#include <locale.h>
-#endif
-
-#ifdef HAS_TRANSLATION
-#include "intl.h"
-#endif
-
 #include "archdep.h"
 #include "cmdline.h"
 #include "console.h"
@@ -63,9 +55,6 @@
 #include "main.h"
 #include "resources.h"
 #include "sysfile.h"
-#ifdef HAS_TRANSLATION
-#include "translate.h"
-#endif
 #include "types.h"
 #include "uiapi.h"
 #include "version.h"
@@ -103,7 +92,7 @@ static int init_done = 0;
 int main_program(int argc, char **argv)
 {
     int i, n;
-    char *program_name;
+    const char *program_name;
     int ishelp = 0;
     char term_tmp[TERM_TMP_SIZE];
     size_t name_len;
@@ -135,22 +124,14 @@ int main_program(int argc, char **argv)
         }
     }
 
-#ifdef ENABLE_NLS
-    /* gettext stuff, not needed in Gnome, but here I can
-       overrule the default locale path */
-    setlocale(LC_ALL, "");
-    bindtextdomain(PACKAGE, NLS_LOCALEDIR);
-    textdomain(PACKAGE);
-#endif
-
     DBG(("main:archdep_init(argc:%d)\n", argc));
     if (archdep_init(&argc, argv) != 0) {
         archdep_startup_log_error("archdep_init failed.\n");
         return -1;
     }
 
-    if (atexit(main_exit) < 0) {
-        archdep_startup_log_error("atexit failed.\n");
+    if (archdep_vice_atexit(main_exit) != 0) {
+        archdep_startup_log_error("archdep_vice_atexit failed.\n");
         return -1;
     }
 
@@ -181,11 +162,6 @@ int main_program(int argc, char **argv)
         archdep_startup_log_error("Cannot initialize the UI.\n");
         return -1;
     }
-
-#ifdef HAS_TRANSLATION
-    /* set the default arch language */
-    translate_arch_language_init();
-#endif
 
     if (!ishelp) {
         /* Load the user's default configuration file.  */

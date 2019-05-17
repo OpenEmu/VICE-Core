@@ -46,22 +46,28 @@
 #include "ds12c887widget.h"
 
 
+/** \brief  Values for I/O base on C64/C128
+ *
+ * The hardware appears to allow $d100, $d200 and $d300 as I/O-base but that's
+ * not emulated and thus not in this list.
+ */
 static vice_gtk3_combo_entry_int_t c64_base[] = {
-     { "$D500", 0xd500 },
-     { "$D600", 0xd600 },
-     { "$D700", 0xd700 },
-     { "$DE00", 0xde00 },
-     { "$DF00", 0xdf00 },
-     { NULL, - 1 }
+    { "$D500", 0xd500 },
+    { "$D600", 0xd600 },
+    { "$D700", 0xd700 },
+    { "$DE00", 0xde00 },
+    { "$DF00", 0xdf00 },
+    { NULL, - 1 }
 };
 
 
+/** \brief  Values for I/O base on VIC-20
+ */
 static vice_gtk3_combo_entry_int_t vic20_base[] = {
-     { "$9800", 0x9800 },
-     { "$9C00", 0x9c00 },
-     { NULL, - 1 }
+    { "$9800", 0x9800 },
+    { "$9C00", 0x9c00 },
+    { NULL, - 1 }
 };
-
 
 
 
@@ -116,8 +122,8 @@ GtkWidget *ds12c887_widget_create(GtkWidget *parent)
     /* TODO: add event to enable/disable widgets */
     gtk_grid_attach(GTK_GRID(grid), enable_widget, 0, 0, 2, 1);
 
-    oscil_widget = vice_gtk3_resource_check_button_new("DS12C887RunMode",
-            "Start with running oscillerator");
+    oscil_widget = vice_gtk3_resource_check_button_new("DS12C887RTCRunMode",
+            "Start with running oscillator");
     g_object_set(oscil_widget, "margin-left", 16, NULL);
     rtc_widget = vice_gtk3_resource_check_button_new("DS12C887RTCSave",
             "Enable RTC Saving");

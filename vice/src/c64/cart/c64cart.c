@@ -54,7 +54,6 @@
 #include "mem.h"
 #include "monitor.h"
 #include "resources.h"
-#include "translate.h"
 #include "util.h"
 
 /* #define DEBUGCART */
@@ -450,22 +449,16 @@ int cart_attach_cmdline(const char *param, void *extra_param)
 static const cmdline_option_t cmdline_options[] =
 {
     /* hardreset on cartridge change */
-    { "-cartreset", SET_RESOURCE, 0,
+    { "-cartreset", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "CartridgeReset", (void *)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_CART_ATTACH_DETACH_RESET,
-      NULL, NULL },
-    { "+cartreset", SET_RESOURCE, 0,
+      NULL, "Reset machine if a cartridge is attached or detached" },
+    { "+cartreset", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "CartridgeReset", (void *)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_CART_ATTACH_DETACH_NO_RESET,
-      NULL, NULL },
+      NULL, "Do not reset machine if a cartridge is attached or detached" },
     /* no cartridge */
-    { "+cart", CALL_FUNCTION, 0,
+    { "+cart", CALL_FUNCTION, CMDLINE_ATTRIB_NONE,
       cart_attach_cmdline, NULL, NULL, NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_CART,
-      NULL, NULL },
+      NULL, "Disable default cartridge" },
     CMDLINE_LIST_END
 };
 
@@ -764,6 +757,16 @@ void cartridge_set_default(void)
     cartridge_type = type; /* resource value modified */
 }
 
+
+/** \brief  Wipe "default cartidge"
+ */
+void cartridge_unset_default(void)
+{
+    util_string_set(&cartridge_file, "");
+    cartridge_type = CARTRIDGE_NONE;
+}
+
+
 int cartridge_save_image(int type, const char *filename)
 {
     char *ext = util_get_extension((char *)filename);
@@ -866,3 +869,16 @@ void cartridge_init(void)
     cartridge_int_num = interrupt_cpu_status_int_new(maincpu_int_status, "Cartridge");
 }
 
+
+const char *cartridge_current_filename(void)
+{
+    return cartfile;
+}
+
+void cartridge_wipe_filename(void)
+{
+    if (cartridge_file != NULL) {
+        lib_free(cartridge_file);
+        cartridge_file = NULL;
+    }
+}

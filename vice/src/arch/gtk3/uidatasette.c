@@ -29,8 +29,24 @@
 #include "uidatasette.h"
 #include "datasette.h"
 #include "uitapeattach.h"
+#include "uisettings.h"
 
 #include <stdio.h>
+
+
+/** \brief  Handler for the "activate" event of the "Configure" menu item
+ *
+ * Pop up the settings UI and select "I/O extensions" -> "Tapeport devices"
+ *
+ * \param[in]   widget  menu item triggering the event
+ * \param[in]   data    extra event data (unused)
+ */
+static void on_configure_activate(GtkWidget *widget, gpointer data)
+{
+    ui_settings_dialog_create_and_activate_node(
+            "io-extensions/tapeport-devices");
+}
+
 
 void ui_datasette_tape_action_cb(GtkWidget *widget, gpointer data)
 {
@@ -48,24 +64,32 @@ GtkWidget *ui_create_datasette_control_menu(void)
     int i;
 
     menu = gtk_menu_new();
-    item = gtk_menu_item_new_with_label(_("Attach tape image..."));
+    item = gtk_menu_item_new_with_label("Attach tape image...");
     gtk_container_add(GTK_CONTAINER(menu), item);
     g_signal_connect(item, "activate", G_CALLBACK(ui_tape_attach_callback), NULL);
-    item = gtk_menu_item_new_with_label(_("Detach tape image"));
+    item = gtk_menu_item_new_with_label("Detach tape image");
     gtk_container_add(GTK_CONTAINER(menu), item);
     g_signal_connect(item, "activate", G_CALLBACK(ui_tape_detach_callback), NULL);
     gtk_container_add(GTK_CONTAINER(menu), gtk_separator_menu_item_new());
-    menu_items[0] = gtk_menu_item_new_with_label(_("Stop"));
-    menu_items[1] = gtk_menu_item_new_with_label(_("Start"));
-    menu_items[2] = gtk_menu_item_new_with_label(_("Forward"));
-    menu_items[3] = gtk_menu_item_new_with_label(_("Rewind"));
-    menu_items[4] = gtk_menu_item_new_with_label(_("Record"));
-    menu_items[5] = gtk_menu_item_new_with_label(_("Reset"));
-    menu_items[6] = gtk_menu_item_new_with_label(_("Reset Counter"));
+    menu_items[0] = gtk_menu_item_new_with_label("Stop");
+    menu_items[1] = gtk_menu_item_new_with_label("Start");
+    menu_items[2] = gtk_menu_item_new_with_label("Forward");
+    menu_items[3] = gtk_menu_item_new_with_label("Rewind");
+    menu_items[4] = gtk_menu_item_new_with_label("Record");
+    menu_items[5] = gtk_menu_item_new_with_label("Reset");
+    menu_items[6] = gtk_menu_item_new_with_label("Reset Counter");
     for (i = 0; i <= DATASETTE_CONTROL_RESET_COUNTER; ++i) {
         gtk_container_add(GTK_CONTAINER(menu), menu_items[i]);
         g_signal_connect(menu_items[i], "activate", G_CALLBACK(ui_datasette_tape_action_cb), GINT_TO_POINTER(i));
     }
+
+    /* add "configure tapeport devices" */
+    gtk_container_add(GTK_CONTAINER(menu), gtk_separator_menu_item_new());
+    item = gtk_menu_item_new_with_label("Configure tapeport devices ...");
+    g_signal_connect(item, "activate", G_CALLBACK(on_configure_activate),
+            NULL);
+    gtk_container_add(GTK_CONTAINER(menu), item);
+
     gtk_widget_show_all(menu);
     return menu;
 }

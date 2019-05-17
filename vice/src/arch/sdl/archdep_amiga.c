@@ -69,13 +69,6 @@
 #endif
 
 
-/** \brief  Tokens that are illegal in a path/filename
- *
- */
-static const char *illegal_name_tokens = "/?*:";
-
-
-static char *boot_path = NULL;
 static int run_from_wb = 0;
 
 #ifndef AMIGA_OS4
@@ -109,7 +102,7 @@ int SDL_Init(Uint32 flags)
 
     if (!SDLLIBBASE) {
         printf("Unable to open %s\n", SDLLIBNAME);
-        exit(0);
+        archdep_vice_exit(0);
     }
 
     return SDL_RealInit(flags);
@@ -123,7 +116,7 @@ int VICE_SDL_Init(Uint32 flags)
 
     if (!SDLLIBBASE) {
         printf("Unable to open %s\n", SDLLIBNAME);
-        exit(0);
+        archdep_vice_exit(0);
     }
     return SDL_Init(flags);
 }
@@ -236,107 +229,7 @@ static int archdep_init_extra(int *argc, char **argv)
     return 0;
 }
 
-char *archdep_program_name(void)
-{
-    static char *program_name = NULL;
-
-    if (program_name == NULL) {
-        char *p, name[1024];
-
-        GetProgramName(name, 1024);
-        p = FilePart(name);
-
-        if (p != NULL) {
-            program_name = lib_stralloc(p);
-        }
-    }
-
-    return program_name;
-}
-
-const char *archdep_boot_path(void)
-{
-    if (boot_path == NULL) {
-        char cwd[1024];
-        BPTR lock;
-
-        lock = GetProgramDir();
-        if (NameFromLock(lock, cwd, 1024)) {
-            if (cwd[strlen(cwd) - 1] != ':') {
-                strcat(cwd, "/");
-            }
-            boot_path = lib_stralloc(cwd);
-        }
-    }
-
-    return boot_path;
-}
-
-char *archdep_default_sysfile_pathlist(const char *emu_id)
-{
-    static char *default_path;
-
-    if (default_path == NULL) {
-        const char *boot_path;
-
-        boot_path = archdep_boot_path();
-
-        default_path = util_concat(emu_id, ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                                   boot_path, emu_id, ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                                   "DRIVES", ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                                   boot_path, "DRIVES", ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                                   "PRINTER", ARCHDEP_FINDPATH_SEPARATOR_STRING,
-                                   boot_path, "PRINTER", NULL);
-    }
-
-    return default_path;
-}
-
-/* Return a malloc'ed backup file name for file `fname'.  */
-char *archdep_make_backup_filename(const char *fname)
-{
-    return util_concat(fname, "~", NULL);
-}
-
-char *archdep_default_resource_file_name(void)
-{
-    const char *home;
-
-    home = archdep_boot_path();
-    return util_concat(home, "vice-sdl.ini", NULL);
-}
-
-
-/** \brief  Get path to VICE session file
- *
- * The 'session file' is a file that is used to store settings between VICE
- * runs, storing things like the last used directory.
- *
- * \return  path to session file
- */
-char *archdep_default_session_file_name(void)
-{
-    return util_concat(archdep_boot_path(), "/vice-sdl-session.ini", NULL);
-}
-
-
-char *archdep_default_fliplist_file_name(void)
-{
-    const char *home;
-
-    home = archdep_boot_path();
-    return util_concat(home, "fliplist-", machine_get_name(), ".vfl", NULL);
-}
-
-
-char *archdep_default_rtc_file_name(void)
-{
-    const char *home;
-
-    home = archdep_boot_path();
-    return util_concat(home, "vice-sdl.rtc", NULL);
-}
-
+#if 0
 char *archdep_default_autostart_disk_image_file_name(void)
 {
     const char *home;
@@ -344,6 +237,7 @@ char *archdep_default_autostart_disk_image_file_name(void)
     home = archdep_boot_path();
     return util_concat(home, "autostart-", machine_get_name(), ".d64", NULL);
 }
+#endif
 
 char *archdep_default_hotkey_file_name(void)
 {
@@ -361,11 +255,8 @@ char *archdep_default_joymap_file_name(void)
     return util_concat(home, "sdl-joymap-", machine_get_name(), ".vjm", NULL);
 }
 
-char *archdep_default_save_resource_file_name(void)
-{
-    return archdep_default_resource_file_name();
-}
 
+#if 0
 FILE *archdep_open_default_log_file(void)
 {
     if (run_from_wb) {
@@ -386,44 +277,17 @@ FILE *archdep_open_default_log_file(void)
         return stdout;
     }
 }
+#endif
 
 int archdep_default_logger(const char *level_string, const char *txt)
 {
     return 0;
 }
 
-int archdep_path_is_relative(const char *path)
-{
-    if (path == NULL) {
-        return 0;
-    }
-
-    return (strchr(path, ':') == NULL);
-}
 
 int archdep_spawn(const char *name, char **argv, char **stdout_redir, const char *stderr_redir)
 {
     return -1;
-}
-
-/* return malloc'd version of full pathname of orig_name */
-int archdep_expand_path(char **return_path, const char *orig_name)
-{
-    BPTR lock;
-
-    lock = Lock(orig_name, ACCESS_READ);
-    if (lock) {
-        char name[1024];
-        LONG rc;
-        rc = NameFromLock(lock, name, 1024);
-        UnLock(lock);
-        if (rc) {
-            *return_path = lib_stralloc(name);
-            return 0;
-        }
-    }
-    *return_path = lib_stralloc(orig_name);
-    return 0;
 }
 
 
@@ -436,29 +300,12 @@ void archdep_sanitize_path(char *path)
     return; /* FIXME: stub */
 }
 
-
-void archdep_startup_log_error(const char *format, ...)
-{
-    va_list ap;
-    va_start(ap, format);
-    vfprintf(stderr, format, ap);
-    va_end(ap);
-}
-
-char *archdep_filename_parameter(const char *name)
-{
-    return lib_stralloc(name);
-}
-
-char *archdep_quote_parameter(const char *name)
-{
-    return lib_stralloc(name);
-}
-
+#if 0
 char *archdep_tmpnam(void)
 {
     return lib_stralloc(tmpnam(NULL));
 }
+#endif
 
 FILE *archdep_mkstemp_fd(char **filename, const char *mode)
 {
@@ -478,47 +325,6 @@ FILE *archdep_mkstemp_fd(char **filename, const char *mode)
     return fd;
 }
 
-
-int archdep_mkdir(const char *pathname, int mode)
-{
-    return mkdir(pathname, (mode_t)mode);
-}
-
-int archdep_rmdir(const char *pathname)
-{
-    return rmdir(pathname);
-}
-
-int archdep_stat(const char *file_name, unsigned int *len, unsigned int *isdir)
-{
-    struct stat statbuf;
-
-    if (stat(file_name, &statbuf) < 0) {
-        return -1;
-    }
-
-    *len = statbuf.st_size;
-    *isdir = S_ISDIR(statbuf.st_mode);
-
-    return 0;
-}
-
-/* set permissions of given file to rw, respecting current umask */
-int archdep_fix_permissions(const char *file_name)
-{
-    SetProtection(file_name, 0);
-    return 0;
-}
-
-int archdep_file_is_blockdev(const char *name)
-{
-    return 0;
-}
-
-int archdep_file_is_chardev(const char *name)
-{
-    return 0;
-}
 
 int archdep_require_vkbd(void)
 {
@@ -591,10 +397,6 @@ void archdep_set_current_drive(const char *drive)
     }
 }
 
-int archdep_rename(const char *oldpath, const char *newpath)
-{
-    return rename(oldpath, newpath);
-}
 
 /* returns host keyboard mapping. used to initialize the keyboard map when
    starting with a black (default) config, so an educated guess works good
@@ -606,12 +408,3 @@ int kbd_arch_get_host_mapping(void)
 {
     return KBD_MAPPING_US;
 }
-
-#ifdef USE_SDLUI2
-char *archdep_sdl2_default_renderers[] = {
-    "opengl",
-    "compositing",
-    "software",
-    NULL
-};
-#endif

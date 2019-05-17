@@ -52,7 +52,6 @@
 #include "resources.h"
 #include "snapshot.h"
 #include "spi-sdcard.h"
-#include "translate.h"
 #include "types.h"
 #include "util.h"
 
@@ -630,7 +629,7 @@ int mmc64_mmu_translate(unsigned int addr, uint8_t **base, int *start, int *limi
     return CART_READ_THROUGH;
 }
 
-void mmc64_config_init(export_t *export)
+void mmc64_config_init(export_t *ex)
 {
     LOG(("MMC64 mmc64_config_init"));
 
@@ -648,8 +647,8 @@ void mmc64_config_init(export_t *export)
     mmc64_extexrom = 0;
     mmc64_extgame = 0;
 #endif
-    mmc64_extexrom = export->exrom;
-    mmc64_extgame = export->game;
+    mmc64_extexrom = ex->exrom;
+    mmc64_extgame = ex->game;
 
     if (mmc64_enabled) {
 #if USEPASSTHROUGHHACK
@@ -663,10 +662,10 @@ void mmc64_config_init(export_t *export)
     }
 }
 
-void mmc64_passthrough_changed(export_t *export)
+void mmc64_passthrough_changed(export_t *ex)
 {
-    mmc64_extexrom = export->exrom;
-    mmc64_extgame = export->game;
+    mmc64_extexrom = ex->exrom;
+    mmc64_extgame = ex->game;
     LOG(("MMC64 passthrough changed exrom: %d game: %d (mmc64_active: %d)", mmc64_extexrom, mmc64_extgame, mmc64_active));
     if (!mmc64_active) {
         cart_set_port_game_slot0(mmc64_extgame);
@@ -1166,76 +1165,50 @@ void mmc64_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-mmc64", SET_RESOURCE, 0,
+    { "-mmc64", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MMC64", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_MMC64,
-      NULL, NULL },
-    { "+mmc64", SET_RESOURCE, 0,
+      NULL, "Enable the MMC64 expansion" },
+    { "+mmc64", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MMC64", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_MMC64,
-      NULL, NULL },
-    { "-mmc64bios", SET_RESOURCE, 1,
+      NULL, "Disable the MMC64 expansion" },
+    { "-mmc64bios", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "MMC64BIOSfilename", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SPECIFY_MMC64_BIOS_NAME,
-      NULL, NULL },
-    { "-mmc64image", SET_RESOURCE, 1,
+      "<Name>", "Specify name of MMC64 BIOS image" },
+    { "-mmc64image", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "MMC64imagefilename", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SPECIFY_MMC64_IMAGE_NAME,
-      NULL, NULL },
-    { "-mmc64readonly", SET_RESOURCE, 0,
+      "<Name>", "Specify name of MMC64 image" },
+    { "-mmc64readonly", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MMC64_RO", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_MMC64_READONLY,
-      NULL, NULL },
-    { "-mmc64readwrite", SET_RESOURCE, 0,
+      NULL, "Set the MMC64 card to read-only" },
+    { "-mmc64readwrite", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MMC64_RO", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_MMC64_READWRITE,
-      NULL, NULL },
-    { "-mmc64bioswrite", SET_RESOURCE, 0,
+      NULL, "Set the MMC64 card to read/write" },
+    { "-mmc64bioswrite", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MMC64_bios_write", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_MMC64_BIOS_WRITE,
-      NULL, NULL },
-    { "-mmc64biosreadonly", SET_RESOURCE, 0,
+      NULL, "Save the MMC64 bios when changed" },
+    { "-mmc64biosreadonly", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MMC64_bios_write", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_MMC64_BIOS_READ_ONLY,
-      NULL, NULL },
-    { "-mmc64flash", SET_RESOURCE, 0,
+      NULL, "Do not save the MMC64 bios when changed" },
+    { "-mmc64flash", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MMC64_flashjumper", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_MMC64_SET_FLASH_JUMPER,
-      NULL, NULL },
-    { "+mmc64flash", SET_RESOURCE, 0,
+      NULL, "Set the MMC64 Flash Jumper" },
+    { "+mmc64flash", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MMC64_flashjumper", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_MMC64_UNSET_FLASH_JUMPER,
-      NULL, NULL },
-    { "-mmc64rev", SET_RESOURCE, 1,
+      NULL, "Remove the MMC64 Flash Jumper" },
+    { "-mmc64rev", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "MMC64_revision", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_REVISION, IDCLS_SPECIFY_MMC64_REVISION,
-      NULL, NULL },
-    { "-mmc64sdtype", SET_RESOURCE, 1,
+      "<Revision>", "Specify MMC64 revision (0: Rev A, 1: Rev B)" },
+    { "-mmc64sdtype", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "MMC64_sd_type", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_TYPE, IDCLS_SPECIFY_MMC64_SD_TYPE,
-      NULL, NULL },
+      "<Type>", "Specify MMC64 SD type (0: auto, 1: MMC, 2: SD, 3: SDHC)" },
     CMDLINE_LIST_END
 };
 
 static cmdline_option_t clockport_cmdline_options[] =
 {
-    { "-mmc64clockportdevice", SET_RESOURCE, 1,
+    { "-mmc64clockportdevice", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "MMC64ClockPort", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_COMBO,
-      IDCLS_P_DEVICE, IDCLS_CLOCKPORT_DEVICE,
-      NULL, NULL },
+      "<device>", NULL },
     CMDLINE_LIST_END
 };
 
@@ -1251,7 +1224,7 @@ int mmc64_cmdline_options_init(void)
 
     sprintf(number, "%d", clockport_supported_devices[0].id);
 
-    clockport_device_names = util_concat(". (", number, ": ", clockport_supported_devices[0].name, NULL);
+    clockport_device_names = util_concat("Clockport device. (", number, ": ", clockport_supported_devices[0].name, NULL);
 
     for (i = 1; clockport_supported_devices[i].name; ++i) {
         tmp = clockport_device_names;

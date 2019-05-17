@@ -1,9 +1,10 @@
-/**
+/** \file   uisettings.h
  * \brief   GTK3 settings dialog - header
  *
- * Written by
- *  Bas Wassink <b.wassink@ziggo.nl>
- *
+ * \author  Bas Wassink <b.wassink@ziggo.nl>
+ */
+
+/*
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -28,7 +29,7 @@
 
 #include "vice.h"
 #include <gtk/gtk.h>
-#include <stdbool.h>
+#include "resourcewidgetmanager.h"
 
 
 /** \brief  Settings tree node object
@@ -52,11 +53,12 @@ typedef struct ui_settings_tree_node_s {
 
 void ui_settings_dialog_callback(GtkWidget *widget, gpointer user_data);
 
-void ui_settings_dialog_create(GtkWidget *, gpointer user_data);
-void ui_settings_dialog_shutdown(void);
+gboolean ui_settings_dialog_create(GtkWidget *, gpointer user_data);
+gboolean ui_settings_dialog_create_and_activate_node(const char *path);
+gboolean ui_settings_dialog_activate_node(const char *path);
 
-bool ui_settings_iter_by_xpath(const char *path, GtkTreeIter *iter);
-bool ui_settings_append_by_xpath(const char *path,
-                                 ui_settings_tree_node_t *nodes);
+void ui_settings_set_resource_widget_manager(resource_widget_manager_t *ref);
+
+void ui_settings_shutdown(void);
 
 #endif

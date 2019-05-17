@@ -55,7 +55,6 @@ PIN | PIN | NOTES
 #include "c64_diag_586220_harness.h"
 #include "cmdline.h"
 #include "resources.h"
-#include "translate.h"
 #include "userport.h"
 #include "userport_diag_586220_harness.h"
 
@@ -78,7 +77,6 @@ static void userport_diag_586220_harness_store_sp2(uint8_t value);
 static userport_device_t diag_586220_harness_device = {
     USERPORT_DEVICE_RTC_58321A,
     "Userport diag 586220 harness",
-    IDGS_USERPORT_DIAG_586220_HARNESS,
     userport_diag_586220_harness_read_pbx,
     userport_diag_586220_harness_store_pbx,
     userport_diag_586220_harness_read_pa2,
@@ -136,16 +134,12 @@ int userport_diag_586220_harness_resources_init(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-userportdiag586220harness", SET_RESOURCE, 0,
+    { "-userportdiag586220harness", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "UserportDiag586220Harness", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_USERPORT_DIAG_586220_HARNESS,
-      NULL, NULL },
-    { "+userportdiag586220harness", SET_RESOURCE, 0,
+      NULL, "Enable Userport diag 586220 harness module" },
+    { "+userportdiag586220harness", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "UserportDiag586220Harness", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_USERPORT_DIAG_586220_HARNESS,
-      NULL, NULL },
+      NULL, "Disable Userport diag 586220 harness module" },
     CMDLINE_LIST_END
 };
 

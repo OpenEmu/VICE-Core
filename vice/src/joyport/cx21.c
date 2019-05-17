@@ -32,7 +32,6 @@
 
 #include "joyport.h"
 #include "keyboard.h"
-#include "translate.h"
 
 #include "cx21.h"
 
@@ -117,7 +116,7 @@ static void handle_keys(int row, int col, int pressed)
 
 /* ------------------------------------------------------------------------- */
 
-static int joyport_cx21_enable(int port, int value)
+static int joyport_cx21_enable(int prt, int value)
 {
     int val = value ? 1 : 0;
 
@@ -237,7 +236,6 @@ static uint8_t cx21_read_poty(void)
 
 static joyport_t joyport_cx21_device = {
     "Atari CX21 keypad",
-    IDGS_CX21,
     JOYPORT_RES_ID_KEYPAD,
     JOYPORT_IS_NOT_LIGHTPEN,
     JOYPORT_POT_REQUIRED,

@@ -37,7 +37,6 @@
 #include "cartridge.h"
 #include "cartio.h"
 #include "clkguard.h"
-#include "cmdline.h"
 #include "coplin_keypad.h"
 #include "cx21.h"
 #include "cx85.h"
@@ -87,7 +86,6 @@
 #include "sound.h"
 #include "tape.h"
 #include "tapeport.h"
-#include "translate.h"
 #include "traps.h"
 #include "types.h"
 #include "userport.h"
@@ -428,7 +426,6 @@ static void vic20io0_init(void)
 
 static joyport_port_props_t control_port = {
     "Control port",
-    IDGS_CONTROL_PORT,
     1,  /* has a potentiometer connected to this port */
     1,  /* has lightpen support on this port */
     1   /* port is always active */
@@ -436,7 +433,6 @@ static joyport_port_props_t control_port = {
 
 static joyport_port_props_t userport_joy_control_port_1 = {
     "Userport joystick adapter port 1",
-    IDGS_USERPORT_JOY_ADAPTER_PORT_1,
     0,  /* has NO potentiometer connected to this port */
     0,  /* has NO lightpen support on this port */
     0   /* port can be switched on/off */
@@ -444,7 +440,6 @@ static joyport_port_props_t userport_joy_control_port_1 = {
 
 static joyport_port_props_t userport_joy_control_port_2 = {
     "Userport joystick adapter port 2",
-    IDGS_USERPORT_JOY_ADAPTER_PORT_2,
     0,  /* has NO potentiometer connected to this port */
     0,  /* has NO lightpen support on this port */
     0   /* port can be switched on/off */
@@ -938,12 +933,11 @@ int machine_specific_init(void)
                    (delay * VIC20_PAL_RFSH_PER_SEC * VIC20_PAL_CYCLES_PER_RFSH),
                    1, 0xcc, 0xd1, 0xd3, 0xd5);
 
-#if defined(USE_BEOS_UI) || defined (USE_NATIVE_GTK3)
     /* Pre-init VIC20-specific parts of the menus before vic_init()
-       creates a canvas window with a menubar at the top. This could
-       also be used by other ports.  */
-    vic20ui_init_early();
-#endif
+       creates a canvas window with a menubar at the top. */
+    if (!console_mode) {
+        vic20ui_init_early();
+    }
 
     /* Initialize the VIC-I emulation.  */
     if (vic_init() == NULL) {
@@ -1024,16 +1018,6 @@ int machine_specific_init(void)
 
     machine_drive_stub();
 
-#if defined (USE_XF86_EXTENSIONS) && (defined(USE_XF86_VIDMODE_EXT) || defined (HAVE_XRANDR))
-    {
-        /* set fullscreen if user used `-fullscreen' on cmdline */
-        int fs;
-        resources_get_int("UseFullscreen", &fs);
-        if (fs) {
-            resources_set_int("VICFullscreen", 1);
-        }
-    }
-#endif
     return 0;
 }
 

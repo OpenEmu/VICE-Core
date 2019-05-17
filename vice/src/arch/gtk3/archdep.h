@@ -2,6 +2,9 @@
  * \brief   Miscellaneous system-specific stuff - header
  *
  * \author  Marco van den Heuvel <blackystardust68@yahoo.com>
+ *
+ * \note    Do NOT \#include stdbool.h here, that will lead to weird bugs in
+ *          the monitor code.
  */
 
 /*
@@ -28,8 +31,8 @@
 #ifndef VICE_ARCHDEP_H
 #define VICE_ARCHDEP_H
 
+/* XXX: do NOT include <stdbool.h>, causes bugs in monitor code */
 #include "vice.h"
-
 #include "sound.h"
 
 /* Extra functions for SDL UI */
@@ -81,7 +84,7 @@ int archdep_require_vkbd(void);
 #define ARCHDEP_SOUND_OUTPUT_MODE SOUND_OUTPUT_SYSTEM
 
 /* define if the platform supports the monitor in a seperate window */
-/* #define ARCHDEP_SEPERATE_MONITOR_WINDOW */
+#define ARCHDEP_SEPERATE_MONITOR_WINDOW
 
 #ifdef UNIX_COMPILE
 #include "archdep_unix.h"
@@ -95,6 +98,20 @@ int archdep_require_vkbd(void);
  * New additions (since the Gtk3-native port)
  */
 
+/* Get user configuration directory */
+/* FIXME: why does this need to be here as well as in
+ * arch/shared/archdep_user_config_path?
+ */
 char *archdep_user_config_path(void);
+void  archdep_user_config_path_free(void);
+/* Get the absolute path to the directory that contains resources, icons, etc */
+char *archdep_get_vice_datadir(void);
+/* Get the absolute path to the directory that contains the documentation */
+char *archdep_get_vice_docsdir(void);
+
+/* Register CBM font with the OS without installing */
+int archdep_register_cbmfont(void);
+/* Unregister CBM font */
+void archdep_unregister_cbmfont(void);
 
 #endif

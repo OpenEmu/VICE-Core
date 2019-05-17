@@ -41,7 +41,6 @@
 #include "userport.h"
 #include "userport_digimax.h"
 #include "util.h"
-#include "translate.h"
 
 #include "digimaxcore.c"
 
@@ -76,7 +75,6 @@ static int userport_digimax_read_snapshot_module(snapshot_t *s);
 static userport_device_t digimax_device = {
     USERPORT_DEVICE_DIGIMAX,
     "Userport DigiMAX",
-    IDGS_USERPORT_DIGIMAX,
     NULL, /* NO pbx read */
     userport_digimax_store_pbx,
     NULL, /* NO pa2 read */
@@ -185,16 +183,12 @@ int userport_digimax_resources_init(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-userportdigimax", SET_RESOURCE, 0,
+    { "-userportdigimax", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "UserportDIGIMAX", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_USERPORT_DIGIMAX,
-      NULL, NULL },
-    { "+userportdigimax", SET_RESOURCE, 0,
+      NULL, "Enable the userport DigiMAX device" },
+    { "+userportdigimax", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "UserportDIGIMAX", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_USERPORT_DIGIMAX,
-      NULL, NULL },
+      NULL, "Disable the userport DigiMAX device" },
     CMDLINE_LIST_END
 };
 

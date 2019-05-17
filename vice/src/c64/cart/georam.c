@@ -43,7 +43,6 @@
 #include "resources.h"
 #include "georam.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "types.h"
 #include "util.h"
 
@@ -459,51 +458,35 @@ void georam_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-georam", SET_RESOURCE, 0,
+    { "-georam", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "GEORAM", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_GEORAM,
-      NULL, NULL },
-    { "+georam", SET_RESOURCE, 0,
+      NULL, "Enable the GEO-RAM expansion unit" },
+    { "+georam", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "GEORAM", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_GEORAM,
-      NULL, NULL },
-    { "-georamsize", SET_RESOURCE, 1,
+      NULL, "Disable the GEO-RAM expansion unit" },
+    { "-georamsize", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "GEORAMsize", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_SIZE_IN_KB, IDCLS_GEORAM_SIZE,
-      NULL, NULL },
-    { "-georamimage", SET_RESOURCE, 1,
+      "<size in KB>", "Size of the GEORAM expansion unit" },
+    { "-georamimage", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "GEORAMfilename", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SPECIFY_GEORAM_NAME,
-      NULL, NULL },
-    { "-georamimagerw", SET_RESOURCE, 0,
+      "<Name>", "Specify name of GEORAM image" },
+    { "-georamimagerw", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "GEORAMImageWrite", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ALLOW_WRITING_TO_GEORAM_IMAGE,
-      NULL, NULL },
-    { "+georamimagerw", SET_RESOURCE, 0,
+      NULL, "Allow writing to GEORAM image" },
+    { "+georamimagerw", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "GEORAMImageWrite", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DO_NOT_WRITE_TO_GEORAM_IMAGE,
-      NULL, NULL },
+      NULL, "Do not write to GEORAM image" },
     CMDLINE_LIST_END
 };
 
 static const cmdline_option_t cmdline_mascuerade_options[] =
 {
-    { "-georamioswap", SET_RESOURCE, 0,
+    { "-georamioswap", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "GEORAMIOSwap", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_SWAP_CART_IO,
-      NULL, NULL },
-    { "+georamioswap", SET_RESOURCE, 0,
+      NULL, "Swap io mapping (map cart I/O-1 to VIC20 I/O-3 and cart I/O-2 to VIC20 I/O-2)" },
+    { "+georamioswap", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "GEORAMIOSwap", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DONT_SWAP_CART_IO,
-      NULL, NULL },
+      NULL, "Don't swap io mapping (map cart I/O-1 to VIC20 I/O-2 and cart I/O-2 to VIC20 I/O-3)" },
     CMDLINE_LIST_END
 };
 

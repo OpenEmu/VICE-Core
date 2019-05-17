@@ -51,7 +51,6 @@ TAPEPORT | TAPELOG
 #include "resources.h"
 #include "snapshot.h"
 #include "tapeport.h"
-#include "translate.h"
 #include "util.h"
 
 #include "tapelog.h"
@@ -93,7 +92,6 @@ static int tapelog_read_snapshot(struct snapshot_s *s);
 static tapeport_device_t tapelog_device = {
     TAPEPORT_DEVICE_TAPE_LOG,
     "Tape Log",
-    IDGS_TAPE_LOG,
     0,
     "TapeLog",
     NULL,
@@ -293,31 +291,21 @@ void tapelog_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-tapelog", SET_RESOURCE, 0,
+    { "-tapelog", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "TapeLog", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_TAPELOG,
-      NULL, NULL },
-    { "+tapelog", SET_RESOURCE, 0,
+      NULL, "Enable the tape log device" },
+    { "+tapelog", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "TapeLog", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_TAPELOG,
-      NULL, NULL },
-    { "-tapelogtofile", SET_RESOURCE, 0,
+      NULL, "Disable the tape log device" },
+    { "-tapelogtofile", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "TapeLogDestination", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_TAPELOG_LOG_TO_FILE,
-      NULL, NULL },
-    { "-tapelogtolog", SET_RESOURCE, 0,
+      NULL, "Enable logging to a file" },
+    { "-tapelogtolog", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "TapeLogDestination", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_TAPELOG_LOG_TO_LOG,
-      NULL, NULL },
-    { "-tapelogimage", SET_RESOURCE, 1,
+      NULL, "Enable logging to the emulator log file" },
+    { "-tapelogimage", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "TapeLogfilename", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SPECIFY_TAPELOG_NAME,
-      NULL, NULL },
+      "<Name>", "Specify tape log file name" },
     CMDLINE_LIST_END
 };
 

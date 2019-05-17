@@ -39,7 +39,6 @@
 #include "lib.h"
 #include "log.h"
 #include "resources.h"
-#include "translate.h"
 #include "types.h"
 #include "util.h"
 
@@ -67,6 +66,53 @@ static void setup_button_mapping(joystick_descriptor_t *joy);
 static void setup_auto_button_mapping(joystick_descriptor_t *joy);
 static void setup_hat_switch_mapping(joystick_descriptor_t *joy);
 static void setup_auto(void);
+
+/* FIXME: implement listing the joystick devices here */
+
+/** \brief  Struct containing device name and id
+ */
+typedef struct device_info_s {
+    const char *name;   /**< device name */
+    int         id;     /**< device ID (\see joy.h) */
+} device_info_t;
+
+static device_info_t predefined_device_list[] = {
+#ifdef HAS_JOYSTICK
+    { "Analog joystick 0",  JOYDEV_ANALOG_0 },
+    { "Analog joystick 1",  JOYDEV_ANALOG_1 },
+    { "Analog joystick 2",  JOYDEV_ANALOG_2 },
+    { "Analog joystick 3",  JOYDEV_ANALOG_3 },
+    { "Analog joystick 4",  JOYDEV_ANALOG_4 },
+    { "Analog joystick 5",  JOYDEV_ANALOG_5 },
+#endif
+#ifdef HAS_DIGITAL_JOYSTICK
+    { "Digital joystick 0", JOYDEV_DIGITAL_0 },
+    { "Digital joystick 1", JOYDEV_DIGITAL_1 },
+#endif
+#ifdef HAS_USB_JOYSTICK
+    { "USB joystick 0",     JOYDEV_USB_0 },
+    { "USB joystick 1",     JOYDEV_USB_1 },
+#endif
+    { NULL, -1 }
+};
+
+static int joystickdeviceidx = 0;
+
+void joystick_ui_reset_device_list(void)
+{
+    joystickdeviceidx = 0;
+}
+
+const char *joystick_ui_get_next_device_name(int *id)
+{
+    const char *name;
+    if ((name = predefined_device_list[joystickdeviceidx].name)) {
+        *id = predefined_device_list[joystickdeviceidx].id;
+        joystickdeviceidx++;
+        return name;
+    }
+    return NULL;
+}
 
 /* HID settings */
 
@@ -473,132 +519,96 @@ int joy_arch_resources_init(void)
 
 /* ----- VICE Command-line options ----- */
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-joyAdevice", SET_RESOURCE, 1,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-joyAdevice", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyADevice", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<vid:pid:sn>", N_("Set HID A device") },
-    { "-joyAxaxis", SET_RESOURCE, 1,
+      "<vid:pid:sn>", "Set HID A device" },
+    { "-joyAxaxis", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyAXAxis", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<X,Y,Z,Rx,Ry,Rz>", N_("Set X Axis for HID A device") },
-    { "-joyAyaxis", SET_RESOURCE, 1,
+      "<X,Y,Z,Rx,Ry,Rz>", "Set X Axis for HID A device" },
+    { "-joyAyaxis", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyAYAxis", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<X,Y,Z,Rx,Ry,Rz>", N_("Set Y Axis for HID A device") },
-    { "-joyAbuttons", SET_RESOURCE, 1,
+      "<X,Y,Z,Rx,Ry,Rz>", "Set Y Axis for HID A device" },
+    { "-joyAbuttons", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyAButtons", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<f:af:l:r:u:d>", N_("Set Buttons for HID A device") },
-    { "-joyAautobuttons", SET_RESOURCE, 1,
+      "<f:af:l:r:u:d>", "Set Buttons for HID A device" },
+    { "-joyAautobuttons", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyAAutoButtons", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<af1:af2:af1p:af1r:af2p:af2r>", N_("Set Auto Fire Buttons for HID A device") },
-    { "-joyAxthreshold", SET_RESOURCE, 1,
+      "<af1:af2:af1p:af1r:af2p:af2r>", "Set Auto Fire Buttons for HID A device" },
+    { "-joyAxthreshold", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyAXThreshold", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<0-100>", N_("Set X Axis Threshold in Percent of HID A device") },
-    { "-joyAythreshold", SET_RESOURCE, 1,
+      "<0-100>", "Set X Axis Threshold in Percent of HID A device" },
+    { "-joyAythreshold", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyAYThreshold", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<0-100>", N_("Set Y Axis Threshold in Percent of HID A device") },
-    { "-joyBdevice", SET_RESOURCE, 1,
+      "<0-100>", "Set Y Axis Threshold in Percent of HID A device" },
+    { "-joyBdevice", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyBDevice", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<vid:pid:sn>", N_("Set HID B device") },
-    { "-joyBxaxis", SET_RESOURCE, 1,
+      "<vid:pid:sn>", "Set HID B device" },
+    { "-joyBxaxis", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyBXAxis", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<X,Y,Z,Rx,Ry,Rz>", N_("Set X Axis for HID B device") },
-    { "-joyByaxis", SET_RESOURCE, 1,
+      "<X,Y,Z,Rx,Ry,Rz>", "Set X Axis for HID B device" },
+    { "-joyByaxis", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyBYAxis", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<X,Y,Z,Rx,Ry,Rz>", N_("Set Y Axis for HID B device") },
-    { "-joyBbuttons", SET_RESOURCE, 1,
+      "<X,Y,Z,Rx,Ry,Rz>", "Set Y Axis for HID B device" },
+    { "-joyBbuttons", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyBButtons", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<f:af:l:r:u:d>", N_("Set Buttons for HID B device") },
-    { "-joyBautobuttons", SET_RESOURCE, 1,
+      "<f:af:l:r:u:d>", "Set Buttons for HID B device" },
+    { "-joyBautobuttons", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyBAutoButtons", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<af1:af2:af1p:af1r:af2p:af2r>", N_("Set Auto Fire Buttons for HID B device") },
-    { "-joyBxthreshold", SET_RESOURCE, 1,
+      "<af1:af2:af1p:af1r:af2p:af2r>", "Set Auto Fire Buttons for HID B device" },
+    { "-joyBxthreshold", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyBXThreshold", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<0-100>", N_("Set X Axis Threshold in Percent of HID B device") },
-    { "-joyBythreshold", SET_RESOURCE, 1,
+      "<0-100>", "Set X Axis Threshold in Percent of HID B device" },
+    { "-joyBythreshold", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyBYThreshold", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<0-100>", N_("Set Y Axis Threshold in Percent of HID B device") },
-    { "-joyAhatswitch", SET_RESOURCE, 1,
+      "<0-100>", "Set Y Axis Threshold in Percent of HID B device" },
+    { "-joyAhatswitch", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyAHatSwitch", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<0-n>", N_("Set Hat Switch for Joystick of HID A device") },
-    { "-joyBhatswitch", SET_RESOURCE, 1,
+      "<0-n>", "Set Hat Switch for Joystick of HID A device" },
+    { "-joyBhatswitch", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyBHatSwitch", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<0-n>", N_("Set Hat Switch for Joystick of HID B device") },
+      "<0-n>", "Set Hat Switch for Joystick of HID B device" },
     CMDLINE_LIST_END
 };
 
-static const cmdline_option_t joydev1cmdline_options[] = {
-    { "-joydev1", SET_RESOURCE, 1,
+static const cmdline_option_t joydev1cmdline_options[] =
+{
+    { "-joydev1", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyDevice1", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<0-5>", N_("Set device for joystick port 1") },
+      "<0-5>", "Set device for joystick port 1" },
     CMDLINE_LIST_END
 };
 
-static const cmdline_option_t joydev2cmdline_options[] = {
-    { "-joydev2", SET_RESOURCE, 1,
+static const cmdline_option_t joydev2cmdline_options[] =
+{
+    { "-joydev2", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyDevice2", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<0-5>", N_("Set device for joystick port 2") },
+      "<0-5>", "Set device for joystick port 2" },
     CMDLINE_LIST_END
 };
 
-static const cmdline_option_t joydev3cmdline_options[] = {
-    { "-extrajoydev1", SET_RESOURCE, 1,
+static const cmdline_option_t joydev3cmdline_options[] =
+{
+    { "-extrajoydev1", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyDevice3", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<0-5>", N_("Set device for extra joystick port 1") },
+      "<0-5>", "Set device for extra joystick port 1" },
     CMDLINE_LIST_END
 };
 
-static const cmdline_option_t joydev4cmdline_options[] = {
-    { "-extrajoydev2", SET_RESOURCE, 1,
+static const cmdline_option_t joydev4cmdline_options[] =
+{
+    { "-extrajoydev2", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyDevice4", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<0-5>", N_("Set device for extra joystick port 2") },
+      "<0-5>", "Set device for extra joystick port 2" },
     CMDLINE_LIST_END
 };
 
-static const cmdline_option_t joydev5cmdline_options[] = {
-    { "-extrajoydev3", SET_RESOURCE, 1,
+static const cmdline_option_t joydev5cmdline_options[] =
+{
+    { "-extrajoydev3", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "JoyDevice5", NULL,
-      USE_PARAM_STRING, USE_DESCRIPTION_STRING,
-      IDCLS_UNUSED, IDCLS_UNUSED,
-      "<0-5>", N_("Set device for extra joystick port 3") },
+      "<0-5>", "Set device for extra joystick port 3" },
     CMDLINE_LIST_END
 };
 
@@ -1123,6 +1133,13 @@ void joystick(void)
             }
         }
     }
+}
+
+#else
+
+void joystick_close(void)
+{
+    /* NOP */
 }
 
 #endif /* HAS_JOYSTICK */

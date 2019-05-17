@@ -27,12 +27,12 @@
 #include "vice.h"
 
 /*#include "petexport.h"*/
+#include "archdep.h"
 #include "cartio.h"
 #include "cartridge.h"
 #include "cmdline.h"
 #include "lib.h"
 #include "resources.h"
-#include "translate.h"
 #include "machine.h"
 #include "maincpu.h"
 
@@ -72,7 +72,8 @@ static void debugcart_store(uint16_t addr, uint8_t value)
 {
     int n = (int)value;
     fprintf(stdout, "DBGCART: exit(%d) cycles elapsed: %d\n", n, maincpu_clk);
-    exit(n);
+
+    archdep_vice_exit(n);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -130,16 +131,12 @@ void debugcart_resources_shutdown(void)
 
 static const cmdline_option_t cart_cmdline_options[] =
 {
-    { "-debugcart", SET_RESOURCE, 0,
+    { "-debugcart", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "DebugCartEnable", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_DEBUGCART,
-      NULL, NULL },
-    { "+debugcart", SET_RESOURCE, 0,
+      NULL, "Enable Debug cartridge" },
+    { "+debugcart", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "DebugCartEnable", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_DEBUGCART,
-      NULL, NULL },
+      NULL, "Disable Debug cartridge" },
     CMDLINE_LIST_END
 };
 

@@ -1,6 +1,6 @@
 /*
  Copyright (c) 2016, OpenEmu Team
- 
+
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
  * Redistributions of source code must retain the above copyright
@@ -11,7 +11,7 @@
  * Neither the name of the OpenEmu Team nor the
  names of its contributors may be used to endorse or promote products
  derived from this software without specific prior written permission.
- 
+
  THIS SOFTWARE IS PROVIDED BY OpenEmu Team ''AS IS'' AND ANY
  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -29,6 +29,7 @@
 
 #import "archdep.h"
 #import "archdep+private.h"
+#include "keyboard.h"
 
 #include "vice.h"
 #include "lib.h"
@@ -51,7 +52,7 @@
 
 
 /* set this path to customize the preference storage */
-const char *archdep_pref_path;
+//const char *archdep_pref_path;
 
 /* fix VICE userdir */
 #ifdef VICEUSERDIR
@@ -63,12 +64,12 @@ const char *archdep_pref_path;
 
 static char const * boot_path = NULL;
 
-void archdep_shutdown(void)
-{
-    if (boot_path) {
-        lib_free(boot_path);
-    }
-}
+//void archdep_shutdown(void)
+//{
+//    if (boot_path) {
+//        lib_free(boot_path);
+//    }
+//}
 
 //char *archdep_program_name(void)
 //{
@@ -88,19 +89,19 @@ const char *archdep_boot_path(void)
 char *archdep_default_sysfile_pathlist(const char *emu_id)
 {
     static char *default_path;
-    
+
     if (default_path == NULL) {
         const char *boot_path;
-        
+
         boot_path = archdep_boot_path();
-        
+
 #define MACOSX_ROMDIR "/ROM/"
-        
+
         default_path = util_concat(boot_path, MACOSX_ROMDIR, emu_id, ARCHDEP_FINDPATH_SEPARATOR_STRING,
                                    boot_path, MACOSX_ROMDIR, "DRIVES", ARCHDEP_FINDPATH_SEPARATOR_STRING,
                                    NULL);
     }
-    
+
     return default_path;
 }
 
@@ -119,6 +120,10 @@ char *archdep_default_fliplist_file_name(void)
 
 int archdep_default_logger(const char *level_string, const char *txt)
 {
+    NSData *logData = [NSData dataWithBytes:txt length:sizeof(txt)];
+    NSData *logLevel = [NSData dataWithBytes:level_string length:sizeof(level_string)];
+    NSLog(@"Vice-Core: %@ - %@" ,logLevel,logData);
+    
     return 0;
 }
 
@@ -172,7 +177,7 @@ char *archdep_get_runtime_os(void)
 char *archdep_make_backup_filename(const char *fname)
 {
     assert(false);
-    
+
     return lib_stralloc(fname);
 }
 
@@ -184,7 +189,7 @@ int archdep_mkdir(const char *pathname, int mode)
 FILE *archdep_mkstemp_fd(char **filename, const char *mode)
 {
     assert(false);
-    
+
     return NULL;
 }
 
@@ -198,7 +203,7 @@ int archdep_path_is_relative(const char *path)
     if (path == NULL) {
         return 0;
     }
-    
+
     return *path != '/';
 }
 
@@ -215,14 +220,14 @@ int archdep_rename(const char *oldpath, const char *newpath)
 int archdep_spawn(const char *name, char **argv, char **pstdout_redir, const char *stderr_redir)
 {
     assert(false);
-    
+
     return 0;
 }
 
 void archdep_startup_log_error(const char *format, ...)
 {
     va_list ap;
-    
+
     va_start(ap, format);
     vfprintf(stderr, format, ap);
     va_end(ap);
@@ -231,28 +236,23 @@ void archdep_startup_log_error(const char *format, ...)
 int archdep_stat(const char *file_name, unsigned int *len, unsigned int *isdir)
 {
     struct stat statbuf;
-    
+
     if (stat(file_name, &statbuf) < 0) {
         *len = 0;
         *isdir = 0;
         return -1;
     }
-    
+
     *len = (unsigned int)statbuf.st_size;
     *isdir = S_ISDIR(statbuf.st_mode);
-    
+
     return 0;
 }
 
 char *archdep_tmpnam(void)
 {
     assert(false);
-    
-    return NULL;
-}
 
-char *archdep_extra_title_text(void)
-{
     return NULL;
 }
 
@@ -298,19 +298,19 @@ void archdep_sanitize_filename(char *name)
 
 /*
  "special" chars in *unix are:
- 
+
  "'\[]() and acute/forward tick
- 
+
  tested unproblematic (no escaping):
- 
+
  "'() and acute/forward tick
- 
+
  tested problematic (need escaping):
- 
+
  \[]
  - if the name of a file _inside_ a .zip file contain \, [ or ], then extracting
  it will fail if they are not escaped.
- 
+
  several problems on autostart remain, which are not quoting but ascii vs petscii related.
  */
 
@@ -336,30 +336,30 @@ int archdep_fix_permissions(const char *file_name)
 int archdep_file_is_blockdev(const char *name)
 {
     struct stat buf;
-    
+
     if (stat(name, &buf) != 0) {
         return 0;
     }
-    
+
     if (S_ISBLK(buf.st_mode)) {
         return 1;
     }
-    
+
     return 0;
 }
 
 int archdep_file_is_chardev(const char *name)
 {
     struct stat buf;
-    
+
     if (stat(name, &buf) != 0) {
         return 0;
     }
-    
+
     if (S_ISCHR(buf.st_mode)) {
         return 1;
     }
-    
+
     return 0;
 }
 
@@ -378,7 +378,7 @@ char *archdep_tmpnam(void)
     int fd;
     char *tmp;
     char *final_name;
-    
+
     tmp_name = lib_malloc(ioutil_maxpathlen());
     if ((tmp = getenv("TMPDIR")) != NULL) {
         strncpy(tmp_name, tmp, ioutil_maxpathlen());
@@ -392,7 +392,7 @@ char *archdep_tmpnam(void)
     } else {
         close(fd);
     }
-    
+
     final_name = lib_stralloc(tmp_name);
     lib_free(tmp_name);
     return final_name;
@@ -410,7 +410,7 @@ static RETSIGTYPE break64(int sig)
 
 void archdep_signals_init(int do_core_dumps)
 {
-    if (do_core_dumps) {
+    if (!do_core_dumps) {
         signal(SIGPIPE, break64);
     }
 }
@@ -433,4 +433,52 @@ void archdep_signals_pipe_unset(void)
     signal(SIGPIPE, old_pipe_handler);
 }
 
+void archdep_shutdown(void)
+{    
+    if (boot_path) {
+        lib_free(boot_path);
+    }
+    
+#ifdef HAVE_NETWORK
+    archdep_network_shutdown();
+#endif
+
+}
+
+/* returns host keyboard mapping. used to initialize the keyboard map when
+ starting with a blank (default) config, so an educated guess works good
+ enough most of the time :)
+ 
+ FIXME: add more languages
+ */
+int kbd_arch_get_host_mapping(void)
+{
+    int n;
+    char *l;
+    int maps[KBD_MAPPING_NUM] = {
+        KBD_MAPPING_US, KBD_MAPPING_UK, KBD_MAPPING_DE, KBD_MAPPING_DA,
+        KBD_MAPPING_NO, KBD_MAPPING_FI, KBD_MAPPING_IT, KBD_MAPPING_NL };
+    char *s[KBD_MAPPING_NUM] = {
+        "en_US", "en_UK", "de", "da", "no", "fi", "it", "nl" };
+    /* setup the locale */
+    setlocale(LC_ALL, "");
+    l = setlocale(LC_ALL, NULL);
+    if (l && (strlen(l) > 1)) {
+        for (n = 1; n < KBD_MAPPING_NUM; n++) {
+            if (strncmp(l, s[n], strlen(s[n])) == 0) {
+                return maps[n];
+            }
+        }
+    }
+    return KBD_MAPPING_US;
+}
+
+int     archdep_vice_atexit(void (*function)(void))
+{
+    return 0;
+}
+void    archdep_vice_exit(int excode)
+{
+    return;
+}
 

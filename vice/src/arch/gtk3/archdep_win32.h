@@ -28,7 +28,9 @@
 #ifndef VICE_ARCHDEP_WIN32_H
 #define VICE_ARCHDEP_WIN32_H
 
+#define VICE_ARCHAPI_PRIVATE_API
 #include "archapi.h"
+#undef VICE_ARCHAPI_PRIVATE_API
 
 /* Filesystem dependant operators.  */
 #define FSDEVICE_DEFAULT_DIR "."
@@ -118,5 +120,7 @@ void archdep_signals_init(int do_coredumps);
 #define STATIC_PROTOTYPE static
 
 void vice_usleep(uint64_t waitTime);
+
+extern int is_windows_nt(void);
 
 #endif

@@ -51,7 +51,6 @@
 #include "monitor.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "types.h"
 #include "util.h"
 
@@ -288,7 +287,7 @@ int rrnetmk3_roml_read(uint16_t addr)
     return mem_ram[addr];
 }
 
-int rrnetmk3_peek_mem(export_t *export, uint16_t addr, uint8_t *value)
+int rrnetmk3_peek_mem(export_t *ex, uint16_t addr, uint8_t *value)
 {
     if ((addr >= 0x8000) && (addr <= 0x9fff)) {
         if (!rrnetmk3_biossel) {
@@ -337,26 +336,18 @@ void rrnetmk3_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-rrnetmk3bioswrite", SET_RESOURCE, 0,
+    { "-rrnetmk3bioswrite", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "RRNETMK3_bios_write", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_RRNETMK3_BIOS_WRITE,
-      NULL, NULL },
-    { "+rrnetmk3bioswrite", SET_RESOURCE, 0,
+      NULL, "Save the RRNETMK3 bios when changed" },
+    { "+rrnetmk3bioswrite", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "RRNETMK3_bios_write", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_RRNETMK3_BIOS_READ_ONLY,
-      NULL, NULL },
-    { "-rrnetmk3flash", SET_RESOURCE, 0,
+      NULL, "Do not save the RRNETMK3 bios when changed" },
+    { "-rrnetmk3flash", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "RRNETMK3_flashjumper", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_RRNETMK3_SET_FLASH_JUMPER,
-      NULL, NULL },
-    { "+rrnetmk3flash", SET_RESOURCE, 0,
+      NULL, "Set the RRNETMK3 Flash Jumper" },
+    { "+rrnetmk3flash", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "RRNETMK3_flashjumper", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_RRNETMK3_UNSET_FLASH_JUMPER,
-      NULL, NULL },
+      NULL, "Remove the RRNETMK3 Flash Jumper" },
     CMDLINE_LIST_END
 };
 

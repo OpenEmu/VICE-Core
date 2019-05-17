@@ -53,6 +53,7 @@
 #include "menu_speed.h"
 #include "psid.h"
 #include "ui.h"
+#include "uifonts.h"
 #include "uifilereq.h"
 #include "uimenu.h"
 #include "videoarch.h"
@@ -361,17 +362,34 @@ static void vsid_set_menu_params(int index, menu_draw_t *menu_draw)
     sdl_ui_set_menu_params = NULL;
 }
 
+/** \brief  Pre-initialize the UI before the canvas window gets created
+ *
+ * \return  0 on success, -1 on failure
+ */
+int vsid_ui_init_early(void)
+{
+    return 0;
+}
+
+/** \brief  Initialize the UI
+ *
+ * \return  0 on success, -1 on failure
+ */
 int vsid_ui_init(void)
 {
     unsigned int width;
     unsigned int height;
-    
+
+    /* set function pointers to handle drag-n-drop of SID files */
+    sdl_vsid_set_init_func(psid_init_driver);
+    sdl_vsid_set_play_func(machine_play_psid);
+
     sdl_ui_set_menu_params = vsid_set_menu_params;
     uikeyboard_menu_create();
     uisid_menu_create();
 
     sdl_ui_set_main_menu(vsid_main_menu);
-    sdl_ui_set_menu_font(mem_chargen_rom + 0x800, 8, 8);
+    sdl_ui_vicii_font_init();
 
     sdl_vsid_draw_init(draw_func);
     sdl_vsid_activate();
@@ -528,4 +546,5 @@ void vsid_ui_close(void)
 {
     uikeyboard_menu_shutdown();
     uisid_menu_shutdown();
+    sdl_ui_vicii_font_shutdown();
 }

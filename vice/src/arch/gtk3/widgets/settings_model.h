@@ -1,4 +1,4 @@
-/**
+/** \file   settings_model.h
  * \brief   Model settings dialog - header
  *
  * \author  Bas Wassink <b.wassink@ziggo.nl>
@@ -31,6 +31,7 @@
 #include "vice.h"
 #include <gtk/gtk.h>
 
-GtkWidget *settings_model_widget_create(GtkWidget *parent);
+GtkWidget * settings_model_widget_create(GtkWidget *parent);
+void        settings_model_widget_set_model_func(int (*func)(void));
 
 #endif

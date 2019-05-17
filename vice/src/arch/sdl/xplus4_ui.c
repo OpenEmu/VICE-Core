@@ -60,6 +60,7 @@
 #include "plus4ui.h"
 #include "resources.h"
 #include "ui.h"
+#include "uifonts.h"
 #include "uimenu.h"
 #include "vkbd.h"
 
@@ -189,12 +190,21 @@ static void plus4ui_set_menu_params(int index, menu_draw_t *menu_draw)
     sdl_ui_set_menu_params = NULL;
 }
 
-static uint8_t *plus4_font;
+/** \brief  Pre-initialize the UI before the canvas window gets created
+ *
+ * \return  0 on success, -1 on failure
+ */
+int plus4ui_init_early(void)
+{
+    return 0;
+}
 
+/** \brief  Initialize the UI
+ *
+ * \return  0 on success, -1 on failure
+ */
 int plus4ui_init(void)
 {
-    int i, j;
-
 #ifdef SDL_DEBUG
     fprintf(stderr, "%s\n", __func__);
 #endif
@@ -209,16 +219,7 @@ int plus4ui_init(void)
     uimedia_menu_create();
 
     sdl_ui_set_main_menu(xplus4_main_menu);
-
-    plus4_font = lib_malloc(8 * 256);
-    for (i = 0; i < 128; i++) {
-        for (j = 0; j < 8; j++) {
-            plus4_font[(i * 8) + j] = plus4memrom_kernal_rom[(i * 8) + (128 * 8) + j + 0x1000];
-            plus4_font[(i * 8) + (128 * 8) + j] = plus4memrom_kernal_rom[(i * 8) + j + 0x1000];
-        }
-    }
-
-    sdl_ui_set_menu_font(plus4_font, 8, 8);
+    sdl_ui_ted_font_init();
     sdl_vkbd_set_vkbd(&vkbd_plus4);
 
 #ifdef HAVE_FFMPEG
@@ -243,5 +244,5 @@ void plus4ui_shutdown(void)
     sdl_menu_ffmpeg_shutdown();
 #endif
 
-    lib_free(plus4_font);
+    sdl_ui_ted_font_shutdown();
 }

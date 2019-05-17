@@ -35,7 +35,6 @@
 #include "alarm.h"
 #include "maincpu.h"
 #include "mousedrv.h"
-#include "translate.h"
 
 static void mouse_button_left(int pressed);
 static void mouse_button_right(int pressed);
@@ -477,16 +476,12 @@ static const resource_int_t resources_int[] = {
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-ps2mouse", SET_RESOURCE, 0,
+    { "-ps2mouse", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "PS2Mouse", (void *)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_PS2MOUSE,
-      NULL, NULL },
-    { "+ps2mouse", SET_RESOURCE, 0,
+      NULL, "Enable PS/2 mouse on userport" },
+    { "+ps2mouse", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "PS2Mouse", (void *)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_PS2MOUSE,
-      NULL, NULL },
+      NULL, "Disable PS/2 mouse on userport" },
     CMDLINE_LIST_END
 };
 

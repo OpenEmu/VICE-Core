@@ -32,7 +32,6 @@
 
 #include "joyport.h"
 #include "sampler.h"
-#include "translate.h"
 
 #include "sampler4bit.h"
 
@@ -82,7 +81,6 @@ static uint8_t joyport_sampler_read(int port)
 
 static joyport_t joyport_sampler_device = {
     "Sampler (4bit)",
-    IDGS_SAMPLER_4BIT,
     JOYPORT_RES_ID_SAMPLER,
     JOYPORT_IS_NOT_LIGHTPEN,
     JOYPORT_POT_OPTIONAL,

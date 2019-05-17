@@ -27,7 +27,7 @@
 
 #include "vice.h"
 
-#include "not_implemented.h"
+#include "debug_gtk3.h"
 
 #ifdef WIN32_COMPILE
 
@@ -52,7 +52,7 @@ static LPDIRECTINPUT di = NULL;
 
 LPDIRECTINPUT get_directinput_handle(void)
 {
-#if 1 /* FIXME */
+#if 0 /* FIXME */
     NOT_IMPLEMENTED();
 #else
 #ifndef HAVE_DINPUT_LIB
@@ -60,6 +60,9 @@ LPDIRECTINPUT get_directinput_handle(void)
 #endif
 
     if (di == NULL) {
+
+        HINSTANCE winmain_instance = GetModuleHandle(NULL); /* FIXME */
+
 #ifdef HAVE_DINPUT_LIB
         if (DirectInputCreate(winmain_instance, 0x0500, &di, NULL) != DI_OK) {
             di = NULL;

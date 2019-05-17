@@ -41,7 +41,6 @@
 #include "monitor.h"
 #include "petreu.h"
 #include "resources.h"
-#include "translate.h"
 #include "types.h"
 #include "util.h"
 
@@ -266,26 +265,18 @@ void petreu_resources_shutdown(void)
 
 static const cmdline_option_t cmdline_options[] =
 {
-    { "-petreu", SET_RESOURCE, 0,
+    { "-petreu", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "PETREU", (resource_value_t)1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_PETREU,
-      NULL, NULL },
-    { "+petreu", SET_RESOURCE, 0,
+      NULL, "Enable the PET Ram and Expansion Unit" },
+    { "+petreu", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "PETREU", (resource_value_t)0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_PETREU,
-      NULL, NULL },
-    { "-petreuimage", SET_RESOURCE, 1,
+      NULL, "Disable the PET Ram and Expansion Unit" },
+    { "-petreuimage", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "PETREUfilename", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_NAME, IDCLS_SPECIFY_PETREU_NAME,
-      NULL, NULL },
-    { "-petreuramsize", SET_RESOURCE, 1,
+      "<Name>", "Specify name of PET Ram and Expansion Unit image" },
+    { "-petreuramsize", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
       NULL, NULL, "PETREUsize", NULL,
-      USE_PARAM_ID, USE_DESCRIPTION_ID,
-      IDCLS_P_SIZE_IN_KB, IDCLS_PETREU_SIZE,
-      NULL, NULL },
+      "<size in KB>", "Size of the PET Ram and Expansion Unit. (128/512/1024/2048)" },
     CMDLINE_LIST_END
 };
 

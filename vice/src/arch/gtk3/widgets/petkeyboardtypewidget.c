@@ -1,4 +1,4 @@
-/** \file   peykeyboardtypewidget.c
+/** \file   petkeyboardtypewidget.c
  * \brief   PET keyboard type widget
  *
  * \author  Bas Wassink <b.wassink@ziggo.nl>
@@ -45,6 +45,8 @@
 static int (*get_keyboard_num)(void) = NULL;
 static kbdtype_info_t *(*get_keyboard_list)(void) = NULL;
 
+static void (*user_callback)(int) = NULL;
+
 
 /** \brief  Handler for the "toggled" event of the radio buttons
  *
@@ -61,8 +63,13 @@ static void on_keyboard_type_toggled(GtkWidget *widget, gpointer user_data)
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))
             && old_type != new_type) {
         /* update resource */
-        debug_gtk3("setting KeyboardType to %d\n", new_type);
+        debug_gtk3("setting KeyboardType to %d.", new_type);
         resources_set_int("KeyboardType", new_type);
+
+        if (user_callback != NULL) {
+            debug_gtk3("calling user callback with %d.", new_type);
+            user_callback(new_type);
+        }
     }
 }
 
@@ -102,10 +109,12 @@ GtkWidget * pet_keyboard_type_widget_create(void)
     GSList *group = NULL;
     GtkRadioButton *last = NULL;
 
+    user_callback = NULL;
+
     grid = uihelpers_create_grid_with_label("Keyboard type", 1);
 
     num = get_keyboard_num();
-    debug_gtk3("number of keyboards = %d\n", num);
+    debug_gtk3("number of keyboards = %d.", num);
     if (num > 0) {
         GtkWidget *radio;
         int active, i;
@@ -131,4 +140,35 @@ GtkWidget * pet_keyboard_type_widget_create(void)
 
     gtk_widget_show_all(grid);
     return grid;
+}
+
+
+/** \brief  Set user-defined callback to be triggered when the widget changes
+ *
+ * \param[in]   widget  PET keyboard type widget
+ * \param[in]   func    user-defined callback
+ */
+void pet_keyboard_type_widget_set_callback(GtkWidget *widget,
+                                           void(*func)(int))
+{
+    user_callback = func;
+}
+
+
+/** \brief  Synchronize \a widget with its current resource value
+ *
+ * \param[in,out]   widget  PET keyboard type widget
+ */
+void pet_keyboard_type_widget_sync(GtkWidget *widget)
+{
+    int type;
+    GtkWidget *radio;
+
+    if (resources_get_int("KeyboardType", &type) < 0) {
+        return;
+    }
+    radio = gtk_grid_get_child_at(GTK_GRID(widget), 0, type + 1);
+    if (GTK_IS_RADIO_BUTTON(radio)) {
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(radio), TRUE);
+    }
 }

@@ -37,7 +37,6 @@
 #include "printer.h"
 #include "resources.h"
 #include "snapshot.h"
-#include "translate.h"
 #include "types.h"
 #include "userport.h"
 
@@ -67,7 +66,6 @@ static int userport_printer_read_snapshot_module(snapshot_t *s);
 static userport_device_t printer_device = {
     USERPORT_DEVICE_PRINTER,
     "Userport printer",
-    IDGS_USERPORT_PRINTER,
     NULL, /* NO pbx read */
     userport_printer_store_pbx,
     NULL, /* NO pa2 read */
@@ -137,17 +135,14 @@ int interface_userport_init_resources(void)
     return resources_register_int(resources_int);
 }
 
-static const cmdline_option_t cmdline_options[] = {
-    { "-pruser", SET_RESOURCE, 0,
+static const cmdline_option_t cmdline_options[] =
+{
+    { "-pruser", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "PrinterUserport", (resource_value_t) 1,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_ENABLE_USERPORT_PRINTER,
-      NULL, NULL },
-    { "+pruser", SET_RESOURCE, 0,
+      NULL, "Enable the userport printer emulation" },
+    { "+pruser", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "PrinterUserport", (resource_value_t) 0,
-      USE_PARAM_STRING, USE_DESCRIPTION_ID,
-      IDCLS_UNUSED, IDCLS_DISABLE_USERPORT_PRINTER,
-      NULL, NULL },
+      NULL, "Disable the userport printer emulation" },
     CMDLINE_LIST_END
 };
 
@@ -201,9 +196,8 @@ static int userport_printer_write_snapshot_module(snapshot_t *s)
         return -1;
     }
 
-    if (0
-        || SMW_B(m, value) < 0
-        || SMW_B(m, strobe) < 0) {
+    if (SMW_B(m, value) < 0
+            || SMW_B(m, strobe) < 0) {
         snapshot_module_close(m);
         return -1;
     }
@@ -230,9 +224,8 @@ static int userport_printer_read_snapshot_module(snapshot_t *s)
         goto fail;
     }
 
-    if (0
-        || SMR_B(m, &value) < 0
-        || SMR_B(m, &strobe) < 0) {
+    if (SMR_B(m, &value) < 0
+            || SMR_B(m, &strobe) < 0) {
         goto fail;
     }
     return snapshot_module_close(m);

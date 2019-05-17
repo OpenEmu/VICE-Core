@@ -245,8 +245,7 @@ static int wav_create_file(const char *filename)
         return 1;
     }
 
-    atexit(wav_close_file);
-
+    archdep_vice_atexit(wav_close_file);
     return write_header();
 }
 
