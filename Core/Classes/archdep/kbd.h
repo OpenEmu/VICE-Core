@@ -36,4 +36,11 @@ extern const char *kbd_arch_keynum_to_keyname(signed long keynum);
 
 #define KBD_PORT_PREFIX "osx"
 
-#endif  /* _KBD_H */
+extern void kbd_initialize_numpad_joykeys(int *joykeys);
+
+extern void kbd_enter_leave(void);
+extern void kbd_focus_change(void);
+
+extern const char *kbd_get_menu_keyname(void);
+
+#endif

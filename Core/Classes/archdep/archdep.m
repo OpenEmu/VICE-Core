@@ -33,9 +33,33 @@
 #include "vice.h"
 #include "lib.h"
 #include "util.h"
+#include "log.h"
 #include <stdbool.h>
 #include <sys/stat.h>
 #include <assert.h>
+
+#include <stdio.h>
+#include <string.h>
+#include <errno.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+#include "ioutil.h"
+#include "lib.h"
+#include "util.h"
+
+
+/* set this path to customize the preference storage */
+const char *archdep_pref_path;
+
+/* fix VICE userdir */
+#ifdef VICEUSERDIR
+# undef VICEUSERDIR
+#endif
+/** \brief  User directory inside ./config
+ */
+#define VICEUSERDIR "vice"
 
 static char const * boot_path = NULL;
 
@@ -46,10 +70,10 @@ void archdep_shutdown(void)
     }
 }
 
-char *archdep_program_name(void)
-{
-    return lib_stralloc("x64");
-}
+//char *archdep_program_name(void)
+//{
+//    return lib_stralloc("x64");
+//}
 
 void archdep_set_boot_path(NSString *path)
 {
@@ -338,3 +362,75 @@ int archdep_file_is_chardev(const char *name)
     
     return 0;
 }
+
+#if 0
+/** \brief  Create a unique temporary filename
+ *
+ * Uses mkstemp(3) when available.
+ *
+ * \return  temporary filename
+ */
+char *archdep_tmpnam(void)
+{
+#ifdef HAVE_MKSTEMP
+    char *tmp_name;
+    const char mkstemp_template[] = "/vice.XXXXXX";
+    int fd;
+    char *tmp;
+    char *final_name;
+    
+    tmp_name = lib_malloc(ioutil_maxpathlen());
+    if ((tmp = getenv("TMPDIR")) != NULL) {
+        strncpy(tmp_name, tmp, ioutil_maxpathlen());
+        tmp_name[ioutil_maxpathlen() - sizeof(mkstemp_template)] = '\0';
+    } else {
+        strcpy(tmp_name, "/tmp");
+    }
+    strcat(tmp_name, mkstemp_template);
+    if ((fd = mkstemp(tmp_name)) < 0) {
+        tmp_name[0] = '\0';
+    } else {
+        close(fd);
+    }
+    
+    final_name = lib_stralloc(tmp_name);
+    lib_free(tmp_name);
+    return final_name;
+#else
+    return lib_stralloc(tmpnam(NULL));
+#endif
+}
+#endif
+
+static RETSIGTYPE break64(int sig)
+{
+    log_message(LOG_DEFAULT, "Received signal %d, exiting.", sig);
+    exit (-1);
+}
+
+void archdep_signals_init(int do_core_dumps)
+{
+    if (do_core_dumps) {
+        signal(SIGPIPE, break64);
+    }
+}
+
+typedef void (*signal_handler_t)(int);
+
+static signal_handler_t old_pipe_handler;
+
+/*
+ these two are used for socket send/recv. in this case we might
+ get SIGPIPE if the connection is unexpectedly closed.
+ */
+void archdep_signals_pipe_set(void)
+{
+    old_pipe_handler = signal(SIGPIPE, SIG_IGN);
+}
+
+void archdep_signals_pipe_unset(void)
+{
+    signal(SIGPIPE, old_pipe_handler);
+}
+
+
