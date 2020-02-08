@@ -1,0 +1,5 @@
+midi-win32-drv.o: midi-win32-drv.c ../../src/vice.h ../../src/config.h
+
+../../src/vice.h:
+
+../../src/config.h:

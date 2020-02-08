@@ -1,0 +1,5 @@
+ps-win32-dll.o: ps-win32-dll.c ../../src/vice.h ../../src/config.h
+
+../../src/vice.h:
+
+../../src/config.h:

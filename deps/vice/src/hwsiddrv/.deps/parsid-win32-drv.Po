@@ -1,0 +1,6 @@
+parsid-win32-drv.o: parsid-win32-drv.c ../../src/vice.h \
+  ../../src/config.h
+
+../../src/vice.h:
+
+../../src/config.h:

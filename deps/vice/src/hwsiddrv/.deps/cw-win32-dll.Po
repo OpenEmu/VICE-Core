@@ -1,0 +1,5 @@
+cw-win32-dll.o: cw-win32-dll.c ../../src/vice.h ../../src/config.h
+
+../../src/vice.h:
+
+../../src/config.h:

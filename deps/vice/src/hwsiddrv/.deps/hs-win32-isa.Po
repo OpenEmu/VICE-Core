@@ -1,0 +1,5 @@
+hs-win32-isa.o: hs-win32-isa.c ../../src/vice.h ../../src/config.h
+
+../../src/vice.h:
+
+../../src/config.h:

@@ -1,0 +1,10 @@
+archdep_require_vkbd.o: archdep_require_vkbd.c ../../../src/vice.h \
+  ../../../src/config.h archdep_defs.h archdep_require_vkbd.h
+
+../../../src/vice.h:
+
+../../../src/config.h:
+
+archdep_defs.h:
+
+archdep_require_vkbd.h:

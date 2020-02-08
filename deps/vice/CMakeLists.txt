@@ -1,0 +1,29 @@
+cmake_minimum_required(VERSION 3.14.1)
+
+project(vice LANGUAGES C CXX)
+
+set(CMAKE_CXX_STANDARD 14)
+
+option(USE_OEHEADLESS "Compile OpenEmu headless library" ON)
+include(CMakeDependentOption)
+
+list(APPEND ARCH_INCLUDES
+    ${CMAKE_SOURCE_DIR}/src/arch
+    )
+
+if (USE_OEHEADLESS)
+    list(APPEND ARCH_INCLUDES
+        ${CMAKE_SOURCE_DIR}/src/arch/oeheadless
+        )
+    add_definitions(-DUSE_OEHEADLESS)
+    set(ARCH_LIBS oeheadless)
+else ()
+    list(APPEND ARCH_INCLUDES
+        ${CMAKE_SOURCE_DIR}/src/arch/sdl
+        )
+    add_definitions(-DUSE_SDLUI2 -DUSE_SDL_AUDIO -DUSE_COREAUDIO)
+    set(ARCH_LIBS SDL2 sdl)
+    link_directories(/usr/local/lib)
+endif ()
+
+add_subdirectory(src)
