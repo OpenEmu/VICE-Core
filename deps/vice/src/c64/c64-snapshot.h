@@ -27,6 +27,12 @@
 #ifndef VICE_C64_SNAPSHOT_H
 #define VICE_C64_SNAPSHOT_H
 
+struct snapshot_stream_s;
+extern int c64_snapshot_write_to_stream(struct snapshot_stream_s *stream, int save_roms,
+                                        int save_disks, int event_mode);
+extern int c64_snapshot_read_from_stream(struct snapshot_stream_s *stream, int event_mode);
+
 extern int c64_snapshot_write(const char *name, int save_roms, int save_disks, int event_mode);
 extern int c64_snapshot_read(const char *name, int event_mode);
+
 #endif

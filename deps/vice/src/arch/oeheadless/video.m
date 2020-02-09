@@ -35,6 +35,8 @@
 #include "resources.h"
 #include "videoarch.h"
 #include "video.h"
+#import "C64+Private.h"
+#include "palette.h"
 
 
 /** \brief  Command line options related to generic video output
@@ -91,7 +93,7 @@ void video_arch_resources_shutdown(void)
  */
 char video_canvas_can_resize(video_canvas_t *canvas)
 {
-    return 0;
+    return 1;
 }
 
 /** \brief Create a new video_canvas_s.
@@ -108,10 +110,7 @@ video_canvas_t *video_canvas_create(video_canvas_t *canvas,
                                     unsigned int *width, unsigned int *height,
                                     int mapped)
 {
-    canvas->videoconfig->rendermode = VIDEO_RENDER_RGB_1X1;
-    canvas->created = 1;
-    canvas->initialized = 1;
-
+    [C64.shared createCanvas:canvas width:width height:height];
     return canvas;
 }
 
@@ -138,6 +137,9 @@ void video_canvas_refresh(struct video_canvas_s *canvas,
                           unsigned int xi, unsigned int yi,
                           unsigned int w, unsigned int h)
 {
+    if (canvas->screen.pixels == NULL) { return; }
+    
+    video_canvas_render(canvas, (uint8_t *)canvas->screen.pixels, w, h, xs, ys, xi, yi, canvas->screen.pitch, canvas->screen.bpp);
 }
 
 /** \brief Update canvas size to match the draw buffer size requested
@@ -148,6 +150,7 @@ void video_canvas_refresh(struct video_canvas_s *canvas,
 
 void video_canvas_resize(struct video_canvas_s *canvas, char resize_canvas)
 {
+
 }
 
 /** \brief Assign a palette to the canvas.
@@ -159,7 +162,18 @@ int video_canvas_set_palette(struct video_canvas_s *canvas,
                              struct palette_s *palette)
 {
     canvas->palette = palette;
-
+    
+    for (int i = 0; i < palette->num_entries; i++) {
+        unsigned int col = palette->entries[i].red<<16 | palette->entries[i].green<<8 | palette->entries[i].blue;
+        video_render_setphysicalcolor(canvas->videoconfig, i, col, 32);
+    }
+    
+    for (int i = 0; i < 256; i++) {
+        video_render_setrawrgb(i, i, i, i);
+    }
+    
+    video_render_initraw(canvas->videoconfig);
+    
     return 0;
 }
 

@@ -57,13 +57,13 @@
 #define SNAP_MAJOR 0
 #define SNAP_MINOR 0
 
-int pet_snapshot_write(const char *name, int save_roms, int save_disks,
-                       int event_mode)
+int pet_snapshot_write_to_stream(snapshot_stream_t *stream, int save_roms, int save_disks,
+                                 int event_mode)
 {
     snapshot_t *s;
     int ef = 0;
 
-    s = snapshot_create(name, SNAP_MAJOR, SNAP_MINOR, machine_name);
+    s = snapshot_create_from_stream(stream, SNAP_MAJOR, SNAP_MINOR, machine_name);
 
     if (s == NULL) {
         return -1;
@@ -91,22 +91,34 @@ int pet_snapshot_write(const char *name, int save_roms, int save_disks,
         ef = acia1_snapshot_write_module(s);
     }
 
-    snapshot_close(s);
-
-    if (ef) {
-        ioutil_remove(name);
-    }
+    snapshot_free(s);
 
     return ef;
 }
 
-int pet_snapshot_read(const char *name, int event_mode)
+int pet_snapshot_write(const char *name, int save_roms, int save_disks, int event_mode)
+{
+    snapshot_stream_t *stream;
+    int res;
+
+    stream = snapshot_file_write_fopen(name);
+    res = pet_snapshot_write_to_stream(stream, save_roms, save_disks, event_mode);
+    if (res) {
+        snapshot_fclose_erase(stream);
+    } else if (snapshot_fclose(stream) == EOF) {
+        snapshot_set_error(SNAPSHOT_WRITE_CLOSE_EOF_ERROR);
+        res = -1;
+    }
+    return res;
+}
+
+int pet_snapshot_read_from_stream(snapshot_stream_t *stream, int event_mode)
 {
     snapshot_t *s;
     uint8_t minor, major;
     int ef = 0;
 
-    s = snapshot_open(name, &major, &minor, machine_name);
+    s = snapshot_open_from_stream(stream, &major, &minor, machine_name);
 
     if (s == NULL) {
         return -1;
@@ -139,7 +151,7 @@ int pet_snapshot_read(const char *name, int event_mode)
         acia1_snapshot_read_module(s);  /* optional, so no error check */
     }
 
-    snapshot_close(s);
+    snapshot_free(s);
 
     if (ef) {
         machine_trigger_reset(MACHINE_RESET_MODE_SOFT);
@@ -148,4 +160,15 @@ int pet_snapshot_read(const char *name, int event_mode)
     sound_snapshot_finish();
 
     return ef;
+}
+
+int pet_snapshot_read(const char *name, int event_mode)
+{
+    snapshot_stream_t *stream;
+    int res;
+
+    stream = snapshot_file_read_fopen(name);
+    res = pet_snapshot_read_from_stream(stream, event_mode);
+    snapshot_fclose(stream);
+    return res;
 }

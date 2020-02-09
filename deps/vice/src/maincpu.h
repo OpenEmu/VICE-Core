@@ -88,7 +88,16 @@ extern void maincpu_init(void);
 extern void maincpu_early_init(void);
 extern void maincpu_shutdown(void);
 extern void maincpu_reset(void);
+
+#ifdef USE_ALT_CPU
+
+extern void maincpu_headless_init(void);
+extern void maincpu_headless_mainloop(void);
+
+#else
 extern void maincpu_mainloop(void);
+#endif
+
 extern struct monitor_interface_s *maincpu_monitor_interface_get(void);
 extern int maincpu_snapshot_read_module(struct snapshot_s *s);
 extern int maincpu_snapshot_write_module(struct snapshot_s *s);

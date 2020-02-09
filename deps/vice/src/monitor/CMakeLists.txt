@@ -1,6 +1,5 @@
 set(MONITOR_INCLUDES
     ${ARCH_INCLUDES}
-    ${CMAKE_SOURCE_DIR}/src/arch/shared
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/src/arch/unix/readline
     ${CMAKE_SOURCE_DIR}/src/drive

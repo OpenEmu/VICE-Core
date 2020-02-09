@@ -1,6 +1,5 @@
 set(ARCHDEP_INCLUDES
     ${ARCH_INCLUDES}
-    ${CMAKE_SOURCE_DIR}/src/arch/shared
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/src/rs232drv
     )

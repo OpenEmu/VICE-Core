@@ -2,7 +2,6 @@ add_subdirectory(cart)
 
 set(C64_INCLUDES
     ${ARCH_INCLUDES}
-    ${CMAKE_SOURCE_DIR}/src/arch/shared
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/src/c64/cart
     ${CMAKE_SOURCE_DIR}/src/drive

@@ -1,6 +1,5 @@
 set(FSDEVICE_INCLUDES
     ${ARCH_INCLUDES}
-    ${CMAKE_SOURCE_DIR}/src/arch/shared
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/src/vdrive
     ${CMAKE_SOURCE_DIR}/src/lib/p64

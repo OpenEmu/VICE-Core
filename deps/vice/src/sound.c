@@ -138,8 +138,7 @@ static sound_register_devices_t sound_register_devices[] = {
 
 #ifdef USE_OEHEADLESS
     { "headless", sound_init_headless_device, SOUND_PLAYBACK_DEVICE },
-#elif
-
+#else
     /* the dummy device acts as a "guard" against the drivers that create files,
        since the list will be searched top-down, and the dummy driver always
        works, no files will be created accidently */

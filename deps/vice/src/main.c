@@ -283,8 +283,15 @@ int main_program(int argc, char **argv)
 
     /* Let's go...  */
     log_message(LOG_DEFAULT, "Main CPU: starting at ($FFFC).");
+#ifdef USE_ALT_CPU
+    maincpu_headless_init();
+    while (1) {
+        maincpu_headless_mainloop();
+    }
+    
+#else
     maincpu_mainloop();
-
+#endif
     log_error(LOG_DEFAULT, "perkele!");
 
     return 0;

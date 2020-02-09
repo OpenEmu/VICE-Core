@@ -33,8 +33,7 @@ set(OEHEADLESS_SOURCES
         ui.c
         uimon.c
         uistatusbar.c
-        main.m
-        video.c
+        video.m
         vsidui.c
         vsyncarch.c
         c64scui.c
@@ -48,8 +47,35 @@ set(OEHEADLESS_SOURCES
         cbm2ui.c
         cbm5x0ui.c
         api.m
+        C64.m
         )
 
-add_library(oeheadless STATIC ${OEHEADLESS_SOURCES})
+set(OEHEADLESS_ARCHDEP_SOURCES
+        archdep_stubs.c
+        ../shared/archdep_kbd_get_host_mapping.c
+        ../shared/archdep_tmpnam.c
+        ../shared/archdep_default_logger.c
+        ../shared/archdep_startup_log_error.c
+        ../shared/archdep_default_resource_file_name.c
+        ../shared/archdep_rename.c
+        ../shared/archdep_rmdir.c
+        ../shared/archdep_stat.c
+        ../shared/archdep_quote_parameter.c
+        ../shared/archdep_mkdir.c
+        ../shared/archdep_filename_parameter.c
+        ../shared/archdep_path_is_relative.c
+        ../shared/archdep_mkstemp_fd.c
+        ../shared/archdep_open_default_log_file.c
+        ../shared/archdep_join_paths.c
+        ../shared/archdep_make_backup_filename.c
+        ../shared/archdep_extra_title_text.c
+        ../shared/archdep_home_path.c
+        ../shared/archdep_expand_path.c
+        ../shared/archdep_default_fliplist_file_name.c
+        ../shared/archdep_default_rtc_file_name.c
+        ../shared/archdep_default_autostart_disk_image_file_name.c
+        )
+
+add_library(oeheadless STATIC ${OEHEADLESS_SOURCES} ${OEHEADLESS_ARCHDEP_SOURCES})
 target_include_directories(oeheadless PRIVATE ${OEHEADLESS_INCLUDES})
 

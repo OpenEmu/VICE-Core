@@ -91,6 +91,10 @@ int machine_keymap_index;
 static char *ExitScreenshotName = NULL;
 static char *ExitScreenshotName1 = NULL;
 
+#ifdef USE_ALT_CPU
+static machine_event_flags g_machine_event;
+machine_event_flags * restrict machine_event = &g_machine_event;
+#endif
 
 
 unsigned int machine_jam(const char *format, ...)

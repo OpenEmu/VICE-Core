@@ -1178,6 +1178,18 @@ void machine_change_timing(int timeval, int border_mode)
 
 /* ------------------------------------------------------------------------- */
 
+int machine_write_snapshot_to_stream(snapshot_stream_t *stream, int save_roms,
+                                     int save_disks, int event_mode)
+{
+    return vic20_snapshot_write_to_stream(stream, save_roms, save_disks,
+                                          event_mode);
+}
+
+int machine_read_snapshot_from_stream(snapshot_stream_t *stream, int event_mode)
+{
+    return vic20_snapshot_read_from_stream(stream, event_mode);
+}
+
 int machine_write_snapshot(const char *name, int save_roms, int save_disks,
                            int event_mode)
 {

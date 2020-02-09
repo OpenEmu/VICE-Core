@@ -31,6 +31,12 @@
 #ifndef VICE_VIDEOARCH_H
 #define VICE_VIDEOARCH_H
 
+typedef struct screen_s {
+    void           *pixels;
+    unsigned int    pitch;
+    unsigned int    bpp;
+} screen_t;
+
 typedef struct video_canvas_s {
     /** \brief Nonzero if it is safe to access other members of the
      *         structure. */
@@ -38,6 +44,8 @@ typedef struct video_canvas_s {
 
     /** \brief Nonzero if the structure has been fully realized. */
     unsigned int created;
+    
+    screen_t screen;
 
     /** \brief Rendering configuration as seen by the emulator
      *         core. */

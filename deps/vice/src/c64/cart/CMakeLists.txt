@@ -11,7 +11,6 @@ set(CART_INCLUDES
     ${CMAKE_SOURCE_DIR}/src/rtc
     ${CMAKE_SOURCE_DIR}/src/samplerdrv
     ${CMAKE_SOURCE_DIR}/src/rs232drv
-    ${CMAKE_SOURCE_DIR}/src/arch/shared
     )
 
 set(C64CARTSYSTEM_SOURCES

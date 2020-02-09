@@ -28,6 +28,7 @@
 #ifndef SNAPSHOT_H
 #define SNAPSHOT_H
 
+#include <stdlib.h>
 #include "types.h"
 
 #define SNAPSHOT_MACHINE_NAME_LEN       16
@@ -65,6 +66,7 @@
 
 typedef struct snapshot_module_s snapshot_module_t;
 typedef struct snapshot_s snapshot_t;
+typedef struct snapshot_stream_s snapshot_stream_t;
 
 extern void snapshot_display_error(void);
 
@@ -146,10 +148,35 @@ extern snapshot_t *snapshot_open(const char *filename,
                                  uint8_t *major_version_return,
                                  uint8_t *minor_version_return,
                                  const char *snapshot_machine_name);
+/* Close stream and delete snapshot struct */
 extern int snapshot_close(snapshot_t *s);
+/* Delete snapshot struct, leave stream open */
+extern int snapshot_free(snapshot_t *s);
+
+extern snapshot_t *snapshot_create_from_stream(snapshot_stream_t *f,
+                                               uint8_t major_version, uint8_t minor_version, 
+                                               const char *snapshot_machine_name);
+extern snapshot_t *snapshot_open_from_stream(snapshot_stream_t *f,
+                                             uint8_t *major_version_return,
+                                             uint8_t *minor_version_return,
+                                             const char *snapshot_machine_name);
 
 extern void snapshot_set_error(int error);
 extern int snapshot_get_error(void);
+
+extern snapshot_stream_t* snapshot_file_read_fopen(const char* pathname);
+extern snapshot_stream_t* snapshot_file_write_fopen(const char* pathname);
+
+extern snapshot_stream_t* snapshot_memory_read_fopen(const void* buffer, size_t buffer_size);
+extern snapshot_stream_t* snapshot_memory_write_fopen(void* buffer, size_t buffer_size);
+
+extern size_t snapshot_read(snapshot_stream_t* f, void* ptr, size_t size);
+extern size_t snapshot_write(snapshot_stream_t* f, const void* ptr, size_t size);
+extern int snapshot_fseek(snapshot_stream_t *f, long offset, int whence);
+extern long snapshot_ftell(snapshot_stream_t *f);
+
+extern int snapshot_fclose(snapshot_stream_t *f);
+extern int snapshot_fclose_erase(snapshot_stream_t *f);
 
 extern int snapshot_version_is_equal(uint8_t major_version, uint8_t minor_version,
                 uint8_t major_version_required, uint8_t minor_version_required);

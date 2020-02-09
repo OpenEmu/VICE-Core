@@ -107,6 +107,9 @@ inline static void refresh_canvas(raster_t *raster)
 
 void raster_canvas_handle_end_of_frame(raster_t *raster)
 {
+#ifdef USE_ALT_CPU
+    *machine_event |= MACHINE_EVENT_FRAME;
+#endif
     if (video_disabled_mode) {
         return;
     }

@@ -60,12 +60,12 @@
 #define SNAP_MAJOR 1
 #define SNAP_MINOR 1
 
-int c64dtv_snapshot_write(const char *name, int save_roms, int save_disks,
-                          int event_mode)
+int c64dtv_snapshot_write_to_stream(snapshot_stream_t *stream, int save_roms, int save_disks,
+                                    int event_mode)
 {
     snapshot_t *s;
 
-    s = snapshot_create(name, ((uint8_t)(SNAP_MAJOR)), ((uint8_t)(SNAP_MINOR)),
+    s = snapshot_create_from_stream(stream, ((uint8_t)(SNAP_MAJOR)), ((uint8_t)(SNAP_MINOR)),
                         machine_name);
     if (s == NULL) {
         return -1;
@@ -91,21 +91,36 @@ int c64dtv_snapshot_write(const char *name, int save_roms, int save_disks,
         || joyport_snapshot_write_module(s, JOYPORT_1) < 0
         || joyport_snapshot_write_module(s, JOYPORT_2) < 0
         || userport_snapshot_write_module(s) < 0) {
-        snapshot_close(s);
-        ioutil_remove(name);
+        snapshot_free(s);
         return -1;
     }
 
-    snapshot_close(s);
+    snapshot_free(s);
     return 0;
 }
 
-int c64dtv_snapshot_read(const char *name, int event_mode)
+int c64dtv_snapshot_write(const char *name, int save_roms, int save_disks, int event_mode)
+{
+    snapshot_stream_t *stream;
+    int res;
+
+    stream = snapshot_file_write_fopen(name);
+    res = c64dtv_snapshot_write_to_stream(stream, save_roms, save_disks, event_mode);
+    if (res) {
+        snapshot_fclose_erase(stream);
+    } else if (snapshot_fclose(stream) == EOF) {
+        snapshot_set_error(SNAPSHOT_WRITE_CLOSE_EOF_ERROR);
+        res = -1;
+    }
+    return res;
+}
+
+int c64dtv_snapshot_read_from_stream(snapshot_stream_t *stream, int event_mode)
 {
     snapshot_t *s;
     uint8_t minor, major;
 
-    s = snapshot_open(name, &major, &minor, machine_name);
+    s = snapshot_open_from_stream(stream, &major, &minor, machine_name);
     if (s == NULL) {
         return -1;
     }
@@ -138,7 +153,7 @@ int c64dtv_snapshot_read(const char *name, int event_mode)
         goto fail;
     }
 
-    snapshot_close(s);
+    snapshot_free(s);
 
     sound_snapshot_finish();
 
@@ -146,10 +161,21 @@ int c64dtv_snapshot_read(const char *name, int event_mode)
 
 fail:
     if (s != NULL) {
-        snapshot_close(s);
+        snapshot_free(s);
     }
 
     machine_trigger_reset(MACHINE_RESET_MODE_SOFT);
 
     return -1;
+}
+
+int c64dtv_snapshot_read(const char *name, int event_mode)
+{
+    snapshot_stream_t *stream;
+    int res;
+
+    stream = snapshot_file_read_fopen(name);
+    res = c64dtv_snapshot_read_from_stream(stream, event_mode);
+    snapshot_fclose(stream);
+    return res;
 }

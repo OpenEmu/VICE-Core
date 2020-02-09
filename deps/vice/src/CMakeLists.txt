@@ -71,7 +71,6 @@ set(SRC_BASE_SOURCES
     log.c
     machine-bus.c
     machine.c
-    main.c
     network.c
     opencbmlib.c
     palette.c
@@ -97,7 +96,6 @@ set(DRIVER_LIBS joyport samplerdrv sounddrv gfxoutputdrv printerdrv rs232drv dis
 
 set(X64SC_SOURCES ${SRC_BASE_SOURCES} ${SRC_MIDI_SOURCES})
 set(X64SC_LIBS
-    archdep
     tapeport
     c64
     c64cartsystem
@@ -127,11 +125,10 @@ set(X64SC_LIBS
     resid
     )
 
-add_executable(x64sc ${X64SC_SOURCES})
+add_executable(x64sc main.c ${X64SC_SOURCES})
 
 target_include_directories(x64sc PRIVATE
     ${ARCH_INCLUDES}
-    arch/shared
     .
     c64
     drive
@@ -160,7 +157,6 @@ if(USE_OEHEADLESS)
 
     target_include_directories(oex64sc PRIVATE
         ${ARCH_INCLUDES}
-        arch/shared
         .
         c64
         drive
@@ -181,7 +177,12 @@ if(USE_OEHEADLESS)
         hvsc
         lib/linenoise-ng
         )
-    target_link_libraries(oex64sc ${X64SC_LIBS} z "-framework CoreFoundation")
+    target_link_libraries(oex64sc ${X64SC_LIBS} z "-framework Foundation")
     target_compile_options(oex64sc PUBLIC "-fobjc-arc")
+
+    add_custom_command(TARGET oex64sc POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:oex64sc> ${CMAKE_SOURCE_DIR}
+            COMMENT "Copying library"
+            )
 
 endif()

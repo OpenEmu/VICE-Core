@@ -6,19 +6,14 @@
 #include <string.h>
 #include <errno.h>
 #include <signal.h>
-
+#include "util.h"
 #include "archdep.h"
 #include "lib.h"
 #include "log.h"
 
-#include "../shared/archdep_create_user_config_dir.h"
+int console_mode = 0;
+int video_disabled_mode = 0;
 
-/** \brief  Reference to argv[0]
- *
- * FIXME: this is only used twice I think, better pass this as an argument to
- *        the functions using it
- */
-static char *argv0 = NULL;
 
 /** \brief  Arch-dependent init
  *
@@ -30,15 +25,6 @@ static char *argv0 = NULL;
 int archdep_init(int *argc, char **argv)
 {
     (void)C64.shared;
-    argv0 = lib_strdup(argv[0]);
-
-    /* set argv0 for program_name()/boot_path() calls (yes, not ideal) */
-    archdep_program_path_set_argv0(argv[0]);
-
-    archdep_create_user_config_dir();
-
-    /* needed for early log control (parses for -silent/-verbose) */
-    log_verbose_init(*argc, argv);
 
     return 0;
 }
@@ -47,23 +33,68 @@ int archdep_init(int *argc, char **argv)
  */
 void archdep_shutdown(void)
 {
-/* free memory used by the exec path */
-    archdep_program_path_free();
-    /* free memory used by the exec name */
-    archdep_program_name_free();
-    /* free memory used by the boot path */
-    archdep_boot_path_free();
-    /* free memory used by the home path */
-    archdep_home_path_free();
-    /* free memory used by the config files path */
-    archdep_user_config_path_free();
-    /* free memory used by the sysfile pathlist */
-    archdep_default_sysfile_pathlist_free();
-
-    /* this should be removed soon */
-    if (argv0 != NULL) {
-        lib_free(argv0);
-        argv0 = NULL;
-    }
 }
 
+char *archdep_user_config_path(void)
+{
+    assert(false);
+}
+
+const char *archdep_boot_path(void)
+{
+    return lib_strdup(C64.shared.delegate.bootPath.UTF8String);
+}
+
+char *archdep_default_sysfile_pathlist(const char *emu_id)
+{
+    const char *paths[17];
+    int i = 0;
+    
+    for (NSString *path in C64.shared.delegate.sysfilePathList) {
+        paths[i] = path.UTF8String;
+        i++;
+    }
+    
+    paths[i] = NULL;
+    return util_strjoin(paths, ARCHDEP_FINDPATH_SEPARATOR_STRING);
+}
+
+#pragma mark stubs
+
+char *archdep_default_autostart_disk_image_file_name(void)
+{
+    const char* home = [NSHomeDirectory() cStringUsingEncoding:NSASCIIStringEncoding];
+    return util_concat(home, "/autostart-vice.d64", NULL);
+}
+
+char *archdep_default_fliplist_file_name(void)
+{
+    return lib_strdup("");
+}
+
+int archdep_default_logger(const char *level_string, const char *txt)
+{
+    NSLog(@"Vice-Core: %s - %s" , level_string, txt);
+    return 0;
+}
+
+char *archdep_default_resource_file_name(void)
+{
+    return lib_strdup("");
+}
+
+char *archdep_default_rtc_file_name(void)
+{
+    return lib_strdup("");
+}
+
+char *archdep_default_save_resource_file_name(void)
+{
+    return lib_strdup("");
+}
+
+int archdep_expand_path(char **return_path, const char *orig_name)
+{
+    *return_path = lib_strdup(orig_name);
+    return 0;
+}

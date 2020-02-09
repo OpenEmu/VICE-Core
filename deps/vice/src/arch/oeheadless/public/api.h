@@ -1,3 +1,3 @@
-
+#import "archdep.h"
 #import "oecommon.h"
-#import "c64.h"
+#import "C64.h"

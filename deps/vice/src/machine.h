@@ -57,6 +57,21 @@ extern const char machine_name[];
 #define MACHINE_SYNC_NTSCOLD 3
 #define MACHINE_SYNC_PALN    4
 
+#ifdef USE_ALT_CPU
+
+typedef enum machine_event_flags: uint8_t {
+    MACHINE_EVENT_CLEAR = 0,
+    MACHINE_EVENT_FRAME = 1u << 0u,
+    MACHINE_EVENT_TRAP  = 1u << 1u,
+    
+    // sets
+    MACHINE_EVENT_ANY   = 0xff,
+} machine_event_flags;
+
+extern machine_event_flags * restrict machine_event;
+
+#endif
+
 struct machine_timing_s {
     unsigned int cycles_per_line;
     long cycles_per_rfsh;
@@ -134,6 +149,15 @@ extern void machine_set_cycles_per_frame(long cpf);
 
 /* Get current line and cycle. */
 extern void machine_get_line_cycle(unsigned int *line, unsigned int *cycle, int *half_cycle);
+
+struct snapshot_stream_s;
+
+/* Write a snapshot to stream (file or memory).  */
+extern int machine_write_snapshot_to_stream(struct snapshot_stream_s *stream, int save_roms, int save_disks,
+                                   int event_mode);
+
+/* Read a snapshot from stream (file or memory).  */
+extern int machine_read_snapshot_from_stream(struct snapshot_stream_s *stream, int event_mode);
 
 /* Write a snapshot.  */
 extern int machine_write_snapshot(const char *name, int save_roms,
