@@ -22,6 +22,17 @@ typedef NS_ENUM(NSUInteger, C64Model)
     C64ModelCNTSC   = 4,
 };
 
+typedef NS_ENUM(NSUInteger, KeyboardMod)
+{
+    KeyboardModNone   = 0,
+    KeyboardModLShift = 1u << 0u,
+    KeyboardModRShift = 1u << 1u,
+    KeyboardModLCTRL = 1u << 2u,
+    KeyboardModRCTRL = 1u << 3u,
+    KeyboardModLALT = 1u << 4u,
+    KeyboardModRALT = 1u << 5u,
+};
+
 OE_EXPORTED_CLASS
 @interface C64: NSObject
 
@@ -58,7 +69,20 @@ OE_EXPORTED_CLASS
 #pragma mark - execution
 
 - (BOOL)execute;
+- (void)resetMachineSoft;
+- (void)resetMachineHard;
 - (void)setBuffer:(void *)buffer size:(NSSize)size;
+
+#pragma mark - input
+
+- (void)keyboardKeyDown:(int)keycode mod:(KeyboardMod)mod;
+- (void)keyboardKeyUp:(int)keycode mod:(KeyboardMod)mod;
+- (void)keyboardKeyClear;
+
+- (void)joystickOrValue:(uint8_t)value forPort:(unsigned int)port;
+- (void)joystickAndValue:(uint8_t)value forPort:(unsigned int)port;
+- (void)joystickClearValueForPort:(unsigned int)port;
+- (void)joystickClearAll;
 
 @end
 

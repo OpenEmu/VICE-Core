@@ -35,6 +35,8 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
 @interface ViceGameCore() <OEC64SystemResponderClient, C64Delegate>
 {
     NSArray             *_availableDisplayModes;
+    BOOL                _isJoystickPortSwapped;
+    BOOL                _runstopLock;
     C64                 *_c64;
     NSArray<NSString *> *_sysfilePathList;
     uint32_t            *_buffer;
@@ -111,7 +113,7 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
 
 - (void)resetEmulation
 {
-    // machine_trigger_reset(MACHINE_RESET_MODE_HARD);
+    [_c64 resetMachineHard];
 }
 
 - (void)executeFrame
@@ -252,7 +254,7 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
     // Set the RunStopLock flag if Arrow up is pressed
     // if (keyCode == kVK_UpArrow) RunStopLock = true;
     
-    // keyboard_key_pressed(keyCode);
+    [_c64 keyboardKeyDown:keyCode mod:KeyboardModNone];
 }
 
 - (oneway void)keyUp:(unsigned short)keyCode characters:(NSString *)characters charactersIgnoringModifiers:(NSString *)charactersIgnoringModifiers flags:(NSEventModifierFlags)flags
@@ -265,7 +267,7 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
     // UnSet RunStopLock flag if Arrow up is released
     // if (keyCode == 126) RunStopLock = false;
     
-    // keyboard_key_released(keyCode);
+    [_c64 keyboardKeyUp:keyCode mod:KeyboardModNone];
 }
 
 static uint8_t joystick_bits[] = {
@@ -279,7 +281,7 @@ static uint8_t joystick_bits[] = {
 - (oneway void)swapJoysticks
 {
     // do port swap
-//    _isJoystickPortSwapped = !_isJoystickPortSwapped;
+    _isJoystickPortSwapped = !_isJoystickPortSwapped;
 }
 
 - (oneway void)didPushC64Button:(OEC64Button)button forPlayer:(NSUInteger)player
@@ -287,31 +289,31 @@ static uint8_t joystick_bits[] = {
 //    // Avoid a RunStop Lock if the Arrow key is pressed, and up is pushed on a Joystick
 //    if (RunStopLock && button == OEC64JoystickUp) keyboard_key_released(kVK_UpArrow);
 //
-//    if (button == OEC64ButtonJump) button = OEC64JoystickUp;
+    if (button == OEC64ButtonJump) button = OEC64JoystickUp;
 //
-//    // Default to Port 2 for Player 1, since most C64 games use this
-//    int port;
-//    if (player == 1)
-//        port = _isJoystickPortSwapped ? 1 : 2;
-//    else
-//        port = _isJoystickPortSwapped ? 2 : 1;
-//
-//    joystick_set_value_or(port, joystick_bits[button]);
+    // Default to Port 2 for Player 1, since most C64 games use this
+    int port;
+    if (player == 1)
+        port = _isJoystickPortSwapped ? 1 : 2;
+    else
+        port = _isJoystickPortSwapped ? 2 : 1;
+
+    [_c64 joystickOrValue:joystick_bits[button] forPort:port];
 }
 
 - (oneway void)didReleaseC64Button:(OEC64Button)button forPlayer:(NSUInteger)player
 {
-//    if (button == OEC64ButtonJump) button = OEC64JoystickUp;
+    if (button == OEC64ButtonJump) button = OEC64JoystickUp;
 //
-//    // Default to Port 2 for Player 1, since most C64 games use this
-//    int port;
-//    if (player == 1)
-//        port = _isJoystickPortSwapped ? 1 : 2;
-//    else
-//        port = _isJoystickPortSwapped ? 2 : 1;
-//
-//    uint8_t val = 0xff & ~joystick_bits[button];
-//    joystick_set_value_and(port, val);
+    // Default to Port 2 for Player 1, since most C64 games use this
+    int port;
+    if (player == 1)
+        port = _isJoystickPortSwapped ? 1 : 2;
+    else
+        port = _isJoystickPortSwapped ? 2 : 1;
+
+    uint8_t val = 0xff & ~joystick_bits[button];
+    [_c64 joystickAndValue:val forPort:port];
 }
 
 - (NSArray <NSDictionary <NSString *, id> *> *)displayModes

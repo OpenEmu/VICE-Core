@@ -1,12 +1,11 @@
-/** \file   kbd.h
- * \brief   Headless specfic keyboard driver - header
- *
- * \author  Marco van den Heuvel <blackystardust68@yahoo.com>
+/** \file   archdep_kbd_get_host_mapping.h
+ * \brief   guess the hosts keyboard layout
+ * \author  groepaz <groepaz@gmx.net>
  */
 
 /*
  * This file is part of VICE, the Versatile Commodore Emulator.
- * See README file for copyright notice.
+ * See README for copyright notice.
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -25,22 +24,10 @@
  *
  */
 
-#ifndef VICE_KBD_H
-#define VICE_KBD_H
+#ifndef ARCHDEP_KBD_GET_HOST_MAPPING_H
+#define ARCHDEP_KBD_GET_HOST_MAPPING_H
 
-void kbd_arch_init(void);
-void kbd_arch_shutdown(void);
-int kbd_arch_get_host_mapping(void);
-void kbd_initialize_numpad_joykeys(int *joykeys);
-
-#define KBD_PORT_PREFIX "osx"
-
-/* add more function prototypes as needed below */
-
-signed long kbd_arch_keyname_to_keynum(char *keyname);
-const char *kbd_arch_keynum_to_keyname(signed long keynum);
-
-void kbd_hotkey_init(void);
-void kbd_hotkey_shutdown(void);
+int archdep_kbd_get_host_mapping(void);
 
 #endif
+ 

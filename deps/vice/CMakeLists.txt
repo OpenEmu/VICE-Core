@@ -15,6 +15,12 @@ if (USE_ALT_CPU)
     add_definitions(-DUSE_ALT_CPU)
 endif ()
 
+message("TYPE: ${CMAKE_BUILD_TYPE}")
+if (CMAKE_BUILD_TYPE STREQUAL "Release")
+    message("adding lto")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -flto=full -march=skylake -mavx2 -ffast-math")
+endif()
+
 if (USE_OEHEADLESS)
     list(APPEND ARCH_INCLUDES
             ${CMAKE_SOURCE_DIR}/src/arch/oeheadless

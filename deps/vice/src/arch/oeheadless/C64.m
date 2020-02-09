@@ -9,6 +9,16 @@
 #import "c64model.h"
 #import "main.h"
 #import "video.h"
+#import "keyboard.h"
+#import "joystick.h"
+
+// sanity checks
+OE_STATIC_ASSERT(KeyboardModLShift == (KeyboardMod)KBD_MOD_LSHIFT);
+OE_STATIC_ASSERT(KeyboardModRALT == (KeyboardMod)KBD_MOD_RALT);
+OE_STATIC_ASSERT(C64ModelPAL == (C64Model)C64MODEL_C64_PAL);
+OE_STATIC_ASSERT(C64ModelCPAL == (C64Model)C64MODEL_C64C_PAL);
+OE_STATIC_ASSERT(C64ModelNTSC == (C64Model)C64MODEL_C64_NTSC);
+OE_STATIC_ASSERT(C64ModelCNTSC == (C64Model)C64MODEL_C64C_NTSC);
 
 @implementation C64 {
     BOOL _initialized;
@@ -193,10 +203,49 @@ static void load_trap(uint16_t addr, void *success)
     return YES;
 }
 
+- (void)resetMachineSoft {
+    machine_trigger_reset(MACHINE_RESET_MODE_SOFT);
+}
+
+- (void)resetMachineHard {
+    machine_trigger_reset(MACHINE_RESET_MODE_HARD);
+}
+
 - (void)setBuffer:(void *)buffer size:(NSSize)size {
     _buffer     = buffer;
     _bufferSize = size;
     [self updateCanvasFromBuffer];
 }
+
+#pragma mark - input
+
+- (void)keyboardKeyDown:(int)keycode mod:(KeyboardMod)mod {
+    keyboard_key_pressed(keycode, mod);
+}
+
+- (void)keyboardKeyUp:(int)keycode mod:(KeyboardMod)mod {
+    keyboard_key_released(keycode, mod);
+}
+
+- (void)keyboardKeyClear {
+    keyboard_key_clear();
+}
+
+- (void)joystickOrValue:(uint8_t)value forPort:(unsigned int)port {
+    joystick_set_value_or(port, value);
+}
+
+- (void)joystickAndValue:(uint8_t)value forPort:(unsigned int)port {
+    joystick_set_value_and(port, value);
+}
+
+- (void)joystickClearValueForPort:(unsigned int)port {
+    joystick_clear(port);
+}
+
+- (void)joystickClearAll {
+    joystick_clear_all();
+}
+
 
 @end

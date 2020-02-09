@@ -152,6 +152,12 @@ target_include_directories(x64sc PRIVATE
 target_link_libraries(x64sc ${X64SC_LIBS} z "-framework CoreAudio" "-framework AudioToolbox" "-framework CoreFoundation")
 target_compile_options(x64sc PUBLIC "-fobjc-arc")
 
+include(CheckIPOSupported)
+check_ipo_supported(RESULT IPO_SUPPORTED)
+if(IPO_SUPPORTED)
+    set_target_properties(x64sc PROPERTIES INTERPROCEDURAL_OPTIMIZATION TRUE)
+endif()
+
 if(USE_OEHEADLESS)
     add_library(oex64sc SHARED ${X64SC_SOURCES})
 
@@ -179,6 +185,10 @@ if(USE_OEHEADLESS)
         )
     target_link_libraries(oex64sc ${X64SC_LIBS} z "-framework Foundation")
     target_compile_options(oex64sc PUBLIC "-fobjc-arc")
+
+    if(IPO_SUPPORTED)
+        set_target_properties(oex64sc PROPERTIES INTERPROCEDURAL_OPTIMIZATION TRUE)
+    endif()
 
     add_custom_command(TARGET oex64sc POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:oex64sc> ${CMAKE_SOURCE_DIR}

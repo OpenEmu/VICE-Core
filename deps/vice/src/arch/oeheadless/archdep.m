@@ -37,7 +37,8 @@ void archdep_shutdown(void)
 
 char *archdep_user_config_path(void)
 {
-    assert(false);
+    char const * home = NSHomeDirectory().UTF8String;
+    return home;
 }
 
 const char *archdep_boot_path(void)
