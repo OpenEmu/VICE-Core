@@ -18,10 +18,17 @@
 #include "uiapi.h"
 #include "video.h"
 #include "autostart-prg.h"
+#include "keyboard.h"
 
 /* This is the main program entry point.  Call this from `main()'.  */
 int main_program(int argc, char **argv)
 {
+    if (log_init() < 0) {
+        archdep_startup_log_error("Cannot startup logging system.\n");
+    }
+    
+    log_set_verbose(1);
+    
     lib_init_rand();
     
     if (archdep_init(NULL, NULL) != 0) {
@@ -63,15 +70,6 @@ int main_program(int argc, char **argv)
         }
     }
     
-    resources_set_int("VICIIDoubleSize", 0);
-    resources_set_int("VICIIDoubleScan", 0);
-    resources_set_int("VICIIFilter", VIDEO_FILTER_NONE);
-    resources_set_int("AutostartPrgMode", AUTOSTART_PRG_MODE_INJECT);
-    
-    if (log_init() < 0) {
-        archdep_startup_log_error("Cannot startup logging system.\n");
-    }
-    
     /* Complete the GUI initialization (after loading the resources and
        parsing the command-line) if necessary.  */
     if (ui_init_finish() < 0) {
@@ -91,6 +89,12 @@ int main_program(int argc, char **argv)
     }
     
     initcmdline_check_attach();
+    
+    resources_set_int("VICIIDoubleSize", 0);
+    resources_set_int("VICIIDoubleScan", 0);
+    resources_set_int("VICIIFilter", VIDEO_FILTER_NONE);
+    resources_set_int("AutostartPrgMode", AUTOSTART_PRG_MODE_INJECT);
+    resources_set_int("KeymapIndex", KBD_INDEX_SYM);
     
     maincpu_headless_init();
     maincpu_headless_mainloop();

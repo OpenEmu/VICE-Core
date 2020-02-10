@@ -38,13 +38,19 @@ OE_EXPORTED_CLASS
 
 @property (class, nonatomic, readonly) C64 *shared;
 
-@property (nonatomic, readonly) id<C64Delegate> delegate;
-- (void)initializeWithDelegate:(id<C64Delegate>)delegate;
+@property (nonatomic, assign, nullable) id<C64Delegate> delegate;
+- (void)initializeWithBootPath:(NSString *)bootPath systemPathList:(NSArray<NSString *>*)pathList;
 
 #pragma mark - configuration
 
 @property (nonatomic) C64Model model;
-@property (nonatomic, copy) NSString *bootPath;
+@property (nonatomic, readonly) NSString *bootPath;
+@property (nonatomic, readonly) NSArray<NSString *> *sysfilePathList;
+
+#pragma mark - audio
+
+@property (nonatomic, readonly) int audioFrequency;
+@property (nonatomic, readonly) int audioChannels;
 
 #pragma mark - image management
 

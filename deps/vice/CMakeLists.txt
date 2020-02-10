@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 option(USE_OEHEADLESS "Compile OpenEmu headless library" ON)
 option(USE_ALT_CPU "Use alternate CPU" ON)
+option(USE_APPLE_LOG "Use Apple os logging" ON)
 
 list(APPEND ARCH_INCLUDES
         ${CMAKE_SOURCE_DIR}/src/arch
@@ -15,11 +16,7 @@ if (USE_ALT_CPU)
     add_definitions(-DUSE_ALT_CPU)
 endif ()
 
-message("TYPE: ${CMAKE_BUILD_TYPE}")
-if (CMAKE_BUILD_TYPE STREQUAL "Release")
-    message("adding lto")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -flto=full -march=skylake -mavx2 -ffast-math")
-endif()
+set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS} -flto=full -march=skylake -mavx2 -ffast-math")
 
 if (USE_OEHEADLESS)
     list(APPEND ARCH_INCLUDES

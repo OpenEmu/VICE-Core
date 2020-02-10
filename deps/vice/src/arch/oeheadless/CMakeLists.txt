@@ -48,6 +48,7 @@ set(OEHEADLESS_SOURCES
         cbm5x0ui.c
         api.m
         C64.m
+        ResourceManager.m
         )
 
 set(OEHEADLESS_ARCHDEP_SOURCES

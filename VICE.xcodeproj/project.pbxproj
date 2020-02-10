@@ -64,14 +64,13 @@
 		05A897FD23EF5E78000CA1D2 /* default.vrs in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 05A8975D23EF5D2C000CA1D2 /* default.vrs */; };
 		05A8980423EF64AB000CA1D2 /* liboex64sc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A8980323EF64AB000CA1D2 /* liboex64sc.dylib */; };
 		05A8980523EF64AB000CA1D2 /* liboex64sc.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 05A8980323EF64AB000CA1D2 /* liboex64sc.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		05A8982623F1229F000CA1D2 /* osx_pos.vkm in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 05A8982423F1229F000CA1D2 /* osx_pos.vkm */; };
+		05A8982723F1229F000CA1D2 /* osx_sym.vkm in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 05A8982523F1229F000CA1D2 /* osx_sym.vkm */; };
 		3EDA967E1F19560C0015CED2 /* ViceGameCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0598D2541C44C2FB00E456A6 /* ViceGameCore.m */; };
 		3EDA96821F19560C0015CED2 /* libedit.3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1BCCA31F16DA250022C2EF /* libedit.3.0.tbd */; };
 		3EDA96831F19560C0015CED2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 059611F81C3C47FD005C174C /* libz.tbd */; };
 		3EDA96841F19560C0015CED2 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 059611FA1C3C482C005C174C /* libstdc++.tbd */; };
 		3EDA96851F19560C0015CED2 /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0598D2561C44C38200E456A6 /* OpenEmuBase.framework */; };
-		EE0D700E228DA44D00D721E9 /* osx_pos.vkm in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = EE0D700D228DA44200D721E9 /* osx_pos.vkm */; };
-		EE0D700F228DA44D00D721E9 /* osx_sym_de.vkm in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = EE0D700B228DA44100D721E9 /* osx_sym_de.vkm */; };
-		EE0D7010228DA44D00D721E9 /* osx_sym.vkm in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = EE0D700C228DA44100D721E9 /* osx_sym.vkm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +101,8 @@
 			dstPath = ROM/C64;
 			dstSubfolderSpec = 7;
 			files = (
+				05A8982623F1229F000CA1D2 /* osx_pos.vkm in Copy C64 ROM Files */,
+				05A8982723F1229F000CA1D2 /* osx_sym.vkm in Copy C64 ROM Files */,
 				05A897E323EF5E78000CA1D2 /* basic in Copy C64 ROM Files */,
 				05A897E423EF5E78000CA1D2 /* chargen in Copy C64 ROM Files */,
 				05A897E523EF5E78000CA1D2 /* edkernal in Copy C64 ROM Files */,
@@ -129,9 +130,6 @@
 				05A897FB23EF5E78000CA1D2 /* rgb.vpl in Copy C64 ROM Files */,
 				05A897FC23EF5E78000CA1D2 /* vice.vpl in Copy C64 ROM Files */,
 				05A897FD23EF5E78000CA1D2 /* default.vrs in Copy C64 ROM Files */,
-				EE0D700E228DA44D00D721E9 /* osx_pos.vkm in Copy C64 ROM Files */,
-				EE0D700F228DA44D00D721E9 /* osx_sym_de.vkm in Copy C64 ROM Files */,
-				EE0D7010228DA44D00D721E9 /* osx_sym.vkm in Copy C64 ROM Files */,
 			);
 			name = "Copy C64 ROM Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -162,9 +160,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0558B2EC1C46BA5F00D6B7DA /* main_program.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main_program.h; sourceTree = "<group>"; };
-		0558B2ED1C46BCA200D6B7DA /* vice_stubs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vice_stubs.c; sourceTree = "<group>"; };
-		0558B2F71C48BA1900D6B7DA /* joy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = joy.h; sourceTree = "<group>"; };
 		059611F61C3C478E005C174C /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		059611F81C3C47FD005C174C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		059611FA1C3C482C005C174C /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -173,10 +168,6 @@
 		0598D2531C44C2FB00E456A6 /* ViceGameCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViceGameCore.h; sourceTree = "<group>"; };
 		0598D2541C44C2FB00E456A6 /* ViceGameCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViceGameCore.m; sourceTree = "<group>"; };
 		0598D2561C44C38200E456A6 /* OpenEmuBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenEmuBase.framework; path = "../OpenEmu-SDK/build/Debug/OpenEmuBase.framework"; sourceTree = "<group>"; };
-		0598D25C1C44DF9600E456A6 /* kbd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kbd.c; sourceTree = "<group>"; };
-		0598D25D1C44DF9600E456A6 /* main_program.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main_program.m; sourceTree = "<group>"; };
-		0598D2641C44DF9600E456A6 /* video.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = video.c; sourceTree = "<group>"; };
-		0598D2771C44E2FF00E456A6 /* kbd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kbd.h; sourceTree = "<group>"; };
 		05A8973F23EF5D2C000CA1D2 /* dos2031 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dos2031; sourceTree = "<group>"; };
 		05A8974123EF5D2C000CA1D2 /* dos2040 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dos2040; sourceTree = "<group>"; };
 		05A8974223EF5D2C000CA1D2 /* dos1541 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dos1541; sourceTree = "<group>"; };
@@ -222,21 +213,16 @@
 		05A8980223EF5ECC000CA1D2 /* oecommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oecommon.h; sourceTree = "<group>"; };
 		05A8980323EF64AB000CA1D2 /* liboex64sc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liboex64sc.dylib; path = deps/vice/liboex64sc.dylib; sourceTree = "<group>"; };
 		05A8980723EF7DD5000CA1D2 /* archdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = archdep.h; sourceTree = "<group>"; };
+		05A8982423F1229F000CA1D2 /* osx_pos.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = osx_pos.vkm; sourceTree = "<group>"; };
+		05A8982523F1229F000CA1D2 /* osx_sym.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = osx_sym.vkm; sourceTree = "<group>"; };
 		3E1BCCA31F16DA250022C2EF /* libedit.3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libedit.3.0.tbd; path = usr/lib/libedit.3.0.tbd; sourceTree = SDKROOT; };
 		3E3DDE7E1F46863A00639644 /* OEC64SystemResponderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OEC64SystemResponderClient.h; path = "../../OpenEmu/Commodore 64/OEC64SystemResponderClient.h"; sourceTree = "<group>"; };
-		3E6E5DD51F17198A007FEF0A /* archdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = archdep.h; sourceTree = "<group>"; };
-		3E6E5DD61F17198A007FEF0A /* archdep+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "archdep+private.h"; sourceTree = "<group>"; };
-		3E6E5DD71F17198A007FEF0A /* archdep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = archdep.m; sourceTree = "<group>"; };
 		3E6E5E3B1F17301C007FEF0A /* libedit.3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libedit.3.tbd; path = usr/lib/libedit.3.tbd; sourceTree = SDKROOT; };
 		3EDA96DB1F19560C0015CED2 /* VICE.oecoreplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VICE.oecoreplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EDA98AC1F197B540015CED2 /* OpenEmuBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenEmuBase.framework; path = "../../Library/Developer/Xcode/DerivedData/OpenEmu-daupfkdcntzkhycxsuyuvqosnsbs/Build/Products/Debug/OpenEmuBase.framework"; sourceTree = "<group>"; };
 		3EDA98AD1F197B540015CED2 /* OpenEmuSystem.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenEmuSystem.framework; path = "../../Library/Developer/Xcode/DerivedData/OpenEmu-daupfkdcntzkhycxsuyuvqosnsbs/Build/Products/Debug/OpenEmuSystem.framework"; sourceTree = "<group>"; };
 		3EDA98B01F197B770015CED2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		87BEF9312175226000E38B38 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
-		EE0D700B228DA44100D721E9 /* osx_sym_de.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_sym_de.vkm; sourceTree = "<group>"; };
-		EE0D700C228DA44100D721E9 /* osx_sym.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_sym.vkm; sourceTree = "<group>"; };
-		EE0D700D228DA44200D721E9 /* osx_pos.vkm */ = {isa = PBXFileReference; lastKnownFileType = text; path = osx_pos.vkm; sourceTree = "<group>"; };
-		EEAF0D73228C805300F0AE42 /* mousedrv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mousedrv.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -305,26 +291,10 @@
 		0598D2521C44C2CB00E456A6 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				EE0D6E61228C9E4700D721E9 /* archdep */,
-				0598D2581C44DF3200E456A6 /* support */,
 				0598D2531C44C2FB00E456A6 /* ViceGameCore.h */,
 				0598D2541C44C2FB00E456A6 /* ViceGameCore.m */,
 			);
 			path = Classes;
-			sourceTree = "<group>";
-		};
-		0598D2581C44DF3200E456A6 /* support */ = {
-			isa = PBXGroup;
-			children = (
-				EE0D700D228DA44200D721E9 /* osx_pos.vkm */,
-				EE0D700B228DA44100D721E9 /* osx_sym_de.vkm */,
-				EE0D700C228DA44100D721E9 /* osx_sym.vkm */,
-				0558B2EC1C46BA5F00D6B7DA /* main_program.h */,
-				0598D25D1C44DF9600E456A6 /* main_program.m */,
-				0558B2ED1C46BCA200D6B7DA /* vice_stubs.c */,
-				0598D2641C44DF9600E456A6 /* video.c */,
-			);
-			path = support;
 			sourceTree = "<group>";
 		};
 		05A8973D23EF5CFD000CA1D2 /* C64 */ = {
@@ -360,6 +330,8 @@
 		05A8974F23EF5D2C000CA1D2 /* C64 */ = {
 			isa = PBXGroup;
 			children = (
+				05A8982423F1229F000CA1D2 /* osx_pos.vkm */,
+				05A8982523F1229F000CA1D2 /* osx_sym.vkm */,
 				05A8976823EF5D2C000CA1D2 /* basic */,
 				05A8976123EF5D2C000CA1D2 /* chargen */,
 				05A8978923EF5D2C000CA1D2 /* edkernal */,
@@ -419,20 +391,6 @@
 				87BEF9312175226000E38B38 /* Info.plist */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		EE0D6E61228C9E4700D721E9 /* archdep */ = {
-			isa = PBXGroup;
-			children = (
-				EEAF0D73228C805300F0AE42 /* mousedrv.c */,
-				0558B2F71C48BA1900D6B7DA /* joy.h */,
-				3E6E5DD61F17198A007FEF0A /* archdep+private.h */,
-				3E6E5DD51F17198A007FEF0A /* archdep.h */,
-				3E6E5DD71F17198A007FEF0A /* archdep.m */,
-				0598D2771C44E2FF00E456A6 /* kbd.h */,
-				0598D25C1C44DF9600E456A6 /* kbd.c */,
-			);
-			path = archdep;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

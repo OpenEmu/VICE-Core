@@ -37,13 +37,12 @@ void archdep_shutdown(void)
 
 char *archdep_user_config_path(void)
 {
-    char const * home = NSHomeDirectory().UTF8String;
-    return home;
+    return (char *)NSHomeDirectory().UTF8String;
 }
 
 const char *archdep_boot_path(void)
 {
-    return lib_strdup(C64.shared.delegate.bootPath.UTF8String);
+    return lib_strdup(C64.shared.bootPath.UTF8String);
 }
 
 char *archdep_default_sysfile_pathlist(const char *emu_id)
@@ -51,7 +50,7 @@ char *archdep_default_sysfile_pathlist(const char *emu_id)
     const char *paths[17];
     int i = 0;
     
-    for (NSString *path in C64.shared.delegate.sysfilePathList) {
+    for (NSString *path in C64.shared.sysfilePathList) {
         paths[i] = path.UTF8String;
         i++;
     }

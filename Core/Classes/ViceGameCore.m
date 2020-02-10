@@ -41,10 +41,6 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
     NSArray<NSString *> *_sysfilePathList;
     uint32_t            *_buffer;
     OEIntSize           _bufferSize;
-    
-    // audio
-    int _speed;
-    int _channels;
 }
 
 - (void)initializeEmulator;
@@ -65,35 +61,20 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
 
 #pragma mark - C64Delegate
 
-- (NSString *)bootPath {
-    return self.owner.bundle.resourcePath;
-}
-
-- (NSArray<NSString *> *)sysfilePathList {
-    if (_sysfilePathList == nil) {
-        #define MACOSX_ROMDIR @"/ROM/"
-        
-        _sysfilePathList = @[
-            [NSString pathWithComponents:@[self.bootPath, MACOSX_ROMDIR, @"C64"]],
-            [NSString pathWithComponents:@[self.bootPath, MACOSX_ROMDIR, @"DRIVES"]],
-        ];
-    }
-    
-    return _sysfilePathList;
-}
-
-- (void)initSoundSpeed:(int *)speed fragSize:(int *)fragSize fragNumber:(int *)fragNumber channels:(int *)channels {
-    _speed      = *speed;
-    _channels   = *channels;
-}
-
 - (void)updateAudioBuffer:(const int16_t *)buffer samples:(NSInteger)samples {
     [[self audioBufferAtIndex:0] write:buffer maxLength:samples * 2];
 }
 
 #pragma mark - emulation
 
+- (void)setupEmulation {
+    _c64.delegate = self;
+    [super setupEmulation];
+}
+
 - (void)stopEmulation {
+    [_c64 resetMachineHard];
+    _c64.delegate = nil;
     [super stopEmulation];
 }
 
@@ -191,12 +172,12 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
 
 - (double)audioSampleRate
 {
-    return _speed;
+    return _c64.audioFrequency;
 }
 
 - (NSUInteger)channelCount
 {
-    return _channels;
+    return _c64.audioChannels;
 }
 
 - (NSUInteger)audioBitDepth
@@ -226,6 +207,51 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
 {
 }
 
+KeyboardMod keyCodeToMod( unsigned short keyCode) {
+    switch (keyCode) {
+        case kVK_Shift:
+            return KeyboardModLShift;
+        case kVK_RightShift:
+            return KeyboardModRShift;
+        case kVK_Control:
+            return KeyboardModLCTRL;
+        case kVK_RightControl:
+            return KeyboardModRCTRL;
+        case kVK_Option:
+            return KeyboardModLALT;
+        case kVK_RightOption:
+            return KeyboardModRALT;
+        default:
+            return KeyboardModNone;
+    }
+}
+
+KeyboardMod flagsToMod(NSEventModifierFlags flags) {
+    KeyboardMod res = KeyboardModNone;
+    if (flags & NX_DEVICELSHIFTKEYMASK) {
+        res |= KeyboardModLShift;
+    }
+    if (flags & NX_DEVICERSHIFTKEYMASK) {
+        res |= KeyboardModRShift;
+    }
+    
+    if (flags & NX_DEVICELCTLKEYMASK) {
+        res |= KeyboardModLCTRL;
+    }
+    if (flags & NX_DEVICERCTLKEYMASK) {
+        res |= KeyboardModRCTRL;
+    }
+    
+    if (flags & NX_DEVICELALTKEYMASK) {
+        res |= KeyboardModLALT;
+    }
+    if (flags & NX_DEVICERALTKEYMASK) {
+        res |= KeyboardModRALT;
+    }
+
+    return res;
+}
+
 - (oneway void)keyDown:(unsigned short)keyCode characters:(NSString *)characters charactersIgnoringModifiers:(NSString *)charactersIgnoringModifiers flags:(NSEventModifierFlags)flags
 {
     if(keyCode == kVK_Function)
@@ -248,26 +274,47 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
             if (!(flags & OENSEventModifierFlagFunctionKey))
                 return;
     }
+    
+    KeyboardMod mod = flagsToMod(flags);
 
-    NSLog(@"keyDown: code=%03d, flags=%08x", keyCode, (uint32_t)flags);
+    NSLog(@"keyDown: code=%03d, flags=%08x, mod=%08lx", keyCode, (uint32_t)flags, mod);
     
     // Set the RunStopLock flag if Arrow up is pressed
     // if (keyCode == kVK_UpArrow) RunStopLock = true;
-    
-    [_c64 keyboardKeyDown:keyCode mod:KeyboardModNone];
+    [_c64 keyboardKeyDown:keyCode mod:mod];
 }
 
 - (oneway void)keyUp:(unsigned short)keyCode characters:(NSString *)characters charactersIgnoringModifiers:(NSString *)charactersIgnoringModifiers flags:(NSEventModifierFlags)flags
 {
     if(keyCode == kVK_Function)
         return;
+    
+    switch (keyCode)
+    {
+        case kVK_F1:
+        case kVK_F2:
+        case kVK_F3:
+        case kVK_F4:
+        case kVK_F5:
+        case kVK_F6:
+        case kVK_F7:
+        case kVK_F8:
+        case kVK_F9:
+        case kVK_F10:
+        case kVK_F11:
+        case kVK_F12:
+            if (!(flags & OENSEventModifierFlagFunctionKey))
+                return;
+    }
 
-    NSLog(@"keyUp: code=%03d, flags=%08x", keyCode, (uint32_t)flags);
+    KeyboardMod mod = flagsToMod(flags);
+    
+    NSLog(@"keyUp: code=%03d, flags=%08x, mod=%08lx", keyCode, (uint32_t)flags, mod);
     
     // UnSet RunStopLock flag if Arrow up is released
     // if (keyCode == 126) RunStopLock = false;
     
-    [_c64 keyboardKeyUp:keyCode mod:KeyboardModNone];
+    [_c64 keyboardKeyUp:keyCode mod:mod];
 }
 
 static uint8_t joystick_bits[] = {
@@ -375,11 +422,14 @@ static uint8_t joystick_bits[] = {
     static bool initialized = false;
 
     if (!initialized) {
-        [_c64 initializeWithDelegate:self];
+        NSString *bootPath = self.owner.bundle.resourcePath;
+#define MACOSX_ROMDIR @"ROM"
+        NSArray<NSString *> *pathList = @[
+            [NSString pathWithComponents:@[bootPath, MACOSX_ROMDIR, @"C64"]],
+            [NSString pathWithComponents:@[bootPath, MACOSX_ROMDIR, @"DRIVES"]],
+        ];
+        [_c64 initializeWithBootPath:bootPath systemPathList:pathList];
         
-        // TODO
-        //archdep_set_boot_path([[[self owner] bundle] resourcePath]);
-        //main_init();
         // Use the last selected display mode or default to the appropriate for the user system locale
         if (self.displayModeInfo == nil)
         {

@@ -34,35 +34,6 @@ OE_STATIC_ASSERT(C64ModelCNTSC == (C64Model)C64MODEL_C64C_NTSC);
     return self;
 }
 
-static snapshot_stream_t *snapshot_stream = NULL;
-static int load_trap_happened = 0;
-static int save_trap_happened = 0;
-
-static void save_trap(uint16_t addr, void *success)
-{
-    static int save_disks;
-    static int drive_type;
-    resources_get_int("Drive8Type", &drive_type);
-    save_disks = (drive_type < 1550) ? 1 : 0;
-    
-    /* params: stream, save_roms, save_disks, event_mode */
-    if (machine_write_snapshot_to_stream(snapshot_stream, 0, save_disks, 0) >= 0)
-        *((int *)success) = 1;
-    else
-        *((int *)success) = 0;
-    save_trap_happened = 1;
-}
-
-static void load_trap(uint16_t addr, void *success)
-{
-    /* params: stream, event_mode */
-    if (machine_read_snapshot_from_stream(snapshot_stream, 0) >= 0)
-        *((int *)success) = 1;
-    else
-        *((int *)success) = 0;
-    load_trap_happened = 1;
-}
-
 + (C64 *)shared {
     static C64 *shared;
     
@@ -95,14 +66,21 @@ static void load_trap(uint16_t addr, void *success)
     [self updateCanvasFromBuffer];
 }
 
+- (void)initSoundSpeed:(int *)speed fragSize:(int *)fragSize fragNumber:(int *)fragNumber channels:(int *)channels {
+    _audioFrequency = *speed;
+    _audioChannels  = *channels;
+}
+
 #pragma mark - initialization
 
-- (void)initializeWithDelegate:(id <C64Delegate>)delegate {
+- (void)initializeWithBootPath:(NSString *)bootPath systemPathList:(NSArray<NSString *>*)pathList {
     if (_initialized) {
         assert(false);
     }
     
-    _delegate = delegate;
+    _bootPath = [bootPath copy];
+    _sysfilePathList = [pathList copy];
+    
     main_program(0, NULL);
     _initialized = YES;
 }
