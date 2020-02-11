@@ -593,7 +593,7 @@ void maincpu_headless_init(void)
     machine_trigger_reset(MACHINE_RESET_MODE_SOFT);
 }
 
-void maincpu_headless_mainloop(void)
+void maincpu_headless_mainloop(machine_event_flags event_mask)
 {
     *machine_event = MACHINE_EVENT_CLEAR;
 
@@ -648,10 +648,10 @@ void maincpu_headless_mainloop(void)
 #include "6510dtvcore.c"
 
         maincpu_int_status->num_dma_per_opcode = 0;
-    } while (*machine_event == 0);
+    } while ((*machine_event & event_mask) == 0);
     
     // for snapshots
-    EXPORT_REGISTERS();
+    // EXPORT_REGISTERS();
 }
 
 #else

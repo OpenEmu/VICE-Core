@@ -133,8 +133,6 @@ char *ui_get_file(const char *format, ...)
  */
 int ui_init(int *argc, char **argv)
 {
-    printf("Initialising headless ui\n");
-
     return 0;
 }
 
@@ -303,7 +301,6 @@ static void pause_trap(uint16_t addr, void *data)
  */
 void ui_display_paused(int flag)
 {
-    ui_display_speed(0.0, 0.0, 0);
 }
 
 

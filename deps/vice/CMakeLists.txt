@@ -8,6 +8,8 @@ option(USE_OEHEADLESS "Compile OpenEmu headless library" ON)
 option(USE_ALT_CPU "Use alternate CPU" ON)
 option(USE_APPLE_LOG "Use Apple os logging" ON)
 
+add_compile_options(-fobjc-arc)
+
 list(APPEND ARCH_INCLUDES
         ${CMAKE_SOURCE_DIR}/src/arch
         )

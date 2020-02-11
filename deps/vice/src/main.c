@@ -286,7 +286,7 @@ int main_program(int argc, char **argv)
 #ifdef USE_ALT_CPU
     maincpu_headless_init();
     while (1) {
-        maincpu_headless_mainloop();
+        maincpu_headless_mainloop(MACHINE_EVENT_FRAME);
     }
     
 #else

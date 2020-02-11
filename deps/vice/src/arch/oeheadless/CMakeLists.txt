@@ -1,3 +1,5 @@
+add_subdirectory(test)
+
 set(OEHEADLESS_INCLUDES
         ${ARCH_INCLUDES}
         ${CMAKE_SOURCE_DIR}/src

@@ -41,6 +41,8 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
     NSArray<NSString *> *_sysfilePathList;
     uint32_t            *_buffer;
     OEIntSize           _bufferSize;
+    OEIntRect           _screenRect;
+    NSTimeInterval      _frameInterval;
 }
 
 - (void)initializeEmulator;
@@ -52,8 +54,12 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
 - (id)init
 {
     if((self = [super init])) {
-        _c64        = C64.shared;
-        _bufferSize = OEIntSizeMake(384, 272);
+        _c64            = C64.shared;
+        _c64.delegate   = self;
+        _bufferSize     = OEIntSizeMake(384, 272);
+        NSRect f = _c64.videoFrame;
+        _screenRect     = OEIntRectMake(f.origin.x, f.origin.y, f.size.width, f.size.height);
+        _frameInterval  = _c64.videoFrequency;
     }
 
     return self;
@@ -63,6 +69,12 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
 
 - (void)updateAudioBuffer:(const int16_t *)buffer samples:(NSInteger)samples {
     [[self audioBufferAtIndex:0] write:buffer maxLength:samples * 2];
+}
+
+- (void)canvasWillResizeWidth:(NSUInteger)width height:(NSUInteger)height {
+    NSRect f        = _c64.videoFrame;
+    _screenRect     = OEIntRectMake(f.origin.x, f.origin.y, f.size.width, f.size.height);
+    _frameInterval  = _c64.videoFrequency;
 }
 
 #pragma mark - emulation
@@ -104,32 +116,20 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
 
 - (void)saveStateToFileAtPath:(NSString *)fileName completionHandler:(void(^)(BOOL success, NSError *error))block
 {
-    BOOL res = TRUE;
-    block(res, nil);
+    NSError *err = nil;
+    BOOL res = [_c64 saveStateFromFileAtPath:fileName error:&err];
+    block(res, err);
 }
 
 - (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void(^)(BOOL success, NSError *error))block
 {
-    BOOL res = TRUE;
+    NSError *err = nil;
+    BOOL res = [_c64 loadStateFromFileAtPath:fileName error:&err];
+    block(res, err);
+}
 
-//    emu_pause();
-//
-//    if (!BootComplete) {
-//        autostart_snapshot(fileName.fileSystemRepresentation, NULL);
-//
-//        //Autostart functions use warp mode.  but autoload-sanpshot does not turn it off
-//        //   we need to make sure it is turned off or bad things end up happening
-//        resources_set_int("WarpMode", 0);
-//    } else {
-//        if (machine_read_snapshot(fileName.fileSystemRepresentation, 0) < 0) {
-//            //load snap failed
-//            res = FALSE;
-//        }
-//    }
-//
-//    emu_resume();
-
-    block (res, nil);
+- (NSTimeInterval)frameInterval {
+    return _frameInterval;
 }
 
 - (const void*)getVideoBufferWithHint:(void *)hint {
@@ -151,8 +151,7 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
 
 - (OEIntRect)screenRect
 {
-    // TODO
-    return OEIntRectMake(0, 0,  384, 272);
+    return _screenRect;
 }
 
 - (GLenum)pixelFormat
@@ -406,9 +405,9 @@ static uint8_t joystick_bits[] = {
     }
 
     if ([displayMode isEqualToString:@"NTSC"]) {
-        _c64.model = C64ModelCNTSC;
+        _c64.model = C64ModelNTSC;
     } else {
-        _c64.model = C64ModelCPAL;
+        _c64.model = C64ModelPAL;
     }
     
     _availableDisplayModes = tempModesArray;
@@ -429,6 +428,8 @@ static uint8_t joystick_bits[] = {
             [NSString pathWithComponents:@[bootPath, MACOSX_ROMDIR, @"DRIVES"]],
         ];
         [_c64 initializeWithBootPath:bootPath systemPathList:pathList];
+        _frameInterval = 50;
+        _c64.model     = C64ModelPAL;
         
         // Use the last selected display mode or default to the appropriate for the user system locale
         if (self.displayModeInfo == nil)

@@ -29,19 +29,9 @@
  *
  */
 
-#include "vice.h"
-
-#include <stdio.h>
-#include "lib.h"
-#include "log.h"
-#include "ui.h"
 #include <Carbon/Carbon.h>
 
-/* UNIX-specific; for kbd_arch_get_host_mapping */
-#include <locale.h>
 #include <string.h>
-
-
 #include "keyboard.h"
 #include "kbd.h"
 

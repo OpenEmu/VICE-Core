@@ -29,6 +29,7 @@
 #include "vice.h"
 
 #include <stdio.h>
+#import <oeheadless/public/api.h>
 
 #include "cmdline.h"
 #include "machine.h"
@@ -150,7 +151,10 @@ void video_canvas_refresh(struct video_canvas_s *canvas,
 
 void video_canvas_resize(struct video_canvas_s *canvas, char resize_canvas)
 {
-
+    if (!(canvas && canvas->draw_buffer && canvas->videoconfig)) {
+        return;
+    }
+    [C64.shared canvasDidResize:canvas];
 }
 
 /** \brief Assign a palette to the canvas.

@@ -91,8 +91,10 @@ extern void maincpu_reset(void);
 
 #ifdef USE_ALT_CPU
 
+#include "machine.h"
+
 extern void maincpu_headless_init(void);
-extern void maincpu_headless_mainloop(void);
+extern void maincpu_headless_mainloop(machine_event_flags event_mask);
 
 #else
 extern void maincpu_mainloop(void);

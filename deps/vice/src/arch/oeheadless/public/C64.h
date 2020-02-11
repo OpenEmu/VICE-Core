@@ -47,6 +47,11 @@ OE_EXPORTED_CLASS
 @property (nonatomic, readonly) NSString *bootPath;
 @property (nonatomic, readonly) NSArray<NSString *> *sysfilePathList;
 
+#pragma mark - video
+
+@property (nonatomic, readonly) double videoFrequency;
+@property (nonatomic, readonly) NSRect videoFrame;
+
 #pragma mark - audio
 
 @property (nonatomic, readonly) int audioFrequency;
@@ -62,15 +67,6 @@ OE_EXPORTED_CLASS
 
 - (BOOL)loadStateFromFileAtPath:(NSString *)fileName error:(NSError **)error;
 - (BOOL)saveStateFromFileAtPath:(NSString *)fileName error:(NSError **)error;
-
-#pragma mark - serialization
-
-/*!
- * Returns the number of bytes required to store a save state
- */
-- (NSUInteger)stateSize;
-- (NSData *)serializeState;
-- (BOOL)deserializeState:(NSData *)data;
 
 #pragma mark - execution
 

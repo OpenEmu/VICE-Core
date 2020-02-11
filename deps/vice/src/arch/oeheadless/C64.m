@@ -11,6 +11,7 @@
 #import "video.h"
 #import "keyboard.h"
 #import "joystick.h"
+#import "vsync.h"
 
 // sanity checks
 OE_STATIC_ASSERT(KeyboardModLShift == (KeyboardMod)KBD_MOD_LSHIFT);
@@ -23,8 +24,9 @@ OE_STATIC_ASSERT(C64ModelCNTSC == (C64Model)C64MODEL_C64C_NTSC);
 @implementation C64 {
     BOOL _initialized;
     video_canvas_t *_canvas;
-    void * _buffer;
+    void *_buffer;
     NSSize _bufferSize;
+    size_t _stateSize;
 }
 
 - (instancetype)init {
@@ -53,8 +55,8 @@ OE_STATIC_ASSERT(C64ModelCNTSC == (C64Model)C64MODEL_C64C_NTSC);
     }
     
     _canvas->screen.pixels = _buffer;
-    _canvas->screen.bpp    = 32;
-    _canvas->screen.pitch  = (unsigned int)_bufferSize.width * 4;
+    _canvas->screen.bpp = 32;
+    _canvas->screen.pitch = (unsigned int)_bufferSize.width * 4;
 }
 
 - (void)createCanvas:(video_canvas_t *)canvas width:(unsigned int *)width height:(unsigned int *)height {
@@ -66,14 +68,32 @@ OE_STATIC_ASSERT(C64ModelCNTSC == (C64Model)C64MODEL_C64C_NTSC);
     [self updateCanvasFromBuffer];
 }
 
+- (void)canvasDidResize:(video_canvas_t *)canvas {
+    [_delegate canvasWillResizeWidth:canvas->draw_buffer->canvas_width height:canvas->draw_buffer->canvas_height];
+}
+
 - (void)initSoundSpeed:(int *)speed fragSize:(int *)fragSize fragNumber:(int *)fragNumber channels:(int *)channels {
     _audioFrequency = *speed;
-    _audioChannels  = *channels;
+    _audioChannels = *channels;
+}
+
+#pragma mark - video
+
+- (double)videoFrequency {
+    return vsync_get_refresh_frequency();
+}
+
+- (NSRect)videoFrame {
+    if (_canvas) {
+        return NSMakeRect(0, 0, _canvas->draw_buffer->canvas_width, _canvas->draw_buffer->canvas_height);
+    }
+    // default to PAL
+    return NSMakeRect(0, 0, 384, 272);
 }
 
 #pragma mark - initialization
 
-- (void)initializeWithBootPath:(NSString *)bootPath systemPathList:(NSArray<NSString *>*)pathList {
+- (void)initializeWithBootPath:(NSString *)bootPath systemPathList:(NSArray<NSString *> *)pathList {
     if (_initialized) {
         assert(false);
     }
@@ -138,46 +158,106 @@ OE_STATIC_ASSERT(C64ModelCNTSC == (C64Model)C64MODEL_C64C_NTSC);
 
 #pragma mark - save / load state
 
+typedef void (^trapBlock)(void);
+
+static void trap_handler(uint16_t addr, void *success)
+{
+    void (^handler)(void);
+    handler = (__bridge trapBlock)(success);
+    handler();
+}
+
+- (void)executeTrap:(trapBlock)block {
+    interrupt_maincpu_trigger_trap(trap_handler, (__bridge void *)block);
+    maincpu_headless_mainloop(MACHINE_EVENT_TRAP);
+}
+
 - (BOOL)loadStateFromFileAtPath:(NSString *)fileName error:(NSError **)error {
-    return NO;
+    __block int res = 0;
+    [self executeTrap:^{
+        res = machine_read_snapshot(fileName.UTF8String, 0);
+    }];
+    return res >= 0;
 }
 
 - (BOOL)saveStateFromFileAtPath:(NSString *)fileName error:(NSError **)error {
-    return NO;
+    __block int res = 0;
+    [self executeTrap:^{
+        res = machine_write_snapshot(fileName.UTF8String, 0, 1, 0);
+    }];
+    
+    return res >= 0;
 }
 
 #pragma mark - serialization
 
 - (NSUInteger)stateSize {
-    NSUInteger stateSize = 0;
+    __block NSUInteger stateSize = 0;
     
-    int drive_type;
-    resources_get_int("Drive8Type", &drive_type);
-    int save_disks = (drive_type < 1550) ? 1 : 0;
+    [self executeTrap:^{
+        int drive_type;
+        resources_get_int("Drive8Type", &drive_type);
+        int save_disks = (drive_type < 1550) ? 1 : 0;
     
-    snapshot_stream_t *snapshot_stream = snapshot_memory_write_fopen(NULL, 0);
-    int res = machine_write_snapshot_to_stream(snapshot_stream, 0, save_disks, 0);
-    if (res >= 0) {
-        snapshot_fseek(snapshot_stream, 0, SEEK_END);
-        stateSize = (NSUInteger)snapshot_ftell(snapshot_stream);
-    }
-    snapshot_fclose(snapshot_stream);
+        snapshot_stream_t *snapshot_stream = snapshot_memory_write_fopen(NULL, 0);
+        int res = machine_write_snapshot_to_stream(snapshot_stream, 0, save_disks, 0);
+        if (res >= 0) {
+            snapshot_fseek(snapshot_stream, 0, SEEK_END);
+            stateSize = (NSUInteger)snapshot_ftell(snapshot_stream);
+        }
+        snapshot_fclose(snapshot_stream);
+    }];
     
     return stateSize;
 }
 
 - (NSData *)serializeState {
+    if (_stateSize == 0) {
+        _stateSize = self.stateSize;
+    }
+    
+    __block void *buf = nil;
+    __block NSUInteger stateSize = 0;
+    __block int res = 0;
+    
+    [self executeTrap:^{
+        int drive_type;
+        resources_get_int("Drive8Type", &drive_type);
+        int save_disks = (drive_type < 1550) ? 1 : 0;
+    
+        buf = malloc(_stateSize);
+        snapshot_stream_t *snapshot_stream = snapshot_memory_write_fopen(buf, _stateSize);
+        res = machine_write_snapshot_to_stream(snapshot_stream, 0, save_disks, 0);
+        snapshot_fseek(snapshot_stream, 0, SEEK_END);
+        stateSize = (NSUInteger)snapshot_ftell(snapshot_stream);
+        snapshot_fclose(snapshot_stream);
+    }];
+    
+    NSData *data = [NSData dataWithBytesNoCopy:buf length:stateSize freeWhenDone:YES];
+    if (res >= 0) {
+        return data;
+    }
+    
     return nil;
 }
 
 - (BOOL)deserializeState:(NSData *)data {
-    return NO;
+    __block int res = 0;
+    
+    [self executeTrap:^{
+        resources_set_int("WarpMode", 0);
+        snapshot_stream_t *snapshot_stream = snapshot_memory_read_fopen(data.bytes, data.length);
+        res = machine_read_snapshot_from_stream(snapshot_stream, 0);
+        snapshot_fclose(snapshot_stream);
+    }];
+    
+    return res >= 0;
 }
 
 #pragma mark - execution
 
 - (BOOL)execute {
-    maincpu_headless_mainloop();
+    maincpu_headless_mainloop(MACHINE_EVENT_FRAME);
     return YES;
 }
 
@@ -190,7 +270,7 @@ OE_STATIC_ASSERT(C64ModelCNTSC == (C64Model)C64MODEL_C64C_NTSC);
 }
 
 - (void)setBuffer:(void *)buffer size:(NSSize)size {
-    _buffer     = buffer;
+    _buffer = buffer;
     _bufferSize = size;
     [self updateCanvasFromBuffer];
 }

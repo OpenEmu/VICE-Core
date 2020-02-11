@@ -97,7 +97,7 @@ int main_program(int argc, char **argv)
     resources_set_int("KeymapIndex", KBD_INDEX_SYM);
     
     maincpu_headless_init();
-    maincpu_headless_mainloop();
+    maincpu_headless_mainloop(MACHINE_EVENT_FRAME);
     
     return 0;
 }

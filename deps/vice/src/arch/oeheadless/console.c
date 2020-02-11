@@ -25,9 +25,7 @@
  *
  */
 
-#include <stdio.h>
 
-#include "vice.h"
 #include "console.h"
 
 int console_init(void)
