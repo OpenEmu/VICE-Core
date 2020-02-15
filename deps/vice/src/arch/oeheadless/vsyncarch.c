@@ -45,11 +45,12 @@
 
 static int pause_pending = 0;
 
+unsigned long vsyncarch_ticks = 0;
+
 /* ------------------------------------------------------------------------- */
-#define TICKSPERSECOND  1000000000L  /* Nanoseconds resolution. */
-#define TICKSPERMSEC    1000000L
-#define TICKSPERUSEC    1000L
-#define TICKSPERNSEC    1L
+#define TICKSPERSECOND  1000000L     /* Microseconds resolution. */
+#define TICKSPERMSEC    1000L
+#define TICKSPERUSEC    1L
 
 /* FIXME: this function should be a constant */
 /* Number of timer units per second. */
@@ -61,14 +62,7 @@ unsigned long vsyncarch_frequency(void)
 /* Get time in timer units. */
 unsigned long vsyncarch_gettime(void)
 {
-    static uint64_t factor = 0;
-    uint64_t time = mach_absolute_time();
-    if (!factor) {
-        mach_timebase_info_data_t info;
-        mach_timebase_info(&info);
-        factor = info.numer / info.denom;
-    }
-    return time * factor;
+    return vsyncarch_ticks;
 }
 
 void vsyncarch_init(void)

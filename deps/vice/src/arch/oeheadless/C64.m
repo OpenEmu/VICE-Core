@@ -27,6 +27,7 @@ OE_STATIC_ASSERT(C64ModelCNTSC == (C64Model)C64MODEL_C64C_NTSC);
     void *_buffer;
     NSSize _bufferSize;
     size_t _stateSize;
+    unsigned long _ticksPerFrame;
 }
 
 - (instancetype)init {
@@ -102,10 +103,15 @@ OE_STATIC_ASSERT(C64ModelCNTSC == (C64Model)C64MODEL_C64C_NTSC);
     _sysfilePathList = [pathList copy];
     
     main_program(0, NULL);
+    [self updateTicksPerFrame];
     _initialized = YES;
 }
 
 #pragma mark - configuration
+
+- (void)updateTicksPerFrame {
+    _ticksPerFrame = (unsigned long)(1e6 / vsync_get_refresh_frequency());
+}
 
 - (void)setModel:(C64Model)model {
     if (c64model_get() == model) {
@@ -113,6 +119,7 @@ OE_STATIC_ASSERT(C64ModelCNTSC == (C64Model)C64MODEL_C64C_NTSC);
     }
     [self willChangeValueForKey:@"model"];
     c64model_set(model);
+    [self updateTicksPerFrame];
     [self didChangeValueForKey:@"model"];
 }
 
@@ -256,8 +263,11 @@ static void trap_handler(uint16_t addr, void *success)
 
 #pragma mark - execution
 
+extern unsigned long vsyncarch_ticks;
+
 - (BOOL)execute {
     maincpu_headless_mainloop(MACHINE_EVENT_FRAME);
+    vsyncarch_ticks += _ticksPerFrame;
     return YES;
 }
 
