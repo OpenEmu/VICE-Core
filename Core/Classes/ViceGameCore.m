@@ -428,8 +428,8 @@ static uint8_t joystick_bits[] = {
             [NSString pathWithComponents:@[bootPath, MACOSX_ROMDIR, @"DRIVES"]],
         ];
         [_c64 initializeWithBootPath:bootPath systemPathList:pathList];
-        _frameInterval = 50;
         _c64.model     = C64ModelPAL;
+        _frameInterval = _c64.videoFrequency;
         
         // Use the last selected display mode or default to the appropriate for the user system locale
         if (self.displayModeInfo == nil)
