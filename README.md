@@ -22,7 +22,7 @@ $ mkdir cmake-build
 Generate the build scripts (GNU make by default)
 
 ```sh
-cmake -B cmake-build -DUSE_OEHEADLESS=YES -DUSE_ALT_CPU=YES
+$ cmake -B cmake-build -DUSE_OEHEADLESS=YES -DUSE_ALT_CPU=YES -DCMAKE_BUILD_TYPE=RELEASE
 ```
 
 Finally, execute a `RELEASE` build

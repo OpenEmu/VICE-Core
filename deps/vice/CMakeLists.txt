@@ -18,7 +18,7 @@ if (USE_ALT_CPU)
     add_definitions(-DUSE_ALT_CPU)
 endif ()
 
-set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS} -flto=full -march=skylake -mavx2 -ffast-math")
+set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS} -flto=full -ffast-math")
 
 if (USE_OEHEADLESS)
     list(APPEND ARCH_INCLUDES

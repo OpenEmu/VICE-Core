@@ -195,9 +195,9 @@ set(C64COMMONCART_SOURCES
     sfx_soundsampler.h
     )
 
-add_library(c64cartsystem ${C64CARTSYSTEM_SOURCES})
-add_library(c64cart ${C64CART_SOURCES})
-add_library(c64commoncart ${C64COMMONCART_SOURCES})
+add_library(c64cartsystem STATIC ${C64CARTSYSTEM_SOURCES})
+add_library(c64cart STATIC ${C64CART_SOURCES})
+add_library(c64commoncart STATIC ${C64COMMONCART_SOURCES})
 
 target_include_directories(c64cartsystem PRIVATE ${CART_INCLUDES})
 target_include_directories(c64cart PRIVATE ${CART_INCLUDES})
