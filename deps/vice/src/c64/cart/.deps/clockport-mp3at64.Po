@@ -1,0 +1,6 @@
+clockport-mp3at64.o: clockport-mp3at64.c ../../../src/vice.h \
+  ../../../src/config.h
+
+../../../src/vice.h:
+
+../../../src/config.h:

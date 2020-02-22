@@ -1,8 +1,0 @@
-# NetBSD howto
-
-(TODO: a lot)
-
-When gmake fails with not finding 'glib-genmarshal' during VTE build, you'll
-have to install glib2-tools: `pkgin in glib2-tools`.
-
-

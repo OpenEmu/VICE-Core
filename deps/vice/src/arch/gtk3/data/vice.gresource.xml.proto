@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- various binary resources for Gtk3
+     the VICE_SRC_DIR gets replaced with sed to allow out-of-tree building
+-->
+<gresources>
+  <gresource prefix="/org/pokefinder/vice">
+    <file alias="vice-logo-black.svg">VICE_SRC_DIR/../../../../doc/html/images/vice-logo-black.svg</file>
+    <file alias="CBM_Logo.svg">VICE_SRC_DIR/../../../../data/common/CBM_Logo.svg</file>
+    <file alias="Icon-128@2x.png">VICE_SRC_DIR/../../../../data/common/Icon-128@2x.png</file>
+  </gresource>
+</gresources>
+
+<!-- vim: set et ts=2 sw=2 sts=2 fileencoding=utf-8 syntax=xml: -->

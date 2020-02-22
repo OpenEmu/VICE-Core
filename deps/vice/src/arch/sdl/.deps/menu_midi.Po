@@ -1,0 +1,5 @@
+menu_midi.o: menu_midi.c ../../../src/vice.h ../../../src/config.h
+
+../../../src/vice.h:
+
+../../../src/config.h:

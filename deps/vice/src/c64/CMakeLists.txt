@@ -1,0 +1,92 @@
+add_subdirectory(cart)
+
+set(C64_INCLUDES
+    ${ARCH_INCLUDES}
+    ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/src/c64/cart
+    ${CMAKE_SOURCE_DIR}/src/drive
+    ${CMAKE_SOURCE_DIR}/src/drive/iec/c64exp
+    ${CMAKE_SOURCE_DIR}/src/raster
+    ${CMAKE_SOURCE_DIR}/src/sid
+    ${CMAKE_SOURCE_DIR}/src/tape
+    ${CMAKE_SOURCE_DIR}/src/userport
+    ${CMAKE_SOURCE_DIR}/src/viciisc
+    ${CMAKE_SOURCE_DIR}/src/viciivsid
+    ${CMAKE_SOURCE_DIR}/src/lib/p64
+    ${CMAKE_SOURCE_DIR}/src/video
+    ${CMAKE_SOURCE_DIR}/src/rtc
+    ${CMAKE_SOURCE_DIR}/src/joyport
+    ${CMAKE_SOURCE_DIR}/src/samplerdrv
+    ${CMAKE_SOURCE_DIR}/src/tapeport
+    ${CMAKE_SOURCE_DIR}/src/core
+    ${CMAKE_SOURCE_DIR}/src/rs232drv
+    ${CMAKE_SOURCE_DIR}/src/hvsc
+    )
+
+set(C64_SOURCES
+    c64-cmdline-options.c
+    c64-cmdline-options.h
+    c64-memory-hacks.c
+    c64-memory-hacks.h
+    c64-resources.c
+    c64-resources.h
+    c64-snapshot.c
+    c64-snapshot.h
+    c64.c
+    c64.h
+    c64_256k.c
+    c64_256k.h
+    c64bus.c
+    c64cart.h
+    c64cia.h
+    c64cia1.c
+    c64cia2.c
+    c64cpusc.c
+    c64datasette.c
+    c64drive.c
+    c64embedded.c
+    c64export.c
+    c64fastiec.c
+    c64fastiec.h
+    c64gluelogic.c
+    c64gluelogic.h
+    c64iec.c
+    c64iec.h
+    c64io.c
+    c64keyboard.c
+    c64keyboard.h
+    c64memsc.c
+    c64mem.h
+    c64meminit.c
+    c64meminit.h
+    c64memlimit.c
+    c64memlimit.h
+    c64memrom.c
+    c64memrom.h
+    c64memsnapshot.c
+    c64memsnapshot.h
+    c64scmodel.c
+    c64model.h
+    c64parallel.c
+    c64parallel.h
+    c64pla.c
+    c64pla.h
+    c64printer.c
+    c64rom.c
+    c64rom.h
+    c64romset.c
+    c64rsuser.c
+    c64rsuser.h
+    c64sound.c
+    c64video.c
+    patchrom.c
+    patchrom.h
+    plus256k.c
+    plus256k.h
+    plus60k.c
+    plus60k.h
+    )
+
+add_library(c64 STATIC ${C64_SOURCES})
+target_include_directories(c64 PRIVATE ${C64_INCLUDES})
+

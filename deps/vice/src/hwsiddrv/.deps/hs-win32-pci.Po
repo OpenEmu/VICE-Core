@@ -1,0 +1,5 @@
+hs-win32-pci.o: hs-win32-pci.c ../../src/vice.h ../../src/config.h
+
+../../src/vice.h:
+
+../../src/config.h:

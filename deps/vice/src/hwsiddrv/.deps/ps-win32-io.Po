@@ -1,0 +1,5 @@
+ps-win32-io.o: ps-win32-io.c ../../src/vice.h ../../src/config.h
+
+../../src/vice.h:
+
+../../src/config.h:

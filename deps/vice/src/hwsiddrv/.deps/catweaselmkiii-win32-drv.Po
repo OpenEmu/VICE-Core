@@ -1,0 +1,6 @@
+catweaselmkiii-win32-drv.o: catweaselmkiii-win32-drv.c ../../src/vice.h \
+  ../../src/config.h
+
+../../src/vice.h:
+
+../../src/config.h:
