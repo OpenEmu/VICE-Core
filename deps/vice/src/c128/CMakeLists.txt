@@ -1,0 +1,70 @@
+
+set(C128_INCLUDES
+    ${ARCH_INCLUDES}
+    ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/src/c64
+    ${CMAKE_SOURCE_DIR}/src/c64/cart
+    ${CMAKE_SOURCE_DIR}/src/drive
+    ${CMAKE_SOURCE_DIR}/src/drive/iec/c64exp
+    ${CMAKE_SOURCE_DIR}/src/raster
+    ${CMAKE_SOURCE_DIR}/src/sid
+    ${CMAKE_SOURCE_DIR}/src/tape
+    ${CMAKE_SOURCE_DIR}/src/userport
+    ${CMAKE_SOURCE_DIR}/src/vicii
+    ${CMAKE_SOURCE_DIR}/src/viciivsid
+    ${CMAKE_SOURCE_DIR}/src/lib/p64
+    ${CMAKE_SOURCE_DIR}/src/video
+    ${CMAKE_SOURCE_DIR}/src/rtc
+    ${CMAKE_SOURCE_DIR}/src/joyport
+    ${CMAKE_SOURCE_DIR}/src/samplerdrv
+    ${CMAKE_SOURCE_DIR}/src/tapeport
+    ${CMAKE_SOURCE_DIR}/src/core
+    ${CMAKE_SOURCE_DIR}/src/rs232drv
+    ${CMAKE_SOURCE_DIR}/src/hvsc
+    ${CMAKE_SOURCE_DIR}/src/vdc
+    )
+
+set(C128_SOURCES
+    ${C64_BASE_SOURCES}
+    c128-cmdline-options.c
+    c128-cmdline-options.h
+    c128-resources.c
+    c128-resources.h
+    c128-snapshot.c
+    c128-snapshot.h
+    c128.c
+    c128.h
+    c128cia1.c
+    c128cpu.c
+    c128drive.c
+    c128embedded.c
+    c128fastiec.c
+    c128fastiec.h
+    c128mem.c
+    c128mem.h
+    c128meminit.c
+    c128meminit.h
+    c128memlimit.c
+    c128memlimit.h
+    c128memrom.c
+    c128memrom.h
+    c128memsnapshot.c
+    c128memsnapshot.h
+    c128mmu.c
+    c128mmu.h
+    c128model.c
+    c128model.h
+    c128rom.c
+    c128rom.h
+    c128romset.c
+    c128video.c
+    functionrom.c
+    functionrom.h
+    z80.c
+    z80.h
+    z80mem.c
+    z80mem.h
+    )
+
+add_library(c128 STATIC ${C128_SOURCES})
+target_include_directories(c128 PRIVATE ${C128_INCLUDES})

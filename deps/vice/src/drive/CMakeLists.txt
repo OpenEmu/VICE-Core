@@ -1,4 +1,5 @@
 add_subdirectory(iec)
+add_subdirectory(iec128dcr)
 add_subdirectory(iecieee)
 add_subdirectory(ieee)
 add_subdirectory(tcbm)
@@ -58,4 +59,3 @@ set(DRIVE_SOURCES
 
 add_library(drive STATIC ${DRIVE_SOURCES})
 target_include_directories(drive PRIVATE ${DRIVE_INCLUDES})
-

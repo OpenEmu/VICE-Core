@@ -1,6 +1,7 @@
 
 add_subdirectory(arch)
 add_subdirectory(c64)
+add_subdirectory(c128)
 add_subdirectory(core)
 add_subdirectory(diag)
 add_subdirectory(diskimage)
@@ -27,7 +28,9 @@ add_subdirectory(sounddrv)
 add_subdirectory(tape)
 add_subdirectory(tapeport)
 add_subdirectory(userport)
+add_subdirectory(vdc)
 add_subdirectory(vdrive)
+add_subdirectory(vicii)
 add_subdirectory(viciisc)
 add_subdirectory(video)
 
@@ -98,9 +101,13 @@ set(X64SC_SOURCES
         ${SRC_BASE_SOURCES}
         ${SRC_MIDI_SOURCES}
         )
-set(X64SC_LIBS
+set(X128_SOURCES
+        ${SRC_BASE_SOURCES}
+        ${SRC_MIDI_SOURCES}
+        )
+
+set(X64_LIBS
         tapeport
-        c64
         c64cartsystem
         c64cart
         c64commoncart
@@ -118,7 +125,6 @@ set(X64SC_LIBS
         monitor
         ${DRIVER_LIBS}
         ${ARCH_LIBS}
-        viciisc
         raster
         userport
         diag
@@ -127,8 +133,22 @@ set(X64SC_LIBS
         imagecontents
         resid
         )
-
+set(X64SC_LIBS
+      c64
+      ${X64_LIBS}
+      viciisc
+  )
+set(X128_LIBS
+        vicii
+        vdc
+        c128
+        c64base
+	      driveiec128dcr
+        ${X64_LIBS}
+)
 add_executable(x64sc main.c ${X64SC_SOURCES})
+
+add_executable(x128 main.c ${X128_SOURCES})
 
 target_include_directories(x64sc PRIVATE
         ${ARCH_INCLUDES}
@@ -152,8 +172,34 @@ target_include_directories(x64sc PRIVATE
         lib/linenoise-ng
         )
 
+target_include_directories(x128 PRIVATE
+                ${ARCH_INCLUDES}
+                .
+                c128
+                c64
+                drive
+                monitor
+                plus4
+                vic20
+                vdrive
+                vdc
+                diskimage
+                imagecontents
+                diag
+                userport
+                lib/p64
+                joyport
+                rtc
+                tapeport
+                tape
+                socketdrv
+                lib/linenoise-ng
+                )
 target_link_libraries(x64sc ${X64SC_LIBS} z "-framework CoreAudio" "-framework AudioToolbox" "-framework CoreFoundation")
 target_compile_options(x64sc PUBLIC "-fobjc-arc")
+
+target_link_libraries(x128 ${X128_LIBS} z "-framework CoreAudio" "-framework AudioToolbox" "-framework CoreFoundation")
+target_compile_options(x128 PUBLIC "-fobjc-arc")
 
 include(CheckIPOSupported)
 check_ipo_supported(RESULT IPO_SUPPORTED)
@@ -163,6 +209,7 @@ endif ()
 
 if (USE_OEHEADLESS)
     add_library(oex64sc SHARED ${X64SC_SOURCES})
+    add_library(oex128 SHARED ${X128_SOURCES})
 
     target_include_directories(oex64sc PRIVATE
             ${ARCH_INCLUDES}
@@ -186,11 +233,40 @@ if (USE_OEHEADLESS)
             hvsc
             lib/linenoise-ng
             )
+
+target_include_directories(oex128 PRIVATE
+                    ${ARCH_INCLUDES}
+                    .
+                    c128
+                    c64
+                    drive
+                    monitor
+                    plus4
+                    vic20
+                    vdrive
+                    vdc
+                    diskimage
+                    imagecontents
+                    diag
+                    userport
+                    lib/p64
+                    joyport
+                    rtc
+                    tapeport
+                    tape
+                    socketdrv
+                    hvsc
+                    lib/linenoise-ng
+                    )
     target_link_libraries(oex64sc ${X64SC_LIBS} z "-framework Foundation" "-framework Carbon")
     target_compile_options(oex64sc PUBLIC "-fobjc-arc")
 
+    target_link_libraries(oex128 ${X128_LIBS} z "-framework Foundation" "-framework Carbon")
+    target_compile_options(oex128 PUBLIC "-fobjc-arc")
+
     if (IPO_SUPPORTED)
         set_target_properties(oex64sc PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
+        set_target_properties(oex128 PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
     endif ()
 
     add_custom_command(TARGET oex64sc POST_BUILD
@@ -198,4 +274,8 @@ if (USE_OEHEADLESS)
             COMMENT "Copying library"
             )
 
+    add_custom_command(TARGET oex128 POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:oex128> ${CMAKE_SOURCE_DIR}
+            COMMENT "Copying library"
+            )
 endif ()
