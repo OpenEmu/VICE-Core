@@ -404,6 +404,150 @@ void maincpu_resync_limits(void)
     }
 }
 
+#ifdef USE_ALT_CPU
+
+#ifndef C64DTV
+static uint8_t reg_a = 0;
+static uint8_t reg_x = 0;
+static uint8_t reg_y = 0;
+#else
+static int reg_a_read_idx = 0;
+static int reg_a_write_idx = 0;
+static int reg_x_idx = 2;
+static int reg_y_idx = 1;
+#define reg_a_write(c)                      \
+    do {                                    \
+        dtv_registers[reg_a_write_idx] = c; \
+        if (reg_a_write_idx >= 3) {         \
+            maincpu_resync_limits();        \
+        }                                   \
+    } while (0);
+#define reg_a_read dtv_registers[reg_a_read_idx]
+#define reg_x_write(c)                \
+    do {                              \
+        dtv_registers[reg_x_idx] = c; \
+        if (reg_x_idx >= 3) {         \
+            maincpu_resync_limits();  \
+        }                             \
+    } while (0);
+
+#define reg_x_read dtv_registers[reg_x_idx]
+#define reg_y_write(c)                \
+    do {                              \
+        dtv_registers[reg_y_idx] = c; \
+        if (reg_y_idx >= 3) {         \
+            maincpu_resync_limits();  \
+        }                             \
+    } while (0);
+#define reg_y_read dtv_registers[reg_y_idx]
+#endif
+
+static uint8_t reg_p = 0;
+static uint8_t reg_sp = 0;
+static uint8_t flag_n = 0;
+static int8_t flag_z = 0;
+
+#ifndef NEED_REG_PC
+    static unsigned int reg_pc;
+#endif
+
+static uint8_t *bank_base = NULL;
+static int bank_start = 0;
+static int bank_limit = 0;
+
+void maincpu_headless_init(void)
+{
+#ifndef C64DTV
+     reg_a = 0;
+     reg_x = 0;
+     reg_y = 0;
+#else
+    reg_a_read_idx = 0;
+    reg_a_write_idx = 0;
+    reg_x_idx = 2;
+    reg_y_idx = 1;
+#endif
+    
+     reg_p = 0;
+     reg_sp = 0;
+     flag_n = 0;
+     flag_z = 0;
+    
+    o_bank_base = &bank_base;
+    o_bank_start = &bank_start;
+    o_bank_limit = &bank_limit;
+
+    machine_trigger_reset(MACHINE_RESET_MODE_SOFT);
+}
+
+void maincpu_headless_mainloop(machine_event_flags event_mask)
+{
+    do {
+#define CLK maincpu_clk
+#define RMW_FLAG maincpu_rmw_flag
+#define LAST_OPCODE_INFO last_opcode_info
+#define LAST_OPCODE_ADDR last_opcode_addr
+#define TRACEFLG debug.maincpu_traceflg
+
+#define CPU_INT_STATUS maincpu_int_status
+
+#define ALARM_CONTEXT maincpu_alarm_context
+
+#define CHECK_PENDING_ALARM() (clk >= next_alarm_clk(maincpu_int_status))
+
+#define CHECK_PENDING_INTERRUPT() check_pending_interrupt(maincpu_int_status)
+
+#define TRAP(addr) maincpu_int_status->trap_func(addr);
+
+#define ROM_TRAP_HANDLER() traps_handler()
+
+#define JAM()                                                         \
+    do {                                                              \
+        unsigned int tmp;                                             \
+                                                                      \
+        EXPORT_REGISTERS();                                           \
+        tmp = machine_jam("   " CPU_STR ": JAM at $%04X   ", reg_pc); \
+        switch (tmp) {                                                \
+            case JAM_RESET:                                           \
+                DO_INTERRUPT(IK_RESET);                               \
+                break;                                                \
+            case JAM_HARD_RESET:                                      \
+                mem_powerup();                                        \
+                DO_INTERRUPT(IK_RESET);                               \
+                break;                                                \
+            case JAM_MONITOR:                                         \
+                monitor_startup(e_comp_space);                        \
+                IMPORT_REGISTERS();                                   \
+                break;                                                \
+            default:                                                  \
+                CLK++;                                                \
+        }                                                             \
+    } while (0)
+
+#define CALLER e_comp_space
+
+#define ROM_TRAP_ALLOWED() mem_rom_trap_allowed((uint16_t)reg_pc)
+
+#define GLOBAL_REGS maincpu_regs
+
+#include "6510core.c"
+
+        maincpu_int_status->num_dma_per_opcode = 0;
+
+        if (maincpu_clk_limit && (maincpu_clk > maincpu_clk_limit)) {
+            log_error(LOG_DEFAULT, "cycle limit reached.");
+            archdep_vice_exit(1);
+        }
+#if 0
+        if (CLK > 246171754) {
+            debug.maincpu_traceflg = 1;
+        }
+#endif
+    }while((*machine_event & event_mask) == 0);
+}
+
+#else
+
 void maincpu_mainloop(void)
 {
 #ifndef C64DTV
@@ -524,6 +668,8 @@ void maincpu_mainloop(void)
 #endif
     }
 }
+
+#endif
 
 /* ------------------------------------------------------------------------- */
 
