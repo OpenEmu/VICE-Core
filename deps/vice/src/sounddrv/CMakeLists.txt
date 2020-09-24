@@ -16,12 +16,5 @@ set(SOUNDDRV_SOURCES
         soundwav.c
         )
 
-if (USE_OEHEADLESS)
-    list(APPEND SOUNDDRV_SOURCES
-            soundheadless.m
-            )
-endif ()
-
 add_library(sounddrv STATIC ${SOUNDDRV_SOURCES})
 target_include_directories(sounddrv PRIVATE ${SOUNDDRV_INCLUDES})
-

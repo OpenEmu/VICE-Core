@@ -2,6 +2,7 @@
 add_subdirectory(arch)
 add_subdirectory(c64)
 add_subdirectory(c128)
+add_subdirectory(vic20)
 add_subdirectory(core)
 add_subdirectory(diag)
 add_subdirectory(diskimage)
@@ -95,60 +96,70 @@ set(SRC_BASE_SOURCES
         zipcode.c
         )
 
-set(DRIVER_LIBS joyport samplerdrv sounddrv gfxoutputdrv printerdrv rs232drv diskimage fsdevice tape fileio serial core)
+set(DRIVER_LIBS sounddrv joyport samplerdrv gfxoutputdrv printerdrv rs232drv tape serial core diskimage fsdevice fileio )
 
-set(X64SC_SOURCES
+set(VICE_SOURCES
         ${SRC_BASE_SOURCES}
         ${SRC_MIDI_SOURCES}
         )
-set(X128_SOURCES
-        ${SRC_BASE_SOURCES}
-        ${SRC_MIDI_SOURCES}
+set(COMMON_LIBS
+          c64commoncart
+          tapeport
+          driveiec
+          driveiecieee
+          driveieee
+          drive
+          drivetcbm
+          iecbus
+          p64
+          parallel
+          vdrive
+          sid
+          monitor
+          video
+          raster
+          userport
+          diag
+          rtc
+          imagecontents
+          resid
         )
-
+set(XVIC20_LIBS
+        vic20
+        vic20cartsystem
+        mascuerade
+        oeheadless_vic20
+        ${COMMON_LIBS}
+        ${ARCH_LIBS}
+        ${DRIVER_LIBS}
+        )
 set(X64_LIBS
         c64base
-        tapeport
-        c64cartsystem
         c64cart
-        c64commoncart
-        driveiec
-        driveiecieee
+        c64cartsystem
         driveiecc64exp
-        driveieee
-        drive
-        drivetcbm
-        iecbus
-        p64
-        parallel
-        vdrive
-        sid
-        monitor
+        ${COMMON_LIBS}
         ${DRIVER_LIBS}
         ${ARCH_LIBS}
-        raster
-        userport
-        diag
-        rtc
-        video
-        imagecontents
-        resid
         )
+
 set(X64SC_LIBS
       viciisc
       c64
+      oeheadless_c64
       ${X64_LIBS}
   )
 set(X128_LIBS
         vicii
         vdc
         c128
+        oeheadless_c128
 	      driveiec128dcr
         ${X64_LIBS}
 )
-add_executable(x64sc main.c ${X64SC_SOURCES})
-
-add_executable(x128 main.c ${X128_SOURCES})
+add_executable(x64sc main.c ${VICE_SOURCES})
+add_executable(xvic20 main.c ${VICE_SOURCES})
+add_executable(x128 main.c ${VICE_SOURCES})
 
 target_include_directories(x64sc PRIVATE
         ${ARCH_INCLUDES}
@@ -195,22 +206,71 @@ target_include_directories(x128 PRIVATE
                 socketdrv
                 lib/linenoise-ng
                 )
-target_link_libraries(x64sc ${X64SC_LIBS} z "-framework CoreAudio" "-framework AudioToolbox" "-framework CoreFoundation")
+
+    target_include_directories(xvic20 PRIVATE
+                ${ARCH_INCLUDES}
+                .
+                drive
+                monitor
+                plus4
+                vic20
+                vdrive
+                vdc
+                diskimage
+                imagecontents
+                diag
+                userport
+                lib/p64
+                joyport
+                rtc
+                tapeport
+                tape
+                socketdrv
+                lib/linenoise-ng
+                )
+target_link_libraries(x64sc ${VICE_LIBS} z "-framework CoreAudio" "-framework AudioToolbox" "-framework CoreFoundation")
 target_compile_options(x64sc PUBLIC "-fobjc-arc")
 
-target_link_libraries(x128 ${X128_LIBS} z "-framework CoreAudio" "-framework AudioToolbox" "-framework CoreFoundation")
+target_link_libraries(x128 ${VICE_LIBS} z "-framework CoreAudio" "-framework AudioToolbox" "-framework CoreFoundation")
 target_compile_options(x128 PUBLIC "-fobjc-arc")
+
+target_link_libraries(xvic20 ${VICE_LIBS} z "-framework CoreAudio" "-framework AudioToolbox" "-framework CoreFoundation")
+target_compile_options(xvic20 PUBLIC "-fobjc-arc")
 
 include(CheckIPOSupported)
 check_ipo_supported(RESULT IPO_SUPPORTED)
 if (IPO_SUPPORTED)
     set_target_properties(x64sc PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
+    set_target_properties(x128 PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
+    set_target_properties(xvic20 PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
 endif ()
 
 if (USE_OEHEADLESS)
-    add_library(oex64sc SHARED ${X64SC_SOURCES})
-    add_library(oex128 SHARED ${X128_SOURCES})
+    add_library(oex64sc SHARED ${VICE_SOURCES})
+    add_library(oex128 SHARED ${VICE_SOURCES})
+    add_library(oexvic20 SHARED ${VICE_SOURCES})
 
+    target_include_directories(oexvic20 PRIVATE
+            ${ARCH_INCLUDES}
+            .
+            drive
+            monitor
+            plus4
+            vic20
+            vdrive
+            diskimage
+            imagecontents
+            diag
+            userport
+            lib/p64
+            joyport
+            rtc
+            tapeport
+            tape
+            socketdrv
+            hvsc
+            lib/linenoise-ng
+            )
     target_include_directories(oex64sc PRIVATE
             ${ARCH_INCLUDES}
             .
@@ -264,9 +324,13 @@ target_include_directories(oex128 PRIVATE
     target_link_libraries(oex128 ${X128_LIBS} z "-framework Foundation" "-framework Carbon")
     target_compile_options(oex128 PUBLIC "-fobjc-arc")
 
+    target_link_libraries(oexvic20 ${XVIC20_LIBS} z "-framework Foundation" "-framework Carbon")
+    target_compile_options(oexvic20 PUBLIC "-fobjc-arc")
+
     if (IPO_SUPPORTED)
         set_target_properties(oex64sc PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
         set_target_properties(oex128 PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
+        set_target_properties(oexvic20 PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
     endif ()
 
     add_custom_command(TARGET oex64sc POST_BUILD
@@ -276,6 +340,10 @@ target_include_directories(oex128 PRIVATE
 
     add_custom_command(TARGET oex128 POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:oex128> ${CMAKE_SOURCE_DIR}
+            COMMENT "Copying library"
+            )
+    add_custom_command(TARGET oexvic20 POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:oexvic20> ${CMAKE_SOURCE_DIR}
             COMMENT "Copying library"
             )
 endif ()

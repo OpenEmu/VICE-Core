@@ -28,14 +28,12 @@ set(OEHEADLESS_INCLUDES
         )
 
 set(OEHEADLESS_SOURCES
-        archdep.m
         joy.c
         kbd.c
         console.c
         ui.c
         uimon.c
         uistatusbar.c
-        video.m
         vsidui.c
         vsyncarch.c
         c64scui.c
@@ -49,10 +47,29 @@ set(OEHEADLESS_SOURCES
         cbm2ui.c
         cbm5x0ui.c
         api.m
-        C64.m
-        C128.m
         ResourceManager.m
         )
+
+set(OEHEADLESS_C64_SOURCES
+  C64.m
+  C64_archdep.m
+  C64_soundheadless.m
+  C64_video.m
+  )
+
+set(OEHEADLESS_C128_SOURCES
+  C128.m
+  C128_archdep.m
+  C128_soundheadless.m
+  C128_video.m
+  )
+
+set(OEHEADLESS_VIC20_SOURCES
+  Vic20.m
+  Vic20_archdep.m
+  Vic20_soundheadless.m
+  Vic20_video.m
+  )
 
 set(OEHEADLESS_ARCHDEP_SOURCES
         archdep_stubs.c
@@ -79,6 +96,15 @@ set(OEHEADLESS_ARCHDEP_SOURCES
         ../shared/archdep_default_rtc_file_name.c
         ../shared/archdep_default_autostart_disk_image_file_name.c
         )
+
+add_library(oeheadless_vic20 STATIC ${OEHEADLESS_VIC20_SOURCES})
+target_include_directories(oeheadless_vic20 PRIVATE ${OEHEADLESS_INCLUDES})
+
+add_library(oeheadless_c64 STATIC ${OEHEADLESS_C64_SOURCES})
+target_include_directories(oeheadless_c64 PRIVATE ${OEHEADLESS_INCLUDES})
+
+add_library(oeheadless_c128 STATIC ${OEHEADLESS_C128_SOURCES})
+target_include_directories(oeheadless_c128 PRIVATE ${OEHEADLESS_INCLUDES})
 
 add_library(oeheadless STATIC ${OEHEADLESS_SOURCES} ${OEHEADLESS_ARCHDEP_SOURCES})
 target_include_directories(oeheadless PRIVATE ${OEHEADLESS_INCLUDES})
