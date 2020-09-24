@@ -23,7 +23,7 @@ set(C64_INCLUDES
     ${CMAKE_SOURCE_DIR}/src/hvsc
     )
 
-set(C64_BASE_SOURCES
+set(C64_SOURCES
     c64-cmdline-options.c
     c64-cmdline-options.h
     c64-memory-hacks.c
@@ -86,11 +86,11 @@ set(C64_BASE_SOURCES
     plus60k.h
     )
 
-set(C64_SOURCES
+set(C64SC_SOURCES
   c64cpusc.c
-  ${C64_BASE_SOURCES}
 )
-add_library(c64base ${C64_BASE_SOURCES})
+add_library(c64base STATIC ${C64_SOURCES})
 target_include_directories(c64base PRIVATE ${C64_INCLUDES})
-add_library(c64 STATIC ${C64_SOURCES})
+
+add_library(c64 STATIC ${C64SC_SOURCES})
 target_include_directories(c64 PRIVATE ${C64_INCLUDES})

@@ -107,6 +107,7 @@ set(X128_SOURCES
         )
 
 set(X64_LIBS
+        c64base
         tapeport
         c64cartsystem
         c64cart
@@ -134,15 +135,14 @@ set(X64_LIBS
         resid
         )
 set(X64SC_LIBS
+      viciisc
       c64
       ${X64_LIBS}
-      viciisc
   )
 set(X128_LIBS
         vicii
         vdc
         c128
-        c64base
 	      driveiec128dcr
         ${X64_LIBS}
 )

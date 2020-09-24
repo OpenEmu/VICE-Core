@@ -25,7 +25,6 @@ set(C128_INCLUDES
     )
 
 set(C128_SOURCES
-    ${C64_BASE_SOURCES}
     c128-cmdline-options.c
     c128-cmdline-options.h
     c128-resources.c
