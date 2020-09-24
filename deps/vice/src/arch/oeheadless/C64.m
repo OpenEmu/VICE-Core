@@ -1,4 +1,6 @@
 #import "public/api.h"
+#import "C64_archdep.h"
+#import "public/C64.h"
 #import "C64+Private.h"
 #import "interrupt.h"
 #import "machine.h"
