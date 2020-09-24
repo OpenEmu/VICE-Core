@@ -62,8 +62,6 @@
 		05A897FB23EF5E78000CA1D2 /* rgb.vpl in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 05A8977923EF5D2C000CA1D2 /* rgb.vpl */; };
 		05A897FC23EF5E78000CA1D2 /* vice.vpl in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 05A8976A23EF5D2C000CA1D2 /* vice.vpl */; };
 		05A897FD23EF5E78000CA1D2 /* default.vrs in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 05A8975D23EF5D2C000CA1D2 /* default.vrs */; };
-		05A8980423EF64AB000CA1D2 /* liboex64sc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A8980323EF64AB000CA1D2 /* liboex64sc.dylib */; };
-		05A8980523EF64AB000CA1D2 /* liboex64sc.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 05A8980323EF64AB000CA1D2 /* liboex64sc.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		05A8982623F1229F000CA1D2 /* osx_pos.vkm in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 05A8982423F1229F000CA1D2 /* osx_pos.vkm */; };
 		05A8982723F1229F000CA1D2 /* osx_sym.vkm in Copy C64 ROM Files */ = {isa = PBXBuildFile; fileRef = 05A8982523F1229F000CA1D2 /* osx_sym.vkm */; };
 		3EDA967E1F19560C0015CED2 /* ViceGameCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0598D2541C44C2FB00E456A6 /* ViceGameCore.m */; };
@@ -71,6 +69,8 @@
 		3EDA96831F19560C0015CED2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 059611F81C3C47FD005C174C /* libz.tbd */; };
 		3EDA96841F19560C0015CED2 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 059611FA1C3C482C005C174C /* libstdc++.tbd */; };
 		3EDA96851F19560C0015CED2 /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0598D2561C44C38200E456A6 /* OpenEmuBase.framework */; };
+		EE9CDC7C251D51B400296520 /* liboex64sc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9CDB4F251BF85800296520 /* liboex64sc.dylib */; };
+		EE9CDC7D251D51B400296520 /* liboex64sc.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = EE9CDB4F251BF85800296520 /* liboex64sc.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,7 +90,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				05A8980523EF64AB000CA1D2 /* liboex64sc.dylib in Embed Libraries */,
+				EE9CDC7D251D51B400296520 /* liboex64sc.dylib in Embed Libraries */,
 			);
 			name = "Embed Libraries";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -208,10 +208,9 @@
 		05A8978523EF5D2C000CA1D2 /* jpkernal */ = {isa = PBXFileReference; lastKnownFileType = file; path = jpkernal; sourceTree = "<group>"; };
 		05A8978623EF5D2C000CA1D2 /* c64s.vpl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = c64s.vpl; sourceTree = "<group>"; };
 		05A8978923EF5D2C000CA1D2 /* edkernal */ = {isa = PBXFileReference; lastKnownFileType = file; path = edkernal; sourceTree = "<group>"; };
-		05A8980023EF5ECC000CA1D2 /* c64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c64.h; sourceTree = "<group>"; };
+		05A8980023EF5ECC000CA1D2 /* C64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = C64.h; sourceTree = "<group>"; };
 		05A8980123EF5ECC000CA1D2 /* api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = api.h; sourceTree = "<group>"; };
 		05A8980223EF5ECC000CA1D2 /* oecommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oecommon.h; sourceTree = "<group>"; };
-		05A8980323EF64AB000CA1D2 /* liboex64sc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liboex64sc.dylib; path = deps/vice/liboex64sc.dylib; sourceTree = "<group>"; };
 		05A8980723EF7DD5000CA1D2 /* archdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = archdep.h; sourceTree = "<group>"; };
 		05A8982423F1229F000CA1D2 /* osx_pos.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = osx_pos.vkm; sourceTree = "<group>"; };
 		05A8982523F1229F000CA1D2 /* osx_sym.vkm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = osx_sym.vkm; sourceTree = "<group>"; };
@@ -223,6 +222,12 @@
 		3EDA98AD1F197B540015CED2 /* OpenEmuSystem.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenEmuSystem.framework; path = "../../Library/Developer/Xcode/DerivedData/OpenEmu-daupfkdcntzkhycxsuyuvqosnsbs/Build/Products/Debug/OpenEmuSystem.framework"; sourceTree = "<group>"; };
 		3EDA98B01F197B770015CED2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		87BEF9312175226000E38B38 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
+		EE9CDB4F251BF85800296520 /* liboex64sc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liboex64sc.dylib; path = deps/vice/liboex64sc.dylib; sourceTree = "<group>"; };
+		EE9CDB53251BFBD900296520 /* C128.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = C128.h; sourceTree = "<group>"; };
+		EE9CDB5B251D487F00296520 /* Vic20.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vic20.h; sourceTree = "<group>"; };
+		EE9CDBEA251D49CE00296520 /* C64_archdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = C64_archdep.h; path = deps/vice/src/arch/oeheadless/C64_archdep.h; sourceTree = SOURCE_ROOT; };
+		EE9CDBEB251D49CE00296520 /* C128_archdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = C128_archdep.h; path = deps/vice/src/arch/oeheadless/C128_archdep.h; sourceTree = SOURCE_ROOT; };
+		EE9CDBEC251D49CE00296520 /* Vic20_archdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vic20_archdep.h; path = deps/vice/src/arch/oeheadless/Vic20_archdep.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,7 +239,7 @@
 				3EDA96831F19560C0015CED2 /* libz.tbd in Frameworks */,
 				3EDA96841F19560C0015CED2 /* libstdc++.tbd in Frameworks */,
 				3EDA96851F19560C0015CED2 /* OpenEmuBase.framework in Frameworks */,
-				05A8980423EF64AB000CA1D2 /* liboex64sc.dylib in Frameworks */,
+				EE9CDC7C251D51B400296520 /* liboex64sc.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,7 +267,7 @@
 		059612CF1C3CEE6A005C174C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				05A8980323EF64AB000CA1D2 /* liboex64sc.dylib */,
+				EE9CDB4F251BF85800296520 /* liboex64sc.dylib */,
 				3EDA98B01F197B770015CED2 /* Cocoa.framework */,
 				3EDA98AC1F197B540015CED2 /* OpenEmuBase.framework */,
 				3EDA98AD1F197B540015CED2 /* OpenEmuSystem.framework */,
@@ -367,6 +372,7 @@
 		05A897FE23EF5E9C000CA1D2 /* vice */ = {
 			isa = PBXGroup;
 			children = (
+				EE9CDBE9251D498B00296520 /* archdep */,
 				05A897FF23EF5ECC000CA1D2 /* public */,
 			);
 			name = vice;
@@ -375,8 +381,10 @@
 		05A897FF23EF5ECC000CA1D2 /* public */ = {
 			isa = PBXGroup;
 			children = (
+				EE9CDB5B251D487F00296520 /* Vic20.h */,
+				EE9CDB53251BFBD900296520 /* C128.h */,
 				05A8980723EF7DD5000CA1D2 /* archdep.h */,
-				05A8980023EF5ECC000CA1D2 /* c64.h */,
+				05A8980023EF5ECC000CA1D2 /* C64.h */,
 				05A8980123EF5ECC000CA1D2 /* api.h */,
 				05A8980223EF5ECC000CA1D2 /* oecommon.h */,
 			);
@@ -391,6 +399,16 @@
 				87BEF9312175226000E38B38 /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		EE9CDBE9251D498B00296520 /* archdep */ = {
+			isa = PBXGroup;
+			children = (
+				EE9CDBEA251D49CE00296520 /* C64_archdep.h */,
+				EE9CDBEB251D49CE00296520 /* C128_archdep.h */,
+				EE9CDBEC251D49CE00296520 /* Vic20_archdep.h */,
+			);
+			path = archdep;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -28,7 +28,15 @@
 #import "OEC64SystemResponderClient.h"
 #import <OpenGL/gl.h>
 #import <Carbon/Carbon.h>
+
 #import "api.h"
+
+#import "C64.h"
+#import "C64_archdep.h"
+#import "C128.h"
+#import "C128_archdep.h"
+#import "Vic20.h"
+#import "Vic20_archdep.h"
 
 const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
 
