@@ -50,6 +50,7 @@ set(OEHEADLESS_SOURCES
         cbm5x0ui.c
         api.m
         C64.m
+        C128.m
         ResourceManager.m
         )
 
@@ -81,4 +82,3 @@ set(OEHEADLESS_ARCHDEP_SOURCES
 
 add_library(oeheadless STATIC ${OEHEADLESS_SOURCES} ${OEHEADLESS_ARCHDEP_SOURCES})
 target_include_directories(oeheadless PRIVATE ${OEHEADLESS_INCLUDES})
-

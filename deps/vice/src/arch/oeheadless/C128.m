@@ -1,5 +1,6 @@
+
 #import "public/api.h"
-#import "C64+Private.h"
+#import "C128+Private.h"
 #import "interrupt.h"
 #import "machine.h"
 #import "snapshot.h"
@@ -12,6 +13,7 @@
 #import "keyboard.h"
 #import "joystick.h"
 #import "vsync.h"
+
 
 // sanity checks
 OE_STATIC_ASSERT(KeyboardModLShift == (KeyboardMod)KBD_MOD_LSHIFT);
@@ -116,17 +118,17 @@ OE_STATIC_ASSERT(C128ModelDCRNTSC == (C128Model)C128MODEL_C128DCR_NTSC);
 }
 
 - (void)setModel:(C128Model)model {
-    if (C128model_get() == model) {
+    if (c128model_get() == model) {
         return;
     }
     [self willChangeValueForKey:@"model"];
-    C128model_set(model);
+    c128model_set(model);
     [self updateTicksPerFrame];
     [self didChangeValueForKey:@"model"];
 }
 
 - (C128Model)model {
-    return (C128Model)C128model_get();
+    return (C128Model)c128model_get();
 }
 
 #pragma mark - image management
@@ -319,3 +321,5 @@ extern unsigned long vsyncarch_ticks;
 
 
 @end
+
+
