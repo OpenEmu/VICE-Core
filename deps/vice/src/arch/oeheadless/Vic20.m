@@ -1,14 +1,14 @@
 
 #import "public/api.h"
-#import "C128_archdep.h"
-#import "C128+Private.h"
+#import "Vic20_archdep.h"
+#import "Vic20+Private.h"
 #import "interrupt.h"
 #import "machine.h"
 #import "snapshot.h"
 #import "resources.h"
 #import "maincpu.h"
 #import "autostart.h"
-#import "c128model.h"
+#import "vic20model.h"
 #import "main.h"
 #import "video.h"
 #import "keyboard.h"
@@ -19,14 +19,11 @@
 // sanity checks
 OE_STATIC_ASSERT(KeyboardModLShift == (KeyboardMod)KBD_MOD_LSHIFT);
 OE_STATIC_ASSERT(KeyboardModRALT == (KeyboardMod)KBD_MOD_RALT);
-OE_STATIC_ASSERT(C128ModelPAL == (C128Model)C128MODEL_C128_PAL);
-OE_STATIC_ASSERT(C128ModelDPAL == (C128Model)C128MODEL_C128D_PAL);
-OE_STATIC_ASSERT(C128ModelDCRPAL == (C128Model)C128MODEL_C128DCR_PAL);
-OE_STATIC_ASSERT(C128ModelNTSC == (C128Model)C128MODEL_C128_NTSC);
-OE_STATIC_ASSERT(C128ModelDNTSC == (C128Model)C128MODEL_C128D_NTSC);
-OE_STATIC_ASSERT(C128ModelDCRNTSC == (C128Model)C128MODEL_C128DCR_NTSC);
+OE_STATIC_ASSERT(Vic20ModelPAL == (Vic20Model)VIC20MODEL_VIC20_PAL);
+OE_STATIC_ASSERT(Vic20ModelNTSC == (Vic20Model)VIC20MODEL_VIC20_NTSC);
+OE_STATIC_ASSERT(Vic20ModelSuperVIC == (Vic20Model)VIC20MODEL_VIC21);
 
-@implementation C128 {
+@implementation Vic20 {
     BOOL _initialized;
     video_canvas_t *_canvas;
     void *_buffer;
@@ -42,12 +39,12 @@ OE_STATIC_ASSERT(C128ModelDCRNTSC == (C128Model)C128MODEL_C128DCR_NTSC);
     return self;
 }
 
-+ (C128 *)shared {
-    static C128 *shared;
++ (Vic20 *)shared {
+    static Vic20 *shared;
     
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        shared = [C128 new];
+        shared = [Vic20 new];
     });
     
     return shared;
@@ -118,23 +115,23 @@ OE_STATIC_ASSERT(C128ModelDCRNTSC == (C128Model)C128MODEL_C128DCR_NTSC);
     _ticksPerFrame = (unsigned long)(1e6 / vsync_get_refresh_frequency());
 }
 
-- (void)setModel:(C128Model)model {
-    if (c128model_get() == model) {
+- (void)setModel:(Vic20Model)model {
+    if (vic20model_get() == model) {
         return;
     }
     [self willChangeValueForKey:@"model"];
-    c128model_set(model);
+    vic20model_set(model);
     [self updateTicksPerFrame];
     [self didChangeValueForKey:@"model"];
 }
 
-- (C128Model)model {
-    return (C128Model)c128model_get();
+- (Vic20Model)model {
+    return (Vic20Model)vic20model_get();
 }
 
 #pragma mark - image management
 
-- (C128ImageType)imageTypeAtURL:(NSURL *)url {
+- (Vic20ImageType)imageTypeAtURL:(NSURL *)url {
     static NSSet<NSString *> *tape;
     static NSSet<NSString *> *cart;
     static NSSet<NSString *> *disk;
@@ -149,14 +146,14 @@ OE_STATIC_ASSERT(C128ModelDCRNTSC == (C128Model)C128MODEL_C128DCR_NTSC);
     
     NSString *fileExtension = url.pathExtension.lowercaseString;
     if ([tape containsObject:fileExtension]) {
-        return C128ImageTypeTape;
+        return Vic20ImageTypeTape;
     } else if ([cart containsObject:fileExtension]) {
-        return C128ImageTypeCartridge;
+        return Vic20ImageTypeCartridge;
     } else if ([disk containsObject:fileExtension]) {
-        return C128ImageTypeDisk;
+        return Vic20ImageTypeDisk;
     }
     
-    return C128ImageTypeUnknown;
+    return Vic20ImageTypeUnknown;
 }
 
 - (BOOL)attachImageAtURL:(NSURL *)url error:(NSError **)error {

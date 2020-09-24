@@ -1,15 +1,12 @@
 #import <Foundation/Foundation.h>
 
-@protocol C64Delegate <NSObject>
-
-- (void)updateAudioBuffer:(int16_t const *)buffer samples:(NSInteger)samples;
-- (void)canvasWillResizeWidth:(NSUInteger)width height:(NSUInteger)height;
-
-@end
-
-@protocol C128Delegate <NSObject>
-
-- (void)updateAudioBuffer:(int16_t const *)buffer samples:(NSInteger)samples;
-- (void)canvasWillResizeWidth:(NSUInteger)width height:(NSUInteger)height;
-
-@end
+typedef NS_ENUM(NSUInteger, KeyboardMod)
+{
+    KeyboardModNone   = 0,
+    KeyboardModLShift = 1u << 0u,
+    KeyboardModRShift = 1u << 1u,
+    KeyboardModLCTRL = 1u << 2u,
+    KeyboardModRCTRL = 1u << 3u,
+    KeyboardModLALT = 1u << 4u,
+    KeyboardModRALT = 1u << 5u,
+};

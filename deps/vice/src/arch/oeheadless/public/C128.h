@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "oecommon.h"
+#import "api.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,17 +23,6 @@ typedef NS_ENUM(NSUInteger, C128Model)
     C128ModelDNTSC   = 4,
     C128ModelDCRNTSC = 5,
 };
-
-//typedef NS_ENUM(NSUInteger, KeyboardMod)
-//{
-//    KeyboardModNone   = 0,
-//    KeyboardModLShift = 1u << 0u,
-//    KeyboardModRShift = 1u << 1u,
-//    KeyboardModLCTRL = 1u << 2u,
-//    KeyboardModRCTRL = 1u << 3u,
-//    KeyboardModLALT = 1u << 4u,
-//    KeyboardModRALT = 1u << 5u,
-//};
 
 OE_EXPORTED_CLASS
 @interface C128: NSObject

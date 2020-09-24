@@ -1,5 +1,3 @@
-#import "archdep.h"
 #import "oecommon.h"
-#import "C64.h"
-#import "C128.h"
+#import "archdep.h"
 #import "ResourceManager.h"

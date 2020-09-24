@@ -3,36 +3,35 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol C64Delegate;
+@protocol Vic20Delegate;
 
-typedef NS_ENUM(NSUInteger, C64ImageType)
+typedef NS_ENUM(NSUInteger, Vic20ImageType)
 {
-    C64ImageTypeUnknown,
-    C64ImageTypeDisk,
-    C64ImageTypeTape,
-    C64ImageTypeCartridge,
-    C64ImageTypePRG,
+    Vic20ImageTypeUnknown,
+    Vic20ImageTypeDisk,
+    Vic20ImageTypeTape,
+    Vic20ImageTypeCartridge,
+    Vic20ImageTypePRG,
 };
 
-typedef NS_ENUM(NSUInteger, C64Model)
+typedef NS_ENUM(NSUInteger, Vic20Model)
 {
-    C64ModelPAL     = 0,
-    C64ModelCPAL    = 1,
-    C64ModelNTSC    = 3,
-    C64ModelCNTSC   = 4,
+    Vic20ModelPAL      = 0,
+    Vic20ModelNTSC     = 1,
+    Vic20ModelSuperVIC = 2,
 };
 
 OE_EXPORTED_CLASS
-@interface C64: NSObject
+@interface Vic20: NSObject
 
-@property (class, nonatomic, readonly) C64 *shared;
+@property (class, nonatomic, readonly) Vic20 *shared;
 
-@property (nonatomic, assign, nullable) id<C64Delegate> delegate;
+@property (nonatomic, assign, nullable) id<Vic20Delegate> delegate;
 - (void)initializeWithBootPath:(NSString *)bootPath systemPathList:(NSArray<NSString *>*)pathList;
 
 #pragma mark - configuration
 
-@property (nonatomic) C64Model model;
+@property (nonatomic) Vic20Model model;
 @property (nonatomic, readonly) NSString *bootPath;
 @property (nonatomic, readonly) NSArray<NSString *> *sysfilePathList;
 
@@ -48,7 +47,7 @@ OE_EXPORTED_CLASS
 
 #pragma mark - image management
 
-- (C64ImageType)imageTypeAtURL:(NSURL *)url;
+- (Vic20ImageType)imageTypeAtURL:(NSURL *)url;
 - (BOOL)attachImageAtURL:(NSURL *)url error:(NSError **)error;
 - (BOOL)autostartImageAtURL:(NSURL *)url error:(NSError **)error;
 
