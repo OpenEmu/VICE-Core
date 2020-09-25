@@ -482,6 +482,9 @@ void maincpu_headless_init(void)
 
 void maincpu_headless_mainloop(machine_event_flags event_mask)
 {
+    
+    *machine_event = MACHINE_EVENT_CLEAR;
+    
     do {
 #define CLK maincpu_clk
 #define RMW_FLAG maincpu_rmw_flag
@@ -534,15 +537,6 @@ void maincpu_headless_mainloop(machine_event_flags event_mask)
 
         maincpu_int_status->num_dma_per_opcode = 0;
 
-        if (maincpu_clk_limit && (maincpu_clk > maincpu_clk_limit)) {
-            log_error(LOG_DEFAULT, "cycle limit reached.");
-            archdep_vice_exit(1);
-        }
-#if 0
-        if (CLK > 246171754) {
-            debug.maincpu_traceflg = 1;
-        }
-#endif
     }while((*machine_event & event_mask) == 0);
 }
 

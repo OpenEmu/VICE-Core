@@ -62,41 +62,7 @@
 #define DBG(x)
 #endif
 
-typedef struct resource_ram_s {
-    /* Resource name.  */
-    char *name;
 
-    /* Type of resource.  */
-    resource_type_t type;
-
-    /* Factory default value.  */
-    resource_value_t factory_value;
-
-    /* Is the resource important for history recording or netplay? */
-    resource_event_relevant_t event_relevant;
-
-    /* Value that is needed for correct history recording and netplay.  */
-    resource_value_t *event_strict_value;
-
-    /* Pointer to the value.  This is only used for *reading* it.  To change
-       it, use `set_func'.  */
-    resource_value_t *value_ptr;
-
-    /* Function to call to set the integer value.  */
-    resource_set_func_int_t *set_func_int;
-
-    /* Function to call to set the string value.  */
-    resource_set_func_string_t *set_func_string;
-
-    /* Extra parameter to pass to `set_func'.  */
-    void *param;
-
-    /* callback function vector chain */
-    struct resource_callback_desc_s *callback;
-
-    /* number of next entry in hash collision list */
-    int hash_next;
-} resource_ram_t;
 
 /* the type of the callback vector chain */
 typedef struct resource_callback_desc_s {
