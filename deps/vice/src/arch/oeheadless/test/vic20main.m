@@ -1,4 +1,6 @@
 #import "api.h"
+#import "Vic20_archdep.h"
+#import "Vic20.h"
 #import "resources.h"
 
 int callback(int i, resource_ram_t *item, void *context)
@@ -22,7 +24,7 @@ int callback(int i, resource_ram_t *item, void *context)
     return 0;
 }
 
-@interface Delegate: NSObject<C64Delegate>
+@interface Delegate: NSObject<Vic20Delegate>
 @property (nonatomic, readwrite) int written;
 @end
 
@@ -41,28 +43,28 @@ int callback(int i, resource_ram_t *item, void *context)
 
 int main(int argc, char **argv)
 {
-    C64 *c64 = C64.shared;
+    Vic20 *vic20 = Vic20.shared;
     NSString *bootPath = @SOURCE_ROOT;
     NSArray<NSString *> *paths = @[
-            [NSString pathWithComponents:@[bootPath, @"data", @"C64"]],
+            [NSString pathWithComponents:@[bootPath, @"data", @"VIC20"]],
             [NSString pathWithComponents:@[bootPath, @"data", @"DRIVES"]],
     ];
     Delegate *delegate = [Delegate new];
-    c64.delegate = delegate;
-    [c64 initializeWithBootPath:bootPath systemPathList:paths];
+    vic20.delegate = delegate;
+    [vic20 initializeWithBootPath:bootPath systemPathList:paths];
     
-    printf("frequency %f\n", c64.videoFrequency);
-    c64.model = C64ModelNTSC;
-    printf("frequency %f\n", c64.videoFrequency);
-    c64.model = C64ModelNTSC;
-    printf("frequency %f\n", c64.videoFrequency);
+    printf("frequency %f\n", vic20.videoFrequency);
+    vic20.model = Vic20ModelPAL;
+    printf("frequency %f\n", vic20.videoFrequency);
+    vic20.model = Vic20ModelNTSC;
+    printf("frequency %f\n", vic20.videoFrequency);
     
     delegate.written = 0;
     int frames = 0;
     for (int j=0; j<10000; j++) {
-        [c64 execute];
+        [vic20 execute];
         frames+=1;
-        if (frames >= c64.videoFrequency) {
+        if (frames >= vic20.videoFrequency) {
             frames = 0;
             printf("frames=%03d, written=%d\n", j, delegate.written);
             delegate.written = 0;
