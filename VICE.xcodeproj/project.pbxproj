@@ -69,8 +69,54 @@
 		3EDA96831F19560C0015CED2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 059611F81C3C47FD005C174C /* libz.tbd */; };
 		3EDA96841F19560C0015CED2 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 059611FA1C3C482C005C174C /* libstdc++.tbd */; };
 		3EDA96851F19560C0015CED2 /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0598D2561C44C38200E456A6 /* OpenEmuBase.framework */; };
-		EE9CDC7C251D51B400296520 /* liboex64sc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9CDB4F251BF85800296520 /* liboex64sc.dylib */; };
-		EE9CDC7D251D51B400296520 /* liboex64sc.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = EE9CDB4F251BF85800296520 /* liboex64sc.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		EE9CDCD6251DAB4D00296520 /* kernal64 in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDC97251DAAAD00296520 /* kernal64 */; };
+		EE9CDCD7251DAB4D00296520 /* basichi in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDC98251DAAAD00296520 /* basichi */; };
+		EE9CDCD8251DAB4D00296520 /* colodore.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDC99251DAAAD00296520 /* colodore.vpl */; };
+		EE9CDCD9251DAB4D00296520 /* pc64.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDC9A251DAAAD00296520 /* pc64.vpl */; };
+		EE9CDCDA251DAB4D00296520 /* kernalde in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDC9B251DAAAD00296520 /* kernalde */; };
+		EE9CDCDB251DAB4E00296520 /* basic64 in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDC9C251DAAAD00296520 /* basic64 */; };
+		EE9CDCDC251DAB4E00296520 /* community-colors.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDC9D251DAAAD00296520 /* community-colors.vpl */; };
+		EE9CDCDD251DAB4E00296520 /* godot.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDC9E251DAAAD00296520 /* godot.vpl */; };
+		EE9CDCDE251DAB4E00296520 /* chargde in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDC9F251DAAAD00296520 /* chargde */; };
+		EE9CDCE0251DAB4E00296520 /* pepto-ntsc.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCA1251DAAAD00296520 /* pepto-ntsc.vpl */; };
+		EE9CDCE1251DAB4E00296520 /* pepto-ntsc-sony.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCA2251DAAAD00296520 /* pepto-ntsc-sony.vpl */; };
+		EE9CDCE2251DAB4E00296520 /* default.vrs in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCA3251DAAAD00296520 /* default.vrs */; };
+		EE9CDCE4251DAB4E00296520 /* chargen in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCA5251DAAAD00296520 /* chargen */; };
+		EE9CDCE5251DAB4E00296520 /* chargfr in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCA6251DAAAD00296520 /* chargfr */; };
+		EE9CDCE6251DAB4E00296520 /* pepto-pal.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCA7251DAAAD00296520 /* pepto-pal.vpl */; };
+		EE9CDCE7251DAB4E00296520 /* kernalfr in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCA8251DAAAD00296520 /* kernalfr */; };
+		EE9CDCE8251DAB4E00296520 /* ptoing.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCA9251DAAAD00296520 /* ptoing.vpl */; };
+		EE9CDCE9251DAB4E00296520 /* kernalfi in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCAA251DAAAD00296520 /* kernalfi */; };
+		EE9CDCEA251DAB4E00296520 /* basiclo in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCAB251DAAAD00296520 /* basiclo */; };
+		EE9CDCEB251DAB4E00296520 /* vice.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCAC251DAAAD00296520 /* vice.vpl */; };
+		EE9CDCEC251DAB4E00296520 /* pepto-palold.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCAD251DAAAD00296520 /* pepto-palold.vpl */; };
+		EE9CDCED251DAB4E00296520 /* kernal in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCAE251DAAAD00296520 /* kernal */; };
+		EE9CDCF0251DAB4E00296520 /* kernalse in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCB1251DAAAD00296520 /* kernalse */; };
+		EE9CDCF1251DAB4E00296520 /* chargse in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCB2251DAAAD00296520 /* chargse */; };
+		EE9CDCF2251DAB4E00296520 /* chargno in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCB3251DAAAD00296520 /* chargno */; };
+		EE9CDCF3251DAB4E00296520 /* kernalno in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCB4251DAAAD00296520 /* kernalno */; };
+		EE9CDCF4251DAB4E00296520 /* vdc_comp.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCB5251DAAAD00296520 /* vdc_comp.vpl */; };
+		EE9CDCF5251DAB4E00296520 /* cjam.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCB6251DAAAD00296520 /* cjam.vpl */; };
+		EE9CDCF6251DAB4E00296520 /* rgb.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCB7251DAAAD00296520 /* rgb.vpl */; };
+		EE9CDCF7251DAB4E00296520 /* chargch in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCB8251DAAAD00296520 /* chargch */; };
+		EE9CDCF8251DAB4E00296520 /* kernalch in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCB9251DAAAD00296520 /* kernalch */; };
+		EE9CDCF9251DAB4E00296520 /* kernalit in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCBA251DAAAD00296520 /* kernalit */; };
+		EE9CDCFA251DAB4E00296520 /* ccs64.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCBB251DAAAD00296520 /* ccs64.vpl */; };
+		EE9CDCFB251DAB4E00296520 /* deekay.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCBC251DAAAD00296520 /* deekay.vpl */; };
+		EE9CDCFC251DAB4E00296520 /* c64hq.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCBD251DAAAD00296520 /* c64hq.vpl */; };
+		EE9CDCFD251DAB4E00296520 /* vdc_deft.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCBE251DAAAD00296520 /* vdc_deft.vpl */; };
+		EE9CDCFF251DAB4E00296520 /* frodo.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCC0251DAAAD00296520 /* frodo.vpl */; };
+		EE9CDD01251DAB4E00296520 /* c64s.vpl in Copy C128 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCC2251DAAAD00296520 /* c64s.vpl */; };
+		EE9CDD05251DABCF00296520 /* colodore_vic.vpl in Copy Vic20 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCC5251DAAAD00296520 /* colodore_vic.vpl */; };
+		EE9CDD07251DABCF00296520 /* default.vrs in Copy Vic20 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCC7251DAAAD00296520 /* default.vrs */; };
+		EE9CDD08251DABCF00296520 /* chargen in Copy Vic20 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCC9251DAAAD00296520 /* chargen */; };
+		EE9CDD09251DABCF00296520 /* basic in Copy Vic20 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCCA251DAAAD00296520 /* basic */; };
+		EE9CDD0A251DABCF00296520 /* vice.vpl in Copy Vic20 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCCB251DAAAD00296520 /* vice.vpl */; };
+		EE9CDD0B251DABCF00296520 /* kernal in Copy Vic20 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCCC251DAAAD00296520 /* kernal */; };
+		EE9CDD0E251DABCF00296520 /* mike-ntsc.vpl in Copy Vic20 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCCF251DAAAD00296520 /* mike-ntsc.vpl */; };
+		EE9CDD13251DABCF00296520 /* mike-pal.vpl in Copy Vic20 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCD4251DAAAD00296520 /* mike-pal.vpl */; };
+		EEAD13ED251E8CD70018F91A /* liboexvic20.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9CDC8B251D698C00296520 /* liboexvic20.dylib */; };
+		EEAD13EE251E8CD70018F91A /* liboexvic20.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = EE9CDC8B251D698C00296520 /* liboexvic20.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,17 +130,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		05A8980623EF64AB000CA1D2 /* Embed Libraries */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				EE9CDC7D251D51B400296520 /* liboex64sc.dylib in Embed Libraries */,
-			);
-			name = "Embed Libraries";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		3EDA96881F19560C0015CED2 /* Copy C64 ROM Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -155,6 +190,83 @@
 				05A897E223EF5E00000CA1D2 /* dos1581 in Copy Drive ROM Files */,
 			);
 			name = "Copy Drive ROM Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE9CDCD5251DAAD300296520 /* Copy C128 ROM Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ROM/C128;
+			dstSubfolderSpec = 7;
+			files = (
+				EE9CDCD6251DAB4D00296520 /* kernal64 in Copy C128 ROM Files */,
+				EE9CDCD7251DAB4D00296520 /* basichi in Copy C128 ROM Files */,
+				EE9CDCD8251DAB4D00296520 /* colodore.vpl in Copy C128 ROM Files */,
+				EE9CDCD9251DAB4D00296520 /* pc64.vpl in Copy C128 ROM Files */,
+				EE9CDCDA251DAB4D00296520 /* kernalde in Copy C128 ROM Files */,
+				EE9CDCDB251DAB4E00296520 /* basic64 in Copy C128 ROM Files */,
+				EE9CDCDC251DAB4E00296520 /* community-colors.vpl in Copy C128 ROM Files */,
+				EE9CDCDD251DAB4E00296520 /* godot.vpl in Copy C128 ROM Files */,
+				EE9CDCDE251DAB4E00296520 /* chargde in Copy C128 ROM Files */,
+				EE9CDCE0251DAB4E00296520 /* pepto-ntsc.vpl in Copy C128 ROM Files */,
+				EE9CDCE1251DAB4E00296520 /* pepto-ntsc-sony.vpl in Copy C128 ROM Files */,
+				EE9CDCE2251DAB4E00296520 /* default.vrs in Copy C128 ROM Files */,
+				EE9CDCE4251DAB4E00296520 /* chargen in Copy C128 ROM Files */,
+				EE9CDCE5251DAB4E00296520 /* chargfr in Copy C128 ROM Files */,
+				EE9CDCE6251DAB4E00296520 /* pepto-pal.vpl in Copy C128 ROM Files */,
+				EE9CDCE7251DAB4E00296520 /* kernalfr in Copy C128 ROM Files */,
+				EE9CDCE8251DAB4E00296520 /* ptoing.vpl in Copy C128 ROM Files */,
+				EE9CDCE9251DAB4E00296520 /* kernalfi in Copy C128 ROM Files */,
+				EE9CDCEA251DAB4E00296520 /* basiclo in Copy C128 ROM Files */,
+				EE9CDCEB251DAB4E00296520 /* vice.vpl in Copy C128 ROM Files */,
+				EE9CDCEC251DAB4E00296520 /* pepto-palold.vpl in Copy C128 ROM Files */,
+				EE9CDCED251DAB4E00296520 /* kernal in Copy C128 ROM Files */,
+				EE9CDCF0251DAB4E00296520 /* kernalse in Copy C128 ROM Files */,
+				EE9CDCF1251DAB4E00296520 /* chargse in Copy C128 ROM Files */,
+				EE9CDCF2251DAB4E00296520 /* chargno in Copy C128 ROM Files */,
+				EE9CDCF3251DAB4E00296520 /* kernalno in Copy C128 ROM Files */,
+				EE9CDCF4251DAB4E00296520 /* vdc_comp.vpl in Copy C128 ROM Files */,
+				EE9CDCF5251DAB4E00296520 /* cjam.vpl in Copy C128 ROM Files */,
+				EE9CDCF6251DAB4E00296520 /* rgb.vpl in Copy C128 ROM Files */,
+				EE9CDCF7251DAB4E00296520 /* chargch in Copy C128 ROM Files */,
+				EE9CDCF8251DAB4E00296520 /* kernalch in Copy C128 ROM Files */,
+				EE9CDCF9251DAB4E00296520 /* kernalit in Copy C128 ROM Files */,
+				EE9CDCFA251DAB4E00296520 /* ccs64.vpl in Copy C128 ROM Files */,
+				EE9CDCFB251DAB4E00296520 /* deekay.vpl in Copy C128 ROM Files */,
+				EE9CDCFC251DAB4E00296520 /* c64hq.vpl in Copy C128 ROM Files */,
+				EE9CDCFD251DAB4E00296520 /* vdc_deft.vpl in Copy C128 ROM Files */,
+				EE9CDCFF251DAB4E00296520 /* frodo.vpl in Copy C128 ROM Files */,
+				EE9CDD01251DAB4E00296520 /* c64s.vpl in Copy C128 ROM Files */,
+			);
+			name = "Copy C128 ROM Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE9CDD04251DAB9300296520 /* Copy Vic20 ROM Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ROM/VIC20;
+			dstSubfolderSpec = 7;
+			files = (
+				EE9CDD05251DABCF00296520 /* colodore_vic.vpl in Copy Vic20 ROM Files */,
+				EE9CDD07251DABCF00296520 /* default.vrs in Copy Vic20 ROM Files */,
+				EE9CDD08251DABCF00296520 /* chargen in Copy Vic20 ROM Files */,
+				EE9CDD09251DABCF00296520 /* basic in Copy Vic20 ROM Files */,
+				EE9CDD0A251DABCF00296520 /* vice.vpl in Copy Vic20 ROM Files */,
+				EE9CDD0B251DABCF00296520 /* kernal in Copy Vic20 ROM Files */,
+				EE9CDD0E251DABCF00296520 /* mike-ntsc.vpl in Copy Vic20 ROM Files */,
+				EE9CDD13251DABCF00296520 /* mike-pal.vpl in Copy Vic20 ROM Files */,
+			);
+			name = "Copy Vic20 ROM Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEAD13EF251E8CD70018F91A /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EEAD13EE251E8CD70018F91A /* liboexvic20.dylib in Embed Libraries */,
+			);
+			name = "Embed Libraries";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -222,12 +334,60 @@
 		3EDA98AD1F197B540015CED2 /* OpenEmuSystem.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenEmuSystem.framework; path = "../../Library/Developer/Xcode/DerivedData/OpenEmu-daupfkdcntzkhycxsuyuvqosnsbs/Build/Products/Debug/OpenEmuSystem.framework"; sourceTree = "<group>"; };
 		3EDA98B01F197B770015CED2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		87BEF9312175226000E38B38 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
-		EE9CDB4F251BF85800296520 /* liboex64sc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liboex64sc.dylib; path = deps/vice/liboex64sc.dylib; sourceTree = "<group>"; };
 		EE9CDB53251BFBD900296520 /* C128.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = C128.h; sourceTree = "<group>"; };
 		EE9CDB5B251D487F00296520 /* Vic20.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vic20.h; sourceTree = "<group>"; };
 		EE9CDBEA251D49CE00296520 /* C64_archdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = C64_archdep.h; path = deps/vice/src/arch/oeheadless/C64_archdep.h; sourceTree = SOURCE_ROOT; };
 		EE9CDBEB251D49CE00296520 /* C128_archdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = C128_archdep.h; path = deps/vice/src/arch/oeheadless/C128_archdep.h; sourceTree = SOURCE_ROOT; };
 		EE9CDBEC251D49CE00296520 /* Vic20_archdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vic20_archdep.h; path = deps/vice/src/arch/oeheadless/Vic20_archdep.h; sourceTree = SOURCE_ROOT; };
+		EE9CDC89251D698B00296520 /* liboex64sc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liboex64sc.dylib; path = deps/vice/liboex64sc.dylib; sourceTree = "<group>"; };
+		EE9CDC8A251D698B00296520 /* liboex128.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liboex128.dylib; path = deps/vice/liboex128.dylib; sourceTree = "<group>"; };
+		EE9CDC8B251D698C00296520 /* liboexvic20.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liboexvic20.dylib; path = deps/vice/liboexvic20.dylib; sourceTree = "<group>"; };
+		EE9CDC97251DAAAD00296520 /* kernal64 */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal64; sourceTree = "<group>"; };
+		EE9CDC98251DAAAD00296520 /* basichi */ = {isa = PBXFileReference; lastKnownFileType = file; path = basichi; sourceTree = "<group>"; };
+		EE9CDC99251DAAAD00296520 /* colodore.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = colodore.vpl; sourceTree = "<group>"; };
+		EE9CDC9A251DAAAD00296520 /* pc64.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = pc64.vpl; sourceTree = "<group>"; };
+		EE9CDC9B251DAAAD00296520 /* kernalde */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernalde; sourceTree = "<group>"; };
+		EE9CDC9C251DAAAD00296520 /* basic64 */ = {isa = PBXFileReference; lastKnownFileType = file; path = basic64; sourceTree = "<group>"; };
+		EE9CDC9D251DAAAD00296520 /* community-colors.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "community-colors.vpl"; sourceTree = "<group>"; };
+		EE9CDC9E251DAAAD00296520 /* godot.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = godot.vpl; sourceTree = "<group>"; };
+		EE9CDC9F251DAAAD00296520 /* chargde */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargde; sourceTree = "<group>"; };
+		EE9CDCA1251DAAAD00296520 /* pepto-ntsc.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "pepto-ntsc.vpl"; sourceTree = "<group>"; };
+		EE9CDCA2251DAAAD00296520 /* pepto-ntsc-sony.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "pepto-ntsc-sony.vpl"; sourceTree = "<group>"; };
+		EE9CDCA3251DAAAD00296520 /* default.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.vrs; sourceTree = "<group>"; };
+		EE9CDCA5251DAAAD00296520 /* chargen */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargen; sourceTree = "<group>"; };
+		EE9CDCA6251DAAAD00296520 /* chargfr */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargfr; sourceTree = "<group>"; };
+		EE9CDCA7251DAAAD00296520 /* pepto-pal.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "pepto-pal.vpl"; sourceTree = "<group>"; };
+		EE9CDCA8251DAAAD00296520 /* kernalfr */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernalfr; sourceTree = "<group>"; };
+		EE9CDCA9251DAAAD00296520 /* ptoing.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = ptoing.vpl; sourceTree = "<group>"; };
+		EE9CDCAA251DAAAD00296520 /* kernalfi */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernalfi; sourceTree = "<group>"; };
+		EE9CDCAB251DAAAD00296520 /* basiclo */ = {isa = PBXFileReference; lastKnownFileType = file; path = basiclo; sourceTree = "<group>"; };
+		EE9CDCAC251DAAAD00296520 /* vice.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = vice.vpl; sourceTree = "<group>"; };
+		EE9CDCAD251DAAAD00296520 /* pepto-palold.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "pepto-palold.vpl"; sourceTree = "<group>"; };
+		EE9CDCAE251DAAAD00296520 /* kernal */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal; sourceTree = "<group>"; };
+		EE9CDCB1251DAAAD00296520 /* kernalse */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernalse; sourceTree = "<group>"; };
+		EE9CDCB2251DAAAD00296520 /* chargse */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargse; sourceTree = "<group>"; };
+		EE9CDCB3251DAAAD00296520 /* chargno */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargno; sourceTree = "<group>"; };
+		EE9CDCB4251DAAAD00296520 /* kernalno */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernalno; sourceTree = "<group>"; };
+		EE9CDCB5251DAAAD00296520 /* vdc_comp.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = vdc_comp.vpl; sourceTree = "<group>"; };
+		EE9CDCB6251DAAAD00296520 /* cjam.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = cjam.vpl; sourceTree = "<group>"; };
+		EE9CDCB7251DAAAD00296520 /* rgb.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = rgb.vpl; sourceTree = "<group>"; };
+		EE9CDCB8251DAAAD00296520 /* chargch */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargch; sourceTree = "<group>"; };
+		EE9CDCB9251DAAAD00296520 /* kernalch */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernalch; sourceTree = "<group>"; };
+		EE9CDCBA251DAAAD00296520 /* kernalit */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernalit; sourceTree = "<group>"; };
+		EE9CDCBB251DAAAD00296520 /* ccs64.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = ccs64.vpl; sourceTree = "<group>"; };
+		EE9CDCBC251DAAAD00296520 /* deekay.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = deekay.vpl; sourceTree = "<group>"; };
+		EE9CDCBD251DAAAD00296520 /* c64hq.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = c64hq.vpl; sourceTree = "<group>"; };
+		EE9CDCBE251DAAAD00296520 /* vdc_deft.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = vdc_deft.vpl; sourceTree = "<group>"; };
+		EE9CDCC0251DAAAD00296520 /* frodo.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = frodo.vpl; sourceTree = "<group>"; };
+		EE9CDCC2251DAAAD00296520 /* c64s.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = c64s.vpl; sourceTree = "<group>"; };
+		EE9CDCC5251DAAAD00296520 /* colodore_vic.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = colodore_vic.vpl; sourceTree = "<group>"; };
+		EE9CDCC7251DAAAD00296520 /* default.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.vrs; sourceTree = "<group>"; };
+		EE9CDCC9251DAAAD00296520 /* chargen */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargen; sourceTree = "<group>"; };
+		EE9CDCCA251DAAAD00296520 /* basic */ = {isa = PBXFileReference; lastKnownFileType = file; path = basic; sourceTree = "<group>"; };
+		EE9CDCCB251DAAAD00296520 /* vice.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = vice.vpl; sourceTree = "<group>"; };
+		EE9CDCCC251DAAAD00296520 /* kernal */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal; sourceTree = "<group>"; };
+		EE9CDCCF251DAAAD00296520 /* mike-ntsc.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "mike-ntsc.vpl"; sourceTree = "<group>"; };
+		EE9CDCD4251DAAAD00296520 /* mike-pal.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "mike-pal.vpl"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,10 +396,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EDA96821F19560C0015CED2 /* libedit.3.0.tbd in Frameworks */,
+				EEAD13ED251E8CD70018F91A /* liboexvic20.dylib in Frameworks */,
 				3EDA96831F19560C0015CED2 /* libz.tbd in Frameworks */,
 				3EDA96841F19560C0015CED2 /* libstdc++.tbd in Frameworks */,
 				3EDA96851F19560C0015CED2 /* OpenEmuBase.framework in Frameworks */,
-				EE9CDC7C251D51B400296520 /* liboex64sc.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,7 +427,9 @@
 		059612CF1C3CEE6A005C174C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EE9CDB4F251BF85800296520 /* liboex64sc.dylib */,
+				EE9CDC89251D698B00296520 /* liboex64sc.dylib */,
+				EE9CDC8A251D698B00296520 /* liboex128.dylib */,
+				EE9CDC8B251D698C00296520 /* liboexvic20.dylib */,
 				3EDA98B01F197B770015CED2 /* Cocoa.framework */,
 				3EDA98AC1F197B540015CED2 /* OpenEmuBase.framework */,
 				3EDA98AD1F197B540015CED2 /* OpenEmuSystem.framework */,
@@ -302,13 +464,15 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		05A8973D23EF5CFD000CA1D2 /* C64 */ = {
+		05A8973D23EF5CFD000CA1D2 /* ROMS */ = {
 			isa = PBXGroup;
 			children = (
+				EE9CDC96251DAAAD00296520 /* C128 */,
+				EE9CDCC4251DAAAD00296520 /* VIC20 */,
 				05A8974F23EF5D2C000CA1D2 /* C64 */,
 				05A8973E23EF5D2C000CA1D2 /* DRIVES */,
 			);
-			name = C64;
+			name = ROMS;
 			sourceTree = "<group>";
 		};
 		05A8973E23EF5D2C000CA1D2 /* DRIVES */ = {
@@ -395,7 +559,7 @@
 		87BEF9302175212400E38B38 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				05A8973D23EF5CFD000CA1D2 /* C64 */,
+				05A8973D23EF5CFD000CA1D2 /* ROMS */,
 				87BEF9312175226000E38B38 /* Info.plist */,
 			);
 			path = Resources;
@@ -408,8 +572,71 @@
 				EE9CDBEB251D49CE00296520 /* C128_archdep.h */,
 				EE9CDBEC251D49CE00296520 /* Vic20_archdep.h */,
 			);
-			path = archdep;
-			sourceTree = "<group>";
+			name = archdep;
+			path = "/Users/haverlan@us.ibm.com/Documents/Code/OpenEmu/Vice/Core/archdep";
+			sourceTree = "<absolute>";
+		};
+		EE9CDC96251DAAAD00296520 /* C128 */ = {
+			isa = PBXGroup;
+			children = (
+				EE9CDC97251DAAAD00296520 /* kernal64 */,
+				EE9CDC98251DAAAD00296520 /* basichi */,
+				EE9CDC99251DAAAD00296520 /* colodore.vpl */,
+				EE9CDC9A251DAAAD00296520 /* pc64.vpl */,
+				EE9CDC9B251DAAAD00296520 /* kernalde */,
+				EE9CDC9C251DAAAD00296520 /* basic64 */,
+				EE9CDC9D251DAAAD00296520 /* community-colors.vpl */,
+				EE9CDC9E251DAAAD00296520 /* godot.vpl */,
+				EE9CDC9F251DAAAD00296520 /* chargde */,
+				EE9CDCA1251DAAAD00296520 /* pepto-ntsc.vpl */,
+				EE9CDCA2251DAAAD00296520 /* pepto-ntsc-sony.vpl */,
+				EE9CDCA3251DAAAD00296520 /* default.vrs */,
+				EE9CDCA5251DAAAD00296520 /* chargen */,
+				EE9CDCA6251DAAAD00296520 /* chargfr */,
+				EE9CDCA7251DAAAD00296520 /* pepto-pal.vpl */,
+				EE9CDCA8251DAAAD00296520 /* kernalfr */,
+				EE9CDCA9251DAAAD00296520 /* ptoing.vpl */,
+				EE9CDCAA251DAAAD00296520 /* kernalfi */,
+				EE9CDCAB251DAAAD00296520 /* basiclo */,
+				EE9CDCAC251DAAAD00296520 /* vice.vpl */,
+				EE9CDCAD251DAAAD00296520 /* pepto-palold.vpl */,
+				EE9CDCAE251DAAAD00296520 /* kernal */,
+				EE9CDCB1251DAAAD00296520 /* kernalse */,
+				EE9CDCB2251DAAAD00296520 /* chargse */,
+				EE9CDCB3251DAAAD00296520 /* chargno */,
+				EE9CDCB4251DAAAD00296520 /* kernalno */,
+				EE9CDCB5251DAAAD00296520 /* vdc_comp.vpl */,
+				EE9CDCB6251DAAAD00296520 /* cjam.vpl */,
+				EE9CDCB7251DAAAD00296520 /* rgb.vpl */,
+				EE9CDCB8251DAAAD00296520 /* chargch */,
+				EE9CDCB9251DAAAD00296520 /* kernalch */,
+				EE9CDCBA251DAAAD00296520 /* kernalit */,
+				EE9CDCBB251DAAAD00296520 /* ccs64.vpl */,
+				EE9CDCBC251DAAAD00296520 /* deekay.vpl */,
+				EE9CDCBD251DAAAD00296520 /* c64hq.vpl */,
+				EE9CDCBE251DAAAD00296520 /* vdc_deft.vpl */,
+				EE9CDCC0251DAAAD00296520 /* frodo.vpl */,
+				EE9CDCC2251DAAAD00296520 /* c64s.vpl */,
+			);
+			name = C128;
+			path = deps/vice/data/C128;
+			sourceTree = SOURCE_ROOT;
+		};
+		EE9CDCC4251DAAAD00296520 /* VIC20 */ = {
+			isa = PBXGroup;
+			children = (
+				EE9CDCC5251DAAAD00296520 /* colodore_vic.vpl */,
+				EE9CDCC7251DAAAD00296520 /* default.vrs */,
+				EE9CDCC9251DAAAD00296520 /* chargen */,
+				EE9CDCCA251DAAAD00296520 /* basic */,
+				EE9CDCCB251DAAAD00296520 /* vice.vpl */,
+				EE9CDCCC251DAAAD00296520 /* kernal */,
+				EE9CDCCF251DAAAD00296520 /* mike-ntsc.vpl */,
+				EE9CDCD4251DAAAD00296520 /* mike-pal.vpl */,
+			);
+			name = VIC20;
+			path = deps/vice/data/VIC20;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -423,7 +650,9 @@
 				3EDA96861F19560C0015CED2 /* Resources */,
 				3EDA96881F19560C0015CED2 /* Copy C64 ROM Files */,
 				3EDA96A41F19560C0015CED2 /* Copy Drive ROM Files */,
-				05A8980623EF64AB000CA1D2 /* Embed Libraries */,
+				EE9CDCD5251DAAD300296520 /* Copy C128 ROM Files */,
+				EE9CDD04251DAB9300296520 /* Copy Vic20 ROM Files */,
+				EEAD13EF251E8CD70018F91A /* Embed Libraries */,
 			);
 			buildRules = (
 			);
