@@ -326,7 +326,9 @@ void interrupt_maincpu_trigger_trap(void (*trap_func)(uint16_t, void *data),
 /* Dispatch the TRAP condition.  */
 void interrupt_do_trap(interrupt_cpu_status_t *cs, uint16_t address)
 {
+#ifdef USE_ATL_CPU
     *machine_event |= MACHINE_EVENT_TRAP;
+#endif
     cs->global_pending_int &= ~IK_TRAP;
     cs->trap_func(address, cs->trap_data);
 }
