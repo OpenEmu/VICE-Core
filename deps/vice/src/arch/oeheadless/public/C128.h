@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, C128Model)
 {
     C128ModelPAL     = 0,
     C128ModelDPAL    = 1,
-    C128ModelDCRPAL       = 2,
+    C128ModelDCRPAL  = 2,
     C128ModelNTSC    = 3,
     C128ModelDNTSC   = 4,
     C128ModelDCRNTSC = 5,

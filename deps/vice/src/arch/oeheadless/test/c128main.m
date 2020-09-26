@@ -53,7 +53,6 @@ int main(int argc, char **argv)
     c128.delegate = delegate;
     [c128 initializeWithBootPath:bootPath systemPathList:paths];
     
-    printf("frequency %f\n", c128.videoFrequency);
     c128.model = C128ModelPAL;
     printf("frequency %f\n", c128.videoFrequency);
     c128.model = C128ModelNTSC;
