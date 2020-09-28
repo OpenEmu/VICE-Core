@@ -1,0 +1,63 @@
+set(C64DTV_INCLUDES
+    ${ARCH_INCLUDES}
+    ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/src/c64
+    ${CMAKE_SOURCE_DIR}/src/c64/cart
+    ${CMAKE_SOURCE_DIR}/src/drive
+    ${CMAKE_SOURCE_DIR}/src/raster
+    ${CMAKE_SOURCE_DIR}/src/sid
+    ${CMAKE_SOURCE_DIR}/src/tape
+    ${CMAKE_SOURCE_DIR}/src/userport
+    ${CMAKE_SOURCE_DIR}/src/vicii
+    ${CMAKE_SOURCE_DIR}/src/lib/p64
+    ${CMAKE_SOURCE_DIR}/src/video
+    ${CMAKE_SOURCE_DIR}/src/joyport
+    ${CMAKE_SOURCE_DIR}/src/samplerdrv
+    ${CMAKE_SOURCE_DIR}/src/tapeport
+    ${CMAKE_SOURCE_DIR}/src/rs232drv
+    )
+
+set(C64DTV_SOURCES
+    c64dtvcart.c
+    c64dtvmemsnapshot.h
+    c64dtvmemsnapshot.c
+    c64dtvmem.h
+    c64dtvmem.c
+    c64dtvmemrom.c
+    c64dtvblitter.c
+    c64dtvblitter.h
+    c64dtvcpu.c
+    c64dtvcpu.h
+    c64dtvdma.c
+    c64dtvdma.h
+    c64dtvflash.c
+    c64dtvflash.h
+    c64dtv-cmdline-options.c
+    c64dtv-cmdline-options.h
+    c64dtv-resources.c
+    c64dtv-resources.h
+    c64dtv-snapshot.c
+    c64dtv-snapshot.h
+    c64dtv.c
+    c64dtv.h
+    c64dtvcia1.c
+    c64dtvcia2.c
+    c64dtvembedded.c
+    c64dtviec.c
+    c64dtvmeminit.c
+    c64dtvmeminit.h
+    c64dtvmodel.c
+    c64dtvmodel.h
+    c64dtvpla.c
+    c64dtvprinter.c
+    c64dtvsound.c
+    debugcart.c
+    debugcart.h
+    flash-trap.c
+    flash-trap.h
+    hummeradc.c
+    hummeradc.h
+    )
+
+add_library(c64dtv STATIC ${C64DTV_SOURCES})
+target_include_directories(c64dtv PRIVATE ${C64DTV_INCLUDES})

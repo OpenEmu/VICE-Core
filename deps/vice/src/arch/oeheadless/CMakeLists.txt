@@ -57,6 +57,13 @@ set(OEHEADLESS_C64_SOURCES
   C64_video.m
   )
 
+  set(OEHEADLESS_C64DTV_SOURCES
+    C64dtv.m
+    C64dtv_archdep.m
+    C64dtv_soundheadless.m
+    C64dtv_video.m
+    )
+
 set(OEHEADLESS_C128_SOURCES
   C128.m
   C128_archdep.m
@@ -102,6 +109,10 @@ target_include_directories(oeheadless_vic20 PRIVATE ${OEHEADLESS_INCLUDES})
 
 add_library(oeheadless_c64 STATIC ${OEHEADLESS_C64_SOURCES})
 target_include_directories(oeheadless_c64 PRIVATE ${OEHEADLESS_INCLUDES})
+
+add_library(oeheadless_c64dtv STATIC ${OEHEADLESS_C64DTV_SOURCES})
+target_include_directories(oeheadless_c64dtv PRIVATE ${OEHEADLESS_INCLUDES})
+
 
 add_library(oeheadless_c128 STATIC ${OEHEADLESS_C128_SOURCES})
 target_include_directories(oeheadless_c128 PRIVATE ${OEHEADLESS_INCLUDES})

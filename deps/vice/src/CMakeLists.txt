@@ -1,6 +1,7 @@
 
 add_subdirectory(arch)
 add_subdirectory(c64)
+add_subdirectory(c64dtv)
 add_subdirectory(c128)
 add_subdirectory(vic20)
 add_subdirectory(core)
@@ -102,9 +103,9 @@ set(VICE_SOURCES
         ${SRC_BASE_SOURCES}
         ${SRC_MIDI_SOURCES}
         )
+
 set(COMMON_LIBS
           c64commoncart
-          tapeport
           driveiec
           driveiecieee
           driveieee
@@ -129,6 +130,7 @@ set(XVIC20_LIBS
         vic20cartsystem
         mascuerade
         oeheadless_vic20
+	tapeport
         ${COMMON_LIBS}
         ${ARCH_LIBS}
         ${DRIVER_LIBS}
@@ -138,6 +140,19 @@ set(X64_LIBS
         c64cart
         c64cartsystem
         driveiecc64exp
+	tapeport
+        ${COMMON_LIBS}
+        ${DRIVER_LIBS}
+        ${ARCH_LIBS}
+        )
+
+set(X64DTV_LIBS
+        c64dtv
+        viciidtv
+	tapeportdtv
+        oeheadless_c64dtv
+        driveiecc64exp
+        c64c64dtv
         ${COMMON_LIBS}
         ${DRIVER_LIBS}
         ${ARCH_LIBS}
@@ -155,9 +170,11 @@ set(X128_LIBS
         c128
         oeheadless_c128
 	      driveiec128dcr
+        c64c128
         ${X64_LIBS}
 )
 add_executable(x64sc main.c ${VICE_SOURCES})
+add_executable(x64dtv main.c ${VICE_SOURCES} )
 add_executable(xvic20 main.c ${VICE_SOURCES})
 add_executable(x128 main.c ${VICE_SOURCES})
 
@@ -165,6 +182,27 @@ target_include_directories(x64sc PRIVATE
         ${ARCH_INCLUDES}
         .
         c64
+        drive
+        monitor
+        plus4
+        vic20
+        vdrive
+        diskimage
+        imagecontents
+        diag
+        userport
+        lib/p64
+        joyport
+        rtc
+        tapeport
+        tape
+        socketdrv
+        lib/linenoise-ng
+        )
+target_include_directories(x64dtv PRIVATE
+        ${ARCH_INCLUDES}
+        .
+        c64dtv
         drive
         monitor
         plus4
@@ -207,29 +245,33 @@ target_include_directories(x128 PRIVATE
                 lib/linenoise-ng
                 )
 
-    target_include_directories(xvic20 PRIVATE
-                ${ARCH_INCLUDES}
-                .
-                drive
-                monitor
-                plus4
-                vic20
-                vdrive
-                vdc
-                diskimage
-                imagecontents
-                diag
-                userport
-                lib/p64
-                joyport
-                rtc
-                tapeport
-                tape
-                socketdrv
-                lib/linenoise-ng
-                )
+target_include_directories(xvic20 PRIVATE
+            ${ARCH_INCLUDES}
+            .
+            drive
+            monitor
+            plus4
+            vic20
+            vdrive
+            vdc
+            diskimage
+            imagecontents
+            diag
+            userport
+            lib/p64
+            joyport
+            rtc
+            tapeport
+            tape
+            socketdrv
+            lib/linenoise-ng
+            )
 target_link_libraries(x64sc ${VICE_LIBS} z "-framework CoreAudio" "-framework AudioToolbox" "-framework CoreFoundation")
 target_compile_options(x64sc PUBLIC "-fobjc-arc")
+
+target_link_libraries(x64dtv ${VICE_LIBS} z "-framework CoreAudio" "-framework AudioToolbox" "-framework CoreFoundation")
+target_compile_options(x64dtv PUBLIC "-fobjc-arc")
+
 
 target_link_libraries(x128 ${VICE_LIBS} z "-framework CoreAudio" "-framework AudioToolbox" "-framework CoreFoundation")
 target_compile_options(x128 PUBLIC "-fobjc-arc")
@@ -241,12 +283,14 @@ include(CheckIPOSupported)
 check_ipo_supported(RESULT IPO_SUPPORTED)
 if (IPO_SUPPORTED)
     set_target_properties(x64sc PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
+    set_target_properties(x64dtv PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
     set_target_properties(x128 PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
     set_target_properties(xvic20 PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
 endif ()
 
 if (USE_OEHEADLESS)
     add_library(oex64sc SHARED ${VICE_SOURCES})
+    add_library(oex64dtv SHARED ${VICE_SOURCES} ps2mouse.c)
     add_library(oex128 SHARED ${VICE_SOURCES})
     add_library(oexvic20 SHARED ${VICE_SOURCES})
 
@@ -271,6 +315,7 @@ if (USE_OEHEADLESS)
             hvsc
             lib/linenoise-ng
             )
+
     target_include_directories(oex64sc PRIVATE
             ${ARCH_INCLUDES}
             .
@@ -293,6 +338,25 @@ if (USE_OEHEADLESS)
             hvsc
             lib/linenoise-ng
             )
+
+target_include_directories(oex64dtv PRIVATE
+        ${ARCH_INCLUDES}
+        .
+        c64dtv
+        drive
+        monitor
+        vdrive
+        diskimage
+        imagecontents
+        diag
+        userport
+        lib/p64
+        joyport
+        tapeport
+        tape
+        socketdrv
+        lib/linenoise-ng
+        )
 
 target_include_directories(oex128 PRIVATE
                     ${ARCH_INCLUDES}
@@ -321,6 +385,9 @@ target_include_directories(oex128 PRIVATE
     target_link_libraries(oex64sc ${X64SC_LIBS} z "-framework Foundation" "-framework Carbon")
     target_compile_options(oex64sc PUBLIC "-fobjc-arc")
 
+    target_link_libraries(oex64dtv ${X64DTV_LIBS} z "-framework Foundation" "-framework Carbon")
+    target_compile_options(oex64dtv PUBLIC "-fobjc-arc")
+
     target_link_libraries(oex128 ${X128_LIBS} z "-framework Foundation" "-framework Carbon")
     target_compile_options(oex128 PUBLIC "-fobjc-arc")
 
@@ -329,12 +396,18 @@ target_include_directories(oex128 PRIVATE
 
     if (IPO_SUPPORTED)
         set_target_properties(oex64sc PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
+        set_target_properties(oex64dtv PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
         set_target_properties(oex128 PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
         set_target_properties(oexvic20 PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
     endif ()
 
     add_custom_command(TARGET oex64sc POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:oex64sc> ${CMAKE_SOURCE_DIR}
+            COMMENT "Copying library"
+            )
+
+    add_custom_command(TARGET oex64dtv POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:oex64dtv> ${CMAKE_SOURCE_DIR}
             COMMENT "Copying library"
             )
 

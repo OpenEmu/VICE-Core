@@ -10,6 +10,35 @@ set(VICII_INCLUDES
     ${CMAKE_SOURCE_DIR}/src/c64dtv
     )
 
+set (VICIIDTV_SOURCES
+vicii-badline.c
+    vicii-badline.h
+    vicii-cmdline-options.c
+    vicii-cmdline-options.h
+    viciidtv-color.c
+    vicii-color.h
+    viciidtv-draw.c
+    vicii-draw.h
+    vicii-fetch.c
+    vicii-fetch.h
+    vicii-irq.c
+    vicii-irq.h
+    vicii-mem.c
+    vicii-mem.h
+    vicii-phi1.c
+    vicii-phi1.h
+    vicii-resources.c
+    vicii-resources.h
+    viciidtv-snapshot.c
+    vicii-snapshot.h
+    vicii-sprites.c
+    vicii-sprites.h
+    vicii-timing.c
+    vicii-timing.h
+    vicii.c
+    viciitypes.h
+    )
+
 set(VICII_SOURCES
     vicii-badline.c
     vicii-badline.h
@@ -46,3 +75,6 @@ set(VICII_SOURCES
 
 add_library(vicii STATIC ${VICII_SOURCES})
 target_include_directories(vicii PRIVATE ${VICII_INCLUDES})
+
+add_library(viciidtv STATIC ${VICIIDTV_SOURCES})
+target_include_directories(viciidtv PRIVATE ${VICII_INCLUDES})

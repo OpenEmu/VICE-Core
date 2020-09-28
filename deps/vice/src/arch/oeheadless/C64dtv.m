@@ -1,30 +1,28 @@
-
 #import "public/api.h"
-#import "C128_archdep.h"
-#import "C128+Private.h"
+#import "C64dtv_archdep.h"
+#import "public/C64dtv.h"
+#import "C64dtv+Private.h"
 #import "interrupt.h"
 #import "machine.h"
 #import "snapshot.h"
 #import "resources.h"
 #import "maincpu.h"
 #import "autostart.h"
-#import "c128model.h"
+#import "c64dtvmodel.h"
 #import "main.h"
 #import "video.h"
 #import "keyboard.h"
 #import "joystick.h"
 #import "vsync.h"
 
-
 // sanity checks
 OE_STATIC_ASSERT(KeyboardModLShift == (KeyboardMod)KBD_MOD_LSHIFT);
 OE_STATIC_ASSERT(KeyboardModRALT == (KeyboardMod)KBD_MOD_RALT);
-OE_STATIC_ASSERT(C128ModelPAL == (C128Model)C128MODEL_C128_PAL);
-OE_STATIC_ASSERT(C128ModelDPAL == (C128Model)C128MODEL_C128D_PAL);
-OE_STATIC_ASSERT(C128ModelDCRPAL == (C128Model)C128MODEL_C128DCR_PAL);
-OE_STATIC_ASSERT(C128ModelNTSC == (C128Model)C128MODEL_C128_NTSC);
-OE_STATIC_ASSERT(C128ModelDNTSC == (C128Model)C128MODEL_C128D_NTSC);
-OE_STATIC_ASSERT(C128ModelDCRNTSC == (C128Model)C128MODEL_C128DCR_NTSC);
+OE_STATIC_ASSERT(DTVModelV2PAL == (C64dtvModel)DTVMODEL_V2_PAL);
+OE_STATIC_ASSERT(DTVModelV2NTSC == (C64dtvModel)DTVMODEL_V2_NTSC);
+OE_STATIC_ASSERT(DTVModelV3PAL == (C64dtvModel)DTVMODEL_V3_PAL);
+OE_STATIC_ASSERT(DTVModelV3NTSC == (C64dtvModel)DTVMODEL_V3_NTSC);
+OE_STATIC_ASSERT(DTVModelHummerNTSC == (C64dtvModel)DTVMODEL_HUMMER_NTSC);
 
 OE_EXPORTED_CLASS
 @interface Vic20: NSObject
@@ -33,18 +31,18 @@ OE_EXPORTED_CLASS
 @end
 
 OE_EXPORTED_CLASS
+@interface C128: NSObject
+@end
+@implementation C128 {}
+@end
+
+OE_EXPORTED_CLASS
 @interface C64: NSObject
 @end
 @implementation C64 {}
 @end
 
-OE_EXPORTED_CLASS
-@interface C64dtv: NSObject
-@end
-@implementation C64dtv {}
-@end
-
-@implementation C128 {
+@implementation C64dtv {
     BOOL _initialized;
     video_canvas_t *_canvas;
     void *_buffer;
@@ -60,12 +58,12 @@ OE_EXPORTED_CLASS
     return self;
 }
 
-+ (C128 *)shared {
-    static C128 *shared;
++ (C64dtv *)shared {
+    static C64dtv *shared;
     
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        shared = [C128 new];
+        shared = [C64dtv new];
     });
     
     return shared;
@@ -136,23 +134,23 @@ OE_EXPORTED_CLASS
     _ticksPerFrame = (unsigned long)(1e6 / vsync_get_refresh_frequency());
 }
 
-- (void)setModel:(C128Model)model {
-    if (c128model_get() == model) {
+- (void)setModel:(C64dtvModel)model {
+    if (dtvmodel_get() == model) {
         return;
     }
     [self willChangeValueForKey:@"model"];
-    c128model_set(model);
+    dtvmodel_set(model);
     [self updateTicksPerFrame];
     [self didChangeValueForKey:@"model"];
 }
 
-- (C128Model)model {
-    return (C128Model)c128model_get();
+- (C64dtvModel)model {
+    return (C64dtvModel)dtvmodel_get();
 }
 
 #pragma mark - image management
 
-- (C128ImageType)imageTypeAtURL:(NSURL *)url {
+- (C64dtvImageType)imageTypeAtURL:(NSURL *)url {
     static NSSet<NSString *> *tape;
     static NSSet<NSString *> *cart;
     static NSSet<NSString *> *disk;
@@ -167,14 +165,14 @@ OE_EXPORTED_CLASS
     
     NSString *fileExtension = url.pathExtension.lowercaseString;
     if ([tape containsObject:fileExtension]) {
-        return C128ImageTypeTape;
+        return C64dtvImageTypeTape;
     } else if ([cart containsObject:fileExtension]) {
-        return C128ImageTypeCartridge;
+        return C64dtvImageTypeCartridge;
     } else if ([disk containsObject:fileExtension]) {
-        return C128ImageTypeDisk;
+        return C64dtvImageTypeDisk;
     }
     
-    return C128ImageTypeUnknown;
+    return C64dtvImageTypeUnknown;
 }
 
 - (BOOL)attachImageAtURL:(NSURL *)url error:(NSError **)error {
@@ -340,5 +338,3 @@ extern unsigned long vsyncarch_ticks;
 
 
 @end
-
-

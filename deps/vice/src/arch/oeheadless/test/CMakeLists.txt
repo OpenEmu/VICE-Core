@@ -11,6 +11,21 @@ target_link_libraries(testc64 oex64sc)
 
 target_compile_definitions(testc64 PRIVATE -DSOURCE_ROOT="${CMAKE_SOURCE_DIR}")
 
+add_executable(testc64dtv)
+target_sources(testc64dtv PUBLIC
+        c64dtvmain.m
+        )
+target_include_directories(testc64dtv PRIVATE
+        ../public
+        ../
+        ../../..
+        )
+target_link_libraries(testc64dtv oex64dtv)
+
+target_compile_definitions(testc64dtv PRIVATE -DSOURCE_ROOT="${CMAKE_SOURCE_DIR}")
+
+
+
 add_executable(testvic20)
 target_sources(testvic20 PUBLIC
         vic20main.m

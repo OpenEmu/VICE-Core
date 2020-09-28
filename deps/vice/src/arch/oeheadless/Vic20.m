@@ -23,6 +23,25 @@ OE_STATIC_ASSERT(Vic20ModelPAL == (Vic20Model)VIC20MODEL_VIC20_PAL);
 OE_STATIC_ASSERT(Vic20ModelNTSC == (Vic20Model)VIC20MODEL_VIC20_NTSC);
 OE_STATIC_ASSERT(Vic20ModelSuperVIC == (Vic20Model)VIC20MODEL_VIC21);
 
+OE_EXPORTED_CLASS
+@interface C64: NSObject
+@end
+@implementation C64 {}
+@end
+
+OE_EXPORTED_CLASS
+@interface C128: NSObject
+@end
+@implementation C128 {}
+@end
+
+OE_EXPORTED_CLASS
+@interface C64dtv: NSObject
+@end
+@implementation C64dtv {}
+@end
+
+
 @implementation Vic20 {
     BOOL _initialized;
     video_canvas_t *_canvas;

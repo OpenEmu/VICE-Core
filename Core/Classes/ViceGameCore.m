@@ -33,6 +33,8 @@
 
 #import "C64.h"
 #import "C64_archdep.h"
+#import "C64dtv.h"
+#import "C64dtv_archdep.h"
 #import "C128.h"
 #import "C128_archdep.h"
 #import "Vic20.h"
@@ -45,15 +47,10 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
     NSArray             *_availableDisplayModes;
     BOOL                _isJoystickPortSwapped;
     BOOL                _runstopLock;
-//    C64                  *_c64;
-//    C64                  *_c128;
-//    C64                  *_vic20;
-//    C128                 *_c64;
-//    C128                 *_c128;
-//    C128                 *_vic20;
+    C64dtv               *_c64dtv;
+    C64                  *_c64;
+    C128                 *_c128;
     Vic20                *_vic20;
-    Vic20                *_c64;
-    Vic20                *_c128;
     NSArray<NSString *> *_sysfilePathList;
     uint32_t            *_buffer;
     OEIntSize           _bufferSize;
@@ -74,11 +71,13 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
         _viceCore = @"Vic20";
     } else if([[self systemIdentifier] isEqualToString:@"openemu.system.c128"]){
         _viceCore = @"C128";
+    }else if([[self systemIdentifier] isEqualToString:@"openemu.system.c64dtv"]){
+        _viceCore = @"DTV";
     } else {
         _viceCore = @"C64";
     }
     
-    _viceCore = @"Vic20";
+    _viceCore = @"DTV";
     
     if((self = [super init])) {
         if ([_viceCore isEqualToString:@"Vic20"]){
@@ -90,14 +89,21 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
             _frameInterval  = _vic20.videoFrequency;
             
         } else if([_viceCore isEqualToString:@"C128"]){
-            _c128            = Vic20.shared;
+            _c128            = C128.shared;
             _c128.delegate   = self;
             _bufferSize     = OEIntSizeMake(384, 272);
             NSRect f = _c128.videoFrame;
             _screenRect     = OEIntRectMake(f.origin.x, f.origin.y, f.size.width, f.size.height);
             _frameInterval  = _c128.videoFrequency;
+        } else if ([_viceCore isEqualToString:@"DTV"]){
+            _c64dtv            = C64dtv.shared;
+            _c64dtv.delegate   = self;
+            _bufferSize     = OEIntSizeMake(384, 272);
+            NSRect f = _c64dtv.videoFrame;
+            _screenRect     = OEIntRectMake(f.origin.x, f.origin.y, f.size.width, f.size.height);
+            _frameInterval  = _c64dtv.videoFrequency;
         } else {
-            _c64            = Vic20.shared;
+            _c64            = C64.shared;
             _c64.delegate   = self;
             _bufferSize     = OEIntSizeMake(384, 272);
             NSRect f = _c64.videoFrame;
@@ -124,6 +130,10 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
         NSRect f        = _c128.videoFrame;
         _screenRect     = OEIntRectMake(f.origin.x, f.origin.y, f.size.width, f.size.height);
         _frameInterval  = _c128.videoFrequency;
+    }else if ([_viceCore isEqualToString:@"DTV"]){
+        NSRect f        = _c64dtv.videoFrame;
+        _screenRect     = OEIntRectMake(f.origin.x, f.origin.y, f.size.width, f.size.height);
+        _frameInterval  = _c64dtv.videoFrequency;
     } else {
         NSRect f        = _c64.videoFrame;
         _screenRect     = OEIntRectMake(f.origin.x, f.origin.y, f.size.width, f.size.height);
@@ -138,8 +148,10 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
         _vic20.delegate = self;
     } else if([_viceCore isEqualToString:@"C128"]){
         _c128.delegate = self;
+    }else if ([_viceCore isEqualToString:@"DTV"]){
+        _c64dtv.delegate = self;
     } else {
-    _c64.delegate = self;
+        _c64.delegate = self;
     }
     [super setupEmulation];
 }
@@ -151,21 +163,28 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
     } else if([_viceCore isEqualToString:@"C128"]){
         [_c128 resetMachineHard];
         _c128.delegate = nil;
+    }else if ([_viceCore isEqualToString:@"DTV"]){
+        [_c64dtv resetMachineHard];
+        _c64dtv.delegate = nil;
     } else {
         [_c64 resetMachineHard];
         _c64.delegate = nil;
     }
+    
     [super stopEmulation];
 }
 
 - (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error
 {
     [self initializeEmulator];
+   // return true;
     
     if ([_viceCore isEqualToString:@"Vic20"]){
         return [_vic20 autostartImageAtURL:[NSURL fileURLWithPath:path] error:error];
     } else if([_viceCore isEqualToString:@"C128"]){
         return [_c128 autostartImageAtURL:[NSURL fileURLWithPath:path] error:error];
+    }else if ([_viceCore isEqualToString:@"DTV"]){
+        return [_c64dtv autostartImageAtURL:[NSURL fileURLWithPath:path] error:error];
     } else {
         return [_c64 autostartImageAtURL:[NSURL fileURLWithPath:path] error:error];
     }
@@ -177,6 +196,8 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
         Vic20ImageType type = [_vic20 imageTypeAtURL:url];
     } else if([_viceCore isEqualToString:@"C128"]){
         C128ImageType type = [_c128 imageTypeAtURL:url];
+    }else if ([_viceCore isEqualToString:@"DTV"]){
+        C64dtvImageType type = [_c64dtv imageTypeAtURL:url];
     } else {
         C64ImageType type = [_c64 imageTypeAtURL:url];
     }
@@ -190,6 +211,8 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
         [_vic20 resetMachineHard];
     } else if([_viceCore isEqualToString:@"C128"]){
         [_c128 resetMachineHard];
+    }else if ([_viceCore isEqualToString:@"DTV"]){
+        [_c64dtv resetMachineHard];
     } else {
         [_c64 resetMachineHard];
     }
@@ -201,6 +224,8 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
         [_vic20 execute];
     } else if([_viceCore isEqualToString:@"C128"]){
         [_c128 execute];
+    }else if ([_viceCore isEqualToString:@"DTV"]){
+        [_c64dtv execute];
     } else {
         [_c64 execute];
     }
@@ -215,6 +240,8 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
        res = [_vic20 saveStateFromFileAtPath:fileName error:&err];
     } else if([_viceCore isEqualToString:@"C128"]){
         res = [_c128 saveStateFromFileAtPath:fileName error:&err];
+    }else if ([_viceCore isEqualToString:@"DTV"]){
+        res = [_c64dtv saveStateFromFileAtPath:fileName error:&err];
     } else {
        res = [_c64 saveStateFromFileAtPath:fileName error:&err];
     }
@@ -230,6 +257,8 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
         res = [_vic20 loadStateFromFileAtPath:fileName error:&err];
     } else if([_viceCore isEqualToString:@"C128"]){
         res = [_c64 loadStateFromFileAtPath:fileName error:&err];
+    }else if ([_viceCore isEqualToString:@"DTV"]){
+        res = [_c64dtv loadStateFromFileAtPath:fileName error:&err];
     } else {
        res = [_c64 loadStateFromFileAtPath:fileName error:&err];
     }
@@ -246,6 +275,8 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
          [_vic20 setBuffer:hint size:NSSizeFromOEIntSize(_bufferSize)];
     } else if([_viceCore isEqualToString:@"C128"]){
        [_c128 setBuffer:hint size:NSSizeFromOEIntSize(_bufferSize)];
+    }else if ([_viceCore isEqualToString:@"DTV"]){
+        [_c64dtv setBuffer:hint size:NSSizeFromOEIntSize(_bufferSize)];
     } else {
         [_c64 setBuffer:hint size:NSSizeFromOEIntSize(_bufferSize)];
     }
@@ -289,6 +320,8 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
         return _vic20.audioFrequency;
     } else if([_viceCore isEqualToString:@"C128"]){
         return _c128.audioFrequency;
+    }else if ([_viceCore isEqualToString:@"DTV"]){
+        return _c64dtv.audioFrequency;
     }
     return _c64.audioFrequency;
 }
@@ -299,6 +332,8 @@ const NSEventModifierFlags OENSEventModifierFlagFunctionKey = 1 << 24;
         return _vic20.audioChannels;
     } else if([_viceCore isEqualToString:@"C128"]){
         return _c128.audioChannels;
+    }else if ([_viceCore isEqualToString:@"DTV"]){
+        return _c64dtv.audioChannels;
     }
     return _c64.audioChannels;
 }
@@ -409,6 +444,8 @@ KeyboardMod flagsToMod(NSEventModifierFlags flags) {
         [_vic20 keyboardKeyDown:keyCode mod:mod];
     } else if([_viceCore isEqualToString:@"C128"]){
        [_c128 keyboardKeyDown:keyCode mod:mod];
+    }else if ([_viceCore isEqualToString:@"DTV"]){
+        [_c64dtv keyboardKeyDown:keyCode mod:mod];
     } else {
         [_c64 keyboardKeyDown:keyCode mod:mod];
     }
@@ -448,6 +485,8 @@ KeyboardMod flagsToMod(NSEventModifierFlags flags) {
         [_vic20 keyboardKeyUp:keyCode mod:mod];
     } else if([_viceCore isEqualToString:@"C128"]){
        [_c128 keyboardKeyUp:keyCode mod:mod];
+    }else if ([_viceCore isEqualToString:@"DTV"]){
+        [_c64dtv keyboardKeyUp:keyCode mod:mod];
     } else {
         [_c64 keyboardKeyUp:keyCode mod:mod];
     }
@@ -485,6 +524,8 @@ static uint8_t joystick_bits[] = {
          [_vic20 joystickOrValue:joystick_bits[button] forPort:port];
     } else if([_viceCore isEqualToString:@"C128"]){
         [_c128 joystickOrValue:joystick_bits[button] forPort:port];
+    }else if ([_viceCore isEqualToString:@"DTV"]){
+        [_c64dtv joystickOrValue:joystick_bits[button] forPort:port];
     } else {
         [_c64 joystickOrValue:joystick_bits[button] forPort:port];
     }
@@ -507,6 +548,8 @@ static uint8_t joystick_bits[] = {
          [_vic20 joystickAndValue:val forPort:port];
     } else if([_viceCore isEqualToString:@"C128"]){
         [_c128 joystickAndValue:val forPort:port];
+    }else if ([_viceCore isEqualToString:@"DTV"]){
+        [_c64dtv joystickAndValue:val forPort:port];
     } else {
         [_c64 joystickAndValue:val forPort:port];
     }
@@ -559,6 +602,8 @@ static uint8_t joystick_bits[] = {
              _vic20.model = Vic20ModelNTSC;
         } else if([_viceCore isEqualToString:@"C128"]){
             _c128.model = C128ModelNTSC;
+        }else if ([_viceCore isEqualToString:@"DTV"]){
+            _c64dtv.model = DTVModelV3NTSC;
         } else {
             _c64.model = C64ModelNTSC;
         }
@@ -567,6 +612,8 @@ static uint8_t joystick_bits[] = {
              _vic20.model = Vic20ModelPAL;
         } else if([_viceCore isEqualToString:@"C128"]){
            _c128.model = C128ModelPAL;
+        }else if ([_viceCore isEqualToString:@"DTV"]){
+            _c64dtv.model = DTVModelV3PAL;
         } else {
             _c64.model = C64ModelPAL;
         }
@@ -601,6 +648,14 @@ static uint8_t joystick_bits[] = {
             [_c128 initializeWithBootPath:bootPath systemPathList:pathList];
             _c128.model     = C128ModelPAL;
             _frameInterval = _c128.videoFrequency;
+        }else if ([_viceCore isEqualToString:@"DTV"]){
+            NSArray<NSString *> *pathList = @[
+                [NSString pathWithComponents:@[bootPath, MACOSX_ROMDIR, @"C64DTV"]],
+                [NSString pathWithComponents:@[bootPath, MACOSX_ROMDIR, @"DRIVES"]],
+            ];
+            [_c64dtv initializeWithBootPath:bootPath systemPathList:pathList];
+            _c64dtv.model     = DTVModelV3PAL;
+            _frameInterval = _c64dtv.videoFrequency;
         } else {
             NSArray<NSString *> *pathList = @[
                 [NSString pathWithComponents:@[bootPath, MACOSX_ROMDIR, @"C64"]],

@@ -23,6 +23,54 @@ set(C64_INCLUDES
     ${CMAKE_SOURCE_DIR}/src/hvsc
     )
 
+set (C64C64DTV_SOURCES
+    c64bus.c
+    c64cart.h
+    c64drive.c
+    c64fastiec.c
+    c64fastiec.h
+    c64keyboard.c
+    c64keyboard.h
+    c64parallel.c
+    c64parallel.h
+    c64rom.c
+    c64rom.h
+    c64romset.c
+    c64rsuser.c
+    c64rsuser.h
+    c64video.c
+    patchrom.c
+    patchrom.h
+    )
+set(C64_C128_SOURCES
+	c64bus.c
+	c64cart.h
+	c64cia.h
+	c64cia2.c
+	c64datasette.c
+	c64export.c
+	c64gluelogic.c
+	c64gluelogic.h
+	c64iec.c
+	c64iec.h
+	c64io.c
+	c64keyboard.c
+	c64keyboard.h
+	c64meminit.c
+	c64meminit.h
+	c64memrom.c
+	c64memrom.h
+	c64printer.c
+	c64pla.c
+	c64pla.h
+	c64parallel.c
+	c64parallel.h
+	c64rsuser.c
+	c64rsuser.h
+	c64sound.c
+	patchrom.c
+	patchrom.h
+	)
 set(C64_SOURCES
     c64-cmdline-options.c
     c64-cmdline-options.h
@@ -85,12 +133,17 @@ set(C64_SOURCES
     plus60k.c
     plus60k.h
     )
-
 set(C64SC_SOURCES
   c64cpusc.c
 )
 add_library(c64base STATIC ${C64_SOURCES})
 target_include_directories(c64base PRIVATE ${C64_INCLUDES})
+
+add_library(c64c64dtv STATIC ${C64C64DTV_SOURCES})
+target_include_directories(c64c64dtv PRIVATE ${C64_INCLUDES})
+
+add_library(c64c128 STATIC ${C64_C128_SOURCES})
+target_include_directories(c64c128 PRIVATE ${C64_INCLUDES})
 
 add_library(c64 STATIC ${C64SC_SOURCES})
 target_include_directories(c64 PRIVATE ${C64_INCLUDES})

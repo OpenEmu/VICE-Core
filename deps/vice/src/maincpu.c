@@ -448,7 +448,7 @@ static uint8_t flag_n = 0;
 static int8_t flag_z = 0;
 
 #ifndef NEED_REG_PC
-    static unsigned int reg_pc;
+    static unsigned int reg_pc = ctx->reg_pc;
 #endif
 
 static uint8_t *bank_base = NULL;
@@ -484,7 +484,7 @@ void maincpu_headless_mainloop(machine_event_flags event_mask)
 {
     
     *machine_event = MACHINE_EVENT_CLEAR;
-    
+  
     do {
 #define CLK maincpu_clk
 #define RMW_FLAG maincpu_rmw_flag

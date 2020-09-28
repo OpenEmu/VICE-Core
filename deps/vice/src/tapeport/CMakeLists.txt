@@ -1,4 +1,4 @@
-set(TAPEPORT_INCLUDES
+ set(TAPEPORT_INCLUDES
     ${ARCH_INCLUDES}
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/src
@@ -6,7 +6,7 @@ set(TAPEPORT_INCLUDES
     ${CMAKE_SOURCE_DIR}/src/diag
     )
 
-set(TAPEPORT_SOURCES
+set(TAPEPORTDTV_SOURCES
     cp-clockf83.c
     cp-clockf83.h
     dtl-basic-dongle.c
@@ -20,9 +20,16 @@ set(TAPEPORT_SOURCES
     tapecart-loader.h
     tapelog.c
     tapelog.h
-    tapeport.c
     tapeport.h
     )
+
+set(TAPEPORT_SOURCES
+	${TAPEPORTDTV_SOURCES}
+	tapeport.c
+	)
+
+add_library(tapeportdtv STATIC ${TAPEPORTDTV_SOURCES})
+target_include_directories(tapeportdtv PRIVATE ${TAPEPORT_INCLUDES})
 
 add_library(tapeport STATIC ${TAPEPORT_SOURCES})
 target_include_directories(tapeport PRIVATE ${TAPEPORT_INCLUDES})

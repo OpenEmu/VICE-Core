@@ -115,8 +115,15 @@
 		EE9CDD0B251DABCF00296520 /* kernal in Copy Vic20 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCCC251DAAAD00296520 /* kernal */; };
 		EE9CDD0E251DABCF00296520 /* mike-ntsc.vpl in Copy Vic20 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCCF251DAAAD00296520 /* mike-ntsc.vpl */; };
 		EE9CDD13251DABCF00296520 /* mike-pal.vpl in Copy Vic20 ROM Files */ = {isa = PBXBuildFile; fileRef = EE9CDCD4251DAAAD00296520 /* mike-pal.vpl */; };
-		EEAD13ED251E8CD70018F91A /* liboexvic20.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9CDC8B251D698C00296520 /* liboexvic20.dylib */; };
-		EEAD13EE251E8CD70018F91A /* liboexvic20.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = EE9CDC8B251D698C00296520 /* liboexvic20.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		EEB6072325226C4700EA1F3A /* liboex64dtv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EE49398E2521803F00F4FE78 /* liboex64dtv.dylib */; };
+		EEB6072425226C4700EA1F3A /* liboex64dtv.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = EE49398E2521803F00F4FE78 /* liboex64dtv.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		EEB607D925226F6700EA1F3A /* c64mem.sym in CopyFiles */ = {isa = PBXBuildFile; fileRef = EEB607B725226F0100EA1F3A /* c64mem.sym */; };
+		EEB607DC25226F6C00EA1F3A /* default.vrs in CopyFiles */ = {isa = PBXBuildFile; fileRef = EEB607BA25226F0100EA1F3A /* default.vrs */; };
+		EEB607DE25226F6E00EA1F3A /* chargen in CopyFiles */ = {isa = PBXBuildFile; fileRef = EEB607BC25226F0100EA1F3A /* chargen */; };
+		EEB607DF25226F7000EA1F3A /* basic in CopyFiles */ = {isa = PBXBuildFile; fileRef = EEB607C025226F0100EA1F3A /* basic */; };
+		EEB607E125226F7200EA1F3A /* kernal in CopyFiles */ = {isa = PBXBuildFile; fileRef = EEB607C425226F0100EA1F3A /* kernal */; };
+		EEB607E225226F7300EA1F3A /* dtvrom.bin in CopyFiles */ = {isa = PBXBuildFile; fileRef = EEB607D125226F0100EA1F3A /* dtvrom.bin */; };
+		EEB607E425226F7500EA1F3A /* spiff.vpl in CopyFiles */ = {isa = PBXBuildFile; fileRef = EEB607D625226F0100EA1F3A /* spiff.vpl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -258,15 +265,31 @@
 			name = "Copy Vic20 ROM Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EEAD13EF251E8CD70018F91A /* Embed Libraries */ = {
+		EEB6072525226C4700EA1F3A /* Embed Libraries */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EEAD13EE251E8CD70018F91A /* liboexvic20.dylib in Embed Libraries */,
+				EEB6072425226C4700EA1F3A /* liboex64dtv.dylib in Embed Libraries */,
 			);
 			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEB607D825226F4500EA1F3A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ROM/C64DTV;
+			dstSubfolderSpec = 7;
+			files = (
+				EEB607D925226F6700EA1F3A /* c64mem.sym in CopyFiles */,
+				EEB607E125226F7200EA1F3A /* kernal in CopyFiles */,
+				EEB607E425226F7500EA1F3A /* spiff.vpl in CopyFiles */,
+				EEB607E225226F7300EA1F3A /* dtvrom.bin in CopyFiles */,
+				EEB607DF25226F7000EA1F3A /* basic in CopyFiles */,
+				EEB607DC25226F6C00EA1F3A /* default.vrs in CopyFiles */,
+				EEB607DE25226F6E00EA1F3A /* chargen in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -334,6 +357,9 @@
 		3EDA98AD1F197B540015CED2 /* OpenEmuSystem.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenEmuSystem.framework; path = "../../Library/Developer/Xcode/DerivedData/OpenEmu-daupfkdcntzkhycxsuyuvqosnsbs/Build/Products/Debug/OpenEmuSystem.framework"; sourceTree = "<group>"; };
 		3EDA98B01F197B770015CED2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		87BEF9312175226000E38B38 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
+		EE49398B25211F5000F4FE78 /* C64dtv_archdep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C64dtv_archdep.h; path = deps/vice/src/arch/oeheadless/C64dtv_archdep.h; sourceTree = SOURCE_ROOT; };
+		EE49398D25211F6B00F4FE78 /* C64dtv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = C64dtv.h; sourceTree = "<group>"; };
+		EE49398E2521803F00F4FE78 /* liboex64dtv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liboex64dtv.dylib; path = deps/vice/liboex64dtv.dylib; sourceTree = "<group>"; };
 		EE9CDB53251BFBD900296520 /* C128.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = C128.h; sourceTree = "<group>"; };
 		EE9CDB5B251D487F00296520 /* Vic20.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vic20.h; sourceTree = "<group>"; };
 		EE9CDBEA251D49CE00296520 /* C64_archdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = C64_archdep.h; path = deps/vice/src/arch/oeheadless/C64_archdep.h; sourceTree = SOURCE_ROOT; };
@@ -388,6 +414,13 @@
 		EE9CDCCC251DAAAD00296520 /* kernal */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal; sourceTree = "<group>"; };
 		EE9CDCCF251DAAAD00296520 /* mike-ntsc.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "mike-ntsc.vpl"; sourceTree = "<group>"; };
 		EE9CDCD4251DAAAD00296520 /* mike-pal.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "mike-pal.vpl"; sourceTree = "<group>"; };
+		EEB607B725226F0100EA1F3A /* c64mem.sym */ = {isa = PBXFileReference; lastKnownFileType = text; path = c64mem.sym; sourceTree = "<group>"; };
+		EEB607BA25226F0100EA1F3A /* default.vrs */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.vrs; sourceTree = "<group>"; };
+		EEB607BC25226F0100EA1F3A /* chargen */ = {isa = PBXFileReference; lastKnownFileType = file; path = chargen; sourceTree = "<group>"; };
+		EEB607C025226F0100EA1F3A /* basic */ = {isa = PBXFileReference; lastKnownFileType = file; path = basic; sourceTree = "<group>"; };
+		EEB607C425226F0100EA1F3A /* kernal */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernal; sourceTree = "<group>"; };
+		EEB607D125226F0100EA1F3A /* dtvrom.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = dtvrom.bin; sourceTree = "<group>"; };
+		EEB607D625226F0100EA1F3A /* spiff.vpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = spiff.vpl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -396,9 +429,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EDA96821F19560C0015CED2 /* libedit.3.0.tbd in Frameworks */,
-				EEAD13ED251E8CD70018F91A /* liboexvic20.dylib in Frameworks */,
 				3EDA96831F19560C0015CED2 /* libz.tbd in Frameworks */,
 				3EDA96841F19560C0015CED2 /* libstdc++.tbd in Frameworks */,
+				EEB6072325226C4700EA1F3A /* liboex64dtv.dylib in Frameworks */,
 				3EDA96851F19560C0015CED2 /* OpenEmuBase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,6 +460,7 @@
 		059612CF1C3CEE6A005C174C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EE49398E2521803F00F4FE78 /* liboex64dtv.dylib */,
 				EE9CDC89251D698B00296520 /* liboex64sc.dylib */,
 				EE9CDC8A251D698B00296520 /* liboex128.dylib */,
 				EE9CDC8B251D698C00296520 /* liboexvic20.dylib */,
@@ -467,6 +501,7 @@
 		05A8973D23EF5CFD000CA1D2 /* ROMS */ = {
 			isa = PBXGroup;
 			children = (
+				EEB607B425226F0100EA1F3A /* C64DTV */,
 				EE9CDC96251DAAAD00296520 /* C128 */,
 				EE9CDCC4251DAAAD00296520 /* VIC20 */,
 				05A8974F23EF5D2C000CA1D2 /* C64 */,
@@ -545,6 +580,7 @@
 		05A897FF23EF5ECC000CA1D2 /* public */ = {
 			isa = PBXGroup;
 			children = (
+				EE49398D25211F6B00F4FE78 /* C64dtv.h */,
 				EE9CDB5B251D487F00296520 /* Vic20.h */,
 				EE9CDB53251BFBD900296520 /* C128.h */,
 				05A8980723EF7DD5000CA1D2 /* archdep.h */,
@@ -568,6 +604,7 @@
 		EE9CDBE9251D498B00296520 /* archdep */ = {
 			isa = PBXGroup;
 			children = (
+				EE49398B25211F5000F4FE78 /* C64dtv_archdep.h */,
 				EE9CDBEA251D49CE00296520 /* C64_archdep.h */,
 				EE9CDBEB251D49CE00296520 /* C128_archdep.h */,
 				EE9CDBEC251D49CE00296520 /* Vic20_archdep.h */,
@@ -638,6 +675,21 @@
 			path = deps/vice/data/VIC20;
 			sourceTree = SOURCE_ROOT;
 		};
+		EEB607B425226F0100EA1F3A /* C64DTV */ = {
+			isa = PBXGroup;
+			children = (
+				EEB607B725226F0100EA1F3A /* c64mem.sym */,
+				EEB607BA25226F0100EA1F3A /* default.vrs */,
+				EEB607BC25226F0100EA1F3A /* chargen */,
+				EEB607C025226F0100EA1F3A /* basic */,
+				EEB607C425226F0100EA1F3A /* kernal */,
+				EEB607D125226F0100EA1F3A /* dtvrom.bin */,
+				EEB607D625226F0100EA1F3A /* spiff.vpl */,
+			);
+			name = C64DTV;
+			path = deps/vice/data/C64DTV;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -652,7 +704,8 @@
 				3EDA96A41F19560C0015CED2 /* Copy Drive ROM Files */,
 				EE9CDCD5251DAAD300296520 /* Copy C128 ROM Files */,
 				EE9CDD04251DAB9300296520 /* Copy Vic20 ROM Files */,
-				EEAD13EF251E8CD70018F91A /* Embed Libraries */,
+				EEB6072525226C4700EA1F3A /* Embed Libraries */,
+				EEB607D825226F4500EA1F3A /* CopyFiles */,
 			);
 			buildRules = (
 			);

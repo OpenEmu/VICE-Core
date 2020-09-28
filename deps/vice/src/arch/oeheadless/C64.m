@@ -23,6 +23,24 @@ OE_STATIC_ASSERT(C64ModelCPAL == (C64Model)C64MODEL_C64C_PAL);
 OE_STATIC_ASSERT(C64ModelNTSC == (C64Model)C64MODEL_C64_NTSC);
 OE_STATIC_ASSERT(C64ModelCNTSC == (C64Model)C64MODEL_C64C_NTSC);
 
+OE_EXPORTED_CLASS
+@interface Vic20: NSObject
+@end
+@implementation Vic20 {}
+@end
+
+OE_EXPORTED_CLASS
+@interface C128: NSObject
+@end
+@implementation C128 {}
+@end
+
+OE_EXPORTED_CLASS
+@interface C64dtv: NSObject
+@end
+@implementation C64dtv {}
+@end
+
 @implementation C64 {
     BOOL _initialized;
     video_canvas_t *_canvas;
