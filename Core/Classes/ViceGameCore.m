@@ -259,7 +259,7 @@ KeyboardMod flagsToMod(NSEventModifierFlags flags) {
     return res;
 }
 
-- (oneway void)keyDown:(unsigned short)keyCode characters:(NSString *)characters charactersIgnoringModifiers:(NSString *)charactersIgnoringModifiers flags:(NSEventModifierFlags)flags
+- (oneway void)keyDown:(NSUInteger)keyCode
 {
     if(keyCode == kVK_Function)
         return;
@@ -281,8 +281,9 @@ KeyboardMod flagsToMod(NSEventModifierFlags flags) {
             if (!(flags & OENSEventModifierFlagFunctionKey))
                 return;
     }
-    
-    KeyboardMod mod = flagsToMod(flags);
+
+    // TODO: Fix flags, which will be sent as virtual key codes
+    KeyboardMod mod = flagsToMod(0);
 
     NSLog(@"keyDown: code=%03d, flags=%08x, mod=%08lx", keyCode, (uint32_t)flags, mod);
     
@@ -291,7 +292,7 @@ KeyboardMod flagsToMod(NSEventModifierFlags flags) {
     [_c64 keyboardKeyDown:keyCode mod:mod];
 }
 
-- (oneway void)keyUp:(unsigned short)keyCode characters:(NSString *)characters charactersIgnoringModifiers:(NSString *)charactersIgnoringModifiers flags:(NSEventModifierFlags)flags
+- (oneway void)keyUp:(NSUInteger)keyCode
 {
     if(keyCode == kVK_Function)
         return;
@@ -314,7 +315,8 @@ KeyboardMod flagsToMod(NSEventModifierFlags flags) {
                 return;
     }
 
-    KeyboardMod mod = flagsToMod(flags);
+    // TODO: Fix flags, which will be sent as virtual key codes
+    KeyboardMod mod = flagsToMod(0);
     
     NSLog(@"keyUp: code=%03d, flags=%08x, mod=%08lx", keyCode, (uint32_t)flags, mod);
     
